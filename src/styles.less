@@ -1,1 +1,349 @@
 /* You can add global styles to this file, and also import other style files */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+a,
+div,
+em,
+span,
+img,
+form,
+input,
+p,
+i {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+em,
+i,
+cite {
+  word-wrap: break-word;
+  font-style: normal;
+}
+
+ul li {
+  list-style: none;
+}
+
+a,
+a:visited,
+a:active {
+  /*color: #3C3C3C;*/
+  text-decoration: none;
+}
+
+a,
+button,
+span,
+i,
+div,
+h2,
+aside {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+input:focus::-webkit-input-placeholder {
+  color: #b7b7b7;
+}
+
+input::-webkit-input-placeholder {
+  color: #ccc;
+}
+
+textarea:focus::-webkit-input-placeholder {
+  color: #b7b7b7;
+}
+
+textarea::-webkit-input-placeholder {
+  color: #ccc;
+}
+
+input[type="search"] {
+  -webkit-appearance: none;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+menu,
+nav,
+section {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+audio,
+canvas,
+progress,
+video {
+  vertical-align: baseline;
+}
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+figure {
+  margin: 1em 40px;
+}
+
+hr {
+  height: 1px;
+  border-width: 0;
+  box-sizing: content-box;
+}
+
+pre {
+  overflow: auto;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+input,
+button,
+textarea {
+  border: none;
+  /*-webkit-appearance: none;*/
+  -moz-appearance: none;
+  -webkit-border-image: none;
+  border-image: none;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+
+input:focus,
+textarea:focus {
+  outline: 0 none;
+}
+
+label,
+input,
+select,
+textarea {
+  font-family: inherit;
+  line-height: normal;
+}
+
+textarea {
+  overflow: auto;
+  height: auto;
+  font: inherit;
+  color: inherit;
+}
+
+textarea::-webkit-input-placeholder {
+  padding-left: 2px;
+}
+
+textarea:-ms-input-placeholder {
+  padding-left: 2px;
+}
+
+textarea::placeholder {
+  padding-left: 2px;
+}
+
+form,
+input,
+optgroup,
+select {
+  margin: 0;
+  font: inherit;
+  color: inherit;
+}
+
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+
+a {
+  background-color: transparent;
+}
+
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-corner, ::-webkit-scrollbar-track {
+  background-color: #e2e2e2;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, .2);
+}
+
+::-webkit-scrollbar-corner, ::-webkit-scrollbar-track {
+  background-color: #e2e2e2;
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: inherit; // #F5F5F5
+}
+
+::selection {
+  background: #D6EDFF;
+}
+
+html {
+  height: 100%;
+  max-height: 100%;
+  font-size: 62.5%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  box-sizing: border-box;
+  font-family: "Microsoft YaHei UI", Roboto, sans-serif, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body {
+  height: 100%;
+  max-height: 100%;
+  font-family: "Microsoft YaHei UI", Roboto, sans-serif, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-rendering: geometricPrecision;
+  background-color: #ffffff;
+  overflow: hidden;
+  font-size: 14px;
+  color: #616366;
+  //user-select: none;
+}
+
+.clear:after {
+  content: "";
+  display: block;
+  height: 0;
+  overflow: hidden;
+  clear: both;
+  visibility: hidden;
+}
+
+/** @angular/cdk */
+.cdk-overlay-dark-backdrop {
+  background: rgba(0, 0, 0, .288);
+}
+
+.cdk-overlay-backdrop {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity .4s cubic-bezier(.25, .8, .25, 1);
+  opacity: 0;
+  &.cdk-overlay-backdrop-showing {
+    opacity: 1;
+  }
+}
+
+.cdk-overlay-connected-position-bounding-box {
+  position: absolute;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  min-width: 1px;
+  min-height: 1px;
+}
+
+.cdk-overlay-pane {
+  position: absolute;
+  pointer-events: auto;
+  box-sizing: border-box;
+  z-index: 1000;
+  display: flex;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.cdk-overlay-container {
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1000;
+}
+
+.cdk-global-overlay-wrapper {
+  display: flex;
+  position: absolute;
+  z-index: 1000;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.dialog-full-content-portal {
+  width: 100%;
+  height: 100%;
+}
+
+.popover-content-notification {
+  z-index: 10000;
+}
+
+/** @angular/cdk */
+
+//////////////////////// 百度地图
+.tangram-suggestion {
+  z-index: 99999999;
+}
+
+//////////////////////// 百度地图

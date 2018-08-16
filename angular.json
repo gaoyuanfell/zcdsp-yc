@@ -32,6 +32,14 @@
             "scripts": []
           },
           "configurations": {
+            "hmr": {
+              "fileReplacements": [
+                {
+                  "src": "src/environments/environment.ts",
+                  "replaceWith": "src/environments/environment.hmr.ts"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -57,6 +65,9 @@
             "browserTarget": "zcdsp-yc:build"
           },
           "configurations": {
+            "hmr": {
+              "browserTarget": "zcdsp-yc:build:hmr"
+            },
             "production": {
               "browserTarget": "zcdsp-yc:build:production"
             }
