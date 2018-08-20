@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {DirectionalService} from './customer/directional.service';
 import {Subject} from 'rxjs/index';
-import {bufferCount} from 'rxjs/operators';
+import {bufferCount, bufferWhen, take} from 'rxjs/operators';
 
 export interface Directional {
   areas? // 地域
@@ -44,9 +44,9 @@ export class DirectionalGlobal {
   }
 
   private _directional: Directional = {};
-  private provincesCities;
-  private lbsTypeSceneCities;
-  private crowd;
+  private provincesCities
+  private lbsTypeSceneCities
+  private crowd
   private device;
   private action;
 
@@ -57,7 +57,6 @@ export class DirectionalGlobal {
   set directional(value: Directional) {
     this._directional = value;
   }
-
   areas;
   tier_cities;
   genders;
@@ -73,7 +72,8 @@ export class DirectionalGlobal {
   Promise1;
   Promise2;
   Promise3;
-  Promise4;
+  Promise4
+
 
 
   init() {
@@ -86,7 +86,7 @@ export class DirectionalGlobal {
         this.provincesCities = res.result;
         let areasPartition = res.result.areas;
 
-        let areas = {
+       let areas = {
           children: [].concat(...areasPartition.map(a => a.province_cities))
         };
 
@@ -105,12 +105,12 @@ export class DirectionalGlobal {
         Promise.all([this.recursionChild(areas), this.recursionChild(this.tier_cities)]).then(([data1, data2]) => {
           this._directional.areas = data1;
           this._directional.tier_cities = data2;
-          countSubscribe.next();
-        });
+          countSubscribe.next()
+        })
 
       });
     } else {
-      console.log('area');
+      console.log('area')
       countSubscribe.next();
     }
 
@@ -152,13 +152,13 @@ export class DirectionalGlobal {
           this._directional.genders = data1;
           this._directional.educations = data2;
           this._directional.ages = data3;
-          countSubscribe.next();
-        });
+          countSubscribe.next()
+        })
         // this.setResult()     // 统一设置
 
       });
     } else {
-      console.log('crowd');
+      console.log('crowd')
       countSubscribe.next();
     }
 
@@ -195,12 +195,12 @@ export class DirectionalGlobal {
           this._directional.device_os = data4;
           this._directional.net_type = data5;
           this._directional.operators = data6;
-          countSubscribe.next();
-        });
+          countSubscribe.next()
+        })
 
       });
     } else {
-      console.log('device');
+      console.log('device')
       countSubscribe.next();
     }
 
@@ -214,18 +214,19 @@ export class DirectionalGlobal {
         };
         Promise.all([this.recursionChild(categories)]).then(([data1]) => {
           this._directional.categories = data1;
-          countSubscribe.next();
-        });
+          countSubscribe.next()
+        })
       });
     } else {
-      console.log('action');
+      console.log('action')
       countSubscribe.next();
     }
 
     return countSubscribe.pipe(
       bufferCount(4),
-    );
+    )
   }
+
 
 
   // lbsLocations(city) {
@@ -276,18 +277,21 @@ export class DirectionalGlobal {
       const worker = new Worker(url);
       worker.postMessage(target);
       worker.onmessage = (e) => {
-        resolve(e.data);
+        resolve(e.data)
       };
-    });
+    })
   }
 
   toPromise(observable) {
     return new Promise<any>((resolve, reject) => {
       observable.subscribe(res => {
-        resolve(res);
-      });
-    });
+        resolve(res)
+      })
+    })
   }
+
+
+
 
 
   //   init() {

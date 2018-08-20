@@ -8,6 +8,8 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {NoopInterceptor} from '../service/noopInterceptor';
 import {ModulePipe} from './module-pipe';
+import {NotificationModule} from '../components/notification/notification.module';
+import {LoadingModule} from '../components/loading/loading.module';
 
 @NgModule({
   imports: [
@@ -15,6 +17,9 @@ import {ModulePipe} from './module-pipe';
     HttpClientModule,
     FormsModule,
     ModulePipe,
+
+    NotificationModule,
+    LoadingModule,
   ],
   declarations: [],
   exports: [
@@ -22,6 +27,9 @@ import {ModulePipe} from './module-pipe';
     HttpClientModule,
     FormsModule,
     ModulePipe,
+
+    NotificationModule,
+    LoadingModule,
   ],
   providers: [
     {

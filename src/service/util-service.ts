@@ -24,13 +24,13 @@ export class Util {
     return new Promise((resolve, reject) => {
       let img = new Image();
       img.onload = () => {
-        resolve(img);
+        resolve(img)
       };
       img.onerror = (err) => {
-        reject(err);
+        reject(err)
       };
-      img.src = url;
-    });
+      img.src = url
+    })
   }
 
   /**

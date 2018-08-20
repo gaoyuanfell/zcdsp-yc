@@ -14,23 +14,23 @@ export class IndexService extends ConfigService {
   }
 
   homeInit(body = {}) {
-    return this.get('/us/home/init', body);
+    return this.get('/us/home/init', body)
   }
 
   dayTotal(body = {}) {
-    return this.get('/us/home/day/total', body);
+    return this.get('/us/home/day/total', body)
   }
 
   hourChart(body = {}) {
-    return this.get('/us/home/day/hourChart', body);
+    return this.get('/us/home/day/hourChart', body)
   }
 
   childList(body = {}) {
-    return this.get('/us/home/childList', body);
+    return this.get('/us/home/childList', body)
   }
 
-  childListChart(body = {}) {
-    return this.get(`/us/home/childChart`, body);
+  childListChart(body = {}){
+    return this.get(`/us/home/childChart`, body)
   }
 
 }

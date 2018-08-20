@@ -1,0 +1,49 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+@header-height: 66px;
+@nav-main-width: 60px;
+@nav-main-width-hover: 200px;
+@theme-color: #001529;
+
+.header {
+  height: @header-height;
+  background: @theme-color;
+  width: 100%;
+}
+
+.main {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  margin-top: @header-height;
+  .nav-main {
+    width: @nav-main-width;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    box-shadow: 0 1px 0 rgba(153, 153, 153, 0.2);
+    background-color: @theme-color;
+    transition: width 0.25s ease;
+    z-index: 2;
+    &:hover {
+      width: @nav-main-width-hover !important;
+    }
+  }
+
+  .container-main {
+    background-color: #eef0f3;
+    margin-left: @nav-main-width;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    transition: margin-left 0.25s ease;
+    z-index: 1;
+  }
+}

@@ -14,6 +14,8 @@ import {CommonModule} from '@angular/common';
 import {Module} from './module';
 import {EffectsModule} from '@ngrx/effects';
 import {effects} from '../store/effects';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,16 +24,20 @@ import {effects} from '../store/effects';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
 
     Module,
+
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
 
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({
       name: 'ZCDSP YC Store DevTools',
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot(effects)
+    EffectsModule.forRoot(effects),
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -19,7 +19,7 @@ export class DirectionalService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   provincesCities(body = {}) {
-    return this.get(`/common/orientation/provinces_cities`, body);
+    return this.get(`/common/orientation/provinces_cities`, body)
   }
 
   /***
@@ -28,7 +28,7 @@ export class DirectionalService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   lbsLocations(body = {}) {
-    return this.get(`/common/orientation/lbs_locations`, body);
+    return this.get(`/common/orientation/lbs_locations`, body)
   }
 
   /**
@@ -37,7 +37,7 @@ export class DirectionalService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   appCategories(body = {}) {
-    return this.get(`/common/orientation/app_categories`, body);
+    return this.get(`/common/orientation/app_categories`, body)
   }
 
   /**
@@ -46,7 +46,7 @@ export class DirectionalService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   appPageList(body = {}) {
-    return this.get(`/common/orientation/app_page_list`, body);
+    return this.get(`/common/orientation/app_page_list`, body)
   }
 
   /**
@@ -56,7 +56,7 @@ export class DirectionalService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   orientationCrowd(body = {}) {
-    return this.get(`/common/orientation/crowd`, body);
+    return this.get(`/common/orientation/crowd`, body)
   }
 
   /**
@@ -65,7 +65,7 @@ export class DirectionalService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   orientationDevice(body = {}) {
-    return this.get(`/common/orientation/device`, body);
+    return this.get(`/common/orientation/device`, body)
   }
 
   /**
@@ -74,7 +74,7 @@ export class DirectionalService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   getOrientationDetail(body = {}) {
-    return this.get(`/common/orientation/get_orientation_detail`, body);
+    return this.get(`/common/orientation/get_orientation_detail`, body)
   }
 
   /***
@@ -83,7 +83,7 @@ export class DirectionalService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   getOrientationPackages(body = {}) {
-    return this.get(`/common/orientation/get_orientation_packages`, body);
+    return this.get(`/common/orientation/get_orientation_packages`, body)
   }
 
   /**
@@ -92,7 +92,7 @@ export class DirectionalService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   lbsTypeSceneCities(body = {}) {
-    return this.get(`/common/orientation/lbs_type_scene_cities`, body);
+    return this.get(`/common/orientation/lbs_type_scene_cities`, body)
   }
 
   /**
@@ -101,7 +101,7 @@ export class DirectionalService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   addOrientation(body = {}) {
-    return this.postJson(`/common/orientation/add_orientation_package`, body);
+    return this.postJson(`/common/orientation/add_orientation_package`, body)
   }
 
   /**
@@ -110,7 +110,7 @@ export class DirectionalService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   updateOrientation(body = {}) {
-    return this.postJson(`/common/orientation/update_orientation_package`, body);
+    return this.postJson(`/common/orientation/update_orientation_package`, body)
   }
 
 }

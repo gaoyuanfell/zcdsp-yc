@@ -21,7 +21,6 @@ export class Global {
   get bid_min() {
     return this.bidMin;
   }
-
   get bid_max() {
     return this.bidMax;
   }
@@ -91,6 +90,6 @@ export class Global {
   }
 
   get menuAll() {
-    return [...this.menus, this.userMenu];
+    return [...this.menus, this.userMenu]
   }
 }

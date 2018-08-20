@@ -14,15 +14,15 @@ export class CreativeService extends ConfigService {
   }
 
   creativeUrl(body = {}) {
-    return this.getUrl(`/ads/spread/creative/list/export`, body);
+    return this.getUrl(`/ads/spread/creative/list/export`, body)
   }
 
   list(body = {}) {
-    return this.get(`/ads/spread/creative/list`, body);
+    return this.get(`/ads/spread/creative/list`, body)
   }
 
   init(body = {}) {
-    return this.get(`/ads/spread/creative/list/init`, body);
+    return this.get(`/ads/spread/creative/list/init`, body)
   }
 
   /**
@@ -30,8 +30,8 @@ export class CreativeService extends ConfigService {
    * @param {{}} body
    * @returns {Observable<Result<any>>}
    */
-  updateDirection(body = {}) {
-    return this.postJson(`/ads/spread/creative/update/direction`, body);
+  updateDirection(body = {}){
+    return this.postJson(`/ads/spread/creative/update/direction`, body)
   }
 
   /**
@@ -40,7 +40,7 @@ export class CreativeService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   updateName(body = {}) {
-    return this.postForm(`/ads/spread/creative/update/name`, body);
+    return this.postForm(`/ads/spread/creative/update/name`, body)
   }
 
   /**
@@ -49,7 +49,7 @@ export class CreativeService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   updateState(body = {}) {
-    return this.postJson(`/ads/spread/creative/update/state`, body);
+    return this.postJson(`/ads/spread/creative/update/state`, body)
   }
 
   /**
@@ -58,7 +58,7 @@ export class CreativeService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   updateShowHours(body = {}) {
-    return this.postJson(`/ads/spread/creative/update/showHours`, body);
+    return this.postJson(`/ads/spread/creative/update/showHours`, body)
   }
 
   /**
@@ -67,7 +67,7 @@ export class CreativeService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   updatePrice(body = {}) {
-    return this.postJson(`/ads/spread/creative/update/price`, body);
+    return this.postJson(`/ads/spread/creative/update/price`, body)
   }
 
   /**
@@ -76,7 +76,7 @@ export class CreativeService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   submitAudit(body = {}) {
-    return this.postJson(`/ads/spread/creative/submit/audit`, body);
+    return this.postJson(`/ads/spread/creative/submit/audit`, body)
   }
 
   /**
@@ -85,16 +85,15 @@ export class CreativeService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   creativeDelete(body = {}) {
-    return this.postJson(`/ads/spread/creative/delete`, body);
+    return this.postJson(`/ads/spread/creative/delete`, body)
   }
-
   /**
    * 投放小时的修改
    * @param {{}} body
    * @returns {Observable<Result<any>>}
    */
   batchUpdateHours(body = {}) {
-    return this.postJson(`/ads/spread/creative/update/showHours`, body);
+    return this.postJson(`/ads/spread/creative/update/showHours`, body)
   }
 
   /**
@@ -103,7 +102,7 @@ export class CreativeService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   creativeCopy(body = {}) {
-    return this.postJson(`/ads/spread/creative/copy`, body);
+    return this.postJson(`/ads/spread/creative/copy`, body)
   }
 
   ////////////////////////     add and edit      //////////////////////////////
@@ -114,7 +113,7 @@ export class CreativeService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   recommendPrice(body = {}) {
-    return this.get(`/ads/spread/creative/recommend/price`, body);
+    return this.get(`/ads/spread/creative/recommend/price`, body)
   }
 
   /**
@@ -123,7 +122,7 @@ export class CreativeService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   addInit(body = {}) {
-    return this.get(`/ads/spread/creative/add/init`, body);
+    return this.get(`/ads/spread/creative/add/init`, body)
   }
 
   /**
@@ -132,7 +131,7 @@ export class CreativeService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   addCreative(body = {}) {
-    return this.postJson(`/ads/spread/creative/add`, body);
+    return this.postJson(`/ads/spread/creative/add`, body)
   }
 
   /**
@@ -141,7 +140,7 @@ export class CreativeService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   campaignList(body = {}) {
-    return this.get(`/ads/spread/creative/campaign/list`, body);
+    return this.get(`/ads/spread/creative/campaign/list`, body)
   }
 
   /**
@@ -150,7 +149,7 @@ export class CreativeService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   creativeUpload(body = {}) {
-    return this.postFormData(`/ws-api/v4/creative/upload`, body);
+    return this.postFormData(`/ws-api/v4/creative/upload`, body)
   }
 
   /**
@@ -159,7 +158,7 @@ export class CreativeService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   logoUpload(body = {}) {
-    return this.postFormData(`/ws-api/v4/creative/logo/upload`, body);
+    return this.postFormData(`/ws-api/v4/creative/logo/upload`, body)
   }
 
   /**
@@ -168,7 +167,7 @@ export class CreativeService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   creativeDetail(body = {}) {
-    return this.get(`/ads/spread/creative/detail`, body);
+    return this.get(`/ads/spread/creative/detail`, body)
   }
 
 
@@ -178,7 +177,7 @@ export class CreativeService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   updateInit(body = {}) {
-    return this.get(`/ads/spread/creative/update/init`, body);
+    return this.get(`/ads/spread/creative/update/init`, body)
   }
 
   /**
@@ -187,12 +186,11 @@ export class CreativeService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   editSave(body = {}) {
-    return this.postJson(`/ads/spread/creative/update`, body);
+    return this.postJson(`/ads/spread/creative/update`, body)
   }
 
   dynamicWords(body = {}) {
-
-    return this.get(`/ads/spread/creative/dynamicWords`, body);
+    return this.get(`/ads/spread/creative/dynamicWords`, body)
   }
 
 }

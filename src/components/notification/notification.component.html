@@ -1,0 +1,21 @@
+<div class="notification-notice"
+     (mouseenter)="onEnter()"
+     (mouseleave)="onLeave()"
+     [@enterLeave]="state">
+  <div class="notification-notice-content" [ngClass]="{'notification-notice-with-icon':message?.type}">
+
+
+    <i class="notification-notice-icon success" *ngIf="message?.type === 'success'"></i>
+    <i class="notification-notice-icon error" *ngIf="message?.type === 'error'"></i>
+    <i class="notification-notice-icon warning" *ngIf="message?.type === 'warning'"></i>
+    <i class="notification-notice-icon info" *ngIf="message?.type === 'info'"></i>
+
+    <div class="notification-notice-title">
+      {{message?.title}}
+    </div>
+    <div class="notification-notice-description">
+      {{message?.content}}
+    </div>
+  </div>
+  <a href="javascript:void 0" class="notification-notice-close" (click)="close()"></a>
+</div>

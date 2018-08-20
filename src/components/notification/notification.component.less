@@ -1,0 +1,80 @@
+.notification-notice {
+  padding: 16px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
+  background: rgba(255, 255, 255, 1);
+  line-height: 1.5;
+  position: relative;
+  margin-bottom: 10px;
+  overflow: hidden;
+  &:hover {
+    background: rgba(255, 255, 255, 1);
+  }
+}
+
+.notification-notice-title {
+  font-size: 14px;
+  color: rgba(0, 0, 0, .85);
+  margin-bottom: 4px;
+  line-height: 20px;
+  display: inline-block;
+}
+
+.notification-notice-description {
+  font-size: 12px;
+}
+
+.notification-notice-close {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  color: rgba(0, 0, 0, .43);
+  outline: none;
+  text-decoration: none;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background: url("img/dialog-icon-close.png") no-repeat center;
+}
+
+.notification-notice-with-icon {
+  & .notification-notice-title {
+    font-size: 14px;
+    margin-left: 48px;
+    margin-bottom: 4px;
+  }
+  & .notification-notice-description {
+    margin-left: 48px;
+    font-size: 12px;
+  }
+}
+
+.notification-notice-icon {
+  position: absolute;
+  display: inline-block;
+  font-style: normal;
+  vertical-align: baseline;
+  text-align: center;
+  text-transform: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 30px;
+  height: 30px;
+  &.success {
+    background: url("img/icon-success.png") no-repeat center;
+    background-size: 24px;
+  }
+  &.error {
+    background: url("img/icon-error.png") no-repeat center;
+    background-size: 24px;
+  }
+  &.warning {
+    background: url("img/icon-warning.png") no-repeat center;
+    background-size: 24px;
+  }
+  &.info {
+    background: url("img/icon-wait.png") no-repeat center;
+    background-size: 24px;
+  }
+}

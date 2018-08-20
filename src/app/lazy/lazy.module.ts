@@ -16,7 +16,6 @@ import {map} from 'rxjs/operators';
   template: `
     <div>
       <button (click)="getMenu()">获取</button>
-      {{menuState$ | async | json}}
     </div>
   `
 })

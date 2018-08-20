@@ -1,7 +1,7 @@
 import {ConfigService} from '../config-service';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Global} from '../global';
+import {Global} from "../global";
 
 @Injectable(
   {
