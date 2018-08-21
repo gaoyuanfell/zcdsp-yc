@@ -8,14 +8,12 @@ import {StoreModule} from '@ngrx/store';
 import {environment} from '../environments/environment';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {BoardComponent} from './board.component';
-import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import {CommonModule} from '@angular/common';
 import {Module} from './module';
 import {EffectsModule} from '@ngrx/effects';
 import {effects} from '../store/effects';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {LoadingModule} from '../components/loading/loading.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +28,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     Module,
 
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
-
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({
       name: 'ZCDSP YC Store DevTools',
@@ -38,6 +35,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     }),
     EffectsModule.forRoot(effects),
 
+    LoadingModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

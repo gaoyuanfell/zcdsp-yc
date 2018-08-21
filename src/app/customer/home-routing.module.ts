@@ -15,6 +15,22 @@ const routeList: Routes = [
     resolve: {auth: CurrentResolverService, user: UserResolverService},
     data: {current: 'ZCMOBI_ADS_HOME'},
   },
+  {
+    path: 'report',
+    loadChildren: './report/report.module#ReportModule',
+  },
+  {
+    path: 'finance',
+    loadChildren: './finance/finance.module#FinanceModule',
+  },
+  {
+    path: 'spread',
+    loadChildren: './spread/spread.module#SpreadModule',
+  },
+  {
+    path: 'user',
+    loadChildren: './user/user.module#UserModule'
+  },
 ];
 
 const routes: Routes = [

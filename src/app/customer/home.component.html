@@ -2,7 +2,7 @@
   <div class="logo">
     <img src="assets/img/logo.png" alt="">
   </div>
-  <p>123123</p>
+  <p></p>
   <div class="user-info flex-center-between">
     <i class="header-search-icon"></i>
     <i class="header-help-icon"></i>
@@ -12,12 +12,12 @@
   </div>
 </div>
 <div class="main">
-  <div class="nav-main" [ngStyle]="{'width.px':fixed?200:60}">
+  <div class="nav-main" [ngStyle]="{'width.px':fixed?200:60}" [ngClass]="{'hover': hover}" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
 
     <ul class="nav-list">
       <ng-template [ngForOf]="menuList$ | async" ngFor let-menu>
         <li>
-          <div class="nav-item flex-center" (click)="menu.active = !menu.active">
+          <div class="nav-item flex-center" [routerLink]="menu.route" routerLinkActive="active" (click)="menu.active = !menu.active" [ngClass]="{'yes-child': menu.child?.length}">
             <i class="nav-icon nav-home-icon"></i>
             <span class="nav-name">{{menu.name}}</span>
           </div>
@@ -25,7 +25,7 @@
           <ul class="nav-list nav-child" [ngStyle]="{'height.px': menu.child?.length * 60 * (menu.active?1:0)}">
             <ng-template [ngForOf]="menu.child" ngFor let-child>
               <li>
-                <div class="nav-item flex-center">
+                <div class="nav-item flex-center" [routerLink]="child.route" routerLinkActive="active">
                   <i class="nav-icon nav-home-icon"></i>
                   <span class="nav-name">{{child.name}}</span>
                 </div>
@@ -38,6 +38,7 @@
 
   </div>
   <div class="container-main" [ngStyle]="{'left.px':fixed?200:60}">
+    <!-- module component -->
     <router-outlet></router-outlet>
   </div>
 </div>

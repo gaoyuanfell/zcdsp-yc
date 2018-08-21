@@ -1,5 +1,5 @@
 import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {LoadingComponent} from './loading.component';
 import {Loading} from './loading.service';
 import {OverlayModule} from '@angular/cdk/overlay';
@@ -18,9 +18,14 @@ import {OverlayModule} from '@angular/cdk/overlay';
   entryComponents: [
     LoadingComponent
   ],
-  providers: [
-    Loading
-  ]
 })
 export class LoadingModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: LoadingModule,
+      providers: [
+        Loading
+      ]
+    };
+  }
 }

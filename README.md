@@ -25,3 +25,27 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+// 默认占满
+grid: {
+    left: 0,
+    right: 0,
+    bottom: 0,
+    top: 0,
+    containLabel: false
+},
+
+// 去掉轴和刻度
+axisLine: {
+    show: false
+},
+axisTick: {
+    show:false
+},
+axisLabel: {
+    show:false
+},
+splitLine: {
+    show: false
+}
+

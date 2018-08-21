@@ -1,0 +1,35 @@
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {SpreadComponent} from './spread.component';
+import {Module} from '../../module';
+import {SpreadRoutingModule} from './spread-routing.module';
+import {CampaignComponent} from './campaign/campaign.component';
+import {CreativeComponent} from './creative/creative.component';
+// import {CampaignExpandComponent} from './campaign/campaign-expand.component';
+import {AddCampaignComponent} from './campaign/add-campaign/add-campaign.component';
+// import {CreativeExpandComponent} from './creative/creative-expand.component';
+import {AddCreativeComponent} from './creative/add-creative/add-creative.component';
+import {DirectionalComponent} from './directional/directional.component';
+import {AddDirectionalComponent} from './directional/add-directional/add-directional.component';
+import {EditCreativeComponent} from './creative/edit-creative/edit-creative.component';
+
+@NgModule({
+  imports: [
+    Module,
+    SpreadRoutingModule
+  ],
+  declarations: [
+    SpreadComponent,
+    CampaignComponent,
+    CreativeComponent,
+    AddCreativeComponent,
+    AddCampaignComponent,
+    EditCreativeComponent,
+    // CampaignExpandComponent,
+    // CreativeExpandComponent,
+    DirectionalComponent,
+    AddDirectionalComponent,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
+export class SpreadModule {
+}
