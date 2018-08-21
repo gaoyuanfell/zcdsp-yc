@@ -60,8 +60,6 @@
   top: 0;
   bottom: 0;
   margin-top: @header-height;
-  min-width: 1366px;
-  overflow-x: auto;
   .nav-main {
     width: @nav-main-width;
     position: absolute;
@@ -125,5 +123,7 @@
     right: 0;
     transition: left 0.25s ease;
     z-index: 1;
+    min-width: 1366px;
+    overflow: auto;
   }
 }
