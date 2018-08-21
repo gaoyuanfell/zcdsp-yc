@@ -17,7 +17,7 @@
     <ul class="nav-list">
       <ng-template [ngForOf]="menuList$ | async" ngFor let-menu>
         <li>
-          <div class="nav-item flex-center" (click)="menu.active = !menu.active">
+          <div class="nav-item flex-center" [routerLink]="menu.route" routerLinkActive="active" (click)="menu.active = !menu.active" [ngClass]="{'no-child': menu.child?.length}">
             <i class="nav-icon nav-home-icon"></i>
             <span class="nav-name">{{menu.name}}</span>
           </div>
@@ -25,7 +25,7 @@
           <ul class="nav-list nav-child" [ngStyle]="{'height.px': menu.child?.length * 60 * (menu.active?1:0)}">
             <ng-template [ngForOf]="menu.child" ngFor let-child>
               <li>
-                <div class="nav-item flex-center">
+                <div class="nav-item flex-center" [routerLink]="child.route" routerLinkActive="active">
                   <i class="nav-icon nav-home-icon"></i>
                   <span class="nav-name">{{child.name}}</span>
                 </div>

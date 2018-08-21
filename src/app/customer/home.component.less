@@ -86,7 +86,8 @@
         line-height: 60px;
         padding-left: 16px;
         cursor: pointer;
-        &.active {
+        outline: none;
+        &.active:not(.no-child) {
           background-color: #1890ff;
           > .nav-name {
             color: #ffffff;
