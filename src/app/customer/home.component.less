@@ -60,6 +60,8 @@
   top: 0;
   bottom: 0;
   margin-top: @header-height;
+  min-width: 1366px;
+  overflow-x: auto;
   .nav-main {
     width: @nav-main-width;
     position: absolute;
@@ -117,12 +119,12 @@
 
   .container-main {
     background-color: #eef0f3;
-    margin-left: @nav-main-width;
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 100%;
-    transition: margin-left 0.25s ease;
+    left: @nav-main-width;
+    right: 0;
+    transition: left 0.25s ease;
     z-index: 1;
   }
 }
