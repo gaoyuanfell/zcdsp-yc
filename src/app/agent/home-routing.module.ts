@@ -1,11 +1,13 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home.component';
-import {TokenGuard} from '../../auth/token.guard';
 import {CurrentResolverService} from '../../auth/current-resolver-service';
 import {IndexComponent} from './index/index.component';
+import {TokenGuard} from '../../auth/token.guard';
 import {MenuGuard} from '../../auth/menu.guard';
 import {UserResolverService} from '../../auth/user-resolver-service';
+
+
 
 const routeList: Routes = [
   {
@@ -13,7 +15,19 @@ const routeList: Routes = [
     component: IndexComponent,
     canActivate: [TokenGuard],
     resolve: {auth: CurrentResolverService, user: UserResolverService},
-    data: {current: 'ZCMOBI_ADS_HOME'},
+    data: {current: 'ZCMOBI_US_HOME'},
+  },
+  {
+    path: 'report',
+    loadChildren: 'app/agent/report/report.module#ReportModule',
+  },
+  {
+    path: 'finance',
+    loadChildren: 'app/agent/finance/finance.module#FinanceModule',
+  },
+  {
+    path: 'user',
+    loadChildren: 'app/agent/user/user.module#UserModule',
   },
 ];
 
@@ -24,6 +38,7 @@ const routes: Routes = [
     canActivate: [TokenGuard, MenuGuard],
     children: routeList,
     resolve: {auth: CurrentResolverService},
+    data: {current: 'index'}
   },
 ];
 
