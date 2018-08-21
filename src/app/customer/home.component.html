@@ -1,9 +1,24 @@
-<div class="header">
-
+<div class="header flex-center-between">
+  <div class="logo">
+    <img src="assets/img/logo.png" alt="">
+  </div>
+  <p>123123</p>
+  <div class="user-info flex-center-between">
+    <i class="header-search-icon"></i>
+    <i class="header-help-icon"></i>
+    <i class="header-phone-icon"></i>
+    <img class="user-head" src="assets/img/default-user-head.png" alt="">
+    <p>Lecheng Zhou</p>
+  </div>
 </div>
 <div class="main">
   <div class="nav-main" [ngStyle]="{'width.px':fixed?200:60}">
-
+    <ul class="nav-list">
+      <li class="nav-item">
+        <i class="nav-icon"></i>
+        <span class="nav-name">首页</span>
+      </li>
+    </ul>
   </div>
   <div class="container-main" [ngStyle]="{'margin-left.px':fixed?200:60}">
     <router-outlet></router-outlet>
