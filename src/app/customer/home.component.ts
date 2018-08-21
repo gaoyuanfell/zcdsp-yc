@@ -14,6 +14,7 @@ import {Observable} from 'rxjs';
 export class HomeComponent implements OnInit {
 
   fixed = false; // 导航栏固定
+  hover = false; // 导航悬浮控制
 
   menuList$: Observable<any[]>;
 

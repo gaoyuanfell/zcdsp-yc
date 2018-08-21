@@ -8,10 +8,12 @@ export enum MenuActionTypes {
   ASSIGN_CHILD_LIST_BY_PATH = '[MENU] ASSIGN_CHILD_LIST_BY_PATH',
 }
 
+// ---- ///
 export class InitMenu implements Action {
   readonly type = MenuActionTypes.INIT_MENU;
 }
 
+// ---- ///
 export class SelectMenu implements Action {
   readonly type = MenuActionTypes.SELECT_MENU;
 
@@ -26,6 +28,7 @@ export class AssignMenu implements Action {
   }
 }
 
+// ---- ///
 export class AssignChildList implements Action {
   readonly type = MenuActionTypes.ASSIGN_CHILD_LIST;
 
@@ -33,6 +36,7 @@ export class AssignChildList implements Action {
   }
 }
 
+// ---- ///
 export class AssignChildListByPath implements Action {
   readonly type = MenuActionTypes.ASSIGN_CHILD_LIST_BY_PATH;
 

@@ -15,37 +15,37 @@
   background: @theme-color;
   width: 100%;
   padding: 0 20px;
-  .logo{
+  .logo {
     width: 150px;
     height: 32px;
-    > img{
+    > img {
       max-width: 100%;
       max-height: 100%;
     }
   }
-  .user-info{
+  .user-info {
     margin-left: auto;
-    > i{
+    > i {
       margin-right: 20px;
       cursor: pointer;
     }
   }
-  .user-head{
+  .user-head {
     margin-right: 10px;
   }
-  .header-search-icon{
+  .header-search-icon {
     display: inline-block;
     width: 20px;
     height: 20px;
     background: url("../../assets/img/header-search-icon.png") no-repeat center;
   }
-  .header-help-icon{
+  .header-help-icon {
     display: inline-block;
     width: 20px;
     height: 20px;
     background: url("../../assets/img/header-help-icon.png") no-repeat center;
   }
-  .header-phone-icon{
+  .header-phone-icon {
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -68,48 +68,49 @@
     background-color: @theme-color;
     transition: width 0.25s ease;
     z-index: 2;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden;
     padding-top: 25px;
     user-select: none;
-    &:hover {
+    &.hover {
       width: @nav-main-width-hover !important;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
-    .nav-list{
+    .nav-list {
       width: 200px;
       overflow: hidden;
-      .nav-item{
+      .nav-item {
         height: 60px;
         line-height: 60px;
         padding-left: 16px;
         cursor: pointer;
-        &.active{
+        &.active {
           background-color: #1890ff;
-          > .nav-name{
+          > .nav-name {
             color: #ffffff;
           }
         }
-        > .nav-icon{
+        > .nav-icon {
           display: inline-block;
           width: 24px;
           height: 24px;
         }
-        > .nav-name{
+        > .nav-name {
           padding-left: 20px;
-          white-space:nowrap;
+          white-space: nowrap;
           color: #999999;
           font-size: 16px;
           font-weight: 400;
         }
       }
-      .nav-list .nav-name{
+      .nav-list .nav-name {
         padding-left: 30px;
       }
     }
-    .nav-child{
+    .nav-child {
       transition: height 0.25s ease;
     }
-    .nav-home-icon{
+    .nav-home-icon {
       background: url("../../assets/img/nav-home-icon.png") no-repeat center;
     }
   }
