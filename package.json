@@ -7,7 +7,7 @@
     "start": "ng serve --host 0.0.0.0 --port 4800 --disable-host-check true",
     "build": "ng build --prod --named-chunks --output-hashing=media",
     "build:worker": "ng build --prod --named-chunks --output-hashing=media --service-worker",
-    "push": "git add . && git commit -am '1' && git pull origin master && git yc origin master && git push origin master && git push yc master",
+    "push": "git add . && git commit -am '1' && git pull origin master && git pull yc master && git push origin master && git push yc master",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
