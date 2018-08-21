@@ -49,3 +49,58 @@ splitLine: {
     show: false
 }
 
+
+// 轴虚线
+yAxis: {
+    splitLine:{
+        lineStyle:{
+            color:['#f7f8fa'],
+            width: 2,
+            type: 'dashed'
+        }
+    }
+}
+
+// 折线圆滑 填充颜色
+series: [{
+    smooth: true,
+    areaStyle: {
+      color: '#ccc'
+    }
+}]
+
+
+// 雷达图
+
+option = { 
+    radar: [
+        {
+            indicator: [
+                {text: '品牌', max: 100},
+                {text: '内容', max: 100},
+                {text: '可用性', max: 100},
+                {text: '功能', max: 100},
+                {text: '功能', max: 100},
+                {text: '功能', max: 100},
+                {text: '功能', max: 100},
+            ],
+            center: ['50%','50%'],
+            radius: '100%'
+        }
+    ],
+    series: [
+        {
+            type: 'radar',
+             tooltip: {
+                trigger: 'item'
+            },
+            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+            data: [
+                {
+                    value: [60,73,85,40,40,40,40],
+                    name: '某软件'
+                }
+            ]
+        }
+    ]
+};
