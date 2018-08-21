@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-customer',
-  templateUrl: `
-  <router-outlet></router-outlet>
-  `
+  templateUrl: './customer.component.html',
+  styleUrls: ['./customer.component.less']
 })
 export class CustomerComponent implements OnInit {
 

@@ -19,15 +19,15 @@ const routeList: Routes = [
   },
   {
     path: 'report',
-    loadChildren: 'app/agent/report/report.module#ReportModule',
+    loadChildren: '../agent/report/report.module#ReportModule',
   },
   {
     path: 'finance',
-    loadChildren: 'app/agent/finance/finance.module#FinanceModule',
+    loadChildren: '../agent/finance/finance.module#FinanceModule',
   },
   {
     path: 'user',
-    loadChildren: 'app/agent/user/user.module#UserModule',
+    loadChildren: '../agent/user/user.module#UserModule',
   },
 ];
 

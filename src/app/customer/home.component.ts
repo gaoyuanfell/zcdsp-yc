@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
 
   menuList$: Observable<any[]>;
 
-  mouseenter(){
+  mouseenter() {
     this.hover = true;
     this._loading.setStyle({
       'top.px': 66,
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  mouseleave(){
+  mouseleave() {
     this.hover = false;
     this._loading.setStyle({
       'top.px': 66,
@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit {
               private _loading: Loading) {
 
     this.menuList$ = store.pipe(select(reducerMenu.MenuList));
+    console.log(this.menuList$.subscribe( res => console.log(res)));
 
   }
 

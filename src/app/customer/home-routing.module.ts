@@ -17,19 +17,19 @@ const routeList: Routes = [
   },
   {
     path: 'report',
-    loadChildren: './report/report.module#ReportModule',
+    loadChildren: '../customer/report/report.module#ReportModule',
   },
   {
     path: 'finance',
-    loadChildren: './finance/finance.module#FinanceModule',
+    loadChildren: '../customer/finance/finance.module#FinanceModule',
   },
   {
     path: 'spread',
-    loadChildren: './spread/spread.module#SpreadModule',
+    loadChildren: '../customer/spread/spread.module#SpreadModule',
   },
   {
     path: 'user',
-    loadChildren: './user/user.module#UserModule'
+    loadChildren: '../customer/user/user.module#UserModule'
   },
 ];
 

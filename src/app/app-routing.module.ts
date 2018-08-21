@@ -7,6 +7,7 @@ import {BoardComponent} from './board.component';
 const routes: Routes = [
   {path: 'lazy', loadChildren: './lazy/lazy.module#LazyModule'},
   {path: 'ads', loadChildren: './customer/home.module#HomeModule'},
+  {path: 'us', loadChildren: './agent/home.module#HomeModule'},
   {
     path: '',
     canActivate: [MenuGuard],
