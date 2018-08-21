@@ -19,7 +19,6 @@ import {LoadingModule} from '../components/loading/loading.module';
     ModulePipe,
 
     NotificationModule,
-    LoadingModule,
   ],
   declarations: [],
   exports: [
@@ -29,7 +28,6 @@ import {LoadingModule} from '../components/loading/loading.module';
     ModulePipe,
 
     NotificationModule,
-    LoadingModule,
   ],
   providers: [
     {

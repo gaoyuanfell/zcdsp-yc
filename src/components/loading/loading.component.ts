@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {animate, style, transition, trigger} from '@angular/animations';
 
 @Component({
@@ -18,7 +18,21 @@ import {animate, style, transition, trigger} from '@angular/animations';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoadingComponent implements OnInit {
+export class LoadingComponent implements OnInit, OnDestroy {
+
+  state = false;
+
+  @Input() config: any = {};
+
+  open(config = {}) {
+    this.config = config;
+    this.state = true;
+    this.changeDetectorRef.markForCheck();
+  }
+  close() {
+    this.state = false;
+    this.changeDetectorRef.markForCheck();
+  }
 
   constructor(private changeDetectorRef: ChangeDetectorRef) {
   }
@@ -26,19 +40,10 @@ export class LoadingComponent implements OnInit {
   ngOnInit() {
   }
 
-  state = false;
+  ngOnDestroy(): void {
 
-  config;
-
-  open(config = {}) {
-    this.config = config;
-    this.state = true;
-    this.changeDetectorRef.detectChanges()
   }
 
-  close() {
-    this.state = false;
-    this.changeDetectorRef.detectChanges()
-  }
+
 
 }
