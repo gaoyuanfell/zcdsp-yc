@@ -62,6 +62,23 @@
   margin-top: @header-height;
   min-width: 1366px;
   overflow-x: auto;
+  .nav-main-overflow{
+    width: @nav-main-width;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-color: @theme-color;
+    transition: width 0.25s ease;
+    z-index: 2;
+    overflow: hidden;
+    padding-top: 25px;
+    user-select: none;
+    &.hover {
+      width: @nav-main-width-hover + 10 !important;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+  }
   .nav-main {
     width: @nav-main-width;
     position: absolute;
