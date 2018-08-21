@@ -68,30 +68,33 @@
     background-color: @theme-color;
     transition: width 0.25s ease;
     z-index: 2;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-top: 25px;
+    user-select: none;
     &:hover {
       width: @nav-main-width-hover !important;
     }
-
     .nav-list{
-      margin-top: 25px;
       width: 200px;
+      overflow: hidden;
       .nav-item{
         height: 60px;
         line-height: 60px;
         padding-left: 16px;
+        cursor: pointer;
         &.active{
           background-color: #1890ff;
-          .nav-name{
+          > .nav-name{
             color: #ffffff;
           }
         }
-        .nav-icon{
+        > .nav-icon{
           display: inline-block;
           width: 24px;
           height: 24px;
         }
-        .nav-name{
+        > .nav-name{
           padding-left: 20px;
           white-space:nowrap;
           color: #999999;
@@ -99,11 +102,16 @@
           font-weight: 400;
         }
       }
-      .nav-home-icon{
-        background: url("../../assets/img/nav-home-icon.png") no-repeat center;
+      .nav-list .nav-name{
+        padding-left: 30px;
       }
     }
-
+    .nav-child{
+      transition: height 0.25s ease;
+    }
+    .nav-home-icon{
+      background: url("../../assets/img/nav-home-icon.png") no-repeat center;
+    }
   }
 
   .container-main {
