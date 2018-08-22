@@ -9,17 +9,51 @@ import {Observable, Subscription} from 'rxjs';
 import {Module} from '../module';
 import {MenuGuard} from '../../auth/menu.guard';
 import {map} from 'rxjs/operators';
+import {Dialog} from '../../components/dialog/dialog';
 
 @Component({
   selector: 'app-lazy-view',
   styles: [],
   template: `
-    <div>
-      <button (click)="getMenu()">获取</button>
+    <div style="margin: 10px;">
+      <p>      
+        <yc-checkbox [label]="'测试'" [checkState]="2"></yc-checkbox>
+      </p>
+      
+      <p>
+        <yc-radio [label]="'测试'" [(ngModel)]="value" [value]="1"></yc-radio>
+        {{value}}
+      </p>
+      
+      <p>
+        <input-datepicker [(ngModel)]="date" [query]="query" [isRange]="true" [appendField]="['a', 'b']"></input-datepicker>
+        {{date}}
+      </p>
+      
+      <p>
+        <button class="btn" (click)="openDialog()">openDialog</button>
+      </p>
+      
+      <p>
+        <button class="btn" [yc-drop-menu]="[{value:'1', label: '2'}]">dropMenu</button>
+      </p>
+      
     </div>
   `
 })
 export class LazyComponent implements OnDestroy{
+
+  value
+
+  date = ['2018-02-12']
+
+  query = {a: '2018-02-13', b: '2018-02-14'}
+
+  openDialog(){
+    this._dialog.open('123').subscribe(data => {
+      console.info(data);
+    })
+  }
 
   menuState$: Observable<MenuState>;
 
@@ -31,7 +65,8 @@ export class LazyComponent implements OnDestroy{
 
   constructor(private store: Store<AppState>,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private _dialog: Dialog) {
     this.menuState$ = store.pipe(select(reducerMenu.getMenuState));
 
     this.actionsSubscription = route.params

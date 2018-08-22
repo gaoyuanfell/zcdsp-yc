@@ -1,0 +1,60 @@
+<div class="calendar">
+  <div class="calendar-header">
+    <div class="calendar-controls">
+      <button class="button calendar-period-button" (click)="_currentPeriodClicked()">
+        <span>{{_periodButtonText}}</span>
+      </button>
+      <div class="calendar-spacer"></div>
+      <button class="button calendar-previous-button icon-button" (click)="_previousClicked()"></button>
+      <button class="button calendar-next-button icon-button" (click)="_nextClicked()"></button>
+    </div>
+  </div>
+  <div class="calendar-content" [ngSwitch]="_currentView">
+
+    <!-- dya的显示 面板-->
+    <ng-template [ngSwitchCase]="'month'">
+      <ul class="calendar-weekday">
+        <li class="weekday-item" *ngFor="let w of _weekdays">{{w}}</li>
+      </ul>
+      <ul class="calendar-week">
+        <li class="week-item"
+            *ngFor="let w of _week"
+            (click)="_dateSelected(w)"
+            [class.calendar-body-month]="w.thisMonth"
+            [class.calendar-body-disabled]="w.enabled">
+          <div class="calendar-body-cell-content"
+               [class.calendar-body-today]="w.value === today.getTime()"
+               [class.calendar-body-selected]=" selectedValue?.indexOf(w.value) != -1 ">
+            {{w.displayValue}}
+          </div>
+        </li>
+      </ul>
+    </ng-template>
+
+    <ng-template [ngSwitchCase]="'multi-year'">
+      <ul class="calendar-multi-year">
+        <li class="multi-year-item" *ngFor="let y of _years" (click)="_yearSelected(y)">
+          <div class="calendar-body-cell-content"
+               [class.calendar-body-today]=" y.value == today.getFullYear() "
+               [class.calendar-body-selected]=" y.value === activeDate.getFullYear() ">
+            {{y.displayValue}}
+          </div>
+        </li>
+      </ul>
+    </ng-template>
+
+    <ng-template [ngSwitchCase]="'year'">
+      <ul class="calendar-year">
+        <li class="year-item" *ngFor="let m of _months" (click)="_monthsSelected(m)">
+          <div class="calendar-body-cell-content"
+               [class.calendar-body-today]=" m.value == today.getMonth() "
+               [class.calendar-body-selected]=" m.value === activeDate.getMonth() ">
+            {{m.displayValue}}
+          </div>
+        </li>
+      </ul>
+    </ng-template>
+
+  </div>
+</div>
+

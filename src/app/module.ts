@@ -10,6 +10,15 @@ import {NoopInterceptor} from '../service/noopInterceptor';
 import {ModulePipe} from './module-pipe';
 import {NotificationModule} from '../components/notification/notification.module';
 import {LoadingModule} from '../components/loading/loading.module';
+import {CheckboxModule} from '../components/checkbox/checkbox.module';
+import {CheckboxGroupModule} from '../components/checkbox-group/checkbox-group.module';
+import {RadioModule} from '../components/radio/radio.module';
+import {RadioGroupModule} from '../components/radio-group/radio-group.module';
+import {ButtonGroupModule} from '../components/button-group/button-group.module';
+import {ColorPaletteModule} from '../components/color-palette/color-palette.module';
+import {DatepickerModule} from '../components/datepicker/datepicker.module';
+import {DialogModule} from '../components/dialog/dialog.module';
+import {DropMenuModule} from '../components/drop-menu/drop-menu.module';
 
 @NgModule({
   imports: [
@@ -19,6 +28,15 @@ import {LoadingModule} from '../components/loading/loading.module';
     ModulePipe,
 
     NotificationModule,
+    CheckboxModule,
+    CheckboxGroupModule,
+    RadioModule,
+    RadioGroupModule,
+    ButtonGroupModule,
+    ColorPaletteModule,
+    DatepickerModule,
+    DialogModule,
+    DropMenuModule,
   ],
   declarations: [],
   exports: [
@@ -28,6 +46,15 @@ import {LoadingModule} from '../components/loading/loading.module';
     ModulePipe,
 
     NotificationModule,
+    CheckboxModule,
+    CheckboxGroupModule,
+    RadioModule,
+    RadioGroupModule,
+    ButtonGroupModule,
+    ColorPaletteModule,
+    DatepickerModule,
+    DialogModule,
+    DropMenuModule,
   ],
   providers: [
     {
