@@ -273,15 +273,17 @@
 .platform{
   .master{
     float: left;
-    width: 49.3%;
-    background: #fff;
+    width: 50%;
+    padding-right: 24px;
     margin-bottom: 24px;
-    margin-right: 24px;
-    height: 439px;
-    padding-bottom: 32px;
-    border:1px #e2e6eb solid;
     &:nth-child(2n){
-      margin-right: 0;
+      padding-right: 0;
+    }
+    .content{
+      border:1px #e2e6eb solid;
+      background: #fff;
+      padding-bottom: 32px;
+      height: 439px;
     }
     .title{
       width: 100%;
@@ -309,6 +311,7 @@
           font-size: 14px;
           color: #666;
           margin-right: 58px;
+          white-space: nowrap;
           span{
             color: #333;
             margin-left: 6px;
