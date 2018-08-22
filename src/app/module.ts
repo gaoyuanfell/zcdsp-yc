@@ -10,6 +10,8 @@ import {NoopInterceptor} from '../service/noopInterceptor';
 import {ModulePipe} from './module-pipe';
 import {NotificationModule} from '../components/notification/notification.module';
 import {LoadingModule} from '../components/loading/loading.module';
+import {CheckboxModule} from '../components/checkbox/checkbox.module';
+import {CheckboxGroupModule} from '../components/checkbox-group/checkbox-group.module';
 
 @NgModule({
   imports: [
@@ -19,6 +21,8 @@ import {LoadingModule} from '../components/loading/loading.module';
     ModulePipe,
 
     NotificationModule,
+    CheckboxModule,
+    CheckboxGroupModule,
   ],
   declarations: [],
   exports: [
@@ -28,6 +32,8 @@ import {LoadingModule} from '../components/loading/loading.module';
     ModulePipe,
 
     NotificationModule,
+    CheckboxModule,
+    CheckboxGroupModule,
   ],
   providers: [
     {

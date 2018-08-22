@@ -14,8 +14,8 @@ import {map} from 'rxjs/operators';
   selector: 'app-lazy-view',
   styles: [],
   template: `
-    <div>
-      <button (click)="getMenu()">获取</button>
+    <div style="margin: 10px;">
+      <yc-checkbox [label]="'测试'" [checkState]="2"></yc-checkbox>
     </div>
   `
 })

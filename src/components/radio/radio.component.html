@@ -1,0 +1,8 @@
+<div class="radio" [ngClass]="{disabled:disabled}">
+  <input type="radio" [attr.id]="attrId" [name]="name" [disabled]="disabled" [value]="value" [(ngModel)]="_value" (change)="change(value)">
+  <label [attr.for]="attrId">
+    <span></span>
+    {{label}}
+  </label>
+  <i class="radio-icon" *ngIf="desc" [title]="desc"></i>
+</div>

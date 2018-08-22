@@ -1,0 +1,53 @@
+.radio {
+  display: inline-block;
+  cursor: pointer;
+  input[type="radio"] {
+    display: none;
+  }
+  input[type="radio"] + label {
+    color: #979899;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: inherit;
+    > span {
+      display: inline-block;
+      vertical-align: middle;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #dbdde2;
+      background-color: #fefefe;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+  }
+  input[type="radio"]:checked + label {
+    color: #494b4d;
+    font-weight: 400;
+    font-size: 14px;
+    span {
+      border: 1px solid #919499;
+      background: #fefefe url(./radio-checked.png) no-repeat center;
+      background-size: 8px;
+    }
+  }
+  &.disabled {
+    cursor: not-allowed;
+  }
+
+  .radio-icon {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    width: 16px;
+    height: 16px;
+    outline: none;
+    vertical-align: sub;
+    background: url("question.png") no-repeat center;
+  }
+
+}
+
+
+
+
+
