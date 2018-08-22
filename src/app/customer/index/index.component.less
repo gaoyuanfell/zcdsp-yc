@@ -63,13 +63,13 @@
       }
     }
     .number{
-      display: flex;
-      justify-content:space-between;
       font-size: 14px;
       color: #979899;
       margin-top: 14px;
       .list{
+        float: left;
         white-space: nowrap;
+        width: 50%;
         span {
           margin-left: 6px;
           color: #333;
@@ -79,23 +79,26 @@
     }
     .state{
       display: flex;
+      flex-wrap:wrap;
       margin-top: 23px;
-      padding-bottom: 16px;
+      padding-bottom: 12px;
       border-bottom: 1px #efefef solid;
       .list{
-        font-size: 18px;
+        font-size: 16px;
         color: #979899;
         margin: auto;
         margin-left: 0;
         span{
-          font-size: 20px;
+          font-size: 18px;
           color: #2e90ff;
+          margin-left: 5px;
         }
       }
     }
     .state-rate{
       display: flex;
-      margin-top: 16px;
+      flex-wrap:wrap;
+      margin-top: 12px;
       font-size: 14px;
       color: #979899;
       .list{
@@ -352,3 +355,69 @@
     }
   }
 }
+@media screen and (max-width: 1680px) {
+  .top {
+    li {
+      padding: 16px;
+      .title {
+        .img {
+          width: 50px;
+          height: 50px;
+        }
+        .right {
+          h1 {
+            font-size: 34px;
+          }
+        }
+      }
+
+    }
+  }
+}
+  @media screen and (max-width: 1610px) {
+    .top {
+      li {
+        .title {
+          .img {
+            width: 48px;
+            height: 48px;
+          }
+          .right {
+            h1 {
+              font-size: 30px;
+            }
+          }
+        }
+        .ratio {
+          margin-top: 14px;
+        }
+        .number {
+          .list {
+            margin-bottom: 10px;
+            width: 100%;
+          }
+        }
+        .state{
+          margin-top: 5px;
+          padding-bottom:6px;
+          .list{
+            font-size: 15px;
+            margin-bottom: 5px;
+            span{
+              font-size: 16px;
+            }
+          }
+        }
+        .state-rate{
+          margin-top: 10px;
+          .list{
+            margin-bottom: 5px;
+          }
+        }
+      }
+      .echart {
+        margin-top: 0;
+      }
+    }
+  }
+
