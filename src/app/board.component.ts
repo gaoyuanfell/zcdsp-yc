@@ -6,17 +6,18 @@ import * as reducerMenu from '../store/reducer/menu.reducer';
 
 @Component({
   selector: 'app-board',
-  template: ``,
+  templateUrl: './board.component.html',
+  styleUrls: ['./board.component.less']
 })
 export class BoardComponent {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private store: Store<AppState>) {
-    store.pipe(select(reducerMenu.getMenuState)).subscribe(menu => {
+    /*store.pipe(select(reducerMenu.getMenuState)).subscribe(menu => {
       if (menu.menuList && menu.menuList.length > 1) {
         router.navigate([menu.menuList[0].route], {queryParams: {...route.snapshot.queryParams}, replaceUrl: true});
       }
-    });
+    });*/
   }
 }
