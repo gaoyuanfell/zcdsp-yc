@@ -9,7 +9,6 @@ import {NgModule} from '@angular/core';
 import {NoopInterceptor} from '../service/noopInterceptor';
 import {ModulePipe} from './module-pipe';
 import {NotificationModule} from '../components/notification/notification.module';
-import {LoadingModule} from '../components/loading/loading.module';
 import {CheckboxModule} from '../components/checkbox/checkbox.module';
 import {CheckboxGroupModule} from '../components/checkbox-group/checkbox-group.module';
 import {RadioModule} from '../components/radio/radio.module';
@@ -19,6 +18,13 @@ import {ColorPaletteModule} from '../components/color-palette/color-palette.modu
 import {DatepickerModule} from '../components/datepicker/datepicker.module';
 import {DialogModule} from '../components/dialog/dialog.module';
 import {DropMenuModule} from '../components/drop-menu/drop-menu.module';
+import {FileUploadModule} from '../components/file-upload/file-upload.module';
+import {InputSearchModule} from '../components/input-search/input-search.module';
+import {PreviewImgModule} from '../components/preview-img/preview-img.module';
+import {ScheduleModule} from '../components/schedule/schedule.module';
+import {ScrollMoreModule} from '../components/scroll-more/scroll-more.module';
+import {SwitchInputModule} from '../components/switch-input/switch-input.module';
+import {SelectModule} from '../components/select/select.module';
 
 @NgModule({
   imports: [
@@ -37,6 +43,13 @@ import {DropMenuModule} from '../components/drop-menu/drop-menu.module';
     DatepickerModule,
     DialogModule,
     DropMenuModule,
+    FileUploadModule,
+    InputSearchModule,
+    PreviewImgModule,
+    ScheduleModule,
+    ScrollMoreModule,
+    SwitchInputModule,
+    SelectModule,
   ],
   declarations: [],
   exports: [
@@ -55,6 +68,13 @@ import {DropMenuModule} from '../components/drop-menu/drop-menu.module';
     DatepickerModule,
     DialogModule,
     DropMenuModule,
+    FileUploadModule,
+    InputSearchModule,
+    PreviewImgModule,
+    ScheduleModule,
+    ScrollMoreModule,
+    SwitchInputModule,
+    SelectModule,
   ],
   providers: [
     {

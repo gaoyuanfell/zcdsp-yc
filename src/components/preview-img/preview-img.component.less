@@ -1,0 +1,30 @@
+.preview-img {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 101;
+  overflow: hidden;
+  transition: background-color .2s ease-in-out;
+  background-color: rgba(26, 26, 26, .65);
+  .preview-img-box {
+    height: 100vh;
+    box-sizing: border-box;
+    overflow: hidden;
+    img {
+      max-width: 99vh;
+      max-height: 99vh;
+      cursor: zoom-out;
+      transition: all .3s ease-in-out;
+    }
+  }
+  .close-img {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    right: 25px;
+    font-size: 80px;
+    color: #fff;
+  }
+}

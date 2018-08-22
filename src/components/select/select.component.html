@@ -1,0 +1,26 @@
+<div class="yc-select" [ngStyle]="{'width.px':width}">
+  <label>
+    <i #close [ngClass]="{'open':_opened}"></i>
+    <i #active *ngIf='!allowClear' (mouseover)="showClose($event,active,close)" (mouseout)="hideClose($event,active,close)" (click)="removeValue($event,active,close)">X</i>
+    <input type="text" [(ngModel)]="_searchValue" [readonly]="!searchCtrl" #input>
+  </label>
+
+  <ng-template [ngIf]="!searchCtrl">
+    <div class="selected-value" *ngIf="textValue">{{textValue}}</div>
+    <div class="selected-placeholder" *ngIf="!textValue">{{placeholder}}</div>
+  </ng-template>
+
+  <ng-template [ngIf]="searchCtrl">
+    <div class="selected-value" *ngIf="(textValue || _searchValue) && !_opened">{{_searchValue || textValue}}</div>
+    <div class="selected-placeholder" *ngIf="!_searchValue && _opened">{{textValue || placeholder}}</div>
+    <div class="selected-placeholder" *ngIf="!_opened && !textValue && !_searchValue">{{placeholder}}</div>
+  </ng-template>
+</div>
+
+<ng-template #template>
+  <ul class="yc-select-box" *ngIf="_list?.length" [ngStyle]="{'min-width.px':width + 2}">
+    <li class="item disabled" *ngIf="list?.length === 0 && _searchValue">无匹配结果</li>
+    <li class="item" *ngIf="whole && list?.length" (click)="select()">{{whole}}</li>
+    <li *ngFor="let l of list" class="item" [ngClass]="{'selected':l === _selectValue, 'active': l === _autoValue, 'disabled':l[_props.disabled]}" (click)="select(l)">{{l[_props.label]}}</li>
+  </ul>
+</ng-template>

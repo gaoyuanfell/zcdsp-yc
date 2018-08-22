@@ -1,0 +1,123 @@
+@height: 26px;
+
+.schedule {
+  width: 707px;
+  font-size: 14px;
+  color: #555;
+  .schedule-header {
+    height: @height * 2 + 1;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    .info {
+      width: 82px;
+      height: @height * 2;
+      line-height: @height * 2;
+      border-right: 1px solid #eee;
+      background: #fafafa;
+    }
+    .time {
+      background: #fafafa;
+      border-right: 1px solid #eee;
+      width: 312px;
+    }
+    .num {
+      height: @height;
+      line-height: @height;
+      width: 312px;
+      border-bottom: 1px solid #eee;
+      border-right: 1px solid #eee;
+      font-weight: 700;
+    }
+    .detail {
+      width: 312px;
+      display: flex;
+    }
+    .digital {
+      width: 26px;
+      height: @height;
+      line-height: @height;
+      border-right: 1px solid #eee;
+    }
+  }
+  .schedule-content {
+    display: flex;
+    flex-wrap: wrap;
+    height: @height * 7;
+    width: 82px + 624px;
+    .week {
+      width: 82px;
+      height: 100%;
+      border-right: 1px solid #eee;
+      background: #fafafa;
+      .day {
+        border-bottom: 1px solid #eee;
+        height: @height;
+        line-height: @height;
+        text-align: center;
+      }
+    }
+  }
+  .box-zone {
+    width: 624px;
+    height: 100%;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    .box {
+      width: 13px;
+      height: @height;
+      background: #fff;
+      border-right: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      user-select: none;
+      &.active {
+        background-color: #1ba3f4;
+      }
+      &:hover {
+        background: #f2f2f2;
+      }
+    }
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}
+
+.schedule-tipline {
+  line-height: 40px;
+  width: 707px;
+  .color-box {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    border: 1px solid rgba(57, 73, 103, .2);
+    vertical-align: sub;
+    margin-left: 18px;
+    margin-right: 5px;
+  }
+  .color-blue {
+    height: 15px;
+    width: 15px;
+    border-color: #1ba3f4;
+    background: #1ba3f4;
+  }
+  .weektip {
+    color: #888;
+    padding-left: 5px;
+  }
+  .emptied {
+    //float: right;
+    cursor: pointer;
+    text-decoration: none;
+    color: #008fe4;
+    padding-right: 10px;
+  }
+  /*span {
+    display: inline-block;
+    vertical-align: middle;
+  }*/
+}

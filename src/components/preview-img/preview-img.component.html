@@ -1,0 +1,6 @@
+<div class="preview-img" *ngIf="isOpen" [@fadeIn] (click)="close()">
+  <div class="preview-img-box" [ngStyle]="styleBox">
+    <img *ngIf="img" [src]="img" [ngStyle]="style" #imgRef (load)="imgLoad(imgRef)">
+  </div>
+  <i (click)="close()" class="close-img">&times;</i>
+</div>

@@ -16,43 +16,62 @@ import {Dialog} from '../../components/dialog/dialog';
   styles: [],
   template: `
     <div style="margin: 10px;">
-      <p>      
+      <p>
         <yc-checkbox [label]="'测试'" [checkState]="2"></yc-checkbox>
       </p>
-      
+
       <p>
         <yc-radio [label]="'测试'" [(ngModel)]="value" [value]="1"></yc-radio>
         {{value}}
       </p>
-      
+
       <p>
         <input-datepicker [(ngModel)]="date" [query]="query" [isRange]="true" [appendField]="['a', 'b']"></input-datepicker>
         {{date}}
       </p>
-      
+
       <p>
         <button class="btn" (click)="openDialog()">openDialog</button>
       </p>
-      
+
       <p>
-        <button class="btn" [yc-drop-menu]="[{value:'1', label: '2'}]">dropMenu</button>
+        <a class="btn" [yc-drop-menu]="[{value:'1', label: '1'},{value:'2', label: '2'},{value:'3', label: '3'}]">dropMenu</a>
+      </p>
+
+      <p>
+        <button class="btn" yc-file-upload>fileUpload</button>
+      </p>
+
+      <p>
+        <yc-input-search [(ngModel)]="search"></yc-input-search>
+        {{search}}
       </p>
       
+      <p>
+        <yc-switch-input [(ngModel)]="value"></yc-switch-input>
+      </p>
+
+      <p>
+        <yc-select [list]="[{value:'1', label: '1'},{value:'2', label: '2'},{value:'3', label: '3'},{value:'4', label: '4'}]"></yc-select>
+      </p>
+
     </div>
   `
 })
-export class LazyComponent implements OnDestroy{
+export class LazyComponent implements OnDestroy {
 
-  value
+  value;
 
-  date = ['2018-02-12']
+  date = ['2018-02-12'];
 
-  query = {a: '2018-02-13', b: '2018-02-14'}
+  query = {a: '2018-02-13', b: '2018-02-14'};
 
-  openDialog(){
+  search;
+
+  openDialog() {
     this._dialog.open('123').subscribe(data => {
       console.info(data);
-    })
+    });
   }
 
   menuState$: Observable<MenuState>;
@@ -75,11 +94,8 @@ export class LazyComponent implements OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.actionsSubscription.unsubscribe()
+    this.actionsSubscription.unsubscribe();
   }
-
-
-
 }
 
 @NgModule({
@@ -93,5 +109,6 @@ export class LazyComponent implements OnDestroy{
   ],
 })
 export class LazyModule {
-
+  constructor() {
+  }
 }
