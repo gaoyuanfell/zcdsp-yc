@@ -4,5 +4,5 @@
     <span [ngClass]="{'line':checkState == 2}"></span>
     {{label}}
   </label>
-  <i class="checkbox-icon" [title]="desc"></i>
+  <i class="checkbox-icon" *ngIf="desc" [title]="desc"></i>
 </div>

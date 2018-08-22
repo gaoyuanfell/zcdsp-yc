@@ -1,0 +1,14 @@
+<div class="dialog-container">
+  <div class="dialog-title">
+    <p>{{config.title}}</p>
+    <i (click)="close()" title="Esc快速退出"></i>
+  </div>
+  <div class="dialog-content" [ngStyle]="fullMaxHeight">
+    {{description}}
+    <ng-container #container></ng-container>
+  </div>
+  <div class="dialog-actions" *ngIf="config?.flag">
+    <button class="dialog-button no" (click)="close()">{{config.btn1}}</button>
+    <button class="dialog-button ok" (click)="ok()">{{config.btn2}}</button>
+  </div>
+</div>

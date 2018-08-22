@@ -341,6 +341,68 @@ body {
 
 /** @angular/cdk */
 
+//////////////////// 按钮
+
+.btn {
+  user-select: none;
+  border-radius: 2px;
+  background-color: #2e90ff;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 28px;
+  text-align: center;
+  padding: 0 16px;
+  display: inline-block;
+  border: 1px solid #2e90ff;
+  outline: none;
+  &:disabled{
+    cursor: not-allowed;
+  }
+  &.btn-outline {
+    background-color: #fff;
+    color: #2e90ff;
+    border: 1px solid #e7ecf3;
+  }
+  &.btn-long {
+    padding: 0 25px;
+  }
+  &.btn-small {
+    padding: 0 5px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+  &.btn-border {
+    padding: 0 5px;
+    font-size: 12px;
+    line-height: 20px;
+    background-color: #fff;
+    color: #666666;
+    border-color: #e7ecf3;
+  }
+  &.btn-round {
+    border-radius: 18px;
+  }
+  &.btn-fill {
+    line-height: normal;
+    display: inline-block;
+    height: 100%;
+    border-radius: 0;
+  }
+  &.btn-link {
+    background-color: transparent;
+    border: none;
+    color: #2e90ff;
+    font-weight: 700;
+  }
+  &.btn-big {
+    font-size: 16px;
+  }
+}
+
+/////////////////// 按钮
+
 ///***************************//
 .flex {
   display: flex;
