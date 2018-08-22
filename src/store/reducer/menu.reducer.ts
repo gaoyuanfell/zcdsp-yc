@@ -30,7 +30,7 @@ export function menuReducer(state: MenuState = initState, action: MenuActionUnio
       return state;
     }
     case MenuActionTypes.SELECT_MENU: {
-      state.menu = state.menuList.find(ml => ml.id == action.payload)
+      state.menu = state.menuList.find(ml => ml.id === action.payload)
       return state;
     }
     default: {

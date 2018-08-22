@@ -37,10 +37,10 @@ export class MenuGuard implements CanActivate, CanActivateChild, CanLoad {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> {
     return this._publicService.menus().pipe(
       map(res => {
-        if (res.success == 200) {
-          let menu = res.result;
+        if (res.success === 200) {
+          const menu = res.result;
           // menu.forEach((m, i) => {
-          //   let bo = m.code === 'ZCMOBI_ADS_USER' || m.code === 'ZCMOBI_US_USER';
+          //   const bo = m.code === 'ZCMOBI_ADS_USER' || m.code === 'ZCMOBI_US_USER';
           //   if (bo) {
           //     this._global.userMenu = m;
           //     menu.splice(i, 1);
