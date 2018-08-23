@@ -1,11 +1,12 @@
 import {menuReducer} from './menu.reducer';
-import {ActionReducer, createFeatureSelector, createSelector, MetaReducer} from '@ngrx/store';
+import {ActionReducer, MetaReducer} from '@ngrx/store';
 import {environment} from '../../environments/environment';
 import {AppState} from '../model';
-import {MenuState} from '../model/menu.state';
+import {directionalReducer} from './directional.reducer';
 
 export const reducers = {
   menu: menuReducer,
+  directional: directionalReducer,
 };
 
 export function logger(reducer: ActionReducer<AppState>): ActionReducer<AppState> {

@@ -1,3 +1,100 @@
-<p>
-  add-campaign works!
-</p>
+<h2 class="campaign-title">
+  推广目标
+</h2>
+
+<div class="campaign-form-box">
+
+  <div class="form-group flex-center">
+    <label class="form-label">目标类型<span>（必选）:</span></label>
+    <div class="form-input">
+      <yc-radio-group [(ngModel)]="campaign.speed" [list]="[{value:1, name:'普通连接'},{value:2, name:'安卓应用下载'},{value:3, name:'苹果应用下载'}]" [props]="{label:'name'}"></yc-radio-group>
+    </div>
+  </div>
+
+  <div class="form-group flex-center">
+    <label class="form-label">落地页<span>（必选）:</span></label>
+    <div class="form-input">
+
+      <input type="text" class="form-control" placeholder="请填写落地页或使用模版" [(ngModel)]="campaign.speed">
+
+    </div>
+  </div>
+
+</div>
+
+<h2 class="campaign-title">
+  活动设置
+</h2>
+
+<div class="campaign-form-box">
+
+  <div class="form-group flex-center">
+    <label class="form-label">活动名称<span>（必选）:</span></label>
+    <div class="form-input">
+
+      <input type="text" class="form-control" placeholder="请填写活动名称" [(ngModel)]="campaign.speed">
+
+    </div>
+  </div>
+
+  <div class="form-group flex-center">
+    <label class="form-label">每日预算<span>（必选）:</span></label>
+    <div class="form-input">
+      <input type="text" class="form-control" placeholder="预算需大于100元" [(ngModel)]="campaign.speed">
+    </div>
+    <p class="m-l-1">每日的花费上限</p>
+  </div>
+
+  <div class="form-group flex-center">
+    <label class="form-label">投放速度<span>（必选）:</span></label>
+    <div class="form-input">
+      <yc-radio-group [(ngModel)]="campaign.speed" [list]="[{value:1, name:'均匀投放'},{value:2, name:'快速投放'}]" [props]="{label:'name'}"></yc-radio-group>
+    </div>
+  </div>
+
+  <div class="form-group flex-center">
+    <label class="form-label">投放频次<span>（必选）:</span></label>
+    <div class="form-input">
+      <yc-select [list]="" [placeholder]="'选择投放频次'" [list]="[{value:1, name:'1'},{value:2, name:'2'}]" [props]="{label:'name'}"></yc-select>
+    </div>
+  </div>
+
+  <div class="form-group flex-center">
+    <label class="form-label">投放日期<span>（必选）:</span></label>
+    <div class="form-input">
+
+    </div>
+  </div>
+
+  <div class="form-group flex-center">
+    <label class="form-label">投放小时<span>（必选）:</span></label>
+    <div class="form-input">
+      <yc-radio-group [(ngModel)]="campaign.show_time_type" [list]="[{value:'2', name:'不限'},{value:'1', name:'选择时间段'}]" [props]="{label:'name'}"></yc-radio-group>
+    </div>
+  </div>
+
+  <div class="form-group flex-center" *ngIf="campaign.show_time_type == '1'">
+    <label class="form-label"></label>
+    <div class="form-input">
+      <yc-time-schedule [grain]="1" [(ngModel)]="campaign.show_hours"></yc-time-schedule>
+    </div>
+  </div>
+
+</div>
+
+<h2 class="campaign-title">
+  定向设置
+</h2>
+
+<div class="campaign-form-box">
+  <div class="form-group flex-center">
+    <label class="form-label">快捷定向：</label>
+    <div class="form-input">
+      <yc-select [list]="" [placeholder]="'请选择已保存的定向包'" [list]="[{value:1, name:'1'},{value:2, name:'2'}]" [props]="{label:'name'}"></yc-select>
+    </div>
+  </div>
+
+  <!--定向-->
+  <yc-directional></yc-directional>
+
+</div>

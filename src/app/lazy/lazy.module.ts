@@ -4,7 +4,7 @@ import {AppState} from '../../store/model';
 import {select, Store} from '@ngrx/store';
 import {MenuState} from '../../store/model/menu.state';
 import * as reducerMenu from '../../store/reducer/menu.reducer';
-import * as reducerAction from '../../store/actions/menu.action';
+import * as menuAction from '../../store/actions/menu.action';
 import {Observable, Subscription} from 'rxjs';
 import {Module} from '../module';
 import {MenuGuard} from '../../auth/menu.guard';
@@ -15,7 +15,7 @@ import {Dialog} from '../../components/dialog/dialog';
   selector: 'app-lazy-view',
   styles: [],
   template: `
-    <div style="margin: 10px;">
+    <div style="padding: 10px;height: 100%;overflow: auto">
       <p>
         <yc-checkbox [label]="'测试'" [checkState]="2"></yc-checkbox>
       </p>
@@ -54,6 +54,10 @@ import {Dialog} from '../../components/dialog/dialog';
       <p>
         <yc-select [list]="[{value:'1', label: '1'},{value:'2', label: '2'},{value:'3', label: '3'},{value:'4', label: '4'}]"></yc-select>
       </p>
+      
+      <p>
+        <yc-directional></yc-directional>
+      </p>
 
     </div>
   `
@@ -77,7 +81,7 @@ export class LazyComponent implements OnDestroy {
   menuState$: Observable<MenuState>;
 
   getMenu() {
-    this.store.dispatch(new reducerAction.InitMenu());
+    this.store.dispatch(new menuAction.InitMenu());
   }
 
   actionsSubscription: Subscription;
@@ -89,7 +93,7 @@ export class LazyComponent implements OnDestroy {
     this.menuState$ = store.pipe(select(reducerMenu.getMenuState));
 
     this.actionsSubscription = route.params
-      .pipe(map(params => new reducerAction.SelectMenu(params.id)))
+      .pipe(map(params => new menuAction.SelectMenu(params.id)))
       .subscribe(store);
   }
 
