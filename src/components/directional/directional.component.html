@@ -12,13 +12,13 @@
 </div>
 <!--定向省市 expanded-->
 <div class="expanded" [@panel]="q1.hide || false" #q1>
-  <div class="choice-values-box">
-    <!---->
+  <!---->
+  <div class="choice-values-box" *ngIf="(areasResult$ | async)?.length">
     <div class="choice-values">
-      <ng-template [ngForOf]="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" ngFor let-value>
+      <ng-template [ngForOf]="areasResult$ | async" ngFor let-value>
           <span class="label-value">
-            安徽省
-            <i>&times;</i>
+            {{value.name}}
+            <i (click)="value.checked = false;checkAreasChange(value)">&times;</i>
           </span>
       </ng-template>
     </div>
@@ -34,14 +34,14 @@
     <div class="linkage-box w50">
       <div class="input-query">
         <i class="input-query-icon"></i>
-        <input type="text" placeholder="输入拼音首字母或名称">
+        <input type="text" placeholder="输入拼音首字母或名称" #input1 (change)="queryAreasByName({value: input1.value, number: 0})">
       </div>
       <ul class="linkage-list">
         <ng-template [ngForOf]="areasState$ | async" ngFor let-value let-index="index">
           <li>
-            <div class="flex-center" (click)="setNextChild({number: 1, index: index})">
+            <div class="flex-center" (click)="setNextChild(value)">
               <label class="linkage-item">
-                <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkAllChild({number: 1, index: index})"></yc-checkbox><!--'北京市(0/20)'-->
+                <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkAreasChange(value)"></yc-checkbox><!--'北京市(0/20)'-->
               </label>
               <i class="choice-arrow"></i>
             </div>
@@ -52,13 +52,13 @@
     <div class="linkage-box w50">
       <div class="input-query">
         <i class="input-query-icon"></i>
-        <input type="text" placeholder="输入拼音首字母或名称">
+        <input type="text" placeholder="输入拼音首字母或名称" #input2 (change)="queryAreasByName({value: input2.value, number: 1})">
       </div>
       <ul class="linkage-list">
-        <ng-template [ngForOf]="areasChild1State$ | async" ngFor let-value>
+        <ng-template [ngForOf]="areasChild1State$ | async" ngFor let-value let-index="index">
           <li class="linkage-item">
             <div>
-              <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked"></yc-checkbox>
+              <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkAreasChange(value)"></yc-checkbox>
             </div>
           </li>
         </ng-template>

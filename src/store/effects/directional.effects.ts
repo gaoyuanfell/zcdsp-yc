@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {Action} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {DirectionalActionTypes, DirectionalAssign, DirectionalInit} from '../actions/directional.action';
+import {CheckAreasChange, DirectionalActionTypes, DirectionalAssign, DirectionalInit} from '../actions/directional.action';
 import {switchMap} from 'rxjs/operators';
 
 @Injectable()
