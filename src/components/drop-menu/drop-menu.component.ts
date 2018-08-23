@@ -9,7 +9,7 @@ export interface Props {
 }
 
 @Component({
-  selector: 'yc-drop-menu',
+  selector: 'drop-menu',
   templateUrl: './drop-menu.component.html',
   styleUrls: ['./drop-menu.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,

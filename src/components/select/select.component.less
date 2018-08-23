@@ -1,0 +1,139 @@
+:host {
+  display: inline-block;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  border: 1px solid #dbdde2;
+  &.border-none{
+    border-color: transparent;
+  }
+  &:focus {
+    background-color: #fefefe;
+    background-clip: padding-box;
+    border: 1px solid #dbdde2;
+    border-radius: 2px;
+  }
+  &:hover {
+    background-color: #fefefe;
+    background-clip: padding-box;
+    border: 1px solid #dbdde2;
+    border-radius: 2px;
+  }
+  &.has-error {
+    border: 1px solid red;
+  }
+}
+
+.yc-select {
+  width: 160px;
+  height: 28px;
+  border-radius: 2px;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  background: #fff;
+  > label {
+    input {
+      outline: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      color: #616366;
+      font-size: 14px;
+      font-weight: 400;
+      text-indent: 10px;
+      padding-right: 40px;
+      &[readonly] {
+        cursor: pointer;
+      }
+    }
+    i {
+      display: block;
+      position: absolute;
+      right: 10px;
+      z-index: 1;
+      top: 3px;
+      width: 18px;
+      height: 20px;
+      text-align: center;
+    }
+    i:nth-child(1) {
+      opacity: 1;
+      transition: all 0.1s ease;
+      background: url("./img/icon-select-arrow.png") no-repeat center;
+      background-size: 18px;
+      &.close {
+        opacity: 0;
+      }
+      &.open {
+        transform: rotate(180deg);
+      }
+    }
+    i:nth-child(2) {
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      cursor: pointer;
+      &.active {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.selected-value, .selected-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-left: 10px;
+  padding-right: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+  user-select: none;
+  line-height: 28px;
+}
+
+.selected-placeholder {
+  color: #bfbfbf;
+}
+
+.yc-select-box {
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+  //border: 1px solid transparent;
+  min-width: 160px;
+  width: auto;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: #fefefe;
+  .item {
+    background: #fff;
+    padding: 5px 12px;
+    white-space: nowrap;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 22px;
+    transition: background .3s ease;
+    &:first-child {
+      border-radius: 4px 4px 0 0;
+    }
+    &:last-child {
+      border-radius: 0 0 4px 4px;
+    }
+    &:hover, &.active {
+      background-color: #e6f7ff;
+    }
+    &.selected {
+      background-color: #fafafa;
+      font-weight: 600;
+      color: rgba(0, 0, 0, .65);
+    }
+    &.disabled {
+      color: rgba(0, 0, 0, .25);
+      cursor: not-allowed;
+      user-select: none;
+    }
+  }
+}
