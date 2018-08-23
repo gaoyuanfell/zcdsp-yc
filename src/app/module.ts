@@ -25,6 +25,9 @@ import {ScheduleModule} from '../components/schedule/schedule.module';
 import {ScrollMoreModule} from '../components/scroll-more/scroll-more.module';
 import {SwitchInputModule} from '../components/switch-input/switch-input.module';
 import {SelectModule} from '../components/select/select.module';
+import {RichEditorModule} from '../components/rich-editor/rich-editor.module';
+import {DirectionalModule} from '../components/directional/directional.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -50,6 +53,8 @@ import {SelectModule} from '../components/select/select.module';
     ScrollMoreModule,
     SwitchInputModule,
     SelectModule,
+    RichEditorModule,
+    DirectionalModule,
   ],
   declarations: [],
   exports: [
@@ -75,6 +80,8 @@ import {SelectModule} from '../components/select/select.module';
     ScrollMoreModule,
     SwitchInputModule,
     SelectModule,
+    RichEditorModule,
+    DirectionalModule,
   ],
   providers: [
     {

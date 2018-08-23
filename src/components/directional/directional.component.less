@@ -1,0 +1,135 @@
+.directional-info-title{
+  line-height: 30px;
+  font-weight: 700;
+  font-size: 20px;
+  color: #212121;
+  padding-right: 10px;
+  width: 115px;
+}
+
+.directional-info{
+  > *{
+    display: inline-block;
+    margin-right: 35px;
+  }
+  & :nth-child(1){
+    color: #212121;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  & :nth-child(2){
+    color: #212121;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+.expanded{
+  overflow: hidden;
+  margin-left: 115px;
+}
+
+.directional-operation{
+  margin-left: auto;
+}
+
+.choice-values-box{
+  position: relative;
+  margin: 10px 0;
+  .triangle{
+    top: -6px;
+    position: absolute;
+    left: 150px;
+    width: 12px;
+    height: 12px;
+    background: #fafcff;
+    transform: rotate(45deg);
+    border: 1px solid rgba(46, 143, 255, 0.3);
+    border-right: none;
+    border-bottom: none;
+  }
+  .choice-values{
+    border: 1px solid rgba(46, 143, 255, 0.3);
+    background-color: #fafcff;
+    padding: 10px;
+    .label-value{
+      color: #212121;
+      border-radius: 2px;
+      background-color: #ffffff;
+      padding: 5px;
+      margin: 10px;
+      display: inline-block;
+      > i{
+        cursor: pointer;
+        padding: 2px;
+      }
+    }
+  }
+}
+
+///////////////  搜索
+.input-query{
+  border: 1px solid #f2f2f2;
+  height: 32px;
+  background-color: #ffffff;
+  position: relative;
+  width: 100%;
+  .input-query-icon{
+    background: url("../../assets/img/input-query-icon.png") no-repeat center;
+    background-size: 14px;
+    display: block;
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 50%;
+    left: 10px;
+    transform: translate(0,-50%);
+  }
+  input{
+    border: none;
+    background: inherit;
+    height: 100%;
+    width: 100%;
+    text-indent: 30px;
+  }
+}
+///////////////  搜索
+
+.directional-query{
+  background-color: #f9fafb;
+  border: none;
+  width: 670px;
+}
+
+///////////////// 联动盒子
+.linkage-box{
+  padding: 10px;
+  border: 1px solid #f2f2f2;
+  border-right: none;
+  .linkage-list{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 340px;
+    > li{
+      &:hover{
+        background: #f2f7ff;
+      }
+    }
+    .linkage-item{
+      padding: 8px;
+      width: 100%;
+    }
+    .choice-arrow{
+      background: url("./img/choice-arrow.png") no-repeat center;
+      background-size: 6px 10px;
+      width: 34px;
+      height: 34px;
+      display: inline-block;
+      cursor: pointer;
+    }
+  }
+}
+
+.linkage-box:last-child{
+  border-right: 1px solid #f2f2f2;
+}

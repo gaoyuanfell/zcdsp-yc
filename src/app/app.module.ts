@@ -18,7 +18,7 @@ import {LoadingModule} from '../components/loading/loading.module';
 @NgModule({
   declarations: [
     AppComponent,
-    BoardComponent
+    BoardComponent,
   ],
   imports: [
     BrowserModule,

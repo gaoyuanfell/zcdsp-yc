@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {Action} from '@ngrx/store';
-import {asyncScheduler, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {AssignMenu, InitMenu, MenuActionTypes} from '../actions/menu.action';
 import {switchMap} from 'rxjs/operators';
 

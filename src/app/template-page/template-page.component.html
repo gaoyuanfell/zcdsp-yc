@@ -1,0 +1,773 @@
+<div class="container-full">
+
+  <div class="brick-box flex">
+    <!--左-->
+
+    <div style="min-width: 270px;position: relative">
+      <div class="nav-center flex-center-between" *ngIf="system === 'N'">
+        <div class="navi-btn" [ngClass]="{'active': showType == 'assembly'}" (click)="showType = 'assembly'">
+          组件
+        </div>
+        <div class="navi-btn" [ngClass]="{'active': showType == 'template'}" (click)="showType = 'template'">
+          模板
+        </div>
+      </div>
+
+      <div [ngSwitch]="showType" class="template-list-box" [ngStyle]="{'top.px': system === 'Y'?0:47}" yc-scroll-more (loadMore)="loadMoreTemplateSysList($event)">
+
+        <div class="brick-list overflow-y" *ngSwitchCase="'assembly'">
+          <div class="brick-group-name">
+            内容
+          </div>
+
+          <div class="flex-wrap-center brick-item-list">
+
+            <div class="brick-item" (click)="pushBrick('text')">
+              <p class="img-box">
+                <i class="brick-icon icon-text"></i>
+              </p>
+              <p class="text-box">文本</p>
+            </div>
+
+            <div class="brick-item" (click)="pushBrick('image')">
+              <p class="img-box">
+                <i class="brick-icon icon-image"></i>
+              </p>
+              <p class="text-box">多图</p>
+            </div>
+
+            <div class="brick-item" (click)="pushBrick('slide')">
+              <p class="img-box">
+                <i class="brick-icon icon-gallery"></i>
+              </p>
+              <p class="text-box">幻灯片</p>
+            </div>
+
+            <div class="brick-item" (click)="pushBrick('button')">
+              <p class="img-box">
+                <i class="brick-icon icon-button"></i>
+              </p>
+              <p class="text-box">按钮</p>
+            </div>
+
+            <div class="brick-item" (click)="pushBrick('link')">
+              <p class="img-box">
+                <i class="brick-icon icon-link"></i>
+              </p>
+              <p class="text-box">链接</p>
+            </div>
+
+            <!--<div class="brick-item">
+              <p class="img-box">
+                <i class="brick-icon icon-button"></i>
+              </p>
+              <p class="text-box">按钮</p>
+            </div>
+
+            <div class="brick-item">
+              <p class="img-box">
+                <i class="brick-icon icon-caption"></i>
+              </p>
+              <p class="text-box">标题</p>
+            </div>
+
+            <div class="brick-item">
+              <p class="img-box">
+                <i class="brick-icon icon-link"></i>
+              </p>
+              <p class="text-box">链接</p>
+            </div>-->
+
+            <div class="brick-item" (click)="pushBrick('video')">
+              <p class="img-box">
+                <i class="brick-icon icon-video"></i>
+              </p>
+              <p class="text-box">视频</p>
+            </div>
+
+            <div class="brick-item" (click)="pushBrick('form')">
+              <p class="img-box">
+                <i class="brick-icon icon-form"></i>
+              </p>
+              <p class="text-box">表单</p>
+            </div>
+
+            <div class="brick-item" (click)="pushBrick('line')">
+              <p class="img-box">
+                <i class="brick-icon icon-line"></i>
+              </p>
+              <p class="text-box">分割线</p>
+            </div>
+
+          </div>
+
+          <div class="brick-group-name">
+            操作
+          </div>
+
+          <div class="form-group flex-center">
+            <label class="form-label">模板名称</label>
+            <div class="form-input">
+              <input class="form-control" type="text" [(ngModel)]="templateName">
+            </div>
+          </div>
+
+          <ng-template [ngIf]="system === 'Y'">
+            <div class="form-group flex-center">
+              <label class="form-label">预览图</label>
+              <button class="btn btn-outline" yc-file-upload (eventChange)="templateCoverChange($event)">上传</button>
+              <button class="btn btn-link m-l-1" *ngIf="templateCover" preview-img [list]="[templateCover]">查看</button>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">模板分类</label>
+              <div class="form-input">
+                <yc-select [searchCtrl]="true" [list]="templateTypeList" [props]="{label: 'meaning', value: 'lookup_code'}" [(ngModel)]="templateType"></yc-select>
+              </div>
+            </div>
+          </ng-template>
+
+          <button class="btn" (click)="preview()">预览</button>
+          <button class="btn m-l-1" (click)="privateCode()">二维码</button>
+          <button class="btn m-l-1" (click)="submit()">提交</button>
+
+          <div class="preview-box flex-center" *ngIf="_previewCodeUrl">
+            <div class="qr-code">
+              <img [src]="_previewCodeUrl">
+              <p>手机扫码预览</p>
+            </div>
+            <span class="preview-box-tip"></span>
+          </div>
+
+          <!--<div class="brick-group-name">
+            已有元素
+          </div>
+
+          <ng-template [ngForOf]="componentList" ngFor let-bl let-index="index">
+            <div [ngSwitch]="bl.templateType" class="brick-now">
+
+              <ng-template ngSwitchCase="text">
+                {{index + 1}}：
+                <i class="brick-now-icon icon-text" (click)="componentInstance = bl"></i>
+                <span (click)="remove(bl)" class="brick-remove"></span>
+              </ng-template>
+              <ng-template ngSwitchCase="image">
+                {{index + 1}}：
+                <i class="brick-now-icon icon-image" (click)="componentInstance = bl"></i>
+                <span (click)="remove(bl)" class="brick-remove"></span>
+              </ng-template>
+              <ng-template ngSwitchCase="slide">
+                {{index + 1}}：
+                <i class="brick-now-icon icon-gallery" (click)="componentInstance = bl"></i>
+                <span (click)="remove(bl)" class="brick-remove"></span>
+              </ng-template>
+              <ng-template ngSwitchCase="button">
+                {{index + 1}}：
+                <i class="brick-now-icon icon-button" (click)="componentInstance = bl"></i>
+                <span (click)="remove(bl)" class="brick-remove"></span>
+              </ng-template>
+              <ng-template ngSwitchCase="link">
+                {{index + 1}}：
+                <i class="brick-now-icon icon-link" (click)="componentInstance = bl"></i>
+                <span (click)="remove(bl)" class="brick-remove"></span>
+              </ng-template>
+              <ng-template ngSwitchCase="video">
+                {{index + 1}}：
+                <i class="brick-now-icon icon-video" (click)="componentInstance = bl"></i>
+                <span (click)="remove(bl)" class="brick-remove"></span>
+              </ng-template>
+              <ng-template ngSwitchCase="form">
+                {{index + 1}}：
+                <i class="brick-now-icon icon-form" (click)="componentInstance = bl"></i>
+                <span (click)="remove(bl)" class="brick-remove"></span>
+                &lt;!&ndash;<span class="form-template-jiang brick-jiang"></span>
+                <span class="form-template-sheng brick-sheng"></span>&ndash;&gt;
+              </ng-template>
+              <ng-template ngSwitchCase="line">
+                {{index + 1}}：
+                <i class="brick-now-icon icon-line" (click)="componentInstance = bl"></i>
+                <span (click)="remove(bl)" class="brick-remove"></span>
+              </ng-template>
+            </div>
+          </ng-template>-->
+
+        </div>
+
+        <div *ngSwitchCase="'template'">
+          <ul class="template-list flex-wrap-center">
+            <li class="template-list-item" *ngFor="let sys of templateSysList" (click)="selectedTemplate(sys)">
+              <img [src]="sys.cover">
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!--中-->
+    <div class="brick-template-box overflow-y">
+
+      <div class="flex-space-between">
+        <div style="margin: 30px auto;min-width: 375px;min-height: 667px;display: inline-block;box-shadow: 0 0 4px #888888;">
+
+          <div class="emulated-devices" #emulatedDevices>
+            <ng-container #container></ng-container>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <!--右-->
+    <div class="setting-panel overflow-y">
+      <div [ngSwitch]="componentInstance?.templateType">
+        <!--文本-->
+        <ng-template ngSwitchCase="text">
+
+          <div class="set-title">
+            基础设置
+          </div>
+
+          <div style="width: 100%;">
+            <yc-rich-editor [(ngModel)]="componentInstance.templateInstance.configure.value"></yc-rich-editor>
+          </div>
+
+          <div class="set-title">
+            边框设置
+          </div>
+
+          <div class="form-group flex-center">
+            <label class="form-label">类型</label>
+            <div class="form-input">
+              <yc-select
+                [list]="[{label: '无', value:'none'},{label: '点线', value:'dotted'},{label:'实线', value:'solid'},{label:'虚线', value:'dashed'},{label:'双实线', value:'double'}]"
+                [(ngModel)]="componentInstance.templateInstance.configure.style['border-style']"></yc-select>
+            </div>
+          </div>
+
+          <ng-template [ngIf]="componentInstance.templateInstance.configure.style['border-style'] != 'none'">
+            <div class="form-group flex-center">
+              <label class="form-label">宽度</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="componentInstance.templateInstance.configure.style['border-width.px']">
+              </div>
+            </div>
+
+            <div class="form-group flex-center">
+              <label class="form-label">圆角</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="componentInstance.templateInstance.configure.style['border-radius.px']">
+              </div>
+            </div>
+
+            <div class="form-group flex-center">
+              <label class="form-label">边框色</label>
+              <div class="form-input">
+                <input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.configure.style['border-color']">
+              </div>
+            </div>
+          </ng-template>
+
+          <div class="form-group flex-center">
+            <label class="form-label">背景色</label>
+            <div class="form-input">
+              <input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.configure.style['background-color']">
+            </div>
+          </div>
+
+          <div class="set-title">
+            边距设置
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">上边距</label>
+            <div class="form-input">
+              <input class="form-control" type="number" [(ngModel)]="componentInstance.templateInstance.configure.style['margin-top.px']">
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">右边距</label>
+            <div class="form-input">
+              <input class="form-control" type="number" [(ngModel)]="componentInstance.templateInstance.configure.style['margin-right.px']">
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">下边距</label>
+            <div class="form-input">
+              <input class="form-control" type="number" [(ngModel)]="componentInstance.templateInstance.configure.style['margin-bottom.px']">
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">左边距</label>
+            <div class="form-input">
+              <input class="form-control" type="number" [(ngModel)]="componentInstance.templateInstance.configure.style['margin-left.px']">
+            </div>
+          </div>
+
+        </ng-template>
+        <!--多图-->
+        <ng-template ngSwitchCase="image">
+          <div style="font-size: 12px;padding-bottom: 10px;line-height: 20px;">
+            提示：单张图片大小不能超过3M，支持jpg、jpeg、png、gif等格式，最多只能上传12张图片。
+          </div>
+          <div class="image-list flex-wrap-center">
+
+            <ng-template [ngForOf]="componentInstance.templateInstance.list" ngFor let-img let-index="index">
+              <div class="image-list-box">
+                <div class="image-list-item flex-center" (click)="selectImg(img)">
+                  <img [src]="img.value">
+                </div>
+                <i (click)="removeImg(index)">&times;</i>
+              </div>
+            </ng-template>
+            <div class="image-list-item" yc-file-upload (eventChange)="imgUpload($event)"></div>
+
+          </div>
+
+          <ng-template [ngIf]="cacheImg">
+
+            <div class="form-group flex-center">
+              <label class="form-label">跳转链接</label>
+              <div class="form-input">
+                <input class="form-control" type="text" [(ngModel)]="cacheImg.link">
+              </div>
+            </div>
+
+            <div class="set-title">
+              边距设置
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">上边距</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="cacheImg.style['margin-top.px']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">右边距</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="cacheImg.style['margin-right.px']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">下边距</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="cacheImg.style['margin-bottom.px']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">左边距</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="cacheImg.style['margin-left.px']">
+              </div>
+            </div>
+          </ng-template>
+
+
+        </ng-template>
+        <!--幻灯片-->
+        <ng-template ngSwitchCase="slide">
+          <div style="font-size: 12px;padding-bottom: 10px;line-height: 20px;">
+            提示：单张图片大小不能超过3M，支持jpg、jpeg、png、gif等格式，最多只能上传12张图片。
+          </div>
+
+          <div class="image-list flex-wrap-center">
+
+            <ng-template [ngForOf]="componentInstance.templateInstance.list" ngFor let-img let-index="index">
+              <div class="image-list-box">
+                <div class="image-list-item flex-center" (click)="selectImg(img)">
+                  <img [src]="img.value">
+                </div>
+                <i (click)="removeImg(index)">&times;</i>
+              </div>
+            </ng-template>
+            <div class="image-list-item" yc-file-upload (eventChange)="imgUpload($event)"></div>
+
+          </div>
+
+          <ng-template [ngIf]="cacheImg">
+            <div class="form-group flex-center">
+              <label class="form-label">跳转链接</label>
+              <div class="form-input">
+                <input class="form-control" type="text" [(ngModel)]="cacheImg.link">
+              </div>
+            </div>
+          </ng-template>
+
+          <div class="set-title">
+            功能设置
+          </div>
+
+          <div class="form-group flex-center">
+            <label class="form-label">速度</label>
+            <div class="form-input">
+              <input class="form-control" type="range" step="0.5" min="1" max="15" [(ngModel)]="componentInstance.templateInstance.configure.speed" (change)="componentInstance.templateInstance.speedChange()">
+            </div>
+            <span class="m-l-1">{{componentInstance.templateInstance.configure.speed}}</span>
+          </div>
+
+          <div class="set-title">
+            边距设置
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">上边距</label>
+            <div class="form-input">
+              <input class="form-control" type="number" [(ngModel)]="componentInstance.templateInstance.configure.style['margin-top.px']">
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">右边距</label>
+            <div class="form-input">
+              <input class="form-control" type="number" [(ngModel)]="componentInstance.templateInstance.configure.style['margin-right.px']">
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">下边距</label>
+            <div class="form-input">
+              <input class="form-control" type="number" [(ngModel)]="componentInstance.templateInstance.configure.style['margin-bottom.px']">
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">左边距</label>
+            <div class="form-input">
+              <input class="form-control" type="number" [(ngModel)]="componentInstance.templateInstance.configure.style['margin-left.px']">
+            </div>
+          </div>
+
+        </ng-template>
+        <!--视频-->
+        <ng-template ngSwitchCase="video">
+
+          <div class="set-title">
+            网络视频
+          </div>
+
+          <div class="form-group flex">
+            <label class="form-label">视频地址</label>
+            <div class="form-input">
+              <textarea class="form-control" [(ngModel)]="componentInstance.templateInstance.configure.value"></textarea>
+            </div>
+          </div>
+
+          <div class="set-title">
+            本地视频
+          </div>
+
+          <div class="btn" yc-file-upload [slice]="true" [sliceSize]="10" [auto]="false" (eventChange)="videoUpload($event)">上传</div>
+
+        </ng-template>
+        <!--超链接-->
+        <ng-template ngSwitchCase="link">
+          <div class="form-group flex-center">
+            <label class="form-label">文本</label>
+            <div class="form-input">
+              <input class="form-control" type="text" [(ngModel)]="componentInstance.templateInstance.configure.value">
+            </div>
+          </div>
+
+          <div class="form-group flex-center">
+            <label class="form-label">链接</label>
+            <div class="form-input">
+              <input class="form-control" type="text" [(ngModel)]="componentInstance.templateInstance.configure.link">
+            </div>
+          </div>
+
+          <div class="set-title">
+            边距设置
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">上边距</label>
+            <div class="form-input">
+              <input class="form-control" type="number" [(ngModel)]="componentInstance.templateInstance.configure.style['margin-top.px']">
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">右边距</label>
+            <div class="form-input">
+              <input class="form-control" type="number" [(ngModel)]="componentInstance.templateInstance.configure.style['margin-right.px']">
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">下边距</label>
+            <div class="form-input">
+              <input class="form-control" type="number" [(ngModel)]="componentInstance.templateInstance.configure.style['margin-bottom.px']">
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">左边距</label>
+            <div class="form-input">
+              <input class="form-control" type="number" [(ngModel)]="componentInstance.templateInstance.configure.style['margin-left.px']">
+            </div>
+          </div>
+        </ng-template>
+        <!--按钮-->
+        <ng-template ngSwitchCase="button">
+          <div class="set-title">
+            基本设置
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">文本</label>
+            <div class="form-input">
+              <input class="form-control" type="text" [(ngModel)]="componentInstance.templateInstance.configure.value">
+            </div>
+          </div>
+
+          <div class="form-group flex-center">
+            <label class="form-label">链接</label>
+            <div class="form-input">
+              <input class="form-control" type="text" [(ngModel)]="componentInstance.templateInstance.configure.link">
+            </div>
+          </div>
+          <div class="set-title">
+            大小设置
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">宽度</label>
+            <div class="form-input">
+              <input class="form-control" type="text" [(ngModel)]="componentInstance.templateInstance.configure.style['width.%']">
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">高度</label>
+            <div class="form-input">
+              <input class="form-control" type="text" [(ngModel)]="componentInstance.templateInstance.configure.style['height.px']" (ngModelChange)="componentInstance.templateInstance.configure.style['line-height.px'] = componentInstance.templateInstance.configure.style['height.px']">
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">圆角</label>
+            <div class="form-input">
+              <input class="form-control" type="text" [(ngModel)]="componentInstance.templateInstance.configure.style['border-radius.px']">
+            </div>
+          </div>
+          <div class="set-title">
+            填充设置
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">背景色</label>
+            <div class="form-input">
+              <input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.configure.style['background-color']">
+            </div>
+          </div>
+          <div class="set-title">
+            文字设置
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">大小</label>
+            <div class="form-input">
+              <input class="form-control" type="text" [(ngModel)]="componentInstance.templateInstance.configure.style['font-size.px']">
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">颜色</label>
+            <div class="form-input">
+              <input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.configure.style['color']">
+            </div>
+          </div>
+          <div class="set-title">
+            边距设置
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">上边距</label>
+            <div class="form-input">
+              <input class="form-control" type="number" [(ngModel)]="componentInstance.templateInstance.configure.style['margin-top.px']">
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">右边距</label>
+            <div class="form-input">
+              <input class="form-control" type="number" [(ngModel)]="componentInstance.templateInstance.configure.style['margin-right.px']">
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">下边距</label>
+            <div class="form-input">
+              <input class="form-control" type="number" [(ngModel)]="componentInstance.templateInstance.configure.style['margin-bottom.px']">
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">左边距</label>
+            <div class="form-input">
+              <input class="form-control" type="number" [(ngModel)]="componentInstance.templateInstance.configure.style['margin-left.px']">
+            </div>
+          </div>
+        </ng-template>
+        <!--表单-->
+        <ng-template ngSwitchCase="form">
+          <!--<div class="btn" (click)="setFormList()">
+            编辑表单
+          </div>-->
+          <div class="set-title">
+            功能设置
+          </div>
+
+          <div class="form-group flex-center">
+            <label class="form-label">跳转链接</label>
+            <div class="form-input">
+              <input class="form-control" [(ngModel)]="componentInstance.templateInstance.configure.jumpLink" placeholder="请输入表单提交成功后跳转链接">
+            </div>
+          </div>
+
+          <div class="form-group flex-center">
+            <label class="form-label">提示语</label>
+            <div class="form-input">
+              <input class="form-control" [(ngModel)]="componentInstance.templateInstance.configure.hints" placeholder="请输入表单提交成功提示语">
+            </div>
+          </div>
+
+          <!--<div class="form-group flex-center">
+            <div class="form-input">
+              <yc-checkbox [label]="'同一个用户只能提交一次'" [(ngModel)]="componentInstance.templateInstance.configure.submitOne"></yc-checkbox>
+            </div>
+          </div>-->
+
+          <div class="form-group flex-center">
+            <label class="form-label">转发地址</label>
+            <div class="form-input">
+              <input class="form-control" [(ngModel)]="componentInstance.templateInstance.configure.forwardUrl" placeholder="请输入表单数据转发地址">
+            </div>
+          </div>
+
+          <div class="set-title">
+            按钮样式
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">背景色</label>
+            <div class="form-input">
+              <input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.submitStyle.style['background-color']">
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">文字色</label>
+            <div class="form-input">
+              <input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.submitStyle.style['color']">
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">圆角</label>
+            <div class="form-input">
+              <input class="form-control" type="range" max="30" min="0" [(ngModel)]="componentInstance.templateInstance.submitStyle.style['border-radius.px']">
+            </div>
+            <span class="m-l-1">{{componentInstance.templateInstance.submitStyle.style['border-radius.px']}}</span>
+          </div>
+
+
+          <div class="set-title">
+            基础设置
+          </div>
+
+          <ng-template [ngForOf]="formList" ngFor let-form let-index="index">
+            <div class="form-list-box" *ngIf="form.type != 'submit'">
+              <div class="form-group flex-center">
+                <label class="form-label">类型</label>
+                <div class="form-input">
+                  <yc-select [width]="168" [(ngModel)]="form.type" [list]="formType" (ngModelChange)="formChange(form)"></yc-select>
+                </div>
+              </div>
+              <div class="form-group flex-center">
+                <label class="form-label">字段名</label>
+                <div class="form-input">
+                  <input class="form-control" [(ngModel)]="form.label">
+                </div>
+              </div>
+
+              <div class="form-group flex-center" *ngFor="let l of form.list; let index = index;">
+                <label class="form-label"></label>
+                <div class="form-input">
+                  <input class="form-control" [(ngModel)]="l.label" (ngModelChange)="l.value = l.label">
+                </div>
+                <i class="template-remove" (click)="addFormList('remove', form.list, index)" *ngIf="index > 1"></i>
+              </div>
+
+              <div *ngIf="form.list" class="form-group flex-center">
+                <label class="form-label"></label>
+                <div class="form-input">
+                  <button class="btn btn-link" (click)="addFormList('add', form.list)">+添加选项</button>
+                </div>
+              </div>
+
+              <div class="form-group flex-center" *ngIf="form._placeholder">
+                <label class="form-label">输入说明</label>
+                <div class="form-input">
+                  <input class="form-control" [(ngModel)]="form.placeholder">
+                </div>
+              </div>
+
+              <div style="margin-bottom: 5px;">
+                <i class="form-template-remove" (click)="actionForm('remove', index)"></i>
+                <i class="form-template-sheng" (click)="actionForm('up', index)"></i>
+                <i class="form-template-jiang" (click)="actionForm('down', index)"></i>
+              </div>
+
+            </div>
+          </ng-template>
+
+          <div class="btn" (click)="addForm()">
+            增加一项
+          </div>
+        </ng-template>
+        <!--分割线-->
+        <ng-template ngSwitchCase="line">
+          <div class="set-title">
+            线条样式
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">类型</label>
+            <div class="form-input">
+              <yc-select
+                [list]="[{label: '点线', value:'dotted'},{label:'实线', value:'solid'},{label:'虚线', value:'dashed'},{label:'双实线', value:'double'}]"
+                [(ngModel)]="componentInstance.templateInstance.configure.style['border-top-style']"></yc-select>
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">颜色</label>
+            <div class="form-input">
+              <input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.configure.style['border-top-color']">
+            </div>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">长度</label>
+            <div class="form-input">
+              <input class="form-control" type="range" max="100" min="0" [(ngModel)]="componentInstance.templateInstance.configure.style['width.%']">
+            </div>
+            <span class="m-l-1">{{componentInstance.templateInstance.configure.style['width.%']}}</span>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">粗细</label>
+            <div class="form-input">
+              <input class="form-control" type="range" max="8" min="1" [(ngModel)]="componentInstance.templateInstance.configure.style['border-top-width.px']">
+            </div>
+            <span class="m-l-1">{{componentInstance.templateInstance.configure.style['border-top-width.px']}}</span>
+          </div>
+
+          <div class="form-group flex-center">
+            <label class="form-label">高度</label>
+            <div class="form-input">
+              <input class="form-control" type="range" max="100" min="10" [(ngModel)]="componentInstance.templateInstance.configure.style['margin-top.px']" (ngModelChange)="componentInstance.templateInstance.configure.style['margin-bottom.px'] = componentInstance.templateInstance.configure.style['margin-top.px']">
+            </div>
+            <span class="m-l-1">{{componentInstance.templateInstance.configure.style['margin-top.px']}}</span>
+          </div>
+
+          <div class="set-title">
+            位置设置
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">左边距</label>
+            <div class="form-input">
+              <input class="form-control" type="range" max="100" min="0" [(ngModel)]="componentInstance.templateInstance.configure.style['padding-left.px']">
+            </div>
+            <span class="m-l-1">{{componentInstance.templateInstance.configure.style['padding-left.px']}}</span>
+          </div>
+          <div class="form-group flex-center">
+            <label class="form-label">右边距</label>
+            <div class="form-input">
+              <input class="form-control" type="range" max="100" min="0" [(ngModel)]="componentInstance.templateInstance.configure.style['padding-right.px']">
+            </div>
+            <span class="m-l-1">{{componentInstance.templateInstance.configure.style['padding-right.px']}}</span>
+          </div>
+
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+</div>
