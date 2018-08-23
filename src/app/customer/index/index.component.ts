@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, ChangeDetectorRef , Component, OnInit, ViewChil
 import {Subject} from 'rxjs';
 import {IndexService} from '../../../service/customer/index.service';
 import {BaseIndexComponent} from '../../common/common.component';
+import {PublicService} from '../../../service/public.service';
 
 @Component({
   selector: 'app-index',
@@ -24,17 +25,28 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   campaignChartData;
   campaignCode = 'pv';
 
+  // 近期数据趋势
+  dayTotalListData;
+  dayTotalChartData;
+  dayTotalCode = 'pv';
+
 
   constructor(
     private _indexService: IndexService,
-    protected changeDetectorRef: ChangeDetectorRef
+    protected changeDetectorRef: ChangeDetectorRef,
+    protected _publicService: PublicService,
   ) {
-    super(changeDetectorRef);  // 父亲也有constructor
+    super(changeDetectorRef, _publicService);  // 父亲也有constructor
   }
   ngOnInit(): void {
     this.todayCreative();
     this.todayActivity();
+    this.todayReportChart();
+    this.todayAllDataChart();
+    this.todayAllSpendChart();
+    this.socialDataChart();
     this._init();
+    this.initData();
   }
 
   _init() {
@@ -57,6 +69,17 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       this.campaignChartData = res.result.charts;
       this.changeDetectorRef.markForCheck();
       this.changeCampaignAndCreativeChart(this.todayActivityEcharts, this.campaignChartData, this.campaignCode);
+      // countSubscribe.next()
+    }, () => {
+      // countSubscribe.next()
+    });
+
+    // 近期数据趋势
+    this._indexService.dayTotal().subscribe(res => {
+      this.dayTotalListData = res.result.list.items;
+      this.dayTotalChartData = res.result.chart;
+      this.changeDetectorRef.markForCheck();
+      this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode)
       // countSubscribe.next()
     }, () => {
       // countSubscribe.next()
@@ -129,7 +152,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
             color: '#979899'
           }
         },
-        axisTick: { // // x,y轴显示线条
+        axisTick: { //  x,y轴显示线条
           show: false,
         },
         splitLine:{
@@ -148,7 +171,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
             color: '#979899'
           }
         },
-        axisTick: { // x,y轴显示线条
+        axisTick: { // x,y轴显示线条 线是否大于有颜色的线条
           show: false,
         },
         splitLine:{
@@ -177,9 +200,10 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
         },
       ]
     });
-    // window.addEventListener('resize', () => {
-    //   todayCreativeRef.resize();
-    // });
+    // 解决浏览器伸缩造成的echarts不重复渲染
+    window.addEventListener('resize', () => {
+      todayCreativeRef.resize();
+    });
   }
 
 
@@ -246,8 +270,10 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
           show: false,
         },
         splitLine: {
-          lineStyle: {
-            color: '#e7ecf3'
+          lineStyle:{
+            color:['#f7f8fa'],
+            width: 2,
+            type: 'dashed'
           }
         }
       },
@@ -263,8 +289,10 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
           show: false,
         },
         splitLine: {
-          lineStyle: {
-            color: '#e7ecf3'
+          lineStyle:{
+            color:['#f7f8fa'],
+            width: 2,
+            type: 'dashed'
           }
         },
         axisLabel: {
@@ -275,14 +303,19 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
         {
           name: '今日数据',
           type: 'line',
-          color: ['#2e90ff']
+          color: ['#2e90ff'],
+          symbol: 'none'
         },
         {
           name: '昨日数据',
           type: 'line',
-          color: ['#31c38f']
+          color: ['#31c38f'],
+          symbol: 'none'
         },
       ]
+    });
+    window.addEventListener('resize', () => {
+      todayActivityRef.resize();
     });
   }
 }

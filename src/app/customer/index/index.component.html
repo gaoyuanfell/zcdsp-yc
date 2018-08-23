@@ -173,7 +173,7 @@
       </div>
     </div>
     <div class="main">
-      <div class="echart">
+      <div class="echart" #todayReportChart>
 
       </div>
       <div class="list">
@@ -205,7 +205,7 @@
             <div class="list">较前日平均<span>26%</span><i class="green"></i></div>
             <div class="list">较上周平均<span>26%</span><i class="red"></i></div>
           </div>
-          <div class="echart">
+          <div class="echart" #todayAllDataChart style="width: 100%; height: 270px">
 
           </div>
         </div>
@@ -224,7 +224,7 @@
             <div class="list">较前日平均<span>26%</span><i class="green"></i></div>
             <div class="list">较上周平均<span>26%</span><i class="red"></i></div>
           </div>
-          <div class="echart">
+          <div class="echart" #todayAllSpendChart style="width: 100%; height: 270px">
 
           </div>
         </div>
@@ -238,9 +238,30 @@
           </div>
         </div>
         <div class="main">
-          <div class="echart">
-
+          <!--180-->
+          <div class="gender">
+            <div class="gender-parent">
+              <div class="gender-child">
+                <img src="src/assets/index/man.png">
+                <div>男性</div>
+                <div>35.62%</div>
+              </div>
+              <div class="gender-child">
+                <img src="src/assets/index/man.png">
+                <div>女性</div>
+                <div>35.62%</div>
+              </div>
+              <div class="gender-child">
+                <img src="src/assets/index/man.png">
+                <div>未知</div>
+                <div>35.62%</div>
+              </div>
+            </div>
+            <div class="gender-bottom">
+              <span class="item" *ngFor="let x of get180(); let i = index" [ngStyle]="_getSexStyle(i)"></span>
+            </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -265,9 +286,14 @@
             移动设备偏好<i class="icon-tool-help"></i>
           </div>
         </div>
-        <div class="main">
-          <div class="echart">
-
+        <div class="main brand">
+          <div class="echart" #socialDataChart></div>
+          <div class="brand-left">
+            <div class="item" *ngFor="let l of brand;let i = index" (mouseover)="_showHighlightChart(socialDataEcharts, i)">
+              <span class="spot" [ngStyle]="{'background-color': l.color}"></span>
+              <span>{{l.brand_name}}</span>
+              <span>{{l.request_num / brandTotal * 100 | number:'1.2-2' }}%</span>
+            </div>
           </div>
         </div>
       </div>
@@ -279,9 +305,21 @@
             媒体流量偏好<i class="icon-tool-help"></i>
           </div>
         </div>
-        <div class="main">
+        <div class="main media_flow">
           <div class="echart">
+            <div class="item" *ngFor="let media of media_flow_top5;let index = index">
+              <p>NO.{{index + 1}}</p>
+              <p>{{media.media_name}}</p>
+              <p>{{media.request_num / 10000000 | number:'1.0-0'}}千万</p>
+            </div>
+          </div>
 
+          <div class="media-left">
+            <div class="item" *ngFor="let media of media_flow_top5;">
+              <span class="spot" [ngStyle]="{'background-color': media.color}"></span>
+              <span>{{media.media_name}}</span>
+              <span>{{media.request_num / 10000000 | number:'1.0-0'}}千万</span>
+            </div>
           </div>
         </div>
       </div>
