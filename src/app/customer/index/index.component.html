@@ -313,7 +313,6 @@
               <p>{{media.request_num / 10000000 | number:'1.0-0'}}千万</p>
             </div>
           </div>
-
           <div class="media-left">
             <div class="item" *ngFor="let media of media_flow_top5;">
               <span class="spot" [ngStyle]="{'background-color': media.color}"></span>
@@ -331,12 +330,20 @@
         人群特征指数<i class="icon-tool-help"></i>
       </div>
     </div>
-    <div class="main">
-      <div class="echart">
+    <div class="main people_data">
+      <div class="echart" #hobbyDataChart>
 
       </div>
-      <div class="echart">
-
+      <div class="echart people-left">
+        <div class="item flex" *ngFor="let l of hobby; let i = index">
+          <span>{{l.app_category_name}}</span>
+          <div class="bar-box">
+            <div class="bar-black"></div>
+            <div class="bar-fill" [ngStyle]="{'width.%': l.hobby_proportion / hobbyTotal * 100}"></div>
+          </div>
+          <span>{{l.hobby_proportion / hobbyTotal * 100 | number: '1.2-2' }}%</span>
+          <!--<img src="assets/customer/img/top-icon.png" alt="">-->
+        </div>
       </div>
     </div>
   </div>
@@ -346,13 +353,23 @@
         地域流量分布<i class="icon-tool-help"></i>
       </div>
     </div>
-    <div class="main">
-      <div class="echart">
+    <div class="main area_data">
+      <div class="echart" #chinaDataChart>
 
       </div>
-      <div class="echart">
-
+      <div class="echart area_left">
+        <div class="item flex" *ngFor="let l of top_area_data; let i = index">
+          <span>{{l.province_name}}</span>
+          <div class="bar-box">
+            <div class="bar-black"></div>
+            <!--数据从大到小排好的-->
+            <div class="bar-fill" [ngStyle]="{'width.%': 80 - i*5}"></div>
+          </div>
+          <span>{{l.territory_proportion * 100 | number: '1.2-2' }}%</span>
+          <img src="assets/customer/img/top-icon.png" alt="">
+        </div>
       </div>
+
     </div>
   </div>
 </div>

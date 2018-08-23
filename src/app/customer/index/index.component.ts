@@ -45,6 +45,8 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     this.todayAllDataChart();
     this.todayAllSpendChart();
     this.socialDataChart();
+    this.hobbyDataChart();
+    this.chinaDataChart();
     this._init();
     this.initData();
   }

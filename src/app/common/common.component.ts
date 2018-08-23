@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, ElementRef, ViewChild} from '@angular/core';
 import {PublicService} from '../../service/public.service';
+import * as chinaJson from 'echarts/map/json/china.json';
 
 export class BaseIndexComponent {
   @ViewChild('todayReportChart') todayReportChartRef: ElementRef;
@@ -11,6 +12,10 @@ export class BaseIndexComponent {
   todayAllSpend = 'pv';
   @ViewChild('socialDataChart') socialDataChartRef: ElementRef;
   socialDataEcharts;
+  @ViewChild('hobbyDataChart') hobbyDataChartRef: ElementRef;
+  hobbyDataEcharts;
+  @ViewChild('chinaDataChart') chinaDataChartRef: ElementRef;
+  chinaDataEcharts;
   color = ['#ff7f24', '#1fcf88', '#f14c5d', '#3c61ff', '#F5CDFF', '#8c5cff', '#ffba48', '#FF86A1', '#d6ca00', '#FF0C35', '#33bcfb', '#047962'];
 
   constructor(
@@ -520,6 +525,109 @@ export class BaseIndexComponent {
 
 
   /**
+   * 兴趣爱好
+   * @param echartsInstance
+   * @param data
+   * @param type
+   */
+  hobbyDataChart() {
+    const hobbyData = this.hobbyDataEcharts = echarts.init(this.hobbyDataChartRef.nativeElement);
+    hobbyData.setOption(
+      {
+        radar: [
+          {
+            indicator: [
+              {text: '品牌', max: 100},
+              {text: '内容', max: 100},
+              {text: '可用性', max: 100},
+              {text: '功能', max: 100},
+              {text: '功能', max: 100},
+              {text: '功能', max: 100},
+              {text: '功能', max: 100},
+            ],
+            center: ['50%','50%'],
+            radius: '80%',
+            splitLine: {
+              lineStyle: {
+                color: [
+                  'lightgray'
+                ]
+              }
+            },
+            splitArea: { // 是否显示网格背景
+              show: false
+            },
+            axisLine: {
+              show: false,  //
+            }
+          }
+        ],
+        series: [
+          {
+            type: 'radar',
+            tooltip: {
+              trigger: 'item'
+            },
+            symbolSize: 13,  // 拐点大小
+            itemStyle: {
+              normal: {
+                color : "#2e90ff",  // 拐点颜色
+                areaStyle: {
+                  color: '#43a3fb'  // 选中部分的背景色
+                },
+                lineStyle: {
+                  color:"#2e90ff" // 图表中各个图区域的边框线颜色
+                },
+              }
+            },
+            data: [
+              {
+                value: [60,73,85,40,40,40,40],
+                name: '某软件'
+              }
+            ]
+          }
+        ]
+      }
+  );
+  }
+
+  /**
+   *   地域流量分布图
+   */
+  chinaDataChart() {
+    const chinaDataEcharts = this.chinaDataEcharts = echarts.init(this.chinaDataChartRef.nativeElement);
+    echarts.registerMap('china', chinaJson);
+    chinaDataEcharts.setOption({
+      title: {
+        text: '地域流量分布图',
+        textStyle: {
+          fontWeight: 700,
+          fontSize: 18,
+          color: '#616366',
+          align: 'left'
+        },
+        padding: 0
+      },
+      visualMap: {
+        min: 0,
+        max: 10000,
+        text: ['高', '低'],
+        realtime: true,
+        right: 0,
+        inRange: {
+          color: ['#d5e9ff', '#abd3ff', '#82bcff', '#58a6ff', '#2e90ff']
+        }
+      },
+      series: [{
+        type: 'map',
+        map: 'china',
+        data: []
+      }]
+    })
+  }
+
+  /**
    * 平台实时流量  平台实时效果
    * 今日投放建议，媒体流量top5，性别占比，年龄比例，兴趣爱好，地域流量top10，地域流量分布图数据
    */
@@ -529,6 +637,10 @@ export class BaseIndexComponent {
   brandTotal;
   media_flow_top5;
   media_flow_top5_color = ['#2e90ff', '#ffaf57', '#ffaf57', '#35d494', '#35d494']
+  hobby;
+  hobbyTotal = 0;
+  top_area_data;
+  all_area_data
   initData() {
     this._publicService.allNetWork().subscribe(res => {
       this.all_ad_Flow = res.result.all_ad_Flow; // 平台实时流量
@@ -595,6 +707,59 @@ export class BaseIndexComponent {
       this.media_flow_top5 = res.result.media_flow_top5;
       this.media_flow_top5.forEach ( (item, index) => item.color = this.media_flow_top5_color[index] )
 
+      // 兴趣爱好
+      this.hobby = res.result.hobby;
+      let indicator = [];
+      let hobbyMaxList = this.hobby.map(item => {
+        return item.hobby_proportion;
+      })
+      this.hobby.forEach(item => {
+        this.hobbyTotal = this.hobbyTotal + item.hobby_proportion;
+        indicator.push ( {
+          text: item.app_category_name,
+          max: Math.max(...hobbyMaxList)
+        })
+      })
+      this.hobbyDataEcharts.setOption(
+        {
+          radar: [
+            {
+              indicator: indicator
+            }
+          ],
+          series: [
+            {
+              data: [
+                {
+                  value: hobbyMaxList,
+                }
+              ]
+            }
+          ]
+        }
+      );
+
+      // 地域流量top10
+      this.top_area_data = res.result.top_area_data;
+      // 地域流量分布图数据
+      let dataArea = res.result.all_area_data.map(f => {
+        return {
+          name: f.province_name.replace(/['省''市']/g, ''),
+          value: f.territory_num
+        };
+      });
+      this.all_area_data = res.result.all_area_data;
+      this.chinaDataEcharts.setOption({
+        visualMap: {
+          min: Math.min(...dataArea.map(d => d.value)),
+          max: Math.max(...dataArea.map(d => d.value)),
+        },
+        series: [
+          {
+            data: dataArea
+          }
+        ]
+      });
     });
   }
   _getSexStyle(index) {
@@ -605,9 +770,9 @@ export class BaseIndexComponent {
   }
 
   get180() {
-    let x = 180;
+    let x = 120;
     let arr = [];
-    for (let i = 0; i < 180; i ++) {
+    for (let i = 0; i < x; i ++) {
       arr.push(i);
     }
     return arr;
