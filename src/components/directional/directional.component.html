@@ -37,15 +37,13 @@
         <input type="text" placeholder="输入拼音首字母或名称">
       </div>
       <ul class="linkage-list">
-        <ng-template [ngForOf]="areasState$ | async" ngFor let-value>
-          <li class="linkage-item">
-            <div>
-              <label>
-                  <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked"></yc-checkbox><!--'北京市(0/20)'-->
+        <ng-template [ngForOf]="areasState$ | async" ngFor let-value let-index="index">
+          <li>
+            <div class="flex-center" (click)="setNextChild({number: 1, index: index})">
+              <label class="linkage-item">
+                <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkAllChild({number: 1, index: index})"></yc-checkbox><!--'北京市(0/20)'-->
               </label>
-              <i class="choice-arrow">
-
-              </i>
+              <i class="choice-arrow"></i>
             </div>
           </li>
         </ng-template>
@@ -57,10 +55,10 @@
         <input type="text" placeholder="输入拼音首字母或名称">
       </div>
       <ul class="linkage-list">
-        <ng-template [ngForOf]="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" ngFor let-value>
+        <ng-template [ngForOf]="areasChild1State$ | async" ngFor let-value>
           <li class="linkage-item">
             <div>
-              <yc-checkbox [label]="'北京市(0/20)'"></yc-checkbox>
+              <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked"></yc-checkbox>
             </div>
           </li>
         </ng-template>
