@@ -47,11 +47,20 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     this.socialDataChart();
     this.hobbyDataChart();
     this.chinaDataChart();
+    this.todayAllSpendChartSmall();
+    this.todayAllSpendChartLine();
     this._init();
     this.initData();
   }
-
+  totalCodeList;
   _init() {
+
+    // 上面几个的初始化
+    this._indexService.init().subscribe(res => {
+      this.totalCodeList = res.result.total_code;
+    }, () => {
+
+    });
     // const countSubscribe = new Subject(); // 计数器
     // 今日在投创意
     this._indexService.creativeList().subscribe(res => {
@@ -85,6 +94,14 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       // countSubscribe.next()
     }, () => {
       // countSubscribe.next()
+    });
+  }
+
+  _creativeListClick(id?) {
+    this._indexService.creativeChart({creative_id: id}).subscribe(res => {
+      this.creativeChartData = res.result;
+      this.changeCampaignAndCreativeChart(this.todayCreativeEcharts, this.creativeChartData, this.creativeCode);
+      this.changeDetectorRef.markForCheck();
     });
   }
 
