@@ -1,4 +1,4 @@
-import {Component, NgModule, OnDestroy} from '@angular/core';
+import {AfterViewChecked, Component, NgModule, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import {AppState} from '../../store/model';
 import {select, Store} from '@ngrx/store';

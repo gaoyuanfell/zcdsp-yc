@@ -20,7 +20,7 @@ import {animate, style, transition, trigger} from '@angular/animations';
 })
 export class LoadingComponent implements OnInit, OnDestroy {
 
-  state = false;
+  @Input() state
 
   @Input() config: any = {};
 
@@ -29,6 +29,7 @@ export class LoadingComponent implements OnInit, OnDestroy {
     this.state = true;
     this.changeDetectorRef.markForCheck();
   }
+
   close() {
     this.state = false;
     this.changeDetectorRef.markForCheck();
@@ -43,7 +44,4 @@ export class LoadingComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
 
   }
-
-
-
 }

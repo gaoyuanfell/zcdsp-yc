@@ -3,8 +3,8 @@
   <h3 class="directional-info-title">地域定向：</h3>
   <div class="directional-info" *ngIf="q1.hide">
     <h4>定向省市</h4>
-    <p>当前已选择（12）</p>
-    <button class="btn btn-outline btn-round">清除全部</button>
+    <p>当前已选择（{{(areasResult$ | async)?.length || 0}}）</p>
+    <button class="btn btn-outline btn-round" (click)="checkAreasChange(false)">清除全部</button>
   </div>
   <div class="directional-operation">
     <yc-switch-input [(ngModel)]="q1.hide"></yc-switch-input>
@@ -37,13 +37,13 @@
         <input type="text" placeholder="输入拼音首字母或名称" #input1 (change)="queryAreasByName({value: input1.value, number: 0})">
       </div>
       <ul class="linkage-list">
-        <ng-template [ngForOf]="areasState$ | async" ngFor let-value let-index="index">
+        <ng-template [ngForOf]="(areasState$ | async)?.children" ngFor let-value let-index="index">
           <li>
-            <div class="flex-center" (click)="setNextChild(value)">
-              <label class="linkage-item">
+            <div class="flex-center" (click)="setAreasNextChild(value)">
+              <label class="linkage-item" (click)="$event.stopPropagation()">
                 <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkAreasChange(value)"></yc-checkbox><!--'北京市(0/20)'-->
               </label>
-              <i class="choice-arrow"></i>
+              <i class="choice-arrow" *ngIf="value.children?.length"></i>
             </div>
           </li>
         </ng-template>
@@ -56,9 +56,12 @@
       </div>
       <ul class="linkage-list">
         <ng-template [ngForOf]="areasChild1State$ | async" ngFor let-value let-index="index">
-          <li class="linkage-item">
-            <div>
-              <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkAreasChange(value)"></yc-checkbox>
+          <li>
+            <div class="flex-center">
+              <label class="linkage-item">
+                <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkAreasChange(value)"></yc-checkbox><!--'北京市(0/20)'-->
+              </label>
+              <i class="choice-arrow" *ngIf="value.children?.length"></i>
             </div>
           </li>
         </ng-template>
@@ -70,16 +73,15 @@
   <div class="directional-info" style="margin-top: 30px;">
     <h4>LBS</h4>
     <p>当前已选择（12）</p>
-    <button class="btn btn-outline btn-round">清除全部</button>
+    <button class="btn btn-outline btn-round" (click)="checkLbsCityChange(false)">清除全部</button>
   </div>
-
-  <div class="choice-values-box">
-    <!---->
+  <!---->
+  <div class="choice-values-box" *ngIf="(lbsCityViewResult$ | async)?.length">
     <div class="choice-values">
-      <ng-template [ngForOf]="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" ngFor let-value>
+      <ng-template [ngForOf]="(lbsCityViewResult$ | async)" ngFor let-value>
           <span class="label-value">
-            上海希尔顿饭店
-            <i>&times;</i>
+            {{value.name}}
+            <i (click)="value.checked = false;checkLbsCityChange(value)">&times;</i>
           </span>
       </ng-template>
     </div>
@@ -92,31 +94,73 @@
   </div>
   <!---->
   <div class="flex">
-    <div class="linkage-box w50">
+    <div class="linkage-box w25">
       <div class="input-query">
         <i class="input-query-icon"></i>
-        <input type="text" placeholder="输入拼音首字母或名称">
+        <input type="text" placeholder="输入拼音首字母或名称" #input3 (change)="queryLbsCityByName({value: input3.value, number: 0})">
       </div>
       <ul class="linkage-list">
-        <ng-template [ngForOf]="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" ngFor let-value>
-          <li class="linkage-item">
-            <div>
-              <yc-checkbox [label]="'北京市(0/20)'"></yc-checkbox>
+        <ng-template [ngForOf]="(lbsCityState$ | async)?.children" ngFor let-value let-index="index">
+          <li>
+            <div class="flex-center" (click)="setLbsCityNextChild({number: 0,index: index})">
+              <label class="linkage-item">
+                <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkLbsCityChange(value)"></yc-checkbox><!--'北京市(0/20)'-->
+              </label>
+              <i class="choice-arrow"></i>
             </div>
           </li>
         </ng-template>
       </ul>
     </div>
-    <div class="linkage-box w50">
+    <div class="linkage-box w25">
       <div class="input-query">
         <i class="input-query-icon"></i>
-        <input type="text" placeholder="输入拼音首字母或名称">
+        <input type="text" placeholder="输入拼音首字母或名称" #input4 (change)="queryLbsCityByName({value: input4.value, number: 1})">
       </div>
       <ul class="linkage-list">
-        <ng-template [ngForOf]="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" ngFor let-value>
-          <li class="linkage-item">
-            <div>
-              <yc-checkbox [label]="'北京市(0/20)'"></yc-checkbox>
+        <ng-template [ngForOf]="(lbsCityChild1State$ | async)" ngFor let-value let-index="index">
+          <li>
+            <div class="flex-center" (click)="setLbsCityNextChild({number: 1,index: index})">
+              <label class="linkage-item">
+                <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkLbsCityChange(value)"></yc-checkbox><!--'北京市(0/20)'-->
+              </label>
+              <i class="choice-arrow"></i>
+            </div>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+    <div class="linkage-box w25">
+      <div class="input-query">
+        <i class="input-query-icon"></i>
+        <input type="text" placeholder="输入拼音首字母或名称" #input5 (change)="queryLbsCityByName({value: input5.value, number: 2})">
+      </div>
+      <ul class="linkage-list">
+        <ng-template [ngForOf]="(lbsCityChild2State$ | async)" ngFor let-value let-index="index">
+          <li>
+            <div class="flex-center" (click)="setLbsCityNextChild({number: 2,index: index})">
+              <label class="linkage-item">
+                <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkLbsCityChange(value)"></yc-checkbox><!--'北京市(0/20)'-->
+              </label>
+              <i class="choice-arrow"></i>
+            </div>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+    <div class="linkage-box w25">
+      <div class="input-query">
+        <i class="input-query-icon"></i>
+        <input type="text" placeholder="输入拼音首字母或名称" #input6 (change)="queryLbsCityByName({value: input6.value, number: 3})">
+      </div>
+      <ul class="linkage-list">
+        <ng-template [ngForOf]="(lbsCityChild3State$ | async)" ngFor let-value let-index="index">
+          <li>
+            <div class="flex-center">
+              <label class="linkage-item">
+                <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkLbsCityChange(value)"></yc-checkbox><!--'北京市(0/20)'-->
+              </label>
+              <i class="choice-arrow"></i>
             </div>
           </li>
         </ng-template>
@@ -143,10 +187,10 @@
   <!--choice-->
   <div class="choice-values-box">
     <div class="choice-values">
-      <ng-template [ngForOf]="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" ngFor let-value>
+      <ng-template [ngForOf]="audiencesResult$ | async" ngFor let-value>
           <span class="label-value">
-            博士
-            <i>&times;</i>
+            {{value.name}}
+            <i (click)="value.checked = false;checkAudiencesChange(value)">&times;</i>
           </span>
       </ng-template>
     </div>
@@ -154,21 +198,27 @@
   </div>
   <div>
     <div class="flex">
-      <yc-checkbox [label]="'年龄'"></yc-checkbox>
+      <yc-checkbox [label]="'年龄'" [label]="audiences?.age.name" [checkState]="audiences?.age.checkState" [(ngModel)]="audiences?.age.checked" (changeEvent)="checkAudiencesChange(audiences?.age)"></yc-checkbox>
       <div>
-        <yc-checkbox [label]="'未知'"></yc-checkbox>
-        <yc-checkbox [label]="'<18'"></yc-checkbox>
-        <yc-checkbox [label]="'18~24'"></yc-checkbox>
-        <yc-checkbox [label]="'25~29'"></yc-checkbox>
-        <yc-checkbox [label]="'30~34'"></yc-checkbox>
+        <ng-template [ngForOf]="audiences?.age.children" ngFor let-value let-index="index">
+          <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkAudiencesChange(value)"></yc-checkbox>
+        </ng-template>
       </div>
     </div>
     <div class="flex">
-      <yc-checkbox [label]="'性别'"></yc-checkbox>
+      <yc-checkbox [label]="'性别'" [label]="audiences?.sex.name" [checkState]="audiences?.sex.checkState" [(ngModel)]="audiences?.sex.checked" (changeEvent)="checkAudiencesChange(audiences?.sex)"></yc-checkbox>
       <div>
-        <yc-checkbox [label]="'未知'"></yc-checkbox>
-        <yc-checkbox [label]="'男'"></yc-checkbox>
-        <yc-checkbox [label]="'女'"></yc-checkbox>
+        <ng-template [ngForOf]="audiences?.sex.children" ngFor let-value let-index="index">
+          <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkAudiencesChange(value)"></yc-checkbox>
+        </ng-template>
+      </div>
+    </div>
+    <div class="flex">
+      <yc-checkbox [label]="'学历'" [label]="audiences?.education.name" [checkState]="audiences?.education.checkState" [(ngModel)]="audiences?.education.checked" (changeEvent)="checkAudiencesChange(audiences?.education)"></yc-checkbox>
+      <div>
+        <ng-template [ngForOf]="audiences?.education.children" ngFor let-value let-index="index">
+          <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkAudiencesChange(value)"></yc-checkbox>
+        </ng-template>
       </div>
     </div>
   </div>
