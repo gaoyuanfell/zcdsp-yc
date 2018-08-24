@@ -1,16 +1,171 @@
-<div class="top">
+<div class="top" id="home" [ngStyle]="background">
   <div class="nav_main">
     <div class="logo">
       <img src="assets/img/logo1.png" alt="">
     </div>
-    <ul class="nav">
-      <li>首页</li>
+    <ul class="nav clear">
+      <li><a href="#home" [ngClass]="{'active': hash === 'home'}" (click)="scrollTop('home')">首页</a></li>
+      <li><a href="#engine" [ngClass]="{'active': hash === 'engine'}" (click)="scrollTop('engine')">决策引擎</a></li>
+      <li><a href="#scheme" [ngClass]="{'active': hash === 'scheme'}" (click)="scrollTop('scheme')">解决方案</a></li>
+      <li><a href="#case" [ngClass]="{'active': hash === 'case'}" (click)="scrollTop('case')">成功案例</a></li>
+      <li><a href="#media" [ngClass]="{'active': hash === 'media'}" (click)="scrollTop('media')">媒体资源</a></li>
+      <li><a href="#contact" [ngClass]="{'active': hash === 'contact'}" (click)="scrollTop('contact')">联系我们</a></li>
     </ul>
     <div class="right">
-      <div class="btn-login">
-
+      <div class="btn-login clear">
+        <span class="kong">登录</span>
+        <span class="shi">立即注册</span>
       </div>
-      <span><i class="help"></i>帮助中心</span>
+      <span class="help"><i class="btn-help"></i>帮助中心</span>
     </div>
   </div>
 </div>
+<div class="container" #container>
+  <div class="banner">
+    <img src="assets/img/homebanner.jpg" alt="">
+  </div>
+  <div class="mobel" id="engine">
+    <h1><img src="assets/img/qytit.png" alt=""></h1>
+    <p>智橙V4运作核心——智橙决策引擎，由AI技术、大数据等打造而成。机器通过不断学习，<br>
+      基于大数据产出专属的智能决策，助力广告主进行营销、产品、用户体验等全方位智能营销策略，<br>
+      使其在广泛的场景应用中创造更大价值，轻松实现营销目标。</p>
+    <img src="assets/img/yq.png" alt="" class="img">
+  </div>
+  <div class="mobel scheme" id="scheme">
+    <h1><img src="assets/img/fatit.png" alt=""></h1>
+    <p>三大核心能力为依托 为电商类、网服类、金融类、游戏类、<br>
+      工具类客户提供全面升级的解决方案</p>
+    <img src="assets/img/fa.png" alt="" class="img">
+  </div>
+  <div class="case huibg" id="case">
+    <div class="content">
+      <h1 class="head"><img src="assets/img/antit.png" alt=""></h1>
+      <div class="tips"></div>
+      <div class="case-main clear">
+        <div class="left">
+          <div class="text-list" [ngSwitch]="num">
+            <div class="list" *ngSwitchCase="0">
+              <div class="tit">
+                <img src="assets/img/dy.png" alt="">抖音
+              </div>
+              <p class="target">营销目标：通过智橙平台精准广告推送，高效传递品牌信息，
+                有效提升精准度和转化效果，为品牌带来更多有效用户。</p>
+              <p>案例类型：娱乐类</p>
+              <p>投放平台：智橙移动端</p>
+              <p>CPC成本：0.20-0.30元</p>
+              <p>激活成本：8元</p>
+              <p>点击率：4%-6%</p>
+            </div>
+
+            <div class="list" *ngSwitchCase="1">
+              <div class="tit">
+                <img src="assets/img/dy.png" alt="">抖音1
+              </div>
+              <p class="target">营销目标：通过智橙平台精准广告推送，高效传递品牌信息，
+                有效提升精准度和转化效果，为品牌带来更多有效用户。</p>
+              <p>案例类型：娱乐类</p>
+              <p>投放平台：智橙移动端</p>
+              <p>CPC成本：0.20-0.30元</p>
+              <p>激活成本：8元</p>
+              <p>点击率：4%-6%</p>
+            </div>
+
+            <div class="list" *ngSwitchCase="2">
+              <div class="tit">
+                <img src="assets/img/dy.png" alt="">抖音2
+              </div>
+              <p class="target">营销目标：通过智橙平台精准广告推送，高效传递品牌信息，
+                有效提升精准度和转化效果，为品牌带来更多有效用户。</p>
+              <p>案例类型：娱乐类</p>
+              <p>投放平台：智橙移动端</p>
+              <p>CPC成本：0.20-0.30元</p>
+              <p>激活成本：8元</p>
+              <p>点击率：4%-6%</p>
+            </div>
+            <div class="list" *ngSwitchCase="3">
+              <div class="tit">
+                <img src="assets/img/dy.png" alt="">抖音3
+              </div>
+              <p class="target">营销目标：通过智橙平台精准广告推送，高效传递品牌信息，
+                有效提升精准度和转化效果，为品牌带来更多有效用户。</p>
+              <p>案例类型：娱乐类</p>
+              <p>投放平台：智橙移动端</p>
+              <p>CPC成本：0.20-0.30元</p>
+              <p>激活成本：8元</p>
+              <p>点击率：4%-6%</p>
+            </div>
+            <div class="list" *ngSwitchCase="4">
+              <div class="tit">
+                <img src="assets/img/dy.png" alt="">抖音4
+              </div>
+              <p class="target">营销目标：通过智橙平台精准广告推送，高效传递品牌信息，
+                有效提升精准度和转化效果，为品牌带来更多有效用户。</p>
+              <p>案例类型：娱乐类</p>
+              <p>投放平台：智橙移动端</p>
+              <p>CPC成本：0.20-0.30元</p>
+              <p>激活成本：8元</p>
+              <p>点击率：4%-6%</p>
+            </div>
+          </div>
+          <div class="tab-menu clear">
+            <span class="tool" [ngClass]="{'active':num == 0}" (click)="changeElement(0)"></span>
+            <span class="game" [ngClass]="{'active':num == 1}" (click)="changeElement(1)"></span>
+            <span class="web" [ngClass]="{'active':num == 2}" (click)="changeElement(2)"></span>
+            <span class="retailer" [ngClass]="{'active':num == 3}" (click)="changeElement(3)"></span>
+            <span class="finance" [ngClass]="{'active':num == 4}" (click)="changeElement(4)"></span>
+          </div>
+        </div>
+        <div class="right">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="media" id="media">
+    <div class="content">
+      <h1 class="head"><img src="assets/img/zytit.png" alt=""></h1>
+      <div class="body">
+        <ul class="picList" [ngStyle]="leftTo" style="transition:all 0.3s ease" #picList>
+          <li><img src="assets/img/zy.png"/></li>
+          <li><img src="assets/img/zy.png"/></li>
+        </ul>
+        <ul class="btnList">
+          <li><span class="picBtn" [ngClass]="{'active':currentPic == 0}" (click)="current(0)"></span></li>
+          <li><span class="picBtn" [ngClass]="{'active':currentPic == 1}" (click)="current(1)"></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="contact huibg" id="contact">
+    <div class="content">
+      <h1 class="head"><img src="assets/img/lxtit.png" alt=""></h1>
+      <p class="tip">请专业投放顾问来电为您介绍<br>免费咨询，留下您的联系方式，我们的广告顾问将尽快与您取得联系</p>
+      <div class="us clear">
+        <div class="left">
+          <div class="company">
+            上海银橙信息有限公司
+          </div>
+          <div class="form">
+            <input type="text" class="fill-input name" placeholder="姓名(必填)" [(ngModel)]="username">
+            <input type="text" class="fill-input iphone" placeholder="手机号码(必填)" [(ngModel)]="useriphone">
+            <button type="button" class="make" (click)="make()">预约顾问咨询</button>
+          </div>
+        </div>
+        <div class="right">
+          <p>免费热线：</p>
+          <h1>４00-670-9927</h1>
+          <p class="time">工作时间：9:00-18:00（工作日）</p>
+          <button type="button" class="open">自助开通广告账户</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="goback">
+  <div class="function"><img src="assets/img/qq.png" alt=""></div>
+  <div class="function"><img src="assets/img/dhj.png" alt=""></div>
+  <div class="function"><a href="#home" [ngClass]="{'active': hash === 'home'}" (click)="scrollTop('home')"><img src="assets/img/up.png" alt=""></a></div>
+</div>
+<p class="footer">
+  Copyright (C) 2015~2018<a href="#">zcdsp.com</a>All Rights Reserved. 沪ICP备09044414号
+</p>

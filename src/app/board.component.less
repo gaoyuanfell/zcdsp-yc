@@ -1,18 +1,407 @@
-.top{
+.top {
+  position: absolute;
+  top: 0;
   width: 100%;
-  display: table;
   height: 80px;
-  .nav_main{
+  line-height: 80px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 1px 5px #e9e6fd;
+  z-index: 5;
+  .nav_main {
     width: 1310px;
     margin: auto;
+    display: table;
   }
-  .logo{
+  .logo {
     display: table-cell;
+    vertical-align: middle;
     width: 143px;
-    height:33px;
-    img{
+    height: 33px;
+    img {
       display: block;
       width: 100%;
     }
+  }
+  .nav {
+    padding-left: 50px;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 16px;
+    color: rgba(13, 152, 243, 0.5);
+    li {
+      padding: 0 15px;
+      float: left;
+      cursor: pointer;
+      a{
+        display: block;
+        color: rgba(13, 152, 243, 0.5);
+        &.active{
+          color: #0d98f3;
+        }
+      }
+    }
+  }
+  .right {
+    display: flex;
+  }
+  .btn-login {
+    margin: auto;
+    span {
+      cursor: pointer;
+      float: left;
+      width: 120px;
+      height: 40px;
+      font-size: 16px;
+      text-align: center;
+      line-height: 40px;
+    }
+  }
+  .help {
+    cursor: pointer;
+    .btn-help {
+      margin-right: 6px;
+    }
+  }
+}
+
+.kong {
+  border: 1px #0d98f3 solid;
+  color: #0d98f3;
+}
+
+.shi {
+  background: #0d97f3;
+  color: #fff;
+}
+
+.container {
+  min-width: 1366px;
+  height: 100%;
+  overflow: auto;
+}
+
+.banner {
+  width: 100%;
+  min-width: 1366px;
+  margin-bottom: 40px;
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.mobel {
+  padding-top: 38px;
+  width: 1352px;
+  margin: auto;
+  p {
+    font-size: 16px;
+    color: #313a5a;
+    line-height: 1.5;
+    margin-top: 20px;
+    margin-bottom: 58px;
+  }
+  .img {
+    display: block;
+    width: 100%;
+  }
+}
+.scheme{
+  padding-bottom: 116px;
+}
+.huibg {
+  background: #f9fcff;
+}
+
+.case {
+  width: 100%;
+  .content {
+    padding-top: 74px;
+    width: 1352px;
+    margin: auto;
+    background: url("../assets/img/al1.png") no-repeat;
+    background-position-y: 80px;
+    padding-bottom: 5.4%;
+    position: relative;
+    .tips {
+      position: absolute;
+      bottom: 38px;
+      left: 176px;
+      width: 256px;
+      height: 62px;
+      background: url("../assets/img/ts.png") no-repeat;
+    }
+    .case-main {
+      padding-left: 170px;
+      padding-top: 130px;
+      .left{
+        float: left;
+        .text-list {
+          max-width: 486px;
+          height:298px;
+          overflow: hidden;
+          .list{
+            height:298px;
+          }
+          .tit {
+            font-size: 28px;
+            color: #fff;
+            display: table;
+            margin-bottom: 30px;
+            img {
+              display: inline-block;
+              vertical-align: middle;
+              width: 68px;
+              height: 68px;
+              margin-right: 10px;
+            }
+          }
+          p {
+            max-width: 486px;
+            font-size: 18px;
+            color: #fff;
+            line-height: 1.5;
+          }
+          .target {
+            margin-bottom: 15px;
+          }
+        }
+        .tab-menu{
+          margin-top: 40px;
+          span{
+            float: left;
+            width: 52px;
+            height:73px;
+            margin-right: 34px;
+            cursor: pointer;
+            transition:all 0.3s ease;
+          }
+          .tool{
+            background: url("../assets/img/btn-tool.png") no-repeat;
+            background-size:100%;
+          }
+          .game{
+            background: url("../assets/img/btn-game.png") no-repeat;
+            background-size:100%;
+          }
+          .web{
+            background: url("../assets/img/btn-web.png") no-repeat;
+            background-size:100%;
+          }
+          .retailer{
+            background: url("../assets/img/btn-retailer.png") no-repeat;
+            background-size:100%;
+          }
+          .finance{
+            background: url("../assets/img/btn-finance.png") no-repeat;
+            background-size:100%;
+          }
+          .tool.active{
+            background-image: url("../assets/img/btn-tool-active.png");
+          }
+          .game.active{
+            background-image: url("../assets/img/btn-game-active.png");
+          }
+          .web.active{
+            background-image: url("../assets/img/btn-web-active.png");
+          }
+          .retailer.active{
+            background-image: url("../assets/img/btn-retailer-active.png");
+          }
+          .finance.active{
+            background-image: url("../assets/img/btn-finance-active.png");
+          }
+        }
+      }
+      .right{
+
+      }
+    }
+  }
+}
+
+.head {
+  text-align: center;
+}
+
+.media {
+  .content {
+    padding-top: 74px;
+    padding-bottom: 118px;
+    width: 1352px;
+    margin: auto;
+    position: relative;
+  }
+}
+.body{
+  width: 1352px;
+  height:162px;
+  overflow: hidden;
+  position: relative;
+  margin-top:58px;
+  .picList {
+    width: 200%;
+    height:160px;
+    position: absolute;
+    left:0px;
+    li{
+      float: left;
+      width: 50%;
+    }
+  }
+  .btnList {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0);
+    bottom:0;
+    li {
+      float: left;
+      margin: 0 5px;
+      .picBtn{
+        height: 8px;
+        width: 8px;
+        background-color: #c6c4ee;
+        display: block;
+        border-radius: 100%;
+        cursor: pointer;
+        &.active {
+          width: 20px;
+          background-color: #0d98f3;
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+}
+.contact {
+  padding-top: 80px;
+  padding-bottom: 48px;
+  .content {
+    width: 1352px;
+    margin: auto;
+    background: url("../assets/img/lxbg.png") no-repeat;
+    padding-bottom: 10%;
+    padding-left: 110px;
+    .tip {
+      font-size: 24px;
+      color: #313a5a;
+      margin-top: 54px;
+      line-height: 1.4;
+      margin-bottom: 60px;
+    }
+    .left {
+      width: 50%;
+      float: left;
+      .company {
+        width: 400px;
+        height: 50px;
+        line-height: 50px;
+        border: 1px #0d98f3 solid;
+        background: url("../assets/img/gs.png") 9px center no-repeat;
+        font-size: 16px;
+        color: #0d98f3;
+        padding-left: 35px;
+        margin-bottom: 20px;
+      }
+      .fill-input {
+        width: 400px;
+        height: 50px;
+        line-height: 50px;
+        border: 1px #88caf5 solid;
+        font-size: 16px;
+        color: #929dc5;
+        padding-left: 35px;
+        margin-bottom: 20px;
+      }
+      .name {
+        background: url("../assets/img/xm.png") 9px center no-repeat;
+      }
+      .iphone {
+        background: url("../assets/img/hm.png") 9px center no-repeat;
+      }
+      .form {
+        width: 400px;
+        text-align: center;
+      }
+      .make {
+        width: 300px;
+        height: 50px;
+        line-height: 50px;
+        margin: auto;
+        font-size: 18px;
+        color: #0d98f3;
+        border: 1px #0d98f3 solid;
+        background: rgba(255, 255, 255, 0.2);
+        margin-top: 20px;
+        outline: none;
+        cursor: pointer;
+      }
+    }
+    .right {
+      width: 50%;
+      float: left;
+      p {
+        font-size: 18px;
+        color: #313a5a;
+      }
+      h1 {
+        font-size: 32px;
+        color: #0d98f3;
+        font-weight: normal;
+      }
+      .time {
+        margin-top: 50px;
+      }
+      .open {
+        margin-top: 94px;
+        background: #0d98f3;
+        font-size: 18px;
+        color: #fff;
+        width: 300px;
+        height: 50px;
+        line-height: 50px;
+        outline: none;
+        cursor: pointer;
+      }
+    }
+  }
+}
+.goback{
+  position: fixed;
+  bottom: 76px;
+  right: 30px;
+  .function{
+    width: 50px;
+    height:50px;
+    text-align: center;
+    line-height: 50px;
+    background: #fdfeff;
+    margin-bottom: 10px;
+    box-shadow: 0 0 28px 5px #c3e6ff;
+    cursor: pointer;
+    img{
+      vertical-align: middle;
+    }
+    a{
+      display: block;
+      width: 100%;
+      height:100%;
+    }
+  }
+}
+.footer {
+  width: 100%;
+  height: 66px;
+  line-height: 66px;
+  text-align: center;
+  font-size: 14px;
+  color: #0d98f3;
+  position: absolute;
+  bottom: 0;
+  background: #fff;
+  a {
+    font-size: 14px;
+    color: #0d98f3;
+    margin: 0 9px;
   }
 }
