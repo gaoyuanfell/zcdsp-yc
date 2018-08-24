@@ -8,7 +8,7 @@ import {PublicService} from '../../../service/public.service';
   selector: 'app-index',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush,  // 数据手动刷新
+  // changeDetection: ChangeDetectionStrategy.OnPush,  // 数据手动刷新
   preserveWhitespaces: false,
 })
 export class IndexComponent extends BaseIndexComponent  implements OnInit {  // BaseIndexComponent直接一个类
@@ -45,11 +45,22 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     this.todayAllDataChart();
     this.todayAllSpendChart();
     this.socialDataChart();
+    this.hobbyDataChart();
+    this.chinaDataChart();
+    this.todayAllSpendChartSmall();
+    this.todayAllSpendChartLine();
     this._init();
     this.initData();
   }
-
+  totalCodeList;
   _init() {
+
+    // 上面几个的初始化
+    this._indexService.init().subscribe(res => {
+      this.totalCodeList = res.result.total_code;
+    }, () => {
+
+    });
     // const countSubscribe = new Subject(); // 计数器
     // 今日在投创意
     this._indexService.creativeList().subscribe(res => {
@@ -83,6 +94,14 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       // countSubscribe.next()
     }, () => {
       // countSubscribe.next()
+    });
+  }
+
+  _creativeListClick(id?) {
+    this._indexService.creativeChart({creative_id: id}).subscribe(res => {
+      this.creativeChartData = res.result;
+      this.changeCampaignAndCreativeChart(this.todayCreativeEcharts, this.creativeChartData, this.creativeCode);
+      this.changeDetectorRef.markForCheck();
     });
   }
 

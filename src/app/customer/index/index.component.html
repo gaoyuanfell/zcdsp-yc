@@ -25,7 +25,7 @@
           <h1>62,980 次</h1>
         </div>
       </div>
-      <div class="echart">
+      <div class="echart" #todayAllSpendChartSmall>
 
       </div>
       <div class="number">
@@ -40,7 +40,7 @@
           <h1>26,560 次</h1>
         </div>
       </div>
-      <div class="echart">
+      <div class="echart" #todayAllSpendChartLine>
 
       </div>
       <div class="number">
@@ -84,13 +84,15 @@
         </i>
       </div>
       <div class="right">
-        <ul class="nav">
-          <li class="active"><span>曝光量</span></li>
-          <li><span>点击量</span></li>
-          <li><span>点击率</span></li>
-          <li><span>点击成本</span></li>
-          <li><span>曝光成本</span></li>
-        </ul>
+        <yc-button-group class="tool" [list]="totalCodeList | keys:'value':'label'" [(ngModel)]="creativeCode" (changeEvent)="changeCampaignAndCreativeChart(todayCreativeEcharts,creativeChartData,creativeCode)"></yc-button-group>
+
+        <!--<ul class="nav">-->
+          <!--<li class="active"><span>曝光量</span></li>-->
+          <!--<li><span>点击量</span></li>-->
+          <!--<li><span>点击率</span></li>-->
+          <!--<li><span>点击成本</span></li>-->
+          <!--<li><span>曝光成本</span></li>-->
+        <!--</ul>-->
         <span class="icon-tool icon-tool-img-line"></span>
         <span class="icon-tool icon-tool-img-table"></span>
       </div>
@@ -108,13 +110,17 @@
         <div class="tit">创意名称<span class="icon-tool-add"></span></div>
         <div class="all">全部在投创意</div>
         <ul>
-          <li>乐橙互联优质素材1<span class="edit">编辑</span></li>
-          <li>乐橙互联优质素材1<span class="edit">编辑</span></li>
-          <li>乐橙互联优质素材1<span class="edit">编辑</span></li>
-          <li>乐橙互联优质素材1<span class="edit">编辑</span></li>
-          <li>乐橙互联优质素材1<span class="edit">编辑</span></li>
-          <li>乐橙互联优质素材6<span class="edit">编辑</span></li>
-          <li>乐橙互联优质素材7<span class="edit">编辑</span></li>
+          <!--<li class="list-group-item home-today flex" *ngFor="let c of creativeListData" [ngClass]="{'active': _creativeData === c}" >-->
+            <!--<div [title]="c.creative_name">{{c.creative_name}}</div>-->
+            <!--<div>-->
+              <!--<a data-link [routerLink]="['/ads/spread/creative/edit', c.creative_id]" (click)="$event.stopPropagation()">编辑</a>-->
+            <!--</div>-->
+          <!--</li>-->
+          <li *ngFor="let c of creativeListData" (click)="_creativeListClick(c.creative_id);_creativeData = c">
+            {{c.creative_name}}
+            <span class="edit" [routerLink]="['/ads/spread/creative/edit', c.creative_id]" (click)="$event.stopPropagation()">编辑</span>
+          </li>
+
         </ul>
       </div>
     </div>
@@ -196,7 +202,7 @@
       <div class="content">
         <div class="title">
           <div class="left">
-            今日在投活动<i class="icon-tool-help"></i>
+            平台实时流量<i class="icon-tool-help"></i>
           </div>
         </div>
         <div class="main">
@@ -215,7 +221,7 @@
       <div class="content">
         <div class="title">
           <div class="left">
-            今日在投活动<i class="icon-tool-help"></i>
+            平台实时效果<i class="icon-tool-help"></i>
           </div>
         </div>
         <div class="main">
@@ -272,10 +278,38 @@
             年龄分布<i class="icon-tool-help"></i>
           </div>
         </div>
-        <div class="main">
-          <div class="echart">
+        <div class="main age" style="padding:0;">
+          <div class="item">
+
+            <div *ngFor="let x of age; let i = index" class="item-parent" [ngStyle]="_getAgeStyle(i)" #AgeWidth>
+              <div class="item1"  >
+                <div>{{x.age_proportion / ageTotal * 100 | number: '1.2-2' }}%</div>
+                <div>
+                  <div></div>
+                  <div></div>
+                  <div><img [src]="x.src"></div>
+                </div>
+                <div>{{x.age_part}}</div>
+              </div>
+              <div class="item1">
+                <div [ngStyle]="{'height.px': x.age_proportion / ageTotal * 100}">
+                  <div></div>
+                  <div></div>
+                </div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
 
           </div>
+          <div class="item">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -313,7 +347,6 @@
               <p>{{media.request_num / 10000000 | number:'1.0-0'}}千万</p>
             </div>
           </div>
-
           <div class="media-left">
             <div class="item" *ngFor="let media of media_flow_top5;">
               <span class="spot" [ngStyle]="{'background-color': media.color}"></span>
@@ -331,12 +364,20 @@
         人群特征指数<i class="icon-tool-help"></i>
       </div>
     </div>
-    <div class="main">
-      <div class="echart">
+    <div class="main people_data">
+      <div class="echart" #hobbyDataChart>
 
       </div>
-      <div class="echart">
-
+      <div class="echart people-left">
+        <div class="item flex" *ngFor="let l of hobby; let i = index">
+          <span>{{l.app_category_name}}</span>
+          <div class="bar-box">
+            <div class="bar-black"></div>
+            <div class="bar-fill" [ngStyle]="{'width.%': l.hobby_proportion / hobbyTotal * 100}"></div>
+          </div>
+          <span>{{l.hobby_proportion / hobbyTotal * 100 | number: '1.2-2' }}%</span>
+          <!--<img src="assets/customer/img/top-icon.png" alt="">-->
+        </div>
       </div>
     </div>
   </div>
@@ -346,13 +387,23 @@
         地域流量分布<i class="icon-tool-help"></i>
       </div>
     </div>
-    <div class="main">
-      <div class="echart">
+    <div class="main area_data">
+      <div class="echart" #chinaDataChart>
 
       </div>
-      <div class="echart">
-
+      <div class="echart area_left">
+        <div class="item flex" *ngFor="let l of top_area_data; let i = index">
+          <span>{{l.province_name}}</span>
+          <div class="bar-box">
+            <div class="bar-black"></div>
+            <!--数据从大到小排好的-->
+            <div class="bar-fill" [ngStyle]="{'width.%': 80 - i*5}"></div>
+          </div>
+          <span>{{l.territory_proportion * 100 | number: '1.2-2' }}%</span>
+          <img src="assets/customer/img/top-icon.png" alt="">
+        </div>
       </div>
+
     </div>
   </div>
 </div>
