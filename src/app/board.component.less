@@ -46,7 +46,7 @@
   }
   .btn-login {
     margin: auto;
-    span {
+    a {
       cursor: pointer;
       float: left;
       width: 120px;
@@ -119,7 +119,7 @@
     padding-top: 74px;
     width: 1352px;
     margin: auto;
-    background: url("../assets/img/al1.png") no-repeat;
+    background: url("../assets/img/index/al1.png") no-repeat;
     background-position-y: 80px;
     padding-bottom: 5.4%;
     position: relative;
@@ -129,7 +129,7 @@
       left: 176px;
       width: 256px;
       height: 62px;
-      background: url("../assets/img/ts.png") no-repeat;
+      background: url("../assets/img/index/ts.png") no-repeat;
     }
     .case-main {
       padding-left: 170px;
@@ -177,39 +177,39 @@
             transition:all 0.3s ease;
           }
           .tool{
-            background: url("../assets/img/btn-tool.png") no-repeat;
+            background: url("../assets/img/index/btn-tool.png") no-repeat;
             background-size:100%;
           }
           .game{
-            background: url("../assets/img/btn-game.png") no-repeat;
+            background: url("../assets/img/index/btn-game.png") no-repeat;
             background-size:100%;
           }
           .web{
-            background: url("../assets/img/btn-web.png") no-repeat;
+            background: url("../assets/img/index/btn-web.png") no-repeat;
             background-size:100%;
           }
           .retailer{
-            background: url("../assets/img/btn-retailer.png") no-repeat;
+            background: url("../assets/img/index/btn-retailer.png") no-repeat;
             background-size:100%;
           }
           .finance{
-            background: url("../assets/img/btn-finance.png") no-repeat;
+            background: url("../assets/img/index/btn-finance.png") no-repeat;
             background-size:100%;
           }
           .tool.active{
-            background-image: url("../assets/img/btn-tool-active.png");
+            background-image: url("../assets/img/index/btn-tool-active.png");
           }
           .game.active{
-            background-image: url("../assets/img/btn-game-active.png");
+            background-image: url("../assets/img/index/btn-game-active.png");
           }
           .web.active{
-            background-image: url("../assets/img/btn-web-active.png");
+            background-image: url("../assets/img/index/btn-web-active.png");
           }
           .retailer.active{
-            background-image: url("../assets/img/btn-retailer-active.png");
+            background-image: url("../assets/img/index/btn-retailer-active.png");
           }
           .finance.active{
-            background-image: url("../assets/img/btn-finance-active.png");
+            background-image: url("../assets/img/index/btn-finance-active.png");
           }
         }
       }
@@ -231,6 +231,7 @@
     width: 1352px;
     margin: auto;
     position: relative;
+    padding-left:46px;
   }
 }
 .body{
@@ -239,14 +240,25 @@
   overflow: hidden;
   position: relative;
   margin-top:58px;
+  padding: 0 90px;
   .picList {
     width: 200%;
     height:160px;
     position: absolute;
     left:0px;
-    li{
-      float: left;
-      width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    div{
+      width: 121px;
+      height:59px;
+      line-height: 59px;
+      margin: 0 50px;
+      img{
+        display: inline-block;
+        max-width: 100%;
+        max-height: 100%;
+        vertical-align: middle;
+      }
     }
   }
   .btnList {
@@ -279,7 +291,7 @@
   .content {
     width: 1352px;
     margin: auto;
-    background: url("../assets/img/lxbg.png") no-repeat;
+    background: url("../assets/img/index/lxbg.png") no-repeat;
     padding-bottom: 10%;
     padding-left: 110px;
     .tip {
@@ -297,7 +309,7 @@
         height: 50px;
         line-height: 50px;
         border: 1px #0d98f3 solid;
-        background: url("../assets/img/gs.png") 9px center no-repeat;
+        background: url("../assets/img/index/gs.png") 9px center no-repeat;
         font-size: 16px;
         color: #0d98f3;
         padding-left: 35px;
@@ -314,10 +326,10 @@
         margin-bottom: 20px;
       }
       .name {
-        background: url("../assets/img/xm.png") 9px center no-repeat;
+        background: url("../assets/img/index/xm.png") 9px center no-repeat;
       }
       .iphone {
-        background: url("../assets/img/hm.png") 9px center no-repeat;
+        background: url("../assets/img/index/hm.png") 9px center no-repeat;
       }
       .form {
         width: 400px;
@@ -403,5 +415,55 @@
     font-size: 14px;
     color: #0d98f3;
     margin: 0 9px;
+  }
+}
+.shade{
+  position: fixed;
+  left: 0;
+  right: 0;
+  top:0;
+  bottom: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 6;
+}
+.shade-body{
+  width: 797px;
+  height:484px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  position: absolute;
+  top:50%;
+  transform: translate(0,-50%);
+  left:0;
+  right: 0;
+  margin: auto;
+  .title{
+    text-align: right;
+    span{
+      font-size: 30px;
+      color: #2c2c2c;
+      cursor: pointer;
+    }
+  }
+  .content{
+    padding-top: 25px;
+    text-align: center;
+    h1{
+      font-size: 32px;
+      color: #1301b8;
+      font-weight: normal;
+      margin-top: 15px;
+    }
+    p{
+      color: #313a5a;
+      font-size: 16px;
+      margin-top: 35px;
+      line-height: 1.5;
+      span{
+        color: #1301b8;
+        margin: 0 10px;
+      }
+    }
   }
 }

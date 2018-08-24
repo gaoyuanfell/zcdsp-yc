@@ -1,7 +1,7 @@
 <div class="top" id="home" [ngStyle]="background">
   <div class="nav_main">
     <div class="logo">
-      <img src="assets/img/logo1.png" alt="">
+      <img src="assets/img/index/logo1.png" alt="">
     </div>
     <ul class="nav clear">
       <li><a href="#home" [ngClass]="{'active': hash === 'home'}" (click)="scrollTop('home')">首页</a></li>
@@ -13,8 +13,8 @@
     </ul>
     <div class="right">
       <div class="btn-login clear">
-        <span class="kong">登录</span>
-        <span class="shi">立即注册</span>
+        <a href="login.html" [routerLink]="['/login']" class="kong">登录</a>
+        <a class="shi">立即注册</a>
       </div>
       <span class="help"><i class="btn-help"></i>帮助中心</span>
     </div>
@@ -22,31 +22,31 @@
 </div>
 <div class="container" #container>
   <div class="banner">
-    <img src="assets/img/homebanner.jpg" alt="">
+    <img src="assets/img/index/homebanner.jpg" alt="">
   </div>
   <div class="mobel" id="engine">
-    <h1><img src="assets/img/qytit.png" alt=""></h1>
+    <h1><img src="assets/img/index/qytit.png" alt=""></h1>
     <p>智橙V4运作核心——智橙决策引擎，由AI技术、大数据等打造而成。机器通过不断学习，<br>
       基于大数据产出专属的智能决策，助力广告主进行营销、产品、用户体验等全方位智能营销策略，<br>
       使其在广泛的场景应用中创造更大价值，轻松实现营销目标。</p>
-    <img src="assets/img/yq.png" alt="" class="img">
+    <img src="assets/img/index/yq.png" alt="" class="img">
   </div>
   <div class="mobel scheme" id="scheme">
-    <h1><img src="assets/img/fatit.png" alt=""></h1>
+    <h1><img src="assets/img/index/fatit.png" alt=""></h1>
     <p>三大核心能力为依托 为电商类、网服类、金融类、游戏类、<br>
       工具类客户提供全面升级的解决方案</p>
-    <img src="assets/img/fa.png" alt="" class="img">
+    <img src="assets/img/index/fa.png" alt="" class="img">
   </div>
   <div class="case huibg" id="case">
     <div class="content">
-      <h1 class="head"><img src="assets/img/antit.png" alt=""></h1>
+      <h1 class="head"><img src="assets/img/index/antit.png" alt=""></h1>
       <div class="tips"></div>
       <div class="case-main clear">
         <div class="left">
           <div class="text-list" [ngSwitch]="num">
             <div class="list" *ngSwitchCase="0">
               <div class="tit">
-                <img src="assets/img/dy.png" alt="">抖音
+                <img src="assets/img/index/dy.png" alt="">抖音
               </div>
               <p class="target">营销目标：通过智橙平台精准广告推送，高效传递品牌信息，
                 有效提升精准度和转化效果，为品牌带来更多有效用户。</p>
@@ -59,7 +59,7 @@
 
             <div class="list" *ngSwitchCase="1">
               <div class="tit">
-                <img src="assets/img/dy.png" alt="">抖音1
+                <img src="assets/img/index/dy.png" alt="">抖音1
               </div>
               <p class="target">营销目标：通过智橙平台精准广告推送，高效传递品牌信息，
                 有效提升精准度和转化效果，为品牌带来更多有效用户。</p>
@@ -72,7 +72,7 @@
 
             <div class="list" *ngSwitchCase="2">
               <div class="tit">
-                <img src="assets/img/dy.png" alt="">抖音2
+                <img src="assets/img/index/dy.png" alt="">抖音2
               </div>
               <p class="target">营销目标：通过智橙平台精准广告推送，高效传递品牌信息，
                 有效提升精准度和转化效果，为品牌带来更多有效用户。</p>
@@ -84,7 +84,7 @@
             </div>
             <div class="list" *ngSwitchCase="3">
               <div class="tit">
-                <img src="assets/img/dy.png" alt="">抖音3
+                <img src="assets/img/index/dy.png" alt="">抖音3
               </div>
               <p class="target">营销目标：通过智橙平台精准广告推送，高效传递品牌信息，
                 有效提升精准度和转化效果，为品牌带来更多有效用户。</p>
@@ -96,7 +96,7 @@
             </div>
             <div class="list" *ngSwitchCase="4">
               <div class="tit">
-                <img src="assets/img/dy.png" alt="">抖音4
+                <img src="assets/img/index/dy.png" alt="">抖音4
               </div>
               <p class="target">营销目标：通过智橙平台精准广告推送，高效传递品牌信息，
                 有效提升精准度和转化效果，为品牌带来更多有效用户。</p>
@@ -123,12 +123,31 @@
   </div>
   <div class="media" id="media">
     <div class="content">
-      <h1 class="head"><img src="assets/img/zytit.png" alt=""></h1>
+      <h1 class="head"><img src="assets/img/index/zytit.png" alt=""></h1>
       <div class="body">
-        <ul class="picList" [ngStyle]="leftTo" style="transition:all 0.3s ease" #picList>
-          <li><img src="assets/img/zy.png"/></li>
-          <li><img src="assets/img/zy.png"/></li>
-        </ul>
+        <div class="picList" [ngStyle]="leftTo" style="transition:all 0.3s ease" #picList>
+          <div><img src="assets/img/index/1.png" alt=""></div>
+          <div><img src="assets/img/index/2.png" alt=""></div>
+          <div><img src="assets/img/index/3.png" alt=""></div>
+          <div><img src="assets/img/index/4.png" alt=""></div>
+          <div><img src="assets/img/index/5.png" alt=""></div>
+          <div><img src="assets/img/index/6.png" alt=""></div>
+          <div><img src="assets/img/index/7.png" alt=""></div>
+          <div><img src="assets/img/index/8.png" alt=""></div>
+          <div><img src="assets/img/index/9.png" alt=""></div>
+          <div><img src="assets/img/index/10.png" alt=""></div>
+          <div><img src="assets/img/index/11.png" alt=""></div>
+          <div><img src="assets/img/index/12.png" alt=""></div>
+          <div><img src="assets/img/index/13.png" alt=""></div>
+          <div><img src="assets/img/index/14.png" alt=""></div>
+          <div><img src="assets/img/index/15.png" alt=""></div>
+          <div><img src="assets/img/index/16.png" alt=""></div>
+          <div><img src="assets/img/index/17.png" alt=""></div>
+          <div><img src="assets/img/index/18.png" alt=""></div>
+          <div><img src="assets/img/index/19.png" alt=""></div>
+          <div><img src="assets/img/index/20.png" alt=""></div>
+          <div><img src="assets/img/index/21.png" alt=""></div>
+        </div>
         <ul class="btnList">
           <li><span class="picBtn" [ngClass]="{'active':currentPic == 0}" (click)="current(0)"></span></li>
           <li><span class="picBtn" [ngClass]="{'active':currentPic == 1}" (click)="current(1)"></span></li>
@@ -138,7 +157,7 @@
   </div>
   <div class="contact huibg" id="contact">
     <div class="content">
-      <h1 class="head"><img src="assets/img/lxtit.png" alt=""></h1>
+      <h1 class="head"><img src="assets/img/index/lxtit.png" alt=""></h1>
       <p class="tip">请专业投放顾问来电为您介绍<br>免费咨询，留下您的联系方式，我们的广告顾问将尽快与您取得联系</p>
       <div class="us clear">
         <div class="left">
@@ -146,8 +165,8 @@
             上海银橙信息有限公司
           </div>
           <div class="form">
-            <input type="text" class="fill-input name" placeholder="姓名(必填)" [(ngModel)]="username">
-            <input type="text" class="fill-input iphone" placeholder="手机号码(必填)" [(ngModel)]="useriphone">
+            <input type="text" class="fill-input name" placeholder="姓名(必填)" [(ngModel)]="user.name">
+            <input type="text" class="fill-input iphone" placeholder="手机号码(必填)" [(ngModel)]="user.phone">
             <button type="button" class="make" (click)="make()">预约顾问咨询</button>
           </div>
         </div>
@@ -161,10 +180,21 @@
     </div>
   </div>
 </div>
+<div class="shade" *ngIf="flag" (click)="flag=!flag">
+  <div class="shade-body">
+    <div class="title"><span (click)="flag=!flag">&times;</span></div>
+    <div class="content">
+      <img src="assets/img/index/chengg.png" alt="">
+      <h1>恭喜您提交成功</h1>
+      <p>智橙推广咨询员会在9:00-18:00以官方电话<span>400-670-9927</span>进行回拨，<br>
+        请您注意查收，谢谢！</p>
+    </div>
+  </div>
+</div>
 <div class="goback">
-  <div class="function"><img src="assets/img/qq.png" alt=""></div>
-  <div class="function"><img src="assets/img/dhj.png" alt=""></div>
-  <div class="function"><a href="#home" [ngClass]="{'active': hash === 'home'}" (click)="scrollTop('home')"><img src="assets/img/up.png" alt=""></a></div>
+  <div class="function"><img src="assets/img/index/qq.png" alt=""></div>
+  <div class="function"><img src="assets/img/index/dhj.png" alt=""></div>
+  <div class="function"><a href="#home" [ngClass]="{'active': hash === 'home'}" (click)="scrollTop('home')"><img src="assets/img/index/up.png" alt=""></a></div>
 </div>
 <p class="footer">
   Copyright (C) 2015~2018<a href="#">zcdsp.com</a>All Rights Reserved. 沪ICP备09044414号
