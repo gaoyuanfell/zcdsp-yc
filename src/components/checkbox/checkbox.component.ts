@@ -61,7 +61,12 @@ export class CheckboxComponent implements ControlValueAccessor, OnChanges, OnDes
   onChange = (value: any) => {
   };
 
-  change() {
+  click(event){
+    event.stopPropagation();
+  }
+
+  change(event) {
+    event.stopPropagation();
     let value = this.checked;
     if (this.values instanceof Array && this.values.length == 2) {
       if (this.checked) {

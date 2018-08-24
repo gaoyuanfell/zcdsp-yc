@@ -24,17 +24,15 @@ export class DirectionalComponent implements OnInit, AfterViewInit {
   areasChild1State$: Observable<Array<any>>;
 
   lbsCityState$: Observable<Directional>;
+  lbsCityList$: Observable<Array<any>>;
   lbsCityResult$: Observable<Array<any>>;
   lbsCityViewResult$: Observable<Array<any>>;
-  lbsCityChild1State$: Observable<Array<any>>;
-  lbsCityChild2State$: Observable<Array<any>>;
-  lbsCityChild3State$: Observable<Array<any>>;
 
   audiences$: Observable<Audiences>;
   audiences: Audiences;
   audiencesResult$: Observable<Array<any>>;
 
-  // ---------------------------
+  // --------------------------- Areas
 
   /**
    * 获取下级数据
@@ -55,19 +53,19 @@ export class DirectionalComponent implements OnInit, AfterViewInit {
     this.store.dispatch(new directionalAction.QueryAreasByName({number, value}));
   }
 
-  // ---------------------------
+  // --------------------------- LBS
 
-  setLbsCityNextChild({number, index}) {
-    this.store.dispatch(new directionalAction.LbsCityNextChild({number, index}));
+  setLbsCityNextChild({value, index}) {
+    this.store.dispatch(new directionalAction.LbsCityNextChild({value, index}));
   }
 
   checkLbsCityChange(value) {
     this.store.dispatch(new directionalAction.CheckLbsCityChange(value));
   }
 
-  queryLbsCityByName({number, value}) {
+  queryLbsCityByName({target, value}) {
     if (!value) return;
-    this.store.dispatch(new directionalAction.QueryLbsCityByName({number, value}));
+    this.store.dispatch(new directionalAction.QueryLbsCityByName({target, value}));
   }
 
   // -------------------------------
@@ -78,16 +76,19 @@ export class DirectionalComponent implements OnInit, AfterViewInit {
 
   constructor(private store: Store<AppState>) {
 
+    this.store.dispatch(new directionalAction.DirectionalInit());
+    this.store.dispatch(new directionalAction.LbsCityInit());
+
     this.areasState$ = store.pipe(select(directionalReducer.Areas));
     this.areasResult$ = store.pipe(select(directionalReducer.AreasResult));
     this.areasChild1State$ = store.pipe(select(directionalReducer.AreasChild1));
 
     this.lbsCityState$ = store.pipe(select(directionalReducer.LbsCity));
+    this.lbsCityList$ = store.pipe(select(directionalReducer.LbsCityList));
+
+
     this.lbsCityResult$ = store.pipe(select(directionalReducer.LbsCityResult));
     this.lbsCityViewResult$ = store.pipe(select(directionalReducer.LbsCityViewResult));
-    this.lbsCityChild1State$ = store.pipe(select(directionalReducer.LbsCityChild1));
-    this.lbsCityChild2State$ = store.pipe(select(directionalReducer.LbsCityChild2));
-    this.lbsCityChild3State$ = store.pipe(select(directionalReducer.LbsCityChild3));
 
     this.audiences$ = store.pipe(select(directionalReducer.Audiences));
     this.audiencesResult$ = store.pipe(select(directionalReducer.AudiencesResult));
@@ -102,7 +103,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     console.info('ngAfterViewInit');
-    this.store.dispatch(new directionalAction.DirectionalInit());
+
   }
 
 }

@@ -3,6 +3,8 @@ import {Action} from '@ngrx/store';
 export enum DirectionalActionTypes {
   DIRECTIONAL_ASSIGN = '[DIRECTIONAL] DIRECTIONAL_ASSIGN',
   DIRECTIONAL_INIT = '[DIRECTIONAL] DIRECTIONAL_INIT',
+  LBS_CITY_INIT = '[DIRECTIONAL] LBS_CITY_INIT',
+  LBS_CITY_ASSIGN = '[DIRECTIONAL] LBS_CITY_ASSIGN',
   NEXT_AREAS_CHILD = '[DIRECTIONAL] NEXT_AREAS_CHILD',
   CHECK_AREAS_CHANGE = '[DIRECTIONAL] CHECK_AREAS_CHANGE',
   QUERY_AREAS_BY_NAME = '[DIRECTIONAL] QUERY_AREAS_BY_NAME',
@@ -17,9 +19,22 @@ export class DirectionalInit implements Action {
   readonly type = DirectionalActionTypes.DIRECTIONAL_INIT;
 }
 
+// effects 数据初始化 lbs
+export class LbsCityInit implements Action {
+  readonly type = DirectionalActionTypes.LBS_CITY_INIT;
+}
+
 // 定向数据赋值
 export class DirectionalAssign implements Action {
   readonly type = DirectionalActionTypes.DIRECTIONAL_ASSIGN;
+
+  constructor(public payload: any) {
+  }
+}
+
+// 定向数据赋值 LBS
+export class LbsCityAssign implements Action {
+  readonly type = DirectionalActionTypes.LBS_CITY_ASSIGN;
 
   constructor(public payload: any) {
   }
@@ -90,6 +105,8 @@ export class CheckAudiencesChange implements Action{
 export type DirectionalActionUnion
   = DirectionalAssign
   | DirectionalInit
+  | LbsCityAssign
+  | LbsCityInit
   | AreasNextChild
   | CheckAreasChange
   | QueryAreasByName
