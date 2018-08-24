@@ -8,7 +8,7 @@ import {PublicService} from '../../../service/public.service';
   selector: 'app-index',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush,  // 数据手动刷新
+  // changeDetection: ChangeDetectionStrategy.OnPush,  // 数据手动刷新
   preserveWhitespaces: false,
 })
 export class IndexComponent extends BaseIndexComponent  implements OnInit {  // BaseIndexComponent直接一个类

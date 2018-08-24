@@ -24,9 +24,7 @@ import {LoadingModule} from '../components/loading/loading.module';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-
     Module,
-
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({

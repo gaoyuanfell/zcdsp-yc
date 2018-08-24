@@ -16,6 +16,7 @@ export class BaseIndexComponent {
   hobbyDataEcharts;
   @ViewChild('chinaDataChart') chinaDataChartRef: ElementRef;
   chinaDataEcharts;
+  @ViewChild('AgeWidth') AgeWidth: ElementRef;
   color = ['#ff7f24', '#1fcf88', '#f14c5d', '#3c61ff', '#F5CDFF', '#8c5cff', '#ffba48', '#FF86A1', '#d6ca00', '#FF0C35', '#33bcfb', '#047962'];
 
   constructor(
@@ -640,7 +641,9 @@ export class BaseIndexComponent {
   hobby;
   hobbyTotal = 0;
   top_area_data;
-  all_area_data
+  all_area_data;
+  age;
+  ageTotal = 0;
   initData() {
     this._publicService.allNetWork().subscribe(res => {
       this.all_ad_Flow = res.result.all_ad_Flow; // 平台实时流量
@@ -760,6 +763,17 @@ export class BaseIndexComponent {
           }
         ]
       });
+
+
+      // 年龄
+      this.age = res.result.age;
+      this.age.forEach((item, index) => {
+        this.ageTotal = this.ageTotal + item.age_proportion;
+          index = +index + 1;
+          item.src = "assets/index/" + index  + ".png"
+      })
+      console.log(this.age)
+
     });
   }
   _getSexStyle(index) {
@@ -767,6 +781,22 @@ export class BaseIndexComponent {
       'top.px': index % 3 * 12,
       'left.px': Math.floor(index / 3) * 12
     };
+  }
+
+  _getAgeStyle(index) {
+    this.changeDetectorRef.markForCheck();
+    if (this.AgeWidth) {
+      console.log(this.AgeWidth.nativeElement.offsetWidth)
+      let width = this.AgeWidth.nativeElement.offsetWidth;
+      console.log(width)
+      console.log( (width / 2) )
+      console.log( width * index + (width / 2) )
+      return {
+        'left.px': width * index + (width / 0.1 * 0.03) * index
+      };
+
+    }
+
   }
 
   get180() {

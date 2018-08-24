@@ -272,10 +272,38 @@
             年龄分布<i class="icon-tool-help"></i>
           </div>
         </div>
-        <div class="main">
-          <div class="echart">
+        <div class="main age" style="padding:0;">
+          <div class="item">
+
+            <div *ngFor="let x of age; let i = index" class="item-parent" [ngStyle]="_getAgeStyle(i)" #AgeWidth>
+              <div class="item1"  >
+                <div>{{x.age_proportion / ageTotal * 100 | number: '1.2-2' }}%</div>
+                <div>
+                  <div></div>
+                  <div></div>
+                  <div><img [src]="x.src"></div>
+                </div>
+                <div>{{x.age_part}}</div>
+              </div>
+              <div class="item1">
+                <div [ngStyle]="{'height.px': x.age_proportion / ageTotal * 100}">
+                  <div></div>
+                  <div></div>
+                </div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
 
           </div>
+          <div class="item">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+
         </div>
       </div>
     </div>
