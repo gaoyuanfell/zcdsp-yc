@@ -459,6 +459,15 @@
       height:9px;
       border: 1px solid red;
       margin-right: 3px;
+      &.blue {
+        background-color: blue;
+      }
+      &.purple {
+        background-color: purple;
+      }
+      &.gray {
+        background-color: gray;
+      }
     }
   }
 
@@ -775,6 +784,19 @@
       }
     }
   }
+}
+
+.originality {
+   > .main {
+     .list {
+       .all,ui > li{
+         cursor: pointer;
+         &.active {
+           background-color: #d7ecff;
+         }
+       }
+     }
+   }
 }
 
 
