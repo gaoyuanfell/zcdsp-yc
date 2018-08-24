@@ -3,6 +3,12 @@ import {PublicService} from '../../service/public.service';
 import * as chinaJson from 'echarts/map/json/china.json';
 
 export class BaseIndexComponent {
+  // 曝光总量
+  @ViewChild('todayAllSpendChartSmall') todayAllSpendChartSmallRef: ElementRef;
+  todayAllSpendChartSmalls;
+  // 点击总量
+  @ViewChild('todayAllSpendChartLine') todayAllSpendChartLineRef: ElementRef;
+  todayAllSpendChartLines;
   @ViewChild('todayReportChart') todayReportChartRef: ElementRef;
   todayReportEcharts;
   @ViewChild('todayAllDataChart') todayAllDataChartRef: ElementRef;
@@ -322,6 +328,74 @@ export class BaseIndexComponent {
     );
   }
 
+
+  /**
+   * 曝光总量
+   */
+  todayAllSpendChartSmall() {
+    const todayAllSpendChartSmallRef = this.todayAllSpendChartSmalls = echarts.init(this.todayAllSpendChartSmallRef.nativeElement);
+    todayAllSpendChartSmallRef.setOption(
+      {
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: '#fff',
+          borderWidth: 1,
+          borderColor: '#ccc',
+          padding: [10, 8],
+          textStyle: {
+            color: 'black',
+            fontSize: 10,
+            fontFamily: '微软雅黑 Regular'
+          },
+          formatter: function (params) {
+            let str = '';
+            str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
+            str = str +  `
+              <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${params[0].color}"></div>
+              ${params[0].seriesName}<span style="margin-right:20px"></span>${params[0].data}
+              `
+            return str;
+          }
+        },
+        color: ['#31c38f'],
+        xAxis: {
+          type: 'category',
+          axisTick: {
+            show: false,
+          },
+          axisLine: {
+            show: false,
+          },
+
+          show:false,
+
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+          show:false,  // x,y周数据全部去掉 线也去 网格线也去
+          type: 'value',
+          axisTick: {
+            show: false,
+          },
+          axisLine: {
+            show: false,
+          },
+        },
+        series: [{
+          barWidth: '30%',
+          itemStyle: {
+            normal: {
+              // barBorderRadius:[10, 10, 0, 0]
+            }
+          },
+          data: [120, 200, 150, 80, 70, 110, 130],
+          type: 'bar'
+        }]
+      }
+    );
+  }
+
+
   /**
    * 今日在投创意 今日在投活动 类型切换
    * @param echartsInstance
@@ -594,6 +668,72 @@ export class BaseIndexComponent {
   }
 
   /**
+   * 首页点击总量
+   * @param echartsInstance
+   * @param data
+   * @param type
+   */
+  todayAllSpendChartLine() {
+    const todayAllSpendChartLine = this.todayAllSpendChartLines = echarts.init(this.todayAllSpendChartLineRef.nativeElement);
+    todayAllSpendChartLine.setOption(
+      {
+        color: ['#975fe4'],
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: '#fff',
+          borderWidth: 1,
+          borderColor: '#ccc',
+          padding: [10, 8],
+          textStyle: {
+            color: 'black',
+            fontSize: 10,
+            fontFamily: '微软雅黑 Regular'
+          },
+          formatter: function (params, ticket, callback) {
+            let str = '';
+            str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
+            if (params.length > 1) {
+              params.forEach( item => {
+                // 模板字符串
+                str = str + `
+                <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${item.color}"></div>
+                ${item.seriesName}<span style="margin-right:20px"></span>${item.data}<div style="margin-top:5px"></div>
+              `;
+                /*str = str + '<div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: "' + params.color + ' ></div>' +
+                  item.seriesName + '<span style="margin-right:20px"></span>' + item.data + '<div style="margin-top:5px"></div>';*/
+              });
+            } else {
+              str = str +  `
+              <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${params[0].color}"></div>
+              ${params[0].seriesName}<span style="margin-right:20px"></span>${params[0].data}
+              `
+            }
+            return str;
+          }
+        },
+        xAxis: {
+          show: false,
+          type: 'category',
+          boundaryGap: false,
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+          show: false,
+          type: 'value'
+        },
+        series: [{
+
+          symbol:'circle',
+          symbolSize: 8,//拐点大小
+          data: [820, 932, 901, 934, 1290, 1330, 1320],
+          type: 'line',
+          areaStyle: {}
+        }]
+      }
+  );
+  }
+
+  /**
    *   地域流量分布图
    */
   chinaDataChart() {
@@ -659,6 +799,37 @@ export class BaseIndexComponent {
           series : [
             {
               data:this.all_ad_Flow.y.req_num,
+            }
+          ]
+        }
+      )
+      // 曝光总量
+      this.todayAllSpendChartSmalls.setOption(
+        {
+          xAxis : [
+            {
+              data : this.ad_total_echarts.x,
+            }
+          ],
+          series : [
+            {  // 模拟的数据
+              // data:this.ad_total_echarts.y.pv,
+            }
+          ]
+        }
+      )
+
+      // 点击总量
+      this.todayAllSpendChartLines.setOption(
+        {
+          xAxis : [
+            {
+              data : this.ad_total_echarts.x,
+            }
+          ],
+          series : [
+            {  // 模拟的数据
+              // data:this.ad_total_echarts.y.pv,
             }
           ]
         }
@@ -786,17 +957,11 @@ export class BaseIndexComponent {
   _getAgeStyle(index) {
     this.changeDetectorRef.markForCheck();
     if (this.AgeWidth) {
-      console.log(this.AgeWidth.nativeElement.offsetWidth)
       let width = this.AgeWidth.nativeElement.offsetWidth;
-      console.log(width)
-      console.log( (width / 2) )
-      console.log( width * index + (width / 2) )
       return {
         'left.px': width * index + (width / 0.1 * 0.03) * index
       };
-
     }
-
   }
 
   get180() {
