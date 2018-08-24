@@ -1,0 +1,27 @@
+.drop-menu-box {
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  min-width: 160px;
+  width: auto;
+  max-width: 300px;
+  max-height: 300px;
+  overflow-y: auto;
+  > li.item {
+    background: #fff;
+    padding: 5px 12px;
+    white-space: nowrap;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 22px;
+    transition: background .3s ease;
+    &:first-child {
+      border-radius: 4px 4px 0 0;
+    }
+    &:last-child {
+      border-radius: 0 0 4px 4px;
+    }
+    &:hover, &.active {
+      background-color: #e6f7ff;
+    }
+  }
+}

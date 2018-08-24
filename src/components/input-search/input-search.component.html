@@ -1,0 +1,4 @@
+<div class="icon-input">
+  <input type="text" #input [placeholder]="placeholder" [(ngModel)]="_value" (keyup.enter)="search()" (focus)="input.select()">
+  <i (click)="search()"></i>
+</div>

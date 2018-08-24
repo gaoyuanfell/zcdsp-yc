@@ -1,0 +1,472 @@
+<div class="container-full overflow-x">
+
+  <div class="brick-box flex">
+    <div class="brick-list overflow-y">
+
+      <div class="brick-group-name">
+        内容
+      </div>
+
+      <div class="flex-wrap-center" style="width: 223px">
+
+        <div class="brick-item" (click)="pushBrick('paragraph')">
+          <p class="img-box">
+            <i class="brick-icon icon-paragraph"></i>
+          </p>
+          <p class="text-box">文本</p>
+        </div>
+
+        <div class="brick-item" (click)="pushBrick('square')">
+          <p class="img-box">
+            <i class="brick-icon icon-button"></i>
+          </p>
+          <p class="text-box">正方形</p>
+        </div>
+
+        <div class="brick-item" (click)="pushBrick('image')">
+          <p class="img-box">
+            <i class="brick-icon icon-image"></i>
+          </p>
+          <p class="text-box">图片</p>
+        </div>
+
+      </div>
+
+      <div class="brick-group-name">
+        操作
+      </div>
+
+      <div class="form-group flex-center">
+        <label class="form-label">模板分类</label>
+        <div class="form-input">
+          <yc-select [searchCtrl]="true" [list]="templateTypeList" [props]="{label: 'meaning', value: 'lookup_code'}" [(ngModel)]="canvasBox.template_type"></yc-select>
+        </div>
+      </div>
+
+      <div class="form-group flex-center">
+        <label class="form-label">宽</label>
+        <div class="form-input">
+          <input class="form-control" type="number" [(ngModel)]="canvasBox.width">
+        </div>
+      </div>
+
+      <div class="form-group flex-center">
+        <label class="form-label">高</label>
+        <div class="form-input">
+          <input class="form-control" type="number" [(ngModel)]="canvasBox.height">
+        </div>
+      </div>
+
+      <div class="form-group flex-center">
+        <div class="form-input">
+          <button class="btn" (click)="toImage()">查看图片</button>
+          <button class="btn m-l-1" (click)="getData()">提交</button>
+        </div>
+      </div>
+
+      <div class="form-group flex-center">
+        <div class="form-input">
+          <button class="btn" (click)="remove()">全部清空</button>
+        </div>
+      </div>
+
+      <div class="brick-group-name">
+        已有元素
+      </div>
+
+      <ng-template [ngForOf]="brickList" ngFor let-bl let-index="index">
+        <div [ngSwitch]="bl.type" class="brick-now">
+
+          <ng-template ngSwitchCase="paragraph">
+            {{index + 1}}：<i class="brick-now-icon icon-paragraph" (click)="settingCache = bl"></i> <span (click)="removeBrick(bl)" class="brick-remove"></span>
+          </ng-template>
+          <ng-template ngSwitchCase="square">
+            {{index + 1}}：<i class="brick-now-icon icon-button" (click)="settingCache = bl"></i> <span (click)="removeBrick(bl)" class="brick-remove"></span>
+          </ng-template>
+          <ng-template ngSwitchCase="image">
+            {{index + 1}}：<i class="brick-now-icon icon-image" (click)="settingCache = bl"></i> <span (click)="removeBrick(bl)" class="brick-remove"></span>
+          </ng-template>
+
+        </div>
+      </ng-template>
+
+    </div>
+
+    <div class="brick-canvas-box flex-center">
+
+      <div class="brick-wrapper">
+        <div class="brick-canvas" id="brick-canvas" [ngStyle]="canvasBoxStyle" #brickCanvas>
+
+          <ng-template ngFor [ngForOf]="brickList" let-ele>
+
+            <div [ngSwitch]="ele.type">
+
+              <p *ngSwitchCase="'paragraph'" [ngStyle]="ele.style" (click)="settingCache = ele">{{ele.value}}</p>
+
+              <div *ngSwitchCase="'image'" [ngStyle]="ele.style" (click)="settingCache = ele">
+                <img *ngIf="ele.value" [src]="ele.$value" [ngStyle]="ele.imgStyle">
+              </div>
+
+              <div *ngSwitchCase="'square'" [ngStyle]="ele.style" (click)="settingCache = ele"></div>
+
+            </div>
+
+          </ng-template>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="setting-panel overflow-y">
+      <ng-template [ngIf]="settingCache">
+
+        <button class="btn" (click)="removeBrick()">移除</button>
+
+        <div [ngSwitch]="settingCache.type">
+          <!--字体-->
+          <ng-template [ngSwitchCase]="'paragraph'">
+            <div class="setting-title">
+              主体设置
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">内容</label>
+              <div class="form-input">
+                <input class="form-control" type="text" [(ngModel)]="settingCache.value">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">字体颜色</label>
+              <div class="form-input">
+                <input class="form-control" type="color" [(ngModel)]="settingCache.style.color">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">字体大小</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['font-size.px']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">加粗</label>
+              <div class="form-input">
+                <yc-checkbox [(ngModel)]="settingCache.style.fontWeight" (ngModelChange)="settingCache.style['font-weight'] = settingCache.style.fontWeight?'bold':''"></yc-checkbox>
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">斜体</label>
+              <div class="form-input">
+                <yc-checkbox [(ngModel)]="settingCache.style.fontStyle" (ngModelChange)="settingCache.style['font-style'] = settingCache.style.fontStyle?'oblique':''"></yc-checkbox>
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">下划线</label>
+              <div class="form-input">
+                <yc-checkbox [(ngModel)]="settingCache.style.textDecoration" (ngModelChange)="settingCache.style['text-decoration'] = settingCache.style.textDecoration?'underline':''"></yc-checkbox>
+              </div>
+            </div>
+            <div class="setting-title">
+              定位设置
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">上</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['top.px']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">左</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['left.px']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">下</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['bottom.px']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">右</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['right.px']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">上下居中</label>
+              <div class="form-input">
+                <yc-checkbox [(ngModel)]="settingCache.upDownMiddle" (ngModelChange)="upDownMiddle()"></yc-checkbox>
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">左右居中</label>
+              <div class="form-input">
+                <yc-checkbox [(ngModel)]="settingCache.leftRightMiddle" (ngModelChange)="leftRightMiddle()"></yc-checkbox>
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">层级</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['z-index']" (ngModelChange)="settingCache.style['z-index'] > _zIndex?(_zIndex = settingCache.style['z-index']):0">
+              </div>
+            </div>
+          </ng-template>
+          <!--正放型-->
+          <ng-template [ngSwitchCase]="'square'">
+            <div class="setting-title">
+              主体设置
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">宽</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['width.px']" (ngModelChange)="leftRightMiddle()">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">高</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['height.px']" (ngModelChange)="upDownMiddle()">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">背景颜色</label>
+              <div class="form-input">
+                <input type="color" [(ngModel)]="settingCache.style['background-color']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">透明度</label>
+              <div class="form-input">
+                <input type="range" step="0.01" min="0" max="1" [(ngModel)]="settingCache.style['opacity']">
+              </div>
+            </div>
+            <div class="setting-title">
+              定位设置
+            </div>
+
+            <div class="form-group flex-center">
+              <label class="form-label">上</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['top.px']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">左</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['left.px']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">下</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['bottom.px']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">右</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['right.px']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">上下居中</label>
+              <div class="form-input">
+                <yc-checkbox [(ngModel)]="settingCache.upDownMiddle" (ngModelChange)="upDownMiddle()"></yc-checkbox>
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">左右居中</label>
+              <div class="form-input">
+                <yc-checkbox [(ngModel)]="settingCache.leftRightMiddle" (ngModelChange)="leftRightMiddle()"></yc-checkbox>
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">层级</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['z-index']" (ngModelChange)="settingCache.style['z-index'] > _zIndex?(_zIndex = settingCache.style['z-index']):0">
+              </div>
+            </div>
+            <div class="setting-title">
+              边框设置
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">圆角</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['border-radius.px']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">边框颜色</label>
+              <div class="form-input">
+                <input class="form-control" type="color" [(ngModel)]="settingCache.style['border-color']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">边框宽度</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['border-width.px']">
+              </div>
+            </div>
+            <!--<div class="form-group flex-center">
+              <label class="form-label">边框样式</label>
+              <div class="form-input">
+                <yc-select [list]="[{label: '实线', value: 'solid'},{label: '虚线', value: 'dashed'}]" [(ngModel)]="settingCache.style['border-style']"></yc-select>
+              </div>
+            </div>-->
+          </ng-template>
+          <!--图片-->
+          <ng-template [ngSwitchCase]="'image'">
+            <div class="setting-title">
+              主体设置
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">图片</label>
+              <div class="form-input">
+                <button class="btn" yc-file-upload (eventChange)="imageLoad($event, settingCache, 'value')">文件上传</button>
+                <!--
+                <input type="file" [(ngModel)]="settingCache.files" (change)="imageLoad($event.target.files, settingCache, 'value')">-->
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">宽</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['width.px']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">高</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['height.px']">
+              </div>
+            </div>
+
+            <ng-template [ngIf]="settingCache.value">
+              <div class="setting-title">
+                底图设置
+              </div>
+
+              <div class="form-group flex-center">
+                <label class="form-label">宽</label>
+                <div class="form-input">
+                  <input class="form-control" type="number" [(ngModel)]="settingCache.imgStyle['width.px']" (ngModelChange)="imgStyleWidthChange()">
+                </div>
+              </div>
+              <div class="form-group flex-center">
+                <label class="form-label">高</label>
+                <div class="form-input">
+                  <input class="form-control" type="number" [(ngModel)]="settingCache.imgStyle['height.px']" (ngModelChange)="imgStyleHeightChange()">
+                </div>
+              </div>
+              <div class="form-group flex-center">
+                <label class="form-label">上</label>
+                <div class="form-input">
+                  <input class="form-control" type="number" [(ngModel)]="settingCache.imgStyle['top.px']">
+                </div>
+              </div>
+              <div class="form-group flex-center">
+                <label class="form-label">左</label>
+                <div class="form-input">
+                  <input class="form-control" type="number" [(ngModel)]="settingCache.imgStyle['left.px']">
+                </div>
+              </div>
+              <div class="form-group flex-center">
+                <label class="form-label">下</label>
+                <div class="form-input">
+                  <input class="form-control" type="number" [(ngModel)]="settingCache.imgStyle['bottom.px']">
+                </div>
+              </div>
+              <div class="form-group flex-center">
+                <label class="form-label">右</label>
+                <div class="form-input">
+                  <input class="form-control" type="number" [(ngModel)]="settingCache.imgStyle['right.px']">
+                </div>
+              </div>
+              <div class="form-group flex-center">
+                <label class="form-label">透明度</label>
+                <div class="form-input">
+                  <input type="range" step="0.01" min="0" max="1" [(ngModel)]="settingCache.imgStyle['opacity']">
+                </div>
+              </div>
+
+            </ng-template>
+
+            <div class="setting-title">
+              定位设置
+            </div>
+
+            <div class="form-group flex-center">
+              <label class="form-label">上</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['top.px']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">左</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['left.px']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">下</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['bottom.px']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">右</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['right.px']">
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">上下居中</label>
+              <div class="form-input">
+                <yc-checkbox [(ngModel)]="settingCache.upDownMiddle" (ngModelChange)="upDownMiddle()"></yc-checkbox>
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">左右居中</label>
+              <div class="form-input">
+                <yc-checkbox [(ngModel)]="settingCache.leftRightMiddle" (ngModelChange)="leftRightMiddle()"></yc-checkbox>
+              </div>
+            </div>
+            <div class="form-group flex-center">
+              <label class="form-label">层级</label>
+              <div class="form-input">
+                <input class="form-control" type="number" [(ngModel)]="settingCache.style['z-index']" (ngModelChange)="settingCache.style['z-index'] > _zIndex?(_zIndex = settingCache.style['z-index']):0">
+              </div>
+            </div>
+
+            <div class="setting-title">
+              其他设置
+            </div>
+
+            <div class="form-group flex-center">
+              <label class="form-label">是否logo</label>
+              <div class="form-input">
+                <yc-checkbox [(ngModel)]="settingCache.has_logo"></yc-checkbox>
+              </div>
+            </div>
+            <div class="form-group flex-center" *ngIf="settingCache.img">
+              <label class="form-label">是否背景图</label>
+              <div class="form-input">
+                <yc-checkbox [(ngModel)]="settingCache.is_background" (ngModelChange)="isBackgroundChange()"></yc-checkbox>
+              </div>
+            </div>
+          </ng-template>
+
+        </div>
+
+      </ng-template>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #imgBoxRef>
+  <div style="max-width: 800px;max-height: 800px;">
+    <img style="max-width: 100%;max-height: 100%;" *ngIf="imgLink" [src]="imgLink">
+  </div>
+</ng-template>
+
+

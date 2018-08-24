@@ -1,0 +1,1 @@
+<yc-radio *ngFor="let r of list" [label]="r[_props.label]" [value]="r[_props.value]" [name]="name" [desc]="r[_props.desc]" [(ngModel)]="value" (change)="change()" [disabled]="disabled || r[_props.disabled]"></yc-radio>

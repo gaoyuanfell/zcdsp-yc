@@ -1,0 +1,49 @@
+<div class="schedule">
+  <ul class="schedule-header">
+    <li class="info">
+      星期\时间
+    </li>
+    <li class="time">
+      <div class="num">00:00 - 11:00</div>
+      <ul class="detail">
+        <li class="digital" *ngFor="let n of [0,1,2,3,4,5,6,7,8,9,10,11]">{{n}}</li>
+      </ul>
+    </li>
+    <li class="time">
+      <div class="num">11:00 - 23:00</div>
+      <ul class="detail">
+        <li class="digital" *ngFor="let n of [12,13,14,15,16,17,18,19,20,21,22,23]">{{n}}</li>
+      </ul>
+    </li>
+  </ul>
+  <div class="schedule-content">
+    <ul class="week">
+      <li class="day" *ngFor="let w of _week">{{w}}</li>
+    </ul>
+    <ul class="box-zone" (mouseleave)="_timeMouseleave($event)">
+      <li class="box" [ngStyle]="{'width.px':26 * grain}" style="font-size: 12px;text-align: center;"
+          *ngFor="let time of timeGrain"
+          (click)="_timeClick(time,$event)"
+          (mouseover)="_timeMouseover(time,$event)"
+          (mousedown)="_timeMousedown(time,$event)"
+          (mouseup)="_timeMouseup(time,$event)"
+          [title]="time.title"
+          [class.active]="time.active">
+      </li>
+    </ul>
+  </div>
+  <div class="schedule-tipline">
+    <span>快速设定：</span>
+    <a class="emptied" (click)="_quickSetting(1)">全周投放</a>
+    <a class="emptied" (click)="_quickSetting(2)">周一到周五投放</a>
+    <a class="emptied" (click)="_quickSetting(3)">周末投放</a>
+    <a class="emptied" (click)="_clear()">清空</a>
+
+    <span class="color-box"></span>
+    <span>暂停</span>
+    <span class="color-box color-blue"></span>
+    <span>投放</span>
+    <span class="weektip">可拖动鼠标选择时间段</span>
+
+  </div>
+</div>
