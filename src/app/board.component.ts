@@ -33,7 +33,7 @@ export class BoardComponent implements OnInit {
   currentPic = 0
   num = 0
   user: any = {}
-  flag: false;
+  flags = false;
   ngOnInit(): void {
     this.renderer.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
       if (event.target.scrollTop > 180) {
@@ -87,8 +87,7 @@ export class BoardComponent implements OnInit {
     if (!this.user.name || !this.user.phone) {
       alert('不能为空（必填）')
     }else {
-      this.flag = true
+      this.flags = !this.flags
     }
-
   }
 }
