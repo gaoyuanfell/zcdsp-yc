@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, ElementRef, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {PublicService} from '../../service/public.service';
 import * as chinaJson from 'echarts/map/json/china.json';
 
-export class BaseIndexComponent {
+export class BaseIndexComponent implements OnInit{
   // 曝光总量
   @ViewChild('todayAllSpendChartSmall') todayAllSpendChartSmallRef: ElementRef;
   todayAllSpendChartSmalls;
@@ -25,10 +25,20 @@ export class BaseIndexComponent {
   @ViewChild('AgeWidth') AgeWidth: ElementRef;
   color = ['#ff7f24', '#1fcf88', '#f14c5d', '#3c61ff', '#F5CDFF', '#8c5cff', '#ffba48', '#FF86A1', '#d6ca00', '#FF0C35', '#33bcfb', '#047962'];
 
+  todayAllSpend = 'cpm';
   constructor(
     protected changeDetectorRef: ChangeDetectorRef,
     protected _publicService: PublicService,
+    protected  render: Renderer2
   ) { }
+
+  ngOnInit() {
+    console.log('hahha')
+    this.render.listen('window', 'resize', (res) => {
+      console.dir(res)
+
+    })
+  }
 
 
   /**
@@ -135,6 +145,9 @@ export class BaseIndexComponent {
         }
       ]
     });
+    window.addEventListener('resize', () => {
+      todayReportChartRef.resize();
+    });
   }
 
   /**
@@ -231,6 +244,9 @@ export class BaseIndexComponent {
         ]
       }
       );
+    window.addEventListener('resize', () => {
+      todayAllDataChartRef.resize();
+    });
   }
 
   /**
@@ -312,7 +328,8 @@ export class BaseIndexComponent {
           {
             name:'直接访问',
             type:'bar',
-            barWidth: '10%',
+            barWidth: '7px',
+            // barWidth: '10%',
             itemStyle: {
               normal: {
                 color: function (params) {
@@ -326,6 +343,9 @@ export class BaseIndexComponent {
         ]
       }
     );
+    window.addEventListener('resize', () => {
+      todayAllSpendChartRef.resize();
+    });
   }
 
 
@@ -510,6 +530,32 @@ export class BaseIndexComponent {
     echartsInstance.setOption(option);
   }
 
+  /**
+   * 数据趋势表格数据处理
+   * @param echartsInstance
+   * @param data
+   * @param type
+   */
+  dayTotalList: any = [];
+  changeDayTotalList(chartDatas){
+    let x = chartDatas.x;
+    let y = chartDatas.y;
+    let list = [];
+    x.forEach((item,index) => {
+        list.push({
+          'time': x[index],
+          'admoney': y.admoney[index],
+          'click': y.click[index],
+          'cpc': y.cpc[index],
+          'cpm': y.cpm[index],
+          'ctr': y.ctr[index],
+          'pv': y.pv[index]
+        })
+    })
+    this.dayTotalList = list;
+
+  }
+
 
   /**
    * 移动设备偏好
@@ -665,6 +711,9 @@ export class BaseIndexComponent {
         ]
       }
   );
+    window.addEventListener('resize', () => {
+      hobbyData.resize();
+    });
   }
 
   /**
@@ -731,6 +780,9 @@ export class BaseIndexComponent {
         }]
       }
   );
+    window.addEventListener('resize', () => {
+      todayAllSpendChartLine.resize();
+    });
   }
 
   /**
@@ -766,6 +818,9 @@ export class BaseIndexComponent {
         data: []
       }]
     })
+    window.addEventListener('resize', () => {
+      chinaDataEcharts.resize();
+    });
   }
 
   /**
@@ -784,6 +839,16 @@ export class BaseIndexComponent {
   all_area_data;
   age;
   ageTotal = 0;
+  //
+  gender;
+  genderMan;
+  genderWoman;
+  genderTotal = 0;
+  genderUndefined;
+  manPro;
+  womanPro
+  undefinedPro;
+  //
   initData() {
     this._publicService.allNetWork().subscribe(res => {
       this.all_ad_Flow = res.result.all_ad_Flow; // 平台实时流量
@@ -803,55 +868,12 @@ export class BaseIndexComponent {
           ]
         }
       )
-      // 曝光总量
-      this.todayAllSpendChartSmalls.setOption(
-        {
-          xAxis : [
-            {
-              data : this.ad_total_echarts.x,
-            }
-          ],
-          series : [
-            {  // 模拟的数据
-              // data:this.ad_total_echarts.y.pv,
-            }
-          ]
-        }
-      )
-
-      // 点击总量
-      this.todayAllSpendChartLines.setOption(
-        {
-          xAxis : [
-            {
-              data : this.ad_total_echarts.x,
-            }
-          ],
-          series : [
-            {  // 模拟的数据
-              // data:this.ad_total_echarts.y.pv,
-            }
-          ]
-        }
-      )
-
       this.changeDayTotalChart(this.todayAllSpendEcharts, this.ad_total_echarts, this.todayAllSpend)
 
     });
     this._publicService.otherData().subscribe(res => {
       this.changeDetectorRef.markForCheck();
-      // 性别
-      // this.gender = res.result.gender;
-      // this.gender.forEach((item) => {
-      //   if (item.gender === '男') {
-      //     this.genderMan = item.gender_proportion;
-      //   } else {
-      //     this.genderWoman = item.gender_proportion;
-      //   }
-      //   this.genderTotal = this.genderTotal + item.gender_proportion;
-      // })
-      // this.manPro = Number((this.genderMan / this.genderTotal).toFixed(2));
-      // this.womanPro = Number((this.genderWoman / this.genderTotal).toFixed(2));
+
 
 
       // 手机品牌
@@ -943,32 +965,65 @@ export class BaseIndexComponent {
           index = +index + 1;
           item.src = "assets/index/" + index  + ".png"
       })
-      console.log(this.age)
 
+      // 性别
+      this.gender = res.result.gender;
+      this.gender.forEach((item) => {
+        if (item.gender === '男') {
+          item.src = "src/assets/index/man.png";
+          this.genderMan = item.gender_proportion;
+        } else if (item.gender === '女'){
+          item.src = "src/assets/index/woman.png";
+          this.genderWoman = item.gender_proportion;
+        } else {
+          item.src = "src/assets/index/undefined.png";
+          this.genderUndefined = item.gender_proportion;
+        }
+        this.genderTotal = this.genderTotal + item.gender_proportion;
+      })
+      this.manPro = Number((this.genderMan / this.genderTotal).toFixed(2));
+      this.womanPro = Number((this.genderWoman / this.genderTotal).toFixed(2));
+      this.undefinedPro = Number((this.genderUndefined / this.genderTotal).toFixed(2));
     });
   }
+
+  @ViewChild('SexWidth') SexWidth: ElementRef;
   _getSexStyle(index) {
-    return {
-      'top.px': index % 3 * 12,
-      'left.px': Math.floor(index / 3) * 12
-    };
+      return {
+        'top.px': index % 3 * 12,
+        'left.px': Math.floor(index / 3) * 12
+      };
   }
 
   _getAgeStyle(index) {
-    this.changeDetectorRef.markForCheck();
     if (this.AgeWidth) {
       let width = this.AgeWidth.nativeElement.offsetWidth;
       return {
         'left.px': width * index + (width / 0.1 * 0.03) * index
       };
+    } else {
+       return {}
     }
   }
 
+  sexCount = 180;
   get180() {
-    let x = 120;
+    let x = this.sexCount ? this.sexCount : 180;
     let arr = [];
-    for (let i = 0; i < x; i ++) {
-      arr.push(i);
+    let obj = {};
+    if(this.manPro) {
+      let manCount = this.manPro * x;
+      let undefinedCount = this.undefinedPro * x;
+      for (let i = 0; i < x; i++) {
+        if (i < undefinedCount) {    // 未知
+          obj = {'value': i, 'type': 'undefined'}
+        } else if (i >= undefinedCount && i < manCount + undefinedCount) {
+          obj = {'value': i, 'type': 'man'}
+        } else {
+          obj = {'value': i, 'type': 'woman'}
+        }
+        arr.push(obj);
+      }
     }
     return arr;
   }
@@ -985,5 +1040,73 @@ export class BaseIndexComponent {
       dataIndex: index,
     });
   }
+
+  // 处理列表
+  /**
+   * 今日在投创意 今日在投活动   近期出具趋势 处理列表
+   * @param echartsInstance
+   * @param data
+   * @param type
+   */
+  creativeCode = 'pv';
+  creativeChartList: any = [];
+  campaignChartList; any = [];
+  campaignCode = 'pv';
+  changeCampaignAndCreativeList(chartDatas, code, type) {
+    let today =  chartDatas.y[code].today;
+    let yesterday = chartDatas.y[code].yesterday;
+    let unit = '次'
+    switch (code) {
+      case 'pv':
+      case 'click':
+        break;
+      case 'ctr': // 100
+        today = today.map(td => (td * 100).toFixed(2));
+        yesterday = yesterday.map(yd => (yd * 100 || 0).toFixed(2));
+        unit = '%';
+        break;
+      case 'cpm': // 1000
+        today = today.map(td => (td * 1000).toFixed(2));
+        yesterday = yesterday.map(yd => (yd * 1000 || 0).toFixed(2));
+        unit = '元';
+        break;
+      case 'cpc':
+      case 'admoney':
+        today = today.map(td => (td * 1).toFixed(2));
+        yesterday = yesterday.map(yd => (yd * 1 || 0).toFixed(2));
+        unit = '元';
+        break;
+    }
+    let list = [];
+    let obj = {};
+    chartDatas.x.forEach( (item, index) => {
+     list.push (
+       {
+         'time':  chartDatas.x[index],
+         'today': today[index],
+         'yesterday': yesterday[index],
+         'unit': unit
+       }
+     )
+   })
+    console.log(list)
+
+    obj = {
+      'first': list.slice(0,8),
+      'second': list.slice(8,16),
+      'third': list.slice(17,25)
+    }
+
+    if (type === 'creative') {
+      this.creativeChartList = obj;
+    } else if (type === 'campaign'){
+      this.campaignChartList = obj;
+      console.log(this.campaignChartList)
+    }
+
+  }
+
+
+
 
 }

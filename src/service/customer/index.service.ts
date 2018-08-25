@@ -39,7 +39,14 @@ export class IndexService extends ConfigService {
   campaignChart(body = {}) {
     return this.get(`/ads/home/campaign/chart`, body);
   }
-
+  /**
+   *  数据趋势
+   * @param {{}} body
+   * @returns {Observable<Result<any>>}
+   */
+  hourChart(body = {}) {
+    return this.get('/us/home/day/hourChart', body)
+  }
   /**
    * 首页今日在投创意投放列表数据接口
    * @param {{}} body
