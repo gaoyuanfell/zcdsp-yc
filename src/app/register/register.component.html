@@ -1,3 +1,35 @@
-<p>
-  register works!
+<div class="container">
+  <div class="register-main">
+    <div class="title">
+      <div class="logo"><img src="assets/img/index/logo1.png" alt=""></div>
+      <div class="home"><a href="#board.component.html">&lt;&lt;返回首页</a></div>
+    </div>
+    <div class="register-body">
+      <h1 class="top">欢迎注册<span>智橙移动</span>账号</h1>
+      <p class="forget"><a href="login.html" [routerLink]="['/login']" >立即登录</a></p>
+      <div class="from">
+        <div class="company">银橙（上海）信息技术有限公司</div>
+        <input type="text" class="name" placeholder="联系人">
+        <!--<p class="error"><img src="assets/img/index/tips.png" alt="">请输入联系人</p>-->
+        <input type="text" class="mail" placeholder="登录邮箱">
+        <!--<p class="error"><img src="assets/img/index/tips.png" alt="">请输入登录邮箱</p>-->
+        <input type="text" class="password" placeholder="输入密码">
+        <p class="tips">密码需为8~16位数字和字母的组合</p>
+        <!--<p class="error"><img src="assets/img/index/tips.png" alt="">请输入密码</p>-->
+        <input type="text" class="password" placeholder="请再次输入密码">
+        <!--<p class="error"><img src="assets/img/index/tips.png" alt="">请再次输入密码</p>-->
+        <input type="text" class="phone" placeholder="手机号码">
+        <!--<p class="error"><img src="assets/img/index/tips.png" alt="">请输入手机号码</p>-->
+        <div class="verification clear">
+          <input type="text" class="verifica" placeholder="获取验证码">
+          <button type="button" class="send">验证码</button>
+          <!--<p class="error"><img src="assets/img/index/tips.png" alt="">请输入验证码</p>-->
+        </div>
+        <button type="button" class="login">登录</button>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="footer">
+  Copyright (C) 2015~2018<a href="#">zcdsp.com</a>All Rights Reserved. 沪ICP备09044414号
 </p>

@@ -1,0 +1,214 @@
+.container{
+  width:100%;
+  height: 100%;
+  background: url("../../assets/img/index/dlbg.jpg") no-repeat;
+  background-size: 100% 100%;
+}
+.login-main{
+  width: 1200px;
+  min-height: 90%;
+  margin: auto;
+  background: #fff;
+  border-radius: 0 0 34px 34px;
+  text-align: center;
+}
+.title{
+  display: table;
+  width: 100%;
+  padding: 24px 40px 0 40px;
+  .logo{
+    display: table-cell;
+    text-align: left;
+  }
+  .home{
+    display: table-cell;
+    float: right;
+    vertical-align: middle;
+    a{
+      font-size: 16px;
+      color: #313a5a;
+    }
+  }
+}
+.login-body{
+  margin-top: 78px;
+  .top{
+    font-size: 28px;
+    color: #313a5a;
+    font-weight: normal;
+    margin-bottom: 120px;
+    span{
+      color: #0d98f3;
+    }
+  }
+  .forget{
+    width:438px;
+    margin:0 auto;
+    text-align: right;
+    margin-top: 20px;
+    font-size: 18px;
+    span{
+      cursor: pointer;
+      margin-right: 8px;
+      color: #83899c;
+    }
+    a{
+      color: #0d98f3;
+    }
+  }
+}
+.from{
+  width:438px;
+  margin:0 auto;
+  input{
+    width: 100%;
+    height:50px;
+    border:1px #d6d8de solid;
+    font-size: 18px;
+    color: #313a5a;
+    padding-left: 45px;
+    margin: 10px 0;
+  }
+  .name{
+    background: url("../../assets/img/index/yh1.png") 20px center no-repeat;
+  }
+  .password{
+    background: url("../../assets/img/index/mim.png") 20px center no-repeat;
+  }
+  .verifica{
+    background: url("../../assets/img/index/yz.png") 20px center no-repeat;
+    width: 300px;
+    float: left;
+  }
+  .verifica-img{
+    float: right;
+    margin-top: 10px;
+    border:1px #d6d8de solid;
+  }
+  .login{
+    margin-top: 50px;
+    width: 100%;
+    height: 64px;
+    line-height: 64px;
+    background: #0d98f3;
+    color: #fff;
+    font-size: 24px;
+    outline: none;
+    cursor: pointer;
+  }
+}
+.error{
+  text-align: left;
+  font-size: 14px;
+  color: #e61e1e;
+  img{
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+}
+.forget-body{
+  margin-top: 110px;
+  .top{
+    font-size: 28px;
+    color: #313a5a;
+    font-weight: normal;
+    margin-bottom: 38px;
+  }
+  .forget{
+    width:438px;
+    margin:0 auto;
+    text-align: right;
+    margin-top: 20px;
+    font-size: 18px;
+    span{
+      cursor: pointer;
+      margin-right:12px;
+      color: #83899c;
+    }
+    a{
+      color: #0d98f3;
+    }
+  }
+  .name{
+    background: url("../../assets/img/index/yh.png") 20px center no-repeat;
+  }
+  .verification{
+    margin-bottom: 20px;
+  }
+  .send{
+    float: right;
+    width: 120px;
+    height:50px;
+    line-height: 50px;
+    background: #86cbf9;
+    margin-top: 10px;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+  }
+  .login{
+    margin-top: 30px;
+  }
+  .radio{
+    margin: 10px 0;
+    text-align: left;
+  }
+  .radio_label{
+    position: relative;
+    padding-left:25px;
+    margin-right: 76px;
+    cursor: pointer;
+    &:last-child{
+      margin-right: 0;
+    }
+    input{
+      width: 18px;
+      height:18px;
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      top:-9px;
+      opacity: 0;
+    }
+    span{
+      position: absolute;
+      display: inline-block;
+      width: 18px;
+      height:18px;
+      background: url("../../assets/img/index/radio.png") no-repeat;
+      background-size: 100%;
+      left: 0;
+      top:0;
+    }
+    i{
+      color:#b2b6c2;
+    }
+    input:checked + span{
+      background-image: url("../../assets/img/index/radioactive.png");
+    }
+    input:checked + span + i{
+      color: #313a5a;
+    }
+  }
+  .text{
+    font-size: 20px;
+    color: #313a5a;
+    margin-top: 34px;
+    line-height: 1.5;
+  }
+}
+
+
+.footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: 14px;
+  color: #313a5a;
+  padding: 25px 0;
+  text-align: center;
+  a{
+    color: #313a5a;
+    margin: 0 8px;
+  }
+}

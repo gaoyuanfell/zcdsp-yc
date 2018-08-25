@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.less']
 })
 export class LoginComponent implements OnInit {
-
+  flags = false
   constructor() { }
 
   ngOnInit() {
+  }
+
+  radionum = 0
+  tableRadio(event, index){
+    event.stopPropagation();
+    event.preventDefault();
+    this.radionum = index
   }
 
 }
