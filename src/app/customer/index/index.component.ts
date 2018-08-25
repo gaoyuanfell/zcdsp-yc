@@ -30,6 +30,10 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   dayTotalChartData;
   dayTotalCode = 'pv';
 
+  //
+  userData;
+  chartsData;
+
 
   constructor(
     private _indexService: IndexService,
@@ -40,8 +44,6 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     super(changeDetectorRef, _publicService, render);  // 父亲也有constructor
   }
   ngOnInit(): void {
-    console.log('hahha')
-
     this.render.listen('window', 'resize', (res) => {
       console.dir(res)
       console.log(res.target.innerWidth)
@@ -55,9 +57,11 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       } else if (res.target.innerWidth < 1666 && res.target.innerWidth > 1366) {
         this.sexCount = 123;
       }
-
-
     })
+
+    // 上面数据的解析
+
+
 
     this.todayCreative();
     this.todayActivity();
@@ -73,21 +77,23 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     this.initData();
   }
   totalCodeList;
+  todayReportTop; //  今日曝光成本(天，小时)  今日点击成本 今日点击率
+  stateCount;
   _init() {
-
     // 上面几个的初始化
     this._indexService.init().subscribe(res => {
       this.totalCodeList = res.result.total_code;
+      this.chartsData = res.result.charts;
+      this.stateCount = res.result.creative_state_count;
     }, () => {
 
     });
     // const countSubscribe = new Subject(); // 计数器
     // 今日在投创意
     this._indexService.creativeList().subscribe(res => {
-      console.log(res)
+      this.changeDetectorRef.markForCheck();
       this.creativeListData = res.result.creatives;
       this.creativeChartData = res.result.charts;
-      this.changeDetectorRef.markForCheck();
       this.changeCampaignAndCreativeChart(this.todayCreativeEcharts, this.creativeChartData, this.creativeCode);
       // countSubscribe.next();
     }, () => {
@@ -96,20 +102,68 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
 
     // 今日在投活動
     this._indexService.campaignList().subscribe(res => {
+      this.changeDetectorRef.markForCheck();
       this.campaignListData = res.result.campaigns;
       this.campaignChartData = res.result.charts;
-      this.changeDetectorRef.markForCheck();
       this.changeCampaignAndCreativeChart(this.todayActivityEcharts, this.campaignChartData, this.campaignCode);
       // countSubscribe.next()
     }, () => {
       // countSubscribe.next()
     });
 
-    // 近期数据趋势
+    // 近期数据趋势 首页中上方的4个小格子中的曝光总量 点击总量也是根据数据趋势来的
     this._indexService.dayTotal().subscribe(res => {
+      this.changeDetectorRef.markForCheck();
       this.dayTotalListData = res.result.list.items;
       this.dayTotalChartData = res.result.chart;
-      this.changeDetectorRef.markForCheck();
+
+
+      //  this.dayTotalChartData 这个值会变，不能用， 因为在下面数据趋势中，你点击每一天,他就是每个时间段，你点击全部他就是每一天
+      //  曝光总量
+      this.todayAllSpendChartSmalls.setOption(
+        {
+          xAxis : [
+            {
+              data : res.result.chart.x,
+            }
+          ],
+          series : [
+            {
+              data: res.result.chart.y.pv
+            }
+          ]
+        }
+      )
+
+      // 点击总量
+      this.todayAllSpendChartLines.setOption(
+        {
+          xAxis : [
+            {
+              data : res.result.chart.x,
+            }
+          ],
+          series : [
+            {
+              data: res.result.chart.y.click
+            }
+          ]
+        }
+      )
+
+      // 这边因为当只有一天的时候，可能久显示小时了，但是不管是小时还是天，都显示最后一个数字
+      this.todayReportTop = {
+        todayCpm : res.result.chart.y.cpm[res.result.chart.y.cpm.length - 1],
+        yesCpm:  res.result.chart.y.cpm[res.result.chart.y.cpm.length - 2],
+        todayCpc:  res.result.chart.y.cpc[res.result.chart.y.cpc.length - 1],
+        yesCpc:  res.result.chart.y.cpc[res.result.chart.y.cpc.length - 2],
+        todayCtr:  res.result.chart.y.ctr[res.result.chart.y.ctr.length - 1],
+        yesCtr:  res.result.chart.y.ctr[res.result.chart.y.ctr.length - 2],
+      }
+
+
+
+
       this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode)
       // countSubscribe.next()
     }, () => {

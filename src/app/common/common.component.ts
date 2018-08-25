@@ -831,55 +831,12 @@ export class BaseIndexComponent implements OnInit{
           ]
         }
       )
-      // 曝光总量
-      this.todayAllSpendChartSmalls.setOption(
-        {
-          xAxis : [
-            {
-              data : this.ad_total_echarts.x,
-            }
-          ],
-          series : [
-            {  // 模拟的数据
-              // data:this.ad_total_echarts.y.pv,
-            }
-          ]
-        }
-      )
-
-      // 点击总量
-      this.todayAllSpendChartLines.setOption(
-        {
-          xAxis : [
-            {
-              data : this.ad_total_echarts.x,
-            }
-          ],
-          series : [
-            {  // 模拟的数据
-              // data:this.ad_total_echarts.y.pv,
-            }
-          ]
-        }
-      )
-
       this.changeDayTotalChart(this.todayAllSpendEcharts, this.ad_total_echarts, this.todayAllSpend)
 
     });
     this._publicService.otherData().subscribe(res => {
       this.changeDetectorRef.markForCheck();
-      // 性别
-      // this.gender = res.result.gender;
-      // this.gender.forEach((item) => {
-      //   if (item.gender === '男') {
-      //     this.genderMan = item.gender_proportion;
-      //   } else {
-      //     this.genderWoman = item.gender_proportion;
-      //   }
-      //   this.genderTotal = this.genderTotal + item.gender_proportion;
-      // })
-      // this.manPro = Number((this.genderMan / this.genderTotal).toFixed(2));
-      // this.womanPro = Number((this.genderWoman / this.genderTotal).toFixed(2));
+
 
 
       // 手机品牌
@@ -974,13 +931,15 @@ export class BaseIndexComponent implements OnInit{
 
       // 性别
       this.gender = res.result.gender;
-      console.log(this.gender)
       this.gender.forEach((item) => {
         if (item.gender === '男') {
+          item.src = "src/assets/index/man.png";
           this.genderMan = item.gender_proportion;
         } else if (item.gender === '女'){
+          item.src = "src/assets/index/woman.png";
           this.genderWoman = item.gender_proportion;
         } else {
+          item.src = "src/assets/index/undefined.png";
           this.genderUndefined = item.gender_proportion;
         }
         this.genderTotal = this.genderTotal + item.gender_proportion;
@@ -988,19 +947,15 @@ export class BaseIndexComponent implements OnInit{
       this.manPro = Number((this.genderMan / this.genderTotal).toFixed(2));
       this.womanPro = Number((this.genderWoman / this.genderTotal).toFixed(2));
       this.undefinedPro = Number((this.genderUndefined / this.genderTotal).toFixed(2));
-
     });
   }
 
   @ViewChild('SexWidth') SexWidth: ElementRef;
   _getSexStyle(index) {
-    if (this.SexWidth) {
       return {
         'top.px': index % 3 * 12,
         'left.px': Math.floor(index / 3) * 12
       };
-    }
-
   }
 
   _getAgeStyle(index) {
@@ -1015,26 +970,21 @@ export class BaseIndexComponent implements OnInit{
   sexCount = 180;
   get180() {
     let x = this.sexCount ? this.sexCount : 180;
-    if (!isNaN(this.manPro)) {
-      this.manPro = 1;
-    }
-    console.log('数据没有吗')
-    console.log(this.manPro)
-    let manCount = this.manPro * x;
-    console.log(manCount)
-    let womanCount = this.womanPro * x;
-    let undefinedCount = this.undefinedPro * x;
     let arr = [];
     let obj = {};
-    for (let i = 0; i < x; i++) {
-      if (i < manCount) {    // 男生
-        obj = {'value': i, 'type': 'man'}
-      } else if (i >= manCount && i < womanCount) {
-        obj = {'value': i, 'type': 'woman'}
-      } else {
-        obj = {'value': i, 'type': 'undefined'}
+    if(this.manPro) {
+      let manCount = this.manPro * x;
+      let undefinedCount = this.undefinedPro * x;
+      for (let i = 0; i < x; i++) {
+        if (i < undefinedCount) {    // 未知
+          obj = {'value': i, 'type': 'undefined'}
+        } else if (i >= undefinedCount && i < manCount + undefinedCount) {
+          obj = {'value': i, 'type': 'man'}
+        } else {
+          obj = {'value': i, 'type': 'woman'}
+        }
+        arr.push(obj);
       }
-      arr.push(obj);
     }
     return arr;
   }
