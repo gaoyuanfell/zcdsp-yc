@@ -94,6 +94,9 @@ export class BoardComponent implements OnInit {
   scrollTop(name) {
     this.hash = name
     this._scrollService.scrollTo(this.containerFullRef.nativeElement, {top: document.getElementById(name).offsetTop - 80})
+    if(name === 'home'){
+      this._scrollService.scrollTo(this.containerFullRef.nativeElement, {top:0})
+    }
   }
 
   current(index) {
