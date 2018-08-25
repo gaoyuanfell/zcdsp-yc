@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef , Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild, ElementRef, Renderer2} from '@angular/core';
 import {Subject} from 'rxjs';
 import {IndexService} from '../../../service/customer/index.service';
 import {BaseIndexComponent} from '../../common/common.component';
@@ -35,10 +35,30 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     private _indexService: IndexService,
     protected changeDetectorRef: ChangeDetectorRef,
     protected _publicService: PublicService,
+    protected  render: Renderer2
   ) {
-    super(changeDetectorRef, _publicService);  // 父亲也有constructor
+    super(changeDetectorRef, _publicService, render);  // 父亲也有constructor
   }
   ngOnInit(): void {
+    console.log('hahha')
+
+    this.render.listen('window', 'resize', (res) => {
+      console.dir(res)
+      console.log(res.target.innerWidth)
+      // res.target.innerWidth
+      if (res.target.innerWidth > 1666 && res.target.innerWidth < 1920) {
+        this.sexCount = 150;
+      } else if (res.target.innerWidth === 1920) {
+        this.sexCount = 180;
+      } else if (res.target.innerWidth <= 1366) {
+        this.sexCount = 117;
+      } else if (res.target.innerWidth < 1666 && res.target.innerWidth > 1366) {
+        this.sexCount = 123;
+      }
+
+
+    })
+
     this.todayCreative();
     this.todayActivity();
     this.todayReportChart();
@@ -97,6 +117,8 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     });
   }
 
+  _creativeData;
+  // 创意点击事件
   _creativeListClick(id?) {
     this._indexService.creativeChart({creative_id: id}).subscribe(res => {
       this.creativeChartData = res.result;
@@ -104,6 +126,39 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       this.changeDetectorRef.markForCheck();
     });
   }
+  _campaignData;
+  // 活动点击事件
+  _campaignListClick(id?) {
+    this._indexService.campaignChart({campaign_id: id}).subscribe(res => {
+      this.campaignChartData = res.result;
+      this.changeCampaignAndCreativeChart(this.todayActivityEcharts, this.campaignChartData, this.campaignCode);
+      this.changeDetectorRef.markForCheck();
+    });
+  }
+
+  /**
+   * 日期列表点击行，小时图表接口
+   */
+  _dayTotal;
+  _dayTotalClick(date?) {
+    if (!date) {
+      this._indexService.dayTotal().subscribe(res => {
+        // this.dayTotalListData = res.result.list.items;
+        this.dayTotalChartData = res.result.chart;
+        this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode);
+        this.changeDetectorRef.markForCheck();
+      });
+    } else {
+      this._indexService.hourChart({date: date}).subscribe((res) => {
+        // this.dayTotalListData = res.result;
+        this.dayTotalChartData = res.result.chart;
+        this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalListData, this.dayTotalCode);
+        this.changeDetectorRef.markForCheck();
+      })
+    }
+
+  }
+
 
   /**
    * 今日在投创意
@@ -337,4 +392,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       todayActivityRef.resize();
     });
   }
+
+
+
 }

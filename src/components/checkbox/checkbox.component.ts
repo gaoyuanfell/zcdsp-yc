@@ -36,6 +36,7 @@ export class CheckboxComponent implements ControlValueAccessor, OnChanges, OnDes
 
   writeValue(obj: any): void {
     this.checked = obj;
+    // this.checkState = 0;
     if (this.values instanceof Array && this.values.length == 2) {
       if (this.values[0] == obj) {
         this.checked = true;

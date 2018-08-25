@@ -41,7 +41,7 @@ export class Loading {
       this._container = this.componentRef.instance;
     }
     this.cache.push(0);
-    this._container.open(config);
+    // this._container.open(config);
   }
 
   close() {

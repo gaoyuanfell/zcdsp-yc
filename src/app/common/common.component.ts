@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, ElementRef, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {PublicService} from '../../service/public.service';
 import * as chinaJson from 'echarts/map/json/china.json';
 
-export class BaseIndexComponent {
+export class BaseIndexComponent implements OnInit{
   // 曝光总量
   @ViewChild('todayAllSpendChartSmall') todayAllSpendChartSmallRef: ElementRef;
   todayAllSpendChartSmalls;
@@ -28,7 +28,16 @@ export class BaseIndexComponent {
   constructor(
     protected changeDetectorRef: ChangeDetectorRef,
     protected _publicService: PublicService,
+    protected  render: Renderer2
   ) { }
+
+  ngOnInit() {
+    console.log('hahha')
+    this.render.listen('window', 'resize', (res) => {
+      console.dir(res)
+
+    })
+  }
 
 
   /**
@@ -135,6 +144,9 @@ export class BaseIndexComponent {
         }
       ]
     });
+    window.addEventListener('resize', () => {
+      todayReportChartRef.resize();
+    });
   }
 
   /**
@@ -231,6 +243,9 @@ export class BaseIndexComponent {
         ]
       }
       );
+    window.addEventListener('resize', () => {
+      todayAllDataChartRef.resize();
+    });
   }
 
   /**
@@ -326,6 +341,9 @@ export class BaseIndexComponent {
         ]
       }
     );
+    window.addEventListener('resize', () => {
+      todayAllSpendChartRef.resize();
+    });
   }
 
 
@@ -784,6 +802,16 @@ export class BaseIndexComponent {
   all_area_data;
   age;
   ageTotal = 0;
+  //
+  gender;
+  genderMan;
+  genderWoman;
+  genderTotal = 0;
+  genderUndefined;
+  manPro;
+  womanPro
+  undefinedPro;
+  //
   initData() {
     this._publicService.allNetWork().subscribe(res => {
       this.all_ad_Flow = res.result.all_ad_Flow; // 平台实时流量
@@ -943,19 +971,39 @@ export class BaseIndexComponent {
           index = +index + 1;
           item.src = "assets/index/" + index  + ".png"
       })
-      console.log(this.age)
+
+      // 性别
+      this.gender = res.result.gender;
+      console.log(this.gender)
+      this.gender.forEach((item) => {
+        if (item.gender === '男') {
+          this.genderMan = item.gender_proportion;
+        } else if (item.gender === '女'){
+          this.genderWoman = item.gender_proportion;
+        } else {
+          this.genderUndefined = item.gender_proportion;
+        }
+        this.genderTotal = this.genderTotal + item.gender_proportion;
+      })
+      this.manPro = Number((this.genderMan / this.genderTotal).toFixed(2));
+      this.womanPro = Number((this.genderWoman / this.genderTotal).toFixed(2));
+      this.undefinedPro = Number((this.genderUndefined / this.genderTotal).toFixed(2));
 
     });
   }
+
+  @ViewChild('SexWidth') SexWidth: ElementRef;
   _getSexStyle(index) {
-    return {
-      'top.px': index % 3 * 12,
-      'left.px': Math.floor(index / 3) * 12
-    };
+    if (this.SexWidth) {
+      return {
+        'top.px': index % 3 * 12,
+        'left.px': Math.floor(index / 3) * 12
+      };
+    }
+
   }
 
   _getAgeStyle(index) {
-    this.changeDetectorRef.markForCheck();
     if (this.AgeWidth) {
       let width = this.AgeWidth.nativeElement.offsetWidth;
       return {
@@ -964,11 +1012,29 @@ export class BaseIndexComponent {
     }
   }
 
+  sexCount = 180;
   get180() {
-    let x = 120;
+    let x = this.sexCount ? this.sexCount : 180;
+    if (!isNaN(this.manPro)) {
+      this.manPro = 1;
+    }
+    console.log('数据没有吗')
+    console.log(this.manPro)
+    let manCount = this.manPro * x;
+    console.log(manCount)
+    let womanCount = this.womanPro * x;
+    let undefinedCount = this.undefinedPro * x;
     let arr = [];
-    for (let i = 0; i < x; i ++) {
-      arr.push(i);
+    let obj = {};
+    for (let i = 0; i < x; i++) {
+      if (i < manCount) {    // 男生
+        obj = {'value': i, 'type': 'man'}
+      } else if (i >= manCount && i < womanCount) {
+        obj = {'value': i, 'type': 'woman'}
+      } else {
+        obj = {'value': i, 'type': 'undefined'}
+      }
+      arr.push(obj);
     }
     return arr;
   }
@@ -985,5 +1051,7 @@ export class BaseIndexComponent {
       dataIndex: index,
     });
   }
+
+
 
 }
