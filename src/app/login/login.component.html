@@ -8,16 +8,16 @@
       <h1 class="top">欢迎登录<span>智橙移动</span>账号</h1>
       <p class="forget"><span (click)="flags=!flags">忘记密码？</span><a href="register.html" [routerLink]="['/register']" >立即注册</a></p>
       <div class="from">
-        <input type="text" class="name" placeholder="请输入账号">
+        <input type="text" class="name" placeholder="请输入账号" [(ngModel)]="loginUser.userName" (input)="userData()">
         <!--<p class="error"><img src="assets/img/index/tips.png" alt="">请输入账号</p>-->
-        <input type="text" class="password" placeholder="请输入密码">
+        <input type="text" class="password" placeholder="请输入密码" [(ngModel)]="loginUser.passWord" (input)="passData()">
         <!--<p class="error"><img src="assets/img/index/tips.png" alt="">请输入密码</p>-->
         <div class="verification clear">
-          <input type="text" class="verifica" placeholder="请输入右侧验证码">
+          <input type="text" class="verifica" placeholder="请输入右侧验证码" [(ngModel)]="loginUser.vertCode" (input)="codeData()">
           <img src="assets/img/index/yzt.jpg" alt="" class="verifica-img">
           <!--<p class="error"><img src="assets/img/index/tips.png" alt="">请输入验证码</p>-->
         </div>
-        <button type="button" class="login">登录</button>
+        <button type="button" class="login" (click)="submitData()">登录</button>
       </div>
     </div>
 
