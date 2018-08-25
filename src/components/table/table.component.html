@@ -1,0 +1,38 @@
+<div class="table-container">
+  <ng-content select="[query]"></ng-content>
+  <div class="table-wrap" #tableWrapRef>
+    <ng-content select="[table]"></ng-content>
+  </div>
+
+  <div style="
+  height: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: absolute;
+    bottom: 0;
+    width: 100%;" #overflowRef>
+    <div style="width: 2000px;height: 10px;"></div>
+  </div>
+
+</div>
+
+<div class="paging">
+  <span class="first">
+    首页
+  </span>
+  <span class="up">
+    上一页
+  </span>
+  <span>
+    1
+  </span>
+  <span>
+    2
+  </span>
+  <span class="down">
+    下一页
+  </span>
+  <span class="last">
+    尾页
+  </span>
+</div>

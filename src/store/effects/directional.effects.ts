@@ -7,7 +7,7 @@ import {switchMap} from 'rxjs/operators';
 import {DirectionalService} from '../../service/customer/directional.service';
 import * as directionalActionUnion from '../actions/directional.action';
 import {DirectionalActionTypes} from '../actions/directional.action';
-import {LbsCityAssign} from '../actions/directional.action';
+import {AudiencesActionAssign} from '../actions/directional.action';
 
 @Injectable()
 export class DirectionalEffects {
@@ -25,35 +25,36 @@ export class DirectionalEffects {
             this._directionalService.directionalDevice(),
           ];
           forkJoin(service).subscribe((arr) => {
-            let [a, /*b, */c, /*d, */e] = arr;
+            let [a, c, e] = arr;
 
             let {age, education, sex} = c.result;
             let {browsers, devices_type, mobile_brand, net_type, operators, os} = e.result;
 
             let recursion = [
               this.recursionChild({children: a.result}),
-              // this.recursionChild({children: b.result}),
 
-              this.recursionChild({children: age}),
-              this.recursionChild({children: education}),
-              this.recursionChild({children: sex}),
+              this.recursionChild({children: age, name: '年龄'}),
+              this.recursionChild({children: education, name: '学历'}),
+              this.recursionChild({children: sex, name: '性别'}),
 
-              // this.recursionChild({children: d.result}),
-
-              this.recursionChild({children: browsers}),
-              this.recursionChild({children: devices_type}),
-              this.recursionChild({children: mobile_brand}),
-              this.recursionChild({children: net_type}),
-              this.recursionChild({children: operators}),
-              this.recursionChild({children: os}),
+              this.recursionChild({children: browsers, name: '浏览器'}),
+              this.recursionChild({children: devices_type, name: '设备类型'}),
+              this.recursionChild({children: mobile_brand, name: '设备品牌'}),
+              this.recursionChild({children: net_type, name: '联网方式'}),
+              this.recursionChild({children: operators, name: '运营商'}),
+              this.recursionChild({children: os, name: '操作系统'}),
 
             ];
-            Promise.all(recursion).then(([areas, /*lbsCity,*/ age, education, sex, /*audiencesAction, */browsers, devices_type, mobile_brand, net_type, operators, os]) => {
+
+            Promise.all(recursion).then(([areas, age, education, sex, browsers, devices_type, mobile_brand, net_type, operators, os]) => {
 
               let audiences = {age, education, sex};
               let device = {browsers, devices_type, mobile_brand, net_type, operators, os};
 
-              observer.next(new directionalActionUnion.DirectionalAssign({areas: areas, /*lbsCity: lbsCity,*/ audiences: audiences, /*audiencesAction: audiencesAction, */device: device}));
+              let audiencesList = Object.entries(audiences).map(([key, value]) => ({key, value}));
+              let deviceList = Object.entries(device).map(([key, value]) => ({key, value}));
+
+              observer.next(new directionalActionUnion.DirectionalAssign({areas: areas, audiences: audiencesList, device: deviceList}));
             });
           });
         });
@@ -77,6 +78,29 @@ export class DirectionalEffects {
             ];
             Promise.all(recursion).then(([lbsCity]) => {
               observer.next(new directionalActionUnion.LbsCityAssign(lbsCity));
+            });
+          });
+        });
+      })
+    );
+  };
+
+  @Effect()
+  initAudiencesAction$ = (): Observable<Action> => {
+    return this.actions$.pipe(
+      ofType<directionalActionUnion.AudiencesActionInit>(DirectionalActionTypes.AUDIENCES_ACTION_INIT),
+      switchMap(() => {
+        return new Observable(observer => {
+          let service = [
+            this._directionalService.directionalAudiencesAction(),
+          ];
+          forkJoin(service).subscribe((arr) => {
+            let [b] = arr;
+            let recursion = [
+              this.recursionChild({children: b.result}),
+            ];
+            Promise.all(recursion).then(([audiencesAction]) => {
+              observer.next(new directionalActionUnion.AudiencesActionAssign(audiencesAction));
             });
           });
         });

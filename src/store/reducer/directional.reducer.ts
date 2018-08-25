@@ -1,21 +1,27 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
-import {DirectionalState, LbsCityState} from '../model/directional.state';
+import {AudiencesActionState, DirectionalState, LbsCityState} from '../model/directional.state';
 import {DirectionalActionTypes, DirectionalActionUnion} from '../actions/directional.action';
 import {recursionChildCheck, recursionParentCheck, recursionResult, recursionResult2} from '../util';
 
-const initState: DirectionalState = {};
+const initState: DirectionalState = {
+  areasChildList: []
+};
 
 export function directionalReducer(state: DirectionalState = initState, action: DirectionalActionUnion) {
   switch (action.type) {
     case DirectionalActionTypes.DIRECTIONAL_ASSIGN: {
-      state = action.payload;
+      console.info(action.payload);
+      state.areas = action.payload.areas;
+      state.audiences = action.payload.audiences;
+      state.device = action.payload.device;
+      state.areasChildList.push(state.areas.children);
       nextAreasChild();
-      // nextLbsCityChild();
-      return state;
+      return {...state};
     }
     //// AREAS
     case DirectionalActionTypes.NEXT_AREAS_CHILD: {
-      state.areasChild1 = action.payload.children;
+      let {value, index} = action.payload;
+      nextAreasChild(value, index);
       return {...state};
     }
     case DirectionalActionTypes.CHECK_AREAS_CHANGE: {
@@ -30,55 +36,15 @@ export function directionalReducer(state: DirectionalState = initState, action: 
       return {...state};
     }
     case DirectionalActionTypes.QUERY_AREAS_BY_NAME: {
-      let {number, value} = action.payload;
-      let body;
-      if (number === 0) {
-        body = state.areas.children;
-      } else {
-        body = state['areasChild' + number];
-      }
-      let index = body.findIndex(b => !!~b.name.indexOf(value));
+      let {target, value} = action.payload;
+      let index = target.findIndex(b => !!~b.name.indexOf(value));
       if (!!~index) {
-        let data = body[index];
-        body.splice(index, 1);
-        body.unshift(data);
+        let data = target[index];
+        target.splice(index, 1);
+        target.unshift(data);
       }
       return {...state};
     }
-    //// LBS
-    /*case DirectionalActionTypes.LBS_CITY_NEXT_CHILD: {
-      let {number, index} = action.payload;
-      nextLbsCityChild(index, number);
-      return {...state};
-    }
-    case DirectionalActionTypes.CHECK_LBS_CITY_CHANGE: {
-      let value = action.payload;
-      if (typeof value == 'boolean') {
-        state.lbsCity.checked = value;
-        value = state.lbsCity;
-      }
-      recursionChildCheck(value);
-      recursionParentCheck(value);
-      state.lbsCityViewResult = recursionResult(state.lbsCity.children);
-      state.lbsCityResult = recursionResult2(state.lbsCity.children);
-      return {...state};
-    }
-    case DirectionalActionTypes.QUERY_LBS_CITY_BY_NAME: {
-      let {number, value} = action.payload;
-      let body;
-      if (number === 0) {
-        body = state.lbsCity.children;
-      } else {
-        body = state['lbsCityChild' + number];
-      }
-      let index = body.findIndex(b => !!~b.name.indexOf(value));
-      if (!!~index) {
-        let data = body[index];
-        body.splice(index, 1);
-        body.unshift(data);
-      }
-      return {...state};
-    }*/
     //// AUDIENCES
     case DirectionalActionTypes.CHECK_AUDIENCES_CHANGE: {
       let value = action.payload;
@@ -86,12 +52,46 @@ export function directionalReducer(state: DirectionalState = initState, action: 
       recursionChildCheck(value);
       recursionParentCheck(value);
 
-      let age = recursionResult2(state.audiences.age.children);
-      let education = recursionResult2(state.audiences.education.children);
-      let sex = recursionResult2(state.audiences.sex.children);
+      let array = [];
+      state.audiences.forEach(au => {
+        array.push(...recursionResult2(au.value.children));
+      });
 
-      state.audiencesResult = [...age, ...education, ...sex];
+      state.audiencesResult = array;
 
+      return {...state};
+    }
+    case DirectionalActionTypes.REMOVE_ALL_AUDIENCES:{
+      state.audiences.forEach(au => {
+        au.value.checked = false;
+        recursionChildCheck(au.value);
+        recursionParentCheck(au.value);
+      });
+      state.audiencesResult = [];
+      return {...state};
+    }
+    case DirectionalActionTypes.CHECK_DEVICE_CHANGE:{
+      let value = action.payload;
+
+      recursionChildCheck(value);
+      recursionParentCheck(value);
+
+      let array = [];
+      state.device.forEach(au => {
+        array.push(...recursionResult2(au.value.children));
+      });
+
+      state.deviceResult = array;
+
+      return {...state};
+    }
+    case DirectionalActionTypes.REMOVE_ALL_DEVICE:{
+      state.device.forEach(au => {
+        au.value.checked = false;
+        recursionChildCheck(au.value);
+        recursionParentCheck(au.value);
+      });
+      state.deviceResult = [];
       return {...state};
     }
     default: {
@@ -99,11 +99,12 @@ export function directionalReducer(state: DirectionalState = initState, action: 
     }
   }
 
-  function nextAreasChild(index = 0, number = 1) {
-    switch (number) {
-      case 1: {
-        state['areasChild' + number] = state.areas.children[index].children;
-      }
+  function nextAreasChild(target = state.areas.children[0], index = 0) {
+    state.areasChildList.length = index + 1;
+    while (target.children && target.children.length) {
+      if (!target.children[0]) break;
+      state.areasChildList.push(target.children);
+      target = target.children[0];
     }
   }
 }
@@ -114,7 +115,7 @@ const initState2: LbsCityState = {
 
 export function lbsCityReducer(state: LbsCityState = initState2, action: DirectionalActionUnion) {
   switch (action.type) {
-    case DirectionalActionTypes.LBS_CITY_ASSIGN:{
+    case DirectionalActionTypes.LBS_CITY_ASSIGN: {
       state.lbsCity = action.payload;
       state.lbsCityList.push(state.lbsCity.children);
       nextLbsCityChild();
@@ -155,12 +156,67 @@ export function lbsCityReducer(state: LbsCityState = initState2, action: Directi
   function nextLbsCityChild(target = state.lbsCity.children[0], index = 0) {
     state.lbsCityList.length = index + 1;
     while (target.children && target.children.length) {
-      if(!target.children[0]) break;
+      if (!target.children[0]) break;
       state.lbsCityList.push(target.children);
-      target = target.children[0]
+      target = target.children[0];
     }
   }
 
+}
+
+const initState3: AudiencesActionState = {
+  audiencesActionList: []
+};
+
+export function audiencesActionReducer(state: AudiencesActionState = initState3, action: DirectionalActionUnion) {
+  switch (action.type) {
+    case DirectionalActionTypes.AUDIENCES_ACTION_ASSIGN: {
+      state.audiencesAction = action.payload;
+      state.audiencesActionList.push(state.audiencesAction.children);
+      nextAudiencesActionChild();
+      return state;
+    }
+    case DirectionalActionTypes.AUDIENCES_ACTION_NEXT_CHILD: {
+      let {value, index} = action.payload;
+      console.time('1');
+      nextAudiencesActionChild(value, index);
+      console.timeEnd('1');
+      return {...state};
+    }
+    case DirectionalActionTypes.CHECK_AUDIENCES_ACTION_CHANGE: {
+      let value = action.payload;
+      if (typeof value == 'boolean') {
+        state.audiencesAction.checked = value;
+        value = state.audiencesAction;
+      }
+      recursionChildCheck(value);
+      recursionParentCheck(value);
+      state.audiencesActionResult = recursionResult(state.audiencesAction.children);
+      return {...state};
+    }
+    case DirectionalActionTypes.QUERY_AUDIENCES_ACTION_BY_NAME: {
+      let {target, value} = action.payload;
+      let index = target.findIndex(b => !!~b.name.indexOf(value));
+      if (!!~index) {
+        let data = target[index];
+        target.splice(index, 1);
+        target.unshift(data);
+      }
+      return {...state};
+    }
+    default: {
+      return state;
+    }
+  }
+
+  function nextAudiencesActionChild(target = state.audiencesAction.children[0], index = 0) {
+    state.audiencesActionList.length = index + 1;
+    while (target.children && target.children.length) {
+      if (!target.children[0]) break;
+      state.audiencesActionList.push(target.children);
+      target = target.children[0];
+    }
+  }
 }
 
 ///////////////// selector /////////////////
@@ -177,11 +233,12 @@ export const AreasResult = createSelector(
   (state: DirectionalState) => state.areasResult
 );
 
-export const AreasChild1 = createSelector(
+export const AreasChildList = createSelector(
   getDirectionalState,
-  (state: DirectionalState) => state.areasChild1
+  (state: DirectionalState) => state.areasChildList
 );
 
+// ------------------ Audiences
 export const Audiences = createSelector(
   getDirectionalState,
   (state: DirectionalState) => state.audiences
@@ -190,6 +247,18 @@ export const Audiences = createSelector(
 export const AudiencesResult = createSelector(
   getDirectionalState,
   (state: DirectionalState) => state.audiencesResult
+);
+
+// ------------------- Device
+
+export const Device = createSelector(
+  getDirectionalState,
+  (state: DirectionalState) => state.device
+);
+
+export const DeviceResult = createSelector(
+  getDirectionalState,
+  (state: DirectionalState) => state.deviceResult
 );
 
 //---------------- LBS
@@ -213,4 +282,22 @@ export const LbsCityResult = createSelector(
 export const LbsCityViewResult = createSelector(
   getLbsCityState,
   (state: LbsCityState) => state.lbsCityViewResult
+);
+
+//---------------- AudiencesAction
+export const getAudiencesActionState = createFeatureSelector<AudiencesActionState>('audiencesAction');
+
+export const AudiencesAction = createSelector(
+  getAudiencesActionState,
+  (state: AudiencesActionState) => state.audiencesAction
+);
+
+export const AudiencesActionList = createSelector(
+  getAudiencesActionState,
+  (state: AudiencesActionState) => state.audiencesActionList
+);
+
+export const AudiencesActionResult = createSelector(
+  getAudiencesActionState,
+  (state: AudiencesActionState) => state.audiencesActionResult
 );
