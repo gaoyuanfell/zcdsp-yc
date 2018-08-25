@@ -20,7 +20,7 @@ import {animate, style, transition, trigger} from '@angular/animations';
 })
 export class LoadingComponent implements OnInit, OnDestroy {
 
-  @Input() state
+  @Input() state;
 
   @Input() config: any = {};
 

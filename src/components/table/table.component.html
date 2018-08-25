@@ -1,22 +1,15 @@
-<div class="table-container">
+<div class="table-container" #tableContainerRef>
   <ng-content select="[query]"></ng-content>
   <div class="table-wrap" #tableWrapRef>
     <ng-content select="[table]"></ng-content>
   </div>
 
-  <div style="
-  height: 10px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    position: absolute;
-    bottom: 0;
-    width: 100%;" #overflowRef>
-    <div style="width: 2000px;height: 10px;"></div>
+  <div class="overflow" #overflowRef>
+    <div style="height: 10px;"></div>
   </div>
-
 </div>
 
-<div class="paging">
+<div class="paging" #pagingRef>
   <span class="first">
     首页
   </span>

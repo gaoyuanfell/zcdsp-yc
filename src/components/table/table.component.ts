@@ -26,13 +26,14 @@ export class TableComponent implements OnInit, AfterContentInit, AfterViewInit {
   private _tableRef: ElementRef;
   private _overflowRef: ElementRef;
   private _tableWrapRef: ElementRef;
+  private _tableContainerRef: ElementRef;
+  private _pagingRef: ElementRef;
 
   get queryRef(): ElementRef {
     return this._queryRef;
   }
 
   @ContentChild('queryRef') set queryRef(value: ElementRef) {
-    console.info(value);
     this._queryRef = value;
   }
 
@@ -41,7 +42,6 @@ export class TableComponent implements OnInit, AfterContentInit, AfterViewInit {
   }
 
   @ContentChild('tableRef') set tableRef(value: ElementRef) {
-    console.info(value);
     this._tableRef = value;
     if (value) {
 
@@ -63,14 +63,98 @@ export class TableComponent implements OnInit, AfterContentInit, AfterViewInit {
   @ViewChild('overflowRef') set overflowRef(value: ElementRef) {
     this._overflowRef = value;
     if (value) {
-      this.renderer.listen(value.nativeElement, 'scroll', (event: Event | any) => {
-        console.info(event.target.scrollLeft);
-        console.info(this.tableRef.nativeElement);
 
+
+      this.renderer.listen(value.nativeElement, 'scroll', (event: Event | any) => {
         this.tableWrapRef.nativeElement.scrollLeft = event.target.scrollLeft;
+        let _tableRef = <HTMLElement>this.tableRef.nativeElement;
+        let _tableContainerRef = <HTMLElement>this.tableContainerRef.nativeElement;
+        let tableBcrt = _tableContainerRef.getBoundingClientRect();
+        Array.from(_tableRef.querySelectorAll<HTMLDivElement>('th[fixed]')).forEach((th, index, array) => {
+          let thBcrt = th.getBoundingClientRect();
+          let fixed = th.getAttribute('fixed');
+          switch (fixed) {
+            case 'left': {
+              let left = event.target.scrollLeft;
+              th.style.left = `${left}px`;
+              // if(index != array.length) break;
+              // if(left === 0){
+              //   th.classList.remove('col_fixed')
+              //   th.classList.remove('col_fixed_right_border')
+              // }else{
+              //   th.classList.add('col_fixed')
+              //   th.classList.add('col_fixed_right_border')
+              // }
+              break;
+            }
+            case 'right': {
+              let left = _tableRef.clientWidth - tableBcrt.width - event.target.scrollLeft + 2;
+              th.style.left = `${-left}px`;
+              // if(index != 1) break;
+              // if(left === 0){
+              //   th.classList.remove('col_fixed')
+              //   th.classList.remove('col_fixed_right_border')
+              // }else{
+              //   th.classList.add('col_fixed')
+              //   th.classList.add('col_fixed_right_border')
+              // }
+              break;
+            }
+          }
+        });
+
+        Array.from(_tableRef.querySelectorAll<HTMLDivElement>('td[fixed]')).forEach((td, index, array) => {
+          let thBcrt = td.getBoundingClientRect();
+          let fixed = td.getAttribute('fixed');
+          switch (fixed) {
+            case 'left': {
+              let left = event.target.scrollLeft;
+              td.style.left = `${left}px`;
+              // if(index != array.length) break;
+              // if(left === 0){
+              //   td.classList.remove('col_fixed')
+              //   td.classList.remove('col_fixed_right_border')
+              // }else{
+              //   td.classList.add('col_fixed')
+              //   td.classList.add('col_fixed_right_border')
+              // }
+              break;
+            }
+            case 'right': {
+              let left = _tableRef.clientWidth - tableBcrt.width - event.target.scrollLeft + 2;
+              td.style.left = `${-left}px`;
+              // if(index != 1) break;
+              // if(left === 0){
+              //   td.classList.remove('col_fixed')
+              //   td.classList.remove('col_fixed_right_border')
+              // }else{
+              //   td.classList.add('col_fixed')
+              //   td.classList.add('col_fixed_right_border')
+              // }
+              break;
+            }
+          }
+        });
+
 
       });
     }
+  }
+
+  get tableContainerRef(): ElementRef {
+    return this._tableContainerRef;
+  }
+
+  @ViewChild('tableContainerRef') set tableContainerRef(value: ElementRef) {
+    this._tableContainerRef = value;
+  }
+
+  get pagingRef(): ElementRef {
+    return this._pagingRef;
+  }
+
+  @ViewChild('pagingRef') set pagingRef(value: ElementRef) {
+    this._pagingRef = value;
   }
 
   constructor(private renderer: Renderer2,
@@ -82,31 +166,138 @@ export class TableComponent implements OnInit, AfterContentInit, AfterViewInit {
   }
 
   ngAfterContentInit(): void {
+    let _tableRef = <HTMLElement>this.tableRef.nativeElement;
+    let _tableContainerRef = <HTMLElement>this.tableContainerRef.nativeElement;
+    let tableBcrt = _tableContainerRef.getBoundingClientRect();
+    let cfBcrt = this._global.containerFullRef.getBoundingClientRect();
+    let blankHeight = tableBcrt.top - cfBcrt.top;
+    let navHeight = cfBcrt.top;
 
-  }
+    this.overflowRef.nativeElement.firstChild.style.width = `${_tableRef.clientWidth}px`; // 设置滚动条
 
-  ngOnInit() {
     this._global.overflowSubject.subscribe(data => {
+      cfBcrt = this._global.containerFullRef.getBoundingClientRect();
+      navHeight = cfBcrt.top;
       let _top = data.top;
       if (this.queryRef) {
         let _queryRef = <HTMLElement>this.queryRef.nativeElement;
-        let {left, top} = _queryRef.getBoundingClientRect();
-        if(_top >= 66){
-          _queryRef.style.top = `${_top - 66}px`;
-        }else{
+        if (_top >= navHeight) {
+          _queryRef.style.top = `${_top - navHeight}px`;
+        } else {
           _queryRef.style.top = `0px`;
         }
       }
     });
 
     let _overflowRef = <HTMLElement>this.overflowRef.nativeElement;
-    console.info(_overflowRef.getBoundingClientRect())
-    console.info()
+    let _pagingRef = <HTMLElement>this.pagingRef.nativeElement;
+    let _pagingHeight = _pagingRef.clientHeight;
 
-    let {width, height} = this._global.containerFullRef.getBoundingClientRect()
+    let maxBottom = tableBcrt.height - (cfBcrt.height - blankHeight);
+    _overflowRef.style.bottom = `${maxBottom > 0 ? maxBottom + _pagingHeight : 0}px`;
+    _pagingRef.style.bottom = `${maxBottom > 0 ? maxBottom + _pagingHeight : 0}px`;
+    this._global.overflowSubject.subscribe(data => {
+      cfBcrt = this._global.containerFullRef.getBoundingClientRect();
+      blankHeight = tableBcrt.top - cfBcrt.top;
+      navHeight = cfBcrt.top;
+      maxBottom = tableBcrt.height - (cfBcrt.height - blankHeight);
 
-    _overflowRef.style.top = `${height - 75}px`
+      let bottom = maxBottom - data.top;
+      if (bottom < -_pagingHeight) {
+        bottom = -_pagingHeight;
+      }
+      _overflowRef.style.bottom = `${bottom + _pagingHeight}px`;
+      _pagingRef.style.bottom = `${bottom + _pagingHeight}px`;
+    });
 
+    this._global.overflowSubject.subscribe(data => {
+      let _tableRef = <HTMLElement>this.tableRef.nativeElement;
+
+      Array.from(_tableRef.querySelectorAll('th')).forEach(th => {
+        if (data.top >= navHeight) {
+          th.style.top = `${data.top - navHeight}px`;
+        } else {
+          th.style.top = `0px`;
+        }
+      });
+    });
+
+    this.renderer.listen('window', 'resize', () => {
+      tableBcrt = _tableContainerRef.getBoundingClientRect();
+      cfBcrt = this._global.containerFullRef.getBoundingClientRect();
+      let maxBottom = tableBcrt.height - (cfBcrt.height - blankHeight);
+      _overflowRef.style.bottom = `${maxBottom > 0 ? maxBottom + _pagingHeight : 0}px`;
+      _pagingRef.style.bottom = `${maxBottom > 0 ? maxBottom + _pagingHeight : 0}px`;
+    })
+
+    //  ---------------------- //
+
+    Array.from(_tableRef.querySelectorAll<HTMLDivElement>('th[fixed]')).forEach(th => {
+      let thBcrt = th.getBoundingClientRect();
+      let fixed = th.getAttribute('fixed');
+      switch (fixed) {
+        case 'left': {
+          th.classList.add('col_fixed');
+          break;
+        }
+        case 'right': {
+          th.style.left = `${-(_tableRef.clientWidth - tableBcrt.width + 2)}px`;
+          break;
+        }
+      }
+    });
+
+    Array.from(_tableRef.querySelectorAll<HTMLDivElement>('td[fixed]')).forEach(td => {
+      let thBcrt = td.getBoundingClientRect();
+      let fixed = td.getAttribute('fixed');
+      switch (fixed) {
+        case 'left': {
+          td.classList.add('col_fixed');
+          break;
+        }
+        case 'right': {
+          td.style.left = `${-(_tableRef.clientWidth - tableBcrt.width + 2)}px`;
+          break;
+        }
+      }
+    });
+
+    this.renderer.listen('window', 'resize', () => {
+      tableBcrt = _tableContainerRef.getBoundingClientRect();
+      Array.from(_tableRef.querySelectorAll<HTMLDivElement>('th[fixed]')).forEach(th => {
+        let thBcrt = th.getBoundingClientRect();
+        let fixed = th.getAttribute('fixed');
+        switch (fixed) {
+          case 'left': {
+            th.classList.add('col_fixed');
+            break;
+          }
+          case 'right': {
+            th.style.left = `${-(_tableRef.clientWidth - tableBcrt.width + 2)}px`;
+            break;
+          }
+        }
+      });
+
+      Array.from(_tableRef.querySelectorAll<HTMLDivElement>('td[fixed]')).forEach(td => {
+        let thBcrt = td.getBoundingClientRect();
+        let fixed = td.getAttribute('fixed');
+        switch (fixed) {
+          case 'left': {
+            td.classList.add('col_fixed');
+            break;
+          }
+          case 'right': {
+            td.style.left = `${-(_tableRef.clientWidth - tableBcrt.width + 2)}px`;
+            break;
+          }
+        }
+      });
+    });
+
+  }
+
+  ngOnInit() {
 
   }
 

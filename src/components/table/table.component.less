@@ -11,7 +11,7 @@
     border-bottom: 2px solid #f0f2f5;
     width: 100%;
     background-color: #fff;
-    z-index: 2;
+    z-index: 15;
     position: absolute;
     top: 0;
   }
@@ -41,6 +41,7 @@ table {
       height: 36px;
     }
     th {
+      z-index: 15;
       color: #616366;
       font-size: 14px;
       font-weight: 700;
@@ -55,10 +56,15 @@ table {
         font-size: 15px;
       }
       &.col_fixed {
-        z-index: 100;
+        z-index: 10;
       }
-      &.col_fixed_border {
+      &.col_fixed_left_border {
         border-right: 1px solid #DBDEE1;
+        box-sizing: content-box;
+      }
+      &.col_fixed_right_border {
+        border-left: 1px solid #DBDEE1;
+        box-sizing: content-box;
       }
       a:hover {
         text-decoration: none;
@@ -84,11 +90,17 @@ table {
       position: relative;
       background: #fff;
       overflow: hidden;
+      z-index: 9;
       &.col_fixed {
-        z-index: 100;
+        z-index: 10;
       }
-      &.col_fixed_border {
+      &.col_fixed_left_border {
         border-right: 1px solid #DBDEE1;
+        box-sizing: content-box;
+      }
+      &.col_fixed_right_border {
+        border-left: 1px solid #DBDEE1;
+        box-sizing: content-box;
       }
       span.nowrap {
         overflow: hidden;
@@ -103,6 +115,8 @@ table {
   margin-top: 1px;
   text-align: right;
   background-color: #f9fafb;
+  position: relative;
+  z-index: 15;
   > span{
     border: 1px solid #e2e6eb;
     background-color: #ffffff;
@@ -114,4 +128,14 @@ table {
     margin-right: 1px;
     cursor: pointer;
   }
+}
+
+.overflow{
+  z-index: 15;
+  height: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }

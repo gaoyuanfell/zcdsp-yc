@@ -25,7 +25,7 @@ export class BaseIndexComponent implements OnInit{
   @ViewChild('AgeWidth') AgeWidth: ElementRef;
   color = ['#ff7f24', '#1fcf88', '#f14c5d', '#3c61ff', '#F5CDFF', '#8c5cff', '#ffba48', '#FF86A1', '#d6ca00', '#FF0C35', '#33bcfb', '#047962'];
 
-  todayAllSpend = 'cpm';
+  // todayAllSpend = 'cpm';
   constructor(
     protected changeDetectorRef: ChangeDetectorRef,
     protected _publicService: PublicService,

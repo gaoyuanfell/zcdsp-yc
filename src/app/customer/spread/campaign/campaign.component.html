@@ -49,7 +49,7 @@
     <table #tableRef table style="width: 2000px">
       <thead>
       <tr>
-        <th>创意名称</th>
+        <th fixed="left">创意名称</th>
         <th>活动名称</th>
         <th>媒体类型</th>
         <th>投放状态</th>
@@ -58,15 +58,15 @@
         <th>曝光量</th>
         <th>点击量</th>
         <th>点击率</th>
-        <th>点击成本</th>
-        <th>曝光成本</th>
-        <th>花费</th>
-        <th>操作</th>
+        <th fixed="right">点击成本</th>
+        <th fixed="right">曝光成本</th>
+        <th fixed="right">花费</th>
+        <th fixed="right">操作</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let a of tableList">
-        <td>700X300-信息流</td>
+        <td fixed="left">700X300-信息流</td>
         <td>肯德基联盟</td>
         <td>墨迹天气</td>
         <td>投放中</td>
@@ -75,10 +75,10 @@
         <td>177,385</td>
         <td>13,269</td>
         <td>0.42%</td>
-        <td>¥ 0.36</td>
-        <td>¥ 1.58</td>
-        <td>￥740.30</td>
-        <td>修改 详情</td>
+        <td fixed="right">¥ 0.36</td>
+        <td fixed="right">¥ 1.58</td>
+        <td fixed="right">￥740.30</td>
+        <td fixed="right">修改 详情</td>
       </tr>
       </tbody>
     </table>
