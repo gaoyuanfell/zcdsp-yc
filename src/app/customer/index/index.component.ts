@@ -17,7 +17,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   todayCreativeEcharts;
   creativeListData;
   creativeChartData;
-  creativeCode = 'pv';
+
  // 今日在投活動
   @ViewChild('todayActivity') todayActivityRef: ElementRef;
   todayActivityEcharts;
@@ -43,7 +43,14 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   ) {
     super(changeDetectorRef, _publicService, render);  // 父亲也有constructor
   }
+
+  testData = [1,2,3,4,5,6,7,8];
   ngOnInit(): void {
+
+
+
+
+
     this.render.listen('window', 'resize', (res) => {
       console.dir(res)
       console.log(res.target.innerWidth)
@@ -60,12 +67,15 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     })
 
     // 上面数据的解析
+    setTimeout( () => {
+      this.todayCreative();
+      this.todayActivity();
+      this.todayReportChart();
+      this._init();
+      this.initData();
+    },500)
 
 
-
-    this.todayCreative();
-    this.todayActivity();
-    this.todayReportChart();
     this.todayAllDataChart();
     this.todayAllSpendChart();
     this.socialDataChart();
@@ -73,12 +83,12 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     this.chinaDataChart();
     this.todayAllSpendChartSmall();
     this.todayAllSpendChartLine();
-    this._init();
-    this.initData();
+
   }
   totalCodeList;
   todayReportTop; //  今日曝光成本(天，小时)  今日点击成本 今日点击率
   stateCount;
+
   _init() {
     // 上面几个的初始化
     this._indexService.init().subscribe(res => {
@@ -95,10 +105,14 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       this.creativeListData = res.result.creatives;
       this.creativeChartData = res.result.charts;
       this.changeCampaignAndCreativeChart(this.todayCreativeEcharts, this.creativeChartData, this.creativeCode);
+      // 数据处理 为了匹配表格
+      this.changeCampaignAndCreativeList(this.creativeChartData, this.creativeCode, 'creative');
       // countSubscribe.next();
     }, () => {
       // countSubscribe.next();
     });
+
+
 
     // 今日在投活動
     this._indexService.campaignList().subscribe(res => {
@@ -106,6 +120,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       this.campaignListData = res.result.campaigns;
       this.campaignChartData = res.result.charts;
       this.changeCampaignAndCreativeChart(this.todayActivityEcharts, this.campaignChartData, this.campaignCode);
+      this.changeCampaignAndCreativeList(this.campaignChartData, this.campaignCode, 'campaign');
       // countSubscribe.next()
     }, () => {
       // countSubscribe.next()
@@ -160,11 +175,8 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
         todayCtr:  res.result.chart.y.ctr[res.result.chart.y.ctr.length - 1],
         yesCtr:  res.result.chart.y.ctr[res.result.chart.y.ctr.length - 2],
       }
-
-
-
-
       this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode)
+      this.changeDayTotalList(this.dayTotalChartData)
       // countSubscribe.next()
     }, () => {
       // countSubscribe.next()
@@ -172,20 +184,24 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   }
 
   _creativeData;
+  creative_change = 'line'; // 类型切换
   // 创意点击事件
   _creativeListClick(id?) {
     this._indexService.creativeChart({creative_id: id}).subscribe(res => {
       this.creativeChartData = res.result;
       this.changeCampaignAndCreativeChart(this.todayCreativeEcharts, this.creativeChartData, this.creativeCode);
+      this.changeCampaignAndCreativeList(this.creativeChartData, this.creativeCode, 'creative');
       this.changeDetectorRef.markForCheck();
     });
   }
   _campaignData;
+  campaign_change = 'line'
   // 活动点击事件
   _campaignListClick(id?) {
     this._indexService.campaignChart({campaign_id: id}).subscribe(res => {
       this.campaignChartData = res.result;
       this.changeCampaignAndCreativeChart(this.todayActivityEcharts, this.campaignChartData, this.campaignCode);
+      this.changeCampaignAndCreativeList(this.campaignChartData, this.campaignCode, 'campaign');
       this.changeDetectorRef.markForCheck();
     });
   }
@@ -194,6 +210,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
    * 日期列表点击行，小时图表接口
    */
   _dayTotal;
+  dayTotal_change = 'line';
   _dayTotalClick(date?) {
     if (!date) {
       this._indexService.dayTotal().subscribe(res => {
@@ -446,6 +463,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       todayActivityRef.resize();
     });
   }
+
 
 
 

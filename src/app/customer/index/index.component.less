@@ -219,10 +219,36 @@
   .main{
     padding: 30px 24px 0 28px;
     display: flex;
-    .echart{
+    .echart, .tool-table{
       width: 80%;
       height: 312px;
       margin-right: 48px;
+    }
+    .tool-table {
+      > div {
+        height: 100%;
+        display: flex;
+        table {
+          height: 100%;
+          width: 33%;
+          tr {
+            th {}
+            td {
+              text-align: center;
+              &:nth-child(1) {
+                color:#a7a8a9;
+              }
+              &:nth-child(2) {
+                color:#71b4ff;
+              }
+              &:nth-child(3) {
+                color:#bfe8d7;
+              }
+
+            }
+          }
+        }
+      }
     }
     .list{
       width:20%;
@@ -268,6 +294,16 @@
               color: #2e90ff;
             }
           }
+        }
+      }
+    }
+    .dayTable{
+      height: 100%;
+      width: 100%;
+      tr {
+        td {
+          text-align: center;
+          color:#c5c5c6;
         }
       }
     }
@@ -823,6 +859,7 @@
   border-color:#4ac312 transparent transparent;/*灰 透明 透明 */
   //margin-left: 6px;
 }
+
 
 
 

@@ -25,6 +25,7 @@ export class BaseIndexComponent implements OnInit{
   @ViewChild('AgeWidth') AgeWidth: ElementRef;
   color = ['#ff7f24', '#1fcf88', '#f14c5d', '#3c61ff', '#F5CDFF', '#8c5cff', '#ffba48', '#FF86A1', '#d6ca00', '#FF0C35', '#33bcfb', '#047962'];
 
+  todayAllSpend = 'cpm';
   constructor(
     protected changeDetectorRef: ChangeDetectorRef,
     protected _publicService: PublicService,
@@ -327,7 +328,8 @@ export class BaseIndexComponent implements OnInit{
           {
             name:'直接访问',
             type:'bar',
-            barWidth: '10%',
+            barWidth: '7px',
+            // barWidth: '10%',
             itemStyle: {
               normal: {
                 color: function (params) {
@@ -528,6 +530,32 @@ export class BaseIndexComponent implements OnInit{
     echartsInstance.setOption(option);
   }
 
+  /**
+   * 数据趋势表格数据处理
+   * @param echartsInstance
+   * @param data
+   * @param type
+   */
+  dayTotalList: any = [];
+  changeDayTotalList(chartDatas){
+    let x = chartDatas.x;
+    let y = chartDatas.y;
+    let list = [];
+    x.forEach((item,index) => {
+        list.push({
+          'time': x[index],
+          'admoney': y.admoney[index],
+          'click': y.click[index],
+          'cpc': y.cpc[index],
+          'cpm': y.cpm[index],
+          'ctr': y.ctr[index],
+          'pv': y.pv[index]
+        })
+    })
+    this.dayTotalList = list;
+
+  }
+
 
   /**
    * 移动设备偏好
@@ -683,6 +711,9 @@ export class BaseIndexComponent implements OnInit{
         ]
       }
   );
+    window.addEventListener('resize', () => {
+      hobbyData.resize();
+    });
   }
 
   /**
@@ -749,6 +780,9 @@ export class BaseIndexComponent implements OnInit{
         }]
       }
   );
+    window.addEventListener('resize', () => {
+      todayAllSpendChartLine.resize();
+    });
   }
 
   /**
@@ -784,6 +818,9 @@ export class BaseIndexComponent implements OnInit{
         data: []
       }]
     })
+    window.addEventListener('resize', () => {
+      chinaDataEcharts.resize();
+    });
   }
 
   /**
@@ -964,6 +1001,8 @@ export class BaseIndexComponent implements OnInit{
       return {
         'left.px': width * index + (width / 0.1 * 0.03) * index
       };
+    } else {
+       return {}
     }
   }
 
@@ -1001,6 +1040,72 @@ export class BaseIndexComponent implements OnInit{
       dataIndex: index,
     });
   }
+
+  // 处理列表
+  /**
+   * 今日在投创意 今日在投活动   近期出具趋势 处理列表
+   * @param echartsInstance
+   * @param data
+   * @param type
+   */
+  creativeCode = 'pv';
+  creativeChartList: any = [];
+  campaignChartList; any = [];
+  campaignCode = 'pv';
+  changeCampaignAndCreativeList(chartDatas, code, type) {
+    let today =  chartDatas.y[code].today;
+    let yesterday = chartDatas.y[code].yesterday;
+    let unit = '次'
+    switch (code) {
+      case 'pv':
+      case 'click':
+        break;
+      case 'ctr': // 100
+        today = today.map(td => (td * 100).toFixed(2));
+        yesterday = yesterday.map(yd => (yd * 100 || 0).toFixed(2));
+        unit = '%';
+        break;
+      case 'cpm': // 1000
+        today = today.map(td => (td * 1000).toFixed(2));
+        yesterday = yesterday.map(yd => (yd * 1000 || 0).toFixed(2));
+        unit = '元';
+        break;
+      case 'cpc':
+      case 'admoney':
+        today = today.map(td => (td * 1).toFixed(2));
+        yesterday = yesterday.map(yd => (yd * 1 || 0).toFixed(2));
+        unit = '元';
+        break;
+    }
+    let list = [];
+    let obj = {};
+    chartDatas.x.forEach( (item, index) => {
+     list.push (
+       {
+         'time':  chartDatas.x[index],
+         'today': today[index],
+         'yesterday': yesterday[index],
+         'unit': unit
+       }
+     )
+   })
+    console.log(list)
+
+    obj = {
+      'first': list.slice(0,8),
+      'second': list.slice(8,16),
+      'third': list.slice(17,25)
+    }
+
+    if (type === 'creative') {
+      this.creativeChartList = obj;
+    } else if (type === 'campaign'){
+      this.campaignChartList = obj;
+      console.log(this.campaignChartList)
+    }
+
+  }
+
 
 
 
