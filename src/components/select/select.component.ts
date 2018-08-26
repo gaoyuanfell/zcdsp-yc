@@ -25,7 +25,7 @@ export interface Props {
   exportAs: 'ycSelect',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.less'],
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })

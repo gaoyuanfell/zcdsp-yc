@@ -5,7 +5,7 @@ import {DOCUMENT} from '@angular/common';
   selector: 'color-palette',
   templateUrl: './color-palette.component.html',
   styleUrls: ['./color-palette.component.less'],
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
 })
 export class ColorPaletteComponent implements OnInit, OnDestroy {
 

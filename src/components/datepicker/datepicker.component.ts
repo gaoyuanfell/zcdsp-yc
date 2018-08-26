@@ -24,7 +24,7 @@ export class CalendarCell {
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
 })
 export class DatepickerBaseComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
@@ -327,7 +327,7 @@ export class DatepickerBaseComponent implements OnInit, OnDestroy {
     `
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
 })
 export class DatepickerComponent implements OnInit, OnDestroy {
 

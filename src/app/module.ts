@@ -29,6 +29,7 @@ import {RichEditorModule} from '../components/rich-editor/rich-editor.module';
 import {DirectionalModule} from '../components/directional/directional.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TableModule} from '../components/table/table.module';
+import {PopoverModule} from '../components/popover/popover.module';
 
 @NgModule({
   imports: [
@@ -57,6 +58,7 @@ import {TableModule} from '../components/table/table.module';
     RichEditorModule,
     DirectionalModule,
     TableModule,
+    PopoverModule,
   ],
   declarations: [],
   exports: [
@@ -85,6 +87,7 @@ import {TableModule} from '../components/table/table.module';
     RichEditorModule,
     DirectionalModule,
     TableModule,
+    PopoverModule,
   ],
   providers: [
     {

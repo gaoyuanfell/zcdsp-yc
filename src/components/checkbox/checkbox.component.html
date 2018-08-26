@@ -1,8 +1,8 @@
 <div class="checkbox">
   <input [attr.id]="attrId" type="checkbox" [disabled]="disabled" [(ngModel)]="checked" (change)="change($event)" (click)="click($event)">
   <label [attr.for]="attrId">
-    <span [ngClass]="{'line':checkState == 2}"></span>
-    {{label}}
+    <span class="checkbox-span" [ngClass]="{'line':checkState == 2}"></span>
+    <span>{{label}}</span>
   </label>
   <i class="checkbox-icon" *ngIf="desc" [title]="desc"></i>
 </div>

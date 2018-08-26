@@ -6,7 +6,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   selector: 'yc-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.less'],
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
   animations: [
     trigger('enterLeave', [
       state('enterRight', style({opacity: 1, transform: 'translateX(0)'})),
