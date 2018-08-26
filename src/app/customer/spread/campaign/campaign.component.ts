@@ -22,8 +22,7 @@ export class CampaignComponent implements OnInit {
     keepValue: {
       begin_date: new Date().calendar(2, -1).formatDate('yyyy-MM-dd'),
       end_date: new Date().formatDate('yyyy-MM-dd')
-    },
-    cookieKey: 'CampaignComponent'
+    }
   })
   query;
   other;
@@ -31,7 +30,7 @@ export class CampaignComponent implements OnInit {
 
   current_state_list;
   show_state_list;
-  tableList
+  tableList;
   authList;
   authUser;
   batchUpdateMenu;
@@ -60,7 +59,6 @@ export class CampaignComponent implements OnInit {
   ////*******************************///
 
   @ViewChild('table', {read: TableComponent}) table: TableComponent
-
 
   @ViewChild('batch_update_show_hours', {read: TemplateRef}) batch_update_show_hours_ref: TemplateRef<any>;
   batch_show_hours_data = {
@@ -348,8 +346,8 @@ export class CampaignComponent implements OnInit {
   bid_max;
 
   ngOnInit() {
-    this.bid_min = this._global.bid_min
-    this.bid_max = this._global.bid_max
+    this.bid_min = this._global.bid_min;
+    this.bid_max = this._global.bid_max;
 
     const obj = this.route.snapshot.data['auth'];
     this.authList = Object.keys(obj['jurisdiction_list']);
