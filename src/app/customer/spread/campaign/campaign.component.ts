@@ -17,7 +17,7 @@ export class CampaignComponent implements OnInit {
   @AutoCookie({
     defaultValue: {
       page_index: 1,
-      page_size: 20
+      page_size: 100
     },
     keepValue: {
       begin_date: new Date().calendar(2, -1).formatDate('yyyy-MM-dd'),
@@ -58,7 +58,7 @@ export class CampaignComponent implements OnInit {
 
   ////*******************************///
 
-  @ViewChild('table', {read: TableComponent}) table: TableComponent
+  @ViewChild('ycTable', {read: TableComponent}) table: TableComponent
 
   @ViewChild('batch_update_show_hours', {read: TemplateRef}) batch_update_show_hours_ref: TemplateRef<any>;
   batch_show_hours_data = {

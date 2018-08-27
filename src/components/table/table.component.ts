@@ -8,6 +8,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   Renderer2,
@@ -42,7 +43,7 @@ export interface Props {
   preserveWhitespaces: true,
   encapsulation: ViewEncapsulation.None
 })
-export class TableComponent implements OnInit, AfterContentInit, OnChanges {
+export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy {
 
   tbodyList: Array<TbodyComponent> = [];
   theadList: Array<TheadComponent> = [];
@@ -106,9 +107,9 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
 
                   th.classList.add('col_fixed');
                   if (index === array.length - 1) {
-                    if(event.target.scrollLeft === 0){
+                    if (event.target.scrollLeft === 0) {
                       th.classList.remove('col_fixed_left_border');
-                    }else{
+                    } else {
                       th.classList.add('col_fixed_left_border');
                     }
                   }
@@ -141,9 +142,9 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
 
                   td.classList.add('col_fixed');
                   if (index === array.length - 1) {
-                    if(event.target.scrollLeft === 0){
+                    if (event.target.scrollLeft === 0) {
                       td.classList.remove('col_fixed_left_border');
-                    }else{
+                    } else {
                       td.classList.add('col_fixed_left_border');
                     }
                   }
@@ -189,7 +190,7 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
               private changeDetectorRef: ChangeDetectorRef) {
   }
 
-  blankHeight
+  blankHeight;
 
   ngAfterContentInit(): void {
     let _tableRef = <HTMLElement>this.tableRef.nativeElement;
@@ -199,7 +200,12 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
     this.blankHeight = tableBcrt.top - cfBcrt.top; // 只能计算一次
     let navHeight = cfBcrt.top;
 
-    this.overflowRef.nativeElement.children[0].style.width = `${_tableRef.clientWidth}px`; // 设置滚动条
+    if (this.queryRef) {
+      _tableContainerRef.style.paddingTop = `${this.queryRef.nativeElement.clientHeight}px`; // 设置搜索工具
+    }
+    if (this.overflowRef) {
+      this.overflowRef.nativeElement.children[0].style.width = `${_tableRef.clientWidth}px`; // 设置滚动条
+    }
 
     // 设置搜索工具条位置
     this._global.overflowSubject.subscribe(data => {
@@ -322,7 +328,7 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
               }
               case 'right': {
                 th.style.left = `${-(_tableRef.clientWidth - tableBcrt.width + 2)}px`;
-                console.info(th.style.left)
+                console.info(th.style.left);
                 break;
               }
             }
@@ -401,19 +407,48 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
     });
 
     this.changeSortObservable.subscribe(params => {
-      console.info(params)
-      if(this.theadList[0]){
+      console.info(params);
+      if (this.theadList[0]) {
         let allList = this.theadList[0].trList.map(tr => tr.thList.filter(th => th.showSort))[0];
-        if(allList instanceof Array && allList.length) {
+        if (allList instanceof Array && allList.length) {
           allList.forEach(th => {
-            th.status = '2'
-          })
+            th.status = '2';
+          });
           this.query.sort_expression = params.sort_expression;
           this.query.sort_direction = params.sort_direction;
           this.changeEvent.emit(this.query);  // 发射到页面
         }
       }
-    })
+    });
+
+    this.changeExpandObservable.subscribe(() => {
+      let _tableRef = <HTMLElement>this.tableRef.nativeElement;
+      this.overflowRef.nativeElement.children[0].style.width = `${_tableRef.clientWidth}px`; // 设置滚动条
+
+      let _tableContainerRef = <HTMLElement>this.tableContainerRef.nativeElement;
+      let tableBcrt = _tableContainerRef.getBoundingClientRect();
+      let cfBcrt = this._global.containerFullRef.getBoundingClientRect();
+      let _overflowRef = <HTMLElement>this.overflowRef.nativeElement;
+
+      cfBcrt = this._global.containerFullRef.getBoundingClientRect();
+      tableBcrt = _tableContainerRef.getBoundingClientRect();
+      let navHeight = cfBcrt.top;
+      let maxBottom = tableBcrt.height - (cfBcrt.height - this.blankHeight);
+      let bottom = maxBottom - this._global.containerFullRef.scrollTop;
+      let _pagingHeight = 0;
+      let _pagingRef;
+      if (this.pagingRef) {
+        _pagingRef = <HTMLElement>this.pagingRef.nativeElement;
+        _pagingHeight = _pagingRef.clientHeight;
+      }
+      if (bottom < -_pagingHeight) {
+        bottom = -_pagingHeight;
+      }
+      if (_pagingRef) {
+        _pagingRef.style.bottom = `${bottom + _pagingHeight}px`;
+      }
+      _overflowRef.style.bottom = `${bottom + _pagingHeight}px`;
+    });
   }
 
   // ------------------ 数据 ------------------ //
@@ -466,7 +501,10 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
     });
     this.selectData = [];
 
-    setTimeout(()=> {
+    setTimeout(() => {
+      let _tableRef = <HTMLElement>this.tableRef.nativeElement;
+      this.overflowRef.nativeElement.children[0].style.width = `${_tableRef.clientWidth}px`; // 设置滚动条
+
       let _tableContainerRef = <HTMLElement>this.tableContainerRef.nativeElement;
       let tableBcrt = _tableContainerRef.getBoundingClientRect();
       let cfBcrt = this._global.containerFullRef.getBoundingClientRect();
@@ -478,7 +516,7 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
       let maxBottom = tableBcrt.height - (cfBcrt.height - this.blankHeight);
       let bottom = maxBottom - this._global.containerFullRef.scrollTop;
       let _pagingHeight = 0;
-      let _pagingRef
+      let _pagingRef;
       if (this.pagingRef) {
         _pagingRef = <HTMLElement>this.pagingRef.nativeElement;
         _pagingHeight = _pagingRef.clientHeight;
@@ -490,13 +528,14 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
         _pagingRef.style.bottom = `${bottom + _pagingHeight}px`;
       }
       _overflowRef.style.bottom = `${bottom + _pagingHeight}px`;
-    })
+    });
   }
 
   checkAllObservable = new Subject<any>();
   changeCheckObservable = new Subject<any>();
   changeTdStateObservable = new Subject<any>();
   changeSortObservable = new Subject<any>();
+  changeExpandObservable = new Subject<any>();
 
   // ------------------ 分页 ------------------ //
 
@@ -607,5 +646,13 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.changeDetectorRef.markForCheck();
+  }
+
+  ngOnDestroy(): void {
+    this.checkAllObservable.unsubscribe();
+    this.changeCheckObservable.unsubscribe();
+    this.changeTdStateObservable.unsubscribe();
+    this.changeSortObservable.unsubscribe();
+    this.changeExpandObservable.unsubscribe();
   }
 }
