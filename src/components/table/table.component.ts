@@ -189,12 +189,14 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
               private changeDetectorRef: ChangeDetectorRef) {
   }
 
+  blankHeight
+
   ngAfterContentInit(): void {
     let _tableRef = <HTMLElement>this.tableRef.nativeElement;
     let _tableContainerRef = <HTMLElement>this.tableContainerRef.nativeElement;
     let tableBcrt = _tableContainerRef.getBoundingClientRect();
     let cfBcrt = this._global.containerFullRef.getBoundingClientRect();
-    let blankHeight = tableBcrt.top - cfBcrt.top; // 只能计算一次
+    this.blankHeight = tableBcrt.top - cfBcrt.top; // 只能计算一次
     let navHeight = cfBcrt.top;
 
     this.overflowRef.nativeElement.children[0].style.width = `${_tableRef.clientWidth}px`; // 设置滚动条
@@ -217,7 +219,7 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
     // 设置分页滚动条位置
     let _overflowRef = <HTMLElement>this.overflowRef.nativeElement;
     let _pagingHeight = 0;
-    let maxBottom = tableBcrt.height - (cfBcrt.height - blankHeight);
+    let maxBottom = tableBcrt.height - (cfBcrt.height - this.blankHeight);
     let _pagingRef;
     if (this.pagingRef) {
       _pagingRef = <HTMLElement>this.pagingRef.nativeElement;
@@ -231,7 +233,7 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
       cfBcrt = this._global.containerFullRef.getBoundingClientRect();
       tableBcrt = _tableContainerRef.getBoundingClientRect();
       navHeight = cfBcrt.top;
-      maxBottom = tableBcrt.height - (cfBcrt.height - blankHeight);
+      maxBottom = tableBcrt.height - (cfBcrt.height - this.blankHeight);
       let bottom = maxBottom - data.top;
       if (bottom < -_pagingHeight) {
         bottom = -_pagingHeight;
@@ -302,7 +304,7 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
       // 设置分页滚动条位置
       tableBcrt = _tableContainerRef.getBoundingClientRect();
       cfBcrt = this._global.containerFullRef.getBoundingClientRect();
-      let maxBottom = tableBcrt.height - (cfBcrt.height - blankHeight);
+      let maxBottom = tableBcrt.height - (cfBcrt.height - this.blankHeight);
       _overflowRef.style.bottom = `${maxBottom > 0 ? maxBottom + _pagingHeight : 0}px`;
       _pagingRef.style.bottom = `${maxBottom > 0 ? maxBottom + _pagingHeight : 0}px`;
 
@@ -468,20 +470,27 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
       let _tableContainerRef = <HTMLElement>this.tableContainerRef.nativeElement;
       let tableBcrt = _tableContainerRef.getBoundingClientRect();
       let cfBcrt = this._global.containerFullRef.getBoundingClientRect();
-      let blankHeight = tableBcrt.top - cfBcrt.top;
-      // 设置分页滚动条位置
       let _overflowRef = <HTMLElement>this.overflowRef.nativeElement;
+
+      cfBcrt = this._global.containerFullRef.getBoundingClientRect();
+      tableBcrt = _tableContainerRef.getBoundingClientRect();
+      let navHeight = cfBcrt.top;
+      let maxBottom = tableBcrt.height - (cfBcrt.height - this.blankHeight);
+      let bottom = maxBottom - this._global.containerFullRef.scrollTop;
       let _pagingHeight = 0;
-      let maxBottom = tableBcrt.height - (cfBcrt.height - blankHeight);
-      let _pagingRef;
+      let _pagingRef
       if (this.pagingRef) {
         _pagingRef = <HTMLElement>this.pagingRef.nativeElement;
         _pagingHeight = _pagingRef.clientHeight;
-        _pagingRef.style.bottom = `${maxBottom > 0 ? maxBottom + _pagingHeight : 0}px`;
       }
-      _overflowRef.style.bottom = `${maxBottom > 0 ? maxBottom + _pagingHeight : 0}px`;
+      if (bottom < -_pagingHeight) {
+        bottom = -_pagingHeight;
+      }
+      if (_pagingRef) {
+        _pagingRef.style.bottom = `${bottom + _pagingHeight}px`;
+      }
+      _overflowRef.style.bottom = `${bottom + _pagingHeight}px`;
     })
-
   }
 
   checkAllObservable = new Subject<any>();

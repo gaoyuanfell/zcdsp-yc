@@ -17,7 +17,7 @@ export class CampaignComponent implements OnInit {
   @AutoCookie({
     defaultValue: {
       page_index: 1,
-      page_size: 30
+      page_size: 20
     },
     keepValue: {
       begin_date: new Date().calendar(2, -1).formatDate('yyyy-MM-dd'),

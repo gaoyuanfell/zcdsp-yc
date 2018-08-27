@@ -1,3 +1,169 @@
-<p>
-  creative works!
-</p>
+<div class="container-list">
+
+  <div class="query-tool">
+    <div class="left-tool">
+      <h2 class="table-title">
+        创意列表
+      </h2>
+
+      <span class="no-data">
+        <yc-checkbox [(ngModel)]="query.ignore_no_data" (changeEvent)="search()" [label]="'过滤无数据广告'"></yc-checkbox>
+      </span>
+
+    </div>
+    <div class="right-tool">
+      <input-datepicker [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
+      <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'请输入创意的名称、ID'"></yc-input-search>
+    </div>
+  </div>
+
+  <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
+    <div #queryRef query class="query-tool">
+      <div class="left-tool">
+        <div class="btn" routerLink="/ads/spread/creative-add/0" [queryParamsHandling]="'merge'">
+          新建创意
+          <i class="btn-icon-add"></i>
+        </div>
+        <div class="btn" (click)="batchUpdate('creative_copy')">
+          复制创意
+          <i class="btn-icon-copy"></i>
+        </div>
+        <div class="btn btn-outline" [yc-drop-menu]="batchUpdateMenu" (selectedEvent)="batchUpdate($event.value)">
+          批量修改
+          <i class="icon-btn-menu m-l-1"></i>
+        </div>
+        <div class="btn" (click)="exportUrl()">
+          导出
+          <i class="btn-icon-export"></i>
+        </div>
+      </div>
+      <div class="right-tool">
+        <yc-select [(ngModel)]="query.show_state" (selectedEvent)="search()" [placeholder]="'操作'" [list]="show_state_list" [props]="{value:'value',label:'name'}" [whole]="'全部'"></yc-select>
+        <yc-select [(ngModel)]="query.current_state" (selectedEvent)="search()" [placeholder]="'投放状态'" [list]="current_state_list" [props]="{value:'value',label:'name'}" [whole]="'全部'"></yc-select>
+        <yc-select [(ngModel)]="query.zc_audit_status" (selectedEvent)="search()" [placeholder]="'审核状态'" [list]="audit_state_list" [props]="{value:'value',label:'name'}" [whole]="'全部'"></yc-select>
+      </div>
+    </div>
+    <table #tableRef table>
+      <thead>
+      <tr>
+        <th width="50" [showCheckbox]="true"></th>
+        <th>创意ID</th>
+        <th class="text-left">创意名称</th>
+        <th></th>
+        <th class="text-left">活动名称</th>
+        <th class="text-left">媒体</th>
+        <th class="text-right">出价</th>
+        <th>操作</th>
+        <th>投放状态</th>
+        <th>审核状态</th>
+        <th class="text-right" [showSort]="true" [sortKey]="'pv'" title="广告被展现给受众的次数">曝光量</th>
+        <th class="text-right" [showSort]="true" [sortKey]="'click'" title="排除恶意点击后，广告被受众点击的次数">点击量</th>
+        <th class="text-right" [showSort]="true" [sortKey]="'ctr'" title="广告被点击的比率(点击量/曝光量*100%)">点击率</th>
+        <th class="text-right" [showSort]="true" [sortKey]="'cpc'" title="广告主为每次点击付出的平均花费(花费/点击量)">点击成本</th>
+        <th class="text-right" [showSort]="true" [sortKey]="'cpm'" title="广告主为每1000次曝光付出平均花费(花费/曝光量*1000)">曝光成本</th>
+        <th class="text-right" [showSort]="true" [sortKey]="'admoney'" title="广告点击后产生的费用">花费</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-template [ngForOf]="ycTable.data" ngFor let-data let-index="index">
+        <tr >
+          <td [showCheckbox]="data"></td>
+          <td>{{data.creative_id}}</td>
+          <td class="text-left" [width]="200" title="{{data.creative_name}}">
+            <a data-link (click)="_showCreative(data)">{{data.creative_name}}</a>
+          </td>
+          <td>
+            <i class="icon-img-edit" yc-popover [template]="creativeName" #popoverCreativeName="ycPopover" (openEvent)="creative_name = data.creative_name"></i>
+          </td>
+          <td class="text-left" (width)="100" title="{{data.campaign_name}}">{{data.campaign_name}}</td>
+          <td class="text-left" (width)="100" title="{{data.media_name}}">{{data.media_name}}</td>
+          <td class="text-right">
+            {{data.ad_price | currencyFormat}}
+            <i class="icon-img-edit" yc-popover [template]="adPrice" #popoverAdPrice="ycPopover" (openEvent)="ad_price = data.ad_price"></i>
+          </td>
+          <td>
+            <yc-switch-input [size]="'small'" [values]="['1','2']" [(ngModel)]="data.show_state" #switchRef="switchInput" (eventChange)="updateOneShowState(data, switchRef)"></yc-switch-input>
+          </td>
+          <td [title]="data.current_state_name">
+          <span [ngStyle]="{color:data.current_state == 1?'':'#ff5757'}">
+            {{data.show_state_meaning}}
+            <!--{{data.current_state | ycCurrentState}}-->
+          </span>
+          </td>
+          <td>{{data.zc_audit_status_name}}</td>
+          <td class="text-right">{{data.pv | number}}</td>
+          <td class="text-right">{{data.click | number}}</td>
+          <td class="text-right">{{ data.ctr * 100 | number: '1.2-2' }}%</td>
+          <td class="text-right">{{ data.cpc | currencyFormat}}</td>
+          <td class="text-right">{{ data.cpm * 1000 | currencyFormat}}</td>
+          <td class="text-right">{{ data.admoney | currencyFormat }}</td>
+        </tr>
+
+        <ng-template #creativeName>
+          <div class="day-money-home">
+            <h3>修改创意名称</h3>
+            <div style="" class="form-group flex-center">
+              <label style="width: 50px;" class="form-label">名称：</label>
+              <div class="form-input">
+                <input type="text" autofocus class="form-control" [(ngModel)]="creative_name" (keyup.enter)="_updateName(data);popoverCreativeName.close()">
+              </div>
+            </div>
+            <div class="text-right">
+              <button style="margin-right: 10px" class="btn btn-small" (click)="popoverCreativeName.close()">取消</button>
+              <button class="btn btn-small" (click)="_updateName(data);popoverCreativeName.close()">确认</button>
+            </div>
+          </div>
+        </ng-template>
+
+
+        <ng-template #adPrice>
+          <div class="day-money-home">
+            <label class="form-label">修改出价</label>
+            <div class="form-group flex-center">
+              <div class="form-input">
+                <input class="form-control" autofocus type="text" [(ngModel)]="ad_price" #ad_priceRef="ngModel" [placeholder]="'请填写出价'" required
+                       pattern="(^[0-9]\d*\.?\d{0,2}$)"
+                       [ngClass]="{'has-error': (ad_priceRef.dirty || ad_priceRef.touched) && (ad_priceRef.invalid || ad_price > bid_max || ad_price < bid_min)}" (keyup.enter)="_updateAdPrice(data);popoverAdPrice.close()">
+                <p class="input-error" *ngIf="(ad_priceRef.dirty || ad_priceRef.touched) && ad_priceRef.invalid">请输入正确的金额</p>
+                <p class="input-error" *ngIf="ad_priceRef.valid && (ad_price > bid_max || ad_price < bid_min)">出价范围[{{bid_min}},{{bid_max}}]</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <button class="btn btn-border" (click)="popoverAdPrice.close()">取消</button>
+              <button class="btn btn-small" (click)="_updateAdPrice(data);popoverAdPrice.close()" [disabled]="ad_priceRef.invalid || ad_price > bid_max || ad_price < bid_min">确认</button>
+            </div>
+          </div>
+        </ng-template>
+
+      </ng-template>
+      </tbody>
+    </table>
+  </yc-table>
+</div>
+
+<!--批量修改活动 状态-->
+<ng-template #update_state>
+  <yc-radio-group [(ngModel)]="update_state_data.show_state" [list]="[{value:1,label:'开启'},{value:2,label:'关闭'}]"></yc-radio-group>
+</ng-template>
+
+<!--批量修改活动 小时-->
+<ng-template #update_show_hours>
+  <yc-time-schedule style="padding-top: 10px;display: block;" [grain]="1" *ngIf="update_show_hours_data.show_time_type === 1" [(ngModel)]="update_show_hours_data.show_hours"></yc-time-schedule>
+</ng-template>
+
+
+<!--批量修改活动 出价-->
+<ng-template #update_price>
+  <input class="form-control" autofocus type="text" [(ngModel)]="update_price_data.price" #update_priceRef="ngModel" [placeholder]="'请填写出价'" required
+         pattern="(^[0-9]\d*\.?\d{0,2}$)"
+         [ngClass]="{'has-error': (update_priceRef.dirty || update_priceRef.touched || _valid) && (update_priceRef.invalid  || update_price_data.price > bid_max || update_price_data.price < bid_min)}">
+  <p class="input-error" *ngIf="(update_priceRef.dirty || update_priceRef.touched || _valid) && update_priceRef.invalid">请输入正确的金额</p>
+  <p class="input-error" *ngIf="update_priceRef.valid && (update_price_data.price > bid_max || update_price_data.price < bid_min)">出价范围[{{bid_min}}, {{bid_max}}]</p>
+</ng-template>
+
+<!--创意预览-->
+<ng-template #show_creative>
+  <div style="text-align: center">
+    <yc-creative-box style="display: inline-block;" [preview]="true" *ngIf="elements" [(ngModel)]="elementValue" [elements]="elements"></yc-creative-box>
+  </div>
+</ng-template>
