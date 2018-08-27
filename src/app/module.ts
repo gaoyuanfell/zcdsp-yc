@@ -30,6 +30,7 @@ import {DirectionalModule} from '../components/directional/directional.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TableModule} from '../components/table/table.module';
 import {PopoverModule} from '../components/popover/popover.module';
+import {FormTipsModule} from '../components/form-tips/form-tips.module'
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import {PopoverModule} from '../components/popover/popover.module';
     DirectionalModule,
     TableModule,
     PopoverModule,
+    FormTipsModule
   ],
   declarations: [],
   exports: [
@@ -88,6 +90,7 @@ import {PopoverModule} from '../components/popover/popover.module';
     DirectionalModule,
     TableModule,
     PopoverModule,
+    FormTipsModule
   ],
   providers: [
     {

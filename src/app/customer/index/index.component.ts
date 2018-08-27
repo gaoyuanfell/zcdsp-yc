@@ -44,7 +44,6 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     super(changeDetectorRef, _publicService, render);  // 父亲也有constructor
   }
   ngOnInit(): void {
-
     this.render.listen('window', 'resize', (res) => {
       // res.target.innerWidth
       if (res.target.innerWidth > 1666 && res.target.innerWidth < 1920) {
@@ -64,8 +63,6 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       this._init();
       this.initData();
     },500); // 当你的echarts的宽高是百分比的时候，会出现显示不完全，延时即可
-
-
     this.todayAllDataChart();
     this.todayAllSpendChart();
     this.socialDataChart();

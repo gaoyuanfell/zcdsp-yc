@@ -1,0 +1,9 @@
+<div *ngIf=" (target && target.invalid && (target.dirty || target.touched || formTarget.submitted))">
+  <div *ngIf="target.errors.required" class="alert alert-danger"><img src="../assets/img/index/tips.png" alt="">{{ placeholder }} {{target.attributes}}</div>
+  <div *ngIf="target.errors.pattern" class="alert alert-danger"><img src="../assets/img/index/tips.png" alt="">{{ tips }}</div>
+  <div *ngIf="target.errors.minlength" class="alert alert-danger"><img src="../assets/img/index/tips.png" alt="">长度不能少于{{target.errors.minlength.requiredLength}}</div>
+  <div *ngIf="target.errors.maxlength" class="alert alert-danger"><img src="../assets/img/index/tips.png" alt="">长度不能大于{{target.errors.maxlength.requiredLength}}</div>
+  <div *ngIf="target.errors.max" class="alert alert-danger"><img src="../assets/img/index/tips.png" alt="">不能{{target.errors.max}}</div>
+</div>
+
+
