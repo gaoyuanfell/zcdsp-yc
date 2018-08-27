@@ -1,12 +1,45 @@
 <div class="add-campaign-nav">
-  1111111111
+  <div class="nav-list">
+    <p class="nav-list-title active">推广目标</p>
+    <div class="nav-list-item">
+      <p class="current"> <i class="icon-data-yes"></i>目标类型</p>
+      <p> <i class="icon-data-yes"></i>落地页</p>
+    </div>
+  </div>
+
+
+  <div class="nav-list">
+    <p class="nav-list-title">活动设置</p>
+    <div class="nav-list-item">
+      <p> <i class="icon-data-yes"></i>预算</p>
+      <p> <i class="icon-data-yes"></i>排期</p>
+    </div>
+  </div>
+
+  <div class="nav-list">
+    <p class="nav-list-title">定向</p>
+    <div class="nav-list-item">
+      <p> <i class="icon-data-yes"></i>地域定向</p>
+      <p> <i class="icon-data-yes"></i>人群定向</p>
+      <p> <i class="icon-data-yes"></i>行为定向</p>
+      <p> <i class="icon-data-yes"></i>设备定向</p>
+    </div>
+  </div>
+
+  <div class="nav-list">
+    <p class="nav-list-title">出价</p>
+    <div class="nav-list-item">
+      <p> <i class="icon-data-yes"></i>出价</p>
+    </div>
+  </div>
 </div>
+
 <div class="submit-toolbar">
   <div class="submit-box flex-center">
     <p class="cover-people">可覆盖<span>{{(_audienceCount || 0) | number}}</span>人</p>
     <a class="btn btn-link" style="padding: 0 40px;" *ngIf="_isEdit" href="javascript:history.back()">返回</a>
     <button class="btn btn-outline btn-round m-r-1" (click)="save(2)" *ngIf="jurisdiction?.ZCMOBI_ADS_SPREAD_CAMPAIGN_EDIT_DIRECTION_SAVE && !_isEdit">提交并新建创意</button>
-    <button class="btn btn-round" [ngClass]="{'btn-outline': !_isEdit}" style="padding: 0 40px;" (click)="save(1)" *ngIf="jurisdiction?.ZCMOBI_ADS_SPREAD_CAMPAIGN_EDIT_SAVE">提 交</button>
+    <button class="btn btn-round" style="padding: 0 40px;" (click)="save(1)" *ngIf="jurisdiction?.ZCMOBI_ADS_SPREAD_CAMPAIGN_EDIT_SAVE">提 交</button>
   </div>
 </div>
 <div class="add-campaign-main">

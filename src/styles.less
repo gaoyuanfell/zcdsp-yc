@@ -411,6 +411,43 @@ body {
   }
 }
 
+.input-error {
+  color: #ff4500;
+  padding-top: 5px;
+}
+
+.nav-list{
+  color: #999999;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 40px;
+  p{
+    padding: 10px 0;
+    &.active{
+      color: #212121;
+    }
+  }
+  .nav-list-item{
+    padding-left: 5px;
+    p{
+      &.active{
+        color: #212121;
+        i{
+          opacity: 1;
+        }
+      }
+      &.current{
+        color: #2e8fff;
+      }
+    }
+    i{
+      padding-right: 3px;
+      opacity: 0;
+      transition: opacity 0.1s ease;
+    }
+  }
+}
+
 /////////////////////// 全局样式
 
 ////////////////////// 表格
@@ -776,4 +813,15 @@ textarea.form-control {
   outline: none;
   background: url("assets/img/icon-img-question.png") no-repeat center;
   background-size: 16px 16px;
+}
+.icon-data-yes {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  width: 18px;
+  height: 14px;
+  vertical-align: middle;
+  outline: none;
+  background: url("assets/img/icon-data-yes.png") no-repeat center;
+  background-size: 18px 14px;
 }
