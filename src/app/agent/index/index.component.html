@@ -1,0 +1,324 @@
+<div class="container">
+  <ul class="top">
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/indexjinr.png" alt=""></div>
+        <div class="right">
+          <p>今日消耗</p>
+          <h1>{{userData?.consume | currencyFormat}}</h1>
+        </div>
+      </div>
+      <div class="ratio">
+        <div class="list">周同比<span>{{userData?.wow * 1 | number: '1.2-2'}}%</span>
+          <i [ngClass]="{'red': userData?.wow >= 0, 'green':  userData?.wow < 0 }"></i>
+        </div>
+        <div class="list">日环比<span>{{userData?.dod * 1 | number: '1.2-2'}}%</span>
+          <i [ngClass]="{'red': userData?.dod >= 0, 'green':  userData?.dod < 0 }"></i>
+        </div>
+      </div>
+      <div class="number clear">
+        <div class="list">账户余额<span>{{userData?.balance | currencyFormat}}</span><i class="icon-tool-tip"></i></div>
+        <div class="list">每日预算<span>{{userData?.max_day_money | currencyFormat}}</span><i class="icon-tool-edit"></i></div>
+      </div>
+    </li>
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/indexbaog.png" alt=""></div>
+        <div class="right">
+          <p>曝光总量</p>
+          <h1>{{chartsData?.pv | numberFormat}}</h1>
+        </div>
+      </div>
+      <div class="echart" #todayAllSpendChartSmall>
+
+      </div>
+      <div class="number">
+        <div class="list">曝光成本<span>{{todayReportTop?.todayCpm * 1000 | currencyFormat }}
+        </span><i [ngClass]="{'red': todayReportTop?.todayCpm > todayReportTop?.yesCpm, 'green': todayReportTop?.todayCpm < todayReportTop?.yesCpm, '': todayReportTop?.todayCpm === todayReportTop?.yesCpm }"></i></div>
+      </div>
+    </li>
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/indexdianj.png" alt=""></div>
+        <div class="right">
+          <p>点击总量</p>
+          <h1>{{chartsData?.click | numberFormat}}</h1>
+        </div>
+      </div>
+      <div class="echart" #todayAllSpendChartLine>
+
+      </div>
+      <div class="number">
+        <div class="list">点击成本<span>{{todayReportTop?.todayCpc| currencyFormat}}</span>
+          <i [ngClass]="{'red': todayReportTop?.todayCpc > todayReportTop?.yesCpc, 'green': todayReportTop?.todayCpc < todayReportTop?.yesCpc, '': todayReportTop?.todayCpc === todayReportTop?.yesCpc}"></i>
+        </div>
+        <div class="list">点击率<span>{{todayReportTop?.todayCtr * 100 | number: '1.2-2'}}%</span>
+          <i [ngClass]="{'red': todayReportTop?.todayCtr > todayReportTop?.yesCtr, 'green': todayReportTop?.todayCtr < todayReportTop?.yesCtr, '': todayReportTop?.todayCtr === todayReportTop?.yesCtr}"></i>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/indexchuany.png" alt=""></div>
+        <div class="right">
+          <p>今日消耗</p>
+          <h1>17个</h1>
+        </div>
+      </div>
+      <div class="state clear">
+        <div class="list">已通过<span>{{(stateCount?.pass_count || 0) | number}}</span></div>
+        <div class="list">未通过<span>{{(stateCount?.notpass_count || 0) | number}}</span></div>
+        <div class="list">审核中<span>{{(stateCount?.wait_count || 0) | number}}</span></div>
+        <div class="list">待提交<span>{{(stateCount?.wait_submit_count || 0) | number}}</span></div>
+      </div>
+      <div class="state-rate">
+        <div class="list">已通过<span>{{(stateCount?.pass_count / stateCount?.total_count * 100) | number: '1.2-2'}}%</span></div>
+        <div class="list">未通过<span>{{(stateCount?.notpass_count / stateCount?.total_count * 100) | number: '1.2-2'}}%</span></div>
+        <div class="list">审核中<span>{{(stateCount?.wait_count / stateCount?.total_count * 100) | number: '1.2-2'}}%</span></div>
+        <div class="list">待提交<span>{{(stateCount?.wait_submit_count / stateCount?.total_count * 100) | number: '1.2-2'}}%</span></div>
+      </div>
+    </li>
+  </ul>
+  <div class="originality">
+    <div class="title">
+      <div class="left">
+        近期数据趋势<i class="icon-tool-help"></i>
+      </div>
+      <div class="right">
+        <yc-button-group class="tool" [list]="totalCodeList | keys:'value':'label'" [(ngModel)]="dayTotalCode" (changeEvent)="changeDayTotalChart(todayReportEcharts,dayTotalChartData,dayTotalCode)"   *ngIf="dayTotal_change==='table'? false : true"></yc-button-group>
+        <span class="icon-tool" [ngClass]="{'icon-tool-img-line2':dayTotal_change === 'line', 'icon-tool-img-line': dayTotal_change !== 'line'}" (click)="dayTotal_change = 'line'"></span>
+        <span class="icon-tool" [ngClass]="{'icon-tool-img-table2':dayTotal_change === 'table', 'icon-tool-img-table': dayTotal_change !== 'table'}" (click)="dayTotal_change = 'table'"></span>
+      </div>
+    </div>
+    <div class="main" [ngStyle]="{'display':dayTotal_change==='line'?'block':'none'}">
+      <div style="display: flex;width:100%;">
+        <div class="echart" #todayReportChart></div>
+        <div class="list">
+          <div class="tit">日期筛选<span class="icon-tool-add"></span></div>
+          <div class="all" (click)="_dayTotalClick();_dayTotal = null" [ngClass]="{'active': _dayTotal === null}">15天内创意</div>
+          <ul>
+            <li *ngFor="let data of dayTotalListData;let i = index"  (click)="_dayTotalClick(data.date);  _dayTotal = data" [ngClass]="{'active': _dayTotal === data}">
+              {{data.date}}
+              <span class="edit">编辑</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="main" [ngStyle]="{'display':dayTotal_change==='table'?'block':'none'}">
+      <table class="dayTable" cellspacing="12">
+        <thead>
+        <tr>
+          <th>日期</th>
+          <th>曝光量</th>
+          <th>点击量</th>
+          <th>点击率</th>
+          <th>点击成本</th>
+          <th>曝光成本</th>
+          <th>累积花费</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let x of dayTotalList">
+          <td>{{x.time}}</td>
+          <td>{{x.pv | number}}次</td>
+          <td>{{x.click | number}}次</td>
+          <td>{{x.ctr * 100 | number:'1.2-2'}}%</td>
+          <td>{{x.cpc | currencyFormat}}</td>
+          <td>{{x.cpm * 1000 | currencyFormat}}</td>
+          <td>{{x.admoney | currencyFormat}}</td>
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="platform clear">
+    <div class="master">
+      <div class="content">
+        <div class="title">
+          <div class="left">
+            平台实时流量<i class="icon-tool-help"></i>
+          </div>
+        </div>
+        <div class="main">
+          <div class="tit">
+            <div class="list">平均曝光量<span>2,689次</span></div>
+            <div class="list">较前日平均<span>26%</span><i class="green"></i></div>
+            <div class="list">较上周平均<span>26%</span><i class="red"></i></div>
+          </div>
+          <div class="echart" #todayAllDataChart></div>
+        </div>
+      </div>
+    </div>
+    <div class="master">
+      <div class="content">
+        <div class="title">
+          <div class="left">
+            平台实时效果<i class="icon-tool-help"></i>
+          </div>
+          <div class="right">
+            <yc-button-group class="tool" (changeEvent)="changeDayTotalChart(todayAllSpendEcharts,ad_total_echarts,todayAllSpend)" [(ngModel)]="todayAllSpend" [list]="[{value:'ctr',label:'点击率'},{value:'cpc',label:'点击成本'},{value:'cpm',label:'曝光成本'}]"></yc-button-group>
+          </div>
+        </div>
+        <div class="main">
+          <div class="tit">
+            <div class="list">平均曝光量<span>2,689次</span></div>
+            <div class="list">较前日平均<span>26%</span><i class="green"></i></div>
+            <div class="list">较上周平均<span>26%</span><i class="red"></i></div>
+          </div>
+          <div class="echart" #todayAllSpendChart></div>
+        </div>
+      </div>
+    </div>
+    <div class="master">
+      <div class="content">
+        <div class="title">
+          <div class="left">
+            性别分布<i class="icon-tool-help"></i>
+          </div>
+        </div>
+        <div class="main gender">
+          <div class="gender-parent">
+            <div class="gender-child" *ngFor="let x of gender">
+              <img src="{{x.src}}">
+              <div>{{x.gender}}</div>
+              <div>{{x.gender_proportion / genderTotal * 100 | number: '1.2-2'}}</div>
+            </div>
+          </div>
+          <div class="gender-bottom">
+            <span class="item" [ngClass]="{'blue':item.type==='man'?true:false,'purple':item.type==='woman'?true:false, 'gray':item.type==='undefined'?true:false}" [ngStyle]="_getSexStyle(i)" *ngFor="let item of get180();let i = index;"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="master">
+      <div class="content">
+        <div class="title">
+          <div class="left">
+            年龄分布<i class="icon-tool-help"></i>
+          </div>
+        </div>
+        <div class="main age" style="padding:0;">
+          <div class="item">
+
+            <div *ngFor="let x of age; let i = index" class="item-parent" [ngStyle]="_getAgeStyle(i)" #AgeWidth>
+              <div class="item1"  >
+                <div>{{x.age_proportion / ageTotal * 100 | number: '1.2-2' }}%</div>
+                <div>
+                  <div></div>
+                  <div></div>
+                  <div><img [src]="x.src"></div>
+                </div>
+                <div>{{x.age_part}}</div>
+              </div>
+              <div class="item1">
+                <div [ngStyle]="{'height.px': x.age_proportion / ageTotal * 100}">
+                  <div></div>
+                  <div></div>
+                </div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+
+          </div>
+          <div class="item">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="master">
+      <div class="content">
+        <div class="title">
+          <div class="left">
+            移动设备偏好<i class="icon-tool-help"></i>
+          </div>
+        </div>
+        <div class="main brand">
+          <div class="brand-echart" #socialDataChart></div>
+          <div class="brand-left">
+            <div class="item" *ngFor="let l of brand;let i = index" (mouseover)="_showHighlightChart(socialDataEcharts, i)">
+              <span class="spot" [ngStyle]="{'background-color': l.color}"></span>
+              <span>{{l.brand_name}}</span>
+              <span>{{l.request_num / brandTotal * 100 | number:'1.2-2' }}%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="master">
+      <div class="content">
+        <div class="title">
+          <div class="left">
+            媒体流量偏好<i class="icon-tool-help"></i>
+          </div>
+        </div>
+        <div class="main media_flow">
+          <div class="media-echart">
+            <div class="item" *ngFor="let media of media_flow_top5;let index = index">
+              <p>NO.{{index + 1}}</p>
+              <p>{{media.media_name}}</p>
+              <p>{{media.request_num / 10000000 | number:'1.0-0'}}千万</p>
+            </div>
+          </div>
+          <div class="media-left">
+            <div class="item" *ngFor="let media of media_flow_top5;">
+              <span class="spot" [ngStyle]="{'background-color': media.color}"></span>
+              <span>{{media.media_name}}</span>
+              <span>{{media.request_num / 10000000 | number:'1.0-0'}}千万</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scatter">
+    <div class="title">
+      <div class="left">
+        人群特征指数<i class="icon-tool-help"></i>
+      </div>
+    </div>
+    <div class="main people_data">
+      <div class="echart" #hobbyDataChart></div>
+      <div class="echart people-left">
+        <div class="item flex" *ngFor="let l of hobby; let i = index">
+          <span>{{l.app_category_name}}</span>
+          <div class="bar-box">
+            <div class="bar-black"></div>
+            <div class="bar-fill" [ngStyle]="{'width.%': l.hobby_proportion / hobbyTotal * 100}"></div>
+          </div>
+          <span>{{l.hobby_proportion / hobbyTotal * 100 | number: '1.2-2' }}%</span>
+          <span  [ngClass]="{'up': l.flag === 'up'? true :false, 'down': l.flag === 'down' ? true : false}"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scatter">
+    <div class="title">
+      <div class="left">
+        地域流量分布<i class="icon-tool-help"></i>
+      </div>
+    </div>
+    <div class="main area_data">
+      <div class="echart" #chinaDataChart></div>
+      <div class="echart area_left">
+        <div class="item flex" *ngFor="let l of top_area_data; let i = index">
+          <span>{{l.province_name}}</span>
+          <div class="bar-box">
+            <div class="bar-black"></div>
+            <!--数据从大到小排好的-->
+            <div class="bar-fill" [ngStyle]="{'width.%': 80 - i*5}"></div>
+          </div>
+          <span>{{l.territory_proportion * 100 | number: '1.2-2' }}%</span>
+          <span  [ngClass]="{'up': l.flag === 'up', 'down': l.flag === 'down'}"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

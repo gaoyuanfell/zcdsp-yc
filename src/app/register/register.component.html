@@ -7,7 +7,7 @@
     <div class="register-body">
       <h1 class="top">欢迎注册<span>智橙移动</span>账号</h1>
       <p class="forget"><a href="login.html" [routerLink]="['/login']" >立即登录</a></p>
-      <form class="from"  #infoForm="ngForm">
+      <form class="from"  #infoForm="ngForm" (ngSubmit)="save(infoForm)">
 
         <input type="text" class="nick_name" placeholder="公司名称" #nickName="ngModel"  name="nick_name" [(ngModel)]="user.nick_name" required [ngClass]="{ userOn: (nickName.dirty || nickName.touched || _valid) && nickName.invalid}">
         <app-form-tips [target]="infoForm.controls['nick_name']" [formTarget]="infoForm" placeholder="请填写公司名称"></app-form-tips>
@@ -24,13 +24,13 @@
 
 
         <input type="text" class="password" placeholder="输入密码" required [(ngModel)]="user.password" name="password"
-               pattern="((?=.*\d)(?=.*[A-Za-z]))^[A-Za-z\d]{6,18}$">
+               pattern="((?=.*\d)(?=.*[A-Za-z]))^[A-Za-z\d]{6,18}$" (ngModelChange)="pwd_comfirm()" autocomplete="off">
         <app-form-tips [target]="infoForm.controls['password']" [formTarget]="infoForm" [tips]="'请输入8~18位字母和数字的组合!'" placeholder="请填写密码"></app-form-tips>
 
 
 
-        <input type="text" class="password" placeholder="请再次输入密码"  required [(ngModel)]="user.old_pwd" (ngModelChange)="pwd_comfirm()"  name="old_pwd">
-        <span style="color: #ff4500;" *ngIf="flag">密码不一致</span>
+        <input type="text" class="password" placeholder="请再次输入密码"  required [(ngModel)]="user.old_pwd" (ngModelChange)="pwd_comfirm()"  name="old_pwd" autocomplete="off">
+        <p class="error" *ngIf="flag"><img src="assets/img/index/tips.png" alt="">密码不一致</p>
 
 
         <input type="text" class="phone" placeholder="手机号码"  #mobile_phone='ngModel' required [(ngModel)]="user.mobile_phone" placeholder="请填写联系电话" name="mobile_phone" pattern="^1\d{10}$">
@@ -38,12 +38,16 @@
 
 
 
-    <div class="verification clear">
-          <input type="text" class="verifica" placeholder="获取验证码" required  [(ngModel)]="user.verify_code"  name="verify_code" >
-          <button type="button" class="send">验证码</button>
+        <div class="verification clear">
+              <input type="text" class="verifica" placeholder="获取验证码" required  [(ngModel)]="user.verify_code"  name="verify_code" autocomplete="off">
+              <button type="button" class="send" (click)="verifyCode(mobile_phone)" [disabled]="flagCode">{{codeText}}</button>
+              <span class="countdown">{{countdown}}</span>
         </div>
         <app-form-tips [target]="infoForm.controls['verify_code']" [tips]="'请输入手机验证码'" placeholder="请输入手机验证码" [formTarget]="infoForm"></app-form-tips>
-        <button type="button" class="login">登录</button>
+        <div style="margin-top:10px;">
+          <yc-checkbox [(ngModel)]="service_data"  [label]="'我已阅读并同意服务协议'" name="service_data"></yc-checkbox>
+        </div>
+        <button type="submit" class="login" [disabled]="!service_data || infoForm.invalid || flag">登录</button>
       </form>
     </div>
   </div>
