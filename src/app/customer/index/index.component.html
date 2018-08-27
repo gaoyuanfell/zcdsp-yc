@@ -34,7 +34,7 @@
       </div>
       <div class="number">
         <div class="list">曝光成本<span>{{todayReportTop?.todayCpm * 1000 | currencyFormat }}
-        </span><i [ngClass]="{'red': todayReportTop?.todayCpm >= todayReportTop?.yesCpm, 'green': todayReportTop?.todayCpm < todayReportTop?.yesCpm}"></i></div>
+        </span><i [ngClass]="{'red': todayReportTop?.todayCpm > todayReportTop?.yesCpm, 'green': todayReportTop?.todayCpm < todayReportTop?.yesCpm, '': todayReportTop?.todayCpm === todayReportTop?.yesCpm }"></i></div>
       </div>
     </li>
     <li>
@@ -50,10 +50,10 @@
       </div>
       <div class="number">
         <div class="list">点击成本<span>{{todayReportTop?.todayCpc| currencyFormat}}</span>
-          <i [ngClass]="{'red': todayReportTop?.todayCpc >= todayReportTop?.yesCpc, 'green': todayReportTop?.todayCpc < todayReportTop?.yesCpc}"></i>
+          <i [ngClass]="{'red': todayReportTop?.todayCpc > todayReportTop?.yesCpc, 'green': todayReportTop?.todayCpc < todayReportTop?.yesCpc, '': todayReportTop?.todayCpc === todayReportTop?.yesCpc}"></i>
         </div>
         <div class="list">点击率<span>{{todayReportTop?.todayCtr * 100 | number: '1.2-2'}}%</span>
-          <i [ngClass]="{'red': todayReportTop?.todayCtr >= todayReportTop?.yesCtr, 'green': todayReportTop?.todayCtr < todayReportTop?.yesCtr}"></i>
+          <i [ngClass]="{'red': todayReportTop?.todayCtr > todayReportTop?.yesCtr, 'green': todayReportTop?.todayCtr < todayReportTop?.yesCtr, '': todayReportTop?.todayCtr === todayReportTop?.yesCtr}"></i>
         </div>
       </div>
     </li>
@@ -100,9 +100,7 @@
     </div>
     <div class="main">
       <!--这边用ngIf 会出现todayCreative找不到哈-->
-      <div class="echart" #todayCreative [ngStyle]="{'display':creative_change==='line'?'block':'none'}">
-
-      </div>
+      <div class="echart" #todayCreative [ngStyle]="{'display':creative_change==='line'?'block':'none'}"></div>
       <div class="tool-table" [ngStyle]="{'display':creative_change==='table'?'block':'none'}">
         <div>
           <table>
@@ -180,9 +178,7 @@
       </div>
     </div>
     <div class="main">
-      <div class="echart" #todayActivity [ngStyle]="{'display':campaign_change==='line'?'block':'none'}">
-
-      </div>
+      <div class="echart" #todayActivity [ngStyle]="{'display':campaign_change==='line'?'block':'none'}"></div>
       <div class="tool-table" [ngStyle]="{'display':campaign_change==='table'?'block':'none'}">
         <div>
           <table>
@@ -266,7 +262,7 @@
         <div class="tit">日期筛选<span class="icon-tool-add"></span></div>
         <div class="all" (click)="_dayTotalClick();_dayTotal = null" [ngClass]="{'active': _dayTotal === null}">15天内创意</div>
         <ul>
-          <li *ngFor="let data of dayTotalListData;let i = index"  (click)="_dayTotalClick(data.date);  _dayTotal === data" [ngClass]="{'active': _dayTotal === data}">
+          <li *ngFor="let data of dayTotalListData;let i = index"  (click)="_dayTotalClick(data.date);  _dayTotal = data" [ngClass]="{'active': _dayTotal === data}">
             {{data.date}}
             <span class="edit">编辑</span>
           </li>
@@ -316,9 +312,7 @@
             <div class="list">较前日平均<span>26%</span><i class="green"></i></div>
             <div class="list">较上周平均<span>26%</span><i class="red"></i></div>
           </div>
-          <div class="echart" #todayAllDataChart style="width: 100%; height: 270px">
-
-          </div>
+          <div class="echart" #todayAllDataChart></div>
         </div>
       </div>
     </div>
@@ -338,9 +332,7 @@
             <div class="list">较前日平均<span>26%</span><i class="green"></i></div>
             <div class="list">较上周平均<span>26%</span><i class="red"></i></div>
           </div>
-          <div class="echart" #todayAllSpendChart style="width: 100%; height: 270px">
-
-          </div>
+          <div class="echart" #todayAllSpendChart></div>
         </div>
       </div>
     </div>
@@ -351,9 +343,7 @@
             性别分布<i class="icon-tool-help"></i>
           </div>
         </div>
-        <div class="main">
-          <!--180-->
-          <div class="gender">
+        <div class="main gender">
             <div class="gender-parent">
               <div class="gender-child" *ngFor="let x of gender">
                 <img src="{{x.src}}">
@@ -364,7 +354,6 @@
             <div class="gender-bottom">
               <span class="item" [ngClass]="{'blue':item.type==='man'?true:false,'purple':item.type==='woman'?true:false, 'gray':item.type==='undefined'?true:false}" [ngStyle]="_getSexStyle(i)" *ngFor="let item of get180();let i = index;"></span>
             </div>
-          </div>
         </div>
       </div>
     </div>
@@ -406,7 +395,6 @@
             <div></div>
             <div></div>
           </div>
-
         </div>
       </div>
     </div>
@@ -418,14 +406,14 @@
           </div>
         </div>
         <div class="main brand">
-          <div class="echart" #socialDataChart></div>
-          <div class="brand-left">
-            <div class="item" *ngFor="let l of brand;let i = index" (mouseover)="_showHighlightChart(socialDataEcharts, i)">
-              <span class="spot" [ngStyle]="{'background-color': l.color}"></span>
-              <span>{{l.brand_name}}</span>
-              <span>{{l.request_num / brandTotal * 100 | number:'1.2-2' }}%</span>
+            <div class="brand-echart" #socialDataChart></div>
+            <div class="brand-left">
+              <div class="item" *ngFor="let l of brand;let i = index" (mouseover)="_showHighlightChart(socialDataEcharts, i)">
+                <span class="spot" [ngStyle]="{'background-color': l.color}"></span>
+                <span>{{l.brand_name}}</span>
+                <span>{{l.request_num / brandTotal * 100 | number:'1.2-2' }}%</span>
+              </div>
             </div>
-          </div>
         </div>
       </div>
     </div>
@@ -437,7 +425,7 @@
           </div>
         </div>
         <div class="main media_flow">
-          <div class="echart">
+          <div class="media-echart">
             <div class="item" *ngFor="let media of media_flow_top5;let index = index">
               <p>NO.{{index + 1}}</p>
               <p>{{media.media_name}}</p>
@@ -462,9 +450,7 @@
       </div>
     </div>
     <div class="main people_data">
-      <div class="echart" #hobbyDataChart>
-
-      </div>
+      <div class="echart" #hobbyDataChart></div>
       <div class="echart people-left">
         <div class="item flex" *ngFor="let l of hobby; let i = index">
           <span>{{l.app_category_name}}</span>
@@ -474,7 +460,6 @@
           </div>
           <span>{{l.hobby_proportion / hobbyTotal * 100 | number: '1.2-2' }}%</span>
           <span  [ngClass]="{'up': l.flag === 'up'? true :false, 'down': l.flag === 'down' ? true : false}"></span>
-          <!--<img src="assets/customer/img/top-icon.png" alt="">-->
         </div>
       </div>
     </div>
@@ -486,9 +471,7 @@
       </div>
     </div>
     <div class="main area_data">
-      <div class="echart" #chinaDataChart>
-
-      </div>
+      <div class="echart" #chinaDataChart></div>
       <div class="echart area_left">
         <div class="item flex" *ngFor="let l of top_area_data; let i = index">
           <span>{{l.province_name}}</span>
@@ -501,7 +484,6 @@
           <span  [ngClass]="{'up': l.flag === 'up', 'down': l.flag === 'down'}"></span>
         </div>
       </div>
-
     </div>
   </div>
 </div>

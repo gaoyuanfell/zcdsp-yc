@@ -30,7 +30,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   dayTotalChartData;
   dayTotalCode = 'pv';
 
-  //
+  // 上面4个小方块的数据
   userData;
   chartsData;
 
@@ -43,25 +43,15 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   ) {
     super(changeDetectorRef, _publicService, render);  // 父亲也有constructor
   }
-
-  testData = [1,2,3,4,5,6,7,8];
   ngOnInit(): void {
 
-
-
-
-
     this.render.listen('window', 'resize', (res) => {
-      console.dir(res)
-      console.log(res.target.innerWidth)
       // res.target.innerWidth
       if (res.target.innerWidth > 1666 && res.target.innerWidth < 1920) {
         this.sexCount = 150;
       } else if (res.target.innerWidth === 1920) {
         this.sexCount = 180;
-      } else if (res.target.innerWidth <= 1366) {
-        this.sexCount = 117;
-      } else if (res.target.innerWidth < 1666 && res.target.innerWidth > 1366) {
+      } else if (res.target.innerWidth <= 1666) {
         this.sexCount = 123;
       }
     })
@@ -73,7 +63,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       this.todayReportChart();
       this._init();
       this.initData();
-    },500)
+    },500); // 当你的echarts的宽高是百分比的时候，会出现显示不完全，延时即可
 
 
     this.todayAllDataChart();
@@ -90,6 +80,8 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   stateCount;
 
   _init() {
+    // const countSubscribe = new Subject(); // 计数器
+
     // 上面几个的初始化
     this._indexService.init().subscribe(res => {
       this.totalCodeList = res.result.total_code;
@@ -98,7 +90,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     }, () => {
 
     });
-    // const countSubscribe = new Subject(); // 计数器
+
     // 今日在投创意
     this._indexService.creativeList().subscribe(res => {
       this.changeDetectorRef.markForCheck();
@@ -129,13 +121,12 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     // 近期数据趋势 首页中上方的4个小格子中的曝光总量 点击总量也是根据数据趋势来的
     this._indexService.dayTotal().subscribe(res => {
       this.changeDetectorRef.markForCheck();
-      this.dayTotalListData = res.result.list.items;
+      this.dayTotalListData = res.result.list.items; // 列表
       this.dayTotalChartData = res.result.chart;
-
 
       //  this.dayTotalChartData 这个值会变，不能用， 因为在下面数据趋势中，你点击每一天,他就是每个时间段，你点击全部他就是每一天
       //  曝光总量
-      this.todayAllSpendChartSmalls.setOption(
+      this.todayAllSpendChartSmalls.setOption(   // 这边的曝光总量是每一天的
         {
           xAxis : [
             {
@@ -151,7 +142,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       )
 
       // 点击总量
-      this.todayAllSpendChartLines.setOption(
+      this.todayAllSpendChartLines.setOption(  // 这边的点击总量是每一天的
         {
           xAxis : [
             {
@@ -183,9 +174,12 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     });
   }
 
+
+  /**
+   *   创意点击事件
+   */
   _creativeData;
-  creative_change = 'line'; // 类型切换
-  // 创意点击事件
+  creative_change = 'line'; // 类型切
   _creativeListClick(id?) {
     this._indexService.creativeChart({creative_id: id}).subscribe(res => {
       this.creativeChartData = res.result;
@@ -194,9 +188,13 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       this.changeDetectorRef.markForCheck();
     });
   }
+
+
+  /**
+   *  活动点击事件
+   */
   _campaignData;
   campaign_change = 'line'
-  // 活动点击事件
   _campaignListClick(id?) {
     this._indexService.campaignChart({campaign_id: id}).subscribe(res => {
       this.campaignChartData = res.result;
@@ -214,16 +212,14 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   _dayTotalClick(date?) {
     if (!date) {
       this._indexService.dayTotal().subscribe(res => {
-        // this.dayTotalListData = res.result.list.items;
         this.dayTotalChartData = res.result.chart;
         this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode);
         this.changeDetectorRef.markForCheck();
       });
     } else {
       this._indexService.hourChart({date: date}).subscribe((res) => {
-        // this.dayTotalListData = res.result;
-        this.dayTotalChartData = res.result.chart;
-        this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalListData, this.dayTotalCode);
+        this.dayTotalChartData = res.result;
+        this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode);
         this.changeDetectorRef.markForCheck();
       })
     }
