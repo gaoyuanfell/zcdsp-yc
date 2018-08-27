@@ -29,7 +29,7 @@
           复制活动
           <i class="btn-icon-copy"></i>
         </div>
-        <div class="btn btn-outline">
+        <div class="btn btn-outline" [yc-drop-menu]="batchUpdateMenu" (selectedEvent)="batchUpdate($event.value)">
           批量修改
           <i class="icon-btn-menu m-l-1"></i>
         </div>
