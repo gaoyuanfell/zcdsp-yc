@@ -14,12 +14,10 @@ import {PopoverDirective} from './popover.directive';
   declarations: [
     PopoverComponent,
     PopoverDirective,
-    // PopoverDirectiveCopy
   ],
   exports: [
     PopoverComponent,
     PopoverDirective,
-    // PopoverDirectiveCopy
   ],
   entryComponents: [
     PopoverComponent

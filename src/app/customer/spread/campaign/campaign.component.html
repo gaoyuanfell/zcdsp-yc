@@ -7,7 +7,7 @@
       </h2>
 
       <span class="no-data">
-        <yc-checkbox [label]="'过滤无数据广告'"></yc-checkbox>
+        <yc-checkbox [(ngModel)]="query.ignore_no_data" (changeEvent)="search()" [label]="'过滤无数据广告'"></yc-checkbox>
       </span>
 
     </div>
