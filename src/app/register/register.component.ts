@@ -8,6 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class RegisterComponent implements OnInit {
 
   constructor() { }
+  user: any = {};
+  _valid = false;
+
+  flag: boolean = false;
+  pwd_comfirm() {
+    this.flag = this.user.password === this.user.old_pwd;
+  }
 
   ngOnInit() {
   }

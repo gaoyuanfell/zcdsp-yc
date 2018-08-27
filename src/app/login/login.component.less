@@ -68,6 +68,9 @@
     color: #313a5a;
     padding-left: 45px;
     margin: 10px 0;
+    &.userOn {
+      border:1px solid red;
+    }
   }
   .name{
     background: url("../../assets/img/index/yh1.png") 20px center no-repeat;
@@ -133,6 +136,9 @@
     background: url("../../assets/img/index/yh.png") 20px center no-repeat;
   }
   .verification{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 20px;
   }
   .send{
@@ -211,4 +217,20 @@
     color: #313a5a;
     margin: 0 8px;
   }
+}
+
+a.vertifyCode {
+  display: inline-block;
+  width: 90px;
+  height: 34px;
+  background: url(../../assets/img/login/yanzhengm.png) no-repeat;
+  vertical-align: middle;
+  margin-bottom: 3px;
+  border-radius: 4px;
+}
+
+.verification{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
