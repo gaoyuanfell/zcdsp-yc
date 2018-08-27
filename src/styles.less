@@ -374,6 +374,45 @@ body {
 }
 /////////////////////// 公共样式
 
+/////////////////////// 全局样式
+
+.submit-toolbar {
+  position: fixed;
+  z-index: 9999999;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 65px;
+  box-shadow: 0 5px 10px rgba(97, 99, 102, 0.2);
+  opacity: 0.9;
+  background: #ffffff;
+  border-top: 1px solid #d0d0d0;
+  .submit-box {
+    width: 1200px;
+    margin: 0 auto;
+    height: 65px;
+  }
+}
+
+.submit-toolbar + .add-campaign-main {
+  margin-bottom: 100px;
+}
+
+.cover-people {
+  margin-right: auto;
+  color: #979899;
+  font-size: 14px;
+  font-weight: 700;
+  > span {
+    color: #212121;
+    font-size: 34px;
+    font-weight: 700;
+    padding: 0 8px;
+  }
+}
+
+/////////////////////// 全局样式
+
 ////////////////////// 表格
 
 .container-list{
@@ -685,14 +724,14 @@ textarea.form-control {
   height:20px;
   background: url("assets/img/icon-tool-img-table.png") no-repeat center;
 }
-  .icon-tool-img-table2{
-    cursor: pointer;
-    display: inline-block;
-    vertical-align: sub;
-    width: 22px;
-    height:20px;
-    background: url("assets/img/icon-tool-img-table2.png") no-repeat;
-  }
+.icon-tool-img-table2{
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: sub;
+  width: 22px;
+  height:20px;
+  background: url("assets/img/icon-tool-img-table2.png") no-repeat;
+}
 .icon-tool-add{
   cursor: pointer;
   display: inline-block;
@@ -716,4 +755,25 @@ textarea.form-control {
   width: 17px;
   height:17px;
   background: url("assets/img/index/btn-help.png") no-repeat;
+}
+.icon-img-edit {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  outline: none;
+  width: 13px;
+  height: 14px;
+  background: url("assets/img/icon-img-edit.png") no-repeat center;
+  background-size: 13px 14px;
+}
+.icon-img-question {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  outline: none;
+  background: url("assets/img/icon-img-question.png") no-repeat center;
+  background-size: 16px 16px;
 }

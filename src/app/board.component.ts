@@ -27,8 +27,12 @@ export class BoardComponent implements OnInit {
   hash = 'home'
   leftTo;
   background = {
-    background: 'rgba(255,255,255,0.7)'
+    background: 'rgba(255,255,255,0.7)',
+    'top.px':0
   }
+  bottom={
+    'bottom.px':0
+  };
   setIntervalNum
   currentPic = 0
   num = 0
@@ -38,11 +42,19 @@ export class BoardComponent implements OnInit {
     this.renderer.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
       if (event.target.scrollTop > 180) {
         this.background = {
-          background: 'rgba(255,255,255,1)'
+          background: 'rgba(255,255,255,1)',
+          'top.px':event.target.scrollTop
+        }
+        this.bottom = {
+          'bottom.px':-event.target.scrollTop
         }
       } else {
         this.background = {
-          background: 'rgba(255,255,255,0.7)'
+          background: 'rgba(255,255,255,0.7)',
+          'top.px':0
+        }
+        this.bottom = {
+          'bottom.px':0
         }
       }
     })
@@ -52,6 +64,14 @@ export class BoardComponent implements OnInit {
     })
     this.renderer.listen(this.picList.nativeElement, 'mouseleave', (event) => {
       this.scrolls()
+    })
+    this.renderer.listen('window', 'resize', (res) => {
+      console.dir(res.target.innerWidth)
+      if(res.target.innerWidth <= 1366){
+        document.getElementById('footer').style.bottom='10px'
+      }else {
+        document.getElementById('footer').style.bottom='0px'
+      }
     })
   }
 
@@ -74,6 +94,9 @@ export class BoardComponent implements OnInit {
   scrollTop(name) {
     this.hash = name
     this._scrollService.scrollTo(this.containerFullRef.nativeElement, {top: document.getElementById(name).offsetTop - 80})
+    if(name === 'home'){
+      this._scrollService.scrollTo(this.containerFullRef.nativeElement, {top:0})
+    }
   }
 
   current(index) {

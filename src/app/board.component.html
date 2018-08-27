@@ -1,29 +1,28 @@
 <div class="container-main">
-  <div style="width:100%;height: 100%;overflow-y: auto;overflow-x: hidden;">
-    <div style="min-width: 1366px;overflow-y: hidden;position: relative;">
-      <div class="top" id="home" [ngStyle]="background">
-        <div class="nav_main">
-          <div class="logo">
-            <img src="assets/img/index/logo1.png" alt="">
+  <div style="width:100%;height: 100%;overflow: auto;position: relative" #container>
+    <div class="top" id="home" [ngStyle]="background">
+      <div class="nav_main">
+        <div class="logo">
+          <img src="assets/img/index/logo1.png" alt="">
+        </div>
+        <ul class="nav clear">
+          <li><a href="#home" [ngClass]="{'active': hash === 'home'}" (click)="scrollTop('home')">首页</a></li>
+          <li><a href="#engine" [ngClass]="{'active': hash === 'engine'}" (click)="scrollTop('engine')">决策引擎</a></li>
+          <li><a href="#scheme" [ngClass]="{'active': hash === 'scheme'}" (click)="scrollTop('scheme')">解决方案</a></li>
+          <li><a href="#case" [ngClass]="{'active': hash === 'case'}" (click)="scrollTop('case')">成功案例</a></li>
+          <li><a href="#media" [ngClass]="{'active': hash === 'media'}" (click)="scrollTop('media')">媒体资源</a></li>
+          <li><a href="#contact" [ngClass]="{'active': hash === 'contact'}" (click)="scrollTop('contact')">联系我们</a></li>
+        </ul>
+        <div class="right">
+          <div class="btn-login clear">
+            <a href="login.html" [routerLink]="['/login']" class="kong">登录</a>
+            <a href="register.html" [routerLink]="['/register']" class="shi">立即注册</a>
           </div>
-          <ul class="nav clear">
-            <li><a href="#home" [ngClass]="{'active': hash === 'home'}" (click)="scrollTop('home')">首页</a></li>
-            <li><a href="#engine" [ngClass]="{'active': hash === 'engine'}" (click)="scrollTop('engine')">决策引擎</a></li>
-            <li><a href="#scheme" [ngClass]="{'active': hash === 'scheme'}" (click)="scrollTop('scheme')">解决方案</a></li>
-            <li><a href="#case" [ngClass]="{'active': hash === 'case'}" (click)="scrollTop('case')">成功案例</a></li>
-            <li><a href="#media" [ngClass]="{'active': hash === 'media'}" (click)="scrollTop('media')">媒体资源</a></li>
-            <li><a href="#contact" [ngClass]="{'active': hash === 'contact'}" (click)="scrollTop('contact')">联系我们</a></li>
-          </ul>
-          <div class="right">
-            <div class="btn-login clear">
-              <a href="login.html" [routerLink]="['/login']" class="kong">登录</a>
-              <a href="register.html" [routerLink]="['/register']" class="shi">立即注册</a>
-            </div>
-            <span class="help"><i class="btn-help"></i>帮助中心</span>
-          </div>
+          <span class="help"><i class="btn-help"></i>帮助中心</span>
         </div>
       </div>
-      <div class="container" #container>
+    </div>
+      <div class="container">
         <div class="banner">
           <img src="assets/img/index/homebanner.jpg" alt="">
         </div>
@@ -183,10 +182,9 @@
           </div>
         </div>
       </div>
-      <p class="footer">
-        Copyright (C) 2015~2018<a href="#">zcdsp.com</a>All Rights Reserved. 沪ICP备09044414号
-      </p>
-    </div>
+    <p class="footer" id="footer" [ngStyle]="bottom">
+      Copyright (C) 2015~2018<a href="#">zcdsp.com</a>All Rights Reserved. 沪ICP备09044414号
+    </p>
   </div>
 </div>
 

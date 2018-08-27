@@ -10,6 +10,7 @@ import SparkMD5 from 'spark-md5';
 })
 export class LoginComponent implements OnInit {
   flags = false
+
   constructor(
     private _publicService: PublicService,
     private router: Router
@@ -22,8 +23,6 @@ export class LoginComponent implements OnInit {
   passWord;
   vertCode;
   _valid = false;
-
-
 
   radionum = 0
   tableRadio(event, index){

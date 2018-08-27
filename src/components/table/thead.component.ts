@@ -13,6 +13,8 @@ import {TrComponent} from './tr.component';
 export class TheadComponent {
   trList:Array<TrComponent> = []
   constructor(@Host() @Optional() private tableComponent: TableComponent, @Optional() public ref: ElementRef){
-    tableComponent.theadList.push(this)
+    if(tableComponent){
+      tableComponent.theadList.push(this)
+    }
   }
 }

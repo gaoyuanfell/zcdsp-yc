@@ -12,8 +12,12 @@
 
     </div>
     <div class="right-tool">
-      <input-datepicker [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
-      <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'请输入创意的名称、ID'"></yc-input-search>
+      <yc-select [(ngModel)]="query.media_id" (selectedEvent)="search()" [placeholder]="'媒体'" [list]="media_list" [props]="{value:'media_id',label:'media_name'}" [searchCtrl]="true" [whole]="'全部'"></yc-select>
+      <yc-select [(ngModel)]="query.display_type" (selectedEvent)="search()" [placeholder]="'展现形式'" [list]="display_type_list" [props]="{value:'value',label:'name'}" [searchCtrl]="true" [whole]="'全部'"></yc-select>
+      <yc-select [(ngModel)]="query.show_state" (selectedEvent)="search()" [placeholder]="'操作'" [list]="show_state_list" [props]="{value:'value',label:'name'}" [whole]="'全部'"></yc-select>
+      <yc-select [(ngModel)]="query.current_state" (selectedEvent)="search()" [placeholder]="'投放状态'" [list]="current_state_list" [props]="{value:'value',label:'name'}" [whole]="'全部'"></yc-select>
+      <yc-select [(ngModel)]="query.zc_audit_status" (selectedEvent)="search()" [placeholder]="'审核状态'" [list]="audit_state_list" [props]="{value:'value',label:'name'}" [whole]="'全部'"></yc-select>
+
     </div>
   </div>
 
@@ -38,15 +42,15 @@
         </div>
       </div>
       <div class="right-tool">
-        <yc-select [(ngModel)]="query.show_state" (selectedEvent)="search()" [placeholder]="'操作'" [list]="show_state_list" [props]="{value:'value',label:'name'}" [whole]="'全部'"></yc-select>
-        <yc-select [(ngModel)]="query.current_state" (selectedEvent)="search()" [placeholder]="'投放状态'" [list]="current_state_list" [props]="{value:'value',label:'name'}" [whole]="'全部'"></yc-select>
-        <yc-select [(ngModel)]="query.zc_audit_status" (selectedEvent)="search()" [placeholder]="'审核状态'" [list]="audit_state_list" [props]="{value:'value',label:'name'}" [whole]="'全部'"></yc-select>
+        <yc-select [width]="200" [(ngModel)]="query.campaign_id" (selectedEvent)="search()" [placeholder]="'活动'" [list]="campaign_list" [props]="{value:'campaign_id',label:'campaign_name'}" [searchCtrl]="true" [whole]="'全部'"></yc-select>
+        <input-datepicker [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
+        <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'请输入创意的名称、ID'"></yc-input-search>
       </div>
     </div>
     <table #tableRef table>
       <thead>
       <tr>
-        <th width="50" [showCheckbox]="true"></th>
+        <th fixed="left" width="50" [showCheckbox]="true"></th>
         <th>创意ID</th>
         <th class="text-left">创意名称</th>
         <th></th>
@@ -66,9 +70,9 @@
       </thead>
       <tbody>
       <ng-template [ngForOf]="ycTable.data" ngFor let-data let-index="index">
-        <tr >
-          <td [showCheckbox]="data"></td>
-          <td>{{data.creative_id}}</td>
+        <tr [expand]="trExpand" #tr>
+          <td fixed="left" [showCheckbox]="data"></td>
+          <td (click)="tr.trigger()">{{data.creative_id}}</td>
           <td class="text-left" [width]="200" title="{{data.creative_name}}">
             <a data-link (click)="_showCreative(data)">{{data.creative_name}}</a>
           </td>
@@ -97,6 +101,14 @@
           <td class="text-right">{{ data.cpc | currencyFormat}}</td>
           <td class="text-right">{{ data.cpm * 1000 | currencyFormat}}</td>
           <td class="text-right">{{ data.admoney | currencyFormat }}</td>
+        </tr>
+
+        <tr #trExpand>
+          <td colspan="1000" *ngIf="trExpand.show">
+            <div style="width: 100%;height: 500px;background-color: red">
+
+            </div>
+          </td>
         </tr>
 
         <ng-template #creativeName>

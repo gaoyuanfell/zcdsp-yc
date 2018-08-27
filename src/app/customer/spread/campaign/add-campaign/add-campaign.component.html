@@ -1,6 +1,14 @@
 <div class="add-campaign-nav">
   1111111111
 </div>
+<div class="submit-toolbar">
+  <div class="submit-box flex-center">
+    <p class="cover-people">可覆盖<span>{{(_audienceCount || 0) | number}}</span>人</p>
+    <a class="btn btn-link" style="padding: 0 40px;" *ngIf="_isEdit" href="javascript:history.back()">返回</a>
+    <button class="btn btn-outline btn-round m-r-1" (click)="save(2)" *ngIf="jurisdiction?.ZCMOBI_ADS_SPREAD_CAMPAIGN_EDIT_DIRECTION_SAVE && !_isEdit">提交并新建创意</button>
+    <button class="btn btn-round" [ngClass]="{'btn-outline': !_isEdit}" style="padding: 0 40px;" (click)="save(1)" *ngIf="jurisdiction?.ZCMOBI_ADS_SPREAD_CAMPAIGN_EDIT_SAVE">提 交</button>
+  </div>
+</div>
 <div class="add-campaign-main">
 
   <h2 class="campaign-title">
@@ -12,16 +20,194 @@
     <div class="form-group flex-center">
       <label class="form-label">目标类型<span>（必选）:</span></label>
       <div class="form-input">
-        <yc-radio-group [(ngModel)]="campaign.speed" [list]="[{value:1, name:'普通连接'},{value:2, name:'安卓应用下载'},{value:3, name:'苹果应用下载'}]" [props]="{label:'name'}"></yc-radio-group>
+        <yc-radio-group [disabled]="_isEdit" [(ngModel)]="campaign.target_type" [list]="target_types" [props]="{label:'name'}" (changeEvent)="_targetTypeChange()"></yc-radio-group>
       </div>
     </div>
 
-    <div class="form-group flex-center">
-      <label class="form-label">落地页<span>（必选）:</span></label>
-      <div class="form-input">
-        <input type="text" class="form-control" placeholder="请填写落地页或使用模版" [(ngModel)]="campaign.speed">
+    <!--落地页-->
+    <ng-template [ngIf]="campaign.target_type == '1'">
+      <div class="form-group flex-center">
+        <label class="form-label"><span>*</span>落地页</label>
+        <div class="form-input">
+          <!--活动下有创意，并且部分审核中或者部分审核通过，落地页不可编辑-->
+          <yc-radio-group [disabled]="!can_modify" [(ngModel)]="campaign.click_type" [list]="landingpage_types" [props]="{label: 'name'}" (changeEvent)="_landingChange()"></yc-radio-group>
+        </div>
       </div>
-    </div>
+
+      <div class="form-group-offset flex" style="padding-bottom: 0;">
+
+        <ng-template [ngIf]="campaign.click_type == '1'">
+          <div class="form-input">
+            <yc-select [width]="360" [list]="templateList" [props]="{label: 'name', value: 'id'}" (selectedEvent)="templateChange($event)" [(ngModel)]="campaign.template_id"></yc-select>
+            <p>没有落地页？请 <a target="_blank" routerLink="/template">制作落地页</a></p>
+          </div>
+
+          <div class="m-l-1">
+            <button class="btn" *ngIf="campaign.template_id" (click)="templatePreview()">预览</button>
+            <div class="preview-box flex-center" *ngIf="_previewCodeUrl">
+              <!--<div class="preview-img">-->
+              <!--<img src="assets/customer/img/test-preview-box.png" alt="">-->
+              <!--<div class="preview-tool">-->
+              <!--<i class="icon-tool-img-edit"></i>-->
+              <!--<i class="icon-tool-img-view"></i>-->
+              <!--</div>-->
+              <!--</div>-->
+              <div class="qr-code">
+                <img [src]="_previewCodeUrl">
+                <p>手机扫码预览</p>
+              </div>
+              <span class="preview-box-tip"></span>
+            </div>
+          </div>
+
+        </ng-template>
+
+        <ng-template [ngIf]="campaign.click_type == '2'">
+          <div class="form-input">
+            <input class="form-control" [disabled]="!can_modify" [(ngModel)]="campaign.click_link" #click_link="ngModel" type="text" required placeholder="请填写落地页(http://、https://)" pattern="^([hH]{1}[tT]{2}[pP]:\/\/|[hH]{1}[tT]{2}[pP][sS]:\/\/)[\d,a-z,A-Z]+[\w,\W]*$"
+                   [ngClass]="{'has-error':(_valid || click_link.dirty || click_link.touched)  && click_link.invalid }">
+            <p class="input-error" *ngIf="(_valid || click_link.dirty || click_link.touched)  && click_link.invalid">请填写落地页的网址</p>
+          </div>
+          <a class="m-l-1" target="_blank" *ngIf="campaign.click_link && !click_link.invalid" [href]="campaign.click_link"><button class="btn">预览</button></a>
+          <i class="question-icon m-l-1 form-label-text" title="广告落地页地址，审核通过后不可修改(注：不支持跳转落地页)如果定向IOS操作系统落地页必须是https"></i>
+        </ng-template>
+
+      </div>
+    </ng-template>
+
+    <!--安卓应用下载-->
+    <ng-template [ngIf]="campaign.target_type == '2'">
+      <div class="form-group flex">
+        <label class="form-label"><span>*</span>下载地址</label>
+        <div class="form-input">
+        <textarea [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.download_link" #download_link="ngModel" placeholder="http://、https://" (ngModelChange)="campaign.click_link = campaign.download_link"
+                  pattern="^([hH]{1}[tT]{2}[pP]:\/\/|[hH]{1}[tT]{2}[pP][sS]:\/\/)[\d,a-z,A-Z]+[\w,\W]*$" required
+                  [ngClass]="{'has-error':(_valid || download_link.dirty || download_link.touched) && download_link.invalid }" ></textarea>
+          <p class="input-error" *ngIf="(_valid || download_link.dirty || download_link.touched) && download_link.invalid">请输入下载地址</p>
+        </div>
+      </div>
+      <div class="form-group flex-center">
+        <label class="form-label"><span>*</span>应用市场</label>
+        <div class="form-input">
+          <yc-radio-group [disabled]="!can_modify" [(ngModel)]="campaign.app_store_id" [list]="app_stores" [props]="{label:'name'}" (changeEvent)="_appStoreIdChange()"></yc-radio-group>
+        </div>
+      </div>
+
+      <ng-template [ngIf]="campaign.app_store_id == '1'">
+        <div class="form-group flex-center">
+          <label class="form-label"><span>*</span>APP包类型</label>
+          <div class="form-input">
+            <yc-radio-group [disabled]="!can_modify" [(ngModel)]="campaign.app_package_type" [list]="[{value:'1',label:'主线包'},{value:'2',label:'渠道包'}]" (changeEvent)="_appPackageTypeChange()"></yc-radio-group>
+          </div>
+        </div>
+        <div class="form-group flex">
+          <label class="form-label"><span>*</span>APPID</label>
+          <div class="form-input">
+            <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_bundle_id" #app_bundle_id="ngModel" type="text" placeholder="请输入APPID">
+            <p class="input-error" *ngIf="(_valid || app_bundle_id.dirty) && !campaign.app_bundle_id">请输入APPID</p>
+          </div>
+        </div>
+      </ng-template>
+
+      <div class="form-group flex-center" *ngIf="campaign.app_package_type == '2'">
+        <label class="form-label"><span>*</span>APP渠道包名</label>
+        <div class="form-input">
+          <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_channel_package_name" #app_channel_package_name="ngModel" type="text" placeholder="请输入APP渠道包名">
+          <p class="input-error" *ngIf="(_valid || app_channel_package_name.dirty) && !campaign.app_channel_package_name">请输入APP渠道包名</p>
+        </div>
+      </div>
+      <!--app_upload_url-->
+      <div class="form-group flex-center">
+        <label class="form-label"><span>*</span>apk上传</label>
+        <div class="form-input flex-center">
+          <div [disabled]="!can_modify" yc-file-upload class="btn btn-outline"  [slice]="true" [auto]="false" [sliceSize]="10" (eventChange)="uploadParseApk($event)">点击上传</div>
+          <p class="m-l-1" *ngIf="can_modify">点击上传文件包，自动获取或手动填写以下信息，无法解析？ <a href="https://f2.adpush.cn/platform/1482116942716.zip">点击下载工具。</a></p>
+        </div>
+      </div>
+      <div class="form-group flex">
+        <label class="form-label"><span>*</span>APP包名</label>
+        <div class="form-input">
+          <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_package_name" #app_package_name="ngModel" type="text" placeholder="请选择输入APP包名">
+          <p class="input-error" *ngIf="(_valid || app_package_name.dirty) && !campaign.app_package_name">请选择输入APP包名</p>
+        </div>
+      </div>
+      <div class="form-group flex">
+        <label class="form-label"><span>*</span>APP名称</label>
+        <div class="form-input">
+          <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_name" #app_name="ngModel" type="text" placeholder="请输入APP名称">
+          <p class="input-error" *ngIf="(_valid || app_name.dirty) && !campaign.app_name">请输入APP名称</p>
+        </div>
+      </div>
+      <div class="form-group flex">
+        <label class="form-label"><span>*</span>APP版本</label>
+        <div class="form-input">
+          <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_version" #app_version="ngModel" type="text" placeholder="请输入APP版本">
+          <p class="input-error" *ngIf="(_valid || app_version.dirty) && !campaign.app_version">请输入APP版本</p>
+        </div>
+      </div>
+      <div class="form-group flex">
+        <label class="form-label"><span>*</span>APP大小</label>
+        <div class="form-input">
+          <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_size" #app_size="ngModel" type="text" placeholder="请输入APP大小">
+          <p class="input-error" *ngIf="(_valid || app_size.dirty) && (_isNumber2(campaign.app_size) || !campaign.app_size)">请输入有效数字</p>
+        </div>
+        <p class="m-l-1">MB</p>
+      </div>
+      <div class="form-group flex">
+        <label class="form-label">APP描述</label>
+        <div class="form-input">
+          <textarea [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_description" placeholder="请输入APP描述"></textarea>
+        </div>
+      </div>
+    </ng-template>
+
+    <!--苹果应用下载-->
+    <ng-template [ngIf]="campaign.target_type == '3'">
+      <div class="form-group flex">
+        <label class="form-label"><span>*</span>下载地址</label>
+        <div class="form-input">
+          <textarea [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.download_link" #download_link="ngModel" placeholder="http://、https://" (ngModelChange)="campaign.click_link = campaign.download_link"></textarea>
+          <p class="input-error" *ngIf="(_valid || download_link.dirty) && !campaign.download_link">请输入下载地址</p>
+        </div>
+      </div>
+      <div class="form-group flex">
+        <label class="form-label"><span>*</span>APPID</label>
+        <div class="form-input">
+          <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_bundle_id" #app_bundle_id="ngModel" (input)="_appIdSubject.next(campaign.app_bundle_id)" type="text" placeholder="请输入APPID">
+          <p class="input-error" *ngIf="(_valid || app_bundle_id.dirty) && !campaign.app_bundle_id">请输入APPID</p>
+        </div>
+        <!--1053012308-->
+        <a *ngIf="campaign.app_bundle_id" href="javascript:void 0" class="m-l-1" (click)="parseIos()">再次获取APP信息</a>
+      </div>
+      <div class="form-group flex">
+        <label class="form-label"><span>*</span>APP名称</label>
+        <div class="form-input">
+          <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_name" #app_name="ngModel" type="text" placeholder="请输入APP名称">
+          <p class="input-error" *ngIf="(_valid || app_name.dirty) && !campaign.app_name">请输入APP名称</p>
+        </div>
+      </div>
+      <div class="form-group flex">
+        <label class="form-label"><span>*</span>APP版本</label>
+        <div class="form-input">
+          <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_version" #app_version="ngModel" type="text" placeholder="请输入APP版本">
+          <p class="input-error" *ngIf="(_valid || app_version.dirty) && !campaign.app_version">请输入APP版本</p>
+        </div>
+      </div>
+      <div class="form-group flex-center">
+        <label class="form-label"><span>*</span>APP大小</label>
+        <div class="form-input">
+          <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_size" #app_size="ngModel" type="text" placeholder="请输入APP大小">
+          <p class="input-error" *ngIf="(_valid || app_size.dirty) && (_isNumber2(campaign.app_size) || !campaign.app_size)">请输入有效数字</p>
+        </div>
+        <p class="m-l-1">MB</p>
+      </div>
+      <div class="form-group flex">
+        <label class="form-label">APP描述</label>
+        <div class="form-input">
+          <textarea [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_description" placeholder="请输入APP描述"></textarea>
+        </div>
+      </div>
+    </ng-template>
 
   </div>
 
@@ -31,48 +217,56 @@
 
   <div class="campaign-form-box">
 
-    <div class="form-group flex-center">
-      <label class="form-label">活动名称<span>（必选）:</span></label>
+    <div class="form-group flex">
+      <label class="form-label"><span>*</span>活动名称</label>
       <div class="form-input">
+        <input class="form-control" [(ngModel)]="campaign.campaign_name" #campaign_name="ngModel" type="text" required placeholder="请填写活动名称" (ngModelChange)="package_name = campaign.campaign_name + '_定向包'"
+               [ngClass]="{'has-error':(_valid || campaign_name.dirty || campaign_name.touched) && campaign_name.invalid }">
+        <p class="input-error" *ngIf="(_valid || campaign_name.dirty || campaign_name.touched) && campaign_name.invalid">请输入活动名称</p>
+      </div>
+    </div>
 
-        <input type="text" class="form-control" placeholder="请填写活动名称" [(ngModel)]="campaign.speed">
+    <!--每次修改预算不可少于活动当天已消耗金额-->
+    <div class="form-group flex">
+      <label class="form-label"><span>*</span>每日预算</label>
+      <div class="form-input">
+        <input class="form-control" [(ngModel)]="campaign.day_budget" #day_budget="ngModel" type="text" placeholder="预算需大于100元" required
+               [ngClass]="{'has-error':(_valid || day_budget.dirty || day_budget.touched) && ((_isNumber(campaign.day_budget) || !campaign.day_budget) || (campaign.day_budget && campaign.day_budget < 100))}">
+        <p class="input-error" *ngIf="(_valid || day_budget.dirty || day_budget.touched) && (_isNumber(campaign.day_budget) || !campaign.day_budget)">请输入正确的金额</p>
+        <p class="input-error" *ngIf="(_valid || day_budget.dirty || day_budget.touched) && campaign.day_budget && campaign.day_budget < 100">请输入大于100的有效数字</p>
+      </div>
+      <p class="m-l-1 form-label-text">每日的花费上限</p>
+    </div>
 
+    <div class="form-group flex-center">
+      <label class="form-label"><span>*</span>投放速度</label>
+      <div class="form-input">
+        <yc-radio-group [(ngModel)]="campaign.speed" [list]="speeds" [props]="{label:'name'}"></yc-radio-group>
+      </div>
+    </div>
+
+    <div class="form-group flex">
+      <label class="form-label"><span>*</span>投放频次</label>
+      <div class="form-input">
+        <yc-select [width]="360" placeholder="请选择频次" [(ngModel)]="campaign.frequency" [list]="frequencyList"></yc-select>
+      </div>
+      <p class="m-l-1 form-label-text">每个广告项目在每天对每个用户展示的次数，建议3~5次。</p>
+    </div>
+
+    <div class="form-group flex">
+      <label class="form-label"><span>*</span>投放日期</label>
+      <div class="form-input">
+        <i class="input-icon icon-input-datepicker"></i>
+        <input-datepicker [width]="360" [(ngModel)]="campaignTimes" [isShortcutKey]="false" [disabledTodayBefore]="true" [query]="campaign" [appendField]="['begin_date', 'end_date']" [isRange]="true" placeholder="请选择投放日期"
+                          [ngClass]="{'has-error': _valid && !campaign.begin_date}"></input-datepicker>
+        <p class="input-error" *ngIf="_valid && !campaign.begin_date">请输入投放日期</p>
       </div>
     </div>
 
     <div class="form-group flex-center">
-      <label class="form-label">每日预算<span>（必选）:</span></label>
+      <label class="form-label"><span>*</span>投放小时</label>
       <div class="form-input">
-        <input type="text" class="form-control" placeholder="预算需大于100元" [(ngModel)]="campaign.speed">
-      </div>
-      <p class="m-l-1">每日的花费上限</p>
-    </div>
-
-    <div class="form-group flex-center">
-      <label class="form-label">投放速度<span>（必选）:</span></label>
-      <div class="form-input">
-        <yc-radio-group [(ngModel)]="campaign.speed" [list]="[{value:1, name:'均匀投放'},{value:2, name:'快速投放'}]" [props]="{label:'name'}"></yc-radio-group>
-      </div>
-    </div>
-
-    <div class="form-group flex-center">
-      <label class="form-label">投放频次<span>（必选）:</span></label>
-      <div class="form-input">
-        <yc-select [list]="" [placeholder]="'选择投放频次'" [list]="[{value:1, name:'1'},{value:2, name:'2'}]" [props]="{label:'name'}"></yc-select>
-      </div>
-    </div>
-
-    <div class="form-group flex-center">
-      <label class="form-label">投放日期<span>（必选）:</span></label>
-      <div class="form-input">
-
-      </div>
-    </div>
-
-    <div class="form-group flex-center">
-      <label class="form-label">投放小时<span>（必选）:</span></label>
-      <div class="form-input">
-        <yc-radio-group [(ngModel)]="campaign.show_time_type" [list]="[{value:'2', name:'不限'},{value:'1', name:'选择时间段'}]" [props]="{label:'name'}"></yc-radio-group>
+        <yc-radio-group [(ngModel)]="campaign.show_time_type" [list]="show_time_types" [props]="{label: 'name'}" (changeEvent)="changeRadio()"></yc-radio-group>
       </div>
     </div>
 
@@ -99,6 +293,22 @@
   </div>
 
   <!--定向-->
-  <yc-directional></yc-directional>
+  <!--<yc-directional></yc-directional>-->
+
+  <div class="flex">
+    <h2 class="campaign-title">
+      出价
+    </h2>
+    <div class="flex" style="margin-top: 30px;">
+      <div class="form-input">
+        <input class="form-control" type="text" [(ngModel)]="campaign.ad_price" #ad_price="ngModel" [placeholder]="'请填写出价'" required
+               pattern="(^[0-9]\d*\.?\d{0,2}$)"
+               [ngClass]="{'has-error': (_valid || ad_price.dirty || ad_price.touched) && (ad_price.invalid || campaign.ad_price > bid_max || campaign.ad_price < bid_min)}">
+        <p class="input-error" *ngIf="(_valid || ad_price.dirty || ad_price.touched) &&  ad_price.invalid">请填写正确的金额</p>
+        <p class="input-error" *ngIf="ad_price.valid && (campaign.ad_price > bid_max || campaign.ad_price < bid_min)">出价范围[{{bid_min}},{{bid_max}}]</p>
+      </div>
+      <span class="input-suffix">元/CPC</span>
+    </div>
+  </div>
 
 </div>

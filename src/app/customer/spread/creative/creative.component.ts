@@ -19,11 +19,11 @@ export class CreativeComponent implements OnInit {
   @AutoCookie({
     defaultValue: {
       page_index: 1,
-      page_size: 20
+      page_size: 100
     },
     keepValue: {
       begin_date: new Date().calendar(3, -7).formatDate('yyyy-MM-dd'),
-      end_date: new Date().formatDate('yyyy-MM-dd')
+      end_date: new Date().formatDate('yyyy-MM-dd'),
     },
   })
   query;
@@ -63,7 +63,7 @@ export class CreativeComponent implements OnInit {
     });
   }
 
-  @ViewChild('table', {read: TableComponent}) table: TableComponent;
+  @ViewChild('ycTable', {read: TableComponent}) table: TableComponent;
 
   // 修改状态
   updateOneShowState(data, switchRef) {

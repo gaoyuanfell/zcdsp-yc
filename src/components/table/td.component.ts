@@ -1,11 +1,12 @@
 import {
+  AfterViewChecked,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
   Host,
   Input,
-  OnChanges,
+  OnChanges, OnDestroy, OnInit,
   Optional,
   SimpleChanges
 } from '@angular/core';
@@ -21,7 +22,7 @@ import {TrComponent} from './tr.component';
     <span class="nowrap"><ng-content></ng-content></span>
   `,
 })
-export class TdComponent implements OnChanges {
+export class TdComponent implements OnChanges{
   private _checked = false;
   _checkState = 0;
 
@@ -48,7 +49,9 @@ export class TdComponent implements OnChanges {
               @Optional() public ref: ElementRef,
               @Host() @Optional() private tableComponent: TableComponent,
               private changeDetectorRef: ChangeDetectorRef) {
-    trComponent.tdList.push(this);
+    if(trComponent){
+      trComponent.tdList.push(this);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
