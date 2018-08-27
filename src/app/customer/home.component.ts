@@ -11,7 +11,7 @@ import {Global} from '../../service/global';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.less'],
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
 })
 export class HomeComponent implements OnInit,OnDestroy {
 

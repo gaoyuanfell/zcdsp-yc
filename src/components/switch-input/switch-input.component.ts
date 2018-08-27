@@ -13,7 +13,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   templateUrl: './switch-input.component.html',
   styleUrls: ['./switch-input.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
   providers: [
     CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR,
   ]

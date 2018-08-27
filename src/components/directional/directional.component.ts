@@ -12,7 +12,7 @@ import {Audiences, Directional} from '../../store/model/directional.state';
   templateUrl: './directional.component.html',
   styleUrls: ['./directional.component.less'],
   // changeDetection: ChangeDetectionStrategy.OnPush,  // 数据手动刷新
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
   animations: [
     panel
   ],

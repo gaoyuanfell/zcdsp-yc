@@ -12,7 +12,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
 })
 export class CheckboxComponent implements ControlValueAccessor, OnChanges, OnDestroy {

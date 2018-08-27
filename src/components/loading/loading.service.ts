@@ -13,17 +13,6 @@ export class Loading {
   componentRef: ComponentRef<LoadingComponent>;
 
   constructor(private overlay: Overlay) {
-
-  }
-
-  config: any = {};
-
-  style
-
-  cache = [];
-
-  open(config = {}) {
-    config = {...this.config, config}
     if (!this.portal) {
       this.portal = new ComponentPortal(LoadingComponent);
     }
@@ -38,10 +27,22 @@ export class Loading {
     }
     if (!this.popup.hasAttached()) {
       this.componentRef = this.popup.attach(this.portal);
+      this.componentRef.instance.state = false;
       this._container = this.componentRef.instance;
     }
+  }
+
+  config: any = {};
+
+  style
+
+  cache = [];
+
+  open(config = {}) {
+    config = {...this.config, config}
+
     this.cache.push(0);
-    // this._container.open(config);
+    this._container.open(config);
   }
 
   close() {

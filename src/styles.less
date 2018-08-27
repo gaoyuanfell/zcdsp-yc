@@ -46,7 +46,7 @@ ul li {
 a,
 a:visited,
 a:active {
-  /*color: #3C3C3C;*/
+  color: #2e90ff;
   text-decoration: none;
 }
 
@@ -245,19 +245,18 @@ html {
   font-size: 62.5%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: border-box;
-  font-family: "Microsoft YaHei UI", Roboto, sans-serif, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Microsoft Ya Hei", Roboto, sans-serif, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 body {
   height: 100%;
   max-height: 100%;
-  font-family: "Microsoft YaHei UI", Roboto, sans-serif, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Microsoft Ya Hei", Roboto, sans-serif, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-rendering: geometricPrecision;
   background-color: #ffffff;
   overflow: hidden;
   font-size: 14px;
   color: #616366;
-  //user-select: none;
 }
 
 .clear:after {
@@ -374,6 +373,53 @@ body {
   width: 100%;
 }
 /////////////////////// 公共样式
+
+////////////////////// 表格
+
+.container-list{
+  padding: 5px 30px 30px 30px;
+}
+
+.table-title{
+  color: #333333;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.no-data{
+  color: #999999;
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: 20px;
+}
+
+.query-tool {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  .left-tool {
+    justify-content: flex-start;
+    > * {
+      margin-right: 10px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+  }
+  .right-tool {
+    justify-content: flex-end;
+    margin-left: auto;
+    > * {
+      margin-left: 10px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+  }
+}
+
+
+////////////////////// 表格
 
 
 //////////////////// 按钮

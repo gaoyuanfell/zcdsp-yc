@@ -10,7 +10,7 @@ import {Loading} from '../../components/loading/loading.service';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.less'],
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
 })
 export class HomeComponent implements OnInit {
 

@@ -13,7 +13,7 @@ export interface Props {
   templateUrl: './drop-menu.component.html',
   styleUrls: ['./drop-menu.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
 })
 export class DropMenuComponent implements OnInit {
 

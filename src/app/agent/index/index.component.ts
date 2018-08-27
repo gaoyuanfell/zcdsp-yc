@@ -5,7 +5,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
 })
 export class IndexComponent implements OnInit {
   ngOnInit(): void {

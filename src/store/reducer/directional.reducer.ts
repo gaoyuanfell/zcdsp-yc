@@ -161,7 +161,6 @@ export function lbsCityReducer(state: LbsCityState = initState2, action: Directi
       target = target.children[0];
     }
   }
-
 }
 
 const initState3: AudiencesActionState = {

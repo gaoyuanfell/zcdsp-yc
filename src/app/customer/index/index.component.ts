@@ -9,7 +9,7 @@ import {PublicService} from '../../../service/public.service';
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.less'],
   // changeDetection: ChangeDetectionStrategy.OnPush,  // 数据手动刷新
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
 })
 export class IndexComponent extends BaseIndexComponent  implements OnInit {  // BaseIndexComponent直接一个类
   // 今日在投创意

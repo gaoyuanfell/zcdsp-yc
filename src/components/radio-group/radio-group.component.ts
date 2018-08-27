@@ -20,7 +20,7 @@ export interface Props {
   templateUrl: './radio-group.component.html',
   styleUrls: ['./radio-group.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class RadioGroupComponent implements ControlValueAccessor, OnChanges, OnDestroy {
