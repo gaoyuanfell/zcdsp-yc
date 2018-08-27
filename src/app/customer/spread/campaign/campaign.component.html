@@ -1,3 +1,202 @@
-<p>
-  campaign works!
-</p>
+<div class="container-list">
+
+  <div class="query-tool">
+    <div class="left-tool">
+      <h2 class="table-title">
+        活动列表
+      </h2>
+
+      <span class="no-data">
+        <yc-checkbox [(ngModel)]="query.ignore_no_data" (changeEvent)="search()" [label]="'过滤无数据广告'"></yc-checkbox>
+      </span>
+
+    </div>
+
+    <div class="right-tool">
+      <input-datepicker [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
+      <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'请输入活动的名称、ID'"></yc-input-search>
+    </div>
+  </div>
+
+  <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
+    <div #queryRef query class="query-tool">
+      <div class="left-tool">
+        <div class="btn" routerLink="/ads/spread/campaign-add/0">
+          新建活动
+          <i class="btn-icon-add"></i>
+        </div>
+        <div class="btn" (click)="batchUpdate('batch_copy')">
+          复制活动
+          <i class="btn-icon-copy"></i>
+        </div>
+        <div class="btn btn-outline">
+          批量修改
+          <i class="icon-btn-menu m-l-1"></i>
+        </div>
+        <div class="btn" (click)="exportUrl()">
+          导出
+          <i class="btn-icon-export"></i>
+        </div>
+      </div>
+
+      <div class="right-tool">
+        <yc-select [(ngModel)]="query.show_state" [list]="show_state_list" [props]="{value:'value',label:'name'}" [placeholder]="'操作'" [whole]="'全部'" (selectedEvent)="search()"></yc-select>
+        <yc-select [(ngModel)]="query.current_state" [list]="current_state_list" [props]="{value:'value',label:'name'}" [placeholder]="'投放状态'" [whole]="'全部'" (selectedEvent)="search()"></yc-select>
+      </div>
+
+    </div>
+    <table #tableRef table>
+      <thead>
+      <tr>
+        <th fixed="left" width="50" [showCheckbox]="true"></th>
+        <th fixed="left">活动ID</th>
+        <th style="text-align: left">活动名称</th>
+        <th></th>
+        <th class="text-right">每日预算</th>
+        <th class="text-right">出价</th>
+        <th>操作</th>
+        <th>投放状态</th>
+        <th class="text-right" [showSort]="true" [sortKey]="'pv'" title="广告被展现给受众的次数">曝光量</th>
+        <th class="text-right" [showSort]="true" [sortKey]="'click'" title="排除恶意点击后，广告被受众点击的次数">点击量</th>
+        <th class="text-right" [showSort]="true" [sortKey]="'ctr'" title="广告被点击的比率(点击量/曝光量*100%)">点击率</th>
+        <th class="text-right" [showSort]="true" [sortKey]="'cpc'" title="广告主为每次点击付出的平均花费(花费/点击量)">点击成本</th>
+        <th class="text-right" [showSort]="true" [sortKey]="'cpm'" title="广告主为每1000次曝光付出平均花费(花费/曝光量*1000)">曝光成本</th>
+        <th class="text-right" [showSort]="true" [sortKey]="'admoney'" title="广告点击后产生的费用">花费</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-template [ngForOf]="ycTable.data" ngFor let-data let-index="index">
+        <tr>
+          <td fixed="left" [showCheckbox]="data"></td>
+          <td fixed="left" [title]="data.campaign_id" >{{data.campaign_id}}</td>
+          <td [width]="120"  [title]="data.campaign_name">
+            <a data-link [routerLink]="['/ads/spread/creative']" [queryParams]="{campaign_id: data.campaign_id}">{{data.campaign_name}}</a>
+          </td>
+          <td>
+            <i class="icon-img-edit" style="margin-right: 3px" yc-popover [template]="campaignName" #popover="ycPopover" (openEvent)="campaign_name = data.campaign_name"></i>
+          </td>
+          <td class="text-right">
+            {{data.day_budget | currencyFormat}}
+            <i style="width: 1px;margin: 0;" yc-popover [template]="dayBudget" #popoverDayBudget="ycPopover" (openEvent)="day_budget = data.day_budget;"></i>
+            <i class="icon-img-edit" (click)="popoverOpen(popoverDayBudget, data)"></i>
+          </td>
+          <td class="text-right">
+            {{data.ad_price | currencyFormat}}
+            <i style="width: 20px;margin: 0;" class="icon-img-edit" yc-popover [template]="adPrice" #popoverAdPrice="ycPopover" (openEvent)="ad_price = data.ad_price"></i>
+          </td>
+          <td>
+            <yc-switch-input [values]="['1','2']" [size]="'small'" [(ngModel)]="data.show_state" #switchRef="switchInput" (eventChange)="updateOneShowState(data,switchRef)"></yc-switch-input>
+          </td>
+          <td [title]="data.current_state_origin_meaning">
+          <span [ngStyle]="{color:data.current_state == 1?'':'#ff5757'}">
+            {{data.current_state_meaning}}
+          </span>
+          </td>
+          <td class="text-right">{{data.pv | number}}</td>
+          <td class="text-right">{{data.click | number}}</td>
+          <td class="text-right">{{ data.ctr * 100 | number: '1.2-2' }}%</td>
+          <td class="text-right">{{ data.cpc | currencyFormat}}</td>
+          <td class="text-right">{{ data.cpm * 1000 | currencyFormat}}</td>
+          <td class="text-right">{{ data.admoney | currencyFormat }}</td>
+        </tr>
+
+        <ng-template #campaignName>
+          <div class="day-money-home">
+            <label class="form-label">修改活动名称</label>
+            <div style="" class="form-group flex-center">
+              <div class="form-input">
+                <input type="text" class="form-control" [(ngModel)]="campaign_name" (keyup.enter)="_updateName(data, popover)">
+              </div>
+            </div>
+            <div class="text-right">
+              <button class="btn btn-border" (click)="popover.close()">取消</button>
+              <button class="btn btn-small" (click)="_updateName(data, popover)">确认</button>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template #dayBudget>
+          <div class="day-money-home">
+            <label class="form-label">请填写新的预算</label>
+            <div style="" class="form-group flex-center">
+              <div class="form-input template">
+                <input type="text" class="form-control" autofocus [(ngModel)]="day_budget" name="money"
+                       [ngClass]="{'red': moneyRef.invalid || day_budget < (100 + (+admoney))}"
+                       #moneyRef="ngModel"  pattern="^[0-9]\d*(\.\d{1,2})?$" required>
+                <p class="input-error" *ngIf="(moneyRef.dirty || moneyRef.touched) && moneyRef.invalid">请输入正确的金额</p>
+                <p class="input-error" *ngIf=" moneyRef.valid && day_budget < (100 + (+admoney)) ">预算价格必须大于{{100 + (+admoney) | number:'1.2-2'}}元</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <button class="btn btn-border" (click)="popoverDayBudget.close()">取消</button>
+              <button class="btn btn-small" (click)="_updateDayBudget(data,popoverDayBudget);popoverDayBudget.close();"
+                      [disabled]="!day_budget || moneyRef.invalid || (day_budget && day_budget < (100 + (+admoney)))">确定</button>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template #adPrice>
+          <div class="day-money-home">
+            <label class="form-label">修改出价</label>
+            <div class="form-group flex-center">
+              <div class="form-input">
+                <input class="form-control" autofocus type="text" [(ngModel)]="ad_price" #ad_priceRef="ngModel" [placeholder]="'请填写出价'" required
+                       pattern="(^[0-9]\d*\.?\d{0,2}$)"
+                       [ngClass]="{'has-error': (ad_priceRef.dirty || ad_priceRef.touched) && (ad_priceRef.invalid || ad_price > bid_max || ad_price < bid_min)}">
+                <p class="input-error" *ngIf="(ad_priceRef.dirty || ad_priceRef.touched) && ad_priceRef.invalid">请输入正确的金额</p>
+                <p class="input-error" *ngIf="ad_priceRef.valid && (ad_price > bid_max || ad_price < bid_min)">出价范围[{{bid_min}},{{bid_max}}]</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <button class="btn btn-border" (click)="popoverAdPrice.close()">取消</button>
+              <button class="btn btn-small" (click)="_updateAdPrice(data, popoverAdPrice)" [disabled]="ad_priceRef.invalid || ad_price > bid_max || ad_price < bid_min">确认</button>
+            </div>
+          </div>
+        </ng-template>
+
+      </ng-template>
+      </tbody>
+    </table>
+  </yc-table>
+
+</div>
+
+<!--批量修改活动 小时-->
+<ng-template #batch_update_show_hours>
+  <yc-radio-group [(ngModel)]="batch_show_hours_data.show_time_type" [list]="[{value:0,label:'不限'},{value:1,label:'指定时间段'}]"></yc-radio-group>
+  <yc-time-schedule style="padding-top: 10px;display: block;" [grain]="1" *ngIf="batch_show_hours_data.show_time_type === 1" [(ngModel)]="batch_show_hours_data.show_hours"></yc-time-schedule>
+</ng-template>
+
+<!--批量修改活动 投放时间-->
+<ng-template #batch_update_begin_end_date>
+  <input-datepicker [isShortcutKey]="false" [isRange]="true" [disabledTodayBefore]="true" [query]="batch_begin_end_data" [appendField]="['begin_date','end_date']"></input-datepicker>
+</ng-template>
+
+<!--批量修改活动 速度-->
+<ng-template #batch_update_speed>
+  <yc-radio-group [(ngModel)]="batch_speed_data.new_speed" [list]="[{value:1,label:'均匀投放'},{value:2,label:'快速投放'}]"></yc-radio-group>
+</ng-template>
+
+<!--批量修改活动 出价-->
+<ng-template #batch_update_price>
+  <input class="form-control" autofocus type="text" [(ngModel)]="batch_price_data.new_price" #new_priceRef="ngModel" [placeholder]="'请填写出价'" required
+         pattern="(^[0-9]\d*\.?\d{0,2}$)"
+         [ngClass]="{'has-error': (new_priceRef.dirty || new_priceRef.touched || _valid) && (new_priceRef.invalid || batch_price_data.new_price > bid_max || batch_price_data.new_price < bid_min)}">
+  <p class="input-error" *ngIf="(new_priceRef.dirty || new_priceRef.touched || _valid) && new_priceRef.invalid">请输入正确的金额</p>
+  <p class="input-error" *ngIf="new_priceRef.valid && (batch_price_data.new_price > bid_max || batch_price_data.new_price < bid_min)">出价范围[{{bid_min}}, {{bid_max}}]</p>
+</ng-template>
+
+<!--批量修改活动 状态-->
+<ng-template #batch_update_show_state>
+  <yc-radio-group [(ngModel)]="batch_price_state.new_show_state" [list]="[{value:1,label:'开启'},{value:2,label:'关闭'}]"></yc-radio-group>
+</ng-template>
+
+<!--批量修改活动 预算-->
+<ng-template #batch_update_budget>
+  <input type="text" class="form-control" autofocus [(ngModel)]="batch_budget_state.new_budget"  #batch_moneyRef="ngModel"
+         [ngClass]="{'has-error': (batch_moneyRef.dirty || batch_moneyRef.touched || _valid) && batch_moneyRef.invalid ||  day_budget < (100 + admoneyTotal) }"
+         pattern="^[0-9]\d*(\.\d{1,2})?$" required
+         placeholder="请输入新的每日预算">
+  <p class="input-error" *ngIf=" (batch_moneyRef.dirty || batch_moneyRef.touched || _valid) && batch_moneyRef.invalid">请输入正确的金额</p>
+  <p class="input-error" *ngIf=" batch_moneyRef.valid && batch_budget_state.new_budget < (100 + admoneyTotal) ">预算价格必须大于{{(admoneyTotal + 100) |  number:'1.2-2' }}元</p>
+</ng-template>

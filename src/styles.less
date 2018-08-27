@@ -46,7 +46,7 @@ ul li {
 a,
 a:visited,
 a:active {
-  /*color: #3C3C3C;*/
+  color: #2e90ff;
   text-decoration: none;
 }
 
@@ -245,19 +245,18 @@ html {
   font-size: 62.5%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: border-box;
-  font-family: "Microsoft YaHei UI", Roboto, sans-serif, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Microsoft Ya Hei", Roboto, sans-serif, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 body {
   height: 100%;
   max-height: 100%;
-  font-family: "Microsoft YaHei UI", Roboto, sans-serif, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Microsoft Ya Hei", Roboto, sans-serif, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-rendering: geometricPrecision;
   background-color: #ffffff;
   overflow: hidden;
   font-size: 14px;
   color: #616366;
-  //user-select: none;
 }
 
 .clear:after {
@@ -374,6 +373,53 @@ body {
   width: 100%;
 }
 /////////////////////// 公共样式
+
+////////////////////// 表格
+
+.container-list{
+  padding: 5px 30px 30px 30px;
+}
+
+.table-title{
+  color: #333333;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.no-data{
+  color: #999999;
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: 20px;
+}
+
+.query-tool {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  .left-tool {
+    justify-content: flex-start;
+    > * {
+      margin-right: 10px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+  }
+  .right-tool {
+    justify-content: flex-end;
+    margin-left: auto;
+    > * {
+      margin-left: 10px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+  }
+}
+
+
+////////////////////// 表格
 
 
 //////////////////// 按钮
@@ -582,6 +628,7 @@ textarea.form-control {
 /////////////////////////
 
 //////////////////////// 百度地图
+
 .tangram-suggestion {
   z-index: 99999999;
 }
@@ -595,7 +642,7 @@ textarea.form-control {
   vertical-align: sub;
   width: 16px;
   height:16px;
-  background: url("assets/img/icon-tool-tip.png") no-repeat;
+  background: url("assets/img/icon-tool-tip.png") no-repeat center;
 }
 .icon-tool-edit{
   cursor: pointer;
@@ -603,7 +650,7 @@ textarea.form-control {
   vertical-align: sub;
   width: 16px;
   height:16px;
-  background: url("assets/img/icon-tool-edit.png") no-repeat;
+  background: url("assets/img/icon-tool-edit.png") no-repeat center;
 }
 .icon-tool-help{
   cursor: pointer;
@@ -611,7 +658,7 @@ textarea.form-control {
   vertical-align: middle;
   width: 16px;
   height:16px;
-  background: url("assets/img/icon-tool-help.png") no-repeat;
+  background: url("assets/img/icon-tool-help.png") no-repeat center;
 }
 .icon-tool-img-line{
   cursor: pointer;
@@ -619,23 +666,49 @@ textarea.form-control {
   vertical-align: sub;
   width: 22px;
   height:20px;
-  background: url("assets/img/icon-tool-img-line.png") no-repeat;
+  background: url("assets/img/icon-tool-img-line.png") no-repeat center;
 }
+.icon-tool-img-line2 {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: sub;
+  width: 22px;
+  height: 20px;
+  background: url("assets/img/icon-tool-img-line2.png") no-repeat;
+}
+
 .icon-tool-img-table{
   cursor: pointer;
   display: inline-block;
   vertical-align: sub;
   width: 22px;
   height:20px;
-  background: url("assets/img/icon-tool-img-table.png") no-repeat;
+  background: url("assets/img/icon-tool-img-table.png") no-repeat center;
 }
+  .icon-tool-img-table2{
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: sub;
+    width: 22px;
+    height:20px;
+    background: url("assets/img/icon-tool-img-table2.png") no-repeat;
+  }
 .icon-tool-add{
   cursor: pointer;
   display: inline-block;
   vertical-align: sub;
   width: 20px;
   height:20px;
-  background: url("assets/img/icon-tool-add.png") no-repeat;
+  background: url("assets/img/icon-tool-add.png") no-repeat center;
+}
+.icon-btn-menu{
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  width: 10px;
+  height:8px;
+  background: url("assets/img/icon-btn-menu.png") no-repeat center;
+  background-size: 10px 8px;
 }
 .btn-help{
   display: inline-block;

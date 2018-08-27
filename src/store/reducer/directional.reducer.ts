@@ -1,20 +1,27 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
-import {DirectionalState} from '../model/directional.state';
+import {AudiencesActionState, DirectionalState, LbsCityState} from '../model/directional.state';
 import {DirectionalActionTypes, DirectionalActionUnion} from '../actions/directional.action';
+import {recursionChildCheck, recursionParentCheck, recursionResult, recursionResult2} from '../util';
 
-const initState: DirectionalState = {};
+const initState: DirectionalState = {
+  areasChildList: []
+};
 
 export function directionalReducer(state: DirectionalState = initState, action: DirectionalActionUnion) {
   switch (action.type) {
     case DirectionalActionTypes.DIRECTIONAL_ASSIGN: {
-      state = action.payload;
+      console.info(action.payload);
+      state.areas = action.payload.areas;
+      state.audiences = action.payload.audiences;
+      state.device = action.payload.device;
+      state.areasChildList.push(state.areas.children);
       nextAreasChild();
-      nextLbsCityChild();
-      return state;
+      return {...state};
     }
+    //// AREAS
     case DirectionalActionTypes.NEXT_AREAS_CHILD: {
-      console.info('ok')
-      state.areasChild1 = action.payload.children;
+      let {value, index} = action.payload;
+      nextAreasChild(value, index);
       return {...state};
     }
     case DirectionalActionTypes.CHECK_AREAS_CHANGE: {
@@ -29,24 +36,94 @@ export function directionalReducer(state: DirectionalState = initState, action: 
       return {...state};
     }
     case DirectionalActionTypes.QUERY_AREAS_BY_NAME: {
-      let {number, value} = action.payload;
-      let body;
-      if (number === 0) {
-        body = state.areas.children;
-      } else {
-        body = state['areasChild' + number];
-      }
-      let index = body.findIndex(b => !!~b.name.indexOf(value));
+      let {target, value} = action.payload;
+      let index = target.findIndex(b => !!~b.name.indexOf(value));
       if (!!~index) {
-        let data = body[index];
-        body.splice(index, 1);
-        body.unshift(data);
+        let data = target[index];
+        target.splice(index, 1);
+        target.unshift(data);
       }
       return {...state};
     }
+    //// AUDIENCES
+    case DirectionalActionTypes.CHECK_AUDIENCES_CHANGE: {
+      let value = action.payload;
+
+      recursionChildCheck(value);
+      recursionParentCheck(value);
+
+      let array = [];
+      state.audiences.forEach(au => {
+        array.push(...recursionResult2(au.value.children));
+      });
+
+      state.audiencesResult = array;
+
+      return {...state};
+    }
+    case DirectionalActionTypes.REMOVE_ALL_AUDIENCES:{
+      state.audiences.forEach(au => {
+        au.value.checked = false;
+        recursionChildCheck(au.value);
+        recursionParentCheck(au.value);
+      });
+      state.audiencesResult = [];
+      return {...state};
+    }
+    case DirectionalActionTypes.CHECK_DEVICE_CHANGE:{
+      let value = action.payload;
+
+      recursionChildCheck(value);
+      recursionParentCheck(value);
+
+      let array = [];
+      state.device.forEach(au => {
+        array.push(...recursionResult2(au.value.children));
+      });
+
+      state.deviceResult = array;
+
+      return {...state};
+    }
+    case DirectionalActionTypes.REMOVE_ALL_DEVICE:{
+      state.device.forEach(au => {
+        au.value.checked = false;
+        recursionChildCheck(au.value);
+        recursionParentCheck(au.value);
+      });
+      state.deviceResult = [];
+      return {...state};
+    }
+    default: {
+      return state;
+    }
+  }
+
+  function nextAreasChild(target = state.areas.children[0], index = 0) {
+    state.areasChildList.length = index + 1;
+    while (target.children && target.children.length) {
+      if (!target.children[0]) break;
+      state.areasChildList.push(target.children);
+      target = target.children[0];
+    }
+  }
+}
+
+const initState2: LbsCityState = {
+  lbsCityList: []
+};
+
+export function lbsCityReducer(state: LbsCityState = initState2, action: DirectionalActionUnion) {
+  switch (action.type) {
+    case DirectionalActionTypes.LBS_CITY_ASSIGN: {
+      state.lbsCity = action.payload;
+      state.lbsCityList.push(state.lbsCity.children);
+      nextLbsCityChild();
+      return state;
+    }
     case DirectionalActionTypes.LBS_CITY_NEXT_CHILD: {
-      let {number, index} = action.payload;
-      nextLbsCityChild(index, number);
+      let {value, index} = action.payload;
+      nextLbsCityChild(value, index);
       return {...state};
     }
     case DirectionalActionTypes.CHECK_LBS_CITY_CHANGE: {
@@ -62,33 +139,13 @@ export function directionalReducer(state: DirectionalState = initState, action: 
       return {...state};
     }
     case DirectionalActionTypes.QUERY_LBS_CITY_BY_NAME: {
-      let {number, value} = action.payload;
-      let body;
-      if (number === 0) {
-        body = state.lbsCity.children;
-      } else {
-        body = state['lbsCityChild' + number];
-      }
-      let index = body.findIndex(b => !!~b.name.indexOf(value));
+      let {target, value} = action.payload;
+      let index = target.findIndex(b => !!~b.name.indexOf(value));
       if (!!~index) {
-        let data = body[index];
-        body.splice(index, 1);
-        body.unshift(data);
+        let data = target[index];
+        target.splice(index, 1);
+        target.unshift(data);
       }
-      return {...state};
-    }
-    case DirectionalActionTypes.CHECK_AUDIENCES_CHANGE: {
-      let value = action.payload;
-
-      recursionChildCheck(value);
-      recursionParentCheck(value);
-
-      let age = recursionResult2(state.audiences.age.children);
-      let education = recursionResult2(state.audiences.education.children);
-      let sex = recursionResult2(state.audiences.sex.children);
-
-      state.audiencesResult = [...age, ...education, ...sex];
-
       return {...state};
     }
     default: {
@@ -96,137 +153,67 @@ export function directionalReducer(state: DirectionalState = initState, action: 
     }
   }
 
-  /**
-   * 同步子集和父级的状态
-   * 递归
-   * @param target
-   */
-  function recursionChildCheck(target) {
-    let list = target.children;
-    if (list && list.length > 0) {
-      list.forEach(data => {
-        let checked = data.parent.checked;
-        data.checked = checked;
-        if (checked) {
-          data.checkState = 1;
-          data.checked = true;
-        } else {
-          data.checkState = 0;
-          data.checked = false;
-        }
-        recursionChildCheck(data);
-      });
+  function nextLbsCityChild(target = state.lbsCity.children[0], index = 0) {
+    state.lbsCityList.length = index + 1;
+    while (target.children && target.children.length) {
+      if (!target.children[0]) break;
+      state.lbsCityList.push(target.children);
+      target = target.children[0];
+    }
+  }
+}
+
+const initState3: AudiencesActionState = {
+  audiencesActionList: []
+};
+
+export function audiencesActionReducer(state: AudiencesActionState = initState3, action: DirectionalActionUnion) {
+  switch (action.type) {
+    case DirectionalActionTypes.AUDIENCES_ACTION_ASSIGN: {
+      state.audiencesAction = action.payload;
+      state.audiencesActionList.push(state.audiencesAction.children);
+      nextAudiencesActionChild();
+      return state;
+    }
+    case DirectionalActionTypes.AUDIENCES_ACTION_NEXT_CHILD: {
+      let {value, index} = action.payload;
+      console.time('1');
+      nextAudiencesActionChild(value, index);
+      console.timeEnd('1');
+      return {...state};
+    }
+    case DirectionalActionTypes.CHECK_AUDIENCES_ACTION_CHANGE: {
+      let value = action.payload;
+      if (typeof value == 'boolean') {
+        state.audiencesAction.checked = value;
+        value = state.audiencesAction;
+      }
+      recursionChildCheck(value);
+      recursionParentCheck(value);
+      state.audiencesActionResult = recursionResult(state.audiencesAction.children);
+      return {...state};
+    }
+    case DirectionalActionTypes.QUERY_AUDIENCES_ACTION_BY_NAME: {
+      let {target, value} = action.payload;
+      let index = target.findIndex(b => !!~b.name.indexOf(value));
+      if (!!~index) {
+        let data = target[index];
+        target.splice(index, 1);
+        target.unshift(data);
+      }
+      return {...state};
+    }
+    default: {
+      return state;
     }
   }
 
-  /**
-   * 判断当前对象的父级中的子集被选中的个数
-   * @param data
-   */
-  function recursionParentCheck(data) {
-    let parent = data.parent;
-    if (parent) {
-      let l = parent.children;
-      let length = l.reduce((previousValue, currentValue) => { // 有几个全选
-        return previousValue + ((currentValue.checked) ? 1 : 0);
-      }, 0);
-      let length2 = l.reduce((previousValue, currentValue) => {  // 有几个全选
-        return previousValue + ((currentValue.checkState == 2) ? 1 : 0);
-      }, 0);
-      if (length == l.length) {
-        parent.checkState = 1;
-        parent.checked = true;
-      } else if (length == 0 && length2 == 0) {
-        parent.checkState = 0;
-        parent.checked = false;
-      } else {
-        parent.checkState = 2;
-        parent.checked = false;
-      }
-      recursionParentCheck(parent);
-    }
-  }
-
-  /**
-   * 子集全部选中不考虑子集数据
-   * @param list
-   * @param {any[]} result
-   * @param {number} type
-   * @returns {any[]}
-   */
-  function recursionResult(list, result = []) {
-    if (list && list.length > 0) {
-      list.forEach(data => {
-        // 全部选中
-        if (data.checked) {
-          result.push(data);
-        } else {
-          let child = data.children;
-          if (child && child.length > 0) {
-            recursionResult(child, result);
-          }
-        }
-      });
-    }
-    return result;
-  }
-
-  /**
-   * 只获取最后一层的值
-   * @param list
-   * @param {any[]} result
-   * @param {number} type
-   */
-  function recursionResult2(list, result = []) {
-    if (list && list.length > 0) {
-      list.forEach(data => {
-        let child = data.children;
-        if (child && child.length > 0) {
-          recursionResult2(child, result);
-        } else if (data.checked) {
-          result.push(data);
-        }
-      });
-    }
-    return result;
-  }
-
-  function nextAreasChild(index = 0, number = 1) {
-    switch (number) {
-      case 1: {
-        state['areasChild' + number] = state.areas.children[index].children;
-      }
-    }
-  }
-
-  function nextLbsCityChild(index = 0, number = 0) {
-    let body = state.lbsCity.children;
-    switch (number) {
-      case 0: {
-        ++number;
-        state['lbsCityChild' + number] = body[index].children;
-        index = 0;
-      }
-      case 1: {
-        body = state['lbsCityChild' + number];
-        ++number;
-        if (!body || !body.length) {
-          state['lbsCityChild' + number] = null;
-        } else {
-          state['lbsCityChild' + number] = body[index].children;
-        }
-        index = 0;
-      }
-      case 2: {
-        body = state['lbsCityChild' + number];
-        ++number;
-        if (!body || !body.length) {
-          state['lbsCityChild' + number] = null;
-        } else {
-          state['lbsCityChild' + number] = body[index].children;
-        }
-        index = 0;
-      }
+  function nextAudiencesActionChild(target = state.audiencesAction.children[0], index = 0) {
+    state.audiencesActionList.length = index + 1;
+    while (target.children && target.children.length) {
+      if (!target.children[0]) break;
+      state.audiencesActionList.push(target.children);
+      target = target.children[0];
     }
   }
 }
@@ -245,41 +232,12 @@ export const AreasResult = createSelector(
   (state: DirectionalState) => state.areasResult
 );
 
-export const AreasChild1 = createSelector(
+export const AreasChildList = createSelector(
   getDirectionalState,
-  (state: DirectionalState) => state.areasChild1
+  (state: DirectionalState) => state.areasChildList
 );
 
-export const LbsCity = createSelector(
-  getDirectionalState,
-  (state: DirectionalState) => state.lbsCity
-);
-
-export const LbsCityResult = createSelector(
-  getDirectionalState,
-  (state: DirectionalState) => state.lbsCityResult
-);
-
-export const LbsCityViewResult = createSelector(
-  getDirectionalState,
-  (state: DirectionalState) => state.lbsCityViewResult
-);
-
-export const LbsCityChild1 = createSelector(
-  getDirectionalState,
-  (state: DirectionalState) => state.lbsCityChild1
-);
-
-export const LbsCityChild2 = createSelector(
-  getDirectionalState,
-  (state: DirectionalState) => state.lbsCityChild2
-);
-
-export const LbsCityChild3 = createSelector(
-  getDirectionalState,
-  (state: DirectionalState) => state.lbsCityChild3
-);
-
+// ------------------ Audiences
 export const Audiences = createSelector(
   getDirectionalState,
   (state: DirectionalState) => state.audiences
@@ -290,3 +248,55 @@ export const AudiencesResult = createSelector(
   (state: DirectionalState) => state.audiencesResult
 );
 
+// ------------------- Device
+
+export const Device = createSelector(
+  getDirectionalState,
+  (state: DirectionalState) => state.device
+);
+
+export const DeviceResult = createSelector(
+  getDirectionalState,
+  (state: DirectionalState) => state.deviceResult
+);
+
+//---------------- LBS
+export const getLbsCityState = createFeatureSelector<LbsCityState>('lbsCity');
+
+export const LbsCity = createSelector(
+  getLbsCityState,
+  (state: LbsCityState) => state.lbsCity
+);
+
+export const LbsCityList = createSelector(
+  getLbsCityState,
+  (state: LbsCityState) => state.lbsCityList
+);
+
+export const LbsCityResult = createSelector(
+  getLbsCityState,
+  (state: LbsCityState) => state.lbsCityResult
+);
+
+export const LbsCityViewResult = createSelector(
+  getLbsCityState,
+  (state: LbsCityState) => state.lbsCityViewResult
+);
+
+//---------------- AudiencesAction
+export const getAudiencesActionState = createFeatureSelector<AudiencesActionState>('audiencesAction');
+
+export const AudiencesAction = createSelector(
+  getAudiencesActionState,
+  (state: AudiencesActionState) => state.audiencesAction
+);
+
+export const AudiencesActionList = createSelector(
+  getAudiencesActionState,
+  (state: AudiencesActionState) => state.audiencesActionList
+);
+
+export const AudiencesActionResult = createSelector(
+  getAudiencesActionState,
+  (state: AudiencesActionState) => state.audiencesActionResult
+);

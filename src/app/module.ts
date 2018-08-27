@@ -28,6 +28,8 @@ import {SelectModule} from '../components/select/select.module';
 import {RichEditorModule} from '../components/rich-editor/rich-editor.module';
 import {DirectionalModule} from '../components/directional/directional.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {TableModule} from '../components/table/table.module';
+import {PopoverModule} from '../components/popover/popover.module';
 
 @NgModule({
   imports: [
@@ -55,6 +57,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     SelectModule,
     RichEditorModule,
     DirectionalModule,
+    TableModule,
+    PopoverModule,
   ],
   declarations: [],
   exports: [
@@ -82,6 +86,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     SelectModule,
     RichEditorModule,
     DirectionalModule,
+    TableModule,
+    PopoverModule,
   ],
   providers: [
     {

@@ -20,7 +20,7 @@ export interface Props {
   templateUrl: './checkbox-group.component.html',
   styleUrls: ['./checkbox-group.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class CheckboxGroupComponent implements ControlValueAccessor, OnChanges, OnDestroy {

@@ -7,7 +7,7 @@ import SparkMD5 from 'spark-md5'
   selector: '[yc-file-upload]',
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.less'],
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
 })
 export class FileUploadComponent implements OnDestroy {
 

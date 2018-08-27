@@ -9,7 +9,7 @@ import {PublicService} from '../../../service/public.service';
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.less'],
   // changeDetection: ChangeDetectionStrategy.OnPush,  // 数据手动刷新
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
 })
 export class IndexComponent extends BaseIndexComponent  implements OnInit {  // BaseIndexComponent直接一个类
   // 今日在投创意
@@ -17,7 +17,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   todayCreativeEcharts;
   creativeListData;
   creativeChartData;
-  creativeCode = 'pv';
+
  // 今日在投活動
   @ViewChild('todayActivity') todayActivityRef: ElementRef;
   todayActivityEcharts;
@@ -30,6 +30,10 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   dayTotalChartData;
   dayTotalCode = 'pv';
 
+  // 上面4个小方块的数据
+  userData;
+  chartsData;
+
 
   constructor(
     private _indexService: IndexService,
@@ -40,28 +44,28 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     super(changeDetectorRef, _publicService, render);  // 父亲也有constructor
   }
   ngOnInit(): void {
-    console.log('hahha')
 
     this.render.listen('window', 'resize', (res) => {
-      console.dir(res)
-      console.log(res.target.innerWidth)
       // res.target.innerWidth
       if (res.target.innerWidth > 1666 && res.target.innerWidth < 1920) {
         this.sexCount = 150;
       } else if (res.target.innerWidth === 1920) {
         this.sexCount = 180;
-      } else if (res.target.innerWidth <= 1366) {
-        this.sexCount = 117;
-      } else if (res.target.innerWidth < 1666 && res.target.innerWidth > 1366) {
+      } else if (res.target.innerWidth <= 1666) {
         this.sexCount = 123;
       }
-
-
     })
 
-    this.todayCreative();
-    this.todayActivity();
-    this.todayReportChart();
+    // 上面数据的解析
+    setTimeout( () => {
+      this.todayCreative();
+      this.todayActivity();
+      this.todayReportChart();
+      this._init();
+      this.initData();
+    },500); // 当你的echarts的宽高是百分比的时候，会出现显示不完全，延时即可
+
+
     this.todayAllDataChart();
     this.todayAllSpendChart();
     this.socialDataChart();
@@ -69,69 +73,133 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     this.chinaDataChart();
     this.todayAllSpendChartSmall();
     this.todayAllSpendChartLine();
-    this._init();
-    this.initData();
+
   }
   totalCodeList;
+  todayReportTop; //  今日曝光成本(天，小时)  今日点击成本 今日点击率
+  stateCount;
+
   _init() {
+    // const countSubscribe = new Subject(); // 计数器
 
     // 上面几个的初始化
     this._indexService.init().subscribe(res => {
       this.totalCodeList = res.result.total_code;
+      this.chartsData = res.result.charts;
+      this.stateCount = res.result.creative_state_count;
     }, () => {
 
     });
-    // const countSubscribe = new Subject(); // 计数器
+
     // 今日在投创意
     this._indexService.creativeList().subscribe(res => {
-      console.log(res)
+      this.changeDetectorRef.markForCheck();
       this.creativeListData = res.result.creatives;
       this.creativeChartData = res.result.charts;
-      this.changeDetectorRef.markForCheck();
       this.changeCampaignAndCreativeChart(this.todayCreativeEcharts, this.creativeChartData, this.creativeCode);
+      // 数据处理 为了匹配表格
+      this.changeCampaignAndCreativeList(this.creativeChartData, this.creativeCode, 'creative');
       // countSubscribe.next();
     }, () => {
       // countSubscribe.next();
     });
+
+
 
     // 今日在投活動
     this._indexService.campaignList().subscribe(res => {
+      this.changeDetectorRef.markForCheck();
       this.campaignListData = res.result.campaigns;
       this.campaignChartData = res.result.charts;
-      this.changeDetectorRef.markForCheck();
       this.changeCampaignAndCreativeChart(this.todayActivityEcharts, this.campaignChartData, this.campaignCode);
+      this.changeCampaignAndCreativeList(this.campaignChartData, this.campaignCode, 'campaign');
       // countSubscribe.next()
     }, () => {
       // countSubscribe.next()
     });
 
-    // 近期数据趋势
+    // 近期数据趋势 首页中上方的4个小格子中的曝光总量 点击总量也是根据数据趋势来的
     this._indexService.dayTotal().subscribe(res => {
-      this.dayTotalListData = res.result.list.items;
-      this.dayTotalChartData = res.result.chart;
       this.changeDetectorRef.markForCheck();
+      this.dayTotalListData = res.result.list.items; // 列表
+      this.dayTotalChartData = res.result.chart;
+
+      //  this.dayTotalChartData 这个值会变，不能用， 因为在下面数据趋势中，你点击每一天,他就是每个时间段，你点击全部他就是每一天
+      //  曝光总量
+      this.todayAllSpendChartSmalls.setOption(   // 这边的曝光总量是每一天的
+        {
+          xAxis : [
+            {
+              data : res.result.chart.x,
+            }
+          ],
+          series : [
+            {
+              data: res.result.chart.y.pv
+            }
+          ]
+        }
+      )
+
+      // 点击总量
+      this.todayAllSpendChartLines.setOption(  // 这边的点击总量是每一天的
+        {
+          xAxis : [
+            {
+              data : res.result.chart.x,
+            }
+          ],
+          series : [
+            {
+              data: res.result.chart.y.click
+            }
+          ]
+        }
+      )
+
+      // 这边因为当只有一天的时候，可能久显示小时了，但是不管是小时还是天，都显示最后一个数字
+      this.todayReportTop = {
+        todayCpm : res.result.chart.y.cpm[res.result.chart.y.cpm.length - 1],
+        yesCpm:  res.result.chart.y.cpm[res.result.chart.y.cpm.length - 2],
+        todayCpc:  res.result.chart.y.cpc[res.result.chart.y.cpc.length - 1],
+        yesCpc:  res.result.chart.y.cpc[res.result.chart.y.cpc.length - 2],
+        todayCtr:  res.result.chart.y.ctr[res.result.chart.y.ctr.length - 1],
+        yesCtr:  res.result.chart.y.ctr[res.result.chart.y.ctr.length - 2],
+      }
       this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode)
+      this.changeDayTotalList(this.dayTotalChartData)
       // countSubscribe.next()
     }, () => {
       // countSubscribe.next()
     });
   }
 
+
+  /**
+   *   创意点击事件
+   */
   _creativeData;
-  // 创意点击事件
+  creative_change = 'line'; // 类型切
   _creativeListClick(id?) {
     this._indexService.creativeChart({creative_id: id}).subscribe(res => {
       this.creativeChartData = res.result;
       this.changeCampaignAndCreativeChart(this.todayCreativeEcharts, this.creativeChartData, this.creativeCode);
+      this.changeCampaignAndCreativeList(this.creativeChartData, this.creativeCode, 'creative');
       this.changeDetectorRef.markForCheck();
     });
   }
+
+
+  /**
+   *  活动点击事件
+   */
   _campaignData;
-  // 活动点击事件
+  campaign_change = 'line'
   _campaignListClick(id?) {
     this._indexService.campaignChart({campaign_id: id}).subscribe(res => {
       this.campaignChartData = res.result;
       this.changeCampaignAndCreativeChart(this.todayActivityEcharts, this.campaignChartData, this.campaignCode);
+      this.changeCampaignAndCreativeList(this.campaignChartData, this.campaignCode, 'campaign');
       this.changeDetectorRef.markForCheck();
     });
   }
@@ -140,19 +208,18 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
    * 日期列表点击行，小时图表接口
    */
   _dayTotal;
+  dayTotal_change = 'line';
   _dayTotalClick(date?) {
     if (!date) {
       this._indexService.dayTotal().subscribe(res => {
-        // this.dayTotalListData = res.result.list.items;
         this.dayTotalChartData = res.result.chart;
         this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode);
         this.changeDetectorRef.markForCheck();
       });
     } else {
       this._indexService.hourChart({date: date}).subscribe((res) => {
-        // this.dayTotalListData = res.result;
-        this.dayTotalChartData = res.result.chart;
-        this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalListData, this.dayTotalCode);
+        this.dayTotalChartData = res.result;
+        this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode);
         this.changeDetectorRef.markForCheck();
       })
     }
@@ -392,6 +459,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       todayActivityRef.resize();
     });
   }
+
 
 
 

@@ -12,7 +12,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
 })
 export class CheckboxComponent implements ControlValueAccessor, OnChanges, OnDestroy {
@@ -61,7 +61,12 @@ export class CheckboxComponent implements ControlValueAccessor, OnChanges, OnDes
   onChange = (value: any) => {
   };
 
-  change() {
+  click(event){
+    event.stopPropagation();
+  }
+
+  change(event) {
+    event.stopPropagation();
     let value = this.checked;
     if (this.values instanceof Array && this.values.length == 2) {
       if (this.checked) {

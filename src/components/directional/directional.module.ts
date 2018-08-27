@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {DirectionalComponent} from './directional.component';
 import {CheckboxModule} from '../checkbox/checkbox.module';
 import {SwitchInputModule} from '../switch-input/switch-input.module';
+import {ModulePipe} from '../../app/module-pipe';
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import {SwitchInputModule} from '../switch-input/switch-input.module';
     FormsModule,
     CheckboxModule,
     SwitchInputModule,
+    ModulePipe,
   ],
   declarations: [
     DirectionalComponent,

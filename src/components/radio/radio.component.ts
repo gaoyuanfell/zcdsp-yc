@@ -12,7 +12,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   templateUrl: './radio.component.html',
   styleUrls: ['./radio.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
 })
 export class RadioComponent implements ControlValueAccessor, OnChanges {

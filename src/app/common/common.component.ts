@@ -15,7 +15,7 @@ export class BaseIndexComponent implements OnInit{
   todayAllDataEcharts;
   @ViewChild('todayAllSpendChart') todayAllSpendChartRef: ElementRef;
   todayAllSpendEcharts;
-  todayAllSpend = 'pv';
+  todayAllSpend = 'cpm';
   @ViewChild('socialDataChart') socialDataChartRef: ElementRef;
   socialDataEcharts;
   @ViewChild('hobbyDataChart') hobbyDataChartRef: ElementRef;
@@ -32,11 +32,7 @@ export class BaseIndexComponent implements OnInit{
   ) { }
 
   ngOnInit() {
-    console.log('hahha')
-    this.render.listen('window', 'resize', (res) => {
-      console.dir(res)
-
-    })
+   console.log('这边的ngOnInit打印不出来')
   }
 
 
@@ -327,7 +323,8 @@ export class BaseIndexComponent implements OnInit{
           {
             name:'直接访问',
             type:'bar',
-            barWidth: '10%',
+            barWidth: '7px',
+            // barWidth: '10%',
             itemStyle: {
               normal: {
                 color: function (params) {
@@ -479,6 +476,7 @@ export class BaseIndexComponent implements OnInit{
    * @param type
    */
   changeDayTotalChart(echartsInstance, data, type) {  // echarts 表单数组
+    console.log(data)
     let suffix;
     let d = data.y[type];
     let max;
@@ -527,6 +525,8 @@ export class BaseIndexComponent implements OnInit{
 
     echartsInstance.setOption(option);
   }
+
+
 
 
   /**
@@ -618,7 +618,7 @@ export class BaseIndexComponent implements OnInit{
 
 
   /**
-   * 兴趣爱好
+   * 人群特征指数
    * @param echartsInstance
    * @param data
    * @param type
@@ -683,6 +683,9 @@ export class BaseIndexComponent implements OnInit{
         ]
       }
   );
+    window.addEventListener('resize', () => {
+      hobbyData.resize();
+    });
   }
 
   /**
@@ -749,6 +752,9 @@ export class BaseIndexComponent implements OnInit{
         }]
       }
   );
+    window.addEventListener('resize', () => {
+      todayAllSpendChartLine.resize();
+    });
   }
 
   /**
@@ -759,7 +765,7 @@ export class BaseIndexComponent implements OnInit{
     echarts.registerMap('china', chinaJson);
     chinaDataEcharts.setOption({
       title: {
-        text: '地域流量分布图',
+        text: '',
         textStyle: {
           fontWeight: 700,
           fontSize: 18,
@@ -773,7 +779,7 @@ export class BaseIndexComponent implements OnInit{
         max: 10000,
         text: ['高', '低'],
         realtime: true,
-        right: 0,
+        left: '6%', // 调节小条条的位置
         inRange: {
           color: ['#d5e9ff', '#abd3ff', '#82bcff', '#58a6ff', '#2e90ff']
         }
@@ -784,6 +790,9 @@ export class BaseIndexComponent implements OnInit{
         data: []
       }]
     })
+    window.addEventListener('resize', () => {
+      chinaDataEcharts.resize();
+    });
   }
 
   /**
@@ -811,7 +820,11 @@ export class BaseIndexComponent implements OnInit{
   manPro;
   womanPro
   undefinedPro;
-  //
+
+  /**
+   * 平台实时流量  平台实时效果
+   * 今日投放建议，媒体流量top5，性别占比，年龄比例，兴趣爱好，地域流量top10，地域流量分布图数据
+   */
   initData() {
     this._publicService.allNetWork().subscribe(res => {
       this.all_ad_Flow = res.result.all_ad_Flow; // 平台实时流量
@@ -831,176 +844,159 @@ export class BaseIndexComponent implements OnInit{
           ]
         }
       )
-      // 曝光总量
-      this.todayAllSpendChartSmalls.setOption(
-        {
-          xAxis : [
-            {
-              data : this.ad_total_echarts.x,
-            }
-          ],
-          series : [
-            {  // 模拟的数据
-              // data:this.ad_total_echarts.y.pv,
-            }
-          ]
-        }
-      )
-
-      // 点击总量
-      this.todayAllSpendChartLines.setOption(
-        {
-          xAxis : [
-            {
-              data : this.ad_total_echarts.x,
-            }
-          ],
-          series : [
-            {  // 模拟的数据
-              // data:this.ad_total_echarts.y.pv,
-            }
-          ]
-        }
-      )
-
       this.changeDayTotalChart(this.todayAllSpendEcharts, this.ad_total_echarts, this.todayAllSpend)
-
     });
+
     this._publicService.otherData().subscribe(res => {
       this.changeDetectorRef.markForCheck();
-      // 性别
-      // this.gender = res.result.gender;
-      // this.gender.forEach((item) => {
-      //   if (item.gender === '男') {
-      //     this.genderMan = item.gender_proportion;
-      //   } else {
-      //     this.genderWoman = item.gender_proportion;
-      //   }
-      //   this.genderTotal = this.genderTotal + item.gender_proportion;
-      // })
-      // this.manPro = Number((this.genderMan / this.genderTotal).toFixed(2));
-      // this.womanPro = Number((this.genderWoman / this.genderTotal).toFixed(2));
-
-
       // 手机品牌
-      this.brand = res.result.brand;
-      this.brandTotal = res.result.brand.reduce((a, b) => a + b.request_num, 0); // 总和
-      const brandList = res.result.brand.map((item, index) => {
-        item.color = this.color[index];
-        return {
-          name: item.brand_name,
-          value: item.request_num
-        };
-      })
-      this.socialDataEcharts.setOption({
-        color: this.color,
-        series: [
-          {
-            data: brandList
-          }
-        ]
-      });
-      this.socialDataEcharts.dispatchAction({
-        type: 'highlight',
-        seriesIndex: 0,
-        dataIndex: 0,
-      });
+      this.brandDataDetail(res);
       // 媒体流量
       this.media_flow_top5 = res.result.media_flow_top5;
       this.media_flow_top5.forEach ( (item, index) => item.color = this.media_flow_top5_color[index] )
-
       // 兴趣爱好
-      this.hobby = res.result.hobby;
-      let indicator = [];
-      let hobbyMaxList = this.hobby.map(item => {
-        return item.hobby_proportion;
-      })
-      this.hobby.forEach(item => {
-        this.hobbyTotal = this.hobbyTotal + item.hobby_proportion;
-        indicator.push ( {
-          text: item.app_category_name,
-          max: Math.max(...hobbyMaxList)
-        })
-      })
-      this.hobbyDataEcharts.setOption(
-        {
-          radar: [
-            {
-              indicator: indicator
-            }
-          ],
-          series: [
-            {
-              data: [
-                {
-                  value: hobbyMaxList,
-                }
-              ]
-            }
-          ]
-        }
-      );
-
+      this.hobbyDataDetail(res);
       // 地域流量top10
       this.top_area_data = res.result.top_area_data;
       // 地域流量分布图数据
-      let dataArea = res.result.all_area_data.map(f => {
-        return {
-          name: f.province_name.replace(/['省''市']/g, ''),
-          value: f.territory_num
-        };
-      });
-      this.all_area_data = res.result.all_area_data;
-      this.chinaDataEcharts.setOption({
-        visualMap: {
-          min: Math.min(...dataArea.map(d => d.value)),
-          max: Math.max(...dataArea.map(d => d.value)),
-        },
-        series: [
-          {
-            data: dataArea
-          }
-        ]
-      });
-
-
+      this.allAreaDataDetail(res);
       // 年龄
-      this.age = res.result.age;
-      this.age.forEach((item, index) => {
-        this.ageTotal = this.ageTotal + item.age_proportion;
-          index = +index + 1;
-          item.src = "assets/index/" + index  + ".png"
-      })
-
+      this.ageDataDetail(res);
       // 性别
-      this.gender = res.result.gender;
-      console.log(this.gender)
-      this.gender.forEach((item) => {
-        if (item.gender === '男') {
-          this.genderMan = item.gender_proportion;
-        } else if (item.gender === '女'){
-          this.genderWoman = item.gender_proportion;
-        } else {
-          this.genderUndefined = item.gender_proportion;
-        }
-        this.genderTotal = this.genderTotal + item.gender_proportion;
-      })
-      this.manPro = Number((this.genderMan / this.genderTotal).toFixed(2));
-      this.womanPro = Number((this.genderWoman / this.genderTotal).toFixed(2));
-      this.undefinedPro = Number((this.genderUndefined / this.genderTotal).toFixed(2));
-
+      this.genderDataDetail(res);
     });
   }
 
-  @ViewChild('SexWidth') SexWidth: ElementRef;
+  /**
+  *  手机品牌的数据处理
+  * */
+  brandDataDetail(res) {
+    // 手机品牌
+    this.brand = res.result.brand;
+    this.brandTotal = res.result.brand.reduce((a, b) => a + b.request_num, 0); // 总和
+    const brandList = res.result.brand.map((item, index) => {
+      item.color = this.color[index];
+      return {
+        name: item.brand_name,
+        value: item.request_num
+      };
+    })
+    this.socialDataEcharts.setOption({
+      color: this.color,
+      series: [
+        {
+          data: brandList
+        }
+      ]
+    });
+    this.socialDataEcharts.dispatchAction({
+      type: 'highlight',
+      seriesIndex: 0,
+      dataIndex: 0,
+    });
+  }
+
+  /**
+   *  人群特征指数
+   * */
+
+  hobbyDataDetail(res) {
+    this.hobby = res.result.hobby;
+    let indicator = [];
+    let hobbyMaxList = this.hobby.map(item => {
+      return item.hobby_proportion;
+    })
+    this.hobby.forEach(item => {
+      this.hobbyTotal = this.hobbyTotal + item.hobby_proportion;
+      indicator.push ( {
+        text: item.app_category_name,
+        max: Math.max(...hobbyMaxList)
+      })
+    })
+    this.hobbyDataEcharts.setOption(
+      {
+        radar: [
+          {
+            indicator: indicator
+          }
+        ],
+        series: [
+          {
+            data: [
+              {
+                value: hobbyMaxList,
+              }
+            ]
+          }
+        ]
+      }
+    );
+  }
+  /**
+   *  地域流量分布
+   * */
+  allAreaDataDetail(res) {
+    let dataArea = res.result.all_area_data.map(f => {
+      return {
+        name: f.province_name.replace(/['省''市']/g, ''),
+        value: f.territory_num
+      };
+    });
+    this.all_area_data = res.result.all_area_data;
+    this.chinaDataEcharts.setOption({
+      visualMap: {
+        min: Math.min(...dataArea.map(d => d.value)),
+        max: Math.max(...dataArea.map(d => d.value)),
+      },
+      series: [
+        {
+          data: dataArea
+        }
+      ]
+    });
+  }
+  /**
+   *  年龄分布
+   * */
+  ageDataDetail(res) {
+    this.age = res.result.age;
+    this.age.forEach((item, index) => {
+      this.ageTotal = this.ageTotal + item.age_proportion;
+      index = +index + 1;
+      item.src = "assets/index/" + index  + ".png"
+    })
+  }
+  /**
+   *  性别分布
+   * */
+  genderDataDetail(res) {
+    this.gender = res.result.gender;
+    this.gender.forEach((item) => {
+      if (item.gender === '男') {
+        item.src = "src/assets/index/man.png";
+        this.genderMan = item.gender_proportion;
+      } else if (item.gender === '女'){
+        item.src = "src/assets/index/woman.png";
+        this.genderWoman = item.gender_proportion;
+      } else {
+        item.src = "src/assets/index/undefined.png";
+        this.genderUndefined = item.gender_proportion;
+      }
+      this.genderTotal = this.genderTotal + item.gender_proportion;
+    })
+    this.manPro = Number((this.genderMan / this.genderTotal).toFixed(2));
+    this.womanPro = Number((this.genderWoman / this.genderTotal).toFixed(2));
+    this.undefinedPro = Number((this.genderUndefined / this.genderTotal).toFixed(2));
+  }
+
+
+
+
   _getSexStyle(index) {
-    if (this.SexWidth) {
       return {
         'top.px': index % 3 * 12,
         'left.px': Math.floor(index / 3) * 12
       };
-    }
-
   }
 
   _getAgeStyle(index) {
@@ -1009,32 +1005,29 @@ export class BaseIndexComponent implements OnInit{
       return {
         'left.px': width * index + (width / 0.1 * 0.03) * index
       };
+    } else {
+       return {}
     }
   }
 
   sexCount = 180;
   get180() {
     let x = this.sexCount ? this.sexCount : 180;
-    if (!isNaN(this.manPro)) {
-      this.manPro = 1;
-    }
-    console.log('数据没有吗')
-    console.log(this.manPro)
-    let manCount = this.manPro * x;
-    console.log(manCount)
-    let womanCount = this.womanPro * x;
-    let undefinedCount = this.undefinedPro * x;
     let arr = [];
     let obj = {};
-    for (let i = 0; i < x; i++) {
-      if (i < manCount) {    // 男生
-        obj = {'value': i, 'type': 'man'}
-      } else if (i >= manCount && i < womanCount) {
-        obj = {'value': i, 'type': 'woman'}
-      } else {
-        obj = {'value': i, 'type': 'undefined'}
+    if(this.manPro) {
+      let manCount = this.manPro * x;
+      let undefinedCount = this.undefinedPro * x;
+      for (let i = 0; i < x; i++) {
+        if (i < undefinedCount) {    // 未知
+          obj = {'value': i, 'type': 'undefined'}
+        } else if (i >= undefinedCount && i < manCount + undefinedCount) {
+          obj = {'value': i, 'type': 'man'}
+        } else {
+          obj = {'value': i, 'type': 'woman'}
+        }
+        arr.push(obj);
       }
-      arr.push(obj);
     }
     return arr;
   }
@@ -1052,6 +1045,95 @@ export class BaseIndexComponent implements OnInit{
     });
   }
 
+  // 处理列表
+  /**
+   * 今日在投创意 今日在投活动   处理列表
+   * @param echartsInstance
+   * @param data
+   * @param type
+   */
+  creativeCode = 'pv';
+  creativeChartList: any = [];
+  campaignChartList; any = [];
+  campaignCode = 'pv';
+  changeCampaignAndCreativeList(chartDatas, code, type) {
+    let today =  chartDatas.y[code].today;
+    let yesterday = chartDatas.y[code].yesterday;
+    let unit = '次'
+    switch (code) {
+      case 'pv':
+      case 'click':
+        break;
+      case 'ctr': // 100
+        today = today.map(td => (td * 100).toFixed(2));
+        yesterday = yesterday.map(yd => (yd * 100 || 0).toFixed(2));
+        unit = '%';
+        break;
+      case 'cpm': // 1000
+        today = today.map(td => (td * 1000).toFixed(2));
+        yesterday = yesterday.map(yd => (yd * 1000 || 0).toFixed(2));
+        unit = '元';
+        break;
+      case 'cpc':
+      case 'admoney':
+        today = today.map(td => (td * 1).toFixed(2));
+        yesterday = yesterday.map(yd => (yd * 1 || 0).toFixed(2));
+        unit = '元';
+        break;
+    }
+    let list = [];
+    let obj = {};
+    chartDatas.x.forEach( (item, index) => {
+     list.push (
+       {
+         'time':  chartDatas.x[index],
+         'today': today[index],
+         'yesterday': yesterday[index],
+         'unit': unit
+       }
+     )
+   })
+    console.log(list)
+
+    obj = {
+      'first': list.slice(0,8),
+      'second': list.slice(8,16),
+      'third': list.slice(17,25)
+    }
+
+    if (type === 'creative') {
+      this.creativeChartList = obj;
+    } else if (type === 'campaign'){
+      this.campaignChartList = obj;
+    }
+
+  }
+
+  /**
+   * 数据趋势表格数据处理
+   * @param echartsInstance
+   * @param data
+   * @param type
+   */
+  dayTotalList: any = [];
+  changeDayTotalList(chartDatas){
+    let x = chartDatas.x;
+    let y = chartDatas.y;
+    let list = [];
+    x.forEach((item,index) => {
+      list.push({
+        'time': x[index],
+        'admoney': y.admoney[index],
+        'click': y.click[index],
+        'cpc': y.cpc[index],
+        'cpm': y.cpm[index],
+        'ctr': y.ctr[index],
+        'pv': y.pv[index]
+      })
+    })
+    this.dayTotalList = list;
+
+  }
 
 
 }

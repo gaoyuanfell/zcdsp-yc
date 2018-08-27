@@ -6,7 +6,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   templateUrl: './add-campaign.component.html',
   styleUrls: ['./add-campaign.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,  // 数据手动刷新
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
   animations: [
     trigger('panel', [
       state('false', style({height: '0px', visibility: 'hidden'})),

@@ -12,20 +12,39 @@ export interface Audiences {
 
 export interface DirectionalState {
   areas?: Directional
+  areasChildList?: Array<any>
   areasChild1?: Array<any>
   areasResult?: Array<any>
 
+  audiences?: Array<any>
+  audiencesResult?: Array<any>
+  // ageResult?: Array<any>
+  // educationResult?: Array<any>
+  // sexResult?: Array<any>
+
+  device?: Array<any>
+  deviceResult?: Array<any>
+  // browsersResult?: Array<any>
+  // devicesTypeResult?: Array<any>
+  // mobileBrandResult?: Array<any>
+  // netTypeResult?: Array<any>
+  // operatorsResult?: Array<any>
+  // osResult?: Array<any>
+}
+
+export interface AudiencesActionState {
+
+}
+
+export interface LbsCityState {
   lbsCity?: Directional
-  lbsCityChild1?: Array<any>
-  lbsCityChild2?: Array<any>
-  lbsCityChild3?: Array<any>
+  lbsCityList?:Array<Array<any>>
   lbsCityResult?: Array<any>
   lbsCityViewResult?: Array<any>
+}
 
-  audiences?: Audiences
-  audiencesResult?: Array<any>
-
-  audiencesAction? : Directional
-
-  device?: {[key:string]: Directional}
+export interface AudiencesActionState {
+  audiencesAction?: Directional
+  audiencesActionList?:Array<Array<any>>
+  audiencesActionResult?: Array<any>
 }

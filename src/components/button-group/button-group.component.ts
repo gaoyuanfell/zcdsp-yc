@@ -20,7 +20,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   templateUrl: './button-group.component.html',
   styleUrls: ['./button-group.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
   providers: [
     CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR
   ]

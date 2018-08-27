@@ -7,7 +7,7 @@ import {DOCUMENT} from '@angular/common';
   selector: 'yc-dialog',
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.less'],
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
   animations: [
     trigger('slideDialog', [
       state('enter', style({transform: 'none', opacity: 1})),

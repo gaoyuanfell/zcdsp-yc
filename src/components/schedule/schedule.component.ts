@@ -35,7 +35,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  preserveWhitespaces: true,
   providers: [
     CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR
   ]
