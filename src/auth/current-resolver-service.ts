@@ -26,7 +26,7 @@ export class CurrentResolverService implements Resolve<any> {
         if (res.success == 200) {
           return res.result;
         }
-        return {jurisdictionList: [], user: {}};
+        return {jurisdiction_list: {}, user: {}};
       })
     );
   }

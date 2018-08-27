@@ -49,7 +49,9 @@ export class TdComponent implements OnChanges{
               @Optional() public ref: ElementRef,
               @Host() @Optional() private tableComponent: TableComponent,
               private changeDetectorRef: ChangeDetectorRef) {
-    trComponent.tdList.push(this);
+    if(trComponent){
+      trComponent.tdList.push(this);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
