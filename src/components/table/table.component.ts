@@ -106,7 +106,11 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
 
                   th.classList.add('col_fixed');
                   if (index === array.length - 1) {
-                    th.classList.add('col_fixed_left_border');
+                    if(event.target.scrollLeft === 0){
+                      th.classList.remove('col_fixed_left_border');
+                    }else{
+                      th.classList.add('col_fixed_left_border');
+                    }
                   }
                   break;
                 }
@@ -137,7 +141,11 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
 
                   td.classList.add('col_fixed');
                   if (index === array.length - 1) {
-                    td.classList.add('col_fixed_left_border');
+                    if(event.target.scrollLeft === 0){
+                      td.classList.remove('col_fixed_left_border');
+                    }else{
+                      td.classList.add('col_fixed_left_border');
+                    }
                   }
                   break;
                 }
@@ -186,7 +194,7 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
     let _tableContainerRef = <HTMLElement>this.tableContainerRef.nativeElement;
     let tableBcrt = _tableContainerRef.getBoundingClientRect();
     let cfBcrt = this._global.containerFullRef.getBoundingClientRect();
-    let blankHeight = tableBcrt.top - cfBcrt.top;
+    let blankHeight = tableBcrt.top - cfBcrt.top; // 只能计算一次
     let navHeight = cfBcrt.top;
 
     this.overflowRef.nativeElement.children[0].style.width = `${_tableRef.clientWidth}px`; // 设置滚动条
@@ -221,17 +229,18 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
 
     this._global.overflowSubject.subscribe(data => {
       cfBcrt = this._global.containerFullRef.getBoundingClientRect();
-      blankHeight = tableBcrt.top - cfBcrt.top;
+      tableBcrt = _tableContainerRef.getBoundingClientRect();
       navHeight = cfBcrt.top;
       maxBottom = tableBcrt.height - (cfBcrt.height - blankHeight);
       let bottom = maxBottom - data.top;
       if (bottom < -_pagingHeight) {
         bottom = -_pagingHeight;
       }
-      _overflowRef.style.bottom = `${bottom + _pagingHeight}px`;
       if (_pagingRef) {
+        _pagingHeight = _pagingRef.clientHeight;
         _pagingRef.style.bottom = `${bottom + _pagingHeight}px`;
       }
+      _overflowRef.style.bottom = `${bottom + _pagingHeight}px`;
     });
 
     // 设置表单头的位置
@@ -388,8 +397,22 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
 
       });
     });
-  }
 
+    this.changeSortObservable.subscribe(params => {
+      console.info(params)
+      if(this.theadList[0]){
+        let allList = this.theadList[0].trList.map(tr => tr.thList.filter(th => th.showSort))[0];
+        if(allList instanceof Array && allList.length) {
+          allList.forEach(th => {
+            th.status = '2'
+          })
+          this.query.sort_expression = params.sort_expression;
+          this.query.sort_direction = params.sort_direction;
+          this.changeEvent.emit(this.query);  // 发射到页面
+        }
+      }
+    })
+  }
 
   // ------------------ 数据 ------------------ //
 
@@ -441,7 +464,6 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
     });
     this.selectData = [];
 
-
     setTimeout(()=> {
       let _tableContainerRef = <HTMLElement>this.tableContainerRef.nativeElement;
       let tableBcrt = _tableContainerRef.getBoundingClientRect();
@@ -465,6 +487,7 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges {
   checkAllObservable = new Subject<any>();
   changeCheckObservable = new Subject<any>();
   changeTdStateObservable = new Subject<any>();
+  changeSortObservable = new Subject<any>();
 
   // ------------------ 分页 ------------------ //
 

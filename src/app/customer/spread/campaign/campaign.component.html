@@ -48,8 +48,8 @@
     <table #tableRef table style="width: 2000px">
       <thead>
       <tr>
-        <th width="50" [showCheckbox]="true"></th>
-        <th>活动ID</th>
+        <th fixed="left" width="50" [showCheckbox]="true"></th>
+        <th fixed="left">活动ID</th>
         <th style="text-align: left">活动名称</th>
         <th></th>
         <th class="text-right">每日预算</th>
@@ -67,8 +67,8 @@
       <tbody>
       <ng-template [ngForOf]="ycTable.data" ngFor let-data let-index="index">
         <tr>
-          <td [showCheckbox]="data"></td>
-          <td [title]="data.campaign_id" >{{data.campaign_id}}</td>
+          <td fixed="left" [showCheckbox]="data"></td>
+          <td fixed="left" [title]="data.campaign_id" >{{data.campaign_id}}</td>
           <td [width]="120"  [title]="data.campaign_name">
             <a data-link [routerLink]="['/ads/spread/creative']" [queryParams]="{campaign_id: data.campaign_id}">{{data.campaign_name}}</a>
           </td>
