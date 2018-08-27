@@ -1,17 +1,16 @@
 import {Injectable} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Global {
   constructor() {
+
   }
 
-  private _menus = [];
-  private _menuChild = null;
-  private _userMenu = null;
-  private _scrollTop = 0;
-  private _scrollHeight = 0;
+  overflowSubject: Subject<{[key: string]: any}>
+
   private _containerFullRef: HTMLDivElement = null;
   private _token = null;
   private _auth;
@@ -47,49 +46,5 @@ export class Global {
 
   set containerFullRef(value) {
     this._containerFullRef = value;
-  }
-
-  get scrollTop(): number {
-    return this._scrollTop;
-  }
-
-  set scrollTop(value) {
-    this._scrollTop = value;
-  }
-
-  get scrollHeight(): number {
-    return this._scrollHeight;
-  }
-
-  set scrollHeight(value) {
-    this._scrollHeight = value;
-  }
-
-  get menus(): Array<any> {
-    return this._menus;
-  }
-
-  set menus(value) {
-    this._menus = value;
-  }
-
-  get menuChild(): Array<any> {
-    return this._menuChild;
-  }
-
-  set menuChild(value) {
-    this._menuChild = value;
-  }
-
-  get userMenu(): object {
-    return this._userMenu;
-  }
-
-  set userMenu(value) {
-    this._userMenu = value;
-  }
-
-  get menuAll() {
-    return [...this.menus, this.userMenu]
   }
 }

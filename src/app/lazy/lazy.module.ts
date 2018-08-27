@@ -16,7 +16,7 @@ import {Dialog} from '../../components/dialog/dialog';
   styles: [],
   template: `
     <div style="padding: 10px;height: 100%;overflow: auto">
-      <p>
+      <p (click)="test()">
         <yc-checkbox [label]="'测试'" [checkState]="2"></yc-checkbox>
       </p>
 
@@ -71,6 +71,10 @@ export class LazyComponent implements OnDestroy {
   query = {a: '2018-02-13', b: '2018-02-14'};
 
   search;
+
+  test(){
+    console.info('ok')
+  }
 
   openDialog() {
     this._dialog.open('123').subscribe(data => {

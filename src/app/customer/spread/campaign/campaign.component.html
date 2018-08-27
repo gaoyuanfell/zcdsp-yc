@@ -1,3 +1,87 @@
-<p>
-  campaign works!
-</p>
+<div class="container-list">
+
+  <div class="query-tool">
+    <div class="left-tool">
+      <h2 class="table-title">
+        创意列表
+      </h2>
+
+      <span class="no-data">
+        <yc-checkbox [label]="'过滤无数据广告'"></yc-checkbox>
+      </span>
+
+    </div>
+
+    <div class="right-tool">
+      <input-datepicker [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
+      <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'请输入活动的名称、ID'"></yc-input-search>
+    </div>
+
+  </div>
+
+  <yc-table>
+    <div #queryRef query class="query-tool">
+      <div class="left-tool">
+        <div class="btn" routerLink="/ads/spread/campaign-add/0">
+          新建活动
+          <i class="btn-icon-add"></i>
+        </div>
+        <div class="btn" (click)="batchUpdate('batch_copy')">
+          复制活动
+          <i class="btn-icon-copy"></i>
+        </div>
+        <div class="btn btn-outline">
+          批量修改
+          <i class="icon-btn-menu m-l-1"></i>
+        </div>
+        <div class="btn" (click)="exportUrl()">
+          导出
+          <i class="btn-icon-export"></i>
+        </div>
+      </div>
+
+      <div class="right-tool">
+        <yc-select [(ngModel)]="query.show_state" [list]="show_state_list" [props]="{value:'value',label:'name'}" [placeholder]="'操作'" [whole]="'全部'" (selectedEvent)="search()"></yc-select>
+        <yc-select [(ngModel)]="query.current_state" [list]="current_state_list" [props]="{value:'value',label:'name'}" [placeholder]="'投放状态'" [whole]="'全部'" (selectedEvent)="search()"></yc-select>
+      </div>
+
+    </div>
+    <table #tableRef table style="width: 2000px">
+      <thead>
+      <tr>
+        <th>创意名称</th>
+        <th>活动名称</th>
+        <th>媒体类型</th>
+        <th>投放状态</th>
+        <th>审核状态</th>
+        <th>出价</th>
+        <th>曝光量</th>
+        <th>点击量</th>
+        <th>点击率</th>
+        <th>点击成本</th>
+        <th>曝光成本</th>
+        <th>花费</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let a of tableList">
+        <td>700X300-信息流</td>
+        <td>肯德基联盟</td>
+        <td>墨迹天气</td>
+        <td>投放中</td>
+        <td>待提交</td>
+        <td>¥ 5.60</td>
+        <td>177,385</td>
+        <td>13,269</td>
+        <td>0.42%</td>
+        <td>¥ 0.36</td>
+        <td>¥ 1.58</td>
+        <td>￥740.30</td>
+        <td>修改 详情</td>
+      </tr>
+      </tbody>
+    </table>
+  </yc-table>
+
+</div>
