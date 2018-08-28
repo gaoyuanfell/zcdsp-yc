@@ -20,6 +20,7 @@ export class Dialog {
     btn2: '确定',
     async: false,
     maxWidth: '80vw',
+    maxHeight: '80vh',
     fullScreen: false
   }
 
@@ -50,6 +51,7 @@ export class Dialog {
       backdropClass: 'cdk-overlay-dark-backdrop',
       hasBackdrop: true,
       maxWidth: config.maxWidth,
+      maxHeight: '80vh'
     });
     this.popupRef = this._overlay.create(overlayConfig);
     this.popupRef.backdropClick().subscribe(() => {

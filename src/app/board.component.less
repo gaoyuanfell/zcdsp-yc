@@ -133,7 +133,7 @@
     position: relative;
     .tips {
       position: absolute;
-      bottom: 38px;
+      bottom: 18px;
       left: 176px;
       width: 256px;
       height: 62px;
@@ -142,25 +142,31 @@
     .case-main {
       padding-left: 170px;
       padding-top: 130px;
+      position: relative;
       .left{
         float: left;
         .text-list {
           max-width: 486px;
           height:298px;
           overflow: hidden;
+          position: relative;
           .list{
-            height:298px;
+            position: absolute;
+            transition:all 0.2s ease;
+            .cont{
+              height: 298px;
+            }
           }
           .tit {
-            font-size: 28px;
+            font-size: 26px;
             color: #fff;
             display: table;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
             img {
               display: inline-block;
               vertical-align: middle;
-              width: 68px;
-              height: 68px;
+              width: 60px;
+              height: 60px;
               margin-right: 10px;
             }
           }
@@ -171,7 +177,7 @@
             line-height: 1.5;
           }
           .target {
-            margin-bottom: 15px;
+            margin-bottom: 10px;
           }
         }
         .tab-menu{
@@ -222,7 +228,30 @@
         }
       }
       .right{
-
+        width: 335px;
+        height: 643px;
+        background: url("../assets/img/index/anlibg.png") no-repeat;
+        background-size: 100%;
+        position: absolute;
+        right: 66px;
+        top:0;
+        padding-left: 53px;
+        padding-top:70px;
+        .imgbox{
+          width: 250px;
+          height: 450px;
+          overflow: hidden;
+          position: relative;
+          .list{
+            position: absolute;
+            transition:all 0.2s ease;
+          }
+          img{
+            display: block;
+            width: 250px;
+            height: 450px;
+          }
+        }
       }
     }
   }

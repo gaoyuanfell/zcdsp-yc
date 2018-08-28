@@ -842,3 +842,66 @@ textarea.form-control {
   background: url("assets/img/icon-data-yes.png") no-repeat center;
   background-size: 18px 14px;
 }
+
+
+///**************************** 账户充值
+
+.recharge-par {
+  > .recharge-tem {
+    width: 440px;
+    > h3, > div, > table {
+      margin-top: 20px;
+    }
+    > table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+      border: 1px solid lightgray;
+      td {
+        padding: 5px;
+        border: 1px solid lightgray;
+      }
+    }
+    &:nth-child(1) {
+      > div {
+        color:red;
+      }
+    }
+    &:nth-child(2) {
+      > div:nth-child(3) {
+        margin: 20px 0;
+        justify-content: space-around;
+        display: flex;
+        align-items: center;
+        > a {
+          > div {
+            vertical-align: middle;
+          }
+          > span {
+            vertical-align: middle;
+            margin-left: 10px;
+            font-size: 18px;
+            color: #3393ff;
+            font-weight: bold;
+          }
+          &:nth-child(2) {
+            > span {
+              border: 1px solid #3393ff;
+              padding: 2px 15px;
+              display: inline-block;
+              border-radius: 10px;
+            }
+          }
+        }
+      }
+    }
+    &:nth-child(4) {
+      a {
+        color:#2e90ff;
+      }
+    }
+  }
+  .recharge-tem .tem {
+
+  }
+}
