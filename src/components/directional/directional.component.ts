@@ -6,6 +6,7 @@ import * as directionalReducer from '../../store/reducer/directional.reducer';
 import * as directionalAction from '../../store/actions/directional.action';
 import {Observable} from 'rxjs';
 import {Audiences, Directional} from '../../store/model/directional.state';
+import {CheckAudiencesActionChange2} from '../../store/actions/directional.action';
 
 @Component({
   selector: 'yc-directional',
@@ -38,6 +39,9 @@ export class DirectionalComponent implements OnInit, AfterViewInit {
   audiencesActionList$: Observable<Array<any>>;
   audiencesActionResult$: Observable<Array<any>>;
 
+  audiencesAction2$: Observable<Directional>;
+  audiencesAction2List$: Observable<Array<any>>;
+  audiencesAction2Result$: Observable<Array<any>>;
 
   // --------------------------- Areas
 
@@ -90,6 +94,14 @@ export class DirectionalComponent implements OnInit, AfterViewInit {
     this.store.dispatch(new directionalAction.QueryAudiencesActionByName({target, value}));
   }
 
+  setAudiencesActionNextChild2({value, index}) {
+    this.store.dispatch(new directionalAction.AudiencesActionNextChild2({value, index}));
+  }
+
+  checkAudiencesActionChange2(value) {
+    this.store.dispatch(new directionalAction.CheckAudiencesActionChange2(value));
+  }
+
   // -------------------------- Audiences
 
   checkAudiencesChange(value){
@@ -135,9 +147,36 @@ export class DirectionalComponent implements OnInit, AfterViewInit {
     this.audiencesActionList$ = store.pipe(select(directionalReducer.AudiencesActionList));
     this.audiencesActionResult$ = store.pipe(select(directionalReducer.AudiencesActionResult));
 
+    this.audiencesAction2$ = store.pipe(select(directionalReducer.AudiencesAction2));
+    this.audiencesAction2List$ = store.pipe(select(directionalReducer.AudiencesAction2List));
+    this.audiencesAction2Result$ = store.pipe(select(directionalReducer.AudiencesAction2Result));
   }
 
   ngOnInit() {
+
+    this.areasResult$.subscribe(data => {
+      console.info(data)
+    })
+
+    this.lbsCityResult$.subscribe(data => {
+      console.info(data)
+    })
+
+    this.audiencesResult$.subscribe(data => {
+      console.info(data)
+    })
+
+    this.deviceResult$.subscribe(data => {
+      console.info(data)
+    })
+
+    this.audiencesActionResult$.subscribe(data => {
+      console.info(data)
+    })
+
+    this.audiencesAction2Result$.subscribe(data => {
+      console.info(data)
+    })
 
   }
 

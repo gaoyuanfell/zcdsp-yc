@@ -47,4 +47,8 @@ export interface AudiencesActionState {
   audiencesAction?: Directional
   audiencesActionList?:Array<Array<any>>
   audiencesActionResult?: Array<any>
+
+  audiencesAction2?: Directional
+  audiencesAction2List?:Array<Array<any>>
+  audiencesAction2Result?: Array<any>
 }

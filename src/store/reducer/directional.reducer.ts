@@ -164,7 +164,8 @@ export function lbsCityReducer(state: LbsCityState = initState2, action: Directi
 }
 
 const initState3: AudiencesActionState = {
-  audiencesActionList: []
+  audiencesActionList: [],
+  audiencesAction2List: [],
 };
 
 export function audiencesActionReducer(state: AudiencesActionState = initState3, action: DirectionalActionUnion) {
@@ -175,10 +176,23 @@ export function audiencesActionReducer(state: AudiencesActionState = initState3,
       nextAudiencesActionChild();
       return state;
     }
+    case DirectionalActionTypes.AUDIENCES_ACTION_ASSIGN2: {
+      state.audiencesAction2 = action.payload;
+      state.audiencesAction2List.push(state.audiencesAction2.children);
+      nextAudiencesActionChild2();
+      return state;
+    }
     case DirectionalActionTypes.AUDIENCES_ACTION_NEXT_CHILD: {
       let {value, index} = action.payload;
       console.time('1');
       nextAudiencesActionChild(value, index);
+      console.timeEnd('1');
+      return {...state};
+    }
+    case DirectionalActionTypes.AUDIENCES_ACTION_NEXT_CHILD2: {
+      let {value, index} = action.payload;
+      console.time('1');
+      nextAudiencesActionChild2(value, index);
       console.timeEnd('1');
       return {...state};
     }
@@ -191,6 +205,17 @@ export function audiencesActionReducer(state: AudiencesActionState = initState3,
       recursionChildCheck(value);
       recursionParentCheck(value);
       state.audiencesActionResult = recursionResult(state.audiencesAction.children);
+      return {...state};
+    }
+    case DirectionalActionTypes.CHECK_AUDIENCES_ACTION_CHANGE2: {
+      let value = action.payload;
+      if (typeof value == 'boolean') {
+        state.audiencesAction2.checked = value;
+        value = state.audiencesAction2;
+      }
+      recursionChildCheck(value);
+      recursionParentCheck(value);
+      state.audiencesAction2Result = recursionResult(state.audiencesAction2.children);
       return {...state};
     }
     case DirectionalActionTypes.QUERY_AUDIENCES_ACTION_BY_NAME: {
@@ -213,6 +238,15 @@ export function audiencesActionReducer(state: AudiencesActionState = initState3,
     while (target.children && target.children.length) {
       if (!target.children[0]) break;
       state.audiencesActionList.push(target.children);
+      target = target.children[0];
+    }
+  }
+
+  function nextAudiencesActionChild2(target = state.audiencesAction2.children[0], index = 0) {
+    state.audiencesAction2List.length = index + 1;
+    while (target.children && target.children.length) {
+      if (!target.children[0]) break;
+      state.audiencesAction2List.push(target.children);
       target = target.children[0];
     }
   }
@@ -299,4 +333,19 @@ export const AudiencesActionList = createSelector(
 export const AudiencesActionResult = createSelector(
   getAudiencesActionState,
   (state: AudiencesActionState) => state.audiencesActionResult
+);
+
+export const AudiencesAction2 = createSelector(
+  getAudiencesActionState,
+  (state: AudiencesActionState) => state.audiencesAction2
+);
+
+export const AudiencesAction2List = createSelector(
+  getAudiencesActionState,
+  (state: AudiencesActionState) => state.audiencesAction2List
+);
+
+export const AudiencesAction2Result = createSelector(
+  getAudiencesActionState,
+  (state: AudiencesActionState) => state.audiencesAction2Result
 );

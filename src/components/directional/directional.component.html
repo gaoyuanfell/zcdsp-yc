@@ -214,21 +214,21 @@
   <div class="directional-info" style="margin-top: 30px;">
     <h4>行为过滤</h4>
     <p>当前已选择（12）</p>
-    <button class="btn btn-outline btn-round">清除全部</button>
+    <button class="btn btn-outline btn-round" (click)="checkAudiencesActionChange2(false)">清除全部</button>
   </div>
   <!--choice-->
-  <div class="choice-values-box">
-    <!---->
+  <div class="choice-values-box" *ngIf="(audiencesAction2Result$ | async)?.length">
     <div class="choice-values">
-      <ng-template [ngForOf]="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" ngFor let-value>
+      <ng-template [ngForOf]="audiencesAction2Result$ | async" ngFor let-value>
           <span class="label-value">
-            通话辅助
-            <i>&times;</i>
+            {{value.name}}
+            <i (click)="value.checked = false;checkAudiencesActionChange2(value)">&times;</i>
           </span>
       </ng-template>
     </div>
     <div class="triangle"></div>
   </div>
+
   <!--query-->
   <div class="input-query directional-query" style="margin-bottom: 10px;">
     <i class="input-query-icon"></i>
@@ -237,7 +237,7 @@
   <!--list-->
   <div class="flex">
 
-    <ng-template [ngForOf]="audiencesActionList$ | async" ngFor let-valueList let-indexList="index">
+    <ng-template [ngForOf]="audiencesAction2List$ | async" ngFor let-valueList let-indexList="index">
       <div class="linkage-box w50">
         <div class="input-query">
           <i class="input-query-icon"></i>
@@ -247,9 +247,9 @@
         <ul class="linkage-list">
           <ng-template [ngForOf]="valueList" ngFor let-value let-index="index">
             <li [ngClass]="{'active': valueList[index].children === (audiencesActionList$ | async)[indexList + 1] && valueList[index].children?.length}">
-              <div class="flex-center" (click)="setAudiencesActionNextChild({value:value,index:indexList})">
+              <div class="flex-center" (click)="setAudiencesActionNextChild2({value:value,index:indexList})">
                 <label class="linkage-item">
-                  <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkAudiencesActionChange(value)"></yc-checkbox><!--'北京市(0/20)'-->
+                  <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkAudiencesActionChange2(value)"></yc-checkbox><!--'北京市(0/20)'-->
                 </label>
                 <i class="choice-arrow" *ngIf="value.children?.length"></i>
               </div>
