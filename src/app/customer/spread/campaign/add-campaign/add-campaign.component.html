@@ -1,17 +1,29 @@
 <div class="add-campaign-nav">
-  1111111111
+
+  <ng-template [ngForOf]="navList" ngFor let-nav let-index>
+    <div class="nav-feedback-list">
+      <p class="nav-list-title" [ngClass]="{'current': nav.status === 1,'active': nav.status === 2}">{{nav.name}}</p>
+      <div class="nav-feedback-list-item">
+        <ng-template [ngForOf]="nav.child" ngFor let-navChild let-index>
+          <p [ngClass]="{'current': navChild.status === 1,'active': navChild.status === 2}" (click)="navScrollTo(navChild.id)"> <i class="icon-data-yes"></i>{{navChild.name}}</p>
+        </ng-template>
+      </div>
+    </div>
+  </ng-template>
+
 </div>
+
 <div class="submit-toolbar">
   <div class="submit-box flex-center">
     <p class="cover-people">可覆盖<span>{{(_audienceCount || 0) | number}}</span>人</p>
     <a class="btn btn-link" style="padding: 0 40px;" *ngIf="_isEdit" href="javascript:history.back()">返回</a>
     <button class="btn btn-outline btn-round m-r-1" (click)="save(2)" *ngIf="jurisdiction?.ZCMOBI_ADS_SPREAD_CAMPAIGN_EDIT_DIRECTION_SAVE && !_isEdit">提交并新建创意</button>
-    <button class="btn btn-round" [ngClass]="{'btn-outline': !_isEdit}" style="padding: 0 40px;" (click)="save(1)" *ngIf="jurisdiction?.ZCMOBI_ADS_SPREAD_CAMPAIGN_EDIT_SAVE">提 交</button>
+    <button class="btn btn-round" style="padding: 0 40px;" (click)="save(1)" *ngIf="jurisdiction?.ZCMOBI_ADS_SPREAD_CAMPAIGN_EDIT_SAVE">提 交</button>
   </div>
 </div>
 <div class="add-campaign-main">
 
-  <h2 class="campaign-title">
+  <h2 class="campaign-title" id="tuiguangmubiao">
     推广目标
   </h2>
 
@@ -45,13 +57,6 @@
           <div class="m-l-1">
             <button class="btn" *ngIf="campaign.template_id" (click)="templatePreview()">预览</button>
             <div class="preview-box flex-center" *ngIf="_previewCodeUrl">
-              <!--<div class="preview-img">-->
-              <!--<img src="assets/customer/img/test-preview-box.png" alt="">-->
-              <!--<div class="preview-tool">-->
-              <!--<i class="icon-tool-img-edit"></i>-->
-              <!--<i class="icon-tool-img-view"></i>-->
-              <!--</div>-->
-              <!--</div>-->
               <div class="qr-code">
                 <img [src]="_previewCodeUrl">
                 <p>手机扫码预览</p>
@@ -211,7 +216,7 @@
 
   </div>
 
-  <h2 class="campaign-title">
+  <h2 class="campaign-title" id="huodongshezhi">
     活动设置
   </h2>
 
@@ -266,7 +271,7 @@
     <div class="form-group flex-center">
       <label class="form-label"><span>*</span>投放小时</label>
       <div class="form-input">
-        <yc-radio-group [(ngModel)]="campaign.show_time_type" [list]="show_time_types" [props]="{label: 'name'}" (changeEvent)="changeRadio()"></yc-radio-group>
+        <yc-radio-group [(ngModel)]="campaign.show_time_type" [list]="show_time_types" [props]="{label: 'name'}"></yc-radio-group>
       </div>
     </div>
 
@@ -279,7 +284,7 @@
 
   </div>
 
-  <h2 class="campaign-title">
+  <h2 class="campaign-title" id="dingxiangshezhi">
     定向设置
   </h2>
 
@@ -296,7 +301,7 @@
   <!--<yc-directional></yc-directional>-->
 
   <div class="flex">
-    <h2 class="campaign-title">
+    <h2 class="campaign-title" id="chujia">
       出价
     </h2>
     <div class="flex" style="margin-top: 30px;">

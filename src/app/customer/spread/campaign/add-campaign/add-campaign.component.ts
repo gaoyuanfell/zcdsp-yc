@@ -14,10 +14,12 @@ import {TemplateService} from '../../../../../service/template.service';
 import {environment} from '../../../../../environments/environment';
 import {DomSanitizer} from '@angular/platform-browser';
 import {debounceTime} from 'rxjs/operators';
+import {ScrollService} from '../../../../../service/scroll.service';
 
 export interface CampaignModel {
   campaign_id?: number,
   orientation?: any, // 定向
+  direction?: any, // 定向
   campaign_name?: string, // 活动名称
   day_budget?: number, // 每日预算
   speed?: string, // 投放速度
@@ -402,8 +404,67 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
     }
   }
 
+  // 侧边导航栏设置
 
-  test;
+  navList = [{
+    name: '推广目标',
+    status: 0,
+    child:[{
+      name: '目标类型',
+      id: 'tuiguangmubiao',
+      status: 0,
+    },{
+      name: '落地页',
+      id: 'tuiguangmubiao',
+      status: 0,
+    }]
+  },{
+    name: '活动设置',
+    status: 0,
+    child:[{
+      name: '预算',
+      id: 'huodongshezhi',
+      status: 0,
+    },{
+      name: '排期',
+      id: 'huodongshezhi',
+      status: 0,
+    }]
+  },{
+    name: '定向',
+    status: 0,
+    child:[{
+      name: '地域定向',
+      id: 'dingxiangshezhi',
+      status: 0,
+    },{
+      name: '人群定向',
+      id: 'dingxiangshezhi',
+      status: 0,
+    },{
+      name: '行为定向',
+      id: 'dingxiangshezhi',
+      status: 0,
+    },{
+      name: '设备定向',
+      id: 'dingxiangshezhi',
+      status: 0,
+    }]
+  },{
+    name:'出价',
+    status: 0,
+    child:[
+      {
+        name:'出价',
+        id: 'chujia',
+        status: 0,
+      }
+    ]
+  }]
+
+  navScrollTo(id){
+    this._scrollService.scrollTo(this._global.containerFullRef, {top: this.document.getElementById(id).offsetTop})
+  }
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -414,6 +475,7 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
               private _dialog: Dialog,
               private _directionalService: DirectionalService,
               private _publicService: PublicService,
+              private _scrollService: ScrollService,
               private _global: Global,
               private _util: Util,
               private _templateService: TemplateService,

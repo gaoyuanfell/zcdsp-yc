@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
+  <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" [fixed]="true" (changeEvent)="list()">
     <div #queryRef query class="query-tool">
       <div class="left-tool">
         <div class="btn" routerLink="/ads/spread/creative-add/0" [queryParamsHandling]="'merge'">
