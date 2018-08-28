@@ -163,10 +163,10 @@ export class PublicService extends ConfigService {
    *
    * @param {{}} body
    * @returns {Observable<Result<any>>}
-   * key: 'not_childs'
+   * {key:'not_recharge'}
    */
   newUser(body = {}) {
-    return this.get(`/financeinfo/user_status`, {})
+    return this.get(`/financeinfo/user_status`, body)
   }
 
   /**
