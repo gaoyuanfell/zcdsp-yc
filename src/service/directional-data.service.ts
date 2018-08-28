@@ -429,7 +429,7 @@ export class DirectionalDataService {
     });
   }
 
-  private splitArray(array, size = 300) {
+  private splitArray(array, size = 200) {
     let result = [];
     for (let x = 0; x < Math.ceil(array.length / size); x++) {
       let start = x * size;
