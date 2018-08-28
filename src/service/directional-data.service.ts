@@ -231,14 +231,8 @@ export class DirectionalDataService {
 
   funcAudiencesActionNextChild(payload) {
     let {value, index} = payload;
-
-    this.subject = new Subject<Array<Array<any>>>();
-
-    this.subject.pipe().subscribe(list => {
-      console.info('ok');
-      this.audiencesActionListSubject.next([...list]);
-    });
     this.funcNextAudiencesActionChild(value, index)
+    this.audiencesActionListSubject.next(this.audiencesActionList);
   }
 
   funcCheckAudiencesActionChange(value) {
@@ -262,36 +256,13 @@ export class DirectionalDataService {
     }
   }
 
-  subject = new Subject<Array<Array<any>>>();
-
   private funcNextAudiencesActionChild(target = this.audiencesAction.children[0], index = 0) {
     this.audiencesActionList.length = index + 1;
-
     while (target.children && target.children.length) {
       if (!target.children[0]) break;
-      let array = this.splitArray(target.children);
-      let _array = [];
-      this.audiencesActionList.push(_array);
-      array.forEach(async a => {
-        _array.push(...a);
-        this.subject.next(this.audiencesActionList);
-        await this.sleep(1000)
-      });
+      this.audiencesActionList.push(target.children);
       target = target.children[0];
     }
-    // while (target.children && target.children.length) {
-    //   if (!target.children[0]) break;
-    //   this.audiencesActionList.push(target.children);
-    //   target = target.children[0];
-    // }
-  }
-
-  sleep(time) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve();
-      }, time);
-    });
   }
 
   ////////////////////////*********** audiencesAction ***********////////////////////////
@@ -343,13 +314,8 @@ export class DirectionalDataService {
 
     this.audiencesActionSubject.next(this.audiencesAction);
     this.audiencesActionList.push(this.audiencesAction.children);
-
-    this.subject.pipe(delay(1000)).subscribe(list => {
-      this.audiencesActionListSubject.next([...list]);
-    });
     this.funcNextAudiencesActionChild();
-
-    // this.audiencesActionListSubject.next([...this.audiencesActionList]);
+    this.audiencesActionListSubject.next(this.audiencesActionList);
 
 
     this.audiencesList$.next(this.audiencesList);
