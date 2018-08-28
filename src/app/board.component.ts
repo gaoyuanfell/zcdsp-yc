@@ -26,6 +26,8 @@ export class BoardComponent implements OnInit {
 
   hash = 'home'
   leftTo;
+  height;
+  topTo;
   background = {
     background: 'rgba(255,255,255,0.7)',
     'top.px':0
@@ -33,7 +35,9 @@ export class BoardComponent implements OnInit {
   bottom={
     'bottom.px':0
   };
-  setIntervalNum
+  setIntervalNum;
+  setInterval1;
+  setInterval2;
   currentPic = 0
   num = 0
   user: any = {}
@@ -73,6 +77,8 @@ export class BoardComponent implements OnInit {
         document.getElementById('footer').style.bottom='0px'
       }
     })
+    this.scrolls1()
+    this.scrolls2()
   }
 
   scrolls() {
@@ -81,12 +87,38 @@ export class BoardComponent implements OnInit {
       if (this.currentPic > 1) {
         this.currentPic = 0
       }
+      if (this.currentPic < 1) {
+        this.currentPic = 0
+      }
       this.leftTo = {
         'left.px': -this.currentPic * 1352
       }
     }, 3000)
   }
-
+  scrolls1() {
+    this.setInterval1 = setInterval(() => {
+      this.currentPic++
+      // console.info(this.currentPic)
+      if (this.currentPic > document.querySelector('.imgbox .list').children.length - 1) {
+        this.currentPic = 0
+      }
+      this.height = {
+        'top.px': -this.currentPic * 450
+      }
+    }, 3000)
+  }
+  scrolls2() {
+    this.setInterval2 = setInterval(() => {
+      this.currentPic++
+      // console.info(this.currentPic)
+      if (this.currentPic > document.querySelector('.text-list .list').children.length - 1) {
+        this.currentPic = 0
+      }
+      this.topTo = {
+        'top.px': -this.currentPic * 298
+      }
+    }, 3000)
+  }
   changeElement(index) {
     this.num = index
   }
