@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
               private route: ActivatedRoute,
               private swUpdate: SwUpdate,
               private _notification: Notification,) {
+
   }
 
   ngOnInit(): void {

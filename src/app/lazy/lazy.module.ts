@@ -10,6 +10,7 @@ import {Module} from '../module';
 import {MenuGuard} from '../../auth/menu.guard';
 import {map} from 'rxjs/operators';
 import {Dialog} from '../../components/dialog/dialog';
+import {DirectionalDataService} from '../../service/directional-data.service';
 
 @Component({
   selector: 'app-lazy-view',
@@ -117,6 +118,10 @@ export class LazyComponent implements OnDestroy {
   ],
 })
 export class LazyModule {
-  constructor() {
+  constructor(
+    private _directionalDataService: DirectionalDataService) {
+    _directionalDataService.initDirectional$().subscribe(data => {
+
+    })
   }
 }
