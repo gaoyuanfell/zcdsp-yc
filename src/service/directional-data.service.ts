@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {DirectionalService} from './customer/directional.service';
 import {forkJoin, Observable, Subject} from 'rxjs';
 import {recursionChildCheck, recursionParentCheck, recursionResult, recursionResult2} from '../store/util';
-import {delay} from 'rxjs/operators';
 
 export interface Directional {
   children?: Array<Directional>
@@ -231,8 +230,17 @@ export class DirectionalDataService {
 
   funcAudiencesActionNextChild(payload) {
     let {value, index} = payload;
-    this.funcNextAudiencesActionChild(value, index)
-    this.audiencesActionListSubject.next(this.audiencesActionList);
+    if(this.audiencesActionSplitSubject){
+      this.audiencesActionSplitSubject.complete()
+    }
+    this.audiencesActionSplitSubject = new Subject<any>();
+    this.audiencesActionSplitSubject.subscribe(data => {
+      let {array, index} = data
+      this.audiencesActionList[index].push(...array)
+      console.info(this.audiencesActionList)
+      this.audiencesActionListSubject.next(this.audiencesActionList);
+    });
+    this.funcNextAudiencesActionChild(value, index);
   }
 
   funcCheckAudiencesActionChange(value) {
@@ -256,13 +264,26 @@ export class DirectionalDataService {
     }
   }
 
-  private funcNextAudiencesActionChild(target = this.audiencesAction.children[0], index = 0) {
+  audiencesActionSplitSubject:Subject<any>;
+  private async funcNextAudiencesActionChild(target = this.audiencesAction.children[0], index = 0) {
+    console.info(index)
     this.audiencesActionList.length = index + 1;
+    let subject = this.audiencesActionSplitSubject;
     while (target.children && target.children.length) {
       if (!target.children[0]) break;
-      this.audiencesActionList.push(target.children);
+      let index = this.audiencesActionList.push([]);
+      let array = this.splitArray(target.children);
+      for (let i = 0; i < array.length; i++) {
+        if(subject != this.audiencesActionSplitSubject && index == 0) return;
+        this.audiencesActionSplitSubject.next({
+          array: array[i],
+          index: index - 1
+        });
+        await this.sleep(20);
+      }
       target = target.children[0];
     }
+    return this.audiencesActionList
   }
 
   ////////////////////////*********** audiencesAction ***********////////////////////////
@@ -314,8 +335,15 @@ export class DirectionalDataService {
 
     this.audiencesActionSubject.next(this.audiencesAction);
     this.audiencesActionList.push(this.audiencesAction.children);
+
+    this.audiencesActionSplitSubject = new Subject();
+    this.audiencesActionSplitSubject.subscribe(data => {
+      let {array, index} = data
+      this.audiencesActionList[index].push(...array)
+      console.info(this.audiencesActionList)
+      this.audiencesActionListSubject.next(this.audiencesActionList);
+    });
     this.funcNextAudiencesActionChild();
-    this.audiencesActionListSubject.next(this.audiencesActionList);
 
 
     this.audiencesList$.next(this.audiencesList);
@@ -323,6 +351,13 @@ export class DirectionalDataService {
     this.audiencesAction2$.next(this.audiencesAction2);
   }
 
+  sleep(time) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+      }, time);
+    });
+  }
 
   recursionChildData() {
     return new Observable(observer => {
@@ -394,7 +429,7 @@ export class DirectionalDataService {
     });
   }
 
-  private splitArray(array, size = 50) {
+  private splitArray(array, size = 300) {
     let result = [];
     for (let x = 0; x < Math.ceil(array.length / size); x++) {
       let start = x * size;
