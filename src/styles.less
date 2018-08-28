@@ -1,3 +1,20 @@
+@font-face {
+  font-family: 'zcdsp-icon';  /* project id 811354 */
+  src: url('//at.alicdn.com/t/font_811354_idbnovjrvq.eot');
+  src: url('//at.alicdn.com/t/font_811354_idbnovjrvq.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_811354_idbnovjrvq.woff') format('woff'),
+  url('//at.alicdn.com/t/font_811354_idbnovjrvq.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_811354_idbnovjrvq.svg#zcdsp-icon') format('svg');
+}
+
+.zcdsp-icon {
+  font-family: "zcdsp-icon" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* You can add global styles to this file, and also import other style files */
 *,
 *:before,
@@ -168,6 +185,7 @@ textarea {
   height: auto;
   font: inherit;
   color: inherit;
+  line-height: 1.2;
 }
 
 textarea::-webkit-input-placeholder {
@@ -388,9 +406,9 @@ body {
   background: #ffffff;
   border-top: 1px solid #d0d0d0;
   .submit-box {
-    width: 1200px;
-    margin: 0 auto;
     height: 65px;
+    margin-left: 250px;
+    margin-right: 100px;
   }
 }
 
@@ -416,18 +434,17 @@ body {
   padding-top: 5px;
 }
 
-.nav-list{
+.nav-feedback-list{
   color: #999999;
   font-size: 16px;
   font-weight: 400;
-  padding: 40px;
   p{
     padding: 10px 0;
     &.active{
       color: #212121;
     }
   }
-  .nav-list-item{
+  .nav-feedback-list-item{
     padding-left: 5px;
     p{
       &.active{
@@ -441,7 +458,7 @@ body {
       }
     }
     i{
-      padding-right: 3px;
+      margin-right: 5px;
       opacity: 0;
       transition: opacity 0.1s ease;
     }

@@ -98,27 +98,42 @@
       overflow: hidden;
       .nav-item {
         height: 60px;
-        line-height: 60px;
         padding-left: 16px;
         cursor: pointer;
         outline: none;
-        &.active:not(.yes-child) {
-          background-color: #1890ff;
-          > .nav-name {
-            color: #ffffff;
-          }
-        }
-        > .nav-icon {
+        .nav-icon {
           display: inline-block;
           width: 24px;
           height: 24px;
+          font-size: 22px;
+          color: #999999;
         }
-        > .nav-name {
+        .nav-name {
           padding-left: 20px;
           white-space: nowrap;
           color: #999999;
           font-size: 16px;
           font-weight: 400;
+        }
+
+        &.active:not(.yes-child) {
+          background-color: #1890ff;
+          > .nav-name {
+            color: #ffffff;
+          }
+          > .nav-icon {
+            color: #ffffff;
+          }
+        }
+        .nav-child .nav-item{
+          &.active{
+            > .nav-name {
+              color: #ffffff;
+            }
+            > .nav-icon {
+              color: #ffffff;
+            }
+          }
         }
       }
       .nav-list .nav-name {
@@ -127,9 +142,6 @@
     }
     .nav-child {
       transition: height 0.25s ease;
-    }
-    .nav-home-icon {
-      background: url("../../assets/img/nav-home-icon.png") no-repeat center;
     }
   }
 

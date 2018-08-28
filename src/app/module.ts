@@ -31,6 +31,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TableModule} from '../components/table/table.module';
 import {PopoverModule} from '../components/popover/popover.module';
 import {FormTipsModule} from '../components/form-tips/form-tips.module'
+import {FixedModule} from '../components/fixed/fixed.module';
 
 @NgModule({
   imports: [
@@ -60,7 +61,8 @@ import {FormTipsModule} from '../components/form-tips/form-tips.module'
     DirectionalModule,
     TableModule,
     PopoverModule,
-    FormTipsModule
+    FormTipsModule,
+    FixedModule,
   ],
   declarations: [],
   exports: [
@@ -90,7 +92,8 @@ import {FormTipsModule} from '../components/form-tips/form-tips.module'
     DirectionalModule,
     TableModule,
     PopoverModule,
-    FormTipsModule
+    FormTipsModule,
+    FixedModule,
   ],
   providers: [
     {

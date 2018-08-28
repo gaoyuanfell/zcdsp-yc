@@ -1,37 +1,16 @@
 <div class="add-campaign-nav">
-  <div class="nav-list">
-    <p class="nav-list-title active">推广目标</p>
-    <div class="nav-list-item">
-      <p class="current"> <i class="icon-data-yes"></i>目标类型</p>
-      <p> <i class="icon-data-yes"></i>落地页</p>
-    </div>
-  </div>
 
-
-  <div class="nav-list">
-    <p class="nav-list-title">活动设置</p>
-    <div class="nav-list-item">
-      <p> <i class="icon-data-yes"></i>预算</p>
-      <p> <i class="icon-data-yes"></i>排期</p>
+  <ng-template [ngForOf]="navList" ngFor let-nav let-index>
+    <div class="nav-feedback-list">
+      <p class="nav-list-title" [ngClass]="{'current': nav.status === 1,'active': nav.status === 2}">{{nav.name}}</p>
+      <div class="nav-feedback-list-item">
+        <ng-template [ngForOf]="nav.child" ngFor let-navChild let-index>
+          <p [ngClass]="{'current': navChild.status === 1,'active': navChild.status === 2}" (click)="navScrollTo(navChild.id)"> <i class="icon-data-yes"></i>{{navChild.name}}</p>
+        </ng-template>
+      </div>
     </div>
-  </div>
+  </ng-template>
 
-  <div class="nav-list">
-    <p class="nav-list-title">定向</p>
-    <div class="nav-list-item">
-      <p> <i class="icon-data-yes"></i>地域定向</p>
-      <p> <i class="icon-data-yes"></i>人群定向</p>
-      <p> <i class="icon-data-yes"></i>行为定向</p>
-      <p> <i class="icon-data-yes"></i>设备定向</p>
-    </div>
-  </div>
-
-  <div class="nav-list">
-    <p class="nav-list-title">出价</p>
-    <div class="nav-list-item">
-      <p> <i class="icon-data-yes"></i>出价</p>
-    </div>
-  </div>
 </div>
 
 <div class="submit-toolbar">
@@ -44,7 +23,7 @@
 </div>
 <div class="add-campaign-main">
 
-  <h2 class="campaign-title">
+  <h2 class="campaign-title" id="tuiguangmubiao">
     推广目标
   </h2>
 
@@ -78,13 +57,6 @@
           <div class="m-l-1">
             <button class="btn" *ngIf="campaign.template_id" (click)="templatePreview()">预览</button>
             <div class="preview-box flex-center" *ngIf="_previewCodeUrl">
-              <!--<div class="preview-img">-->
-              <!--<img src="assets/customer/img/test-preview-box.png" alt="">-->
-              <!--<div class="preview-tool">-->
-              <!--<i class="icon-tool-img-edit"></i>-->
-              <!--<i class="icon-tool-img-view"></i>-->
-              <!--</div>-->
-              <!--</div>-->
               <div class="qr-code">
                 <img [src]="_previewCodeUrl">
                 <p>手机扫码预览</p>
@@ -244,7 +216,7 @@
 
   </div>
 
-  <h2 class="campaign-title">
+  <h2 class="campaign-title" id="huodongshezhi">
     活动设置
   </h2>
 
@@ -299,7 +271,7 @@
     <div class="form-group flex-center">
       <label class="form-label"><span>*</span>投放小时</label>
       <div class="form-input">
-        <yc-radio-group [(ngModel)]="campaign.show_time_type" [list]="show_time_types" [props]="{label: 'name'}" (changeEvent)="changeRadio()"></yc-radio-group>
+        <yc-radio-group [(ngModel)]="campaign.show_time_type" [list]="show_time_types" [props]="{label: 'name'}"></yc-radio-group>
       </div>
     </div>
 
@@ -312,7 +284,7 @@
 
   </div>
 
-  <h2 class="campaign-title">
+  <h2 class="campaign-title" id="dingxiangshezhi">
     定向设置
   </h2>
 
@@ -329,7 +301,7 @@
   <!--<yc-directional></yc-directional>-->
 
   <div class="flex">
-    <h2 class="campaign-title">
+    <h2 class="campaign-title" id="chujia">
       出价
     </h2>
     <div class="flex" style="margin-top: 30px;">

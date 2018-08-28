@@ -19,7 +19,7 @@
         <ng-template [ngForOf]="menuList$ | async" ngFor let-menu>
           <li>
             <div class="nav-item flex-center" [routerLink]="menu.route" routerLinkActive="active" (click)="menu.active = !menu.active" [ngClass]="{'yes-child': menu.child?.length}">
-              <i class="nav-icon nav-home-icon"></i>
+              <i class="nav-icon zcdsp-icon" [innerHTML]="menu.icon"></i>
               <span class="nav-name">{{menu.name}}</span>
             </div>
 
@@ -27,7 +27,7 @@
               <ng-template [ngForOf]="menu.child" ngFor let-child>
                 <li>
                   <div class="nav-item flex-center" [routerLink]="child.route" routerLinkActive="active">
-                    <i class="nav-icon nav-home-icon"></i>
+                    <i class="nav-icon zcdsp-icon" [innerHTML]="child.icon"></i>
                     <span class="nav-name">{{child.name}}</span>
                   </div>
                 </li>
