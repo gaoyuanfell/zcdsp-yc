@@ -5,20 +5,20 @@
         <div class="img"><img src="assets/img/indexjinr.png" alt=""></div>
         <div class="right">
           <p>今日消耗</p>
-          <h1>{{userData?.consume | currencyFormat}}</h1>
+          <h1>{{user?.c_consume | currencyFormat}}</h1>
         </div>
       </div>
       <div class="ratio">
-        <div class="list">周同比<span>{{userData?.wow * 1 | number: '1.2-2'}}%</span>
-          <i [ngClass]="{'red': userData?.wow >= 0, 'green':  userData?.wow < 0 }"></i>
+        <div class="list">周同比<span>%</span>
+          <!--<i [ngClass]="{'red': userData?.wow >= 0, 'green':  userData?.wow < 0 }"></i>-->
         </div>
-        <div class="list">日环比<span>{{userData?.dod * 1 | number: '1.2-2'}}%</span>
-          <i [ngClass]="{'red': userData?.dod >= 0, 'green':  userData?.dod < 0 }"></i>
+        <div class="list">日环比<span>%</span>
+          <!--<i [ngClass]="{'red': userData?.dod >= 0, 'green':  userData?.dod < 0 }"></i>-->
         </div>
       </div>
       <div class="number clear">
-        <div class="list">账户余额<span>{{userData?.balance | currencyFormat}}</span><i class="icon-tool-tip"></i></div>
-        <div class="list">每日预算<span>{{userData?.max_day_money | currencyFormat}}</span><i class="icon-tool-edit"></i></div>
+        <div class="list">账户余额<span>{{user?.balance | currencyFormat}}</span><i class="icon-tool-tip"></i></div>
+        <div class="list">客户余额<span>{{user?.c_balance | currencyFormat}}</span><i class="icon-tool-edit"></i></div>
       </div>
     </li>
     <li>
@@ -26,7 +26,7 @@
         <div class="img"><img src="assets/img/indexbaog.png" alt=""></div>
         <div class="right">
           <p>曝光总量</p>
-          <h1>{{chartsData?.pv | numberFormat}}</h1>
+          <h1>{{charts?.pv | numberFormat }}</h1>
         </div>
       </div>
       <div class="echart" #todayAllSpendChartSmall>
@@ -42,7 +42,7 @@
         <div class="img"><img src="assets/img/indexdianj.png" alt=""></div>
         <div class="right">
           <p>点击总量</p>
-          <h1>{{chartsData?.click | numberFormat}}</h1>
+          <h1>{{charts?.click | numberFormat }}</h1>
         </div>
       </div>
       <div class="echart" #todayAllSpendChartLine>
@@ -79,6 +79,55 @@
       </div>
     </li>
   </ul>
+  <div class="originality">
+    <div class="title">
+      <div class="left">
+        客户列表<i class="icon-tool-help"></i>
+      </div>
+    </div>
+    <div class="main">
+      <div style="width:100%;">
+        <div style="margin-bottom: 20px;">
+          <yc-select class="customer-select" [width]="300" [searchCtrl]="true" placeholder="客户名称" [list]="user_list" [(ngModel)]="query.user_id" [props]="{'value':'user_id', 'label':'nick_name'}" (selectedEvent)="search()"></yc-select>
+        </div>
+        <yc-table #ycTable="ycTable" [data]="childList" [query]="query" [total]="childListTotal_count" (changeEvent)="customerList()">
+          <table #tableRef table>
+            <thead>
+            <tr>
+              <th>客户名称</th>
+              <th class="text-left">审核通过</th>
+              <th>审核未通过</th>
+              <th class="text-left">审核中</th>
+              <th class="text-left">待提交</th>
+              <th class="text-right">余额</th>
+              <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-template [ngForOf]="ycTable.data" ngFor let-data let-index="index">
+              <tr [expand]="trExpand" #tr>
+                <td (click)="tr.trigger()">{{data.nick_name}}</td>
+                <td class="text-left">{{data.pass_count | number }}</td>
+                <td class="text-left">{{data.notpass_count | number }}</td>
+                <td class="text-left">{{data.wait_count | number }}</td>
+                <td class="text-left">{{data.balance |currencyFormat }}</td>
+                <td>
+                  <!--<a data-link (click)="sublogin(data.user_id)">登入</a>-->
+                  <!--<a data-link (click)="sublogin(data.user_id, 'type')">投放</a>-->
+                </td>
+              </tr>
+              <tr #trExpand>
+                <td colspan="1000" *ngIf="trExpand.show">
+                  <yc-index-expand [id]="data.user_id"></yc-index-expand>
+                </td>
+              </tr>
+            </ng-template>
+            </tbody>
+          </table>
+        </yc-table>
+      </div>
+    </div>
+  </div>
   <div class="originality">
     <div class="title">
       <div class="left">

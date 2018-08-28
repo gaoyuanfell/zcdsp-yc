@@ -350,7 +350,8 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
    */
   todayActivity() {
     const todayActivityRef = this.todayActivityEcharts = echarts.init(this.todayActivityRef.nativeElement);
-    todayActivityRef.setOption({
+    todayActivityRef.setOption(
+      {
       legend: {   // 失效了
         itemWidth: 48, // 图例的宽度
         data: ['今日数据', '昨日数据'],

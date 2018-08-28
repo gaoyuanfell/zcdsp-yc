@@ -38,7 +38,10 @@
 
   </div>
   <div class="container-main" [ngStyle]="{'left.px':fixed?200:60}">
-    <!-- module component -->
-    <router-outlet></router-outlet>
+    <div style="width: 100%;height: 100%;overflow: auto;position: relative" #containerFull>
+      <div [ngStyle]="{'min-width.px':fixed?1156:1296}">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
   </div>
 </div>

@@ -41,7 +41,8 @@ export class BaseIndexComponent implements OnInit{
    */
   todayReportChart() {
     const todayReportChartRef = this.todayReportEcharts = echarts.init(this.todayReportChartRef.nativeElement);
-    todayReportChartRef.setOption({
+    todayReportChartRef.setOption(
+      {
       title: {
         text: '2018-08-12数据趋势',
         textStyle: {

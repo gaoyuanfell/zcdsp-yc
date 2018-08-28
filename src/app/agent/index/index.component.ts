@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild, ElementRef, Renderer2} from '@angular/core';
 import {Subject} from 'rxjs';
-import {IndexService} from '../../../service/customer/index.service';
+import {IndexService} from '../../../service/agent/index.service';
 import {BaseIndexComponent} from '../../common/common.component';
 import {PublicService} from '../../../service/public.service';
 
@@ -19,9 +19,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   dayTotalChartData;
   dayTotalCode = 'pv';
 
-  // 上面4个小方块的数据
-  userData;
-  chartsData;
+
 
 
   constructor(
@@ -59,23 +57,36 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     this.todayAllSpendChartLine();
 
   }
-  totalCodeList;
+
   todayReportTop; //  今日曝光成本(天，小时)  今日点击成本 今日点击率
   stateCount;
 
+
+
+
+  // 上面4个小方块的数据
+  user;
+  charts;
+  totalCodeList;
+  user_list: Array<any> = []; // 客户名称下拉框;
+  user_state_count: any = {}; // 总计客户这块
+  creative_state_count: any = {}; // 在投创意这块
   _init() {
     // const countSubscribe = new Subject(); // 计数器
 
     // 上面几个的初始化
-    this._indexService.init().subscribe(res => {
+    this._indexService.homeInit().subscribe((res) => {
+      this.changeDetectorRef.markForCheck()
+      this.user = res.result.user;
+      this.user_list = res.result.user_list;
       this.totalCodeList = res.result.total_code;
-      this.chartsData = res.result.charts;
-      this.stateCount = res.result.creative_state_count;
-    }, () => {
+      this.creative_state_count = res.result.creative_state_count;
+      this.charts = res.result.charts;
+      this.user_state_count = res.result.user_state_count;
+    })
 
-    });
-
-
+    // 客户列表
+    this.customerList();
 
     // 近期数据趋势 首页中上方的4个小格子中的曝光总量 点击总量也是根据数据趋势来的
     this._indexService.dayTotal().subscribe(res => {
@@ -131,6 +142,26 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     }, () => {
       // countSubscribe.next()
     });
+  }
+
+  /**
+   * 代理-首页代理子客户状态查询列表
+   */
+  childList;
+  childListTotal_count;
+  query: any = {
+    page_index: 1,
+    page_size: 10,
+  };
+  search() {
+    this.query.page_index = 1;
+    this.customerList();
+  }
+  customerList() {
+    this._indexService.childList(this.query).subscribe((res) => {
+      this.childList = res.result.items;
+      this.childListTotal_count = res.result.total_count;
+    })
   }
 
 
