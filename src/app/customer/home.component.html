@@ -13,7 +13,6 @@
 </div>
 <div class="main">
   <div class="nav-main" [ngStyle]="{'width.px':fixed?200:60}" [ngClass]="{'hover': hover}" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
-
     <div class="nav-main-overflow" [ngStyle]="{'width.px':fixed?210:60}" [ngClass]="{'hover': hover}" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
       <ul class="nav-list">
         <ng-template [ngForOf]="menuList$ | async" ngFor let-menu>
@@ -37,7 +36,6 @@
         </ng-template>
       </ul>
     </div>
-
   </div>
   <div class="container-main" [ngStyle]="{'left.px':fixed?200:60}">
     <div style="width: 100%;height: 100%;overflow: auto;position: relative" #containerFull>

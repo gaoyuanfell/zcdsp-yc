@@ -35,7 +35,7 @@ export class DialogComponent implements OnInit {
     if (!this.config) return null;
     if (this.config.fullScreen) return {'max-height': this.document.body.clientHeight - 60 + 'px', 'height': this.document.body.clientHeight - 60 + 'px'}
     return {
-      'max-height': '65vh'
+      'max-height': this.config.maxHeight || '80vh'
     };
   }
 

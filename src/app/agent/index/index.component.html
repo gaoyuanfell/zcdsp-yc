@@ -1,187 +1,228 @@
 <div class="container">
-  <ul class="top">
-    <li>
-      <div class="title">
-        <div class="img"><img src="assets/img/indexjinr.png" alt=""></div>
-        <div class="right">
-          <p>今日消耗</p>
-          <h1>{{user?.c_consume | currencyFormat}}</h1>
+  <!---->
+  <div class="leadingWord" *ngIf="_new_user_flag && new_user">
+    <div style="display:flex;">
+      <ng-template [ngIf]="user_status === 'not_qualification' ">
+        <p class="no-login-introduction">您还没提交公司资质信息，请尽快完善！</p>
+        <div class="btn btn-small" routerLink="/us/user/info">
+          上传资质
         </div>
-      </div>
-      <div class="ratio">
-        <div class="list">周同比<span>%</span>
-          <!--<i [ngClass]="{'red': userData?.wow >= 0, 'green':  userData?.wow < 0 }"></i>-->
-        </div>
-        <div class="list">日环比<span>%</span>
-          <!--<i [ngClass]="{'red': userData?.dod >= 0, 'green':  userData?.dod < 0 }"></i>-->
-        </div>
-      </div>
-      <div class="number clear">
-        <div class="list">账户余额<span>{{user?.balance | currencyFormat}}</span><i class="icon-tool-tip"></i></div>
-        <div class="list">客户余额<span>{{user?.c_balance | currencyFormat}}</span><i class="icon-tool-edit"></i></div>
-      </div>
-    </li>
-    <li>
-      <div class="title">
-        <div class="img"><img src="assets/img/indexbaog.png" alt=""></div>
-        <div class="right">
-          <p>曝光总量</p>
-          <h1>{{charts?.pv | numberFormat }}</h1>
-        </div>
-      </div>
-      <div class="echart" #todayAllSpendChartSmall>
+      </ng-template>
 
-      </div>
-      <div class="number">
-        <div class="list">曝光成本<span>{{todayReportTop?.todayCpm * 1000 | currencyFormat }}
+      <ng-template [ngIf]="user_status === 'not_checked_audited' ">
+        <p class="no-login-introduction">您的信息已经完善和提交进入审核流程，请耐心等待!</p>
+      </ng-template>
+
+      <ng-template [ngIf]="user_status === 'not_recharge' ">
+        <p class="no-login-introduction">您的账户余额为0元，请尽快充值！</p>
+        <div class="btn btn-small" (click)="recharge()">
+          充值流程
+        </div>
+      </ng-template>
+
+      <ng-template [ngIf]="user_status === 'not_childs' ">
+        <p class="no-login-introduction">您还没有客户，新增客户后才能帮他投放！</p>
+        <div class="btn btn-small" routerLink="/us/user/info/0">
+          新增客户
+        </div>
+      </ng-template>
+
+      <ng-template [ngIf]="user_status === 'not_child_campaign' ">
+        <p class="no-login-introduction">您还没有帮客户投放广告，现在就去帮他投放吧！</p>
+        <div class="btn btn-small" routerLink="/us/user/customer">
+          客户列表
+        </div>
+      </ng-template>
+    </div>
+    <span (click)="_new_user_flag = false">X</span>
+  </div>
+  <!---->
+  <div [ngStyle]="{'display':!new_user?'block':'none'}">
+    <ul class="top">
+      <li>
+        <div class="title">
+          <div class="img"><img src="assets/img/indexjinr.png" alt=""></div>
+          <div class="right">
+            <p>今日消耗</p>
+            <h1>{{user?.c_consume | currencyFormat}}</h1>
+          </div>
+        </div>
+        <div class="ratio">
+          <div class="list">周同比<span>%</span>
+            <i [ngClass]="{'red': user?.wow >= 0, 'green':  userData?.wow < 0 }"></i>
+          </div>
+          <div class="list">日环比<span>%</span>
+            <i [ngClass]="{'red': user?.dod >= 0, 'green':  userData?.dod < 0 }"></i>
+          </div>
+        </div>
+        <div class="number clear">
+          <div class="list">账户余额<span>{{user?.balance | currencyFormat}}</span><i class="icon-tool-tip"></i></div>
+          <div class="list">客户余额<span>{{user?.c_balance | currencyFormat}}</span><i class="icon-tool-edit"></i></div>
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          <div class="img"><img src="assets/img/indexbaog.png" alt=""></div>
+          <div class="right">
+            <p>曝光总量</p>
+            <h1>{{charts?.pv | numberFormat }}</h1>
+          </div>
+        </div>
+        <div class="echart" #todayAllSpendChartSmall>
+
+        </div>
+        <div class="number">
+          <div class="list">曝光成本<span>{{todayReportTop?.todayCpm * 1000 | currencyFormat }}
         </span><i [ngClass]="{'red': todayReportTop?.todayCpm > todayReportTop?.yesCpm, 'green': todayReportTop?.todayCpm < todayReportTop?.yesCpm, '': todayReportTop?.todayCpm === todayReportTop?.yesCpm }"></i></div>
-      </div>
-    </li>
-    <li>
-      <div class="title">
-        <div class="img"><img src="assets/img/indexdianj.png" alt=""></div>
-        <div class="right">
-          <p>点击总量</p>
-          <h1>{{charts?.click | numberFormat }}</h1>
         </div>
-      </div>
-      <div class="echart" #todayAllSpendChartLine>
+      </li>
+      <li>
+        <div class="title">
+          <div class="img"><img src="assets/img/indexdianj.png" alt=""></div>
+          <div class="right">
+            <p>点击总量</p>
+            <h1>{{charts?.click | numberFormat }}</h1>
+          </div>
+        </div>
+        <div class="echart" #todayAllSpendChartLine>
 
-      </div>
-      <div class="number">
-        <div class="list">点击成本<span>{{todayReportTop?.todayCpc| currencyFormat}}</span>
-          <i [ngClass]="{'red': todayReportTop?.todayCpc > todayReportTop?.yesCpc, 'green': todayReportTop?.todayCpc < todayReportTop?.yesCpc, '': todayReportTop?.todayCpc === todayReportTop?.yesCpc}"></i>
         </div>
-        <div class="list">点击率<span>{{todayReportTop?.todayCtr * 100 | number: '1.2-2'}}%</span>
-          <i [ngClass]="{'red': todayReportTop?.todayCtr > todayReportTop?.yesCtr, 'green': todayReportTop?.todayCtr < todayReportTop?.yesCtr, '': todayReportTop?.todayCtr === todayReportTop?.yesCtr}"></i>
+        <div class="number">
+          <div class="list">点击成本<span>{{todayReportTop?.todayCpc| currencyFormat}}</span>
+            <i [ngClass]="{'red': todayReportTop?.todayCpc > todayReportTop?.yesCpc, 'green': todayReportTop?.todayCpc < todayReportTop?.yesCpc, '': todayReportTop?.todayCpc === todayReportTop?.yesCpc}"></i>
+          </div>
+          <div class="list">点击率<span>{{todayReportTop?.todayCtr * 100 | number: '1.2-2'}}%</span>
+            <i [ngClass]="{'red': todayReportTop?.todayCtr > todayReportTop?.yesCtr, 'green': todayReportTop?.todayCtr < todayReportTop?.yesCtr, '': todayReportTop?.todayCtr === todayReportTop?.yesCtr}"></i>
+          </div>
         </div>
-      </div>
-    </li>
-    <li>
+      </li>
+      <li>
+        <div class="title">
+          <div class="img"><img src="assets/img/indexchuany.png" alt=""></div>
+          <div class="right">
+            <p>总计客户</p>
+            <h1>{{user_state_count?.total_count}}</h1>
+          </div>
+        </div>
+        <div class="state clear">
+          <div class="list">审核通过<span>{{user_state_count?.audited | number}}</span></div>
+          <div class="list">审核失败<span>{{user_state_count?.audit_failed  | number }}</span></div>
+          <div class="list">审核中<span>{{user_state_count?.penging_audit | number}}</span></div>
+          <div class="list">冻结中<span>{{user_state_count?.freeze | number }}</span></div>
+        </div>
+        <div class="state-rate">
+          <div class="list">审核通过<span>{{user_state_count?.audited | number}}</span></div>
+          <div class="list">审核失败<span>{{user_state_count?.audit_failed  | number }}</span></div>
+          <div class="list">审核中<span>{{user_state_count?.penging_audit | number}}</span></div>
+          <div class="list">冻结中<span>{{user_state_count?.freeze | number }}</span></div>
+        </div>
+      </li>
+    </ul>
+    <div class="originality">
       <div class="title">
-        <div class="img"><img src="assets/img/indexchuany.png" alt=""></div>
-        <div class="right">
-          <p>今日消耗</p>
-          <h1>17个</h1>
+        <div class="left">
+          客户列表<i class="icon-tool-help"></i>
         </div>
       </div>
-      <div class="state clear">
-        <div class="list">已通过<span>{{(stateCount?.pass_count || 0) | number}}</span></div>
-        <div class="list">未通过<span>{{(stateCount?.notpass_count || 0) | number}}</span></div>
-        <div class="list">审核中<span>{{(stateCount?.wait_count || 0) | number}}</span></div>
-        <div class="list">待提交<span>{{(stateCount?.wait_submit_count || 0) | number}}</span></div>
-      </div>
-      <div class="state-rate">
-        <div class="list">已通过<span>{{(stateCount?.pass_count / stateCount?.total_count * 100) | number: '1.2-2'}}%</span></div>
-        <div class="list">未通过<span>{{(stateCount?.notpass_count / stateCount?.total_count * 100) | number: '1.2-2'}}%</span></div>
-        <div class="list">审核中<span>{{(stateCount?.wait_count / stateCount?.total_count * 100) | number: '1.2-2'}}%</span></div>
-        <div class="list">待提交<span>{{(stateCount?.wait_submit_count / stateCount?.total_count * 100) | number: '1.2-2'}}%</span></div>
-      </div>
-    </li>
-  </ul>
-  <div class="originality">
-    <div class="title">
-      <div class="left">
-        客户列表<i class="icon-tool-help"></i>
+      <div class="main">
+        <div style="width:100%;">
+          <div style="margin-bottom: 20px;">
+            <yc-select class="customer-select" [width]="300" [searchCtrl]="true" placeholder="客户名称" [list]="user_list" [(ngModel)]="query.user_id" [props]="{'value':'user_id', 'label':'nick_name'}" (selectedEvent)="search()"></yc-select>
+          </div>
+          <yc-table #ycTable="ycTable" [data]="childList" [query]="query" [total]="childListTotal_count" (changeEvent)="customerList()">
+            <table #tableRef table>
+              <thead>
+              <tr>
+                <th>客户名称</th>
+                <th class="text-left">审核通过</th>
+                <th>审核未通过</th>
+                <th class="text-left">审核中</th>
+                <th class="text-left">待提交</th>
+                <th class="text-right">余额</th>
+                <th>操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              <ng-template [ngForOf]="ycTable.data" ngFor let-data let-index="index">
+                <tr [expand]="trExpand" #tr>
+                  <td (click)="tr.trigger()">{{data.nick_name}}</td>
+                  <td class="text-left">{{data.pass_count | number }}</td>
+                  <td class="text-left">{{data.notpass_count | number }}</td>
+                  <td class="text-left">{{data.wait_count | number }}</td>
+                  <td class="text-left">{{data.balance |currencyFormat }}</td>
+                  <td>
+                    <!--<a data-link (click)="sublogin(data.user_id)">登入</a>-->
+                    <!--<a data-link (click)="sublogin(data.user_id, 'type')">投放</a>-->
+                  </td>
+                </tr>
+                <tr #trExpand>
+                  <td colspan="1000" *ngIf="trExpand.show">
+                    <yc-index-expand [id]="data.user_id"></yc-index-expand>
+                  </td>
+                </tr>
+              </ng-template>
+              </tbody>
+            </table>
+          </yc-table>
+        </div>
       </div>
     </div>
-    <div class="main">
-      <div style="width:100%;">
-        <div style="margin-bottom: 20px;">
-          <yc-select class="customer-select" [width]="300" [searchCtrl]="true" placeholder="客户名称" [list]="user_list" [(ngModel)]="query.user_id" [props]="{'value':'user_id', 'label':'nick_name'}" (selectedEvent)="search()"></yc-select>
+    <div class="originality">
+      <div class="title">
+        <div class="left">
+          近期数据趋势<i class="icon-tool-help"></i>
         </div>
-        <yc-table #ycTable="ycTable" [data]="childList" [query]="query" [total]="childListTotal_count" (changeEvent)="customerList()">
-          <table #tableRef table>
-            <thead>
-            <tr>
-              <th>客户名称</th>
-              <th class="text-left">审核通过</th>
-              <th>审核未通过</th>
-              <th class="text-left">审核中</th>
-              <th class="text-left">待提交</th>
-              <th class="text-right">余额</th>
-              <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <ng-template [ngForOf]="ycTable.data" ngFor let-data let-index="index">
-              <tr [expand]="trExpand" #tr>
-                <td (click)="tr.trigger()">{{data.nick_name}}</td>
-                <td class="text-left">{{data.pass_count | number }}</td>
-                <td class="text-left">{{data.notpass_count | number }}</td>
-                <td class="text-left">{{data.wait_count | number }}</td>
-                <td class="text-left">{{data.balance |currencyFormat }}</td>
-                <td>
-                  <!--<a data-link (click)="sublogin(data.user_id)">登入</a>-->
-                  <!--<a data-link (click)="sublogin(data.user_id, 'type')">投放</a>-->
-                </td>
-              </tr>
-              <tr #trExpand>
-                <td colspan="1000" *ngIf="trExpand.show">
-                  <yc-index-expand [id]="data.user_id"></yc-index-expand>
-                </td>
-              </tr>
-            </ng-template>
-            </tbody>
-          </table>
-        </yc-table>
+        <div class="right">
+          <yc-button-group class="tool" [list]="totalCodeList | keys:'value':'label'" [(ngModel)]="dayTotalCode" (changeEvent)="changeDayTotalChart(todayReportEcharts,dayTotalChartData,dayTotalCode)"   *ngIf="dayTotal_change==='table'? false : true"></yc-button-group>
+          <span class="icon-tool" [ngClass]="{'icon-tool-img-line2':dayTotal_change === 'line', 'icon-tool-img-line': dayTotal_change !== 'line'}" (click)="dayTotal_change = 'line'"></span>
+          <span class="icon-tool" [ngClass]="{'icon-tool-img-table2':dayTotal_change === 'table', 'icon-tool-img-table': dayTotal_change !== 'table'}" (click)="dayTotal_change = 'table'"></span>
+        </div>
+      </div>
+      <div class="main" [ngStyle]="{'display':dayTotal_change==='line'?'block':'none'}">
+        <div style="display: flex;width:100%;">
+          <div class="echart" #todayReportChart></div>
+          <div class="list">
+            <div class="tit">日期筛选<span class="icon-tool-add"></span></div>
+            <div class="all" (click)="_dayTotalClick();_dayTotal = null" [ngClass]="{'active': _dayTotal === null}">15天内创意</div>
+            <ul>
+              <li *ngFor="let data of dayTotalListData;let i = index"  (click)="_dayTotalClick(data.date);  _dayTotal = data" [ngClass]="{'active': _dayTotal === data}">
+                {{data.date}}
+                <span class="edit">编辑</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="main" [ngStyle]="{'display':dayTotal_change==='table'?'block':'none'}">
+        <table class="dayTable" cellspacing="12">
+          <thead>
+          <tr>
+            <th>日期</th>
+            <th>曝光量</th>
+            <th>点击量</th>
+            <th>点击率</th>
+            <th>点击成本</th>
+            <th>曝光成本</th>
+            <th>累积花费</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let x of dayTotalList">
+            <td>{{x.time}}</td>
+            <td>{{x.pv | number}}次</td>
+            <td>{{x.click | number}}次</td>
+            <td>{{x.ctr * 100 | number:'1.2-2'}}%</td>
+            <td>{{x.cpc | currencyFormat}}</td>
+            <td>{{x.cpm * 1000 | currencyFormat}}</td>
+            <td>{{x.admoney | currencyFormat}}</td>
+
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-  <div class="originality">
-    <div class="title">
-      <div class="left">
-        近期数据趋势<i class="icon-tool-help"></i>
-      </div>
-      <div class="right">
-        <yc-button-group class="tool" [list]="totalCodeList | keys:'value':'label'" [(ngModel)]="dayTotalCode" (changeEvent)="changeDayTotalChart(todayReportEcharts,dayTotalChartData,dayTotalCode)"   *ngIf="dayTotal_change==='table'? false : true"></yc-button-group>
-        <span class="icon-tool" [ngClass]="{'icon-tool-img-line2':dayTotal_change === 'line', 'icon-tool-img-line': dayTotal_change !== 'line'}" (click)="dayTotal_change = 'line'"></span>
-        <span class="icon-tool" [ngClass]="{'icon-tool-img-table2':dayTotal_change === 'table', 'icon-tool-img-table': dayTotal_change !== 'table'}" (click)="dayTotal_change = 'table'"></span>
-      </div>
-    </div>
-    <div class="main" [ngStyle]="{'display':dayTotal_change==='line'?'block':'none'}">
-      <div style="display: flex;width:100%;">
-        <div class="echart" #todayReportChart></div>
-        <div class="list">
-          <div class="tit">日期筛选<span class="icon-tool-add"></span></div>
-          <div class="all" (click)="_dayTotalClick();_dayTotal = null" [ngClass]="{'active': _dayTotal === null}">15天内创意</div>
-          <ul>
-            <li *ngFor="let data of dayTotalListData;let i = index"  (click)="_dayTotalClick(data.date);  _dayTotal = data" [ngClass]="{'active': _dayTotal === data}">
-              {{data.date}}
-              <span class="edit">编辑</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="main" [ngStyle]="{'display':dayTotal_change==='table'?'block':'none'}">
-      <table class="dayTable" cellspacing="12">
-        <thead>
-        <tr>
-          <th>日期</th>
-          <th>曝光量</th>
-          <th>点击量</th>
-          <th>点击率</th>
-          <th>点击成本</th>
-          <th>曝光成本</th>
-          <th>累积花费</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let x of dayTotalList">
-          <td>{{x.time}}</td>
-          <td>{{x.pv | number}}次</td>
-          <td>{{x.click | number}}次</td>
-          <td>{{x.ctr * 100 | number:'1.2-2'}}%</td>
-          <td>{{x.cpc | currencyFormat}}</td>
-          <td>{{x.cpm * 1000 | currencyFormat}}</td>
-          <td>{{x.admoney | currencyFormat}}</td>
-
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <!---->
   <div class="platform clear">
     <div class="master">
       <div class="content">
@@ -371,3 +412,50 @@
     </div>
   </div>
 </div>
+
+<ng-template #templateRecharge>
+  <div class="recharge-par">
+    <div class="recharge-tem">
+      <h3>一、智橙收款账户</h3>
+      <div>请通过网银、汇款、转账、现金存入等方式，将广告费用转入以下账户</div>
+      <table class="recharge-table">
+        <tbody>
+        <tr>
+          <td>单位名称</td>
+          <td>银橙(上海)信息有限公司</td>
+        </tr>
+        <tr>
+          <td>开户账户</td>
+          <td>平安银行上海西南支行</td>
+        </tr>
+        <tr>
+          <td>银行账户</td>
+          <td>1101 1051 8224 01</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="recharge-tem">
+      <h3>二、使用指定账户转账</h3>
+      <div>请使用已经预留给智橙的账户操作转账，若需变更打款账号或咨询其他问题，请联系客服人员</div>
+      <div>
+        <a>
+          <div class="phone-icon"></div>
+          <span>400-670-9027</span>
+        </a>
+        <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&amp;key=XzkzODAxNTMxNF8yOTU2NDZfNDAwNjcwOTkyN18yXw" target="_blank">
+          <div class="service-icon"></div>
+          <span>在线客服</span>
+        </a>
+      </div>
+    </div>
+    <div class="recharge-tem">
+      <h3>三、收款核对</h3>
+      <div>智橙在收到款后一个工作日内核对款项信息，并操作充值到用户账户中。</div>
+    </div>
+    <div class="recharge-tem">
+      <h3>四、用户查看余额</h3>
+      <div>请在1个工作日后，登录智橙并在<a (click)="_dialog.close();" [routerLink]="['/us/finance/recharge']">“财务-流水”</a>中查看余额变动信息，确认充值是否成功。</div>
+    </div>
+  </div>
+</ng-template>

@@ -1,6 +1,7 @@
 import {ChangeDetectorRef, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {PublicService} from '../../service/public.service';
 import * as chinaJson from 'echarts/map/json/china.json';
+import {ActivatedRoute} from '@angular/router';
 
 export class BaseIndexComponent implements OnInit{
   // 曝光总量
@@ -28,14 +29,38 @@ export class BaseIndexComponent implements OnInit{
   constructor(
     protected changeDetectorRef: ChangeDetectorRef,
     protected _publicService: PublicService,
-    protected  render: Renderer2
+    protected  render: Renderer2,
+    protected route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
    console.log('这边的ngOnInit打印不出来')
   }
+  _new_user_flag = true;   // 点击关闭后，弹框消失，但是不能改变new_user这个值呀！
+  get new_user() {
+    if (this.route.snapshot.data.user) {
+      return this.route.snapshot.data.user.is_new_user
+    }
+    return false;
+  }
 
+  get user_status() {
+    if (this.route.snapshot.data.user) {
+      return this.route.snapshot.data.user.status
+    }
+    return 0
+  }
 
+  _showData() {
+    setTimeout(()=> {
+      this.todayAllDataChart();
+      this.todayAllSpendChart();
+      this.socialDataChart();
+      this.hobbyDataChart();
+      this.chinaDataChart();
+      this.initData();
+    }, 500)
+  }
   /**
    * 数据趋势
    */
@@ -343,7 +368,6 @@ export class BaseIndexComponent implements OnInit{
       todayAllSpendChartRef.resize();
     });
   }
-
 
   /**
    * 曝光总量
@@ -990,9 +1014,6 @@ export class BaseIndexComponent implements OnInit{
     this.undefinedPro = Number((this.genderUndefined / this.genderTotal).toFixed(2));
   }
 
-
-
-
   _getSexStyle(index) {
       return {
         'top.px': index % 3 * 12,
@@ -1046,7 +1067,7 @@ export class BaseIndexComponent implements OnInit{
     });
   }
 
-  // 处理列表
+
   /**
    * 今日在投创意 今日在投活动   处理列表
    * @param echartsInstance
@@ -1134,6 +1155,88 @@ export class BaseIndexComponent implements OnInit{
     })
     this.dayTotalList = list;
 
+  }
+
+  /**
+   * 对于处理的上面的 曝光总量 点击总量 2个小块块
+   * @param echartsInstance
+   * @param data
+   * @param type
+   */
+  todayReportTop; //  今日曝光成本(天，小时)  今日点击成本 今日点击率
+  dayTotalUp(res) {
+    //  this.dayTotalChartData 这个值会变，不能用， 因为在下面数据趋势中，你点击每一天,他就是每个时间段，你点击全部他就是每一天
+    // 而我这边显示的就是每一天的 总
+    //  曝光总量
+    this.todayAllSpendChartSmalls.setOption(   // 这边的曝光总量是每一天的
+      {
+        xAxis : [
+          {
+            data : res.result.chart.x,
+          }
+        ],
+        series : [
+          {
+            data: res.result.chart.y.pv
+          }
+        ]
+      }
+    )
+
+    // 点击总量
+    this.todayAllSpendChartLines.setOption(  // 这边的点击总量是每一天的
+      {
+        xAxis : [
+          {
+            data : res.result.chart.x,
+          }
+        ],
+        series : [
+          {
+            data: res.result.chart.y.click
+          }
+        ]
+      }
+    )
+
+    // 这边因为当只有一天的时候，可能久显示小时了，但是不管是小时还是天，都显示最后一个数字
+    this.todayReportTop = {
+      todayCpm : res.result.chart.y.cpm[res.result.chart.y.cpm.length - 1],
+      yesCpm:  res.result.chart.y.cpm[res.result.chart.y.cpm.length - 2],
+      todayCpc:  res.result.chart.y.cpc[res.result.chart.y.cpc.length - 1],
+      yesCpc:  res.result.chart.y.cpc[res.result.chart.y.cpc.length - 2],
+      todayCtr:  res.result.chart.y.ctr[res.result.chart.y.ctr.length - 1],
+      yesCtr:  res.result.chart.y.ctr[res.result.chart.y.ctr.length - 2],
+    }
+  }
+
+  /**
+   * 调节窗口大小
+   * @param echartsInstance
+   * @param data
+   * @param type
+   */
+  resizeFun() {
+    let width = window.document.body.offsetWidth
+    if (width > 1500 && width < 1920) {
+      this.sexCount = 150;
+    } else if (width=== 1920) {
+      this.sexCount = 180;
+    } else if (width <= 1500) {
+      this.sexCount = 123;
+    }
+
+    this.render.listen('window', 'resize', () => {
+      let width = window.document.body.offsetWidth
+      if (width > 1500 && width < 1920) {
+        this.sexCount = 150;
+      } else if (width=== 1920) {
+        this.sexCount = 180;
+      } else if (width <= 1500) {
+        this.sexCount = 123;
+      }
+      this.changeDetectorRef.markForCheck();
+    })
   }
 
 
