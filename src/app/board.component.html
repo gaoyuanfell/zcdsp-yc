@@ -24,20 +24,20 @@
     </div>
       <div class="container">
         <div class="banner">
-          <img src="assets/img/index/homebanner.jpg" alt="">
+          <img src="http://img.zcdsp.com/common/36e5cda9194222924b6ab4cc71d398ed.jpg" alt="">
         </div>
         <div class="mobel" id="engine">
           <h1><img src="assets/img/index/qytit.png" alt=""></h1>
           <p>智橙V4运作核心——智橙决策引擎，由AI技术、大数据等打造而成。机器通过不断学习，<br>
             基于大数据产出专属的智能决策，助力广告主进行营销、产品、用户体验等全方位智能营销策略，<br>
             使其在广泛的场景应用中创造更大价值，轻松实现营销目标。</p>
-          <img src="assets/img/index/yq.png" alt="" class="img">
+          <img src="http://img.zcdsp.com/common/67d940873b6fa5e22b20801e904b874e.png" alt="" class="img">
         </div>
         <div class="mobel scheme" id="scheme">
           <h1><img src="assets/img/index/fatit.png" alt=""></h1>
           <p>三大核心能力为依托 为电商类、网服类、金融类、游戏类、<br>
             工具类客户提供全面升级的解决方案</p>
-          <img src="assets/img/index/fa.png" alt="" class="img">
+          <img src="http://img.zcdsp.com/common/f9040005256c45715a5c9a14aeae46c9.png" alt="" class="img">
         </div>
         <div class="case huibg" id="case">
           <div class="content">
@@ -45,7 +45,7 @@
             <div class="tips"></div>
             <div class="case-main clear">
               <div class="left">
-                <div class="text-list" [ngSwitch]="num">
+                <div class="text-list" [ngSwitch]="num" #caseMainLeft>
                   <div class="list" *ngSwitchCase="0" [ngStyle]="topTo">
                     <div class="cont">
                       <div class="tit">
@@ -171,34 +171,34 @@
                   <span class="finance" [ngClass]="{'active':num == 4}" (click)="changeElement(4)"></span>
                 </div>
               </div>
-              <div class="right" [ngSwitch]="num">
+              <div class="right" [ngSwitch]="num" #caseMainRight>
                   <div class="imgbox" *ngSwitchCase="0">
                     <div class="list" [ngStyle]="height">
-                      <img src="assets/img/index/img1-1.jpg" alt="">
-                      <img src="assets/img/index/img1-2.jpg" alt="">
+                      <img src="http://img.zcdsp.com/common/1f809a7a9ac7e8f2a0c6ab1e9466a32b.jpg" alt="">
+                      <img src="http://img.zcdsp.com/common/9ddefeff524898acd2a6992df9a0ee0c.jpg" alt="">
                     </div>
                   </div>
                 <div class="imgbox" *ngSwitchCase="1">
                   <div class="list" [ngStyle]="height">
-                    <img src="assets/img/index/img2-1.jpg" alt="">
+                    <img src="http://img.zcdsp.com/common/fdea634cdac8fa30ce468cf34b590829.jpg" alt="">
                   </div>
                 </div>
                 <div class="imgbox" *ngSwitchCase="2">
                   <div class="list" [ngStyle]="height">
-                    <img src="assets/img/index/img3-1.jpg" alt="">
-                    <img src="assets/img/index/img3-2.jpg" alt="">
+                    <img src="http://img.zcdsp.com/common/af7d5d135a5f7f70f7123214686066bb.jpg" alt="">
+                    <img src="http://img.zcdsp.com/common/eb3de8e877a9119e92b7ec9d2b131e13.jpg" alt="">
                   </div>
                 </div>
                 <div class="imgbox" *ngSwitchCase="3">
                   <div class="list" [ngStyle]="height">
-                    <img src="assets/img/index/img4-1.jpg" alt="">
-                    <img src="assets/img/index/img4-2.jpg" alt="">
+                    <img src="http://img.zcdsp.com/common/8a978bbc9e41d2b897c4c7982aa1b50d.jpg" alt="">
+                    <img src="http://img.zcdsp.com/common/43f3410b2a17eedd8d6201ed059047d9.jpg" alt="">
                   </div>
                 </div>
                 <div class="imgbox" *ngSwitchCase="4">
                   <div class="list" [ngStyle]="height">
-                    <img src="assets/img/index/img5-1.jpg" alt="">
-                    <img src="assets/img/index/img5-2.jpg" alt="">
+                    <img src="http://img.zcdsp.com/common/d57540d58befc5c680f82f3717734a25.jpg" alt="">
+                    <img src="http://img.zcdsp.com/common/4899ea625a7a279f6d5f8d8bedb25581.jpg" alt="">
                   </div>
                 </div>
               </div>
@@ -245,9 +245,7 @@
             <p class="tip">请专业投放顾问来电为您介绍<br>免费咨询，留下您的联系方式，我们的广告顾问将尽快与您取得联系</p>
             <div class="us clear">
               <div class="left">
-                <div class="company">
-                  上海银橙信息有限公司
-                </div>
+                <input type="text" class="fill-input company" placeholder="公司名称(必填)" [(ngModel)]="user.company">
                 <div class="form">
                   <input type="text" class="fill-input name" placeholder="姓名(必填)" [(ngModel)]="user.name">
                   <input type="text" class="fill-input iphone" placeholder="手机号码(必填)" [(ngModel)]="user.phone">
