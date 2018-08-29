@@ -22,8 +22,11 @@ export enum DirectionalActionTypes {
 
   AUDIENCES_ACTION_INIT = '[DIRECTIONAL] AUDIENCES_ACTION_INIT',
   AUDIENCES_ACTION_ASSIGN = '[DIRECTIONAL] AUDIENCES_ACTION_ASSIGN',
+  AUDIENCES_ACTION_ASSIGN2 = '[DIRECTIONAL] AUDIENCES_ACTION_ASSIGN2',
   AUDIENCES_ACTION_NEXT_CHILD = '[DIRECTIONAL] AUDIENCES_ACTION_NEXT_CHILD',
+  AUDIENCES_ACTION_NEXT_CHILD2 = '[DIRECTIONAL] AUDIENCES_ACTION_NEXT_CHILD2',
   CHECK_AUDIENCES_ACTION_CHANGE = '[DIRECTIONAL] CHECK_AUDIENCES_ACTION_CHANGE',
+  CHECK_AUDIENCES_ACTION_CHANGE2 = '[DIRECTIONAL] CHECK_AUDIENCES_ACTION_CHANGE2',
   QUERY_AUDIENCES_ACTION_BY_NAME = '[DIRECTIONAL] QUERY_AUDIENCES_ACTION_BY_NAME',
 }
 
@@ -61,6 +64,14 @@ export class LbsCityAssign implements Action {
 // 定向数据赋值 AudiencesAction
 export class AudiencesActionAssign implements Action {
   readonly type = DirectionalActionTypes.AUDIENCES_ACTION_ASSIGN;
+
+  constructor(public payload: any) {
+  }
+}
+
+// 定向数据赋值 AudiencesAction
+export class AudiencesActionAssign2 implements Action {
+  readonly type = DirectionalActionTypes.AUDIENCES_ACTION_ASSIGN2;
 
   constructor(public payload: any) {
   }
@@ -158,9 +169,23 @@ export class AudiencesActionNextChild implements Action{
   }
 }
 
+export class AudiencesActionNextChild2 implements Action{
+  readonly type = DirectionalActionTypes.AUDIENCES_ACTION_NEXT_CHILD2;
+  constructor(public payload: any) {
+
+  }
+}
+
 // 改变状态
 export class CheckAudiencesActionChange implements Action{
   readonly type = DirectionalActionTypes.CHECK_AUDIENCES_ACTION_CHANGE;
+  constructor(public payload: any) {
+
+  }
+}
+
+export class CheckAudiencesActionChange2 implements Action{
+  readonly type = DirectionalActionTypes.CHECK_AUDIENCES_ACTION_CHANGE2;
   constructor(public payload: any) {
 
   }
@@ -184,6 +209,7 @@ export type DirectionalActionUnion
   | LbsCityAssign
   | LbsCityInit
   | AudiencesActionAssign
+  | AudiencesActionAssign2
   | AudiencesActionInit
   | AreasNextChild
   | CheckAreasChange
@@ -196,5 +222,7 @@ export type DirectionalActionUnion
   | CheckDeviceChange
   | RemoveAllDevice
   | AudiencesActionNextChild
+  | AudiencesActionNextChild2
   | CheckAudiencesActionChange
+  | CheckAudiencesActionChange2
   | QueryAudiencesActionByName

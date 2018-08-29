@@ -16,24 +16,6 @@ export class Util {
   }
 
   /**
-   *
-   * @param {string} url
-   * @returns {Promise<any>}
-   */
-  image(url: string) {
-    return new Promise((resolve, reject) => {
-      let img = new Image();
-      img.onload = () => {
-        resolve(img)
-      };
-      img.onerror = (err) => {
-        reject(err)
-      };
-      img.src = url
-    })
-  }
-
-  /**
    * this.utilService_.pipes(val, [{transform: CurrencyPipe, args: 'CNY'}, {transform: CurrencyFormatPipe}]);
    * @param {string} value
    * @param {Array<Pipes>} ops
