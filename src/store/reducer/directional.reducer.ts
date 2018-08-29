@@ -33,6 +33,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
       recursionChildCheck(value);
       recursionParentCheck(value);
       state.areasResult = recursionResult(state.areas.children);
+      console.info(state.areasResult)
       return {...state};
     }
     case DirectionalActionTypes.QUERY_AREAS_BY_NAME: {

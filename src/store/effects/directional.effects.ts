@@ -28,7 +28,7 @@ export class DirectionalEffects {
             let [a, c, e] = arr;
 
             let {age, education, sex} = c.result;
-            let {browsers, devices_type, mobile_brand, net_type, operators, os} = e.result;
+            let {browsers, devicesType, brand, netType, operators, mobileOS} = e.result;
 
             let recursion = [
               this.recursionChild({children: a.result}),
@@ -38,18 +38,18 @@ export class DirectionalEffects {
               this.recursionChild({children: sex, name: '性别'}),
 
               this.recursionChild({children: browsers, name: '浏览器'}),
-              this.recursionChild({children: devices_type, name: '设备类型'}),
-              this.recursionChild({children: mobile_brand, name: '设备品牌'}),
-              this.recursionChild({children: net_type, name: '联网方式'}),
+              this.recursionChild({children: devicesType, name: '设备类型'}),
+              this.recursionChild({children: brand, name: '设备品牌'}),
+              this.recursionChild({children: netType, name: '联网方式'}),
               this.recursionChild({children: operators, name: '运营商'}),
-              this.recursionChild({children: os, name: '操作系统'}),
+              this.recursionChild({children: mobileOS, name: '操作系统'}),
 
             ];
 
-            Promise.all(recursion).then(([areas, age, education, sex, browsers, devices_type, mobile_brand, net_type, operators, os]) => {
+            Promise.all(recursion).then(([areas, age, education, sex, browsers, devicesType, brand, netType, operators, mobileOS]) => {
 
               let audiences = {age, education, sex};
-              let device = {browsers, devices_type, mobile_brand, net_type, operators, os};
+              let device = {browsers, devicesType, brand, netType, operators, mobileOS};
 
               let audiencesList = Object.entries(audiences).map(([key, value]) => ({key, value}));
               let deviceList = Object.entries(device).map(([key, value]) => ({key, value}));
