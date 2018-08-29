@@ -2,6 +2,6 @@
   <label>
     <i #close></i>
     <i #active (mouseover)="showClose($event,active,close)" (mouseout)="hideClose($event,active,close)" (click)="removeValue($event,active,close)">X</i>
-    <input type="text" [placeholder]="placeholder" [(ngModel)]="value" [selectedValue]="selectedValue" yc-date-picker [disabledTodayAfter]="disabledTodayAfter" [isShortcutKey]="isShortcutKey" [disabledTodayBefore]="disabledTodayBefore" (change)="selectedChange($event)" [isRange]="isRange" readonly (open)="_onTouched()">
+    <input type="text" [placeholder]="placeholder" [(ngModel)]="value" [selectedValue]="selectedValue" yc-date-picker [disabledTodayAfter]="disabledTodayAfter" [isShortcutKey]="isShortcutKey" [disabledTodayBefore]="disabledTodayBefore" (change)="selectedChange($event)" [isRange]="isRange" readonly (open)="_onTouched()" [name]="name">
   </label>
 </div>

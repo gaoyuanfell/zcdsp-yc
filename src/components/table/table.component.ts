@@ -490,12 +490,14 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
     }
   };
 
-  private _query;
+  private _query:any={};
 
   @Input() set query(query) {
-    this._query = query;
-    if (!this._query[this._props.page_index]) this._query[this._props.page_index] = 1;
-    if (!this._query[this._props.page_size]) this._query[this._props.page_size] = 10;
+    if(query) {
+      this._query = query;
+      if (!this._query[this._props.page_index]) this._query[this._props.page_index] = 1;
+      if (!this._query[this._props.page_size]) this._query[this._props.page_size] = 10;
+    }
   }
 
   get query() {

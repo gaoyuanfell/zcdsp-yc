@@ -91,6 +91,7 @@ export class InputDatepickerComponent implements ControlValueAccessor, OnInit, O
   @Input() isShortcutKey = true;
 
   @Input('query') query;
+  @Input() name;
   @Input('appendField') appendField;
   @Input('width') width: number = 240;
   @Input() placeholder = '请选择...';
