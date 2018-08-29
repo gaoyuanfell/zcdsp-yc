@@ -49,10 +49,10 @@
         </div>
         <div class="ratio">
           <div class="list">周同比<span>%</span>
-            <i [ngClass]="{'red': user?.wow >= 0, 'green':  userData?.wow < 0 }"></i>
+            <i [ngClass]="{'red': user?.wow >= 0, 'green':  user?.wow < 0 }"></i>
           </div>
           <div class="list">日环比<span>%</span>
-            <i [ngClass]="{'red': user?.dod >= 0, 'green':  userData?.dod < 0 }"></i>
+            <i [ngClass]="{'red': user?.dod >= 0, 'green':  user?.dod < 0 }"></i>
           </div>
         </div>
         <div class="number clear">

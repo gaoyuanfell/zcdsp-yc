@@ -7,7 +7,7 @@
     <div class="register-body">
       <h1 class="top">欢迎注册<span>智橙移动</span>账号</h1>
       <p class="forget"><a href="login.html" [routerLink]="['/login']" >立即登录</a></p>
-      <form class="from"  #infoForm="ngForm" (ngSubmit)="save(infoForm)">
+      <form class="from"  #infoForm="ngForm" (ngSubmit)="save()">
 
         <input type="text" class="nick_name" placeholder="公司名称" #nickName="ngModel"  name="nick_name" [(ngModel)]="user.nick_name" required [ngClass]="{ userOn: (nickName.dirty || nickName.touched || _valid) && nickName.invalid}">
         <app-form-tips [target]="infoForm.controls['nick_name']" [formTarget]="infoForm" placeholder="请填写公司名称"></app-form-tips>

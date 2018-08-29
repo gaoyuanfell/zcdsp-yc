@@ -1,3 +1,81 @@
-<p>
-  remind works!
-</p>
+<div class="container-list">
+  <div class="data-top flex">
+    <div class="left-img">
+      <img src="assets/img/customer/img/user-icon.png">
+    </div>
+    <div class="right-info">
+      <p class="flex-center">
+        {{userData?.nick_name}}
+      </p>
+      <p class="flex-center">
+        <i class="login-icon"></i>
+        <span>登入账号：{{userData?.user_name}}</span>
+      </p>
+      <p class="flex-center">
+        <i class="time-icon"></i>
+        <span>注册时间：{{userData?.creation_date | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="table-content">
+
+    <form #infoForm="ngForm"  (ngSubmit)="save(infoForm)">
+
+      <yc-table #ycTable="ycTable" [data]="tableList" [pagination]="false" (changeEvent)="list()">
+        <table #tableRef table>
+          <thead>
+          <tr>
+            <!--<th [showCheckbox]="true" [checked]="is_all"></th>-->
+            <th>
+              <yc-checkbox [(ngModel)]="is_all" [checkState]="num" (ngModelChange)="changeCheckbox()" [ngModelOptions]="{standalone: true}"></yc-checkbox>
+            </th>
+            <th>预警点</th>
+            <th>预警频次</th>
+            <th>预警范围</th>
+            <th>预警手机</th>
+            <th>预警邮箱</th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-template [ngForOf]="ycTable.data" ngFor let-data>
+            <tr class="text-center">
+              <!--<td [showCheckbox]="data" [checked]="data.is_active"></td>-->
+              <td>
+                <yc-checkbox [(ngModel)]="data.is_active" (ngModelChange)="onlyChange($event)" [ngModelOptions]="{standalone: true}"></yc-checkbox>
+              </td>
+              <td>{{data.remind_key | remindKey}}</td>
+              <td>{{data.remind_frequence}}</td>
+              <td>
+                <span>{{data.remind_key==='BALANCE_ALERT'? data.check_alert : data.remind_scope}}</span>
+                <!--<span>{{data.remind_key==='AD_CREATIVE_CHECK_ALERT'? data.remind_scope.replace(/{{remind_balance}}/gi, res.result.remind_balance) : data.remind_scope}}</span>-->
+              </td>
+              <td>
+                <input class='form-control' type="text" [(ngModel)]="data.remind_phone" [disabled]="flag" placeholder="请输入手机号码" name="{{data.remind_id + 'remind_phone'}}"
+                       pattern="^(1[3,5,6,7,8]{1})\d{9}$" id="{{data.remind_id + 'remind_phone'}}"
+                       [ngClass]="setInvalidClass(infoForm, infoForm.controls[data.remind_id + 'remind_phone'])">
+                <app-form-tips [target]="infoForm.controls[data.remind_id + 'remind_phone']" [tips]="'请输入正确的手机号'" [formTarget]="infoForm" ></app-form-tips>
+              </td>
+              <td>
+                <input class='form-control' type="text" [(ngModel)]="data.remind_email" [disabled]="flag" placeholder="请输入邮箱" name="{{data.remind_id + 'remind_email'}}"
+                       pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" id="{{data.remind_id + 'remind_email'}}"
+                       [ngClass]="setInvalidClass(infoForm, infoForm.controls[data.remind_id + 'remind_email'])">
+                <app-form-tips [target]="infoForm.controls[data.remind_id + 'remind_email']" [tips]="'请输入正确的邮箱格式'" [formTarget]="infoForm" ></app-form-tips>
+
+              </td>
+            </tr>
+          </ng-template>
+          </tbody>
+        </table>
+      </yc-table>
+
+      <button class="btn"  type='submit'>保存</button>
+
+    </form>
+
+
+
+  </div>
+</div>
+
+

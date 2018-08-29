@@ -33,6 +33,8 @@ import {PopoverModule} from '../components/popover/popover.module';
 import {FormTipsModule} from '../components/form-tips/form-tips.module'
 import {FixedModule} from '../components/fixed/fixed.module';
 import {SidebarModule} from '../components/sidebar/sidebar.module';
+import {AnchorModule} from '../components/anchor/anchor.module';
+import {BackTopModule} from '../components/back-top/back-top.module';
 
 @NgModule({
   imports: [
@@ -65,6 +67,8 @@ import {SidebarModule} from '../components/sidebar/sidebar.module';
     FormTipsModule,
     FixedModule,
     SidebarModule,
+    AnchorModule,
+    BackTopModule
   ],
   declarations: [],
   exports: [
@@ -97,6 +101,8 @@ import {SidebarModule} from '../components/sidebar/sidebar.module';
     FormTipsModule,
     FixedModule,
     SidebarModule,
+    AnchorModule,
+    BackTopModule
   ],
   providers: [
     {
