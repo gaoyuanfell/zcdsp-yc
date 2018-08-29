@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ReportRoutingModule } from './report-routing.module';
 import { ReportComponent } from './report.component';
 import { CustomerComponent } from './customer/customer.component';
+import {Module} from '../../module';
 
 @NgModule({
   imports: [
     CommonModule,
-    ReportRoutingModule
+    ReportRoutingModule,
+    Module
   ],
   declarations: [ReportComponent, CustomerComponent]
 })

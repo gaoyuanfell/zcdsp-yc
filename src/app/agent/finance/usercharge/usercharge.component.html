@@ -1,3 +1,142 @@
-<p>
-  usercharge works!
-</p>
+<div class="container-list">
+
+  <div class="flex-center-between">
+    <div class="group cart-left card-box ">
+      <div class="data-top flex">
+        <div class="info-img">
+          <img src="assets/img/customer/img/balance-icon.png" alt="balance-icon.png">
+        </div>
+        <div class="info">
+          <p>客户余额</p>
+          <p>{{userData?.c_balance | currencyFormat}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="consume card-box">
+      <div class="item">
+        <div class="info-img">
+          <img src="assets/agent/img/check-in.png" alt="">
+        </div>
+        <div class="info">
+          <p>总转入</p>
+          <!--<p>累计充值</p>-->
+          <p>
+            <span>{{userData?.in_money | currencyFormat}}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="consume card-box">
+      <div class="item">
+        <div class="info-img">
+          <img src="assets/agent/img/check-out.png" alt="">
+        </div>
+        <div class="info">
+          <p>总转出</p>
+          <!--<p>累计转入</p>-->
+          <p>
+            <span>{{userData?.out_money | currencyFormat}}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="consume card-box">
+      <div class="item">
+        <div class="info-img">
+          <img src="assets/img/customer/img/liushui-recharge.png" alt="">
+        </div>
+        <div class="info">
+          <p>总消耗</p>
+          <p>
+            <span>{{userData?.consume_money | currencyFormat}}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <div class="table-content">
+
+    <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
+      <div class="query-tool" #queryRef query>
+        <div class="left-tool">
+          <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'输入客户名称搜索'"></yc-input-search>
+        </div>
+
+        <div class="right-tool">
+          <div class="btn" (click)="exportUrl()">
+            导出
+            <i class="btn-icon-export"></i>
+          </div>
+        </div>
+      </div>
+      <table #tableRef table>
+        <thead>
+        <tr>
+          <th>客户名称</th>
+          <th>账号</th>
+          <th class="text-right" [showSort]="true" [sortKey]="'in_money'">总转入</th>
+          <th class="text-right" [showSort]="true" [sortKey]="'out_money'">总转出</th>
+          <th class="text-right" [showSort]="true" [sortKey]="'consume_money'">总消耗</th>
+          <th class="text-right" [showSort]="true" [sortKey]="'balance'">客户余额</th>
+          <th class="text-center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-template [ngForOf]="ycTable.data" ngFor let-data>
+          <tr [expand]="data.user_id ? trExpand : ''" #tr class="text-center">
+            <td>
+              <i *ngIf="data.user_id" class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>
+              {{data['nick_name']}}
+            </td>
+            <td>{{data['user_name']}}</td>
+            <td class="text-right">{{data['in_money'] | currencyFormat}}</td>
+            <td class="text-right">{{data['out_money'] | currencyFormat}}</td>
+            <td class="text-right">{{data['consume_money'] | currencyFormat}}</td>
+            <td class="text-right">{{data['balance'] | currencyFormat}}</td>
+            <td class="text-center">
+              <a data-link style="margin-right:5px" (click)="transfer(data['user_id'], data['user_name'], 5)" *ngIf="data.user_id ? true : false">转入</a>
+              <a data-link (click)="transfer(data['user_id'], data['user_name'], 6)" *ngIf="data.user_id ? true : false">转出</a>
+              <!--<button class="btn" style="margin-right:5px" (click)="transfer(data['user_id'], data['user_name'], 5)" *ngIf="data.user_id ? true : false">转入<i class="btn-import-icon"></i></button>-->
+              <!--<button class="btn" (click)="transfer(data['user_id'], data['user_name'], 6)" *ngIf="data.user_id ? true : false">转出<i class="btn-export-icon"></i></button>-->
+            </td>
+          </tr>
+          <tr #trExpand>
+            <td colspan="1000" *ngIf="trExpand.show">
+              <yc-consume-expand [user_id]="data['user_id']"></yc-consume-expand>
+            </td>
+          </tr>
+        </ng-template>
+        </tbody>
+      </table>
+    </yc-table>
+  </div>
+</div>
+
+
+<ng-template #transferIn_template>
+  <form #transForm="ngForm">
+    <div class="form-group flex">
+      <label class="form-label"><span>*</span>操作金额</label>
+      <div class="form-input">
+        <input class="form-control" type="text" placeholder="请输入操作金额(元)" required [(ngModel)]='form.money' name="money"
+               #money="ngModel" pattern="^[0-9]\d*(\.\d{1,2})?$"
+               [ngClass]="{'has-error':(form.money > current_money) ||  money.invalid && (money.dirty || money.touched || valid) }">
+        <p class="text-info" *ngIf="!((form.money > current_money) ||  money.invalid && (money.dirty || money.touched || valid))">当前可{{ form.transfer_type === 5 ? '转入' : '转出'}}的余额是{{ current_money}}</p>
+        <span class='valid' *ngIf="money.invalid  && (money.dirty || money.touched || valid)">请输入正确的金额</span>
+        <span class='valid' *ngIf=" form.money > current_money  && money.valid">操作金额不能大于{{current_money}}元！</span>
+      </div>
+    </div>
+    <div class="form-group flex-center" *ngIf="userData.user_type!== 2">
+      <label class="form-label"><span></span>备注</label>
+      <div class="form-input">
+        <input class="form-control" type="text" placeholder="请在此处填写转账备注" [(ngModel)]="form.description" name="description" #description="ngModel">
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+

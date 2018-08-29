@@ -5,11 +5,13 @@ import { LogsComponent } from './logs/logs.component';
 import { InfoComponent } from './info/info.component';
 import { CustomerComponent } from './customer/customer.component';
 import { UserComponent } from './user.component';
+import {Module} from '../../module';
 
 @NgModule({
   imports: [
     CommonModule,
-    UserRoutingModule
+    UserRoutingModule,
+    Module
   ],
   declarations: [LogsComponent, InfoComponent, CustomerComponent, UserComponent]
 })

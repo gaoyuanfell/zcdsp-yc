@@ -1,3 +1,147 @@
-<p>
-  recharge works!
-</p>
+<div class="container-list">
+  <div class="flex-center-between">
+    <div class="group cart-left card-box ">
+      <div class="data-top flex">
+        <div class="info-img">
+          <img src="assets/img/customer/img/balance-icon.png" alt="balance-icon.png">
+        </div>
+        <div class="info">
+          <p>账户余额</p>
+          <p>{{userData?.balance | currencyFormat}}</p>
+        </div>
+        <div class="recharge">
+          <a class="btn-recharge" (click)="recharge()">充值流程</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="consume card-box">
+      <div class="item">
+        <div class="info-img">
+          <img src="assets/img/customer/img/liushui-recharge.png" alt="">
+        </div>
+        <div class="info">
+          <p>累计充值</p>
+          <p>
+            <span>{{userData?.c_money | currencyFormat}}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="consume card-box">
+      <div class="item">
+        <div class="info-img">
+          <img src="assets/img/customer/img/liushui-dispatching.png" alt="">
+        </div>
+        <div class="info">
+          <p>累计配送</p>
+          <p>
+            <span>{{userData?.p_money | currencyFormat}}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="consume card-box">
+      <div class="item">
+        <div class="info-img">
+          <img src="assets/img/customer/img/liushui-refund.png" alt="">
+        </div>
+        <div class="info">
+          <p>累计退款</p>
+          <p>
+            <span>{{userData?.t_money | currencyFormat}}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
+      <div  #queryRef query class="query-tool">
+        <div class="left-tool">
+          <input-datepicker [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
+          <yc-checkbox-group [(ngModel)]="recharge_type" [list]="rechargeTypeData" (changeEvent)="search()" [props]="{value:'lookup_code',label:'meaning'}"></yc-checkbox-group>
+        </div>
+        <div class="right-tool">
+          <div class="btn" (click)="exportUrl()">
+            导出
+            <i class="btn-icon-export"></i>
+          </div>
+        </div>
+      </div>
+      <table #tableRef table>
+        <thead>
+        <tr>
+          <!--<th [showCheckbox]="true"></th>-->
+          <th class="text-center" [showSort]="true" [sortKey]="'creation_date'">时间</th>
+          <th>类型</th>
+          <th class="text-right" [showSort]="true" [sortKey]="'money'">金额</th>
+          <th class="text-center">目标账户</th>
+          <th class="text-center">目标公司</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <ng-template [ngForOf]="ycTable.data" ngFor let-data>
+          <tr #tr class="text-center">
+            <!--<td [showCheckbox]="data"></td>-->
+            <td class="text-center">{{data['creation_date'] === '小计'? data['creation_date'] : data['creation_date'] | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{data['recharge_type_name']}}</td>
+            <td class="text-right">{{data.money | currencyFormat }}</td>
+            <td class="text-center">{{data['reciprocal_user_name']}}</td>
+            <td class="text-center">{{data['reciprocal_nick_name']}}</td>
+          </tr>
+        </ng-template>
+        </tbody>
+      </table>
+    </yc-table>
+</div>
+
+
+<ng-template #templateRecharge>
+  <div class="recharge-par">
+    <div class="recharge-tem">
+      <h3>一、智橙收款账户</h3>
+      <div>请通过网银、汇款、转账、现金存入等方式，将广告费用转入以下账户</div>
+      <table class="recharge-table">
+        <tbody>
+        <tr>
+          <td>单位名称</td>
+          <td>银橙(上海)信息有限公司</td>
+        </tr>
+        <tr>
+          <td>开户账户</td>
+          <td>平安银行上海西南支行</td>
+        </tr>
+        <tr>
+          <td>银行账户</td>
+          <td>1101 1051 8224 01</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="recharge-tem">
+      <h3>二、使用指定账户转账</h3>
+      <div>请使用已经预留给智橙的账户操作转账，若需变更打款账号或咨询其他问题，请联系客服人员</div>
+      <div>
+        <a>
+          <div class="phone-icon"></div>
+          <span>400-670-9027</span>
+        </a>
+        <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&amp;key=XzkzODAxNTMxNF8yOTU2NDZfNDAwNjcwOTkyN18yXw" target="_blank">
+          <div class="service-icon"></div>
+          <span>在线客服</span>
+        </a>
+      </div>
+    </div>
+    <div class="recharge-tem">
+      <h3>三、收款核对</h3>
+      <div>智橙在收到款后一个工作日内核对款项信息，并操作充值到用户账户中。</div>
+    </div>
+    <div class="recharge-tem">
+      <h3>四、用户查看余额</h3>
+      <div>请在1个工作日后，登录智橙并在<a (click)="_dialog.close();" [routerLink]="['/us/finance/recharge']">“财务-流水”</a>中查看余额变动信息，确认充值是否成功。</div>
+    </div>
+  </div>
+</ng-template>
