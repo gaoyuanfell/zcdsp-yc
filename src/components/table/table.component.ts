@@ -276,23 +276,23 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
       this.fixedQueryRef();
 
       this.fixedOverflowRef();
-    }
 
-    // 设置表单头的位置
-    this._global.overflowSubject.subscribe(data => {
-      this.theadList.forEach(thead => {
-        thead.trList.forEach(tr => {
-          tr.thList.forEach(th => {
-            let _th = <HTMLDivElement>th.ref.nativeElement;
-            if (data.top >= navHeight) {
-              _th.style.top = `${data.top - navHeight}px`;
-            } else {
-              _th.style.top = `0px`;
-            }
+      // 设置表单头的位置
+      this._global.overflowSubject.subscribe(data => {
+        this.theadList.forEach(thead => {
+          thead.trList.forEach(tr => {
+            tr.thList.forEach(th => {
+              let _th = <HTMLDivElement>th.ref.nativeElement;
+              if (data.top >= navHeight) {
+                _th.style.top = `${data.top - navHeight}px`;
+              } else {
+                _th.style.top = `0px`;
+              }
+            });
           });
         });
       });
-    });
+    }
 
     this.theadList.forEach(thead => {
       thead.trList.forEach(tr => {

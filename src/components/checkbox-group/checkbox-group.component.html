@@ -1,1 +1,1 @@
-<yc-checkbox class="checkbox-group" *ngFor="let c of list" [label]="c[_props.label]" [desc]="c[_props.desc]" [(ngModel)]="c[_props.checked]" (change)="change()" [disabled]="disabled || c[_props.disabled]"></yc-checkbox>
+<yc-checkbox class="checkbox-group" *ngFor="let c of list" [label]="c[_props.label]" [desc]="c[_props.desc]" [(ngModel)]="c[_props.checked]" (changeEvent)="change()" [disabled]="disabled || c[_props.disabled]"></yc-checkbox>

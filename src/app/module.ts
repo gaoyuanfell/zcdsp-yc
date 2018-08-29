@@ -32,6 +32,8 @@ import {TableModule} from '../components/table/table.module';
 import {PopoverModule} from '../components/popover/popover.module';
 import {FormTipsModule} from '../components/form-tips/form-tips.module'
 import {FixedModule} from '../components/fixed/fixed.module';
+import {AnchorModule} from '../components/anchor/anchor.module';
+import {BackTopModule} from '../components/back-top/back-top.module';
 
 @NgModule({
   imports: [
@@ -63,6 +65,8 @@ import {FixedModule} from '../components/fixed/fixed.module';
     PopoverModule,
     FormTipsModule,
     FixedModule,
+    AnchorModule,
+    BackTopModule
   ],
   declarations: [],
   exports: [
@@ -94,6 +98,8 @@ import {FixedModule} from '../components/fixed/fixed.module';
     PopoverModule,
     FormTipsModule,
     FixedModule,
+    AnchorModule,
+    BackTopModule
   ],
   providers: [
     {

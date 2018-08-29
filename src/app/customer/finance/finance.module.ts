@@ -4,7 +4,7 @@ import {FinanceComponent} from './finance.component';
 import {ConsumeComponent} from './consume/consume.component';
 import {FinanceRoutingModule} from './finance-routing.module';
 import {RechargeComponent} from './recharge/recharge.component';
-// import {ConsumeExpandComponent} from './consume/consume-expand.component';
+import {ConsumeExpandComponent} from './consume/consume-expand.component';
 import {FormsModule} from '@angular/forms';
 
 @NgModule({
@@ -17,7 +17,7 @@ import {FormsModule} from '@angular/forms';
     FinanceComponent,
     ConsumeComponent,
     RechargeComponent,
-    // ConsumeExpandComponent
+    ConsumeExpandComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

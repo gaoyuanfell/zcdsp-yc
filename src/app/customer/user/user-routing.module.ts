@@ -2,8 +2,8 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {TokenGuard} from '../../../auth/token.guard';
 import {CurrentResolverService} from '../../../auth/current-resolver-service';
-import {UserComponent} from './user.component';
 import {LogsComponent} from './logs/logs.component';
+import {UserComponent} from './user.component';
 import {InfoComponent} from './info/info.component';
 import {RemindComponent} from './remind/remind.component';
 

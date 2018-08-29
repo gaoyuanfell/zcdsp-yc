@@ -165,7 +165,9 @@ export class BaseIndexComponent implements OnInit{
 
         }
       ]
-    });
+    }
+
+    );
     window.addEventListener('resize', () => {
       todayReportChartRef.resize();
     });

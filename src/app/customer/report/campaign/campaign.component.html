@@ -1,3 +1,129 @@
-<p>
-  campaign works!
-</p>
+<div class="container-list">
+  <div class="query-tool">
+    <div class="left-tool">
+      <input-datepicker [disabledTodayAfter]=true [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
+      <yc-select [(ngModel)]="query.campaign_id" [list]="listArray" [whole]="'全部'" [searchCtrl]="true" [width]="240" [props]="{value:'campaign_id',label:'campaign_name'}" [placeholder]="'全部活动'" (selectedEvent)="search()"></yc-select>
+    </div>
+    <div class="right-tool">
+      <div class="btn" (click)="exportUrl()">
+        导出
+        <i class="btn-icon-export"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="data-panel">
+    <div class="card-box item">
+      <p>
+        <span class="img-icon"><img src="assets/img/customer/img/baoguang-cam-icom.png" alt=""></span>
+        <span title="广告被展现给受众的次数">曝光量</span>
+      </p>
+      <p>
+        <span>{{listTitle?.pv * 1 | number }}</span>
+        <span>次</span>
+      </p>
+    </div>
+    <div class="card-box item">
+      <p>
+        <img src="assets/img/customer/img/dianji-cam-icom.png" alt="">
+        <span title="排除恶意点击后，广告被受众点击的次数">点击量</span>
+      </p>
+      <p>
+        <span>{{listTitle?.click * 1 | number}}</span>
+        <span>次</span>
+      </p>
+    </div>
+    <div class="card-box item">
+      <p>
+        <img src="assets/img/customer/img/dianjilv-cam-icom.png" alt="">
+        <span title="广告被点击的比率(点击量/曝光量*100%)">点击率</span>
+      </p>
+      <p>
+        <span>{{ listTitle?.ctr * 100 | number: '1.2-2' }}</span>
+        <span>%</span>
+      </p>
+    </div>
+    <div class="card-box item">
+      <p>
+        <img src="assets/img/customer/img/dianjijj-cam-icom.png" alt="">
+        <span title="广告主为每次点击付出的平均花费(花费/点击量)">点击成本</span>
+      </p>
+      <p>
+        <span>{{listTitle?.cpc * 1 | number: '1.2-2'}}</span>
+        <span>元</span>
+      </p>
+    </div>
+    <div class="card-box item">
+      <p>
+        <img src="assets/img/customer/img/baoguangjj-cam-icom.png" alt="">
+        <span title="广告主为每1000次曝光付出平均花费(花费/曝光量*1000)">曝光成本</span>
+      </p>
+      <p>
+        <span>{{listTitle?.cpm * 1000| number: '1.2-2'}}</span>
+        <span>元</span>
+      </p>
+    </div>
+    <div class="card-box item">
+      <p>
+        <img src="assets/img/customer/img/zonghuafei-cam-icom.png" alt="">
+        <span title="广告点击后产生的费用">总花费</span>
+      </p>
+      <p>
+        <span>{{listTitle?.admoney * 1 | number: '1.2-2'}}</span>
+        <span>元</span>
+      </p>
+    </div>
+  </div>
+
+  <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
+    <table #tableRef table>
+      <thead>
+      <tr>
+        <!--<th [showCheckbox]="true"></th>-->
+        <th></th>
+        <th class="text-center">活动ID</th>
+        <th>活动名称</th>
+        <th class="text-right" [showSort]="true" [sortKey]="'pv'" ><span title="广告被展现给受众的次数">曝光量</span></th>
+        <th class="text-right" [showSort]="true" [sortKey]="'click'"><span title="排除恶意点击后，广告被受众点击的次数">点击量</span></th>
+        <th class="text-right" [showSort]="true" [sortKey]="'ctr'"><span title="广告被点击的比率(点击量/曝光量*100%)">点击率</span></th>
+        <th class="text-right" [showSort]="true" [sortKey]="'cpc'" ><span title="广告主为每次点击付出的平均花费(花费/点击量)">点击成本</span></th>
+        <th class="text-right" [showSort]="true" [sortKey]="'cpm'" ><span title="广告主为每1000次曝光付出平均花费(花费/曝光量*1000)">曝光成本</span></th>
+        <th class="text-right" [showSort]="true" [sortKey]="'admoney'"><span title="广告点击后产生的费用">花费</span></th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-template [ngForOf]="ycTable.data" ngFor let-data>
+        <tr [expand]="trExpand" #tr>
+          <td>
+            <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>
+          </td>
+          <td class="text-center">{{data.campaign_id}}</td>
+          <!--<td [showCheckbox]="data"></td>-->
+          <td [width]="200" title="{{data.campaign_name}}">
+            {{data.campaign_name}}
+          </td>
+          <td class="text-right">{{data.pv | number}}</td>
+          <td class="text-right">{{data.click | number}}</td>
+          <td class="text-right">{{ data.ctr * 100 | number: '1.2-2' }}%</td>
+          <td class="text-right">{{ data.cpc | currencyFormat}}</td>
+          <td class="text-right">{{ data.cpm * 1000 | currencyFormat}}</td>
+          <td class="text-right">{{ data.admoney | currencyFormat }}</td>
+        </tr>
+        <tr #trExpand>
+          <td colspan="1000" *ngIf="trExpand.show">
+            <yc-report-expand [type]="'campaign-report'" [begin_date]="query.begin_date" [end_date]="query.end_date" [id]="data.campaign_id"></yc-report-expand>
+          </td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </table>
+  </yc-table>
+
+
+</div>
+
+
+
+
+
+

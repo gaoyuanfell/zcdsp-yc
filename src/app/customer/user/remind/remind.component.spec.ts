@@ -1,16 +1,16 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { RemindComponent } from './remind.component';
+import {RemindComponent} from './remind.component';
 
-describe('RemindComponent', () => {
+describe('ListComponent', () => {
   let component: RemindComponent;
   let fixture: ComponentFixture<RemindComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RemindComponent ]
+      declarations: [RemindComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

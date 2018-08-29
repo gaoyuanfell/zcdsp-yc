@@ -60,16 +60,20 @@ export class TrComponent{
     this.expand.state = this.expand.active ? 'active' : 'inactive';
     if (this.expand.active) {
       this.expand.show = true;
-      setTimeout(()=> {
-        this.tableComponent.changeExpandObservable.next(true);
-      })
+      if(this.tableComponent.fixed){
+        setTimeout(()=> {
+          this.tableComponent.changeExpandObservable.next(true);
+        })
+      }
       this.changeDetectorRef.markForCheck();
     } else {
       setTimeout(() => {
         this.expand.show = false;
-        setTimeout(()=> {
-          this.tableComponent.changeExpandObservable.next(false);
-        })
+        if(this.tableComponent.fixed){
+          setTimeout(()=> {
+            this.tableComponent.changeExpandObservable.next(false);
+          })
+        }
         this.changeDetectorRef.markForCheck();
       }, 150);
     }
