@@ -92,3 +92,50 @@ export function recursionResult2(list, result = []) {
   }
   return result;
 }
+
+/**
+ *
+ * @param {string} url
+ * @returns {Promise<any>}
+ */
+export function image(url: string) {
+  return new Promise((resolve, reject) => {
+    let img = new Image();
+    img.onload = () => {
+      resolve(img)
+    };
+    img.onerror = (err) => {
+      reject(err)
+    };
+    img.src = url
+  })
+}
+
+/**
+ * 数组分割
+ * @param array
+ * @param {number} size
+ * @returns {any[]}
+ */
+export function splitArray(array, size = 100) {
+  let result = [];
+  for (let x = 0; x < Math.ceil(array.length / size); x++) {
+    let start = x * size;
+    let end = start + size;
+    result.push(array.slice(start, end));
+  }
+  return result;
+}
+
+/**
+ * 定时器
+ * @param time
+ * @returns {Promise<any>}
+ */
+export function sleep(time) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve();
+    }, time);
+  });
+}

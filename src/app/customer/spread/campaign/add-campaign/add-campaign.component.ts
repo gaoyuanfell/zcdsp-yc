@@ -18,8 +18,8 @@ import {ScrollService} from '../../../../../service/scroll.service';
 
 export interface CampaignModel {
   campaign_id?: number,
-  orientation?: any, // 定向
-  direction?: any, // 定向
+  // orientation?: any, // 定向
+  // direction?: any, // 定向
   campaign_name?: string, // 活动名称
   day_budget?: number, // 每日预算
   speed?: string, // 投放速度
@@ -78,6 +78,7 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
   }; // 活动提交对象
 
   orientation: any; // 定向
+  directional: any; // 定向
   package_name; // 定向包名
   orientation_packages; // 定向包下拉
   is_need_package;
@@ -330,10 +331,15 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
 
   save(type) {
     if (this.valid()) return;
-    if (this.orientation) {
-      this.campaign.orientation = this.orientation;
+    let body: any = {
+      campaign:this.campaign
     }
-    this._campaignService.save(this.campaign).subscribe((res) => {
+
+    if(this.directional){
+      body.directional = this.directional
+    }
+
+    this._campaignService.save(body).subscribe((res) => {
       this._notification.success('提示', '提交活动成功！');
       switch (type) {
         case 1:
@@ -345,9 +351,9 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
       }
     });
 
-    if (this.is_need_package && this.package_name) {
-      this.saveDirectional();
-    }
+    // if (this.is_need_package && this.package_name) {
+    //   this.saveDirectional();
+    // }
   }
 
   setOrientation(data) {
@@ -363,7 +369,7 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
   }
 
   saveDirectional() {
-    this._directionalService.addOrientation({...this.orientation, package_name: this.package_name}).subscribe(res => {
+    this._directionalService.addOrientation({...this.directional, package_name: this.package_name}).subscribe(res => {
       // this._notification.success('提示', '保存定向包成功！')
     });
   }
@@ -408,11 +414,11 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
 
   navList = [{
     name: '推广目标',
-    status: 0,
+    status: 2,
     child:[{
       name: '目标类型',
       id: 'tuiguangmubiao',
-      status: 0,
+      status: 2,
     },{
       name: '落地页',
       id: 'tuiguangmubiao',

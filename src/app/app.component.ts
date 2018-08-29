@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SwUpdate} from '@angular/service-worker';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Notification} from '../components/notification/notification';
+import {DirectionalDataService} from '../service/directional-data.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,9 @@ export class AppComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private swUpdate: SwUpdate,
-              private _notification: Notification,) {
+              private _notification: Notification,
+              private _directionalDataService: DirectionalDataService) {
+    _directionalDataService.init();
   }
 
   ngOnInit(): void {

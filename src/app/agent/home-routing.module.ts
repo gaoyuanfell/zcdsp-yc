@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from '../customer/home.component';
 import {CurrentResolverService} from '../../auth/current-resolver-service';
 import {IndexComponent} from './index/index.component';
 import {TokenGuard} from '../../auth/token.guard';
 import {MenuGuard} from '../../auth/menu.guard';
 import {UserResolverService} from '../../auth/user-resolver-service';
+import {HomeComponent} from './home.component';
 
 
 

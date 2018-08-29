@@ -1,10 +1,17 @@
-@font-face {
-  font-family: 'zcdsp-icon';  /* project id 811354 */
-  src: url('//at.alicdn.com/t/font_811354_idbnovjrvq.eot');
-  src: url('//at.alicdn.com/t/font_811354_idbnovjrvq.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_811354_idbnovjrvq.woff') format('woff'),
-  url('//at.alicdn.com/t/font_811354_idbnovjrvq.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_811354_idbnovjrvq.svg#zcdsp-icon') format('svg');
+//@font-face {
+//  font-family: 'zcdsp-icon';  /* project id 811354 */
+//  src: url('//at.alicdn.com/t/font_811354_qk7n1e6rbsl.eot');
+//  src: url('//at.alicdn.com/t/font_811354_qk7n1e6rbsl.eot?#iefix') format('embedded-opentype'),
+//  url('//at.alicdn.com/t/font_811354_qk7n1e6rbsl.woff') format('woff'),
+//  url('//at.alicdn.com/t/font_811354_qk7n1e6rbsl.ttf') format('truetype'),
+//  url('//at.alicdn.com/t/font_811354_qk7n1e6rbsl.svg#zcdsp-icon') format('svg');
+//}
+@font-face {font-family: "zcdsp-icon";
+  src: url('./assets/font/iconfont.eot?t=1535527923358'); /* IE9*/
+  src: url('./assets/font/iconfont.eot?t=1535527923358#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('./assets/font/iconfont.woff') format('woff'),
+  url('./assets/font/iconfont.ttf?t=1535527923358') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('./assets/font/iconfont.svg?t=1535527923358#zcdsp-icon') format('svg'); /* iOS 4.1- */
 }
 
 .zcdsp-icon {
@@ -510,6 +517,54 @@ body {
     }
   }
 }
+.data-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin: 20px 0;
+  .item {
+    padding: 10px 0 20px 0;
+    background-color: #fff;
+    width: 15%;
+    text-align: center;
+    > p:nth-child(1) {
+      padding: 10px 0;
+      .img-icon {
+        width: 22px;
+        height: 22px;
+        display: inline-block;
+        > img {
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+      > span:nth-child(2) {
+        cursor: pointer;
+        color: #616366;
+        font-size: 14px;
+        font-weight: 700;
+        vertical-align: super;
+        padding-left: 8px;
+      }
+    }
+    > p:nth-child(2) {
+      > span:nth-child(1) {
+        color: #616366;
+        font-size: 24px;
+        font-weight: 700;
+      }
+      > span:nth-child(2) {
+        color: #979899;
+        font-size: 14px;
+        font-weight: 400;
+        padding-left: 18px;
+      }
+    }
+  }
+}
 
 
 ////////////////////// 表格
@@ -903,5 +958,61 @@ textarea.form-control {
   }
   .recharge-tem .tem {
 
+  }
+}
+
+.icon-img-next-down{
+  margin-right: 2px;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  background: url("assets/img/customer/img/show-more.png") no-repeat center;
+  transition: all 0.1s ease;
+  &.next-top{
+    transform: rotate(180deg);
+  }
+}
+
+.icon-img-modify {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  background: url("assets/img/customer/img/icon-img-modify.png") no-repeat center;
+}
+.card-box {
+  border-radius: 2px;
+  border: 1px solid #f3f5f8;
+  background-color: #ffffff;
+  &.no-border {
+    border: none;
+    background-color: transparent;
+  }
+}
+
+.anchor-position {
+  position: fixed;
+  margin-left: -45px;
+  font-size: 14px;
+  text-align: center;
+  visibility: visible;
+}
+
+.bookmark {
+  //margin-top: 65px;
+  //margin-bottom: 50px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  > h2 {
+    color: #616366;
+    font-size: 22px;
+    font-weight: 700;
+    border-left: 5px solid #2e90ff;
+    padding-left: 45px;
+  }
+  hr {
+    background-color: #dbdde2;
+    margin: 0 45px;
   }
 }

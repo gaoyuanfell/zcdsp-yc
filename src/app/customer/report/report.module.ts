@@ -6,11 +6,12 @@ import {DatetimeComponent} from './datetime/datetime.component';
 import {CreativeComponent} from './creative/creative.component';
 import {CampaignComponent} from './campaign/campaign.component';
 import {AreaComponent} from './area/area.component';
+import {ReportExpandComponent} from './report-expand.component'
 
 @NgModule({
   imports: [
     Module,
-    ReportRoutingModule
+    ReportRoutingModule,
   ],
   declarations: [
     ReportComponent,
@@ -18,6 +19,7 @@ import {AreaComponent} from './area/area.component';
     CreativeComponent,
     CampaignComponent,
     AreaComponent,
+    ReportExpandComponent
   ],
 })
 export class ReportModule {

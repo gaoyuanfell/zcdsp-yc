@@ -108,6 +108,29 @@ export class DirectionalEffects {
     );
   };
 
+  @Effect()
+  initAudiencesAction2$ = (): Observable<Action> => {
+    return this.actions$.pipe(
+      ofType<directionalActionUnion.AudiencesActionInit>(DirectionalActionTypes.AUDIENCES_ACTION_INIT),
+      switchMap(() => {
+        return new Observable(observer => {
+          let service = [
+            this._directionalService.directionalAudiencesAction(),
+          ];
+          forkJoin(service).subscribe((arr) => {
+            let [b] = arr;
+            let recursion = [
+              this.recursionChild({children: b.result}),
+            ];
+            Promise.all(recursion).then(([audiencesAction]) => {
+              observer.next(new directionalActionUnion.AudiencesActionAssign2(audiencesAction));
+            });
+          });
+        });
+      })
+    );
+  };
+
   constructor(private actions$: Actions,
               private _directionalService: DirectionalService) {
   }
