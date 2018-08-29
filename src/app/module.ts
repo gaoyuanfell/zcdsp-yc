@@ -32,6 +32,7 @@ import {TableModule} from '../components/table/table.module';
 import {PopoverModule} from '../components/popover/popover.module';
 import {FormTipsModule} from '../components/form-tips/form-tips.module'
 import {FixedModule} from '../components/fixed/fixed.module';
+import {SidebarModule} from '../components/sidebar/sidebar.module';
 
 @NgModule({
   imports: [
@@ -63,6 +64,7 @@ import {FixedModule} from '../components/fixed/fixed.module';
     PopoverModule,
     FormTipsModule,
     FixedModule,
+    SidebarModule,
   ],
   declarations: [],
   exports: [
@@ -94,6 +96,7 @@ import {FixedModule} from '../components/fixed/fixed.module';
     PopoverModule,
     FormTipsModule,
     FixedModule,
+    SidebarModule,
   ],
   providers: [
     {

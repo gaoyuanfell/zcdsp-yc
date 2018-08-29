@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {DirectionalService} from './customer/directional.service';
 import {forkJoin, Observable, Subject} from 'rxjs';
-import {recursionChildCheck, recursionParentCheck, recursionResult, recursionResult2, sleep, splitArray} from './util';
+import {recursionChildCheck, recursionFilter, recursionParentCheck, recursionResult, recursionResult2, sleep, splitArray} from './util';
 
 export interface Directional {
   children?: Array<Directional>
@@ -15,6 +15,8 @@ export interface Directional {
   }
 )
 export class DirectionalDataService {
+
+  splitTime = 100;
 
   areasData;
   lbsCityData;
@@ -113,7 +115,7 @@ export class DirectionalDataService {
     recursionParentCheck(value);
     this.areasResult = recursionResult(this.areas.children);
     this.areasResultSubject.next(this.areasResult);
-    this.resultSubject.next(this.getResult())
+    this.resultSubject.next(this.getResult());
   }
 
   funcQueryAreasByName(payload) {
@@ -183,7 +185,7 @@ export class DirectionalDataService {
     this.lbsCityViewResultSubject.next(this.lbsCityViewResult);
     this.lbsCityResult = recursionResult2(this.lbsCity.children);
     this.lbsCityResultSubject.next(this.lbsCityResult);
-    this.resultSubject.next(this.getResult())
+    this.resultSubject.next(this.getResult());
   }
 
   private funcNextLbsCityChild(target = this.lbsCity.children[0], index = 0) {
@@ -253,7 +255,7 @@ export class DirectionalDataService {
     recursionParentCheck(value);
     this.audiencesActionResult = recursionResult(this.audiencesAction.children);
     this.audiencesActionResultSubject.next(this.audiencesActionResult);
-    this.resultSubject.next(this.getResult())
+    this.resultSubject.next(this.getResult());
   }
 
   funcQueryAudiencesActionByName(payload) {
@@ -273,15 +275,16 @@ export class DirectionalDataService {
     let subject = this.audiencesActionSplitSubject;
     while (target.children && target.children.length) {
       if (!target.children[0]) break;
-      let index = this.audiencesActionList.push([]);
       let array = splitArray(target.children);
+      target.children.length = 0;
+      let index = this.audiencesActionList.push(target.children);
       for (let i = 0; i < array.length; i++) {
         if (subject != this.audiencesActionSplitSubject && index == 0) return;
         this.audiencesActionSplitSubject.next({
           array: array[i],
           index: index - 1
         });
-        await sleep(40);
+        await sleep(this.splitTime);
       }
       target = target.children[0];
     }
@@ -336,7 +339,7 @@ export class DirectionalDataService {
     recursionParentCheck(value);
     this.audiencesAction2Result = recursionResult(this.audiencesAction2.children);
     this.audiencesAction2ResultSubject.next(this.audiencesAction2Result);
-    this.resultSubject.next(this.getResult())
+    this.resultSubject.next(this.getResult());
   }
 
   funcQueryAudiencesAction2ByName(payload) {
@@ -356,15 +359,16 @@ export class DirectionalDataService {
     let subject = this.audiencesAction2SplitSubject;
     while (target.children && target.children.length) {
       if (!target.children[0]) break;
-      let index = this.audiencesAction2List.push([]);
       let array = splitArray(target.children);
+      target.children.length = 0;
+      let index = this.audiencesAction2List.push(target.children);
       for (let i = 0; i < array.length; i++) {
         if (subject != this.audiencesAction2SplitSubject && index == 0) return;
         this.audiencesAction2SplitSubject.next({
           array: array[i],
           index: index - 1
         });
-        await sleep(40);
+        await sleep(this.splitTime);
       }
       target = target.children[0];
     }
@@ -399,7 +403,7 @@ export class DirectionalDataService {
     });
     this.audiencesResult = array;
     this.audiencesResultSubject.next(this.audiencesResult);
-    this.resultSubject.next(this.getResult())
+    this.resultSubject.next(this.getResult());
   }
 
   funcRemoveAllAudiences() {
@@ -411,7 +415,7 @@ export class DirectionalDataService {
     });
     this.audiencesResult = [];
     this.audiencesResultSubject.next(this.audiencesResult);
-    this.resultSubject.next(this.getResult())
+    this.resultSubject.next(this.getResult());
   }
 
   ////////////////////////*********** audiences ***********////////////////////////
@@ -441,7 +445,7 @@ export class DirectionalDataService {
     });
     this.deviceResult = array;
     this.deviceResultSubject.next(this.deviceResult);
-    this.resultSubject.next(this.getResult())
+    this.resultSubject.next(this.getResult());
   }
 
   funcRemoveAllDevice() {
@@ -453,7 +457,7 @@ export class DirectionalDataService {
     });
     this.deviceResult = [];
     this.deviceResultSubject.next(this.deviceResult);
-    this.resultSubject.next(this.getResult())
+    this.resultSubject.next(this.getResult());
   }
 
   ////////////////////////*********** device ***********////////////////////////
@@ -491,15 +495,32 @@ export class DirectionalDataService {
     });
   }
 
-  // 获取结果订阅
-  private resultSubject = new Subject();
+  result;
 
-  get result$(){
+  // 获取结果订阅
+  resultSubject = new Subject();
+
+  get result$() {
     return this.resultSubject.asObservable();
   }
 
-  getResult() {
+  setResult(result = this.result) {
+    if(!result) return;
+    if(!this.initStatus) return;
 
+    if (result.dtl_address && Object.keys(result.dtl_address).length) {
+      recursionFilter(result.dtl_address.area, this.areas.children);
+      this.areasResult = recursionResult(this.areas.children);
+      this.areasResultSubject.next(this.areasResult);
+
+      recursionFilter(result.dtl_address.lbs, this.lbsCity.children);
+      this.lbsCityResult = recursionResult2(this.lbsCity.children);
+      this.lbsCityResultSubject.next(this.lbsCityResult);
+    }
+
+  }
+
+  getResult() {
     let result = {
       dtl_address: {
         area: [],
@@ -530,9 +551,8 @@ export class DirectionalDataService {
       }
     };
 
-
     result.dtl_address.area = this.areasResult.map(ar => ({id: ar.id, name: ar.name}));
-    result.dtl_address.lbs = this.lbsCityResult.map(ar => ({id: ar.id, name: ar.name, coords: ar.location_items}));
+    result.dtl_address.lbs = this.lbsCityResult.map(ar => ({id: ar.id, name: ar.name, coords: ar.location_items, type_id: ar.type_id}));
 
     result.dtl_behavior.appCategory = this.audiencesActionResult.filter(aa => !aa.type_id).map(aa => ({id: aa.id, name: aa.name}));
     result.dtl_behavior.appAttribute = this.audiencesActionResult.filter(aa => aa.type_id).map(aa => ({id: aa.id, name: aa.name}));
@@ -557,7 +577,6 @@ export class DirectionalDataService {
         }
       }
     });
-
     this.device.forEach(ac => {
       let r = recursionResult2(ac.value.children).map(r => r.value);
       switch (ac.key) {
@@ -591,9 +610,14 @@ export class DirectionalDataService {
   }
 
   constructor(private _directionalService: DirectionalService) {
-
+    this.result$.subscribe((data) => {
+      this.result = data;
+      this.setResult(data)
+    });
   }
 
+  //TODO
+  initStatus
   private nextSubject() {
     // areas
     this.areasSubject.next(this.areas);
@@ -633,12 +657,16 @@ export class DirectionalDataService {
     this.audiencesSubject.next(this.audiences);
 
     this.deviceSubject.next(this.device);
+
+    this.initStatus = true;
+
+    this.setResult()
   }
 
   private recursionChildData() {
     return new Observable(observer => {
       let {age, education, sex} = this.audiencesListData;
-      let {browsers, devices_type, mobile_brand, net_type, operators, os} = this.deviceListData;
+      let {browsers, devicesType, brand, netType, operators, mobileOS} = this.deviceListData;
       let recursion = [
         this.recursionChild({children: this.areasData}),
         this.recursionChild({children: this.lbsCityData}),
@@ -648,11 +676,11 @@ export class DirectionalDataService {
         this.recursionChild({children: this.audiencesActionData}),
         this.recursionChild({children: this.audiencesActionData}),
         this.recursionChild({children: browsers, name: '浏览器'}),
-        this.recursionChild({children: devices_type, name: '设备类型'}),
-        this.recursionChild({children: mobile_brand, name: '设备品牌'}),
-        this.recursionChild({children: net_type, name: '联网方式'}),
+        this.recursionChild({children: devicesType, name: '设备类型'}),
+        this.recursionChild({children: brand, name: '设备品牌'}),
+        this.recursionChild({children: netType, name: '联网方式'}),
         this.recursionChild({children: operators, name: '运营商'}),
-        this.recursionChild({children: os, name: '操作系统'}),
+        this.recursionChild({children: mobileOS, name: '操作系统'}),
       ];
       Promise.all(recursion).then(([areas, lbsCity, age, education, sex, audiencesAction, audiencesAction2, browsers, devices_type, mobile_brand, net_type, operators, os]) => {
         let audiences = {age, education, sex};

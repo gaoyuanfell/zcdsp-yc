@@ -129,4 +129,24 @@ export class TemplateService extends ConfigService {
   previewTpl(body = {}) {
     return this.getUrl(`/ads/spread/campaign/landingpage/preview_tpl`, body)
   }
+
+
+
+
+
+  ////////////////////////////////  new ////////////////////////////////////
+
+
+  /**
+   * 用户落地页下拉框
+   * @param {{}} body
+   * @returns {Observable<Result<any>>}
+   */
+  landingSelect(body = {}){
+    return this.get(`/ads/spread/landing/page/get/select`, body)
+  }
+
+
+
+
 }

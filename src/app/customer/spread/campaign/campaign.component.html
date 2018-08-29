@@ -32,7 +32,7 @@
         <div class="btn btn-outline" [yc-drop-menu]="batchUpdateMenu" (selectedEvent)="batchUpdate($event.value)">
           批量修改
           <i class="icon-btn-menu m-l-1"></i>
-        </div>navChild
+        </div>
         <div class="btn" (click)="exportUrl()">
           导出
           <i class="btn-icon-export"></i>
@@ -62,6 +62,7 @@
         <th class="text-right" [showSort]="true" [sortKey]="'cpc'" title="广告主为每次点击付出的平均花费(花费/点击量)">点击成本</th>
         <th class="text-right" [showSort]="true" [sortKey]="'cpm'" title="广告主为每1000次曝光付出平均花费(花费/曝光量*1000)">曝光成本</th>
         <th class="text-right" [showSort]="true" [sortKey]="'admoney'" title="广告点击后产生的费用">花费</th>
+        <th class="text-right">操作</th>
       </tr>
       </thead>
       <tbody>
@@ -98,6 +99,9 @@
           <td class="text-right">{{ data.cpc | currencyFormat}}</td>
           <td class="text-right">{{ data.cpm * 1000 | currencyFormat}}</td>
           <td class="text-right">{{ data.admoney | currencyFormat }}</td>
+          <td class="text-right">
+            <a href="javascript:void 0" (click)="openCampaignDetail()">修改</a>
+          </td>
         </tr>
 
         <ng-template #campaignName>
@@ -199,4 +203,10 @@
          placeholder="请输入新的每日预算">
   <p class="input-error" *ngIf=" (batch_moneyRef.dirty || batch_moneyRef.touched || _valid) && batch_moneyRef.invalid">请输入正确的金额</p>
   <p class="input-error" *ngIf=" batch_moneyRef.valid && batch_budget_state.new_budget < (100 + admoneyTotal) ">预算价格必须大于{{(admoneyTotal + 100) |  number:'1.2-2' }}元</p>
+</ng-template>
+
+<ng-template #campaignDetail>
+  <div style="width: 100%;height: 100%;">
+
+  </div>
 </ng-template>

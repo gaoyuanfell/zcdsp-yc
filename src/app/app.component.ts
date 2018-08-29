@@ -13,9 +13,7 @@ export class AppComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private swUpdate: SwUpdate,
-              private _notification: Notification,
-              private _directionalDataService: DirectionalDataService) {
-    _directionalDataService.init();
+              private _notification: Notification) {
   }
 
   ngOnInit(): void {
