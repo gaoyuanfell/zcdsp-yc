@@ -127,7 +127,7 @@
     padding-top: 74px;
     width: 1352px;
     margin: auto;
-    background: url("../assets/img/index/al1.png") no-repeat;
+    background: url("http://img.zcdsp.com/common/14196ae3a43d9a74317e3b9d332c3092.png") no-repeat;
     background-position-y: 80px;
     padding-bottom: 5.4%;
     position: relative;
@@ -291,6 +291,7 @@
       height:59px;
       line-height: 59px;
       margin: 0 50px;
+      text-align: center;
       img{
         display: inline-block;
         max-width: 100%;
@@ -346,12 +347,15 @@
         width: 400px;
         height: 50px;
         line-height: 50px;
-        border: 1px #0d98f3 solid;
+        border: 1px #88caf5 solid;
         background: url("../assets/img/index/gs.png") 9px center no-repeat;
         font-size: 16px;
-        color: #0d98f3;
         padding-left: 35px;
         margin-bottom: 20px;
+        &:focus {
+          border: 1px #0d98f3 solid;
+            background-image: url("../assets/img/index/gs1.png");
+        }
       }
       .fill-input {
         width: 400px;
@@ -359,9 +363,17 @@
         line-height: 50px;
         border: 1px #88caf5 solid;
         font-size: 16px;
-        color: #929dc5;
         padding-left: 35px;
         margin-bottom: 20px;
+        &:focus{
+          border: 1px #0d98f3 solid;
+          &.name {
+            background-image: url("../assets/img/index/xm1.png");
+          }
+          &.iphone {
+            background-image: url("../assets/img/index/hm1.png");
+          }
+        }
       }
       .nick_name {
         background: url("../assets/img/index/gs.png") 9px center no-repeat;
@@ -401,6 +413,7 @@
         font-size: 32px;
         color: #0d98f3;
         font-weight: normal;
+        margin-left: -5px;
       }
       .time {
         margin-top: 50px;
@@ -431,7 +444,7 @@
     line-height: 50px;
     background: #fdfeff;
     margin-bottom: 10px;
-    box-shadow: 0 0 28px 5px #c3e6ff;
+    box-shadow: 0 0 14px 3px #c3e6ff;
     cursor: pointer;
     img{
       vertical-align: middle;

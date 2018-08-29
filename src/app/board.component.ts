@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {AppState} from '../store/model';
 import {ScrollService} from "../service/scroll.service";
+
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -11,29 +12,23 @@ import {ScrollService} from "../service/scroll.service";
 export class BoardComponent implements OnInit {
   @ViewChild('container') containerFullRef: ElementRef;
   @ViewChild('picList') picList: ElementRef;
+  @ViewChild('caseMainLeft') caseMainLeft: ElementRef;
+  @ViewChild('caseMainRight') caseMainRight: ElementRef;
 
-  constructor(private router: Router,
-              private route: ActivatedRoute,
-              private store: Store<AppState>,
-              private renderer: Renderer2,
+  constructor(private renderer: Renderer2,
               private _scrollService: ScrollService,) {
-    /*store.pipe(select(reducerMenu.getMenuState)).subscribe(menu => {
-      if (menu.menuList && menu.menuList.length > 1) {
-        router.navigate([menu.menuList[0].route], {queryParams: {...route.snapshot.queryParams}, replaceUrl: true});
-      }
-    });*/
   }
 
   hash = 'home'
   leftTo;
   height;
   topTo;
-  background = {
+  background: any = {
     background: 'rgba(255,255,255,0.7)',
-    'top.px':0
+    'top.px': 0
   }
-  bottom={
-    'bottom.px':0
+  bottom = {
+    'bottom.px': 0
   };
   setIntervalNum;
   setInterval1;
@@ -44,23 +39,14 @@ export class BoardComponent implements OnInit {
   flags = false;
   ngOnInit(): void {
     this.renderer.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
-      if (event.target.scrollTop > 180) {
-        this.background = {
-          background: 'rgba(255,255,255,1)',
-          'top.px':event.target.scrollTop
-        }
-        this.bottom = {
-          'bottom.px':-event.target.scrollTop
-        }
-      } else {
-        this.background = {
-          background: 'rgba(255,255,255,0.7)',
-          'top.px':0
-        }
-        this.bottom = {
-          'bottom.px':0
-        }
+
+      this.background['top.px'] = event.target.scrollTop
+      this.bottom = {
+        'bottom.px': -event.target.scrollTop
       }
+
+      this.background['background'] = `rgba(255,255,255,${(event.target.scrollTop / 180) * 0.3 + 0.7})`
+
     })
     this.scrolls()
     this.renderer.listen(this.picList.nativeElement, 'mouseenter', (event) => {
@@ -71,14 +57,34 @@ export class BoardComponent implements OnInit {
     })
     this.renderer.listen('window', 'resize', (res) => {
       console.dir(res.target.innerWidth)
-      if(res.target.innerWidth <= 1366){
-        document.getElementById('footer').style.bottom='10px'
-      }else {
-        document.getElementById('footer').style.bottom='0px'
+      if (res.target.innerWidth <= 1366) {
+        document.getElementById('footer').style.bottom = '10px'
+      } else {
+        document.getElementById('footer').style.bottom = '0px'
       }
     })
     this.scrolls1()
     this.scrolls2()
+    this.renderer.listen(this.caseMainLeft.nativeElement, 'mouseenter', (event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      clearInterval(this.setInterval1)
+      clearInterval(this.setInterval2)
+    })
+    this.renderer.listen(this.caseMainLeft.nativeElement, 'mouseleave', (event) => {
+      this.scrolls1()
+      this.scrolls2()
+    })
+    this.renderer.listen(this.caseMainRight.nativeElement, 'mouseenter', (event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      clearInterval(this.setInterval1)
+      clearInterval(this.setInterval2)
+    })
+    this.renderer.listen(this.caseMainRight.nativeElement, 'mouseleave', (event) => {
+      this.scrolls1()
+      this.scrolls2()
+    })
   }
 
   scrolls() {
@@ -95,6 +101,7 @@ export class BoardComponent implements OnInit {
       }
     }, 3000)
   }
+
   scrolls1() {
     this.setInterval1 = setInterval(() => {
       this.currentPic++
@@ -107,6 +114,7 @@ export class BoardComponent implements OnInit {
       }
     }, 3000)
   }
+
   scrolls2() {
     this.setInterval2 = setInterval(() => {
       this.currentPic++
@@ -119,15 +127,17 @@ export class BoardComponent implements OnInit {
       }
     }, 3000)
   }
+
   changeElement(index) {
     this.num = index
   }
 
   scrollTop(name) {
     this.hash = name
-    this._scrollService.scrollTo(this.containerFullRef.nativeElement, {top: document.getElementById(name).offsetTop - 80})
-    if(name === 'home'){
-      this._scrollService.scrollTo(this.containerFullRef.nativeElement, {top:0})
+    this.containerFullRef.nativeElement.scrollTop = document.getElementById(name).offsetTop - 80
+    if (name === 'home') {
+      this.containerFullRef.nativeElement.scrollTop = 0
+      // this._scrollService.scrollTo(this.containerFullRef.nativeElement, {top: 0})
     }
   }
 
@@ -139,9 +149,9 @@ export class BoardComponent implements OnInit {
   }
 
   make() {
-    if (!this.user.name || !this.user.phone) {
+    if (!this.user.company || !this.user.name || !this.user.phone) {
       alert('不能为空（必填）')
-    }else {
+    } else {
       this.flags = !this.flags
     }
   }
