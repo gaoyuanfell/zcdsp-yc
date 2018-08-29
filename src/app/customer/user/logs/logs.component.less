@@ -23,3 +23,30 @@
     }
   }
 }
+
+.table-content {
+  margin-top: 30px;
+  td {
+    input {
+      border-color: transparent;
+      &:disabled {
+        cursor: not-allowed;
+      }
+      &:focus {
+        background-color: #fefefe;
+        background-clip: padding-box;
+        border: 1px solid #dbdde2;
+        border-radius: 2px;
+      }
+      &:hover {
+        background-color: #fefefe;
+        background-clip: padding-box;
+        border: 1px solid #dbdde2;
+        border-radius: 2px;
+      }
+      &.has-error {
+        border: 1px solid red;
+      }
+    }
+  }
+}

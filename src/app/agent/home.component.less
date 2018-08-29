@@ -60,8 +60,23 @@
   top: 0;
   bottom: 0;
   margin-top: @header-height;
-  min-width: 1366px;
-  overflow-x: auto;
+  .nav-main-overflow{
+    width: @nav-main-width;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-color: @theme-color;
+    transition: width 0.25s ease;
+    z-index: 2;
+    overflow: hidden;
+    padding-top: 25px;
+    user-select: none;
+    &.hover {
+      width: @nav-main-width-hover + 10 !important;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+  }
   .nav-main {
     width: @nav-main-width;
     position: absolute;
@@ -83,27 +98,42 @@
       overflow: hidden;
       .nav-item {
         height: 60px;
-        line-height: 60px;
         padding-left: 16px;
         cursor: pointer;
         outline: none;
-        &.active:not(.yes-child) {
-          background-color: #1890ff;
-          > .nav-name {
-            color: #ffffff;
-          }
-        }
-        > .nav-icon {
+        .nav-icon {
           display: inline-block;
           width: 24px;
           height: 24px;
+          font-size: 22px;
+          color: #999999;
         }
-        > .nav-name {
+        .nav-name {
           padding-left: 20px;
           white-space: nowrap;
           color: #999999;
           font-size: 16px;
           font-weight: 400;
+        }
+
+        &.active:not(.yes-child) {
+          background-color: #1890ff;
+          > .nav-name {
+            color: #ffffff;
+          }
+          > .nav-icon {
+            color: #ffffff;
+          }
+        }
+        .nav-child .nav-item{
+          &.active{
+            > .nav-name {
+              color: #ffffff;
+            }
+            > .nav-icon {
+              color: #ffffff;
+            }
+          }
         }
       }
       .nav-list .nav-name {

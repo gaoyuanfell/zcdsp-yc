@@ -12,30 +12,30 @@
   </div>
 </div>
 <div class="main">
-  <div class="nav-main" [ngStyle]="{'width.px':fixed?200:60}" [ngClass]="{'hover': hover}" (mouseenter)="hover = true;" (mouseleave)="hover = false;">
+  <div class="nav-main" [ngStyle]="{'width.px':fixed?200:60}" [ngClass]="{'hover': hover}" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
+    <div class="nav-main-overflow" [ngStyle]="{'width.px':fixed?210:60}" [ngClass]="{'hover': hover}" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
+      <ul class="nav-list">
+        <ng-template [ngForOf]="menuList$ | async" ngFor let-menu>
+          <li>
+            <div class="nav-item flex-center" [routerLink]="menu.route" routerLinkActive="active" (click)="menu.active = !menu.active" [ngClass]="{'yes-child': menu.child?.length}">
+              <i class="nav-icon zcdsp-icon" [innerHTML]="menu.icon"></i>
+              <span class="nav-name">{{menu.name}}</span>
+            </div>
 
-    <ul class="nav-list">
-      <ng-template [ngForOf]="menuList$ | async" ngFor let-menu>
-        <li>
-          <div class="nav-item flex-center" [routerLink]="menu.route" routerLinkActive="active" (click)="menu.active = !menu.active" [ngClass]="{'yes-child': menu.child?.length}">
-            <i class="nav-icon nav-home-icon"></i>
-            <span class="nav-name">{{menu.name}}</span>
-          </div>
-
-          <ul class="nav-list nav-child" [ngStyle]="{'height.px': menu.child?.length * 60 * (menu.active?1:0)}">
-            <ng-template [ngForOf]="menu.child" ngFor let-child>
-              <li>
-                <div class="nav-item flex-center" [routerLink]="child.route" routerLinkActive="active">
-                  <i class="nav-icon nav-home-icon"></i>
-                  <span class="nav-name">{{child.name}}</span>
-                </div>
-              </li>
-            </ng-template>
-          </ul>
-        </li>
-      </ng-template>
-    </ul>
-
+            <ul class="nav-list nav-child" [ngStyle]="{'height.px': menu.child?.length * 60 * (menu.active?1:0)}">
+              <ng-template [ngForOf]="menu.child" ngFor let-child>
+                <li>
+                  <div class="nav-item flex-center" [routerLink]="child.route" routerLinkActive="active">
+                    <i class="nav-icon zcdsp-icon" [innerHTML]="child.icon"></i>
+                    <span class="nav-name">{{child.name}}</span>
+                  </div>
+                </li>
+              </ng-template>
+            </ul>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
   </div>
   <div class="container-main" [ngStyle]="{'left.px':fixed?200:60}">
     <div style="width: 100%;height: 100%;overflow: auto;position: relative" #containerFull>

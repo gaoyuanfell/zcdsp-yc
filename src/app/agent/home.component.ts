@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/model';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as reducerMenu from '../../store/reducer/menu.reducer';
-import {Observable} from 'rxjs';
+import {fromEvent, Observable, Subject} from 'rxjs';
 import {Loading} from '../../components/loading/loading.service';
+import {Global} from '../../service/global';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ import {Loading} from '../../components/loading/loading.service';
   styleUrls: ['./home.component.less'],
   preserveWhitespaces: true,
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit,OnDestroy {
 
   fixed = false; // 导航栏固定
   hover = false; // 导航悬浮控制
@@ -35,15 +36,31 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  // 滚动条事件监听
+  private _scroll
+  @ViewChild('containerFull') containerFullRef: ElementRef;
+
   ngOnInit(): void {
+    this._global.overflowSubject = new Subject<{[key: string]: any}>();
+    this._global.containerFullRef = this.containerFullRef.nativeElement;
+    this._scroll = fromEvent(this._global.containerFullRef, 'scroll').subscribe((event:  Event | any) => {
+      this._global.overflowSubject.next({top:event.target.scrollTop, left: event.target.scrollLeft})
+    });
+  }
+
+  ngOnDestroy(): void {
+    this._global.overflowSubject.unsubscribe();
+    this._scroll.unsubscribe();
   }
 
   constructor(private store: Store<AppState>,
               private route: ActivatedRoute,
               private router: Router,
+              private _global: Global,
               private _loading: Loading) {
 
     this.menuList$ = store.pipe(select(reducerMenu.MenuList));
+    console.log(this.menuList$.subscribe( res => console.log(res)));
 
   }
 

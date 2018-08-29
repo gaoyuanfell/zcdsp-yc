@@ -1,50 +1,54 @@
-<div class="data-top flex">
-  <div class="left-img">
-    <img src="assets/customer/img/user-icon.png">
-  </div>
-  <div class="right-info">
-    <p class="flex-center">
-      {{user?.nick_name}}
-    </p>
-    <p class="flex-center">
-      <i class="login-icon"></i>
-      <span>登入账号：{{user?.user_name}}</span>
-    </p>
-    <p class="flex-center">
-      <i class="time-icon"></i>
-      <span>注册时间：{{user?.creation_date | date: 'yyyy-MM-dd HH-mm-ss'}}</span>
-    </p>
-  </div>
-</div>
-
-<div class="table-content">
-
-  <div class="query-tool">
-    <div class="left-tool">
-      <input-datepicker [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
+<div class="container-list">
+  <div class="data-top flex">
+    <div class="left-img">
+      <img src="assets/img/customer/img/user-icon.png">
     </div>
-    <div class="right-tool">
-      <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'输入日志搜索'"></yc-input-search>
+    <div class="right-info">
+      <p class="flex-center">
+        {{user?.nick_name}}
+      </p>
+      <p class="flex-center">
+        <i class="login-icon"></i>
+        <span>登入账号：{{user?.user_name}}</span>
+      </p>
+      <p class="flex-center">
+        <i class="time-icon"></i>
+        <span>注册时间：{{user?.creation_date | date: 'yyyy-MM-dd HH-mm-ss'}}</span>
+      </p>
     </div>
   </div>
 
-  <yc-table #table="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
-    <thead>
-    <tr>
-      <th class="text-left">日志内容</th>
-      <th>操作IP</th>
-      <th [showSort]="true" [sortKey]="'creation_date'">操作时间</th>
-    </tr>
-    </thead>
-    <tbody>
-    <ng-template [ngForOf]="table.data" ngFor let-data>
-      <tr class="text-center">
-        <td class="text-left" [width]="800" [title]="data.log_description">{{data.log_description}}</td>
-        <td>{{data.client_ip}}</td>
-        <td>{{data.creation_date}}</td>
-      </tr>
-    </ng-template>
-    </tbody>
-  </yc-table>
+  <div class="table-content">
+
+    <div class="query-tool">
+      <div class="left-tool">
+        <input-datepicker [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
+      </div>
+      <div class="right-tool">
+        <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'输入日志搜索'"></yc-input-search>
+      </div>
+    </div>
+
+    <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
+      <table #tableRef table>
+        <thead>
+        <tr>
+          <th class="text-left">日志内容</th>
+          <th>操作IP</th>
+          <th [showSort]="true" [sortKey]="'creation_date'">操作时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-template [ngForOf]="ycTable.data" ngFor let-data>
+          <tr class="text-center">
+            <td class="text-left" [width]="800" [title]="data.log_description">{{data.log_description}}</td>
+            <td>{{data.client_ip}}</td>
+            <td>{{data.creation_date}}</td>
+          </tr>
+        </ng-template>
+        </tbody>
+      </table>
+    </yc-table>
+  </div>
 </div>
 
