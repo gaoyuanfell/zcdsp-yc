@@ -39,9 +39,7 @@ export class LazyComponent implements OnDestroy {
   ],
 })
 export class LazyModule {
-  constructor(
-    private _directionalDataService: DirectionalDataService) {
-    _directionalDataService.initDirectional$().subscribe(data => {
-    });
+  constructor() {
+
   }
 }

@@ -1,9 +1,7 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {panel} from '../../app/animations/panel';
-import {select, Store} from '@ngrx/store';
+import {Store} from '@ngrx/store';
 import {AppState} from '../../store/model';
-import * as directionalReducer from '../../store/reducer/directional.reducer';
-import * as directionalAction from '../../store/actions/directional.action';
 import {Observable} from 'rxjs';
 import {Directional} from '../../store/model/directional.state';
 import {DirectionalDataService} from '../../service/directional-data.service';
@@ -89,9 +87,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit {
 
   setAudiencesActionNextChild({value, index}) {
     // this.store.dispatch(new directionalAction.AudiencesActionNextChild({value, index}));
-    console.time('1');
     this._directionalDataService.funcAudiencesActionNextChild({value, index});
-    console.timeEnd('1');
   }
 
   checkAudiencesActionChange(value) {
@@ -106,31 +102,42 @@ export class DirectionalComponent implements OnInit, AfterViewInit {
   }
 
   setAudiencesActionNextChild2({value, index}) {
-    this.store.dispatch(new directionalAction.AudiencesActionNextChild2({value, index}));
+    // this.store.dispatch(new directionalAction.AudiencesActionNextChild2({value, index}));
+    this._directionalDataService.funcAudiencesAction2NextChild({value, index});
   }
 
   checkAudiencesActionChange2(value) {
-    this.store.dispatch(new directionalAction.CheckAudiencesActionChange2(value));
+    // this.store.dispatch(new directionalAction.CheckAudiencesActionChange2(value));
+    this._directionalDataService.funcCheckAudiencesAction2Change(value);
+  }
+
+  queryAudiencesAction2ByName({target, value}) {
+    if (!value) return;
+    this._directionalDataService.funcQueryAudiencesAction2ByName({target, value});
   }
 
   // -------------------------- Audiences
 
   checkAudiencesChange(value) {
-    this.store.dispatch(new directionalAction.CheckAudiencesChange(value));
+    // this.store.dispatch(new directionalAction.CheckAudiencesChange(value));
+    this._directionalDataService.funcCheckAudiencesChange(value)
   }
 
   removeAllAudiences() {
-    this.store.dispatch(new directionalAction.RemoveAllAudiences());
+    // this.store.dispatch(new directionalAction.RemoveAllAudiences());
+    this._directionalDataService.funcRemoveAllAudiences();
   }
 
   // ----------------------- Device
 
   checkDeviceChange(value) {
-    this.store.dispatch(new directionalAction.CheckDeviceChange(value));
+    // this.store.dispatch(new directionalAction.CheckDeviceChange(value));
+    this._directionalDataService.funcCheckDeviceChange(value)
   }
 
   removeAllDevice() {
-    this.store.dispatch(new directionalAction.RemoveAllDevice());
+    // this.store.dispatch(new directionalAction.RemoveAllDevice());
+    this._directionalDataService.funcRemoveAllDevice()
   }
 
   constructor(private store: Store<AppState>, private _directionalDataService: DirectionalDataService) {
@@ -157,11 +164,17 @@ export class DirectionalComponent implements OnInit, AfterViewInit {
     this.lbsCityResult$ = _directionalDataService.lbsCityResult$;
     this.lbsCityViewResult$ = _directionalDataService.lbsCityViewResult$;
 
-    this.audiences$ = store.pipe(select(directionalReducer.Audiences));
-    this.audiencesResult$ = store.pipe(select(directionalReducer.AudiencesResult));
+    // this.audiences$ = store.pipe(select(directionalReducer.Audiences));
+    // this.audiencesResult$ = store.pipe(select(directionalReducer.AudiencesResult));
 
-    this.device$ = store.pipe(select(directionalReducer.Device));
-    this.deviceResult$ = store.pipe(select(directionalReducer.DeviceResult));
+    this.audiences$ = _directionalDataService.audiences$;
+    this.audiencesResult$ = _directionalDataService.audiencesResult$;
+
+    // this.device$ = store.pipe(select(directionalReducer.Device));
+    // this.deviceResult$ = store.pipe(select(directionalReducer.DeviceResult));
+
+    this.device$ = _directionalDataService.device$;
+    this.deviceResult$ = _directionalDataService.deviceResult$;
 
     // this.audiencesAction$ = store.pipe(select(directionalReducer.AudiencesAction));
     // this.audiencesActionList$ = store.pipe(select(directionalReducer.AudiencesActionList));
@@ -171,9 +184,14 @@ export class DirectionalComponent implements OnInit, AfterViewInit {
     this.audiencesActionList$ = _directionalDataService.audiencesActionList$;
     this.audiencesActionResult$ = _directionalDataService.audiencesActionResult$;
 
-    this.audiencesAction2$ = store.pipe(select(directionalReducer.AudiencesAction2));
-    this.audiencesAction2List$ = store.pipe(select(directionalReducer.AudiencesAction2List));
-    this.audiencesAction2Result$ = store.pipe(select(directionalReducer.AudiencesAction2Result));
+    // this.audiencesAction2$ = store.pipe(select(directionalReducer.AudiencesAction2));
+    // this.audiencesAction2List$ = store.pipe(select(directionalReducer.AudiencesAction2List));
+    // this.audiencesAction2Result$ = store.pipe(select(directionalReducer.AudiencesAction2Result));
+
+    this.audiencesAction2$ = _directionalDataService.audiencesAction2$;
+    this.audiencesAction2List$ = _directionalDataService.audiencesAction2List$;
+    this.audiencesAction2Result$ = _directionalDataService.audiencesAction2Result$;
+
   }
 
   get audiencesActionList(){
@@ -185,36 +203,13 @@ export class DirectionalComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-
-    this.areasResult$.subscribe(data => {
+    this._directionalDataService.result$.subscribe(data => {
       console.info(data);
-    });
-
-    this.lbsCityResult$.subscribe(data => {
-      console.info(data);
-    });
-
-    this.audiencesResult$.subscribe(data => {
-      console.info(data);
-    });
-
-    this.deviceResult$.subscribe(data => {
-      console.info(data);
-    });
-
-    this.audiencesActionResult$.subscribe(data => {
-      console.info(data);
-    });
-
-    this.audiencesAction2Result$.subscribe(data => {
-      console.info(data);
-    });
-
+    })
   }
 
   ngAfterViewInit(): void {
     console.info('ngAfterViewInit');
-
   }
 
 }

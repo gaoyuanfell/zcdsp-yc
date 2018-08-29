@@ -1,7 +1,7 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 import {AudiencesActionState, DirectionalState, LbsCityState} from '../model/directional.state';
 import {DirectionalActionTypes, DirectionalActionUnion} from '../actions/directional.action';
-import {recursionChildCheck, recursionParentCheck, recursionResult, recursionResult2} from '../util';
+import {recursionChildCheck, recursionParentCheck, recursionResult, recursionResult2} from '../../service/util';
 
 const initState: DirectionalState = {
   areasChildList: []

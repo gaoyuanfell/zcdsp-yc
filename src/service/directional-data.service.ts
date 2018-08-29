@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {DirectionalService} from './customer/directional.service';
 import {forkJoin, Observable, Subject} from 'rxjs';
-import {recursionChildCheck, recursionParentCheck, recursionResult, recursionResult2} from '../store/util';
+import {recursionChildCheck, recursionParentCheck, recursionResult, recursionResult2, sleep, splitArray} from './util';
 
 export interface Directional {
   children?: Array<Directional>
@@ -24,10 +24,10 @@ export class DirectionalDataService {
 
   private _areas: Directional;
   private _lbsCity: Directional;
-  private _audiencesList;
+  private _audiences;
   private _audiencesAction: Directional;
   private _audiencesAction2: Directional;
-  private _deviceList;
+  private _device;
 
   get areas() {
     return this._areas;
@@ -45,12 +45,20 @@ export class DirectionalDataService {
     this._lbsCity = value;
   }
 
-  get audiencesList() {
-    return this._audiencesList;
+  get audiences() {
+    return this._audiences;
   }
 
-  set audiencesList(value) {
-    this._audiencesList = value;
+  set audiences(value) {
+    this._audiences = value;
+  }
+
+  get device() {
+    return this._device;
+  }
+
+  set device(value) {
+    this._device = value;
   }
 
   get audiencesAction() {
@@ -69,31 +77,23 @@ export class DirectionalDataService {
     this._audiencesAction2 = value;
   }
 
-  get deviceList() {
-    return this._deviceList;
-  }
-
-  set deviceList(value) {
-    this._deviceList = value;
-  }
-
   ////////////////////////*********** areas ***********////////////////////////
 
-  areasSubject = new Subject<Directional>();
+  private areasSubject = new Subject<Directional>();
 
   get areas$(): Observable<Directional> {
     return this.areasSubject.asObservable();
   }
 
   areasChildList = [];
-  areasChildListSubject = new Subject<Array<any>>();
+  private areasChildListSubject = new Subject<Array<any>>();
 
   get areasChildList$() {
     return this.areasChildListSubject.asObservable();
   }
 
   areasResult = [];
-  areasResultSubject = new Subject<Array<any>>();
+  private areasResultSubject = new Subject<Array<any>>();
 
   get areasResult$() {
     return this.areasResultSubject.asObservable();
@@ -113,6 +113,7 @@ export class DirectionalDataService {
     recursionParentCheck(value);
     this.areasResult = recursionResult(this.areas.children);
     this.areasResultSubject.next(this.areasResult);
+    this.resultSubject.next(this.getResult())
   }
 
   funcQueryAreasByName(payload) {
@@ -138,28 +139,28 @@ export class DirectionalDataService {
 
   ////////////////////////*********** lbsCity ***********////////////////////////
 
-  lbsCitySubject = new Subject<Directional>();
+  private lbsCitySubject = new Subject<Directional>();
 
   get lbsCity$() {
     return this.lbsCitySubject.asObservable();
   }
 
   lbsCityList = [];
-  lbsCityListSubject = new Subject<Array<any>>();
+  private lbsCityListSubject = new Subject<Array<any>>();
 
   get lbsCityList$() {
     return this.lbsCityListSubject.asObservable();
   }
 
   lbsCityViewResult = [];
-  lbsCityViewResultSubject = new Subject<Array<any>>();
+  private lbsCityViewResultSubject = new Subject<Array<any>>();
 
   get lbsCityViewResult$() {
     return this.lbsCityViewResultSubject.asObservable();
   }
 
   lbsCityResult = [];
-  lbsCityResultSubject = new Subject<Array<any>>();
+  private lbsCityResultSubject = new Subject<Array<any>>();
 
   get lbsCityResult$() {
     return this.lbsCityResultSubject.asObservable();
@@ -182,6 +183,7 @@ export class DirectionalDataService {
     this.lbsCityViewResultSubject.next(this.lbsCityViewResult);
     this.lbsCityResult = recursionResult2(this.lbsCity.children);
     this.lbsCityResultSubject.next(this.lbsCityResult);
+    this.resultSubject.next(this.getResult())
   }
 
   private funcNextLbsCityChild(target = this.lbsCity.children[0], index = 0) {
@@ -208,21 +210,21 @@ export class DirectionalDataService {
 
   ////////////////////////*********** audiencesAction ***********////////////////////////
 
-  audiencesActionSubject = new Subject<Directional>();
+  private audiencesActionSubject = new Subject<Directional>();
 
   get audiencesAction$() {
     return this.audiencesActionSubject.asObservable();
   }
 
   audiencesActionList = [];
-  audiencesActionListSubject = new Subject<Array<Array<any>>>();
+  private audiencesActionListSubject = new Subject<Array<Array<any>>>();
 
   get audiencesActionList$() {
     return this.audiencesActionListSubject.asObservable();
   }
 
   audiencesActionResult = [];
-  audiencesActionResultSubject = new Subject<Array<any>>();
+  private audiencesActionResultSubject = new Subject<Array<any>>();
 
   get audiencesActionResult$() {
     return this.audiencesActionResultSubject.asObservable();
@@ -230,14 +232,13 @@ export class DirectionalDataService {
 
   funcAudiencesActionNextChild(payload) {
     let {value, index} = payload;
-    if(this.audiencesActionSplitSubject){
-      this.audiencesActionSplitSubject.complete()
+    if (this.audiencesActionSplitSubject) {
+      this.audiencesActionSplitSubject.complete();
     }
     this.audiencesActionSplitSubject = new Subject<any>();
     this.audiencesActionSplitSubject.subscribe(data => {
-      let {array, index} = data
-      this.audiencesActionList[index].push(...array)
-      console.info(this.audiencesActionList)
+      let {array, index} = data;
+      this.audiencesActionList[index].push(...array);
       this.audiencesActionListSubject.next(this.audiencesActionList);
     });
     this.funcNextAudiencesActionChild(value, index);
@@ -252,6 +253,7 @@ export class DirectionalDataService {
     recursionParentCheck(value);
     this.audiencesActionResult = recursionResult(this.audiencesAction.children);
     this.audiencesActionResultSubject.next(this.audiencesActionResult);
+    this.resultSubject.next(this.getResult())
   }
 
   funcQueryAudiencesActionByName(payload) {
@@ -264,33 +266,198 @@ export class DirectionalDataService {
     }
   }
 
-  audiencesActionSplitSubject:Subject<any>;
+  audiencesActionSplitSubject: Subject<any>;
+
   private async funcNextAudiencesActionChild(target = this.audiencesAction.children[0], index = 0) {
-    console.info(index)
     this.audiencesActionList.length = index + 1;
     let subject = this.audiencesActionSplitSubject;
     while (target.children && target.children.length) {
       if (!target.children[0]) break;
       let index = this.audiencesActionList.push([]);
-      let array = this.splitArray(target.children);
+      let array = splitArray(target.children);
       for (let i = 0; i < array.length; i++) {
-        if(subject != this.audiencesActionSplitSubject && index == 0) return;
+        if (subject != this.audiencesActionSplitSubject && index == 0) return;
         this.audiencesActionSplitSubject.next({
           array: array[i],
           index: index - 1
         });
-        await this.sleep(20);
+        await sleep(40);
       }
       target = target.children[0];
     }
-    return this.audiencesActionList
+    return this.audiencesActionList;
   }
 
   ////////////////////////*********** audiencesAction ***********////////////////////////
 
-  audiencesList$ = new Subject<any>();
-  audiencesAction2$ = new Subject<any>();
-  deviceList$ = new Subject<any>();
+  ////////////////////////*********** audiencesAction2 ***********////////////////////////
+
+
+  private audiencesAction2Subject = new Subject<Directional>();
+
+  get audiencesAction2$() {
+    return this.audiencesAction2Subject.asObservable();
+  }
+
+  audiencesAction2List = [];
+  private audiencesAction2ListSubject = new Subject<Array<Array<any>>>();
+
+  get audiencesAction2List$() {
+    return this.audiencesAction2ListSubject.asObservable();
+  }
+
+  audiencesAction2Result = [];
+  private audiencesAction2ResultSubject = new Subject<Array<any>>();
+
+  get audiencesAction2Result$() {
+    return this.audiencesAction2ResultSubject.asObservable();
+  }
+
+  funcAudiencesAction2NextChild(payload) {
+    let {value, index} = payload;
+    if (this.audiencesAction2SplitSubject) {
+      this.audiencesAction2SplitSubject.complete();
+    }
+    this.audiencesAction2SplitSubject = new Subject<any>();
+    this.audiencesAction2SplitSubject.subscribe(data => {
+      let {array, index} = data;
+      this.audiencesAction2List[index].push(...array);
+      this.audiencesAction2ListSubject.next(this.audiencesAction2List);
+    });
+    this.funcNextAudiencesAction2Child(value, index);
+  }
+
+  funcCheckAudiencesAction2Change(value) {
+    if (typeof value == 'boolean') {
+      this.audiencesAction2.checked = value;
+      value = this.audiencesAction2;
+    }
+    recursionChildCheck(value);
+    recursionParentCheck(value);
+    this.audiencesAction2Result = recursionResult(this.audiencesAction2.children);
+    this.audiencesAction2ResultSubject.next(this.audiencesAction2Result);
+    this.resultSubject.next(this.getResult())
+  }
+
+  funcQueryAudiencesAction2ByName(payload) {
+    let {target, value} = payload;
+    let index = target.findIndex(b => !!~b.name.indexOf(value));
+    if (!!~index) {
+      let data = target[index];
+      target.splice(index, 1);
+      target.unshift(data);
+    }
+  }
+
+  audiencesAction2SplitSubject: Subject<any>;
+
+  private async funcNextAudiencesAction2Child(target = this.audiencesAction2.children[0], index = 0) {
+    this.audiencesAction2List.length = index + 1;
+    let subject = this.audiencesAction2SplitSubject;
+    while (target.children && target.children.length) {
+      if (!target.children[0]) break;
+      let index = this.audiencesAction2List.push([]);
+      let array = splitArray(target.children);
+      for (let i = 0; i < array.length; i++) {
+        if (subject != this.audiencesAction2SplitSubject && index == 0) return;
+        this.audiencesAction2SplitSubject.next({
+          array: array[i],
+          index: index - 1
+        });
+        await sleep(40);
+      }
+      target = target.children[0];
+    }
+    return this.audiencesAction2List;
+  }
+
+
+  ////////////////////////*********** audiencesAction2 ***********////////////////////////
+
+
+  ////////////////////////*********** audiences ***********////////////////////////
+
+  private audiencesSubject = new Subject<any>();
+
+  get audiences$() {
+    return this.audiencesSubject.asObservable();
+  }
+
+  audiencesResult = [];
+  private audiencesResultSubject = new Subject<any>();
+
+  get audiencesResult$() {
+    return this.audiencesResultSubject.asObservable();
+  }
+
+  funcCheckAudiencesChange(value) {
+    recursionChildCheck(value);
+    recursionParentCheck(value);
+    let array = [];
+    this.audiences.forEach(au => {
+      array.push(...recursionResult2(au.value.children));
+    });
+    this.audiencesResult = array;
+    this.audiencesResultSubject.next(this.audiencesResult);
+    this.resultSubject.next(this.getResult())
+  }
+
+  funcRemoveAllAudiences() {
+    this.audiences.forEach(au => {
+      au.value.checked = false;
+      au.value.checkState = 0;
+      recursionChildCheck(au.value);
+      recursionParentCheck(au.value);
+    });
+    this.audiencesResult = [];
+    this.audiencesResultSubject.next(this.audiencesResult);
+    this.resultSubject.next(this.getResult())
+  }
+
+  ////////////////////////*********** audiences ***********////////////////////////
+
+
+  ////////////////////////*********** device ***********////////////////////////
+
+  private deviceSubject = new Subject<any>();
+
+  get device$() {
+    return this.deviceSubject.asObservable();
+  }
+
+  deviceResult = [];
+  private deviceResultSubject = new Subject<any>();
+
+  get deviceResult$() {
+    return this.deviceResultSubject.asObservable();
+  }
+
+  funcCheckDeviceChange(value) {
+    recursionChildCheck(value);
+    recursionParentCheck(value);
+    let array = [];
+    this.device.forEach(au => {
+      array.push(...recursionResult2(au.value.children));
+    });
+    this.deviceResult = array;
+    this.deviceResultSubject.next(this.deviceResult);
+    this.resultSubject.next(this.getResult())
+  }
+
+  funcRemoveAllDevice() {
+    this.device.forEach(au => {
+      au.value.checked = false;
+      au.value.checkState = 0;
+      recursionChildCheck(au.value);
+      recursionParentCheck(au.value);
+    });
+    this.deviceResult = [];
+    this.deviceResultSubject.next(this.deviceResult);
+    this.resultSubject.next(this.getResult())
+  }
+
+  ////////////////////////*********** device ***********////////////////////////
+
 
   ////////////////////////***********
 
@@ -318,48 +485,157 @@ export class DirectionalDataService {
     });
   }
 
+  init() {
+    this.initDirectional$().subscribe(res => {
+    }, error => {
+    });
+  }
+
+  // 获取结果订阅
+  private resultSubject = new Subject();
+
+  get result$(){
+    return this.resultSubject.asObservable();
+  }
+
+  getResult() {
+
+    let result = {
+      dtl_address: {
+        area: [],
+        lbs: [],
+        type: 1,
+        scene_type: 1
+      },
+      dtl_attribute: {
+        crowdAttribute: {
+          age: [],
+          sex: [],
+          education: [],
+        }
+      },
+      dtl_behavior: {
+        appCategory: [],
+        appAttribute: [],
+        filterAppCategory: [],
+        filterAppAttribute: [],
+      },
+      dtl_devices: {
+        devicesType: [],
+        brand: [],
+        mobileOS: [],
+        netType: [],
+        operators: [],
+        browsers: [],
+      }
+    };
+
+
+    result.dtl_address.area = this.areasResult.map(ar => ({id: ar.id, name: ar.name}));
+    result.dtl_address.lbs = this.lbsCityResult.map(ar => ({id: ar.id, name: ar.name, coords: ar.location_items}));
+
+    result.dtl_behavior.appCategory = this.audiencesActionResult.filter(aa => !aa.type_id).map(aa => ({id: aa.id, name: aa.name}));
+    result.dtl_behavior.appAttribute = this.audiencesActionResult.filter(aa => aa.type_id).map(aa => ({id: aa.id, name: aa.name}));
+
+    result.dtl_behavior.filterAppCategory = this.audiencesAction2Result.filter(aa => !aa.type_id).map(aa => ({id: aa.id, name: aa.name}));
+    result.dtl_behavior.filterAppAttribute = this.audiencesAction2Result.filter(aa => aa.type_id).map(aa => ({id: aa.id, name: aa.name}));
+
+    this.audiences.forEach(ac => {
+      let r = recursionResult2(ac.value.children).map(r => r.value);
+      switch (ac.key) {
+        case 'age': {
+          result.dtl_attribute.crowdAttribute.age = r;
+          break;
+        }
+        case 'education': {
+          result.dtl_attribute.crowdAttribute.education = r;
+          break;
+        }
+        case 'sex': {
+          result.dtl_attribute.crowdAttribute.sex = r;
+          break;
+        }
+      }
+    });
+
+    this.device.forEach(ac => {
+      let r = recursionResult2(ac.value.children).map(r => r.value);
+      switch (ac.key) {
+        case 'devices_type': {
+          result.dtl_devices.devicesType = r;
+          break;
+        }
+        case 'mobile_brand': {
+          result.dtl_devices.brand = r;
+          break;
+        }
+        case 'os': {
+          result.dtl_devices.mobileOS = r;
+          break;
+        }
+        case 'net_type': {
+          result.dtl_devices.netType = r;
+          break;
+        }
+        case 'operators': {
+          result.dtl_devices.operators = r;
+          break;
+        }
+        case 'browsers': {
+          result.dtl_devices.browsers = r;
+          break;
+        }
+      }
+    });
+    return result;
+  }
+
   constructor(private _directionalService: DirectionalService) {
 
   }
 
-  nextSubject() {
+  private nextSubject() {
+    // areas
     this.areasSubject.next(this.areas);
     this.areasChildList.push(this.areas.children);
     this.nextAreasChild();
     this.areasChildListSubject.next(this.areasChildList);
 
+    // lbsCity
     this.lbsCitySubject.next(this.lbsCity);
     this.lbsCityList.push(this.lbsCity.children);
     this.funcNextLbsCityChild();
     this.lbsCityListSubject.next(this.lbsCityList);
 
+    // audiencesAction
     this.audiencesActionSubject.next(this.audiencesAction);
     this.audiencesActionList.push(this.audiencesAction.children);
-
     this.audiencesActionSplitSubject = new Subject();
     this.audiencesActionSplitSubject.subscribe(data => {
-      let {array, index} = data
-      this.audiencesActionList[index].push(...array)
-      console.info(this.audiencesActionList)
+      let {array, index} = data;
+      this.audiencesActionList[index].push(...array);
       this.audiencesActionListSubject.next(this.audiencesActionList);
     });
     this.funcNextAudiencesActionChild();
 
-
-    this.audiencesList$.next(this.audiencesList);
-    this.deviceList$.next(this.deviceList);
-    this.audiencesAction2$.next(this.audiencesAction2);
-  }
-
-  sleep(time) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve();
-      }, time);
+    // audiencesAction2
+    this.audiencesAction2Subject.next(this.audiencesAction2);
+    this.audiencesAction2List.push(this.audiencesAction2.children);
+    this.audiencesAction2SplitSubject = new Subject();
+    this.audiencesAction2SplitSubject.subscribe(data => {
+      let {array, index} = data;
+      this.audiencesAction2List[index].push(...array);
+      this.audiencesAction2ListSubject.next(this.audiencesAction2List);
     });
+    this.funcNextAudiencesAction2Child();
+
+
+    this.audiencesSubject.next(this.audiences);
+
+    this.deviceSubject.next(this.device);
   }
 
-  recursionChildData() {
+  private recursionChildData() {
     return new Observable(observer => {
       let {age, education, sex} = this.audiencesListData;
       let {browsers, devices_type, mobile_brand, net_type, operators, os} = this.deviceListData;
@@ -386,8 +662,8 @@ export class DirectionalDataService {
 
         this.areas = areas;
         this.lbsCity = lbsCity;
-        this.audiencesList = audiencesList;
-        this.deviceList = deviceList;
+        this.audiences = audiencesList;
+        this.device = deviceList;
         this.audiencesAction = audiencesAction;
         this.audiencesAction2 = audiencesAction2;
         this.nextSubject();
@@ -427,15 +703,5 @@ export class DirectionalDataService {
         resolve(e.data);
       };
     });
-  }
-
-  private splitArray(array, size = 200) {
-    let result = [];
-    for (let x = 0; x < Math.ceil(array.length / size); x++) {
-      let start = x * size;
-      let end = start + size;
-      result.push(array.slice(start, end));
-    }
-    return result;
   }
 }

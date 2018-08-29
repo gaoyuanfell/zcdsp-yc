@@ -105,6 +105,11 @@
 
   </div>
 
+  <!--<div class="flex-center lbstop">
+    <label>场景：</label>
+    <yc-radio-group [(ngModel)]="lbs_scene_type" [list]="lbs_scenes" [props]="{label:'name'}" (changeEvent)="changeValue()"></yc-radio-group>
+  </div>-->
+
 </div>
 
 <!--受众定向-->
@@ -122,7 +127,7 @@
 <!--受众定向 expanded-->
 <div class="expanded" [@panel]="q2.hide || false" #q2>
   <!--choice-->
-  <div class="choice-values-box" *ngIf="(audiencesResult$ | async)?.length">
+  <div class="choice-values-box" [hidden]="!(audiencesResult$ | async)?.length">
     <div class="choice-values">
       <ng-template [ngForOf]="audiencesResult$ | async" ngFor let-value>
           <span class="label-value">
@@ -141,7 +146,7 @@
         <yc-checkbox [label]="value.value.name" [checkState]="value.value.checkState" [(ngModel)]="value.value.checked" (changeEvent)="checkAudiencesChange(value.value)"></yc-checkbox>
         <div>
           <ng-template [ngForOf]="value.value.children" ngFor let-value2 let-index="index">
-            <yc-checkbox [label]="value2.name" [checkState]="value2.checkState" [(ngModel)]="value2.checked" (changeEvent)="checkAudiencesChange(value.value)"></yc-checkbox>
+            <yc-checkbox [label]="value2.name" [checkState]="value2.checkState" [(ngModel)]="value2.checked" (changeEvent)="checkAudiencesChange(value2)"></yc-checkbox>
           </ng-template>
         </div>
       </div>
@@ -156,7 +161,7 @@
   <h3 class="directional-info-title">受众行为：</h3>
   <div class="directional-info" *ngIf="q3.hide">
     <h4>行为指定</h4>
-    <p>当前已选择（12）</p>
+    <p>当前已选择（{{(audiencesActionResult$ | async)?.length || 0}}）</p>
     <button class="btn btn-outline btn-round" (click)="checkAudiencesActionChange(false)">清除全部</button>
   </div>
   <div class="directional-operation">
@@ -214,11 +219,11 @@
   <!--行为过滤-->
   <div class="directional-info" style="margin-top: 30px;">
     <h4>行为过滤</h4>
-    <p>当前已选择（12）</p>
+    <p>当前已选择（{{(audiencesAction2Result$ | async)?.length || 0}}）</p>
     <button class="btn btn-outline btn-round" (click)="checkAudiencesActionChange2(false)">清除全部</button>
   </div>
   <!--choice-->
-  <div class="choice-values-box" *ngIf="(audiencesAction2Result$ | async)?.length">
+  <div class="choice-values-box" [hidden]="!(audiencesAction2Result$ | async)?.length">
     <div class="choice-values">
       <ng-template [ngForOf]="audiencesAction2Result$ | async" ngFor let-value>
           <span class="label-value">
@@ -242,7 +247,7 @@
       <div class="linkage-box w50">
         <div class="input-query">
           <i class="input-query-icon"></i>
-          <input type="text" placeholder="输入拼音首字母或名称" #input4 (change)="queryAudiencesActionByName({value: input4.value, target: valueList})">
+          <input type="text" placeholder="输入拼音首字母或名称" #input4 (change)="queryAudiencesAction2ByName({value: input4.value, target: valueList})">
         </div>
 
         <ul class="linkage-list">
@@ -280,7 +285,7 @@
 <!--设备定向 expanded-->
 <div class="expanded" [@panel]="q4.hide || false" #q4>
   <!--choice-->
-  <div class="choice-values-box" *ngIf="(deviceResult$ | async)?.length">
+  <div class="choice-values-box" [hidden]="!(deviceResult$ | async)?.length">
     <div class="choice-values">
       <ng-template [ngForOf]="deviceResult$ | async" ngFor let-value>
           <span class="label-value">
@@ -299,7 +304,7 @@
         <yc-checkbox [label]="value.value.name" [checkState]="value.value.checkState" [(ngModel)]="value.value.checked" (changeEvent)="checkDeviceChange(value.value)"></yc-checkbox>
         <div>
           <ng-template [ngForOf]="value.value.children" ngFor let-value2 let-index="index">
-            <yc-checkbox [label]="value2.name" [checkState]="value2.checkState" [(ngModel)]="value2.checked" (changeEvent)="checkDeviceChange(value.value)"></yc-checkbox>
+            <yc-checkbox [label]="value2.name" [checkState]="value2.checkState" [(ngModel)]="value2.checked" (changeEvent)="checkDeviceChange(value2)"></yc-checkbox>
           </ng-template>
         </div>
       </div>
