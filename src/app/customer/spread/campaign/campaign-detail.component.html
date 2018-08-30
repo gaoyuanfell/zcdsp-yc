@@ -1,0 +1,87 @@
+<div class="sidebar-data-box">
+  <div class="title-and-tool flex-center">
+    <div>
+      <h3>活动详情 <i class="zcdsp-icon">&#xe622;</i></h3>
+    </div>
+
+    <div style="margin-left: auto">
+      <i class="zcdsp-icon">&#xe627;</i>
+    </div>
+  </div>
+
+  <div style="padding: 30px 60px;">
+
+    <div class="flex">
+      <div style="width: 30%">
+        <div class="word-data-box">
+          <span>活动ID：</span>
+          <p>{{campaignData?.campaign_id}}</p>
+        </div>
+        <div class="word-data-box">
+          <span>活动名称：</span>
+          <p>{{campaignData?.campaign_name}}</p>
+        </div>
+        <div class="word-data-box">
+          <span>投放媒体：</span>
+          <p></p>
+        </div>
+        <div class="word-data-box">
+          <span>投放日期：</span>
+          <p>{{campaignData?.begin_date}}~{{campaignData?.end_date}}</p>
+        </div>
+        <div class="word-data-box">
+          <span>投放小时：</span>
+          <ng-template [ngIf]="show_hour_today_format">
+            <p><span>{{show_hour_today_format}}</span></p>
+          </ng-template>
+          <ng-template [ngIf]="!show_hour_today_format && show_time_type === 1">
+            <span>不投</span>
+          </ng-template>
+          <ng-template [ngIf]="!show_hour_today_format && show_time_type === 0">
+            <p><span>00:00~23:59</span></p>
+          </ng-template>
+        </div>
+        <div class="word-data-box">
+          <span>广告出价：</span>
+          <p>{{campaignData?.ad_price | currencyFormat}}</p>
+        </div>
+
+      </div>
+      <div style="width: 30%">
+        <div class="word-data-box">
+          <span>定向：</span>
+          <ng-template [ngIf]="orientationValue?.length">
+            <p *ngFor="let ov of orientationValue">{{ov.name}}：{{ov.value}}</p>
+          </ng-template>
+          <ng-template [ngIf]="!orientationValue?.length">
+            <p>不限</p>
+          </ng-template>
+        </div>
+      </div>
+      <div style="width: 40%">
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="title-and-tool flex-center">
+    <div>
+      <h3>效果数据 <i class="zcdsp-icon">&#xe622;</i></h3>
+    </div>
+
+    <yc-button-group class="tool" [(ngModel)]="campaignCode" (changeEvent)="_changeCampaignAndCreativeChart(chartDataInstance,creativeChartData,campaignCode)"
+      [list]="[{value:'pv',label:'曝光量'},{value:'click',label:'点击量'},{value:'ctr',label:'点击率'},{value:'cpc',label:'点击成本'},{value:'cpm',label:'曝光成本'},{value:'admoney',label:'花费'}]">
+    </yc-button-group>
+
+    <div style="margin-left: auto">
+      <i class="zcdsp-icon">&#xe627;</i>
+    </div>
+  </div>
+
+  <div style="padding: 30px 60px;">
+    <div class="chart-box">
+      <div class="chart-data" #chartData></div>
+    </div>
+  </div>
+</div>
