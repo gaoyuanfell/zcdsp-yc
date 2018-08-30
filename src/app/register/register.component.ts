@@ -75,4 +75,15 @@ export class RegisterComponent implements OnInit {
     })
   }
 
+  setInvalidClass(form, formControl) {
+    let cl;
+    if (formControl && formControl.invalid && (formControl.dirty || formControl.touched || form.submitted)) {
+      cl = 'has-error';
+    }
+    if (formControl && formControl.valid) {
+      cl = 'has-success';
+    }
+    return cl;
+  }
+
 }

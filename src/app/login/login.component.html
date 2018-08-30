@@ -10,16 +10,16 @@
       <form class="from" #infoForm="ngForm" (ngSubmit)="login(infoForm)">
 
 
-        <input type="text" class="name" placeholder="请输入账号" [(ngModel)]="userName" [ngClass]="{ userOn: (username.dirty || username.touched || _valid) && username.invalid}" required #username="ngModel" name="userName">
+        <input type="text" class="name" placeholder="请输入账号" [(ngModel)]="userName" [ngClass]="{ 'has-error': (username.dirty || username.touched || _valid) && username.invalid, 'has-success': username.valid }" required #username="ngModel" name="userName">
         <p class="error" *ngIf="(username.dirty || username.touched || _valid) && username.invalid"><img src="assets/img/index/tips.png" alt="">请输入账号</p>
 
 
-        <input type="text" class="password" placeholder="请输入密码" [(ngModel)]="passWord" [ngClass]="{ userOn: (password.dirty || password.touched || _valid) && password.invalid}" required #password="ngModel" name="passWord">
+        <input type="text" class="password" placeholder="请输入密码" [(ngModel)]="passWord" [ngClass]="{ 'has-error': (password.dirty || password.touched || _valid) && password.invalid, 'has-success': password.valid}" required #password="ngModel" name="passWord">
         <p class="error" *ngIf=" (password.dirty || password.touched || _valid) && password.invalid"><img src="assets/img/index/tips.png" alt="">请输入密码</p>
 
 
         <div class="verification clear">
-          <input type="text" class="verifica" [(ngModel)]="vertCode" placeholder="请输入右侧验证码" [ngClass]="{ userOn: (vertcode.dirty || vertcode.touched || _valid) && vertcode.invalid}" required   #vertcode="ngModel" name="vertCode">
+          <input type="text" class="verifica" [(ngModel)]="vertCode" placeholder="请输入右侧验证码" [ngClass]="{ 'has-error': (vertcode.dirty || vertcode.touched || _valid) && vertcode.invalid, 'has-success': vertcode.valid}" required   #vertcode="ngModel" name="vertCode">
           <a href="javascript:;" class="vertifyCode">
             <!--点击后给的就是一张图片-->
             <img [src]="vertCodeUrl" width="100%" height="100%" style="border-radius:4px;" title="看不清" (click)="verifyCode()">

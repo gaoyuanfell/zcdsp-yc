@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('sssssssss')
     this.verifyCode();
   }
   userName;
@@ -147,6 +148,7 @@ export class LoginComponent implements OnInit {
           this.old_pwd = undefined;
           this.pwd_code = undefined;
           this.userName = undefined;
+          // this.verifyCode();
         }
     }, error => {
       this.pwd_show = false;
