@@ -14,14 +14,14 @@ const routes: Routes = [
   {path: 'landing', loadChildren: './landing-page/landing-page.module#LandingPageModule'},
   {path: 'template', loadChildren: './template-page/template-page.module#TemplatePageModule'},
   {
-    path: '/home',
+    path: 'home',
     canActivate: [TokenGuard, MenuGuard],
     component: HomeComponent,
   },
-  // {
-  //   path: '/',
-  //   component: BoardComponent,
-  // }
+  {
+    path: '',
+    component: BoardComponent,
+  }
 ];
 
 @NgModule({
