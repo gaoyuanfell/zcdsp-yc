@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AddCreativeComponent } from './add-creative.component';
+import {AddCreativeComponent} from './add-creative.component';
 
 describe('AddCreativeComponent', () => {
   let component: AddCreativeComponent;
@@ -8,9 +8,9 @@ describe('AddCreativeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddCreativeComponent ]
+      declarations: [AddCreativeComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -35,6 +35,10 @@ import {FixedModule} from '../components/fixed/fixed.module';
 import {SidebarModule} from '../components/sidebar/sidebar.module';
 import {AnchorModule} from '../components/anchor/anchor.module';
 import {BackTopModule} from '../components/back-top/back-top.module';
+import {CreativeTemplateModule} from '../components/creative-template/creative-template.module';
+import {CreativeBoxModule} from '../components/creative-box/creative-box.module';
+import {CreativeMaterialModule} from '../components/creative-material/creative-material.module';
+import {TooltipModule} from '../components/tooltip/tooltip.module';
 
 @NgModule({
   imports: [
@@ -68,7 +72,11 @@ import {BackTopModule} from '../components/back-top/back-top.module';
     FixedModule,
     SidebarModule,
     AnchorModule,
-    BackTopModule
+    BackTopModule,
+    CreativeTemplateModule,
+    CreativeBoxModule,
+    CreativeMaterialModule,
+    TooltipModule,
   ],
   declarations: [],
   exports: [
@@ -102,7 +110,11 @@ import {BackTopModule} from '../components/back-top/back-top.module';
     FixedModule,
     SidebarModule,
     AnchorModule,
-    BackTopModule
+    BackTopModule,
+    CreativeTemplateModule,
+    CreativeBoxModule,
+    CreativeMaterialModule,
+    TooltipModule,
   ],
   providers: [
     {

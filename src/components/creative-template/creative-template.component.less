@@ -1,0 +1,105 @@
+.canvas-box{
+  > canvas{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+}
+
+.template-list{
+  width: 93%;
+  position: relative;
+  .template-item{
+    width: 192px;
+    height: 100px;
+    border-radius: 2px;
+    border: 4px solid #dbdde2;
+    background-color: #ffffff;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 12px;
+    &.active {
+      border: 2px solid #2e90ff;
+    }
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+  .left-operating, .right-operating {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    cursor: pointer;
+  }
+  .left-operating {
+    left: -36px;
+  }
+  .right-operating {
+    right: -36px;
+  }
+}
+
+.form-control{
+  display: block;
+  color: #aaaaab;
+  transition: opacity .2s;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  float: left;
+  background-color: transparent;
+  padding-top: 0;
+  margin-top: 0;
+  opacity: 1;
+  height: 47px;
+  line-height: 47px;
+  font-size: 14px;
+}
+
+.form-group{
+  position: relative;
+  padding-bottom: 0;
+  margin-right: 10px;
+  .bg-line{
+    height: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border: 1px solid #404146;
+    border-top: 0;
+    transition: border-color .2s;
+  }
+  .font-size-change{
+    display: inline-block;
+    height: 22px;
+    width: 22px;
+    margin: 13px 9px;
+    font-size: 18px;
+    color: #aaa;
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+.close-template{
+  position: absolute;
+  top: -20px;
+  right: -6px;
+  display: block;
+  font-size: 42px;
+  padding: 20px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.ir{
+  border-bottom: 10px solid #222;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  height: 0;
+  width: 0;
+}

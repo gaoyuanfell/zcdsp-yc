@@ -51,7 +51,7 @@ export class Dialog {
       backdropClass: 'cdk-overlay-dark-backdrop',
       hasBackdrop: true,
       maxWidth: config.maxWidth,
-      maxHeight: '80vh'
+      maxHeight: config.maxHeight
     });
     this.popupRef = this._overlay.create(overlayConfig);
     this.popupRef.backdropClick().subscribe(() => {

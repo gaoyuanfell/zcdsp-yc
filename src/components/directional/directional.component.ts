@@ -10,15 +10,14 @@ import {
   SimpleChanges
 } from '@angular/core';
 import {panel} from '../../app/animations/panel';
-import {Store, select} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/model';
-import {concat, forkJoin, Observable} from 'rxjs';
-import {Directional, DirectionalState} from '../../store/model/directional.state';
-import * as directionalReducer from '../../store/reducer/directional.reducer'
-import * as directionalAction from '../../store/actions/directional.action'
+import {Observable} from 'rxjs';
+import {Directional} from '../../store/model/directional.state';
+import * as directionalReducer from '../../store/reducer/directional.reducer';
+import * as directionalAction from '../../store/actions/directional.action';
 import {DirectionalDataService} from '../../service/directional-data.service';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {concatAll} from 'rxjs/operators';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -39,7 +38,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     panel
   ],
 })
-export class DirectionalComponent implements OnInit, AfterViewInit,ControlValueAccessor,OnChanges {
+export class DirectionalComponent implements OnInit, AfterViewInit, ControlValueAccessor, OnChanges {
 
   areasState$: Observable<Directional>;
   areasResult$: Observable<Array<any>>;
@@ -72,7 +71,6 @@ export class DirectionalComponent implements OnInit, AfterViewInit,ControlValueA
   setAreasNextChild({value, index}) {
     this.store.dispatch(new directionalAction.AreasNextChild({value, index}));
     // this._directionalDataService.funcAreasNextChild({value, index});
-    this.changeDetectorRef.markForCheck();
   }
 
   /**
@@ -219,42 +217,43 @@ export class DirectionalComponent implements OnInit, AfterViewInit,ControlValueA
     // this.audiencesAction2Result$ = _directionalDataService.audiencesAction2Result$;
   }
 
-  get areasChildList(){
-    return this._directionalDataService.areasChildList
-  }
-  get lbsCityList(){
-    return this._directionalDataService.lbsCityList
-  }
-  get audiencesActionList(){
-    return this._directionalDataService.audiencesActionList
-  }
-  get audiencesAction2List(){
-    return this._directionalDataService.audiencesAction2List
+  get areasChildList() {
+    return this._directionalDataService.areasChildList;
   }
 
-  trackByFn(index, item){
+  get lbsCityList() {
+    return this._directionalDataService.lbsCityList;
+  }
+
+  get audiencesActionList() {
+    return this._directionalDataService.audiencesActionList;
+  }
+
+  get audiencesAction2List() {
+    return this._directionalDataService.audiencesAction2List;
+  }
+
+  trackByFn(index, item) {
     return index;
   }
 
   ngOnInit() {
-    this._directionalDataService.result$.subscribe(data => {
-      this.onChange(data);
-    })
+
   }
 
   ngAfterViewInit(): void {
-    console.info('ngAfterViewInit');
+
   }
 
   result;
 
-  onChange = (value) => {}
-  onTouched = () => {}
+  onChange = (value) => {
+  };
+  onTouched = () => {
+  };
 
-  @Input() set value(result){
-    if(result){
-      this._directionalDataService.resultSubject.next(result);
-    }
+  @Input() set value(result) {
+
   }
 
   registerOnChange(fn: any): void {
@@ -267,13 +266,10 @@ export class DirectionalComponent implements OnInit, AfterViewInit,ControlValueA
 
   writeValue(obj: any): void {
     this.result = obj;
-    this._directionalDataService.resultSubject.next(this.result);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.changeDetectorRef.markForCheck()
+    this.changeDetectorRef.markForCheck();
   }
-
-
 
 }
