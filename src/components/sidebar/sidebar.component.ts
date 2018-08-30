@@ -21,7 +21,7 @@ export class SidebarComponent implements OnInit {
     this.changeDetectorRef.markForCheck()
   }
 
-  private _close(){
+  _close(){
     this.opened = false;
     this.changeDetectorRef.markForCheck()
     this.closeSubject.next()
