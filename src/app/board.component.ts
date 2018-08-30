@@ -17,6 +17,7 @@ export class BoardComponent implements OnInit {
 
   constructor(private renderer: Renderer2,
               private _scrollService: ScrollService,) {
+    console.log('你咋进来的？')
   }
 
   hash = 'home'
@@ -134,7 +135,7 @@ export class BoardComponent implements OnInit {
 
   scrollTop(name) {
     this.hash = name
-    this.containerFullRef.nativeElement.scrollTop = document.getElementById(name).offsetTop - 80
+    this.containerFullRef.nativeElement.scrollTop = `document.getElementById(name).offsetTop - 80px`
     if (name === 'home') {
       this.containerFullRef.nativeElement.scrollTop = 0
       // this._scrollService.scrollTo(this.containerFullRef.nativeElement, {top: 0})

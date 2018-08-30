@@ -43,7 +43,12 @@ export class LoginComponent implements OnInit {
        password: SparkMD5.hash(this.passWord),
        veritycode: this.vertCode
      }).subscribe(res => {
-       this.router.navigate(['/'])
+       console.log(res)
+       if (res.success === 200 ) {
+         this.router.navigate(['/home'])
+       } else {
+         this.router.navigate(['/'])
+       }
      })
    }
   }

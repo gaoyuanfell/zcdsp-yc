@@ -39,13 +39,16 @@ export class MenuGuard implements CanActivate, CanActivateChild, CanLoad {
       map(res => {
         if (res.success === 200) {
           const menu = res.result;
-          // menu.forEach((m, i) => {
-          //   const bo = m.code === 'ZCMOBI_ADS_USER' || m.code === 'ZCMOBI_US_USER';
-          //   if (bo) {
-          //     this._global.userMenu = m;
-          //     menu.splice(i, 1);
-          //   }
-          // });
+          console.log('先进来')
+          console.log(menu)
+          menu.forEach((m, i) => {
+            const bo = m.code === 'ZCMOBI_ADS_USER' || m.code === 'ZCMOBI_US_USER';
+            if (bo) {
+              this._global.userMenu = m;
+              menu.splice(i, 1);
+            }
+          });
+          this._global.menus = menu;
           this.$store.dispatch(new MenuAction.AssignMenu(menu));
           return true;
         }
