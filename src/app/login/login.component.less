@@ -57,6 +57,7 @@
     }
   }
 }
+
 .from{
   width:438px;
   margin:0 auto;
@@ -68,8 +69,11 @@
     color: #313a5a;
     padding-left: 45px;
     margin: 10px 0;
-    &.userOn {
+    &.has-error {
       border:1px solid red;
+    }
+    &.has-success {
+      border:1px solid #0d98f3;
     }
     &:focus {
       border:1px solid #0d98f3;
@@ -81,7 +85,7 @@
       }
       &.verifica{
         background: url("../../assets/img/index/yz1.png") 20px center no-repeat;
-        width: 300px;
+        width: 270px;
         float: left;
       }
     }
@@ -94,7 +98,7 @@
   }
   .verifica{
     background: url("../../assets/img/index/yz.png") 20px center no-repeat;
-    width: 300px;
+    width: 270px;
     float: left;
   }
   .verifica-img{
@@ -112,6 +116,9 @@
     font-size: 24px;
     outline: none;
     cursor: pointer;
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 }
 .error{
@@ -153,7 +160,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
+    //margin-bottom: 20px;
   }
   .send{
     float: right;
@@ -161,16 +168,18 @@
     height:50px;
     line-height: 50px;
     background: #86cbf9;
-    margin-top: 10px;
     font-size: 18px;
     color: #fff;
     cursor: pointer;
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
   .login{
     margin-top: 30px;
   }
   .radio{
-    margin: 10px 0;
+    margin: 20px 0;
     text-align: left;
   }
   .radio_label{
@@ -235,8 +244,8 @@
 
 a.vertifyCode {
   display: inline-block;
-  width: 90px;
-  height: 34px;
+  width: 110px;
+  height: 45px;
   background: url(../../assets/img/login/yanzhengm.png) no-repeat;
   vertical-align: middle;
   margin-bottom: 3px;
@@ -247,4 +256,15 @@ a.vertifyCode {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+.forgetCode {
+  text-indent: 5px;
+  border:1px #d6d8de solid;
+  height:50px;
+  margin-right:10px;
 }
