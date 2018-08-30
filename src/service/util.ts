@@ -166,3 +166,34 @@ export function sleep(time) {
     }, time);
   });
 }
+
+function prefixInteger(num, length) {
+  return ('0000000000000000' + num).substr(-length);
+}
+
+
+/**
+ *
+ * @param list
+ * @returns {any[]}
+ */
+export function hoursFormat(list) {
+  let result = [];
+  let li = [];
+  for (let i = 0; i < list.length; i++) {
+    let b = list[i];
+    if (b) {
+      li.push(i);
+    } else {
+      if (li.length) {
+        result.push(`${prefixInteger(li[0], 2)}:00~${prefixInteger(li[li.length - 1], 2)}:59`);
+        li.length = 0;
+      }
+    }
+  }
+  if (li.length) {
+    result.push(`${prefixInteger(li[0], 2)}:00~${prefixInteger(li[li.length - 1], 2)}:59`);
+    li.length = 0;
+  }
+  return result;
+}

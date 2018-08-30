@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {AutoCookie} from '../../../../decorator/decorator';
 import {CreativeService} from '../../../../service/customer/creative.service';
 import {Dialog} from '../../../../components/dialog/dialog';
@@ -6,6 +6,8 @@ import {Notification} from '../../../../components/notification/notification';
 import {Global} from '../../../../service/global';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TableComponent} from '../../../../components/table/table.component';
+import {hoursFormat} from '../../../../service/util';
+import {Sidebar} from '../../../../components/sidebar/sidebar';
 
 @Component({
   selector: 'app-creative',
@@ -244,10 +246,198 @@ export class CreativeComponent implements OnInit {
     }
   }
 
+  //////******************************************************************//////////
+
+  @ViewChild('creativeDetail',{read:TemplateRef}) creativeDetailRef : TemplateRef<any>
+
+  show_hour_today_format
+
+  chartDataInstance
+  creativeCode = 'pv';
+  creativeChartData
+  private _chartDataRef
+  @ViewChild('chartData') set  chartDataRef(value: ElementRef){
+    this._chartDataRef = value
+  }
+  get chartDataRef(){
+    return this._chartDataRef;
+  }
+
+  creativeData
+  direction
+  orientationValue
+
+  creativeValue
+
+  /**
+   * this.elements = res.result.creative.material_elements;
+   this.value = res.result.creative.elements;
+   * @param data
+   */
+
+  openCampaignDetail(data){
+    this._creativeService.creativeDetail({creative_id: data.creative_id}).subscribe(res => {
+
+      this._sidebar.open(this.creativeDetailRef);
+
+      this.creativeChartData = res.result.report;
+      this.creativeValue = res.result.creative.elements;
+      this.creativeData = res.result.creative;
+      this.direction = res.result.direction;
+      this.orientationValue = res.result.direction_name_values;
+
+      if (res.result.show_hour_today) {
+        this.show_hour_today_format = hoursFormat(res.result.show_hour_today).join(' ');
+      } else {
+        this.show_hour_today_format = undefined;
+      }
+      this.changeDetectorRef.markForCheck();
+      setTimeout(()=> {
+        this.chartData();
+        this._changeCampaignAndCreativeChart(this.chartDataInstance, this.creativeChartData, this.creativeCode);
+      })
+
+    })
+  }
+
+  /**
+   * 今日在投创意 今日在投活动 类型切换
+   * @param echartsInstance
+   * @param data
+   * @param type
+   */
+  _changeCampaignAndCreativeChart(echartsInstance, data, type) {  // echarts 表单数组
+    if (!data) return
+    let suffix;
+    let d = data.y[type];
+    let max;
+    switch (type) {
+      case 'pv':
+      case 'click':
+        suffix = '次';
+        // max = (value) => {
+        //   return value.max <= 5000 ? 5000 : Math.round(value.max);
+        // };
+        break;
+      case 'ctr':
+        suffix = '%';
+        d = d.map(td => (td * 100).toFixed(2));
+        break;
+      case 'cpm':
+        suffix = '元';
+        d = d.map(td => (td * 1000).toFixed(2));
+        break;
+      case 'cpc':
+      case 'admoney':
+        d = d.map(td => (td * 1).toFixed(2));
+        suffix = '元';
+        break;
+    }
+
+    let option: any = {
+      xAxis: {
+        data: data.x
+      },
+      yAxis: {
+        axisLabel: {
+          formatter: `{value} ${suffix}`
+        }
+      },
+      series: [
+        {data: d},
+      ]
+    }
+
+    if (max) {
+      option.yAxis.max = max
+    } else {
+      option.yAxis.max = null;
+    }
+    echartsInstance.setOption(option);
+  }
+
+  chartData() {
+    const chartDataRef = this.chartDataInstance = echarts.init(this.chartDataRef.nativeElement);
+    chartDataRef.setOption({
+      title: {
+        text: '实时数据',
+        textStyle: {
+          fontWeight: 700,
+          fontSize: 16,
+          color: '#616366',
+          align: 'left'
+        },
+        padding: 0
+      },
+      color: ['#2e90ff', '#ffa542'],
+      tooltip: {
+        trigger: 'axis'
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        axisLine: {
+          show: false,
+          lineStyle: {
+            color: '#979899'
+          }
+        },
+        axisTick: {
+          show: false,
+        },
+        splitLine: {
+          lineStyle: {
+            color: '#e7ecf3'
+          }
+        }
+      },
+      yAxis: {
+        type: 'value',
+        axisLine: {
+          show: false,
+          lineStyle: {
+            color: '#979899'
+          }
+        },
+        axisTick: {
+          show: false,
+        },
+        splitLine: {
+          lineStyle: {
+            color: '#e7ecf3'
+          }
+        },
+        axisLabel: {
+          formatter: '{value} 次'
+        }
+      },
+      series: [
+        {
+          name: '今日数据',
+          type: 'line',
+          stack: '总量',
+          areaStyle: {
+            color: 'rgba(46, 144, 255, 0.3)'
+          }
+        }
+      ]
+    });
+    window.addEventListener('resize', () => {
+      chartDataRef.resize();
+    });
+  }
+
   constructor(private _creativeService: CreativeService,
               private _notification: Notification,
               private _dialog: Dialog,
               private  _global: Global,
+              private _sidebar: Sidebar,
               private changeDetectorRef: ChangeDetectorRef,
               private router: Router,
               private route: ActivatedRoute) {
