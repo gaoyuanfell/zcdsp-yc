@@ -17,6 +17,7 @@ export class BoardComponent implements OnInit {
 
   constructor(private renderer: Renderer2,
               private _scrollService: ScrollService,) {
+    console.log('你咋进来的？')
   }
 
   hash = 'home'
