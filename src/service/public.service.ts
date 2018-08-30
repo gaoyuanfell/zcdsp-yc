@@ -23,6 +23,33 @@ export class PublicService extends ConfigService {
   }
 
   /**
+   *  发送短信或邮件验证码，用于执行找回密码的更新密码步骤前
+   * @param {{}} body {username,password,veritycode}
+   * @returns {Observable<Result<any>>}
+   */
+  send(body = {}) {
+    return this.postForm('/jurisdiction/send/verifycode', body);
+  }
+
+  /**
+   *  验证用户填写的验证码是否和邮箱或者短信发的验证码一致
+   * @param {{}} body {username,password,veritycode}
+   * @returns {Observable<Result<any>>}
+   */
+  checkVerifycode(body = {}) {
+    return this.postForm('/jurisdiction/check/verifycode', body);
+  }
+
+  /**
+   *  验证用户填写的验证码是否和邮箱或者短信发的验证码一致
+   * @param {{}} body {username,password,veritycode}
+   * @returns {Observable<Result<any>>}
+   */
+  resetPassword(body = {}) {
+    return this.postForm('/jurisdiction/reset/password', body);
+  }
+
+  /**
    * 用户权限接口
    * @param {{}} body {pcode}
    * @returns {Observable<Result<any>>}
