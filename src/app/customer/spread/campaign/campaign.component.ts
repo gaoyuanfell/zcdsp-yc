@@ -6,6 +6,7 @@ import {Dialog} from '../../../../components/dialog/dialog';
 import {Notification} from '../../../../components/notification/notification';
 import {CampaignService} from '../../../../service/customer/campaign.service';
 import {TableComponent} from '../../../../components/table/table.component';
+import {Sidebar} from '../../../../components/sidebar/sidebar';
 
 @Component({
   selector: 'app-campaign',
@@ -330,12 +331,22 @@ export class CampaignComponent implements OnInit {
     })
   }
 
+
+  // 显示活动详情
+  @ViewChild('campaignDetail', {read: TemplateRef}) campaignDetailRef: TemplateRef<any>;
+
+  openCampaignDetail(){
+    this._sidebar.open(this.campaignDetailRef)
+  }
+
+
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private router: Router,
               private route: ActivatedRoute,
               private _notification: Notification,
               private  _global: Global,
               private _dialog: Dialog,
+              private _sidebar: Sidebar,
               private _campaignService: CampaignService) {
     let params = route.snapshot.params;
     let queryParams = route.snapshot.queryParams;

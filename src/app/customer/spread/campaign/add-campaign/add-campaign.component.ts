@@ -358,13 +358,19 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
 
   setOrientation(data) {
     this._directionalService.getOrientationDetail({search_text: data.value}).subscribe(res => {
-      this.orientation = {
+
+      console.info(res);
+
+      delete res.result.dtl_address.selected_lbs_location_details;
+      delete res.result.dtl_address.selected_lbs_locations;
+
+      this.directional = {
         dtl_address: res.result.dtl_address,
         dtl_attribute: res.result.dtl_attribute,
         dtl_behavior: res.result.dtl_behavior,
         dtl_devices: res.result.dtl_devices,
-        lbs_scene_type: res.result.lbs_scene_type,
-      };
+      }
+
     });
   }
 
@@ -491,7 +497,7 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
     let data = route.snapshot.data;
     this.id = params.id;
 
-    _templateService.getUserTpls({is_select_data: true}).subscribe(res => {
+    _templateService.landingSelect().subscribe(res => {
       this.templateList = res.result
     })
   }

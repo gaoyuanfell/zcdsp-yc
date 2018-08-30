@@ -32,6 +32,7 @@ import {TableModule} from '../components/table/table.module';
 import {PopoverModule} from '../components/popover/popover.module';
 import {FormTipsModule} from '../components/form-tips/form-tips.module'
 import {FixedModule} from '../components/fixed/fixed.module';
+import {SidebarModule} from '../components/sidebar/sidebar.module';
 import {AnchorModule} from '../components/anchor/anchor.module';
 import {BackTopModule} from '../components/back-top/back-top.module';
 
@@ -65,6 +66,7 @@ import {BackTopModule} from '../components/back-top/back-top.module';
     PopoverModule,
     FormTipsModule,
     FixedModule,
+    SidebarModule,
     AnchorModule,
     BackTopModule
   ],
@@ -98,6 +100,7 @@ import {BackTopModule} from '../components/back-top/back-top.module';
     PopoverModule,
     FormTipsModule,
     FixedModule,
+    SidebarModule,
     AnchorModule,
     BackTopModule
   ],

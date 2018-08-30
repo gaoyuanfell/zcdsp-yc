@@ -1,27 +1,44 @@
-import {Component, NgModule, OnDestroy} from '@angular/core';
+import {Component, NgModule, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {Module} from '../module';
 import {MenuGuard} from '../../auth/menu.guard';
-import {DirectionalDataService} from '../../service/directional-data.service';
+import {Sidebar} from '../../components/sidebar/sidebar';
 
 @Component({
   selector: 'app-lazy-view',
   styles: [],
   template: `
     <div style="width: 100%;height: 100%;overflow: auto">
-      <yc-directional></yc-directional>
+      
+      
+      
     </div>
   `
 })
-export class LazyComponent implements OnDestroy {
+export class LazyComponent implements OnDestroy, OnInit {
 
-  concatFUn(){
+  @ViewChild('template' ,{read: TemplateRef}) template: TemplateRef<any>
+
+  open(){
+    this._sidebar.open(this.template).subscribe(da => {
+      console.info()
+    })
+  }
+
+  result;
+
+  concatFUn() {
 
   }
 
-  constructor() {
+  constructor(private _sidebar: Sidebar) {
     this.concatFUn();
   }
+
+  ngOnInit(): void {
+
+  }
+
 
   ngOnDestroy(): void {
 

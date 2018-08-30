@@ -94,6 +94,33 @@ export function recursionResult2(list, result = []) {
 }
 
 /**
+ * 数据回显
+ * @param target [0,2 一组id]
+ * @param list
+ * @param {string} key
+ */
+export function recursionFilter(target, list, key = 'id') {
+  if (!(target instanceof Array) || !(list instanceof Array)) return;
+  list.forEach((data) => {
+    let bo = target.find((d => {
+      if (d == data[key]) {
+        return d;
+      }
+    }));
+    if (bo) {
+      data.checked = true;
+      data.checkState = 1;
+      recursionChildCheck(data);
+      recursionParentCheck(data);
+    }
+    let child = data.children;
+    if (child instanceof Array && child.length > 0) {
+      recursionFilter(target, child);
+    }
+  });
+}
+
+/**
  *
  * @param {string} url
  * @returns {Promise<any>}
@@ -117,7 +144,7 @@ export function image(url: string) {
  * @param {number} size
  * @returns {any[]}
  */
-export function splitArray(array, size = 100) {
+export function splitArray(array, size = 500) {
   let result = [];
   for (let x = 0; x < Math.ceil(array.length / size); x++) {
     let start = x * size;
