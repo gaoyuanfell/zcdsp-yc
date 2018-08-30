@@ -18,10 +18,10 @@ const routes: Routes = [
     canActivate: [TokenGuard, MenuGuard],
     component: HomeComponent,
   },
-  {
-    path: '/',
-    component: BoardComponent,
-  }
+  // {
+  //   path: '/',
+  //   component: BoardComponent,
+  // }
 ];
 
 @NgModule({
