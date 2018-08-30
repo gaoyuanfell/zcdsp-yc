@@ -6,7 +6,7 @@ import * as reducerMenu from '../../store/reducer/menu.reducer';
 import {fromEvent, Observable, Subject} from 'rxjs';
 import {Loading} from '../../components/loading/loading.service';
 import {Global} from '../../service/global';
-import {DirectionalDataService} from '../../service/directional-data.service';
+import * as directionalAction from '../../store/actions/directional.action'
 
 @Component({
   selector: 'app-home',
@@ -58,9 +58,10 @@ export class HomeComponent implements OnInit,OnDestroy {
               private route: ActivatedRoute,
               private router: Router,
               private _global: Global,
-              private _loading: Loading,
-              private _directionalDataService: DirectionalDataService) {
-    _directionalDataService.init();
+              private _loading: Loading) {
+    this.store.dispatch(new directionalAction.DirectionalInit());
+    this.store.dispatch(new directionalAction.LbsCityInit());
+    this.store.dispatch(new directionalAction.AudiencesActionInit());
     this.menuList$ = store.pipe(select(reducerMenu.MenuList));
   }
 }

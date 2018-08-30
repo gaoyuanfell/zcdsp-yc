@@ -1,3 +1,213 @@
-<p>
-  add-creative works!
-</p>
+<!--<div class="anchor-position" *ngIf="_campaignShow">
+  <div class="anchor-position">
+    <yc-anchor [overflow]="containerFullRef">
+      <a anchor-link="#xuanzehuodong" [active]="true">选择活动</a>
+      <a anchor-link="#toufangmeiti">投放媒体</a>
+      <a anchor-link="#chujia">出价</a>
+      <a anchor-link="#dingxiang">定向设置</a>
+    </yc-anchor>
+  </div>
+</div>-->
+
+<div class="extension-nav">
+  <ng-template [ngForOf]="navList" ngFor let-nav let-index>
+    <div class="nav-feedback-list">
+      <p class="nav-list-title" [ngClass]="{'current': nav.status === 1,'active': nav.status === 2}">{{nav.name}}</p>
+      <div class="nav-feedback-list-item">
+        <ng-template [ngForOf]="nav.child" ngFor let-navChild let-index>
+          <p [ngClass]="{'current': navChild.status === 1,'active': navChild.status === 2}" (click)="navScrollTo(navChild.id)"> <i class="icon-data-yes"></i>{{navChild.name}}</p>
+        </ng-template>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<div class="submit-toolbar">
+  <div class="submit-box flex-center">
+    <p class="cover-people">可覆盖<span>{{(_audienceCount || 0) | number}}</span>人</p>
+    <button class="btn" (click)="save()"><span style="padding: 0 20px;">提 交</span></button>
+    <span class="add-creative-info">创意上传成功后将在1~3个工作日内审核完毕，若给您带来不便敬请谅解！</span>
+  </div>
+</div>
+
+<div class="extension-main">
+
+  <h2 class="extension-title">
+    选择活动
+  </h2>
+
+  <div class="extension-form-box">
+
+    <div class="form-group flex-center">
+      <label class="form-label">所属活动</label>
+      <div class="form-input">
+        <yc-select [width]="350" [searchCtrl]="true" [allowClear]="true" [(ngModel)]="campaign_id" placeholder="请选择活动名称" [list]="campaignList" (selectedEvent)="campaignChange($event)" [props]="{label:'campaign_name', value:'campaign_id'}"></yc-select>
+      </div>
+      <span class="input-suffix">请选择活动，以激活创意尺寸列表</span>
+    </div>
+
+    <div class="form-group flex-center" *ngIf="_campaignShow">
+      <label class="form-label"></label>
+
+      <div class="preview-text-box">
+        <p class="create-text"><span>推广类型</span> <span>{{campaign.target_type_name}}</span></p>
+        <p class="create-text">
+          <span>落地页</span>
+          <span> <a [href]="campaign.click_link" target="_blank">{{campaign.click_link}} </a> </span>
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <ng-template [ngIf]="_campaignShow">
+    <div class="flex-center">
+      <h2 class="creative-title">
+        投放媒体
+      </h2>
+      <div>
+        <yc-button-group [(ngModel)]="rec_media_type" [list]="[{value:'1',label:'热投媒体'},{value:'2',label:'更多媒体'}]" (ngModelChange)="recMediaChange()"></yc-button-group>
+      </div>
+    </div>
+
+
+    <div class="extension-form-box">
+
+      <div style="padding: 30px 70px">
+        <!--推荐媒体-->
+        <div class="recommend-media flex-wrap-center" *ngIf="rec_media_type === '1'">
+          <div class="item-box" *ngFor="let rml of rec_media_list" [ngClass]="{'active':selectMediaSize === rml}" (click)="changeContentTip(rml)">
+            <p>{{rml.media_name}}</p>
+            <p>{{rml.material_width}}*{{rml.material_height}}</p>
+            <p>{{rml.material_type_name}}</p>
+            <span *ngIf="rml.is_recommend">推荐</span>
+          </div>
+        </div>
+
+        <ng-template [ngIf]="rec_media_type === '2'">
+
+          <div class="flex-center quick-mode">
+            <p><!--按字母查找：--></p>
+            <ul class="flex">
+              <li [ngClass]="{'active': !media_search_letters}" (click)="media_search_letters = ''">全部</li>
+              <li *ngFor="let f of first_char_list" [ngClass]="{'active': media_search_letters == f}" (click)="media_search_letters = f">{{f}}</li>
+            </ul>
+            <yc-input-search [(ngModel)]="media_search_text" placeholder="输入媒体搜索，回车搜索"></yc-input-search>
+          </div>
+
+          <ul class="media-list flex-wrap">
+            <li *ngFor="let media of media_list" [title]="media.media_name" (click)="changeMediaTest(media)" [ngClass]="{'active':selectMedia === media}">{{media.media_name}}</li>
+          </ul>
+
+          <div class="flex-center quick-mode">
+            <p><!--按数字查找：--></p>
+            <ul class="flex">
+              <li [ngClass]="{'active': !material_search_first_char}" (click)="material_search_first_char = ''">全部</li>
+              <li *ngFor="let f of material_first_char_list" [ngClass]="{'active': material_search_first_char == f}" (click)="material_search_first_char = f">{{f}}</li>
+            </ul>
+            <yc-input-search placeholder="输入尺寸搜索 例：1024*768" [(ngModel)]="material_search_first_text"></yc-input-search>
+          </div>
+
+          <div class="size-creative-list-box" *ngIf="media_material_list">
+
+            <div class="overflow-x-s" #overflow>
+              <div class="size-creative-list flex-center" [ngStyle]="{'width.px': 192 * media_material_list.length + 12 * (media_material_list.length - 1) + 30}">
+                <div class="item-box" *ngFor="let mml of media_material_list" [ngClass]="{'active':selectMediaSize === mml}" (click)="changeContentTip(mml)">
+                  <p>{{mml.media_name}}</p>
+                  <p>{{mml.material_width}}*{{mml.material_height}}</p>
+                  <p>{{mml.material_type_name}}</p>
+                  <span *ngIf="mml.is_recommend">推荐</span>
+                </div>
+              </div>
+            </div>
+            <span class="left-operating" (click)="operating(overflow, -overflow.clientWidth / 4 * 3)"></span>
+            <span class="right-operating" (click)="operating(overflow, overflow.clientWidth / 4 * 3)"></span>
+          </div>
+
+        </ng-template>
+
+        <div class="creative-container-box" id="creative-box">
+
+          <div class="creative-logo-box" *ngIf="logoElement">
+            <!--100100的图片-->
+            <div class="creative-logo" yc-file-upload [dataType]="'K'" [accept]="{extensions: logoElement.extensions,maxSize: logoElement.max_file_size, size: logoElement.logo_size}" (eventChange)="logoChange($event)" (eventError)="imgError($event)">
+              <div class="creative-logo-img" [ngClass]="{'active': logoElement[logoElement.name]}" *ngIf="logoElement[logoElement.name]">
+                <img [src]="logoElement[logoElement.name]" alt="logo" #imgLogo>
+              </div>
+              <div class="creative-logo-text">
+                <p>{{logoElement.logo_size}}</p>
+                <p>{{logoElement.placeholder}}</p>
+                <p>{{logoElement.support_file_type}},小于{{logoElement.max_file_size}}KB</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="creative-info-box">
+            <div class="flex">
+              <div class="creative-info-material">
+                <table class="creative-info-table">
+                  <thead>
+                  <tr>
+                    <th>媒体平台</th>
+                    <th>展现形式</th>
+                    <th>尺寸</th>
+                    <th>样式</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>{{selectMediaSize.media_name}}</td>
+                    <td>Banner广告</td>
+                    <td>{{selectMediaSize.material_width}}*{{selectMediaSize.material_height}}</td>
+                    <td>{{selectMediaSize.material_type_name}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div style="padding: 35px;">
+
+                  <yc-creative-box
+                    (elementChange)="elementChange()"
+                    (registerAddCreative)="registerAddCreative($event)"
+                    [(elementList)]="elementList"
+                    [elements]="selectMediaSize?.elements"
+                    [selectMediaSize]="selectMediaSize">
+                  </yc-creative-box>
+
+                </div>
+              </div>
+              <div class="creative-info-photo">
+                <div class="photo-bj">
+                  <img src="assets/img/photo-img-test.png" alt="">
+                </div>
+                <p>投放参考示意图</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="flex">
+      <h2 class="extension-title" id="chujia">
+        出价
+      </h2>
+      <div class="flex" style="margin-top: 30px;">
+        <div class="form-input">
+          <input class="form-control" type="text" [(ngModel)]="ad_price" #ad_price_ref="ngModel" [placeholder]="adPricePlaceholder || '请填写出价'" required
+                 pattern="(^[0-9]\d*\.?\d{0,2}$)"
+                 [ngClass]="{'has-error': (_valid || ad_price_ref.dirty || ad_price_ref.touched) && (ad_price_ref.invalid || ad_price > bid_max || ad_price < bid_min)}">
+          <p class="input-error" *ngIf="(_valid || ad_price_ref.dirty || ad_price_ref.touched) &&  ad_price_ref.invalid">请填写正确的金额</p>
+          <p class="input-error" *ngIf="ad_price_ref.valid && ( ad_price > bid_max || ad_price < bid_min)">出价范围[{{bid_min}}, {{bid_max}}]</p>
+        </div>
+        <span class="input-suffix">元/CPC</span>
+        <span class="input-suffix" *ngIf="ad_price">{{adPricePlaceholder}}</span>
+      </div>
+    </div>
+  </ng-template>
+
+</div>

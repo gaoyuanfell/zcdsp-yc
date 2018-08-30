@@ -1,0 +1,16 @@
+<span class="presentation" href="javascript:void 0">{{config.width}} X {{config.height}}</span>
+
+<div class="flex-wrap-center">
+
+  <ng-template [ngForOf]="historyList" ngFor let-image>
+    <div class="material-item" [ngClass]="{'selected': _image === image}" (click)="selected(image)">
+      <img [src]="image.url">
+
+      <div class="search-icon-box" (click)="search($event, [image.url])">
+        <i class="search-icon"></i>
+      </div>
+
+    </div>
+  </ng-template>
+
+</div>

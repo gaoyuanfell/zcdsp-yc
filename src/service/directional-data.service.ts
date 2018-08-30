@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {DirectionalService} from './customer/directional.service';
-import {forkJoin, Observable, Subject} from 'rxjs';
+import {forkJoin, Observable, Subject, merge} from 'rxjs';
 import {recursionChildCheck, recursionFilter, recursionParentCheck, recursionResult, recursionResult2, sleep, splitArray} from './util';
 
 export interface Directional {
@@ -9,12 +9,23 @@ export interface Directional {
   checkState?: 0 | 1 | 2
 }
 
+export interface AppState{
+  areas?:any
+  lbsCity?:any
+  audiences?:any
+  audiencesAction?:any
+  audiencesAction2?:any
+  device?:any
+}
+
 @Injectable(
   {
     providedIn: 'root'
   }
 )
 export class DirectionalDataService {
+
+  State: AppState = {}
 
   splitTime = 100;
 
@@ -490,9 +501,16 @@ export class DirectionalDataService {
   }
 
   init() {
-    this.initDirectional$().subscribe(res => {
-    }, error => {
-    });
+
+    if(!this.initStatus){
+      this.initDirectional$().subscribe(res => {
+      }, error => {
+      });
+    }else{
+      this.recursionChildData()
+    }
+
+    
   }
 
   result;
@@ -618,20 +636,24 @@ export class DirectionalDataService {
 
   //TODO
   initStatus
-  private nextSubject() {
+  nextSubject() {
+    console.info('nextSubject')
     // areas
+    this.areasResultSubject.next([])
     this.areasSubject.next(this.areas);
     this.areasChildList.push(this.areas.children);
     this.nextAreasChild();
     this.areasChildListSubject.next(this.areasChildList);
 
     // lbsCity
+    this.lbsCityResultSubject.next([])
     this.lbsCitySubject.next(this.lbsCity);
     this.lbsCityList.push(this.lbsCity.children);
     this.funcNextLbsCityChild();
     this.lbsCityListSubject.next(this.lbsCityList);
 
     // audiencesAction
+    this.audiencesActionResultSubject.next([])
     this.audiencesActionSubject.next(this.audiencesAction);
     this.audiencesActionList.push(this.audiencesAction.children);
     this.audiencesActionSplitSubject = new Subject();
@@ -643,6 +665,7 @@ export class DirectionalDataService {
     this.funcNextAudiencesActionChild();
 
     // audiencesAction2
+    this.audiencesAction2ResultSubject.next([])
     this.audiencesAction2Subject.next(this.audiencesAction2);
     this.audiencesAction2List.push(this.audiencesAction2.children);
     this.audiencesAction2SplitSubject = new Subject();

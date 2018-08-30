@@ -1,0 +1,31 @@
+<!--<div class="tips">-->
+  <!--<ng-container #container>{{ycTitle}}</ng-container>-->
+  <!--<div class="triangle_border_down"></div>-->
+<!--</div>-->
+<!--id是标志 不可删除-->
+<div class="popover" [ngClass]="getClass" #popover id="popover">
+  <div class="popover-content">
+    <div class="popover-arrow"></div>
+    <div class="popover-inner">
+      <div class="popover-inner-content" [ngStyle]="{'min-width.px': widthExp}">
+        <div class="popover-title">
+          {{_ycTitle}}
+        </div>
+        <div class="wire"></div>
+        <ng-container >
+          <div *ngIf="flag">
+            <div *ngFor="let x of _result">
+              默认词: <span>{{x.default_word}}</span><br/>
+              说明: <span>{{x.description}}</span>
+            </div>
+          </div>
+          <div *ngIf="!flag">{{_result}}</div>
+        </ng-container>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+

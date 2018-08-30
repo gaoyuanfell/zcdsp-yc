@@ -1,0 +1,82 @@
+<div style="height: 100%;width: 100%;overflow-y: auto;overflow-x: hidden;position: relative;" yc-scroll-more (loadMore)="loadMoreTemplateMaterial($event)">
+  <div style="padding: 5px;">
+    <h2 style="color: #aaa;padding: 10px 0;">选择素材</h2>
+    <yc-select [disabled]="img" [list]="imgType" [searchCtrl]="true" [props]="{label: 'meaning', value: 'lookup_code'}" [(ngModel)]="query.img_type" [placeholder]="'素材分类'" (selectedEvent)="imgTypeChange()"></yc-select>
+  </div>
+
+  <div class="flex-wrap">
+    <ng-template [ngForOf]="imgList" ngFor let-img>
+      <div style="height: 150px;padding: 8px;cursor: pointer;" #imgBox (click)="selectImg(imgRef, imgBox)">
+        <img style="max-height: 100%;max-width: 100%;" #imgRef [src]="img.url" crossorigin="anonymous">
+      </div>
+    </ng-template>
+  </div>
+
+  <div style="position: absolute;right: 0;left: 0;margin: 0 4px;" [ngStyle]="_templateStyle">
+    <div class="ir" [ngStyle]="_templateIrStyle"></div>
+    <div class="flex" style="background: #252527;height: 480px;">
+
+      <div style="border-right: 1px solid #1f1f20;padding: 20px;width: 50%">
+        <div style="position: relative;margin: 0 auto;width: 100%;height: 400px;background: #212123;" class="canvas-box" #canvasBox>
+          <canvas #canvas></canvas>
+          <canvas #drawingCanvas></canvas>
+        </div>
+        <input type="range" [min]="minScale" max="3.0" step="0.01" value="1" [(ngModel)]="scale" style="display: block;width: 300px;margin: 20px auto auto auto;" (ngModelChange)="drawBackgroundImg()">
+      </div>
+      <div style="width: 50%;padding-left: 45px;;position: relative;">
+
+        <ng-template [ngIf]="templateList?.length">
+
+          <h3 style="padding: 10px 0;color: #aaa;">选择模板</h3>
+
+          <yc-select style="margin: 10px 0;" [list]="templateType" [props]="{label: 'meaning', value: 'lookup_code'}" [(ngModel)]="query.template_type" [placeholder]="'模板分类'" (selectedEvent)="selectTemplateList()"></yc-select>
+
+          <div class="template-list">
+            <div style="overflow: hidden" #overflow yc-scroll-more [direction]="'x'" (loadMore)="loadMoreTemplateList($event)">
+              <div class="template-item-box flex-center" [ngStyle]="{'width.px': 192 * templateList?.length + 12 * (templateList?.length - 1)}">
+                <ng-template [ngForOf]="templateList" ngFor let-data>
+                  <div class="template-item" (click)="selectTemplate(data)">
+                    <img style="max-height: 100%;max-width: 100%;" [src]="data.preview_url">
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+            <span class="left-operating" (click)="operating(overflow, -overflow.clientWidth / 4 * 3)"></span>
+            <span class="right-operating" (click)="operating(overflow, overflow.clientWidth / 4 * 3)"></span>
+          </div>
+
+          <h3 style="padding: 10px 0;color: #aaa;">编辑文案</h3>
+
+          <ng-template [ngForOf]="elementTextFilter" ngFor let-ele>
+            <div class="form-group">
+              <div class="form-input flex-center">
+                <input class="form-control" [(ngModel)]="ele.value" (ngModelChange)="textAndImgChange()">
+                <input class="font-size-change" type="color" [(ngModel)]="ele.fill" (ngModelChange)="textAndImgChange()">
+                <span class="font-size-change" (click)="fontSizeChange(ele, 1)">A+</span>
+                <span class="font-size-change" (click)="fontSizeChange(ele, -1)">A-</span>
+              </div>
+              <div class="bg-line"></div>
+            </div>
+          </ng-template>
+
+          <ng-template [ngForOf]="elementFileFilter" ngFor let-ele>
+            <div class="form-group flex-center" style="padding-top: 15px;">
+              <img [src]="_bypassSecurityTrustUrl(ele.value)" style="height: 30px;padding-right: 15px;">
+              <button class="btn" yc-file-upload (eventChange)="upload($event, ele)">上传LOGO</button>
+              <yc-checkbox class="m-l-1" [label]="ele.show?'隐藏':'显示'" [(ngModel)]="ele.show" (ngModelChange)="textAndImgChange()"></yc-checkbox>
+            </div>
+          </ng-template>
+        </ng-template>
+
+        <div style="margin: 25px 0;" class="flex-center">
+          <button class="btn" (click)="_compileCanvasToImg()" [disabled]="_compileLoading">提交</button>
+          <!--<p class="m-l-1">图片会同时保存到"创意库"中</p>-->
+        </div>
+
+        <i class="close-template" (click)="closeTemplate()">&times;</i>
+
+      </div>
+    </div>
+  </div>
+
+</div>
