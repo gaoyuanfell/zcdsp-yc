@@ -37,7 +37,7 @@
 
       <form class="from" #infoForm1="ngForm" (ngSubmit)="save1()" *ngIf="!pwd_show">
 
-        <input class="form-control" type="text"  [(ngModel)]="user_name" placeholder="请填写账号" name="user_name" required (focus)="userNameFocus()" [ngClass]="setInvalidClass(infoForm1, infoForm1.controls['user_name'])">
+        <input class="form-control" type="text" class="name" [(ngModel)]="user_name" placeholder="请填写账号" name="user_name" required (focus)="userNameFocus()" [ngClass]="setInvalidClass(infoForm1, infoForm1.controls['user_name'])">
         <app-form-tips [target]="infoForm1.controls['user_name']"  placeholder="请输入账号" [formTarget]="infoForm1"></app-form-tips>
         <p class="error" *ngIf="_description"><img src="assets/img/index/tips.png" alt="">{{_description}}</p>
 
@@ -58,7 +58,7 @@
 
 
         <div class="verification clear">
-          <input type="text" class="verifica" (focus)="_codeFocus()" [(ngModel)]="pwd_code" placeholder="请输入验证码" name="pwd_code" required [ngClass]="setInvalidClass(infoForm1, infoForm1.controls['pwd_code'])">
+          <input type="text" class="verifica" class="verifica" (focus)="_codeFocus()" [(ngModel)]="pwd_code" placeholder="请输入验证码" name="pwd_code" required [ngClass]="setInvalidClass(infoForm1, infoForm1.controls['pwd_code'])">
           <button type="button" class="send" (click)="verifyPwd()" [disabled]="flagCode || !user_name">{{codeText}}</button>
           <span class="countdown">{{countdown}}</span>
         </div>
@@ -73,8 +73,7 @@
       <form class="from" #infoForm2="ngForm" (ngSubmit)="save2()" *ngIf="pwd_show">
 
         <!-- 这一块的用户名就是确定值啦-->
-        <input type="text" class="name"  [(ngModel)]="user_name" readonly name="xxx">
-
+        <input class="pUser name" [(ngModel)]="user_name" readonly>
 
         <!--是否显示密码框-->
         <div>
