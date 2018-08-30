@@ -153,9 +153,8 @@ export class LoginComponent implements OnInit {
   codeFocus() {
     this.pwd_vertify_show = undefined;
   }
-  typeFocus() {
-    this.type_show = undefined;
-  }
+
+
 
   password;
   old_pwd;

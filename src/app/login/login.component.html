@@ -44,16 +44,16 @@
 
         <div class="radio">
           <label for="phone-verification" class="radio_label">
-            <input type="radio" name="radio" checked="checked" id="phone-verification" (change)=" type = 1 "/>
+            <input type="radio" name="radio" checked="checked" id="phone-verification" (change)=" type = 1; type_show = undefined "/>
             <span></span>
             <i>手机验证</i>
           </label>
           <label for="mail-verification" class="radio_label">
-            <input type="radio" name="radio" id="mail-verification" (change)=" type = 2 "/>
+            <input type="radio" name="radio" id="mail-verification" (change)=" type = 2; type_show = undefined"/>
             <span></span>
             <i>邮箱验证</i>
           </label>
-          <div *ngIf="type_show" (focus)="typeFocus()">{{type_show}}</div>
+          <div *ngIf="type_show">{{type_show}}</div>
         </div>
 
 
