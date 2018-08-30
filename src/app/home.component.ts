@@ -15,7 +15,9 @@ export class HomeComponent{
               private route: ActivatedRoute,
               private swUpdate: SwUpdate) {
     console.log("hahahahhaha")
-    let menus = this._global.menus
+    let menus = this._global.menus;
+    console.log(menus)
+    console.log(route)
     if (menus && menus.length > 1) {
       router.navigate([menus[0].route], {queryParams: {...route.snapshot.queryParams}, replaceUrl: true})
     }
