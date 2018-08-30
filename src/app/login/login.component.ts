@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
     // this.type_show = undefined;
     this.forget_vertify_Code();
     this._dialog.open(this.code_template_ref, {title: '', flag: true, async: true}).subscribe((data: any) => {
-        if (data && this.forget_code_ref.valid) {
+        if (data && this.forget_code_ref.valid && !this.pwd_vertify_show) {
           let obj = {
             type: this.type,
             user_name: this.user_name,
@@ -113,7 +113,7 @@ export class LoginComponent implements OnInit {
     }
     return cl;
   }
-
+  _code;
   // 验证
   save1() {
      let obj = {
@@ -125,6 +125,7 @@ export class LoginComponent implements OnInit {
         this.pwd_show = true;
       }
     }, error => {
+      this._code = error.errorList[0]._code === 'code' ?  error.errorList[0]._description : undefined;
       this.pwd_show = false;
     })
   }
@@ -152,6 +153,9 @@ export class LoginComponent implements OnInit {
   }
   codeFocus() {
     this.pwd_vertify_show = undefined;
+  }
+  _codeFocus() {
+    this._code = undefined;
   }
 
 
