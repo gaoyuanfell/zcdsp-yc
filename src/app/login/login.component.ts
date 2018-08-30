@@ -90,8 +90,11 @@ export class LoginComponent implements OnInit {
                 this.codeTest()
               }
           }, error => {  // 这边做了处理 前端是抛出异常
-              this._description = error.errorList[0]._code === 'user_name' ?  error.errorList[0]._description : undefined;
               this.pwd_vertify_show = error.errorList[0]._code === 'img_code' ?  error.errorList[0]._description : undefined;
+              if (error.errorList[0]._code === 'user_name' || error.errorList[0]._code === 'type') {
+                data();
+              }
+              this._description = error.errorList[0]._code === 'user_name' ?  error.errorList[0]._description : undefined;
               this.type_show = error.errorList[0]._code === 'type' ?  error.errorList[0]._description : undefined;
               this.pwd_show = false;
           })
@@ -138,7 +141,12 @@ export class LoginComponent implements OnInit {
     }
     this._publicService.resetPassword(obj).subscribe( res => {
         if (res.success === 200 ) {
-          this.router.navigate(['/login'])
+          this.flags = false;
+          this.pwd_show = false;
+          this.password = undefined;
+          this.old_pwd = undefined;
+          this.pwd_code = undefined;
+          this.userName = undefined;
         }
     }, error => {
       this.pwd_show = false;
