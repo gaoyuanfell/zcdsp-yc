@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
           let obj = {
             type: this.type,
             user_name: this.user_name,
-            verifycode: this.forgetCode
+            img_code: this.forgetCode
           }
           this._publicService.send(obj).subscribe( res => {  // 调用成功后，手机上会出现验证码
               if (res.success === 200) {
