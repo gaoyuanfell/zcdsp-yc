@@ -1,13 +1,13 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {AutoCookie} from '../../../../decorator/decorator';
-import {CreativeService} from '../../../../service/customer/creative.service';
-import {Dialog} from '../../../../components/dialog/dialog';
-import {Notification} from '../../../../components/notification/notification';
-import {Global} from '../../../../service/global';
-import {ActivatedRoute, Router} from '@angular/router';
-import {TableComponent} from '../../../../components/table/table.component';
-import {hoursFormat} from '../../../../service/util';
-import {Sidebar} from '../../../../components/sidebar/sidebar';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChild, Inject, OnDestroy } from '@angular/core';
+import { AutoCookie } from '../../../../decorator/decorator';
+import { CreativeService } from '../../../../service/customer/creative.service';
+import { Dialog } from '../../../../components/dialog/dialog';
+import { Notification } from '../../../../components/notification/notification';
+import { Global } from '../../../../service/global';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TableComponent } from '../../../../components/table/table.component';
+import { hoursFormat } from '../../../../service/util';
+import { Sidebar, YC_SIDEBAR_DATA } from '../../../../components/sidebar/sidebar';
 
 @Component({
   selector: 'app-creative',
@@ -65,7 +65,7 @@ export class CreativeComponent implements OnInit {
     });
   }
 
-  @ViewChild('ycTable', {read: TableComponent}) table: TableComponent;
+  @ViewChild('ycTable', { read: TableComponent }) table: TableComponent;
 
   // 修改状态
   updateOneShowState(data, switchRef) {
@@ -89,17 +89,17 @@ export class CreativeComponent implements OnInit {
   // ----------------------------------
 
   // 创意预览
-  @ViewChild('show_creative', {read: TemplateRef}) show_creative_ref: TemplateRef<any>;
+  @ViewChild('show_creative', { read: TemplateRef }) show_creative_ref: TemplateRef<any>;
   elements;
   elementValue;
 
   _showCreative(data) {
     this.elements = null;
     this.elementValue = null;
-    this._creativeService.creativeDetail({creative_id: data.creative_id}).subscribe(res => {
+    this._creativeService.creativeDetail({ creative_id: data.creative_id }).subscribe(res => {
       this.elements = res.result.creative.material_elements;
       this.elementValue = res.result.creative.elements;
-      this._dialog.open(this.show_creative_ref, {flag: false, title: `${data.creative_name}-预览`});
+      this._dialog.open(this.show_creative_ref, { flag: false, title: `${data.creative_name}-预览` });
       this.changeDetectorRef.markForCheck();
     });
   }
@@ -128,18 +128,18 @@ export class CreativeComponent implements OnInit {
     });
   }
 
-  @ViewChild('update_state', {read: TemplateRef}) update_state_ref: TemplateRef<any>;
+  @ViewChild('update_state', { read: TemplateRef }) update_state_ref: TemplateRef<any>;
   update_state_data = {
     show_state: 1
   };
 
-  @ViewChild('update_show_hours', {read: TemplateRef}) update_show_hours_ref: TemplateRef<any>;
+  @ViewChild('update_show_hours', { read: TemplateRef }) update_show_hours_ref: TemplateRef<any>;
   update_show_hours_data = {
     show_time_type: 0,
     show_hours: [],
   };
 
-  @ViewChild('update_price', {read: TemplateRef}) update_price_ref: TemplateRef<any>;
+  @ViewChild('update_price', { read: TemplateRef }) update_price_ref: TemplateRef<any>;
   update_price_data = {
     price: 0,
   };
@@ -155,7 +155,7 @@ export class CreativeComponent implements OnInit {
     let creative_ids = list.join(',');
     switch (type) {
       case 'update_state':
-        this._dialog.open(this.update_state_ref, {title: '修改状态'}).subscribe(data => {
+        this._dialog.open(this.update_state_ref, { title: '修改状态' }).subscribe(data => {
           if (data) {
             this._creativeService.updateState({
               creative_ids,
@@ -171,7 +171,7 @@ export class CreativeComponent implements OnInit {
           show_time_type: 1,
           show_hours: [],
         };
-        this._dialog.open(this.update_show_hours_ref, {title: '修改投放小时', async: true}).subscribe(data => {
+        this._dialog.open(this.update_show_hours_ref, { title: '修改投放小时', async: true }).subscribe(data => {
           console.log(data);
           if (data) {
             let flag = this.update_show_hours_data.show_hours.some(item => !!item);
@@ -194,7 +194,7 @@ export class CreativeComponent implements OnInit {
       case 'update_price':
         this._valid = false;
         this.update_price_data.price = null;
-        this._dialog.open(this.update_price_ref, {title: '修改出价', async: true}).subscribe((data: any) => {
+        this._dialog.open(this.update_price_ref, { title: '修改出价', async: true }).subscribe((data: any) => {
           if (data) {
             if (this.update_priceRef.invalid || this.update_price_data.price > this.bid_max || this.update_price_data.price < this.bid_min) {
               this._valid = true;
@@ -211,7 +211,7 @@ export class CreativeComponent implements OnInit {
         });
         break;
       case 'submit_audit':
-        this._dialog.open('是否提交审核？', {title: '提交审核'}).subscribe(data => {
+        this._dialog.open('是否提交审核？', { title: '提交审核' }).subscribe(data => {
           if (data) {
             this._creativeService.submitAudit({
               creative_ids
@@ -222,7 +222,7 @@ export class CreativeComponent implements OnInit {
         });
         break;
       case 'creative_delete':
-        this._dialog.open('是否删除创意？', {title: '创意删除'}).subscribe(data => {
+        this._dialog.open('是否删除创意？', { title: '创意删除' }).subscribe(data => {
           if (data) {
             this._creativeService.creativeDelete({
               creative_ids
@@ -233,7 +233,7 @@ export class CreativeComponent implements OnInit {
         });
         break;
       case 'creative_copy':
-        this._dialog.open('是否复制被选创意？', {title: '创意复制'}).subscribe(data => {
+        this._dialog.open('是否复制被选创意？', { title: '创意复制' }).subscribe(data => {
           if (data) {
             this._creativeService.creativeCopy({
               creative_ids
@@ -248,56 +248,124 @@ export class CreativeComponent implements OnInit {
 
   //////******************************************************************//////////
 
-  @ViewChild('creativeDetail',{read:TemplateRef}) creativeDetailRef : TemplateRef<any>
-
-  show_hour_today_format
-
-  chartDataInstance
-  creativeCode = 'pv';
-  creativeChartData
-  private _chartDataRef
-  @ViewChild('chartData') set  chartDataRef(value: ElementRef){
-    this._chartDataRef = value
-  }
-  get chartDataRef(){
-    return this._chartDataRef;
-  }
-
-  creativeData
-  direction
-  orientationValue
-
-  creativeValue
-
   /**
    * this.elements = res.result.creative.material_elements;
    this.value = res.result.creative.elements;
    * @param data
    */
-
-  openCampaignDetail(data){
-    this._creativeService.creativeDetail({creative_id: data.creative_id}).subscribe(res => {
-
-      this._sidebar.open(this.creativeDetailRef);
-
-      this.creativeChartData = res.result.report;
-      this.creativeValue = res.result.creative.elements;
-      this.creativeData = res.result.creative;
-      this.direction = res.result.direction;
-      this.orientationValue = res.result.direction_name_values;
-
-      if (res.result.show_hour_today) {
-        this.show_hour_today_format = hoursFormat(res.result.show_hour_today).join(' ');
-      } else {
-        this.show_hour_today_format = undefined;
-      }
-      this.changeDetectorRef.markForCheck();
-      setTimeout(()=> {
-        this.chartData();
-        this._changeCampaignAndCreativeChart(this.chartDataInstance, this.creativeChartData, this.creativeCode);
-      })
-
+  openCampaignDetail(data) {
+    this._creativeService.creativeDetail({ creative_id: data.creative_id }).subscribe(res => {
+      this._sidebar.open(CreativeDetailComponent, {
+        data: res.result
+      });
     })
+  }
+
+
+
+  constructor(private _creativeService: CreativeService,
+    private _notification: Notification,
+    private _dialog: Dialog,
+    private _global: Global,
+    private _sidebar: Sidebar,
+    private changeDetectorRef: ChangeDetectorRef,
+    private router: Router,
+    private route: ActivatedRoute) {
+    let params = route.snapshot.params;
+    let queryParams = route.snapshot.queryParams;
+    let data = route.snapshot.data;
+    Object.assign(this.query, queryParams);
+  }
+
+  bid_min;
+  bid_max;
+
+  ngOnInit() {
+    this.bid_min = this._global.bid_min;
+    this.bid_max = this._global.bid_max;
+    const obj = this.route.snapshot.data['auth'];
+    this.authList = Object.keys(obj['jurisdiction_list']);
+    this.authUser = obj['user'];
+    this.batchUpdateMenu = obj['jurisdiction_list']['ZCMOBI_ADS_SPREAD_CREATIVE_BATCH'] ? obj['jurisdiction_list']['ZCMOBI_ADS_SPREAD_CREATIVE_BATCH']['child'].map(item => {
+      return { value: item.route, label: item.name };
+    }) : [];
+    console.log(this.batchUpdateMenu);
+    let queryParams = this.route.snapshot.queryParams;
+    if (queryParams.campaign_id) {
+      this.query.campaign_id = queryParams.campaign_id;
+    }
+    this._creativeService.init().subscribe(res => {
+      this.campaign_list = res.result.campaign_list;
+      this.media_list = res.result.media_list;
+      this.audit_state_list = res.result.audit_state_list;
+      this.display_type_list = res.result.display_type_list;
+
+      this.current_state_list = res.result.current_state_list;
+      this.show_state_list = res.result.show_state_list;
+      this.changeDetectorRef.markForCheck();
+    });
+    this.search();
+  }
+
+}
+
+@Component({
+  selector: 'creative-detail',
+  styles: [
+    `
+    .chart-box {
+      position: relative;
+      width: 100%;
+      height: 300px;
+    }
+    .chart-box .tool {
+      position: absolute;
+      right: 10px;
+      top: 0;
+      z-index: 1;
+    }
+    .chart-box .chart-data{
+      width: 100%;
+      height: 100%;
+    }
+    `
+  ],
+  templateUrl: 'creative-detail.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  preserveWhitespaces: true,
+})
+export class CreativeDetailComponent implements OnInit, OnDestroy {
+  ngOnDestroy(): void {
+    console.info('ngOnDestroy')
+  }
+
+  ngOnInit(): void {
+    this.chartData();
+    this._changeCampaignAndCreativeChart(this.chartDataInstance, this.creativeChartData, this.creativeCode);
+  }
+
+  show_hour_today_format
+  chartDataInstance
+  creativeCode = 'pv';
+  creativeChartData
+  creativeData
+  direction
+  orientationValue
+  creativeValue
+
+  @ViewChild('chartData') chartDataRef: ElementRef
+
+  constructor(@Inject(YC_SIDEBAR_DATA) private data: any) {
+    this.creativeChartData = data.report;
+    this.creativeValue = data.creative.elements;
+    this.creativeData = data.creative;
+    this.direction = data.direction;
+    this.orientationValue = data.direction_name_values;
+    if (data.show_hour_today) {
+      this.show_hour_today_format = hoursFormat(data.show_hour_today).join(' ');
+    } else {
+      this.show_hour_today_format = undefined;
+    }
   }
 
   /**
@@ -344,7 +412,7 @@ export class CreativeComponent implements OnInit {
         }
       },
       series: [
-        {data: d},
+        { data: d },
       ]
     }
 
@@ -431,50 +499,6 @@ export class CreativeComponent implements OnInit {
     window.addEventListener('resize', () => {
       chartDataRef.resize();
     });
-  }
-
-  constructor(private _creativeService: CreativeService,
-              private _notification: Notification,
-              private _dialog: Dialog,
-              private  _global: Global,
-              private _sidebar: Sidebar,
-              private changeDetectorRef: ChangeDetectorRef,
-              private router: Router,
-              private route: ActivatedRoute) {
-    let params = route.snapshot.params;
-    let queryParams = route.snapshot.queryParams;
-    let data = route.snapshot.data;
-    Object.assign(this.query, queryParams);
-  }
-
-  bid_min;
-  bid_max;
-
-  ngOnInit() {
-    this.bid_min = this._global.bid_min;
-    this.bid_max = this._global.bid_max;
-    const obj = this.route.snapshot.data['auth'];
-    this.authList = Object.keys(obj['jurisdiction_list']);
-    this.authUser = obj['user'];
-    this.batchUpdateMenu = obj['jurisdiction_list']['ZCMOBI_ADS_SPREAD_CREATIVE_BATCH'] ? obj['jurisdiction_list']['ZCMOBI_ADS_SPREAD_CREATIVE_BATCH']['child'].map(item => {
-      return {value: item.route, label: item.name};
-    }) : [];
-    console.log(this.batchUpdateMenu);
-    let queryParams = this.route.snapshot.queryParams;
-    if (queryParams.campaign_id) {
-      this.query.campaign_id = queryParams.campaign_id;
-    }
-    this._creativeService.init().subscribe(res => {
-      this.campaign_list = res.result.campaign_list;
-      this.media_list = res.result.media_list;
-      this.audit_state_list = res.result.audit_state_list;
-      this.display_type_list = res.result.display_type_list;
-
-      this.current_state_list = res.result.current_state_list;
-      this.show_state_list = res.result.show_state_list;
-      this.changeDetectorRef.markForCheck();
-    });
-    this.search();
   }
 
 }

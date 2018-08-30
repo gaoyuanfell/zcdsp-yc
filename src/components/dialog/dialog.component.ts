@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild, ViewContainerRef, HostListener, HostBinding, EventEmitter} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Subject} from 'rxjs';
 import {DOCUMENT} from '@angular/common';
@@ -18,6 +18,8 @@ import {DOCUMENT} from '@angular/common';
   ],
   host: {
     '[@slideDialog]': '_state',
+    '(@slideDialog.start)': 'animationStarted($event)',
+    '(@slideDialog.done)': 'animationDone($event)',
   }
 })
 export class DialogComponent implements OnInit {
@@ -44,12 +46,24 @@ export class DialogComponent implements OnInit {
 
   @ViewChild('container', {read: ViewContainerRef}) containerRef: ViewContainerRef;
 
+  _animationStateChanged = new EventEmitter<AnimationEvent>();
+
   close() {
+    this._state = 'exit';
     this.closeSubject.next(false);
   }
 
   ok() {
     this.closeSubject.next(true);
+  }
+
+  animationStarted(event){
+    this._animationStateChanged.emit(event)
+    
+  }
+
+  animationDone(event){
+    this._animationStateChanged.emit(event)
   }
 
 }

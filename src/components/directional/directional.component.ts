@@ -339,6 +339,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   }
 
   ngOnDestroy(): void {
+    console.info('ngOnDestroy')
     this.store.dispatch(new directionalAction.DirectionalRecovery());
   }
 
