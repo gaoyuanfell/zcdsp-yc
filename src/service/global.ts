@@ -19,6 +19,7 @@ export class Global {
   private _scrollHeight;
   private _scrollTop;
   private _menus;
+  private _userMenu;
 
   get bid_min() {
     return this.bidMin;
@@ -70,5 +71,12 @@ export class Global {
 
   set menus(value) {
     this._menus = value;
+  }
+  get userMenu(): object {
+    return this._userMenu;
+  }
+
+  set userMenu(value) {
+    this._userMenu = value;
   }
 }
