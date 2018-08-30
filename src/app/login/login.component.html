@@ -53,6 +53,7 @@
             <span></span>
             <i>邮箱验证</i>
           </label>
+          <div *ngIf="type_show" (focus)="typeFocus()">{{type_show}}</div>
         </div>
 
 
