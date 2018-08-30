@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {MenuGuard} from '../auth/menu.guard';
 import {BoardComponent} from './board.component';
+import {HomeComponent} from './home.component'
 
 const routes: Routes = [
   {path: 'lazy', loadChildren: './lazy/lazy.module#LazyModule'},
@@ -12,9 +13,8 @@ const routes: Routes = [
   {path: 'landing', loadChildren: './landing-page/landing-page.module#LandingPageModule'},
   {path: 'template', loadChildren: './template-page/template-page.module#TemplatePageModule'},
   {
-    path: '',
-    canActivate: [MenuGuard],
-    component: BoardComponent,
+    path: '/home',
+    component: HomeComponent,
   }
 ];
 

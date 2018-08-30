@@ -18,6 +18,7 @@ export class Global {
   private bidMax = 1000; // 活動 创意 出价最大值
   private _scrollHeight;
   private _scrollTop;
+  private _menus;
 
   get bid_min() {
     return this.bidMin;
@@ -62,5 +63,12 @@ export class Global {
 
   set scrollHeight(value) {
     this._scrollHeight = value;
+  }
+  get menus(): Array<any> {
+    return this._menus;
+  }
+
+  set menus(value) {
+    this._menus = value;
   }
 }
