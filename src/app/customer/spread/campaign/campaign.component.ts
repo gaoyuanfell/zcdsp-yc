@@ -331,12 +331,87 @@ export class CampaignComponent implements OnInit {
     })
   }
 
+  ///////// *********************************** 显示活动详情  ****************************************** /////////
 
   // 显示活动详情
   @ViewChild('campaignDetail', {read: TemplateRef}) campaignDetailRef: TemplateRef<any>;
 
-  openCampaignDetail(){
-    this._sidebar.open(this.campaignDetailRef)
+  show_hour_today_format
+  orientationValue
+  creativeList
+  campaignDate
+  show_time_type
+
+  openCampaignDetail(data){
+    console.info(data)
+
+    this._campaignService.campaignDetail({campaign_id: data.campaign_id}).subscribe(res => {
+      this.creativeList = res.result.creatives;
+      if (res.result.show_hours_today) {
+        this.show_hour_today_format = this.hoursFormat(res.result.show_hours_today).join(' ');
+      } else {
+        this.show_hour_today_format = undefined;
+      }
+
+      this.show_time_type = res.result.show_time_type;
+
+      this.orientationValue = res.result.orientation_name_values;
+
+      this.campaignDate = {
+        begin_date: res.result.begin_date,
+        end_date: res.result.end_date,
+      };
+
+//       this.creatives = res.result.creatives;
+//       this.campaign_name = res.result.campaign_name;
+// //  show_hours是全周的, show_hours_today是当天的
+//       // 弹出的表格是显示全周的 投放小时显示的当天的 type = 1:是表格
+//       this.show_time_type = res.result.show_time_type;
+//       this.show_hour_today_ori = res.result.show_hours ? [...res.result.show_hours] : [];
+//       this.show_hour_today = res.result.show_hours ? [...res.result.show_hours] : [];
+//       if (res.result.show_hours_today) {
+//         this.show_hour_today_format = this.hoursFormat(res.result.show_hours_today).join(' ');
+//       } else {
+//         this.show_hour_today_format = undefined;
+//       }
+//
+//       this.date = {
+//         begin_date: res.result.begin_date,
+//         end_date: res.result.end_date,
+//       };
+//       // this.orientation = res.result.orientation;
+//       this.direction = res.result.orientation;
+//       this._orientationValue = res.result.orientation_name_values;
+//
+//       this.changeDetectorRef.markForCheck();
+
+      this._sidebar.open(this.campaignDetailRef)
+    });
+  }
+
+  prefixInteger(num, length) {
+    return ('0000000000000000' + num).substr(-length);
+  }
+
+  hoursFormat(list) {
+    let result = [];
+    let li = [];
+    for (let i = 0; i < list.length; i++) {
+      let b = list[i];
+      if (b) {
+        li.push(i);
+      } else {
+        if (li.length) {
+          result.push(`${this.prefixInteger(li[0], 2)}:00~${this.prefixInteger(li[li.length - 1], 2)}:59`);
+          li.length = 0;
+        }
+      }
+    }
+    if (li.length) {
+      result.push(`${this.prefixInteger(li[0], 2)}:00~${this.prefixInteger(li[li.length - 1], 2)}:59`);
+      li.length = 0;
+    }
+    return result;
   }
 
 

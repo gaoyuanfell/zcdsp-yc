@@ -23,11 +23,12 @@
             </div>
 
             <ul class="nav-list nav-child" [ngStyle]="{'height.px': menu.child?.length * 60 * (menu.active?1:0)}">
-              <ng-template [ngForOf]="menu.child" ngFor let-child>
+              <ng-template [ngForOf]="menu.child" ngFor let-child let-cIndex="index">
                 <li>
                   <div class="nav-item flex-center" [routerLink]="child.route" routerLinkActive="active">
                     <i class="nav-icon zcdsp-icon" [innerHTML]="child.icon"></i>
                     <span class="nav-name">{{child.name}}</span>
+                    <div class="line" *ngIf="cIndex != menu.child.length - 1"></div>
                   </div>
                 </li>
               </ng-template>
