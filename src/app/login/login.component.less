@@ -72,10 +72,7 @@
     &.has-error {
       border:1px solid red;
     }
-    &.has-success {
-      border:1px solid #0d98f3;
-    }
-    &:focus {
+    &:focus, &.has-success {
       border:1px solid #0d98f3;
       &.name{
         background: url("../../assets/img/index/yh1.png") 20px center no-repeat;
@@ -88,6 +85,9 @@
         width: 270px;
         float: left;
       }
+    }
+    &.pUser{
+      border-color: transparent;
     }
   }
   .name{
@@ -167,7 +167,7 @@
     width: 120px;
     height:50px;
     line-height: 50px;
-    background: #86cbf9;
+    background: #0d98f3;;
     font-size: 18px;
     color: #fff;
     cursor: pointer;
@@ -268,3 +268,5 @@ button:disabled {
   height:50px;
   margin-right:10px;
 }
+
+

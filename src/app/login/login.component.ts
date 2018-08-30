@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('sssssssss')
     this.verifyCode();
   }
   userName;
@@ -64,17 +65,21 @@ export class LoginComponent implements OnInit {
   type = 1;
   pwd_show = false // 是否显示密码框
   _description;
+  pwd_vertify_show;
+  type_show;
   // 发送验证码前奏
   verifyPwd() {
-    this._description = undefined;
+    // this._description = undefined;
     this.forgetCode = undefined;
+    this.pwd_vertify_show = undefined;
+    // this.type_show = undefined;
     this.forget_vertify_Code();
     this._dialog.open(this.code_template_ref, {title: '', flag: true, async: true}).subscribe((data: any) => {
-        if (data && this.forget_code_ref.valid) {
+        if (data && this.forget_code_ref.valid && !this.pwd_vertify_show) {
           let obj = {
             type: this.type,
             user_name: this.user_name,
-            verifycode: this.forgetCode
+            img_code: this.forgetCode
           }
           this._publicService.send(obj).subscribe( res => {  // 调用成功后，手机上会出现验证码
               if (res.success === 200) {
@@ -86,8 +91,13 @@ export class LoginComponent implements OnInit {
                 this.codeTest()
               }
           }, error => {  // 这边做了处理 前端是抛出异常
-            this._description = error.errorList[0]._description
-            this.pwd_show = false;
+              this.pwd_vertify_show = error.errorList[0]._code === 'img_code' ?  error.errorList[0]._description : undefined;
+              if (error.errorList[0]._code === 'user_name' || error.errorList[0]._code === 'type') {
+                data();
+              }
+              this._description = error.errorList[0]._code === 'user_name' ?  error.errorList[0]._description : undefined;
+              this.type_show = error.errorList[0]._code === 'type' ?  error.errorList[0]._description : undefined;
+              this.pwd_show = false;
           })
         }
     })
@@ -107,7 +117,7 @@ export class LoginComponent implements OnInit {
     }
     return cl;
   }
-
+  _code;
   // 验证
   save1() {
      let obj = {
@@ -119,6 +129,7 @@ export class LoginComponent implements OnInit {
         this.pwd_show = true;
       }
     }, error => {
+      this._code = error.errorList[0]._code === 'code' ?  error.errorList[0]._description : undefined;
       this.pwd_show = false;
     })
   }
@@ -131,7 +142,13 @@ export class LoginComponent implements OnInit {
     }
     this._publicService.resetPassword(obj).subscribe( res => {
         if (res.success === 200 ) {
-          this.router.navigate(['/login'])
+          this.flags = false;
+          this.pwd_show = false;
+          this.password = undefined;
+          this.old_pwd = undefined;
+          this.pwd_code = undefined;
+          this.userName = undefined;
+          // this.verifyCode();
         }
     }, error => {
       this.pwd_show = false;
@@ -144,6 +161,14 @@ export class LoginComponent implements OnInit {
   userNameFocus() {
     this._description = undefined;
   }
+  codeFocus() {
+    this.pwd_vertify_show = undefined;
+  }
+  _codeFocus() {
+    this._code = undefined;
+  }
+
+
 
   password;
   old_pwd;

@@ -10,16 +10,16 @@
       <form class="from" #infoForm="ngForm" (ngSubmit)="login(infoForm)">
 
 
-        <input type="text" class="name" placeholder="请输入账号" [(ngModel)]="userName" [ngClass]="{ userOn: (username.dirty || username.touched || _valid) && username.invalid}" required #username="ngModel" name="userName">
+        <input type="text" class="name" placeholder="请输入账号" [(ngModel)]="userName" [ngClass]="{ 'has-error': (username.dirty || username.touched || _valid) && username.invalid, 'has-success': username.valid }" required #username="ngModel" name="userName">
         <p class="error" *ngIf="(username.dirty || username.touched || _valid) && username.invalid"><img src="assets/img/index/tips.png" alt="">请输入账号</p>
 
 
-        <input type="text" class="password" placeholder="请输入密码" [(ngModel)]="passWord" [ngClass]="{ userOn: (password.dirty || password.touched || _valid) && password.invalid}" required #password="ngModel" name="passWord">
+        <input type="text" class="password" placeholder="请输入密码" [(ngModel)]="passWord" [ngClass]="{ 'has-error': (password.dirty || password.touched || _valid) && password.invalid, 'has-success': password.valid}" required #password="ngModel" name="passWord">
         <p class="error" *ngIf=" (password.dirty || password.touched || _valid) && password.invalid"><img src="assets/img/index/tips.png" alt="">请输入密码</p>
 
 
         <div class="verification clear">
-          <input type="text" class="verifica" [(ngModel)]="vertCode" placeholder="请输入右侧验证码" [ngClass]="{ userOn: (vertcode.dirty || vertcode.touched || _valid) && vertcode.invalid}" required   #vertcode="ngModel" name="vertCode">
+          <input type="text" class="verifica" [(ngModel)]="vertCode" placeholder="请输入右侧验证码" [ngClass]="{ 'has-error': (vertcode.dirty || vertcode.touched || _valid) && vertcode.invalid, 'has-success': vertcode.valid}" required   #vertcode="ngModel" name="vertCode">
           <a href="javascript:;" class="vertifyCode">
             <!--点击后给的就是一张图片-->
             <img [src]="vertCodeUrl" width="100%" height="100%" style="border-radius:4px;" title="看不清" (click)="verifyCode()">
@@ -37,41 +37,43 @@
 
       <form class="from" #infoForm1="ngForm" (ngSubmit)="save1()" *ngIf="!pwd_show">
 
-        <input class="form-control" type="text"  [(ngModel)]="user_name" placeholder="请填写账号" name="user_name" required (focus)="userNameFocus()" [ngClass]="setInvalidClass(infoForm1, infoForm1.controls['user_name'])">
+        <input class="form-control" type="text" class="name" [(ngModel)]="user_name" placeholder="请填写账号" name="user_name" required (focus)="userNameFocus()" [ngClass]="setInvalidClass(infoForm1, infoForm1.controls['user_name'])">
         <app-form-tips [target]="infoForm1.controls['user_name']"  placeholder="请输入账号" [formTarget]="infoForm1"></app-form-tips>
         <p class="error" *ngIf="_description"><img src="assets/img/index/tips.png" alt="">{{_description}}</p>
 
 
         <div class="radio">
           <label for="phone-verification" class="radio_label">
-            <input type="radio" name="radio" checked="checked" id="phone-verification" (change)=" type = 1 "/>
+            <input type="radio" name="radio" checked="checked" id="phone-verification" (change)=" type = 1; type_show = undefined "/>
             <span></span>
             <i>手机验证</i>
           </label>
           <label for="mail-verification" class="radio_label">
-            <input type="radio" name="radio" id="mail-verification" (change)=" type = 2 "/>
+            <input type="radio" name="radio" id="mail-verification" (change)=" type = 2; type_show = undefined"/>
             <span></span>
             <i>邮箱验证</i>
           </label>
+          <div *ngIf="type_show">{{type_show}}</div>
         </div>
 
 
         <div class="verification clear">
-          <input type="text" class="verifica" [(ngModel)]="pwd_code" placeholder="请输入验证码" name="pwd_code" required [ngClass]="setInvalidClass(infoForm1, infoForm1.controls['pwd_code'])">
+          <input type="text" class="verifica" class="verifica" (focus)="_codeFocus()" [(ngModel)]="pwd_code" placeholder="请输入验证码" name="pwd_code" required [ngClass]="setInvalidClass(infoForm1, infoForm1.controls['pwd_code'])">
           <button type="button" class="send" (click)="verifyPwd()" [disabled]="flagCode || !user_name">{{codeText}}</button>
           <span class="countdown">{{countdown}}</span>
         </div>
         <app-form-tips [target]="infoForm1.controls['pwd_code']" placeholder="请输入验证码"  [formTarget]="infoForm1"></app-form-tips>
+        <p class="error" *ngIf="_code"><img src="assets/img/index/tips.png" alt="">{{_code}}</p>
 
-        <button type="submit" class="login" [disabled]="infoForm1.invalid || _description">验证</button>
+
+        <button type="submit" class="login" [disabled]="infoForm1.invalid || _description || _code || type_show">验证</button>
 
       </form>
         <!---->
       <form class="from" #infoForm2="ngForm" (ngSubmit)="save2()" *ngIf="pwd_show">
 
         <!-- 这一块的用户名就是确定值啦-->
-        <input type="text" class="name"  [(ngModel)]="user_name" readonly name="xxx">
-
+        <input class="pUser name" [(ngModel)]="user_name" readonly>
 
         <!--是否显示密码框-->
         <div>
@@ -99,11 +101,13 @@
 
 <ng-template #code_template>
   <div class="verification clear">
-    <input type="text" class="verifica forgetCode" [(ngModel)]="forgetCode" placeholder="请输入右侧验证码"  #forget_code="ngModel"  [ngClass]="{ userOn: (forget_code.dirty || forget_code.touched || _valid) && forget_code.invalid}" required   #forget_code="ngModel" name="forgetCode">
+    <input type="text" class="verifica forgetCode" [(ngModel)]="forgetCode" (focus)="codeFocus()"  placeholder="请输入右侧验证码"  #forget_code="ngModel"  [ngClass]="{ userOn: (forget_code.dirty || forget_code.touched || _valid) && forget_code.invalid}" required   #forget_code="ngModel" name="forgetCode">
     <a href="javascript:;" class="vertifyCode">
       <!--点击后给的就是一张图片-->
       <img [src]="forgetCodeUrl" width="100%" height="100%" style="border-radius:4px;" title="看不清" (click)="forget_vertify_Code()">
     </a>
   </div>
   <p class="error" style="margin-top: 10px;" *ngIf="(forget_code.dirty || forget_code.touched || _valid) && forget_code.invalid"><img src="assets/img/index/tips.png" alt="">请输入验证码</p>
+  <p class="error" style="margin-top: 10px;" *ngIf="pwd_vertify_show"><img src="assets/img/index/tips.png" alt="">{{pwd_vertify_show}}</p>
+
 </ng-template>

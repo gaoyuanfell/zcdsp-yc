@@ -32,7 +32,7 @@ export class NoopInterceptor implements HttpInterceptor {
                 throw response.body
               }
               if (response.body.success == 401) {
-                this._router.navigate(['/login']);
+                this._router.navigate(['/']);
                 throw response.body
               }
               if (response.body.success == 403) {
