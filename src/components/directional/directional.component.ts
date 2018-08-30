@@ -6,13 +6,14 @@ import {
   forwardRef,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   SimpleChanges
 } from '@angular/core';
 import {panel} from '../../app/animations/panel';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/model';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {Directional} from '../../store/model/directional.state';
 import * as directionalReducer from '../../store/reducer/directional.reducer';
 import * as directionalAction from '../../store/actions/directional.action';
@@ -38,7 +39,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     panel
   ],
 })
-export class DirectionalComponent implements OnInit, AfterViewInit, ControlValueAccessor, OnChanges {
+export class DirectionalComponent implements OnInit, AfterViewInit, ControlValueAccessor, OnChanges, OnDestroy {
 
   areasState$: Observable<Directional>;
   areasResult$: Observable<Array<any>>;
@@ -51,9 +52,11 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
 
   audiences$: Observable<Array<any>>;
   audiencesResult$: Observable<Array<any>>;
+  audiencesViewResult$: Observable<Array<any>>;
 
   device$: Observable<Array<any>>;
   deviceResult$: Observable<Array<any>>;
+  deviceViewResult$: Observable<Array<any>>;
 
   audiencesAction$: Observable<Directional>;
   audiencesActionList$: Observable<Array<any>>;
@@ -190,12 +193,14 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
 
     this.audiences$ = store.pipe(select(directionalReducer.Audiences));
     this.audiencesResult$ = store.pipe(select(directionalReducer.AudiencesResult));
+    this.audiencesViewResult$ = store.pipe(select(directionalReducer.AudiencesViewResult));
 
     // this.audiences$ = _directionalDataService.audiences$;
     // this.audiencesResult$ = _directionalDataService.audiencesResult$;
 
     this.device$ = store.pipe(select(directionalReducer.Device));
     this.deviceResult$ = store.pipe(select(directionalReducer.DeviceResult));
+    this.deviceViewResult$ = store.pipe(select(directionalReducer.DeviceViewResult));
 
     // this.device$ = _directionalDataService.device$;
     // this.deviceResult$ = _directionalDataService.deviceResult$;
@@ -217,28 +222,12 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     // this.audiencesAction2Result$ = _directionalDataService.audiencesAction2Result$;
   }
 
-  get areasChildList() {
-    return this._directionalDataService.areasChildList;
-  }
-
-  get lbsCityList() {
-    return this._directionalDataService.lbsCityList;
-  }
-
-  get audiencesActionList() {
-    return this._directionalDataService.audiencesActionList;
-  }
-
-  get audiencesAction2List() {
-    return this._directionalDataService.audiencesAction2List;
-  }
-
   trackByFn(index, item) {
     return index;
   }
 
   ngOnInit() {
-
+    this.getResultInit();
   }
 
   ngAfterViewInit(): void {
@@ -246,6 +235,83 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   }
 
   result;
+
+  /**
+   * 订阅获取值
+   */
+  getResultInit() {
+    let resultSubject = new Subject();
+    resultSubject.subscribe(data => {
+      this.onChange(data);
+      console.info(data);
+    });
+    let result = {
+      dtl_address: {
+        area: [],
+        lbs: [],
+        type: 1,
+        scene_type: 1
+      },
+      dtl_attribute: {
+        crowdAttribute: {
+          age: [],
+          sex: [],
+          education: [],
+        }
+      },
+      dtl_behavior: {
+        appCategory: [],
+        appAttribute: [],
+        filterAppCategory: [],
+        filterAppAttribute: [],
+      },
+      dtl_devices: {
+        devicesType: [],
+        brand: [],
+        mobileOS: [],
+        netType: [],
+        operators: [],
+        browsers: [],
+      }
+    };
+    this.areasResult$.subscribe(data => {
+      if (!data) return;
+      result.dtl_address.area = data.map(ar => ({id: ar.id, name: ar.name}));
+      resultSubject.next(result);
+    });
+
+    this.lbsCityResult$.subscribe(data => {
+      if (!data) return;
+      result.dtl_address.lbs = data.map(ar => ({id: ar.id, name: ar.name, coords: ar.location_items, type_id: ar.type_id}));
+      resultSubject.next(result);
+    });
+
+    this.audiencesActionResult$.subscribe(data => {
+      if (!data) return;
+      result.dtl_behavior.appCategory = data.filter(aa => isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
+      result.dtl_behavior.appAttribute = data.filter(aa => !isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
+      resultSubject.next(result);
+    });
+
+    this.audiencesAction2Result$.subscribe(data => {
+      if (!data) return;
+      result.dtl_behavior.filterAppCategory = data.filter(aa => isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
+      result.dtl_behavior.filterAppAttribute = data.filter(aa => !isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
+      resultSubject.next(result);
+    });
+
+    this.audiencesResult$.subscribe((data: any) => {
+      if (!data) return;
+      result.dtl_attribute.crowdAttribute = data;
+      resultSubject.next(result);
+    });
+
+    this.deviceResult$.subscribe((data: any) => {
+      if (!data) return;
+      result.dtl_devices = data;
+      resultSubject.next(result);
+    });
+  }
 
   onChange = (value) => {
   };
@@ -270,6 +336,10 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
 
   ngOnChanges(changes: SimpleChanges): void {
     this.changeDetectorRef.markForCheck();
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(new directionalAction.DirectionalRecovery());
   }
 
 }

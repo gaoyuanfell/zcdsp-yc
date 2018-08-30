@@ -28,6 +28,10 @@ export enum DirectionalActionTypes {
   CHECK_AUDIENCES_ACTION_CHANGE = '[DIRECTIONAL] CHECK_AUDIENCES_ACTION_CHANGE',
   CHECK_AUDIENCES_ACTION_CHANGE2 = '[DIRECTIONAL] CHECK_AUDIENCES_ACTION_CHANGE2',
   QUERY_AUDIENCES_ACTION_BY_NAME = '[DIRECTIONAL] QUERY_AUDIENCES_ACTION_BY_NAME',
+  QUERY_AUDIENCES_ACTION2_BY_NAME = '[DIRECTIONAL] QUERY_AUDIENCES_ACTION2_BY_NAME',
+
+
+  DIRECTIONAL_RECOVERY = '[DIRECTIONAL] DIRECTIONAL_RECOVERY'
 }
 
 // effects 数据初始化
@@ -199,9 +203,20 @@ export class QueryAudiencesActionByName implements Action{
   }
 }
 
+// 快捷查询 by name
+export class QueryAudiencesAction2ByName implements Action{
+  readonly type = DirectionalActionTypes.QUERY_AUDIENCES_ACTION2_BY_NAME;
+  constructor(public payload: any) {
 
-// ------------------------------------------ //
+  }
+}
 
+// ------------------  功能 ------------------------ //
+
+// 数据恢复 原始状态
+export class DirectionalRecovery implements Action{
+  readonly type = DirectionalActionTypes.DIRECTIONAL_RECOVERY;
+}
 
 export type DirectionalActionUnion
   = DirectionalAssign
@@ -226,3 +241,6 @@ export type DirectionalActionUnion
   | CheckAudiencesActionChange
   | CheckAudiencesActionChange2
   | QueryAudiencesActionByName
+
+  | DirectionalRecovery
+
