@@ -99,11 +99,13 @@
 
 <ng-template #code_template>
   <div class="verification clear">
-    <input type="text" class="verifica forgetCode" [(ngModel)]="forgetCode" placeholder="请输入右侧验证码"  #forget_code="ngModel"  [ngClass]="{ userOn: (forget_code.dirty || forget_code.touched || _valid) && forget_code.invalid}" required   #forget_code="ngModel" name="forgetCode">
+    <input type="text" class="verifica forgetCode" [(ngModel)]="forgetCode" (focus)="codeFocus()"  placeholder="请输入右侧验证码"  #forget_code="ngModel"  [ngClass]="{ userOn: (forget_code.dirty || forget_code.touched || _valid) && forget_code.invalid}" required   #forget_code="ngModel" name="forgetCode">
     <a href="javascript:;" class="vertifyCode">
       <!--点击后给的就是一张图片-->
       <img [src]="forgetCodeUrl" width="100%" height="100%" style="border-radius:4px;" title="看不清" (click)="forget_vertify_Code()">
     </a>
   </div>
   <p class="error" style="margin-top: 10px;" *ngIf="(forget_code.dirty || forget_code.touched || _valid) && forget_code.invalid"><img src="assets/img/index/tips.png" alt="">请输入验证码</p>
+  <p class="error" style="margin-top: 10px;" *ngIf="pwd_vertify_show"><img src="assets/img/index/tips.png" alt="">{{pwd_vertify_show}}</p>
+
 </ng-template>
