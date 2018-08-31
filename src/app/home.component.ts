@@ -1,25 +1,25 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Global} from '../service/global';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SwUpdate} from '@angular/service-worker';
 import {Notification} from '../components/notification/notification';
+import * as reducerMenu from '../store/reducer/menu.reducer';
+import {AppState} from '../store/model';
+import {select, Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-home',
   template: ``,
 })
-export class HomeComponent{
+export class HomeComponent {
   constructor(private _global: Global,
               private _notification: Notification,
+              private store: Store<AppState>,
               private router: Router,
-              private route: ActivatedRoute,
-              private swUpdate: SwUpdate) {
-    console.log("hahahahhaha")
-    let menus = this._global.menus;
-    console.log(menus)
-    console.log(route)
-    if (menus && menus.length > 1) {
-      router.navigate([menus[0].route], {queryParams: {...route.snapshot.queryParams}, replaceUrl: true})
-    }
+              private route: ActivatedRoute) {
+    store.pipe(select(reducerMenu.getMenuState)).subscribe(menu => {
+      if (menu.menuList && menu.menuList.length > 1) {
+        router.navigate([menu.menuList[0].route], {queryParams: {...route.snapshot.queryParams}, replaceUrl: true});
+      }
+    });
   }
 }
