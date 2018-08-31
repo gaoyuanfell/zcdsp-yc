@@ -18,12 +18,14 @@ export interface DirectionalState {
 
   audiences?: Array<any>
   audiencesResult?: Array<any>
+  audiencesViewResult?: Array<any>
   // ageResult?: Array<any>
   // educationResult?: Array<any>
   // sexResult?: Array<any>
 
   device?: Array<any>
   deviceResult?: Array<any>
+  deviceViewResult?: Array<any>
   // browsersResult?: Array<any>
   // devicesTypeResult?: Array<any>
   // mobileBrandResult?: Array<any>

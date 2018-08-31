@@ -32,8 +32,8 @@ export function directionalReducer(state: DirectionalState = initState, action: 
       }
       recursionChildCheck(value);
       recursionParentCheck(value);
-      state.areasResult = recursionResult(state.areas.children);
-      console.info(state.areasResult)
+      state.areasResult = recursionResult(state.areas.children).map(ar => ({id: ar.id, name: ar.name}));
+      console.info(state.areasResult);
       return {...state};
     }
     case DirectionalActionTypes.QUERY_AREAS_BY_NAME: {
@@ -49,50 +49,89 @@ export function directionalReducer(state: DirectionalState = initState, action: 
     //// AUDIENCES
     case DirectionalActionTypes.CHECK_AUDIENCES_CHANGE: {
       let value = action.payload;
-
       recursionChildCheck(value);
       recursionParentCheck(value);
-
       let array = [];
       state.audiences.forEach(au => {
         array.push(...recursionResult2(au.value.children));
       });
+      state.audiencesViewResult = array;
 
-      state.audiencesResult = array;
-
+      let body: any = {};
+      state.audiences.map(au => {
+        return {
+          key: au.key,
+          value: recursionResult2(au.value.children).map(r => r.value)
+        };
+      }).forEach(({key, value}) => {
+        body[key] = value;
+      });
+      state.audiencesResult = body;
       return {...state};
     }
-    case DirectionalActionTypes.REMOVE_ALL_AUDIENCES:{
+    case DirectionalActionTypes.REMOVE_ALL_AUDIENCES: {
       state.audiences.forEach(au => {
         au.value.checked = false;
+        au.value.checkState = 0;
         recursionChildCheck(au.value);
         recursionParentCheck(au.value);
       });
       state.audiencesResult = [];
       return {...state};
     }
-    case DirectionalActionTypes.CHECK_DEVICE_CHANGE:{
+    case DirectionalActionTypes.CHECK_DEVICE_CHANGE: {
       let value = action.payload;
-
       recursionChildCheck(value);
       recursionParentCheck(value);
-
       let array = [];
       state.device.forEach(au => {
         array.push(...recursionResult2(au.value.children));
       });
-
-      state.deviceResult = array;
-
+      state.deviceViewResult = array;
+      let body: any = {};
+      state.device.map(au => {
+        return {
+          key: au.key,
+          value: recursionResult2(au.value.children).map(r => r.value)
+        };
+      }).forEach(({key, value}) => {
+        body[key] = value;
+      });
+      state.deviceResult = body;
       return {...state};
     }
-    case DirectionalActionTypes.REMOVE_ALL_DEVICE:{
+    case DirectionalActionTypes.REMOVE_ALL_DEVICE: {
       state.device.forEach(au => {
         au.value.checked = false;
+        au.value.checkState = 0;
         recursionChildCheck(au.value);
         recursionParentCheck(au.value);
       });
       state.deviceResult = [];
+      return {...state};
+    }
+    case DirectionalActionTypes.DIRECTIONAL_RECOVERY: {
+      state.device.forEach(au => {
+        au.value.checked = false;
+        au.value.checkState = 0;
+        recursionChildCheck(au.value);
+        recursionParentCheck(au.value);
+      });
+      state.deviceResult = [];
+
+      state.audiences.forEach(au => {
+        au.value.checked = false;
+        au.value.checkState = 0;
+        recursionChildCheck(au.value);
+        recursionParentCheck(au.value);
+      });
+      state.audiencesResult = [];
+
+      state.areas.checked = false;
+      state.areas.checkState = 0;
+      recursionChildCheck(state.areas);
+      recursionParentCheck(state.areas);
+      state.areasResult = [];
       return {...state};
     }
     default: {
@@ -136,7 +175,12 @@ export function lbsCityReducer(state: LbsCityState = initState2, action: Directi
       recursionChildCheck(value);
       recursionParentCheck(value);
       state.lbsCityViewResult = recursionResult(state.lbsCity.children);
-      state.lbsCityResult = recursionResult2(state.lbsCity.children);
+      state.lbsCityResult = recursionResult2(state.lbsCity.children).map(ar => ({
+        id: ar.id,
+        name: ar.name,
+        location_items: ar.location_items,
+        type_id: ar.type_id
+      }));
       return {...state};
     }
     case DirectionalActionTypes.QUERY_LBS_CITY_BY_NAME: {
@@ -147,6 +191,16 @@ export function lbsCityReducer(state: LbsCityState = initState2, action: Directi
         target.splice(index, 1);
         target.unshift(data);
       }
+      return {...state};
+    }
+    case DirectionalActionTypes.DIRECTIONAL_RECOVERY: {
+      state.lbsCity.checked = false;
+      state.lbsCity.checkState = 0;
+      recursionChildCheck(state.lbsCity);
+      recursionParentCheck(state.lbsCity);
+      state.lbsCityViewResult = [];
+      state.lbsCityResult = [];
+
       return {...state};
     }
     default: {
@@ -229,6 +283,21 @@ export function audiencesActionReducer(state: AudiencesActionState = initState3,
       }
       return {...state};
     }
+    case DirectionalActionTypes.DIRECTIONAL_RECOVERY: {
+      state.audiencesAction.checked = false;
+      state.audiencesAction.checkState = 0;
+      recursionChildCheck(state.audiencesAction);
+      recursionParentCheck(state.audiencesAction);
+      state.audiencesActionResult = [];
+
+      state.audiencesAction2.checked = false;
+      state.audiencesAction2.checkState = 0;
+      recursionChildCheck(state.audiencesAction2);
+      recursionParentCheck(state.audiencesAction2);
+      state.audiencesAction2Result = [];
+
+      return {...state};
+    }
     default: {
       return state;
     }
@@ -283,6 +352,12 @@ export const AudiencesResult = createSelector(
   (state: DirectionalState) => state.audiencesResult
 );
 
+export const AudiencesViewResult = createSelector(
+  getDirectionalState,
+  (state: DirectionalState) => state.audiencesViewResult
+);
+
+
 // ------------------- Device
 
 export const Device = createSelector(
@@ -293,6 +368,11 @@ export const Device = createSelector(
 export const DeviceResult = createSelector(
   getDirectionalState,
   (state: DirectionalState) => state.deviceResult
+);
+
+export const DeviceViewResult = createSelector(
+  getDirectionalState,
+  (state: DirectionalState) => state.deviceViewResult
 );
 
 //---------------- LBS

@@ -2,44 +2,44 @@
   <div class="register-main">
     <div class="title">
       <div class="logo"><img src="assets/img/index/logo1.png" alt=""></div>
-      <div class="home"><a href="#board.component.html">&lt;&lt;返回首页</a></div>
+      <div class="home"><a href="/">&lt;&lt;返回首页</a></div>
     </div>
     <div class="register-body">
       <h1 class="top">欢迎注册<span>智橙移动</span>账号</h1>
       <p class="forget"><a href="login.html" [routerLink]="['/login']" >立即登录</a></p>
       <form class="from"  #infoForm="ngForm" (ngSubmit)="save()">
 
-        <input type="text" class="nick_name" placeholder="公司名称" #nickName="ngModel"  name="nick_name" [(ngModel)]="user.nick_name" required [ngClass]="{ userOn: (nickName.dirty || nickName.touched || _valid) && nickName.invalid}">
+        <input type="text" class="nick_name" placeholder="公司名称" #nickName="ngModel"  name="nick_name" [(ngModel)]="user.nick_name" required [ngClass]="setInvalidClass(infoForm, infoForm.controls['nick_name'])">
         <app-form-tips [target]="infoForm.controls['nick_name']" [formTarget]="infoForm" placeholder="请填写公司名称"></app-form-tips>
 
 
-        <input type="text" class="name" placeholder="联系人" [(ngModel)]="user.link_user" name="link_user" #linkUser="ngModel"  required [ngClass]="{ userOn: (linkUser.dirty || linkUser.touched || _valid) && linkUser.invalid}">
+        <input type="text" class="name" placeholder="联系人" [(ngModel)]="user.link_user" name="link_user" #linkUser="ngModel"  required [ngClass]="setInvalidClass(infoForm, infoForm.controls['link_user'])">
         <app-form-tips [target]="infoForm.controls['link_user']" [formTarget]="infoForm" placeholder="请填写联系人"></app-form-tips>
 
 
 
-        <input type="text" class="mail" placeholder="登录邮箱"  required pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" [(ngModel)]="user.user_name" name="user_name" #userName="ngModel" required [ngClass]="{ userOn: (userName.dirty || userName.touched || _valid) && userName.invalid}">
+        <input type="text" class="mail" placeholder="登录邮箱"  required pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" [(ngModel)]="user.user_name" name="user_name" #userName="ngModel" required [ngClass]="setInvalidClass(infoForm, infoForm.controls['user_name'])">
         <app-form-tips [target]="infoForm.controls['user_name']" [tips]="'请输入正确邮箱'" placeholder="请填写登录邮箱" [formTarget]="infoForm"></app-form-tips>
 
 
 
-        <input type="text" class="password" placeholder="输入密码" required [(ngModel)]="user.password" name="password"
+        <input type="text" class="password" placeholder="输入密码" [ngClass]="setInvalidClass(infoForm, infoForm.controls['password'])" required [(ngModel)]="user.password" name="password"
                pattern="((?=.*\d)(?=.*[A-Za-z]))^[A-Za-z\d]{6,18}$" (ngModelChange)="pwd_comfirm()" autocomplete="off">
         <app-form-tips [target]="infoForm.controls['password']" [formTarget]="infoForm" [tips]="'请输入8~18位字母和数字的组合!'" placeholder="请填写密码"></app-form-tips>
 
 
 
-        <input type="text" class="password" placeholder="请再次输入密码"  required [(ngModel)]="user.old_pwd" (ngModelChange)="pwd_comfirm()"  name="old_pwd" autocomplete="off">
+        <input type="text" class="password" placeholder="请再次输入密码"   required [(ngModel)]="user.old_pwd" (ngModelChange)="pwd_comfirm()"  name="old_pwd" autocomplete="off" [ngClass]="{'has-error':flag, 'has-success': !flag}">
         <p class="error" *ngIf="flag"><img src="assets/img/index/tips.png" alt="">密码不一致</p>
 
 
-        <input type="text" class="phone" placeholder="手机号码"  #mobile_phone='ngModel' required [(ngModel)]="user.mobile_phone" placeholder="请填写联系电话" name="mobile_phone" pattern="^1\d{10}$">
+        <input type="text" class="phone" placeholder="手机号码" [ngClass]="setInvalidClass(infoForm, infoForm.controls['mobile_phone'])"  #mobile_phone='ngModel' required [(ngModel)]="user.mobile_phone" placeholder="请填写联系电话" name="mobile_phone" pattern="^1\d{10}$">
         <app-form-tips [target]="infoForm.controls['mobile_phone']" [tips]="'请输入以1开头的11位数字号码'" placeholder="请填写联系电话" [formTarget]="infoForm"></app-form-tips>
 
 
 
         <div class="verification clear">
-              <input type="text" class="verifica" placeholder="获取验证码" required  [(ngModel)]="user.verify_code"  name="verify_code" autocomplete="off">
+              <input type="text" class="verifica" placeholder="获取验证码" required  [(ngModel)]="user.verify_code"  name="verify_code" autocomplete="off" [ngClass]="setInvalidClass(infoForm, infoForm.controls['verify_code'])">
               <button type="button" class="send" (click)="verifyCode(mobile_phone)" [disabled]="flagCode">{{codeText}}</button>
               <span class="countdown">{{countdown}}</span>
         </div>
