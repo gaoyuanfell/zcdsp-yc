@@ -1,24 +1,8 @@
 import {Action} from '@ngrx/store';
 
 export enum MenuActionTypes {
-  INIT_MENU = '[MENU] INIT_MENU',
-  SELECT_MENU = '[MENU] SELECT_MENU',
   ASSIGN_MENU = '[MENU] ASSIGN_MENU',
-  ASSIGN_CHILD_LIST = '[MENU] ASSIGN_CHILD_LIST',
-  ASSIGN_CHILD_LIST_BY_PATH = '[MENU] ASSIGN_CHILD_LIST_BY_PATH',
-}
-
-// ---- ///
-export class InitMenu implements Action {
-  readonly type = MenuActionTypes.INIT_MENU;
-}
-
-// ---- ///
-export class SelectMenu implements Action {
-  readonly type = MenuActionTypes.SELECT_MENU;
-
-  constructor(public payload: string) {
-  }
+  SELECT_ACTIVE_MENU = '[MENU] SELECT_ACTIVE_MENU',
 }
 
 export class AssignMenu implements Action {
@@ -28,24 +12,14 @@ export class AssignMenu implements Action {
   }
 }
 
-// ---- ///
-export class AssignChildList implements Action {
-  readonly type = MenuActionTypes.ASSIGN_CHILD_LIST;
+// 展开对应的菜单
+export class SelectActiveMenu implements Action{
+  readonly type = MenuActionTypes.SELECT_ACTIVE_MENU;
 
-  constructor(public payload: Array<any>) {
-  }
-}
-
-// ---- ///
-export class AssignChildListByPath implements Action {
-  readonly type = MenuActionTypes.ASSIGN_CHILD_LIST_BY_PATH;
-
-  constructor(public payload: String) {
+  constructor(public payload: string) {
   }
 }
 
 export type MenuActionUnion
   = AssignMenu
-  | AssignChildList
-  | AssignChildListByPath
-  | SelectMenu
+  | SelectActiveMenu

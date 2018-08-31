@@ -1,50 +1,23 @@
-import {Component, NgModule, OnDestroy, OnInit, TemplateRef, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {Component, NgModule, OnDestroy, OnInit, TemplateRef, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, Inject} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {Module} from '../module';
 import {MenuGuard} from '../../auth/menu.guard';
-import {Sidebar} from '../../components/sidebar/sidebar';
+import {Sidebar, YC_SIDEBAR_DATA} from '../../components/sidebar/sidebar';
 import {DirectionalDataService} from '../../service/directional-data.service';
+import { Dialog, YC_DIALOG_DATA } from '../../components/dialog/dialog';
 
 @Component({
   selector: 'app-lazy-view',
   styles: [
       `
-      .word-data-box{
-        position: relative;
-      }
-      .word-data-box > span{
-        color: #979899;
-        font-size: 14px;
-        font-weight: 400;
-        position: absolute;
-        border-left: 3px solid #2e90ff;
-        padding: 3px 10px;
-      }
-      .word-data-box > p{
-        color: #616366;
-        font-size: 14px;
-        font-weight: 400;
-        margin-left: 85px;
-        padding: 3px 0;
-      }
+     
     `
   ],
   template: `
-    <div style="width: 100%;height: 100%;overflow: auto">
-
-      <div style="width: 200px">
-        
-        <div class="word-data-box">
-          <span>定向定向：</span>
-          <p>性别：男性</p>
-          <p>年龄：18至25岁</p>
-          <p>学历：大学生 高中生</p>
-          <p>地理位置：上海市</p>
-          <p>设备类型：平板 手机</p>
-        </div>
-        
-      </div>
-
+    <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;">
+      <button class="btn" (click)="open()">open</button>
+      <button class="btn" (click)="open2()">open2</button>
+      <button class="btn" routerLink="1">lazy</button>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -55,7 +28,13 @@ export class LazyComponent implements OnDestroy, OnInit {
   @ViewChild('template', {read: TemplateRef}) template: TemplateRef<any>;
 
   open() {
-    this._sidebar.open(this.template).subscribe(da => {
+    this._sidebar.open(LazyComponent3, {data:1}).subscribe(da => {
+      console.info();
+    });
+  }
+
+  open2() {
+    this._dialog.open(LazyComponent2, {data:1}).subscribe(da => {
       console.info();
     });
   }
@@ -66,7 +45,9 @@ export class LazyComponent implements OnDestroy, OnInit {
 
   }
 
-  constructor(private _sidebar: Sidebar, private _directionalDataService: DirectionalDataService) {
+  constructor(private _sidebar: Sidebar, 
+    private _dialog: Dialog,
+    private _directionalDataService: DirectionalDataService) {
 
   }
 
@@ -84,8 +65,8 @@ export class LazyComponent implements OnDestroy, OnInit {
   selector: 'app-lazy-view2',
   styles: [],
   template: `
-    <div style="width: 100%;height: 100%;overflow: auto">
-      <yc-directional></yc-directional>
+    <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;">
+      123123123
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -93,12 +74,38 @@ export class LazyComponent implements OnDestroy, OnInit {
 })
 export class LazyComponent2 implements OnDestroy, OnInit {
 
-  constructor(private _directionalDataService: DirectionalDataService, private changeDetectorRef: ChangeDetectorRef) {
-
+  constructor(@Inject(YC_DIALOG_DATA)  public data: any) {
+    console.info(data)
   }
 
   ngOnInit(): void {
+    console.info('ok')
+  }
 
+  ngOnDestroy(): void {
+
+  }
+}
+
+@Component({
+  selector: 'app-lazy-view3',
+  styles: [],
+  template: `
+    <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;">
+      12312312333333333333333333333333333333
+    </div>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  preserveWhitespaces: true,
+})
+export class LazyComponent3 implements OnDestroy, OnInit {
+
+  constructor(@Inject(YC_SIDEBAR_DATA)  public data: any) {
+    console.info(data)
+  }
+
+  ngOnInit(): void {
+    console.info('ok')
   }
 
   ngOnDestroy(): void {
@@ -107,7 +114,8 @@ export class LazyComponent2 implements OnDestroy, OnInit {
 }
 
 @NgModule({
-  declarations: [LazyComponent, LazyComponent2],
+  declarations: [LazyComponent, LazyComponent2,LazyComponent3],
+  entryComponents:[LazyComponent3],
   imports: [
     Module,
     RouterModule.forChild([

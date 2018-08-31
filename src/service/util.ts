@@ -197,3 +197,17 @@ export function hoursFormat(list) {
   }
   return result;
 }
+
+/**
+ *
+ * @param target
+ * @param source
+ */
+export function assign(target, source) {
+  if(target instanceof Array && source instanceof Array){
+
+  }
+  if(typeof target === 'object' && typeof source === 'object'){
+
+  }
+}

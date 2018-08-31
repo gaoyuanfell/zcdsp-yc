@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, Renderer2, ViewChild,} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2, ViewChild, OnDestroy,} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {AppState} from '../store/model';
@@ -9,7 +9,7 @@ import {ScrollService} from "../service/scroll.service";
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.less']
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit,OnDestroy {
   @ViewChild('container') containerFullRef: ElementRef;
   @ViewChild('picList') picList: ElementRef;
   @ViewChild('caseMainLeft') caseMainLeft: ElementRef;
@@ -19,6 +19,8 @@ export class BoardComponent implements OnInit {
               private _scrollService: ScrollService,) {
     console.log('你咋进来的？')
   }
+
+  destroy = false;
 
   hash = 'home'
   leftTo;
@@ -76,6 +78,7 @@ export class BoardComponent implements OnInit {
 
   scrolls() {
     this.setIntervalNum = setInterval(() => {
+      if(this.destroy) return;
       this.currentPic++
       if (this.currentPic > 1) {
         this.currentPic = 0
@@ -91,6 +94,7 @@ export class BoardComponent implements OnInit {
 
   scrolls1() {
     this.setInterval1 = setInterval(() => {
+      if(this.destroy) return;
       this.currentPic++
       // console.info(this.currentPic)
       if (this.currentPic > document.querySelector('.imgbox .list').children.length - 1) {
@@ -104,6 +108,7 @@ export class BoardComponent implements OnInit {
 
   scrolls2() {
     this.setInterval2 = setInterval(() => {
+      if(this.destroy) return;
       this.currentPic++
       // console.info(this.currentPic)
       if (this.currentPic > document.querySelector('.text-list .list').children.length - 1) {
@@ -143,5 +148,12 @@ export class BoardComponent implements OnInit {
     } else {
       this.flags = !this.flags
     }
+  }
+  
+  ngOnDestroy(){
+    this.destroy = true;
+    clearInterval(this.setInterval1)
+    clearInterval(this.setInterval2)
+    clearInterval(this.setIntervalNum)
   }
 }

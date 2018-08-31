@@ -179,12 +179,102 @@ export class BaseIndexComponent implements OnInit{
   todayAllDataChart() {
     const todayAllDataChartRef = this.todayAllDataEcharts = echarts.init(this.todayAllDataChartRef.nativeElement);
     todayAllDataChartRef.setOption(
+      // {
+      //   grid: {
+      //     left: '3%',
+      //     right: '4%',
+      //     bottom: '3%',
+      //     containLabel: true
+      //   },
+      //   tooltip: {
+      //     trigger: 'axis',
+      //     backgroundColor: '#fff',
+      //     borderWidth: 1,
+      //     borderColor: '#ccc',
+      //     padding: [10, 8],
+      //     textStyle: {
+      //       color: 'black',
+      //       fontSize: 10,
+      //       fontFamily: '微软雅黑 Regular'
+      //     },
+      //     formatter: function (params) {
+      //       let str = '';
+      //       str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
+      //       str = str +  `
+      //         <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${params[0].color}"></div>
+      //         ${params[0].seriesName}<span style="margin-right:20px"></span>${params[0].data}
+      //         `
+      //       return str;
+      //     }
+      //   },
+      //   xAxis : [
+      //     {
+      //       type : 'category',
+      //       axisTick: {
+      //         alignWithLabel: true
+      //       },
+      //       axisLabel : { // x轴字体颜色 y轴一样
+      //         // formatter: '{value}',
+      //         textStyle: {
+      //           color: '#979899'
+      //         }
+      //       },
+      //       axisLine: {
+      //         show: true,
+      //         lineStyle: {
+      //           color: '#eeecea'
+      //         }
+      //       },
+      //     }
+      //   ],
+      //   yAxis : [
+      //     {
+      //       type : 'value',
+      //       axisTick: {
+      //         show: false,
+      //       },
+      //       axisLine: {
+      //         show: false,
+      //         lineStyle: {
+      //           color: '#979899'
+      //         }
+      //       },
+      //       splitLine: {
+      //         lineStyle:{
+      //           color:['#f7f8fa'],
+      //           width: 2,
+      //           type: 'dashed'
+      //         }
+      //       }
+      //     }
+      //   ],
+      //   series : [
+      //     {
+      //       name:'平台实时流量',
+      //       type:'bar',
+      //       barWidth: '7px',
+      //       // data:[10, 52, 200, 334, 390, 330, 220],
+      //       itemStyle: {
+      //         normal: {
+      //           color: function (params) {
+      //             var colorList = ['#43a3fb','#9ea7b4'];
+      //             return params.dataIndex % 2 === 0 ?  colorList[0] : colorList[1]
+      //           },
+      //           barBorderRadius:[10, 10, 0, 0]
+      //         }
+      //       }
+      //     }
+      //   ]
+      // }
+
       {
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
+        legend: {   // 失效了
+          itemWidth: 48, // 图例的宽度
+          data: ['今日数据', '昨日数据'],
+          right: 0,  // 位置
+          textStyle: {
+            color: '#ccc'
+          }
         },
         tooltip: {
           trigger: 'axis',
@@ -200,70 +290,83 @@ export class BaseIndexComponent implements OnInit{
           formatter: function (params) {
             let str = '';
             str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
-            str = str +  `
+            if (params.length > 1) {
+              params.forEach( item => {
+                str = str + `
+                <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${item.color}"></div>
+                ${item.seriesName}<span style="margin-right:20px"></span>${item.data}<div style="margin-top:5px"></div>
+              `;
+              });
+            } else {
+              str = str +  `
               <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${params[0].color}"></div>
               ${params[0].seriesName}<span style="margin-right:20px"></span>${params[0].data}
               `
+            }
             return str;
           }
         },
-        xAxis : [
-          {
-            type : 'category',
-            axisTick: {
-              alignWithLabel: true
-            },
-            axisLabel : { // x轴字体颜色 y轴一样
-              // formatter: '{value}',
-              textStyle: {
-                color: '#979899'
-              }
-            },
-            axisLine: {
-              show: true,
-              lineStyle: {
-                color: '#eeecea'
-              }
-            },
-          }
-        ],
-        yAxis : [
-          {
-            type : 'value',
-            axisTick: {
-              show: false,
-            },
-            axisLine: {
-              show: false,
-              lineStyle: {
-                color: '#979899'
-              }
-            },
-            splitLine: {
-              lineStyle:{
-                color:['#f7f8fa'],
-                width: 2,
-                type: 'dashed'
-              }
+        grid: {
+          left: 0,
+          right: 10,
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: '#979899'
+            }
+          },
+          axisTick: {
+            show: false,
+          },
+          splitLine: {
+            lineStyle:{
+              color:['#f7f8fa'],
+              width: 2,
+              type: 'dashed'
             }
           }
-        ],
-        series : [
-          {
-            name:'平台实时流量',
-            type:'bar',
-            barWidth: '7px',
-            // data:[10, 52, 200, 334, 390, 330, 220],
-            itemStyle: {
-              normal: {
-                color: function (params) {
-                  var colorList = ['#43a3fb','#9ea7b4'];
-                  return params.dataIndex % 2 === 0 ?  colorList[0] : colorList[1]
-                },
-                barBorderRadius:[10, 10, 0, 0]
-              }
+        },
+        yAxis: {
+          type: 'value',
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: '#979899'
             }
+          },
+          axisTick: {
+            show: false,
+          },
+          splitLine: {
+            lineStyle:{
+              color:['#f7f8fa'],
+              width: 2,
+              type: 'dashed'
+            }
+          },
+          axisLabel: {
+            formatter: '{value} 次'
           }
+        },
+        series: [
+          {
+            name: '今日数据',
+            type: 'line',
+            color: ['#2e90ff'],
+            symbol: 'none'
+          },
+          {
+            name: '昨日数据',
+            type: 'line',
+            color: ['#31c38f'],
+            symbol: 'none'
+          },
         ]
       }
       );
@@ -278,12 +381,102 @@ export class BaseIndexComponent implements OnInit{
   todayAllSpendChart() {
     const todayAllSpendChartRef = this.todayAllSpendEcharts = echarts.init(this.todayAllSpendChartRef.nativeElement);
     todayAllSpendChartRef.setOption(
+      // {
+      //   grid: {
+      //     left: '3%',
+      //     right: '4%',
+      //     bottom: '3%',
+      //     containLabel: true
+      //   },
+      //   tooltip: {
+      //     trigger: 'axis',
+      //     backgroundColor: '#fff',
+      //     borderWidth: 1,
+      //     borderColor: '#ccc',
+      //     padding: [10, 8],
+      //     textStyle: {
+      //       color: 'black',
+      //       fontSize: 10,
+      //       fontFamily: '微软雅黑 Regular'
+      //     },
+      //     formatter: function (params) {
+      //       let str = '';
+      //       str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
+      //       str = str +  `
+      //         <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${params[0].color}"></div>
+      //         ${params[0].seriesName}<span style="margin-right:20px"></span>${params[0].data}
+      //         `
+      //       return str;
+      //     }
+      //   },
+      //   xAxis : [
+      //     {
+      //       type : 'category',
+      //       axisTick: {
+      //         alignWithLabel: true
+      //       },
+      //       axisLabel : { // x轴字体颜色 y轴一样
+      //         // formatter: '{value}',
+      //         textStyle: {
+      //           color: '#979899'
+      //         }
+      //       },
+      //       axisLine: {
+      //         show: true,
+      //         lineStyle: {
+      //           color: '#eeecea'
+      //         }
+      //       },
+      //     }
+      //   ],
+      //   yAxis : [
+      //     {
+      //       type : 'value',
+      //       axisTick: {
+      //         show: false,
+      //       },
+      //       axisLine: {
+      //         show: false,
+      //         lineStyle: {
+      //           color: '#979899'
+      //         }
+      //       },
+      //       splitLine: {
+      //         lineStyle:{
+      //           color:['#f7f8fa'],
+      //           width: 2,
+      //           type: 'dashed'
+      //         }
+      //       }
+      //     }
+      //   ],
+      //   series : [
+      //     {
+      //       name:'直接访问',
+      //       type:'bar',
+      //       barWidth: '7px',
+      //       // barWidth: '10%',
+      //       itemStyle: {
+      //         normal: {
+      //           color: function (params) {
+      //             var colorList = ['#43a3fb','#9ea7b4'];
+      //             return params.dataIndex % 2 === 0 ?  colorList[0] : colorList[1]
+      //           },
+      //           barBorderRadius:[10, 10, 0, 0]
+      //         }
+      //       }
+      //     }
+      //   ]
+      // }
+
       {
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
+        legend: {   // 失效了
+          itemWidth: 48, // 图例的宽度
+          data: ['今日数据', '昨日数据'],
+          right: 0,  // 位置
+          textStyle: {
+            color: '#ccc'
+          }
         },
         tooltip: {
           trigger: 'axis',
@@ -299,72 +492,87 @@ export class BaseIndexComponent implements OnInit{
           formatter: function (params) {
             let str = '';
             str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
-            str = str +  `
+            if (params.length > 1) {
+              params.forEach( item => {
+                str = str + `
+                <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${item.color}"></div>
+                ${item.seriesName}<span style="margin-right:20px"></span>${item.data}<div style="margin-top:5px"></div>
+              `;
+              });
+            } else {
+              str = str +  `
               <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${params[0].color}"></div>
               ${params[0].seriesName}<span style="margin-right:20px"></span>${params[0].data}
               `
+            }
             return str;
           }
         },
-        xAxis : [
-          {
-            type : 'category',
-            axisTick: {
-              alignWithLabel: true
-            },
-            axisLabel : { // x轴字体颜色 y轴一样
-              // formatter: '{value}',
-              textStyle: {
-                color: '#979899'
-              }
-            },
-            axisLine: {
-              show: true,
-              lineStyle: {
-                color: '#eeecea'
-              }
-            },
-          }
-        ],
-        yAxis : [
-          {
-            type : 'value',
-            axisTick: {
-              show: false,
-            },
-            axisLine: {
-              show: false,
-              lineStyle: {
-                color: '#979899'
-              }
-            },
-            splitLine: {
-              lineStyle:{
-                color:['#f7f8fa'],
-                width: 2,
-                type: 'dashed'
-              }
+        grid: {
+          left: 0,
+          right: 10,
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: '#979899'
+            }
+          },
+          axisTick: {
+            show: false,
+          },
+          splitLine: {
+            lineStyle:{
+              color:['#f7f8fa'],
+              width: 2,
+              type: 'dashed'
             }
           }
-        ],
-        series : [
-          {
-            name:'直接访问',
-            type:'bar',
-            barWidth: '7px',
-            // barWidth: '10%',
-            itemStyle: {
-              normal: {
-                color: function (params) {
-                  var colorList = ['#43a3fb','#9ea7b4'];
-                  return params.dataIndex % 2 === 0 ?  colorList[0] : colorList[1]
-                },
-                barBorderRadius:[10, 10, 0, 0]
-              }
+        },
+        yAxis: {
+          type: 'value',
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: '#979899'
             }
+          },
+          axisTick: {
+            show: false,
+          },
+          splitLine: {
+            lineStyle:{
+              color:['#f7f8fa'],
+              width: 2,
+              type: 'dashed'
+            }
+          },
+          axisLabel: {
+            formatter: '{value} 次'
           }
+        },
+        series: [
+          {
+            name: '今日数据',
+            type: 'line',
+            color: ['#2e90ff'],
+            symbol: 'none'
+          },
+          {
+            name: '昨日数据',
+            type: 'line',
+            color: ['#31c38f'],
+            symbol: 'none'
+          },
         ]
       }
+
+
     );
     window.addEventListener('resize', () => {
       todayAllSpendChartRef.resize();
@@ -439,7 +647,7 @@ export class BaseIndexComponent implements OnInit{
 
 
   /**
-   * 今日在投创意 今日在投活动 类型切换
+   * 今日在投创意 今日在投活动 平台实时数据 类型切换
    * @param echartsInstance
    * @param data
    * @param type
@@ -496,13 +704,14 @@ export class BaseIndexComponent implements OnInit{
     echartsInstance.setOption(option);
   }
 
+
   /**
-   * 数据趋势 实时效果数据 类型切换
+   * 数据趋势  类型切换
    * @param echartsInstance
    * @param data
    * @param type
    */
-  changeDayTotalChart(echartsInstance, data, type) {  // echarts 表单数组
+  changeDayTotalChart(echartsInstance, data, type, date) {  // echarts 表单数组
     console.log(data)
     let suffix;
     let d = data.y[type];
@@ -531,6 +740,9 @@ export class BaseIndexComponent implements OnInit{
     }
 
     let option: any = {
+      title: {
+        text: date+'数据趋势',
+      },
       xAxis: {
         data: data.x
       },
@@ -543,17 +755,13 @@ export class BaseIndexComponent implements OnInit{
         {data: d},
       ]
     }
-
     if (max) {
       option.yAxis.max = max
     } else {
       option.yAxis.max = null;
     }
-
     echartsInstance.setOption(option);
   }
-
-
 
 
   /**
@@ -866,12 +1074,16 @@ export class BaseIndexComponent implements OnInit{
           ],
           series : [
             {
-              data:this.all_ad_Flow.y.req_num,
+              data:this.all_ad_Flow.y.today,
+            },
+            {
+              data:this.all_ad_Flow.y.yesterday,
             }
           ]
         }
       )
-      this.changeDayTotalChart(this.todayAllSpendEcharts, this.ad_total_echarts, this.todayAllSpend)
+      this.changeCampaignAndCreativeChart(this.todayAllSpendEcharts, this.ad_total_echarts, this.todayAllSpend);
+      // this.changeDayTotalChart(this.todayAllSpendEcharts, this.ad_total_echarts, this.todayAllSpend)
     });
 
     this._publicService.otherData().subscribe(res => {
@@ -1023,9 +1235,10 @@ export class BaseIndexComponent implements OnInit{
       };
   }
 
-  _getAgeStyle(index) {
-    if (this.AgeWidth) {
-      let width = this.AgeWidth.nativeElement.offsetWidth;
+  _getAgeStyle(index,AgeWidth) {
+
+    if (AgeWidth) {
+      let width = AgeWidth.offsetWidth;
       return {
         'left.px': width * index + (width / 0.1 * 0.03) * index
       };
@@ -1219,6 +1432,7 @@ export class BaseIndexComponent implements OnInit{
    * @param type
    */
   resizeFun() {
+    console.log('diaoyong')
     let width = window.document.body.offsetWidth
     if (width > 1500 && width < 1920) {
       this.sexCount = 150;

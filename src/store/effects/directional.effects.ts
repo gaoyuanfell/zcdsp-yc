@@ -73,11 +73,17 @@ export class DirectionalEffects {
           ];
           forkJoin(service).subscribe((arr) => {
             let [b] = arr;
+            // lbs_location   lbs_scenes
+            let lbs_scenes = b.result.lbs_scenes;
+            let lbs_location = b.result.lbs_location;
             let recursion = [
-              this.recursionChild({children: b.result}),
+              this.recursionChild({children: lbs_location}),
             ];
             Promise.all(recursion).then(([lbsCity]) => {
-              observer.next(new directionalActionUnion.LbsCityAssign(lbsCity));
+              observer.next(new directionalActionUnion.LbsCityAssign({
+                lbsCity: lbsCity,
+                lbsScenes: lbs_scenes
+              }));
             });
           });
         });

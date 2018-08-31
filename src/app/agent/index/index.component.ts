@@ -90,7 +90,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       this.dayTotalChartData = res.result.chart;
       // 对于处理的上面的 曝光总量 点击总量 2个小块块
       this.dayTotalUp(res)
-      this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode)
+      this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, '15天内')
       this.changeDayTotalList(this.dayTotalChartData)
       countSubscribe.next()
     }, () => {
@@ -133,13 +133,13 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     if (!date) {
       this._indexService.dayTotal().subscribe(res => {
         this.dayTotalChartData = res.result.chart;
-        this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode);
+        this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, '15天内');
         this.changeDetectorRef.markForCheck();
       });
     } else {
       this._indexService.hourChart({date: date}).subscribe((res) => {
         this.dayTotalChartData = res.result;
-        this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode);
+        this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, date);
         this.changeDetectorRef.markForCheck();
       })
     }

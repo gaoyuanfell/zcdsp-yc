@@ -10,7 +10,9 @@ import {ReportService} from '../../../service/customer/report.service';
           导出
           <i class="btn-icon-export"></i>
         </div>
-      <yc-button-group class="tool" (changeEvent)="changeDayTotalChart(chartDataRefThis, chartData, chartType)" [(ngModel)]="chartType" [list]="[{value:'pv',label:'曝光量', unit:'次'},{value:'click',label:'点击量', unit:'次'},{value:'ctr',label:'点击率', unit:'%'},{value:'cpc',label:'点击成本', unit:'元'},{value:'cpm',label:'曝光成本', unit:'元'},{value:'admoney',label:'花费', unit:'元'}]"></yc-button-group>
+      <yc-button-group class="tool" (changeEvent)="changeDayTotalChart(chartDataRefThis, chartData, chartType)" [(ngModel)]="chartType" [list]="[{value:'pv',label:'曝光量'},{value:'click',label:'点击量'},{value:'ctr',label:'点击率'},{value:'cpc',label:'点击成本'},{value:'cpm',label:'曝光成本'},{value:'admoney',label:'花费'}]"></yc-button-group>
+
+      <!--<yc-button-group class="tool" (changeEvent)="changeDayTotalChart(chartDataRefThis, chartData, chartType)" [(ngModel)]="chartType" [list]="[{value:'pv',label:'曝光量', unit:'次'},{value:'click',label:'点击量', unit:'次'},{value:'ctr',label:'点击率', unit:'%'},{value:'cpc',label:'点击成本', unit:'元'},{value:'cpm',label:'曝光成本', unit:'元'},{value:'admoney',label:'花费', unit:'元'}]"></yc-button-group>-->
       <div class="chart-data chart-self" #chartDataRef></div>
     </div>
   `,
@@ -23,6 +25,7 @@ import {ReportService} from '../../../service/customer/report.service';
       }
 
       .chart-box > .tool {
+        z-index: 200;
         top: 20px;
         right: 10px;
         position:absolute;
@@ -30,7 +33,8 @@ import {ReportService} from '../../../service/customer/report.service';
       .chart-box > .tool-left {
         position:absolute;
         top: 28px;
-        right: 400px;
+        right: 500px;
+        z-index: 200;
       }
       .chart-self {
         width: 100%;
@@ -54,8 +58,9 @@ export class ReportExpandComponent implements OnInit {
   x: Array<any> = [];
   y: Array<any> = [];
   chartType = 'pv';
-  chartData
+  chartData;
   chartDataRefThis;
+
 
   get chartDataRef(): ElementRef {
     return this._chartDataRef;

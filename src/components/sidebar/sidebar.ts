@@ -1,10 +1,16 @@
-import {ComponentRef, Inject, Injectable, PLATFORM_ID, TemplateRef} from '@angular/core';
-import {Overlay, OverlayConfig, OverlayRef} from '@angular/cdk/overlay';
-import {ComponentPortal} from '@angular/cdk/portal';
-import {fromEvent, Subject} from 'rxjs';
-import {filter} from 'rxjs/operators';
-import {isPlatformBrowser} from '@angular/common';
-import {SidebarComponent} from './sidebar.component';
+import { ComponentRef, Inject, Injectable, PLATFORM_ID, TemplateRef, CompilerFactory, ComponentFactory, ComponentFactoryResolver, InjectionToken, Injector } from '@angular/core';
+import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal, ComponentType, PortalInjector } from '@angular/cdk/portal';
+import { fromEvent, Subject } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { isPlatformBrowser } from '@angular/common';
+import { SidebarComponent } from './sidebar.component';
+
+export const YC_SIDEBAR_DATA = new InjectionToken<any>('YcSidebarData');
+
+export interface SidebarConfig {
+  data?: any
+}
 
 @Injectable()
 export class Sidebar {
@@ -13,7 +19,10 @@ export class Sidebar {
   private componentRef: ComponentRef<SidebarComponent>;
   private opened;
 
-  constructor(private _overlay: Overlay, @Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(private _overlay: Overlay,
+    private injector: Injector,
+    private cfr: ComponentFactoryResolver,
+    @Inject(PLATFORM_ID) private platformId: Object) {
 
   }
 
@@ -21,7 +30,7 @@ export class Sidebar {
 
   escEvent;
 
-  open(ref: TemplateRef<any>): Subject<any> {
+  open(ref: TemplateRef<any> | ComponentType<any>, config?: SidebarConfig): Subject<any> {
     if (this.opened) return;
 
     if (!this.dialogPortal) {
@@ -56,11 +65,18 @@ export class Sidebar {
     this.closeSubject = new Subject();
     if (!this.popupRef.hasAttached()) {
       this.componentRef = this.popupRef.attach(this.dialogPortal);
-
-      this.componentRef.instance.containerRef.createEmbeddedView(ref);
+      if (ref instanceof TemplateRef) {
+        this.componentRef.instance.containerRef.createEmbeddedView(ref);
+      } else {
+        const injectionTokens = new WeakMap<any, any>([
+          [YC_SIDEBAR_DATA, config.data]
+        ]);
+        let containerRef = this.componentRef.instance.containerRef
+        let componentFactory = this.cfr.resolveComponentFactory(ref)
+        containerRef.createComponent(componentFactory, containerRef.length, new PortalInjector(this.injector, injectionTokens))
+      }
       this.componentRef.instance.open()
-
-      this.componentRef.instance.closeSubject.subscribe((data)=> {
+      this.componentRef.instance.closeSubject.subscribe((data) => {
         this.close()
       })
     }
