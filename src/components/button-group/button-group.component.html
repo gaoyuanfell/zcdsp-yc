@@ -2,6 +2,6 @@
   <div class="button"
        [ngClass]="{'active':l[_props.value] === value}"
        *ngFor="let l of list;let i = index"
-       (mousedown)="select(l)">{{l[[_props.label]]}}
+       (mousedown)="select(l)">{{l[_props.label]}}
   </div>
 </div>
