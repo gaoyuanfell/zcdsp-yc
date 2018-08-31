@@ -62,7 +62,7 @@
         <div class="verification clear">
           <input type="text" class="verifica" class="verifica" (focus)="_codeFocus()" [(ngModel)]="pwd_code" placeholder="请输入验证码" name="pwd_code" required [ngClass]="setInvalidClass(infoForm1, infoForm1.controls['pwd_code'])">
           <button type="button" class="send" (click)="verifyPwd()" [disabled]="flagCode || !user_name">{{codeText}}
-            <span class="countdown">{{countdown}}</span></button>
+            <span class="countdown" *ngIf="flagCode">{{countdown}}</span></button>
         </div>
         <app-form-tips [target]="infoForm1.controls['pwd_code']" placeholder="请输入验证码"  [formTarget]="infoForm1"></app-form-tips>
         <p class="error" *ngIf="_code"><img src="assets/img/index/tips.png" alt="">{{_code}}</p>

@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   flagCode =  false;
   codeText =   '获取验证码';
   codeTest() {
-    if (localStorage.getItem('countdown') && +localStorage.getItem('countdown') <  60 && +localStorage.getItem('countdown') > 0) {
+    if (localStorage.getItem('countdown') && +localStorage.getItem('countdown') <=  60 && +localStorage.getItem('countdown') > 0) {
       this.countdown = +localStorage.getItem('countdown');
       this.countdown --;
       this.flagCode = true;
@@ -86,7 +86,6 @@ export class LoginComponent implements OnInit {
                 data();
                 this.pwd_show = false;
                 // 发送验证码
-                this.countdown --;
                 localStorage.setItem('countdown', this.countdown + '');
                 this.codeTest()
               }
