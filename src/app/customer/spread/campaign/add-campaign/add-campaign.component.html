@@ -284,17 +284,20 @@
     </div>
 
   </div>
-
+  <div class="flex-center">
   <h2 class="extension-title" id="dingxiangshezhi">
     定向设置
   </h2>
-
+    <yc-button-group [(ngModel)]="rec_media_type" [list]="[{value:'1',label:'智能推荐'},{value:'2',label:'自定义'}]" (ngModelChange)="recMediaChange()"></yc-button-group>
+  </div>
   <div class="extension-form-box">
     <div class="campaign-form-box">
-      <div class="form-group flex-center">
-        <label class="form-label">快捷定向：</label>
-        <div class="form-input">
-          <yc-select [placeholder]="'请选择已保存的定向包'" [list]="orientation_packages" [props]="{label:'name'}" (selectedEvent)="setOrientation($event)"></yc-select>
+      <div class="padding">
+        <div class="form-group flex-center">
+          <label class="form-label">快捷定向：</label>
+          <div class="form-input">
+            <yc-select [placeholder]="'请选择已保存的定向包'" [list]="orientation_packages" [props]="{label:'name'}" (selectedEvent)="setOrientation($event)"></yc-select>
+          </div>
         </div>
       </div>
     </div>

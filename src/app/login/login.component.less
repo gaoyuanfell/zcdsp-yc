@@ -1,6 +1,14 @@
+.container-main {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left:0;
+  right: 0;
+  z-index: 1;
+}
 .container{
   width:100%;
-  height: 100%;
+  min-height: 100%;
   background: url("../../assets/img/index/dlbg.jpg") no-repeat;
   background-size: 100% 100%;
 }
@@ -11,6 +19,7 @@
   background: #fff;
   border-radius: 0 0 34px 34px;
   text-align: center;
+  padding-bottom: 13%;
 }
 .title{
   display: table;
@@ -229,13 +238,12 @@
 
 
 .footer{
-  position: absolute;
-  bottom: 0;
   width: 100%;
   font-size: 14px;
   color: #313a5a;
   padding: 25px 0;
   text-align: center;
+  margin-top: 8px;
   a{
     color: #313a5a;
     margin: 0 8px;

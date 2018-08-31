@@ -28,9 +28,6 @@ export class BoardComponent implements OnInit {
     background: 'rgba(255,255,255,0.7)',
     'top.px': 0
   }
-  bottom = {
-    'bottom.px': 0
-  };
   setIntervalNum;
   setInterval1;
   setInterval2;
@@ -42,9 +39,6 @@ export class BoardComponent implements OnInit {
     this.renderer.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
 
       this.background['top.px'] = event.target.scrollTop
-      this.bottom = {
-        'bottom.px': -event.target.scrollTop
-      }
 
       this.background['background'] = `rgba(255,255,255,${(event.target.scrollTop / 180) * 0.3 + 0.7})`
       console.info(event.target.scrollTop)
@@ -55,14 +49,6 @@ export class BoardComponent implements OnInit {
     })
     this.renderer.listen(this.picList.nativeElement, 'mouseleave', (event) => {
       this.scrolls()
-    })
-    this.renderer.listen('window', 'resize', (res) => {
-      console.dir(res.target.innerWidth)
-      if (res.target.innerWidth <= 1366) {
-        document.getElementById('footer').style.bottom = '10px'
-      } else {
-        document.getElementById('footer').style.bottom = '0px'
-      }
     })
     this.scrolls1()
     this.scrolls2()
