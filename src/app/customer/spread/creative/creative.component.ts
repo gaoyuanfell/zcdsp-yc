@@ -348,6 +348,7 @@ export class CreativeDetailComponent implements OnInit, OnDestroy {
   chartDataInstance
   creativeCode = 'pv';
   creativeChartData
+  creativeChartDataList
   creativeData
   direction
   orientationValue
@@ -366,6 +367,26 @@ export class CreativeDetailComponent implements OnInit, OnDestroy {
     } else {
       this.show_hour_today_format = undefined;
     }
+
+    this.creativeChartDataList = this.changeDayTotalList(this.creativeChartData)
+  }
+
+  changeDayTotalList(chartDatas){
+    let x = chartDatas.x;
+    let y = chartDatas.y;
+    let list = [];
+    x.forEach((item,index) => {
+      list.push({
+        'time': x[index],
+        'admoney': y.admoney[index],
+        'click': y.click[index],
+        'cpc': y.cpc[index],
+        'cpm': y.cpm[index],
+        'ctr': y.ctr[index],
+        'pv': y.pv[index]
+      })
+    })
+    return list;
   }
 
   /**

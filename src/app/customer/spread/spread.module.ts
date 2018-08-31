@@ -1,4 +1,4 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {SpreadComponent} from './spread.component';
 import {Module} from '../../module';
 import {SpreadRoutingModule} from './spread-routing.module';
@@ -30,8 +30,7 @@ import {EditCreativeComponent} from './creative/edit-creative/edit-creative.comp
   entryComponents:[
     CampaignDetailComponent,
     CreativeDetailComponent,
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  ]
 })
 export class SpreadModule {
 }
