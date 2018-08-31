@@ -12,25 +12,28 @@ export function menuReducer(state: MenuState = initState, action: MenuActionUnio
       state.menuList = action.payload;
       return state;
     }
-    case MenuActionTypes.ASSIGN_CHILD_LIST: {
-      state.childList = action.payload;
-      return state;
-    }
-    case MenuActionTypes.ASSIGN_CHILD_LIST_BY_PATH: {
+    case MenuActionTypes.SELECT_ACTIVE_MENU: {
       let path = action.payload;
-      let r = path.match(/^\/([a-zA-Z]+)\//i);
-      if (!r) return state;
-      state.menuList.every(sm => {
-        if (~sm.navigation_url.indexOf(r[1])) {
-          state.childList = sm.child;
-          return false;
+      state.menuList.every(m => {
+        m.active = false;
+        return true;
+      })
+      state.menuList.every(m => {
+        if(m.route === path){
+          m.active = true;
+          return false
+        }
+        if(m.child){
+          m.child.every(c => {
+            if(!!~path.indexOf(c.route)){
+              m.active = true;
+              return false;
+            }
+            return true;
+          })
         }
         return true;
-      });
-      return state;
-    }
-    case MenuActionTypes.SELECT_MENU: {
-      state.menu = state.menuList.find(ml => ml.id === action.payload)
+      })
       return state;
     }
     default: {
@@ -46,9 +49,4 @@ export const getMenuState = createFeatureSelector<MenuState>('menu');
 export const MenuList = createSelector(
   getMenuState,
   (state: MenuState) => state.menuList
-);
-
-export const ChildList = createSelector(
-  getMenuState,
-  (state: MenuState) => state.childList
 );

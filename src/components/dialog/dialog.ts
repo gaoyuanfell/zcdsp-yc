@@ -1,10 +1,24 @@
-import {ComponentRef, Inject, Injectable, PLATFORM_ID, TemplateRef} from '@angular/core';
-import {Overlay, OverlayConfig, OverlayRef} from '@angular/cdk/overlay';
-import {ComponentPortal} from '@angular/cdk/portal';
-import {DialogComponent} from './dialog.component';
-import {fromEvent, Subject} from 'rxjs';
-import {filter} from 'rxjs/operators';
-import {isPlatformBrowser} from '@angular/common';
+import { ComponentRef, Inject, Injectable, PLATFORM_ID, TemplateRef, Component, InjectionToken, ComponentFactoryResolver, Type, Injector } from '@angular/core';
+import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal, ComponentType, PortalInjector } from '@angular/cdk/portal';
+import { DialogComponent } from './dialog.component';
+import { fromEvent, Subject } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { isPlatformBrowser } from '@angular/common';
+
+export const YC_DIALOG_DATA = new InjectionToken<any>('YcDialogData');
+
+export interface DialogData {
+  title?: string
+  flag?: boolean
+  btn1?: string
+  btn2?: string
+  async?: boolean
+  maxWidth?: string
+  maxHeight?: string
+  fullScreen?: boolean
+  data?:any
+}
 
 @Injectable()
 export class Dialog {
@@ -21,10 +35,13 @@ export class Dialog {
     async: false,
     maxWidth: '80vw',
     maxHeight: '80vh',
-    fullScreen: false
+    fullScreen: false,
   }
 
-  constructor(private _overlay: Overlay, @Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(private _overlay: Overlay,
+    private cfr: ComponentFactoryResolver,
+    private injector: Injector,
+    @Inject(PLATFORM_ID) private platformId: Object) {
 
   }
 
@@ -32,9 +49,9 @@ export class Dialog {
 
   escEvent
 
-  open(ref: TemplateRef<any> | string, config: any = {...this._defaultConfig}): Subject<any> {
+  open(ref: TemplateRef<any> | ComponentType<any> | string, config: any = { ...this._defaultConfig }): Subject<any> {
     if (this.opened) return;
-    config = {...this._defaultConfig, ...config};
+    config = { ...this._defaultConfig, ...config };
     if (!this.dialogPortal) {
       this.dialogPortal = new ComponentPortal(DialogComponent);
     }
@@ -70,9 +87,27 @@ export class Dialog {
     if (!this.popupRef.hasAttached()) {
       this.componentRef = this.popupRef.attach(this.dialogPortal);
 
+      this.componentRef.instance._animationStateChanged.subscribe(event => {
+          if(event.toState === 'void' && this.popupRef){
+            if(event.phaseName === 'start'){
+              this.popupRef.detachBackdrop();
+            }
+            if(event.phaseName === 'done'){
+              this.popupRef.detach();
+            }
+          }
+      })
+
       this.componentRef.instance.config = config;
       if (ref instanceof TemplateRef) {
         this.componentRef.instance.containerRef.createEmbeddedView(ref);
+      } else if (ref instanceof Type) {
+        const injectionTokens = new WeakMap<any, any>([
+          [YC_DIALOG_DATA, config.data]
+        ]);
+        let containerRef = this.componentRef.instance.containerRef
+        let componentFactory = this.cfr.resolveComponentFactory(ref)
+        containerRef.createComponent(componentFactory, containerRef.length, new PortalInjector(this.injector, injectionTokens))
       } else {
         this.componentRef.instance.description = ref;
       }
@@ -91,17 +126,6 @@ export class Dialog {
   }
 
   close() {
-    if (this.popupRef) {
-      this.popupRef.detachBackdrop();
-      if (isPlatformBrowser(this.platformId)) {
-        setTimeout(() => {
-          this.popupRef.detach();
-        }, 400)
-      }
-    }
-    if (this.dialogPortal && this.dialogPortal.isAttached) {
-      this.dialogPortal.detach();
-    }
     if (this.componentRef) {
       this.componentRef.destroy()
     }

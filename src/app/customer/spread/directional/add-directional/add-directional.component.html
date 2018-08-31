@@ -1,3 +1,29 @@
-<p>
-  add-directional works!
-</p>
+<div class="submit-toolbar">
+  <div class="submit-box flex-center">
+    <button class="btn btn-fill btn-big" (click)="save()"><span style="padding: 0 20px;">提 交</span></button>
+    <a class="btn btn-link btn-big" href="javascript:history.back()"><span style="padding: 0 20px;">返回</span></a>
+  </div>
+</div>
+
+<div class="extension-main">
+  <h2 class="extension-title">
+    基本信息
+  </h2>
+  <div class="form-group flex">
+    <label class="form-label"><span>*</span>定向名称</label>
+    <div class="form-input">
+      <input class="form-control" [(ngModel)]="package_name" type="text" placeholder="请填写活动名称"
+        #campaign_name="ngModel" type="text" required [ngClass]="{'has-error':(_valid || campaign_name.dirty || campaign_name.touched) && campaign_name.invalid }">
+      <p class="input-error" *ngIf="(_valid || campaign_name.dirty || campaign_name.touched) && campaign_name.invalid">请输入活动名称</p>
+    </div>
+  </div>
+
+  <h2 class="extension-title">
+    定向信息
+  </h2>
+
+  <div class="extension-form-box">
+  <yc-directional [(ngModel)]="directional"></yc-directional>
+</div>
+
+</div>

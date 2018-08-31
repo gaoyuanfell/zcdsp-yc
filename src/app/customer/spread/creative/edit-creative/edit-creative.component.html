@@ -1,3 +1,81 @@
-<p>
-  edit-creative works!
-</p>
+<div class="submit-toolbar">
+  <div class="submit-box flex-center">
+    <button class="btn btn-fill btn-big" (click)="save()"><span style="padding: 0 20px;">提 交</span></button>
+    <a class="btn btn-link btn-big" href="javascript:history.back()"><span style="padding: 0 20px;">返回</span></a>
+  </div>
+</div>
+
+<div class="extension-main">
+  <h2 class="extension-title">
+    基本信息
+  </h2>
+
+  <div class="extension-form-box">
+    <div class="form-group flex-center">
+      <label class="form-label"><span>*</span>已选活动</label>
+      <div class="form-input">
+        <p>{{creative.campaign_name}}</p>
+      </div>
+    </div>
+
+    <div class="form-group flex">
+      <label class="form-label"><span>*</span>投放小时</label>
+      <div class="form-input">
+        <yc-time-schedule [grain]="1" [(ngModel)]="show_hours"></yc-time-schedule>
+      </div>
+    </div>
+
+    <div class="form-group flex">
+      <label class="form-label" #chujia><span>*</span>出价</label>
+      <div class="form-input">
+        <input class="form-control" type="text" [(ngModel)]="creative.ad_price" #ad_price="ngModel" [placeholder]="'请填写出价'"
+          required pattern="(^[0-9]\d*\.?\d{0,2}$)" [ngClass]="{'has-error': (_valid || ad_price.dirty || ad_price.touched) && (ad_price.invalid || creative.ad_price > bid_max || creative.ad_price < bid_min)}">
+        <p class="input-error" *ngIf="(_valid || ad_price.dirty || ad_price.touched) &&  ad_price.invalid">请填写正确的金额</p>
+        <p class="input-error" *ngIf="ad_price.valid && ( creative.ad_price > bid_max || creative.ad_price < bid_min)">出价范围[{{bid_min}},
+          {{bid_max}}]</p>
+      </div>
+      <p class="m-l-1">元/CPC</p>
+    </div>
+  </div>
+
+  <h2 class="extension-title">
+    创意
+  </h2>
+
+  <div class="extension-form-box">
+    <div class="form-group flex-center">
+      <label class="form-label"><span>*</span>媒体样式</label>
+      <div class="form-input">
+        <!--名称 =  媒体名称+尺寸+样式+序号-->
+        <p>{{creative.media_name}}-{{creative.ad_width}}X{{creative.ad_height}}-{{creative.material_type_name}}</p>
+      </div>
+    </div>
+
+    <div class="form-group flex">
+      <label class="form-label"></label>
+
+      <div class="creative-container flex-wrap-center">
+        <div class="creative-logo-box" *ngIf="elements?.logo">
+
+          <div class="creative-logo" yc-file-upload [dataType]="'K'" [accept]="{extensions: elements?.logo.extensions,maxSize: elements?.logo.max_file_size, size: elements?.logo.logo_size}"
+            (eventChange)="logoChange($event)" (eventError)="imgError($event)">
+            <div class="creative-logo-img" [ngClass]="{'active': elements?.logo[elements?.logo.name]}" *ngIf="elements?.logo[elements?.logo.name]">
+              <img [src]="elements?.logo[elements?.logo.name]" alt="logo">
+            </div>
+            <div class="creative-logo-text">
+              <!--logo_src-->
+              <p>{{elements?.logo.logo_size}}</p>
+              <p>{{elements?.logo.placeholder}}</p>
+              <p>{{elements?.logo.support_file_type}},小于{{elements?.logo.max_file_size}}KB</p>
+            </div>
+          </div>
+        </div>
+
+        <yc-creative-box *ngIf="elements" [editCreative]="false" [(elementList)]="elementList" #creativeBox="creativeBox"
+          [elements]="elements" [selectMediaSize]="selectMediaSize"></yc-creative-box>
+
+      </div>
+    </div>
+  </div>
+
+</div>

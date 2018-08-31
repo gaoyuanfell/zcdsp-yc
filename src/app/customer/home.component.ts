@@ -1,8 +1,9 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/model';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
 import * as reducerMenu from '../../store/reducer/menu.reducer';
+import * as reducerAction from '../../store/actions/menu.action';
 import {fromEvent, Observable, Subject} from 'rxjs';
 import {Loading} from '../../components/loading/loading.service';
 import {Global} from '../../service/global';
@@ -63,5 +64,11 @@ export class HomeComponent implements OnInit,OnDestroy {
     this.store.dispatch(new directionalAction.LbsCityInit());
     this.store.dispatch(new directionalAction.AudiencesActionInit());
     this.menuList$ = store.pipe(select(reducerMenu.MenuList));
+
+    router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.store.dispatch(new reducerAction.SelectActiveMenu(event.url))
+      }
+    })
   }
 }
