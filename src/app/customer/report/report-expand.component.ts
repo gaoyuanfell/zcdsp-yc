@@ -25,6 +25,7 @@ import {ReportService} from '../../../service/customer/report.service';
       }
 
       .chart-box > .tool {
+        z-index: 200;
         top: 20px;
         right: 10px;
         position:absolute;
@@ -32,7 +33,8 @@ import {ReportService} from '../../../service/customer/report.service';
       .chart-box > .tool-left {
         position:absolute;
         top: 28px;
-        right: 400px;
+        right: 500px;
+        z-index: 200;
       }
       .chart-self {
         width: 100%;
@@ -158,7 +160,6 @@ export class ReportExpandComponent implements OnInit {
   }*/
 
   changeDayTotalChart(echartsInstance, data, type) {  // echarts 表单数组
-    console.log('改变')
     if (!data) return
     let suffix;
     let d = data.y[type];
