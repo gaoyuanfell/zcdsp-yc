@@ -5,6 +5,7 @@ import {DirectionalComponent} from './directional.component';
 import {CheckboxModule} from '../checkbox/checkbox.module';
 import {SwitchInputModule} from '../switch-input/switch-input.module';
 import {ModulePipe} from '../../app/module-pipe';
+import {CheckboxGroupModule} from "../checkbox-group/checkbox-group.module";
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import {ModulePipe} from '../../app/module-pipe';
     CheckboxModule,
     SwitchInputModule,
     ModulePipe,
+    CheckboxGroupModule
   ],
   declarations: [
     DirectionalComponent,
