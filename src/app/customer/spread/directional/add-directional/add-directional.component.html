@@ -13,7 +13,7 @@
     <label class="form-label"><span>*</span>定向名称</label>
     <div class="form-input">
       <input class="form-control" [(ngModel)]="package_name" type="text" placeholder="请填写活动名称"
-        #campaign_name="ngModel" type="text" required [ngClass]="{'has-error':(_valid || campaign_name.dirty || campaign_name.touched) && campaign_name.invalid }">
+             #campaign_name="ngModel" type="text" required [ngClass]="{'has-error':(_valid || campaign_name.dirty || campaign_name.touched) && campaign_name.invalid }">
       <p class="input-error" *ngIf="(_valid || campaign_name.dirty || campaign_name.touched) && campaign_name.invalid">请输入活动名称</p>
     </div>
   </div>
@@ -22,8 +22,8 @@
     定向信息
   </h2>
 
-  <div class="extension-form-box">
-  <yc-directional [(ngModel)]="directional"></yc-directional>
-</div>
+  <!--<div class="extension-form-box">-->
+    <yc-directional [(ngModel)]="directional"></yc-directional>
+  <!--</div>-->
 
 </div>
