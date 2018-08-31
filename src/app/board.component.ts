@@ -47,7 +47,7 @@ export class BoardComponent implements OnInit {
       }
 
       this.background['background'] = `rgba(255,255,255,${(event.target.scrollTop / 180) * 0.3 + 0.7})`
-
+      console.info(event.target.scrollTop)
     })
     this.scrolls()
     this.renderer.listen(this.picList.nativeElement, 'mouseenter', (event) => {
@@ -135,9 +135,11 @@ export class BoardComponent implements OnInit {
 
   scrollTop(name) {
     this.hash = name
-    this.containerFullRef.nativeElement.scrollTop = `document.getElementById(name).offsetTop - 80px`
+    this.containerFullRef.nativeElement.scrollTop = document.getElementById(name).offsetTop - 80
+    console.info(this.containerFullRef.nativeElement.scrollTop)
     if (name === 'home') {
       this.containerFullRef.nativeElement.scrollTop = 0
+      console.info(this.containerFullRef.nativeElement.scrollTop)
       // this._scrollService.scrollTo(this.containerFullRef.nativeElement, {top: 0})
     }
   }
