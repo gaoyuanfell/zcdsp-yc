@@ -291,8 +291,9 @@
         </div>
         <div class="main age" style="padding:0;">
           <div class="item">
-
-            <div *ngFor="let x of age; let i = index" class="item-parent" [ngStyle]="_getAgeStyle(i)" #AgeWidth>
+            <!--属性这块的写法-->
+            <div *ngFor="let x of age; let i = index" class="item-parent" [ngStyle]="{'left.px': AgeWidth.offsetWidth * i + (AgeWidth.offsetWidth / 0.1 * 0.03) * i}" #AgeWidth>
+            <!--<div *ngFor="let x of age; let i = index" class="item-parent" [ngStyle]="_getAgeStyle(i)" #AgeWidth>-->
               <div class="item1"  >
                 <div>{{x.age_proportion / ageTotal * 100 | number: '1.2-2' }}%</div>
                 <div>

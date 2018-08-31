@@ -39,6 +39,9 @@ export class NoopInterceptor implements HttpInterceptor {
                 this._notification.warning('提示', '暂无权限！');
                 throw response.body
               }
+              if (response.body.success == 300) {
+                throw response.body
+              }
             } else {
               this._notification.error('提示', '系统错误');
             }
