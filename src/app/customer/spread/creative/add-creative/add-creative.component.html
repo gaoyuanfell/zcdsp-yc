@@ -36,7 +36,7 @@
     选择活动
   </h2>
 
-  <div class="extension-form-box">
+  <div class="extension-form-box form-box">
 
     <div class="form-group flex-center">
       <label class="form-label">所属活动</label>
@@ -74,8 +74,13 @@
 
     <div class="extension-form-box">
 
-      <div style="padding: 30px 70px">
+      <div style="padding: 20px 70px">
         <!--推荐媒体-->
+        <div class="select-group">
+          <yc-select placeholder="媒体类型"></yc-select>
+          <yc-select placeholder="展现形式"></yc-select>
+          <yc-select placeholder="尺寸筛选"></yc-select>
+        </div>
         <div class="recommend-media flex-wrap-center" *ngIf="rec_media_type === '1'">
           <div class="item-box" *ngFor="let rml of rec_media_list" [ngClass]="{'active':selectMediaSize === rml}" (click)="changeContentTip(rml)">
             <p>{{rml.media_name}}</p>
@@ -191,7 +196,6 @@
       </div>
 
     </div>
-
     <div class="flex">
       <h2 class="extension-title" id="chujia">
         出价

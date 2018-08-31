@@ -8,13 +8,15 @@
   font-size: 20px;
   color: #212121;
   padding-right: 10px;
-  width: 115px;
+  width: auto;
+  text-align: right;
+  margin-right: 10px;
 }
 
 .directional-info{
   > *{
     display: inline-block;
-    margin-right: 35px;
+    margin-right: 20px;
   }
   & :nth-child(1){
     color: #212121;
@@ -30,7 +32,9 @@
 
 .expanded{
   overflow: hidden;
-  margin-left: 115px;
+  margin:0 115px;
+  /*padding-bottom: 30px;
+  border-bottom: 1px #fafafa solid;*/
 }
 
 .directional-operation{
@@ -43,7 +47,7 @@
   .triangle{
     top: -6px;
     position: absolute;
-    left: 150px;
+    left: 250px;
     width: 12px;
     height: 12px;
     background: #fafcff;
@@ -80,7 +84,7 @@
   height: 32px;
   background-color: #ffffff;
   position: relative;
-  width: 100%;
+  width: 88%;
   .input-query-icon{
     background: url("../../assets/img/input-query-icon.png") no-repeat center;
     background-size: 14px;
@@ -103,9 +107,14 @@
 ///////////////  搜索
 
 .directional-query{
-  background-color: #f9fafb;
+  //background-color: #f9fafb;
   border: none;
-  width: 670px;
+  border-bottom: 1px #fafafa solid;
+  width: 633px;
+  span{
+    font-size: 14px;
+    color: #2e8fff;
+  }
 }
 
 ///////////////// 联动盒子
@@ -139,4 +148,7 @@
 
 .linkage-box:last-child{
   border-right: 1px solid #f2f2f2;
+}
+.flex-center {
+  margin: 0 122px 15px 122px;
 }
