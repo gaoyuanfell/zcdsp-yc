@@ -26,6 +26,38 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   multi: true
 };
 
+export function getDirectionalData() {
+  return {
+    dtl_address: {
+      area: [],
+      lbs: [],
+      type: 1,
+      scene_type: 1
+    },
+    dtl_attribute: {
+      crowdAttribute: {
+        age: [],
+        sex: [],
+        education: [],
+      }
+    },
+    dtl_behavior: {
+      appCategory: [],
+      appAttribute: [],
+      filterAppCategory: [],
+      filterAppAttribute: [],
+    },
+    dtl_devices: {
+      devicesType: [],
+      brand: [],
+      mobileOS: [],
+      netType: [],
+      operators: [],
+      browsers: [],
+    }
+  };
+}
+
 @Component({
   selector: 'yc-directional',
   templateUrl: './directional.component.html',
@@ -46,6 +78,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   areasChildList$: Observable<Array<any>>;
 
   lbsCityState$: Observable<Directional>;
+  LbsScenes$: Observable<Array<any>>;
   lbsCityList$: Observable<Array<any>>;
   lbsCityResult$: Observable<Array<any>>;
   lbsCityViewResult$: Observable<Array<any>>;
@@ -182,6 +215,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     // this.areasResult$ = _directionalDataService.areasResult$;
 
     this.lbsCityState$ = store.pipe(select(directionalReducer.LbsCity));
+    this.LbsScenes$ = store.pipe(select(directionalReducer.LbsScenes));
     this.lbsCityList$ = store.pipe(select(directionalReducer.LbsCityList));
     this.lbsCityResult$ = store.pipe(select(directionalReducer.LbsCityResult));
     this.lbsCityViewResult$ = store.pipe(select(directionalReducer.LbsCityViewResult));
@@ -245,35 +279,9 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
       this.onChange(data);
       console.info(data);
     });
-    let result = {
-      dtl_address: {
-        area: [],
-        lbs: [],
-        type: 1,
-        scene_type: 1
-      },
-      dtl_attribute: {
-        crowdAttribute: {
-          age: [],
-          sex: [],
-          education: [],
-        }
-      },
-      dtl_behavior: {
-        appCategory: [],
-        appAttribute: [],
-        filterAppCategory: [],
-        filterAppAttribute: [],
-      },
-      dtl_devices: {
-        devicesType: [],
-        brand: [],
-        mobileOS: [],
-        netType: [],
-        operators: [],
-        browsers: [],
-      }
-    };
+
+    let result = getDirectionalData();
+
     this.areasResult$.subscribe(data => {
       if (!data) return;
       result.dtl_address.area = data.map(ar => ({id: ar.id, name: ar.name}));
@@ -332,6 +340,25 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
 
   writeValue(obj: any): void {
     this.result = obj;
+
+    let asd = {
+      'dtl_address': {
+        'area': [{'id': 60}, {'id': 40}, {'id': 47}, {'id': 206}, {'id': 87}, {'id': 112}, {'id': 1}, {'id': 39}, {'id': 2}, {'id': 113}, {'id': 275}, {'id': 236}, {'id': 22}, {'id': 239}, {'id': 234}, {'id': 9}, {'id': 111}, {'id': 125}, {'id': 250}, {'id': 115}, {'id': 124}, {'id': 189}, {'id': 126}, {'id': 153}, {'id': 296}],
+        'lbs': []
+      },
+      'dtl_attribute': {'sex': [0, 1, 2], 'age': [0, 8, 7, 5, 6]},
+      'dtl_behavior': {
+        'appAttribute': [],
+        'appCategory': [{'id': 35}, {'id': 33}, {'id': 100}, {'id': 102}, {'id': 106}, {'id': 74}, {'id': 34}, {'id': 25}, {'id': 28}]
+      },
+      'dtl_devices': {
+        'devicesType': [1],
+        'operators': [0, 1, 3],
+        'netType': [0, 3, 2, 1, 4],
+        'brand': [84, 1, 29, 63, 6, 45, 58, 4, 107],
+        'mobileOS': [1, 2, 0]
+      },
+    };
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -339,8 +366,18 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   }
 
   ngOnDestroy(): void {
-    console.info('ngOnDestroy')
     this.store.dispatch(new directionalAction.DirectionalRecovery());
   }
 
+  assignDefaultData(target, source) {
+    Object.keys(source).forEach(sk => {
+
+      if (typeof target[sk] === 'object' && typeof source[sk] === 'object') {
+        this.assignDefaultData(target[sk], source[sk])
+      }else{
+
+      }
+
+    });
+  }
 }

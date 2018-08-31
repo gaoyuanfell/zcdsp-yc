@@ -40,6 +40,7 @@ export interface AudiencesActionState {
 
 export interface LbsCityState {
   lbsCity?: Directional
+  lbsScenes?: Array<any>
   lbsCityList?:Array<Array<any>>
   lbsCityResult?: Array<any>
   lbsCityViewResult?: Array<any>

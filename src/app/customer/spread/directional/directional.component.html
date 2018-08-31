@@ -1,3 +1,59 @@
-<p>
-  directional works!
-</p>
+<div class="container-list">
+  <div class="query-tool">
+    <div class="left-tool">
+      <h2 class="table-title">
+        定向列表
+      </h2>
+    </div>
+    <div class="right-tool"></div>
+  </div>
+
+  <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" [fixed]="true" (changeEvent)="list()">
+    <div class="query-tool" #queryRef query>
+      <div class="left-tool">
+        <div class="btn" routerLink="0">
+          新建定向包
+          <i class="btn-icon-add"></i>
+        </div>
+
+        <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'请输入定向包名称、ID'"></yc-input-search>
+      </div>
+
+      <div class="right-tool">
+
+      </div>
+
+    </div>
+
+    <table #tableRef table>
+      <thead>
+        <tr>
+          <th class="text-center">编号</th>
+          <th>定向包名称</th>
+          <th class="text-center" [showSort]="true" [sortKey]="'creation_date'">创建日期</th>
+          <th class="text-center">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-template [ngForOf]="ycTable.data" ngFor let-data>
+          <tr>
+            <td class="text-center" [width]="100">{{data.package_id}}</td>
+            <td [width]="200" class="text-left">{{data.package_name}}</td>
+            <td class="text-center">
+              {{data.creation_date}}
+            </td>
+            <td class="text-center">
+              <a data-link [routerLink]="[data.package_id]">修改</a>
+              <a data-link (click)="_delete(data.package_id)">删除</a>
+            </td>
+          </tr>
+        </ng-template>
+
+      </tbody>
+    </table>
+
+
+  </yc-table>
+
+
+</div>

@@ -156,7 +156,9 @@ const initState2: LbsCityState = {
 export function lbsCityReducer(state: LbsCityState = initState2, action: DirectionalActionUnion) {
   switch (action.type) {
     case DirectionalActionTypes.LBS_CITY_ASSIGN: {
-      state.lbsCity = action.payload;
+      let {lbsCity, lbsScenes} = action.payload;
+      state.lbsCity = lbsCity;
+      state.lbsScenes = lbsScenes;
       state.lbsCityList.push(state.lbsCity.children);
       nextLbsCityChild();
       return state;
@@ -381,6 +383,11 @@ export const getLbsCityState = createFeatureSelector<LbsCityState>('lbsCity');
 export const LbsCity = createSelector(
   getLbsCityState,
   (state: LbsCityState) => state.lbsCity
+);
+
+export const LbsScenes = createSelector(
+  getLbsCityState,
+  (state: LbsCityState) => state.lbsScenes
 );
 
 export const LbsCityList = createSelector(

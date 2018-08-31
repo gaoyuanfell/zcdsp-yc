@@ -416,7 +416,7 @@ export class CampaignComponent implements OnInit {
 })
 export class CampaignDetailComponent implements OnInit,OnDestroy {
   ngOnDestroy(): void {
-    
+
   }
 
   ngOnInit(): void {
@@ -437,6 +437,8 @@ export class CampaignDetailComponent implements OnInit,OnDestroy {
     }
     this.show_time_type = this.campaignData.show_time_type;
     this.orientationValue = this.campaignData.orientation_name_values;
+
+    this.campaignChartDataList = this.changeDayTotalList(this.creativeChartData)
   }
 
   // 显示活动详情
@@ -452,6 +454,27 @@ export class CampaignDetailComponent implements OnInit,OnDestroy {
   chartDataInstance;
   creativeChartData;
   @ViewChild('chartData') chartDataRef: ElementRef;
+
+  isChart = true
+  campaignChartDataList
+
+  changeDayTotalList(chartDatas){
+    let x = chartDatas.x;
+    let y = chartDatas.y;
+    let list = [];
+    x.forEach((item,index) => {
+      list.push({
+        'time': x[index],
+        'admoney': y.admoney[index],
+        'click': y.click[index],
+        'cpc': y.cpc[index],
+        'cpm': y.cpm[index],
+        'ctr': y.ctr[index],
+        'pv': y.pv[index]
+      })
+    })
+    return list;
+  }
 
   /**
    * 今日在投创意 今日在投活动 类型切换

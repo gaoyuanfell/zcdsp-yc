@@ -92,6 +92,9 @@
       width: @nav-main-width-hover !important;
       overflow-y: auto;
       overflow-x: hidden;
+      .line{
+        width: auto !important;
+      }
     }
     .nav-list {
       width: 200px;
@@ -137,13 +140,15 @@
           }
         }
         .line{
+          transition: width 0.25s ease;
+          width: 25px;
           position: absolute;
           bottom: 0;
           height: 2px;
           right: 0;
           left: 0;
           margin: 0 15px;
-          background-color: rgba(102, 102, 102, 0.21);
+          background-color: rgba(167, 167, 167, 0.21);
         }
       }
       .nav-list .nav-name {

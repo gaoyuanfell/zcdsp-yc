@@ -15,6 +15,7 @@ import {environment} from '../../../../../environments/environment';
 import {DomSanitizer} from '@angular/platform-browser';
 import {debounceTime} from 'rxjs/operators';
 import {ScrollService} from '../../../../../service/scroll.service';
+import {OrientationService} from '../../../../../service/customer/orientation.service';
 
 export interface CampaignModel {
   campaign_id?: number,
@@ -335,8 +336,16 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
       campaign:this.campaign
     }
 
+    let show_hours = body.campaign.show_hours
+    delete body.campaign.show_hours
+    body.show_hours = show_hours;
+
     if(this.directional){
-      body.directional = this.directional
+      body.directional = this.directional;
+    }
+
+    if(this.package_name){
+      body.package_name = this.package_name;
     }
 
     this._campaignService.save(body).subscribe((res) => {
@@ -350,14 +359,11 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
           break;
       }
     });
-
-    // if (this.is_need_package && this.package_name) {
-    //   this.saveDirectional();
-    // }
   }
 
   setOrientation(data) {
-    this._directionalService.getOrientationDetail({search_text: data.value}).subscribe(res => {
+
+    this._orientationService.detail({package_id: data.value}).subscribe(res => {
 
       console.info(res);
 
@@ -371,12 +377,6 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
         dtl_devices: res.result.dtl_devices,
       }
 
-    });
-  }
-
-  saveDirectional() {
-    this._directionalService.addOrientation({...this.directional, package_name: this.package_name}).subscribe(res => {
-      // this._notification.success('提示', '保存定向包成功！')
     });
   }
 
@@ -486,6 +486,7 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
               private _notification: Notification,
               private _dialog: Dialog,
               private _directionalService: DirectionalService,
+              private _orientationService: OrientationService,
               private _publicService: PublicService,
               private _scrollService: ScrollService,
               private _global: Global,
@@ -544,6 +545,10 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
       }
       this.changeDetectorRef.markForCheck();
     });
+
+    this._directionalService.directionalRecommend().subscribe(res => {
+      console.info(res);
+    })
 
     for (let i = 1; i <= 20; i++) {
       this.frequencyList.push({

@@ -103,7 +103,8 @@
           <td class="text-right">{{ data.cpm * 1000 | currencyFormat}}</td>
           <td class="text-right">{{ data.admoney | currencyFormat }}</td>
           <td class="text-right">
-            <a href="javascript:void 0" (click)="openCampaignDetail(data)">修改</a>
+            <a href="javascript:void 0" [routerLink]="['/ads/spread/creative/edit',data.creative_id]">修改</a>
+            <a href="javascript:void 0" (click)="openCampaignDetail(data)">详情</a>
           </td>
         </tr>
 

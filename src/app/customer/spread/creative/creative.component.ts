@@ -354,6 +354,8 @@ export class CreativeDetailComponent implements OnInit, OnDestroy {
   orientationValue
   creativeValue
 
+  isChart = true;
+
   @ViewChild('chartData') chartDataRef: ElementRef
 
   constructor(@Inject(YC_SIDEBAR_DATA) private data: any) {
