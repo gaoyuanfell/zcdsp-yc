@@ -53,14 +53,14 @@
             <span></span>
             <i>邮箱验证</i>
           </label>
-          <div *ngIf="type_show">{{type_show}}</div>
+          <p class="error" *ngIf="type_show"><img src="assets/img/index/tips.png" alt="">{{type_show}}</p>
         </div>
 
 
         <div class="verification clear">
           <input type="text" class="verifica" class="verifica" (focus)="_codeFocus()" [(ngModel)]="pwd_code" placeholder="请输入验证码" name="pwd_code" required [ngClass]="setInvalidClass(infoForm1, infoForm1.controls['pwd_code'])">
-          <button type="button" class="send" (click)="verifyPwd()" [disabled]="flagCode || !user_name">{{codeText}}</button>
-          <span class="countdown">{{countdown}}</span>
+          <button type="button" class="send" (click)="verifyPwd()" [disabled]="flagCode || !user_name">{{codeText}}
+            <span class="countdown">{{countdown}}</span></button>
         </div>
         <app-form-tips [target]="infoForm1.controls['pwd_code']" placeholder="请输入验证码"  [formTarget]="infoForm1"></app-form-tips>
         <p class="error" *ngIf="_code"><img src="assets/img/index/tips.png" alt="">{{_code}}</p>
@@ -78,7 +78,7 @@
         <!--是否显示密码框-->
         <div>
           <input type="text" class="password" placeholder="输入密码" required [(ngModel)]="password" name="password"
-                 pattern="((?=.*\d)(?=.*[A-Za-z]))^[A-Za-z\d]{6,18}$" (ngModelChange)="pwd_comfirm()" autocomplete="off" [ngClass]="setInvalidClass(infoForm2, infoForm2.controls['password'])">
+                 pattern="((?=.*\d)(?=.*[A-Za-z]))^[A-Za-z\d]{8,18}$" (ngModelChange)="pwd_comfirm()" autocomplete="off" [ngClass]="setInvalidClass(infoForm2, infoForm2.controls['password'])">
           <app-form-tips [target]="infoForm2.controls['password']" [formTarget]="infoForm2" [tips]="'请输入8~18位字母和数字的组合!'" placeholder="请填写密码"></app-form-tips>
 
 

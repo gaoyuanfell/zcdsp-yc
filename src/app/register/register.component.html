@@ -24,7 +24,7 @@
 
 
         <input type="text" class="password" placeholder="输入密码" [ngClass]="setInvalidClass(infoForm, infoForm.controls['password'])" required [(ngModel)]="user.password" name="password"
-               pattern="((?=.*\d)(?=.*[A-Za-z]))^[A-Za-z\d]{6,18}$" (ngModelChange)="pwd_comfirm()" autocomplete="off">
+               pattern="((?=.*\d)(?=.*[A-Za-z]))^[A-Za-z\d]{8,18}$" (ngModelChange)="pwd_comfirm()" autocomplete="off">
         <app-form-tips [target]="infoForm.controls['password']" [formTarget]="infoForm" [tips]="'请输入8~18位字母和数字的组合!'" placeholder="请填写密码"></app-form-tips>
 
 
