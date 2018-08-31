@@ -31,7 +31,7 @@
 
 
 
-        <input type="text" class="password" placeholder="请再次输入密码"   required [(ngModel)]="user.old_pwd" (ngModelChange)="pwd_comfirm()"  name="old_pwd" autocomplete="off" [ngClass]="{'has-error':flag, 'has-success': !flag}">
+        <input type="text" class="password" placeholder="请再次输入密码"   required [(ngModel)]="user.old_pwd" (ngModelChange)="pwd_comfirm()"  name="old_pwd" autocomplete="off" [ngClass]="{'has-error':flag && !user.old_pwd, 'has-success': !flag && user.old_pwd}">
         <p class="error" *ngIf="flag"><img src="assets/img/index/tips.png" alt="">密码不一致</p>
 
 
@@ -42,8 +42,10 @@
 
         <div class="verification clear">
               <input type="text" class="verifica" placeholder="获取验证码" required  [(ngModel)]="user.verify_code"  name="verify_code" autocomplete="off" [ngClass]="setInvalidClass(infoForm, infoForm.controls['verify_code'])">
-              <button type="button" class="send" (click)="verifyCode(mobile_phone)" [disabled]="flagCode">{{codeText}}</button>
-              <span class="countdown">{{countdown}}</span>
+              <button type="button" class="send" (click)="verifyCode(mobile_phone)" [disabled]="flagCode || mobile_phone.invalid">
+                {{codeText}}<span class="countdown" *ngIf="flagCode">{{countdown}}</span>
+              </button>
+
         </div>
         <app-form-tips [target]="infoForm.controls['verify_code']" [tips]="'请输入手机验证码'" placeholder="请输入手机验证码" [formTarget]="infoForm"></app-form-tips>
         <div style="margin-top:10px;">

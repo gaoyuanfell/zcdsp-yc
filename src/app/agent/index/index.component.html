@@ -248,7 +248,8 @@
             平台实时效果<i class="icon-tool-help"></i>
           </div>
           <div class="right">
-            <yc-button-group class="tool" (changeEvent)="changeDayTotalChart(todayAllSpendEcharts,ad_total_echarts,todayAllSpend)" [(ngModel)]="todayAllSpend" [list]="[{value:'ctr',label:'点击率'},{value:'cpc',label:'点击成本'},{value:'cpm',label:'曝光成本'}]"></yc-button-group>
+            <yc-button-group class="tool" (changeEvent)="changeCampaignAndCreativeChart(todayAllSpendEcharts, ad_total_echarts, todayAllSpend);" [(ngModel)]="todayAllSpend" [list]="[{value:'ctr',label:'点击率'},{value:'cpc',label:'点击成本'},{value:'cpm',label:'曝光成本'}]"></yc-button-group>
+            <!--<yc-button-group class="tool" (changeEvent)="changeDayTotalChart(todayAllSpendEcharts,ad_total_echarts,todayAllSpend)" [(ngModel)]="todayAllSpend" [list]="[{value:'ctr',label:'点击率'},{value:'cpc',label:'点击成本'},{value:'cpm',label:'曝光成本'}]"></yc-button-group>-->
           </div>
         </div>
         <div class="main">

@@ -1,5 +1,5 @@
 <!--定向省市-->
-<div class="flex-center">
+<div class="flex-center margin-center">
   <h3 class="directional-info-title">地域定向：</h3>
   <div class="directional-info" *ngIf="q1.hide">
     <h4>定向省市</h4>
@@ -11,7 +11,7 @@
   </div>
 </div>
 <!--定向省市 expanded-->
-<div class="expanded" [@panel]="q1.hide || false" #q1>
+<div class="expanded" [@panel]="q1.hide || false" #q1 style="margin:0 115px;">
   <!---->
   <div class="choice-values-box" [hidden]="!(areasResult$ | async)?.length">
     <div class="choice-values">
@@ -58,7 +58,7 @@
   </div>
 
   <!--LBS-->
-  <div class="directional-info" style="margin-top: 30px;">
+  <div class="directional-info" style="margin-top: 50px;">
     <h4>LBS</h4>
     <p>当前已选择（{{(lbsCityViewResult$ | async)?.length || 0}}）</p>
     <button class="btn btn-outline btn-round" (click)="checkLbsCityChange(false)">清除全部</button>
@@ -78,7 +78,8 @@
 
   <div class="input-query directional-query" style="margin-bottom: 10px;">
     <i class="input-query-icon"></i>
-    <input type="text" placeholder="输入拼音首字母或名称">
+    <input type="text" placeholder="搜索省、市、区、商圈">
+    <span>从地图选择</span>
   </div>
   <!---->
   <div class="flex">
@@ -103,62 +104,60 @@
         </ul>
       </div>
     </ng-template>
-
   </div>
-
-  <!--<div class="flex-center lbstop">
+  <div class="flex-center lbstop">
     <label>场景：</label>
-    <yc-radio-group [(ngModel)]="lbs_scene_type" [list]="lbs_scenes" [props]="{label:'name'}" (changeEvent)="changeValue()"></yc-radio-group>
-  </div>-->
-
+    <yc-checkbox-group [list]="[{name:'实时', desc: '实时', value:1},{name:'7天内', desc: '7天内', value:2},{name:'30天内', desc: '30天内', value:3}]" [props]="{label:'name'}"></yc-checkbox-group>
+  </div>
 </div>
 
 <!--受众定向-->
-<div class="flex-center">
-  <h3 class="directional-info-title">受众定向：</h3>
-  <div class="directional-info" *ngIf="q2.hide">
+<div class="flex margin-center border">
+  <h3 class="directional-info-title" style="margin-right: 0">受众定向：</h3>
+  <!--<div class="directional-info" *ngIf="q2.hide">
     <h4>人群</h4>
     <p>当前已选择（{{(audiencesViewResult$ | async)?.length || 0}}）</p>
     <button class="btn btn-outline btn-round" (click)="removeAllAudiences()">清除全部</button>
+  </div>-->
+  <!--受众定向 expanded-->
+  <div class="expanded expanded1" [@panel]="q2.hide || false" #q2>
+    <!--choice-->
+    <div class="choice-values-box" [hidden]="!(audiencesViewResult$ | async)?.length">
+      <div class="choice-values">
+        <ng-template [ngForOf]="audiencesViewResult$ | async" ngFor let-value>
+          <span class="label-value">
+            {{value.name}}
+            <i (click)="value.checked = false;checkAudiencesChange(value)">&times;</i>
+          </span>
+        </ng-template>
+      </div>
+      <div class="triangle"></div>
+    </div>
+
+    <div>
+      <ng-template [ngForOf]="audiences$ | async" ngFor let-value>
+
+        <div class="flex">
+          <yc-checkbox [label]="value.value.name" [checkState]="value.value.checkState" [(ngModel)]="value.value.checked" (changeEvent)="checkAudiencesChange(value.value)"></yc-checkbox>
+          <div>
+            <ng-template [ngForOf]="value.value.children" ngFor let-value2 let-index="index">
+              <yc-checkbox [label]="value2.name" [checkState]="value2.checkState" [(ngModel)]="value2.checked" (changeEvent)="checkAudiencesChange(value2)"></yc-checkbox>
+            </ng-template>
+          </div>
+        </div>
+
+      </ng-template>
+    </div>
+
   </div>
   <div class="directional-operation">
     <yc-switch-input [(ngModel)]="q2.hide"></yc-switch-input>
   </div>
 </div>
-<!--受众定向 expanded-->
-<div class="expanded" [@panel]="q2.hide || false" #q2>
-  <!--choice-->
-  <div class="choice-values-box" [hidden]="!(audiencesViewResult$ | async)?.length">
-    <div class="choice-values">
-      <ng-template [ngForOf]="audiencesViewResult$ | async" ngFor let-value>
-          <span class="label-value">
-            {{value.name}}
-            <i (click)="value.checked = false;checkAudiencesChange(value)">&times;</i>
-          </span>
-      </ng-template>
-    </div>
-    <div class="triangle"></div>
-  </div>
 
-  <div>
-    <ng-template [ngForOf]="audiences$ | async" ngFor let-value>
-
-      <div class="flex">
-        <yc-checkbox [label]="value.value.name" [checkState]="value.value.checkState" [(ngModel)]="value.value.checked" (changeEvent)="checkAudiencesChange(value.value)"></yc-checkbox>
-        <div>
-          <ng-template [ngForOf]="value.value.children" ngFor let-value2 let-index="index">
-            <yc-checkbox [label]="value2.name" [checkState]="value2.checkState" [(ngModel)]="value2.checked" (changeEvent)="checkAudiencesChange(value2)"></yc-checkbox>
-          </ng-template>
-        </div>
-      </div>
-
-    </ng-template>
-  </div>
-
-</div>
 
 <!--受众行为：-->
-<div class="flex-center">
+<div class="flex-center margin-center">
   <h3 class="directional-info-title">受众行为：</h3>
   <div class="directional-info" *ngIf="q3.hide">
     <h4>行为指定</h4>
@@ -242,7 +241,7 @@
     <input type="text" placeholder="输入拼音首字母或名称">
   </div>
   <!--list-->
-  <div class="flex">
+  <div class="flex lbstop">
 
     <ng-template [ngForOf]="audiencesAction2List$ | async" ngFor let-valueList let-indexList="index">
       <div class="linkage-box w50">
@@ -272,7 +271,7 @@
 </div>
 
 <!--设备定向-->
-<div class="flex-center">
+<div class="flex-center margin-center">
   <h3 class="directional-info-title">设备定向：</h3>
   <div class="directional-info" *ngIf="q4.hide">
     <h4>设备</h4>

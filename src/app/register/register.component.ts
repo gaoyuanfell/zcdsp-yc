@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
   flagCode =  false;
   codeText =   '获取验证码';
   codeTest() {
-    if (localStorage.getItem('countdown') && +localStorage.getItem('countdown') <  60 && +localStorage.getItem('countdown') > 0) {
+    if (localStorage.getItem('countdown') && +localStorage.getItem('countdown') <=  60 && +localStorage.getItem('countdown') > 0) {
       this.countdown = +localStorage.getItem('countdown');
       this.countdown --;
       this.flagCode = true;
@@ -53,9 +53,8 @@ export class RegisterComponent implements OnInit {
       this._notification.warning('请输入正确的手机号', '');
       return;
     }
-    this.countdown --;
     localStorage.setItem('countdown', this.countdown + '');
-    this.codeTest()
+    this.codeTest();
     this._publicService.RegisterVerifyCode({mobile_number: this.user.mobile_phone}).subscribe( res => {})
   }
 

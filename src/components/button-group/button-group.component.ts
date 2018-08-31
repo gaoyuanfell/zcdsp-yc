@@ -72,6 +72,7 @@ export class ButtonGroupComponent implements ControlValueAccessor, OnChanges, On
   };
 
   select(data) {
+    console.log('select')
     let value = this.value = data[this._props.value];
     this.onChange(value);
     this.eventChange.emit(data);

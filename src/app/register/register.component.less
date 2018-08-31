@@ -79,21 +79,25 @@
     display:flex;
     align-items: center;
     .countdown{
-      display:block;
+      margin-left:5px;
       height:50px;
       line-height: 50px;
     }
   }
   .send{
     float: right;
-    width: 120px;
+    width: 150px;
     height:50px;
     line-height: 50px;
-    background: #86cbf9;
+    background: #0d98f3;
     font-size: 18px;
     color: #fff;
     cursor: pointer;
     margin: 0 10px;
+    &:disabled {
+      cursor: not-allowed;
+      background: #86cbf9;
+    }
   }
   input{
     width: 100%;
