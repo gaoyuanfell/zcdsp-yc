@@ -233,6 +233,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
 
     /////// ---------- 功能 ------------   ///////
     case DirectionalActionTypes.DIRECTIONAL_RECOVERY: {
+      if (!state.areas || !state.device || !state.audiences || !state.audiencesAction || !state.audiencesAction2 || !state.lbsCity) return state
       state.device.forEach(au => {
         au.value.checked = false;
         au.value.checkState = 0;

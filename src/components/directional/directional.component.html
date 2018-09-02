@@ -107,7 +107,7 @@
   </div>
   <div class="flex-center lbstop">
     <label>场景：</label>
-    <yc-checkbox-group [list]="[{name:'实时', desc: '实时', value:1},{name:'7天内', desc: '7天内', value:2},{name:'30天内', desc: '30天内', value:3}]" [props]="{label:'name'}"></yc-checkbox-group>
+    <yc-radio-group [(ngModel)]="scene_type" [list]="[{name:'实时', desc: '实时', value:1},{name:'7天内', desc: '7天内', value:2},{name:'30天内', desc: '30天内', value:3}]" [props]="{label:'name'}"></yc-radio-group>
   </div>
 </div>
 

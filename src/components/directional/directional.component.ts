@@ -224,7 +224,21 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
 
   }
 
-  result;
+  result:any = {};
+
+  get scene_type(){
+    if(this.result.dtl_address){
+      return this.result.dtl_address.scene_type
+    }
+    return 0
+  }
+
+  set scene_type(val){
+    if(this.result.dtl_address){
+      this.result.dtl_address.scene_type = val
+      this.onChange(this.result);
+    }
+  }
 
   /**
    * 订阅获取值
@@ -294,6 +308,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     if (!obj) return;
     this.assignDefaultData(obj, getDirectionalData())
     this.result = obj;
+    this.store.dispatch(new directionalAction.DirectionalRecovery())
     this.store.dispatch(new directionalAction.DirectionalSetResult(this.result))
   }
 
