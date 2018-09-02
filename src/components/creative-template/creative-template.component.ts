@@ -644,7 +644,6 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
     this._templateService.getTemplate(this.queryTemplate).subscribe(res => {
       if (res.result.template_list instanceof Array) {
         this.templateList.push(...res.result.template_list)
-        console.info(this.templateList)
       }
     })
   }

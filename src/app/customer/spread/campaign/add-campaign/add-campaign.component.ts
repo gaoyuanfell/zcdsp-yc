@@ -365,8 +365,6 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
 
     this._orientationService.detail({package_id: data.value}).subscribe(res => {
 
-      console.info(res);
-
       delete res.result.dtl_address.selected_lbs_location_details;
       delete res.result.dtl_address.selected_lbs_locations;
 
@@ -517,7 +515,6 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
     this.bid_max = this._global.bid_max;
 
     let auth = this.route.snapshot.data.auth;
-    console.info(auth)
     this.jurisdiction = auth.jurisdiction_list;
     this.authUser = auth.user;
     if (+this.id) {
@@ -547,7 +544,7 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
     });
 
     this._directionalService.directionalRecommend().subscribe(res => {
-      console.info(res);
+      
     })
 
     for (let i = 1; i <= 20; i++) {

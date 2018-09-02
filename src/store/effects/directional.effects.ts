@@ -1,13 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Actions, Effect, ofType} from '@ngrx/effects';
-import {Action} from '@ngrx/store';
-import {forkJoin, Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
+import { forkJoin, Observable } from 'rxjs';
 
-import {switchMap} from 'rxjs/operators';
-import {DirectionalService} from '../../service/customer/directional.service';
+import { switchMap } from 'rxjs/operators';
+import { DirectionalService } from '../../service/customer/directional.service';
 import * as directionalActionUnion from '../actions/directional.action';
-import {DirectionalActionTypes} from '../actions/directional.action';
-import {AudiencesActionAssign} from '../actions/directional.action';
+import { DirectionalActionTypes } from '../actions/directional.action';
 
 @Injectable()
 export class DirectionalEffects {
@@ -19,70 +18,63 @@ export class DirectionalEffects {
         return new Observable(observer => {
           let service = [
             this._directionalService.directionalCity(),
-            // this._directionalService.directionalLbs(),
+            this._directionalService.directionalLbs(),
             this._directionalService.directionalAudiences(),
-            // this._directionalService.directionalAudiencesAction(),
+            this._directionalService.directionalAudiencesAction(),
+            this._directionalService.directionalAudiencesAction(),
             this._directionalService.directionalDevice(),
           ];
           forkJoin(service).subscribe((arr) => {
-            let [a, c, e] = arr;
+            let [
+              a,
+              b,
+              c,
+              d,
+              e,
+              f] = arr;
 
-            let {age, education, sex} = c.result;
-            let {browsers, devicesType, brand, netType, operators, mobileOS} = e.result;
+            let { age, education, sex } = c.result;
+            let { browsers, devicesType, brand, netType, operators, mobileOS } = f.result;
+
+            let lbs_scenes = b.result.lbs_scenes
+            let lbs_location = b.result.lbs_location
 
             let recursion = [
-              this.recursionChild({children: a.result}),
-
-              this.recursionChild({children: age, name: '年龄'}),
-              this.recursionChild({children: education, name: '学历'}),
-              this.recursionChild({children: sex, name: '性别'}),
-
-              this.recursionChild({children: browsers, name: '浏览器'}),
-              this.recursionChild({children: devicesType, name: '设备类型'}),
-              this.recursionChild({children: brand, name: '设备品牌'}),
-              this.recursionChild({children: netType, name: '联网方式'}),
-              this.recursionChild({children: operators, name: '运营商'}),
-              this.recursionChild({children: mobileOS, name: '操作系统'}),
-
+              this.recursionChild({ children: a.result }),
+              this.recursionChild({ children: lbs_location }),
+              this.recursionChild({ children: age, name: '年龄' }),
+              this.recursionChild({ children: education, name: '学历' }),
+              this.recursionChild({ children: sex, name: '性别' }),
+              this.recursionChild({ children: d.result }),
+              this.recursionChild({ children: e.result }),
+              this.recursionChild({ children: browsers, name: '浏览器' }),
+              this.recursionChild({ children: devicesType, name: '设备类型' }),
+              this.recursionChild({ children: brand, name: '设备品牌' }),
+              this.recursionChild({ children: netType, name: '联网方式' }),
+              this.recursionChild({ children: operators, name: '运营商' }),
+              this.recursionChild({ children: mobileOS, name: '操作系统' }),
             ];
 
-            Promise.all(recursion).then(([areas, age, education, sex, browsers, devicesType, brand, netType, operators, mobileOS]) => {
+            Promise.all(recursion).then(([
+              areas,
+              lbsCity,
+              age, education, sex,
+              audiencesAction,
+              audiencesAction2,
+              browsers, devicesType, brand, netType, operators, mobileOS]) => {
 
-              let audiences = {age, education, sex};
-              let device = {browsers, devicesType, brand, netType, operators, mobileOS};
-
-              let audiencesList = Object.entries(audiences).map(([key, value]) => ({key, value}));
-              let deviceList = Object.entries(device).map(([key, value]) => ({key, value}));
-
-              observer.next(new directionalActionUnion.DirectionalAssign({areas: areas, audiences: audiencesList, device: deviceList}));
-            });
-          });
-        });
-      })
-    );
-  };
-
-  @Effect()
-  initLbsCity$ = (): Observable<Action> => {
-    return this.actions$.pipe(
-      ofType<directionalActionUnion.LbsCityInit>(DirectionalActionTypes.LBS_CITY_INIT),
-      switchMap(() => {
-        return new Observable(observer => {
-          let service = [
-            this._directionalService.directionalLbs(),
-          ];
-          forkJoin(service).subscribe((arr) => {
-            let [b] = arr;
-            // lbs_location   lbs_scenes
-            let lbs_scenes = b.result.lbs_scenes;
-            let lbs_location = b.result.lbs_location;
-            let recursion = [
-              this.recursionChild({children: lbs_location}),
-            ];
-            Promise.all(recursion).then(([lbsCity]) => {
-              observer.next(new directionalActionUnion.LbsCityAssign({
+              let audiences = { age, education, sex };
+              let device = { browsers, devicesType, brand, netType, operators, mobileOS };
+              let audiencesList = Object.entries(audiences).map(([key, value]) => ({ key, value }));
+              let deviceList = Object.entries(device).map(([key, value]) => ({ key, value }));
+              observer.next(new directionalActionUnion.DirectionalAssign({
+                areas: areas,
                 lbsCity: lbsCity,
-                lbsScenes: lbs_scenes
+                lbsScenes: lbs_scenes,
+                audiences: audiencesList,
+                audiencesAction: audiencesAction,
+                audiencesAction2: audiencesAction2,
+                device: deviceList
               }));
             });
           });
@@ -91,54 +83,8 @@ export class DirectionalEffects {
     );
   };
 
-  @Effect()
-  initAudiencesAction$ = (): Observable<Action> => {
-    return this.actions$.pipe(
-      ofType<directionalActionUnion.AudiencesActionInit>(DirectionalActionTypes.AUDIENCES_ACTION_INIT),
-      switchMap(() => {
-        return new Observable(observer => {
-          let service = [
-            this._directionalService.directionalAudiencesAction(),
-          ];
-          forkJoin(service).subscribe((arr) => {
-            let [b] = arr;
-            let recursion = [
-              this.recursionChild({children: b.result}),
-            ];
-            Promise.all(recursion).then(([audiencesAction]) => {
-              observer.next(new directionalActionUnion.AudiencesActionAssign(audiencesAction));
-            });
-          });
-        });
-      })
-    );
-  };
-
-  @Effect()
-  initAudiencesAction2$ = (): Observable<Action> => {
-    return this.actions$.pipe(
-      ofType<directionalActionUnion.AudiencesActionInit>(DirectionalActionTypes.AUDIENCES_ACTION_INIT),
-      switchMap(() => {
-        return new Observable(observer => {
-          let service = [
-            this._directionalService.directionalAudiencesAction(),
-          ];
-          forkJoin(service).subscribe((arr) => {
-            let [b] = arr;
-            let recursion = [
-              this.recursionChild({children: b.result}),
-            ];
-            Promise.all(recursion).then(([audiencesAction]) => {
-              observer.next(new directionalActionUnion.AudiencesActionAssign2(audiencesAction));
-            });
-          });
-        });
-      })
-    );
-  };
-
   constructor(private actions$: Actions,
-              private _directionalService: DirectionalService) {
+    private _directionalService: DirectionalService) {
   }
 
   recursionChild(target) {
@@ -164,7 +110,7 @@ export class DirectionalEffects {
           postMessage(e.data);
       }
     `;
-      const blob = new Blob([fun], {type: 'application/javascript'});
+      const blob = new Blob([fun], { type: 'application/javascript' });
       const url = URL.createObjectURL(blob);
       const worker = new Worker(url);
       worker.postMessage(target);

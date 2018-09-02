@@ -226,7 +226,6 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
           if (i > arr.length - 1) {
             i = 0;
           }
-          console.info('ok')
         }
       } else {
         --rgba[arr[i]];
@@ -237,7 +236,6 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
           if (i > arr.length - 1) {
             i = 0;
           }
-          console.info('ok')
         }
       }
 

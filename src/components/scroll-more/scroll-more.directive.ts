@@ -9,7 +9,7 @@ export class ScrollMoreDirective implements OnInit {
   }
 
   ngOnInit() {
-    console.info('ok')
+    
   }
 
   @Input() direction: 'x' | 'y' = 'y';

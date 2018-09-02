@@ -336,7 +336,7 @@ export class CreativeComponent implements OnInit {
 })
 export class CreativeDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
-    console.info('ngOnDestroy')
+    
   }
 
   ngOnInit(): void {

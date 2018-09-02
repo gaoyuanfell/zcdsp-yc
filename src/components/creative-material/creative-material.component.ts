@@ -56,7 +56,6 @@ export class CreativeMaterialComponent {
       x: event.x,
       y: event.y,
     };
-    console.info(event);
     this._previewImg.open(list, {...position})
   }
 

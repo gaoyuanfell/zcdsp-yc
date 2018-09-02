@@ -108,8 +108,6 @@ export class PreviewImgComponent implements OnInit {
       x = this.config.x || this.document.body.clientWidth / 2;
       y = this.config.y || this.document.body.clientHeight / 2
     }
-    console.info(x)
-    console.info(y)
     this.style = {
       transform: `translate3d(${x}px, ${y}px, 0px) scale(0.1,0.1)`,
       'transform-origin': 'left top',
