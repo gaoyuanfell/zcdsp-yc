@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2, TemplateRef, ViewChild} from '@angular/core';
 import {PublicService} from '../../service/public.service';
 import {Router} from '@angular/router';
 import SparkMD5 from 'spark-md5';
@@ -17,10 +17,10 @@ export class LoginComponent implements OnInit {
     private _publicService: PublicService,
     private router: Router,
     private _dialog: Dialog,
+    private render: Renderer2
   ) { }
 
   ngOnInit() {
-    console.log('sssssssss')
     this.verifyCode();
   }
   userName;
@@ -74,6 +74,12 @@ export class LoginComponent implements OnInit {
     this.pwd_vertify_show = undefined;
     // this.type_show = undefined;
     this.forget_vertify_Code();
+    //
+    // this._dialog.open(Login2Component).subscribe(data => {
+    //   console.info(data);
+    // })
+
+
     this._dialog.open(this.code_template_ref, {title: '', flag: true, async: true}).subscribe((data: any) => {
         if (data && this.forget_code_ref.valid && !this.pwd_vertify_show) {
           let obj = {
@@ -102,7 +108,12 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  number = 0
   forget_vertify_Code() {
+    ++this.number
+    if (document.getElementById('freshen')) {
+      this.render.setStyle(document.getElementById('freshen'), 'transform', `rotate(${this.number * 360}deg)`)
+    }
     this.forgetCodeUrl = this._publicService.verifyCode({_: Date.now()})
   }
 
@@ -193,4 +204,14 @@ export class LoginComponent implements OnInit {
      })
    }
   }
+}
+
+@Component({
+  selector: 'app-login2',
+  template: ``,
+})
+export class Login2Component implements OnInit{
+  ngOnInit(): void {
+  }
+
 }

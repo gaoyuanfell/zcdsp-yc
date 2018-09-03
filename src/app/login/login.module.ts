@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './login.component';
+import {Login2Component, LoginComponent} from './login.component';
 import {LoginRoutingModule} from './login-routing.module';
 import { Module } from '../module';
 
@@ -11,7 +11,8 @@ import { Module } from '../module';
     Module,
 
   ],
-  declarations: [LoginComponent]
+  declarations: [LoginComponent,Login2Component],
+  entryComponents:[Login2Component]
 })
 export class LoginModule {
 

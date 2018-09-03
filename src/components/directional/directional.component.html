@@ -139,14 +139,14 @@
     <div class="triangle"></div>
   </div>
 
-  <div>
+  <div style="margin-top: 30px">
     <ng-template [ngForOf]="audiences$ | async" ngFor let-value>
 
       <div class="flex">
-        <yc-checkbox [label]="value.value.name" [checkState]="value.value.checkState" [(ngModel)]="value.value.checked" (changeEvent)="checkAudiencesChange(value.value)"></yc-checkbox>
+        <yc-checkbox class="yccheckbox" [label]="value.value.name" [checkState]="value.value.checkState" [(ngModel)]="value.value.checked" (changeEvent)="checkAudiencesChange(value.value)"></yc-checkbox>
         <div>
           <ng-template [ngForOf]="value.value.children" ngFor let-value2 let-index="index">
-            <yc-checkbox [label]="value2.name" [checkState]="value2.checkState" [(ngModel)]="value2.checked" (changeEvent)="checkAudiencesChange(value2)"></yc-checkbox>
+            <yc-checkbox class="yccheckbox" [label]="value2.name" [checkState]="value2.checkState" [(ngModel)]="value2.checked" (changeEvent)="checkAudiencesChange(value2)"></yc-checkbox>
           </ng-template>
         </div>
       </div>
@@ -297,15 +297,15 @@
     </div>
     <div class="triangle"></div>
   </div>
-  <div>
+  <div style="margin-top: 30px">
 
     <ng-template [ngForOf]="device$ | async" ngFor let-value>
 
       <div class="flex">
-        <yc-checkbox [label]="value.value.name" [checkState]="value.value.checkState" [(ngModel)]="value.value.checked" (changeEvent)="checkDeviceChange(value.value)"></yc-checkbox>
+        <yc-checkbox class="yccheckbox" [label]="value.value.name" [checkState]="value.value.checkState" [(ngModel)]="value.value.checked" (changeEvent)="checkDeviceChange(value.value)"></yc-checkbox>
         <div>
           <ng-template [ngForOf]="value.value.children" ngFor let-value2 let-index="index">
-            <yc-checkbox [label]="value2.name" [checkState]="value2.checkState" [(ngModel)]="value2.checked" (changeEvent)="checkDeviceChange(value2)"></yc-checkbox>
+            <yc-checkbox class="yccheckbox" [label]="value2.name" [checkState]="value2.checkState" [(ngModel)]="value2.checked" (changeEvent)="checkDeviceChange(value2)"></yc-checkbox>
           </ng-template>
         </div>
       </div>

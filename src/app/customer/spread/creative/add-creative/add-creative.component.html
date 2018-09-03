@@ -81,7 +81,7 @@
           <yc-select placeholder="展现形式"></yc-select>
           <yc-select placeholder="尺寸筛选"></yc-select>
         </div>
-        <div class="recommend-media flex-wrap-center" *ngIf="rec_media_type === '1'">
+        <div class="recommend-media flex-wrap-center margintop" *ngIf="rec_media_type === '1'">
           <div class="item-box" *ngFor="let rml of rec_media_list" [ngClass]="{'active':selectMediaSize === rml}" (click)="changeContentTip(rml)">
             <p>{{rml.media_name}}</p>
             <p>{{rml.material_width}}*{{rml.material_height}}</p>

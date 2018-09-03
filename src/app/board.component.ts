@@ -75,7 +75,7 @@ export class BoardComponent implements OnInit,OnDestroy {
     })
   }
 
-  scrolls() {
+  /*scrolls() {
     this.setIntervalNum = setInterval(() => {
       if(this.destroy) return;
       this.currentPic++
@@ -89,7 +89,7 @@ export class BoardComponent implements OnInit,OnDestroy {
         'left.px': -this.currentPic * 1352
       }
     }, 3000)
-  }
+  }*/
 
   scrolls1() {
     this.setInterval1 = setInterval(() => {
@@ -99,7 +99,7 @@ export class BoardComponent implements OnInit,OnDestroy {
         this.currentPic = 0
       }
       this.height = {
-        'top.px': -this.currentPic * 450
+        'top.px': -this.currentPic * 430
       }
     }, 3000)
   }
@@ -144,7 +144,7 @@ export class BoardComponent implements OnInit,OnDestroy {
       this.flags = !this.flags
     }
   }
-  
+
   ngOnDestroy(){
     this.destroy = true;
     clearInterval(this.setInterval1)
