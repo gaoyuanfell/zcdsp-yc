@@ -404,7 +404,7 @@ export class TemplatePageComponent implements OnInit {
       }
     }
     let w = window.open();
-    this._templateService.templatePreview(body).subscribe(res => {
+    this._templateService.landingPreview(body).subscribe(res => {
       w.location.href = `${this.templateUrl}/template/preview/${res.result.id}`
     }, () => {
       w.close()
@@ -420,8 +420,8 @@ export class TemplatePageComponent implements OnInit {
       this._notification.warning('提示', '请填写落地页名称');
       return
     }
-    this._templateService.templatePreview(body).subscribe(res => {
-      this._previewCodeUrl = this._templateService.previewTpl({tmp_tpl_id: res.result.id, render_url: `${this.templateUrl}/template/preview`, _: Date.now()})
+    this._templateService.landingPreview(body).subscribe(res => {
+      this._previewCodeUrl = this._templateService.landingQrcode({tmp_id: res.result.id, render_url: `${this.templateUrl}/template/preview`, _: Date.now()})
     })
   }
 
@@ -445,7 +445,7 @@ export class TemplatePageComponent implements OnInit {
       }
     }
     body.is_system = this.system;
-    this._templateService.addEditLandingpage(body).subscribe(res => {
+    this._templateService.landingAdd(body).subscribe(res => {
       this._notification.success('落地页模板', '提交成功')
     })
   }
@@ -558,7 +558,7 @@ export class TemplatePageComponent implements OnInit {
   }
 
   getTemplateSysList() {
-    this._templateService.getSysTpls(this.query).subscribe(res => {
+    this._templateService.landingSystem(this.query).subscribe(res => {
       this.templateSysList.push(...res.result.items);
     });
   }
@@ -570,7 +570,7 @@ export class TemplatePageComponent implements OnInit {
   loadMoreTemplateSysList({next}) {
     if (this.showType !== 'template') return;
     ++this.query.page_index
-    this._templateService.getSysTpls(this.query).subscribe(res => {
+    this._templateService.landingSystem(this.query).subscribe(res => {
       this.templateSysList.push(...res.result.items);
       next();
     });

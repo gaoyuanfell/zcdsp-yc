@@ -252,18 +252,21 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     let result = getDirectionalData();
 
     this.areasResult$.subscribe(data => {
+      console.info('areas: ', data)
       if (!data) return;
       result.dtl_address.area = data.map(ar => ({ id: ar.id, name: ar.name }));
       resultSubject.next(result);
     });
 
     this.lbsCityResult$.subscribe(data => {
+      console.info('lbsCity: ', data)
       if (!data) return;
       result.dtl_address.lbs = data.map(ar => ({ id: ar.id, name: ar.name, coords: ar.location_items, type_id: ar.type_id }));
       resultSubject.next(result);
     });
 
     this.audiencesActionResult$.subscribe(data => {
+      console.info('audiencesAction: ', data)
       if (!data) return;
       result.dtl_behavior.appCategory = data.filter(aa => isNaN(+aa.type_id)).map(aa => ({ id: aa.id, name: aa.name }));
       result.dtl_behavior.appAttribute = data.filter(aa => !isNaN(+aa.type_id)).map(aa => ({ id: aa.id, name: aa.name }));
@@ -271,6 +274,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     });
 
     this.audiencesAction2Result$.subscribe(data => {
+      console.info('audiencesAction2: ', data)
       if (!data) return;
       result.dtl_behavior.filterAppCategory = data.filter(aa => isNaN(+aa.type_id)).map(aa => ({ id: aa.id, name: aa.name }));
       result.dtl_behavior.filterAppAttribute = data.filter(aa => !isNaN(+aa.type_id)).map(aa => ({ id: aa.id, name: aa.name }));
@@ -278,12 +282,14 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     });
 
     this.audiencesResult$.subscribe((data: any) => {
+      console.info('audiences: ', data)
       if (!data) return;
       result.dtl_attribute.crowdAttribute = data;
       resultSubject.next(result);
     });
 
     this.deviceResult$.subscribe((data: any) => {
+      console.info('device: ', data)
       if (!data) return;
       result.dtl_devices = data;
       resultSubject.next(result);
