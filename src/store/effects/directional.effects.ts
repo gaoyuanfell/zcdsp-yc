@@ -31,7 +31,8 @@ export class DirectionalEffects {
               c,
               d,
               e,
-              f] = arr;
+              f,
+            ] = arr;
 
             let { age, education, sex } = c.result;
             let { browsers, devicesType, brand, netType, operators, mobileOS } = f.result;

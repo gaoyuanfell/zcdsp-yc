@@ -226,7 +226,7 @@
     <div class="form-group flex">
       <label class="form-label">活动名称<span>（必选）:</span></label>
       <div class="form-input">
-        <input class="form-control" [(ngModel)]="campaign.campaign_name" #campaign_name="ngModel" type="text" required placeholder="请填写活动名称" (ngModelChange)="package_name = campaign.campaign_name + '_定向包'"
+        <input class="form-control" [(ngModel)]="campaign.campaign_name" #campaign_name="ngModel" type="text" required placeholder="请填写活动名称"
                [ngClass]="{'has-error':(_valid || campaign_name.dirty || campaign_name.touched) && campaign_name.invalid }">
         <p class="input-error" *ngIf="(_valid || campaign_name.dirty || campaign_name.touched) && campaign_name.invalid">请输入活动名称</p>
       </div>
@@ -262,7 +262,7 @@
     <div class="form-group flex">
       <label class="form-label">投放日期<span>（必选）:</span></label>
       <div class="form-input">
-        <i class="input-icon icon-input-datepicker"></i>
+        <!--<i class="input-icon icon-input-datepicker"></i>-->
         <input-datepicker [width]="360" [(ngModel)]="campaignTimes" [isShortcutKey]="false" [disabledTodayBefore]="true" [query]="campaign" [appendField]="['begin_date', 'end_date']" [isRange]="true" placeholder="请选择投放日期"
                           [ngClass]="{'has-error': _valid && !campaign.begin_date}"></input-datepicker>
         <p class="input-error" *ngIf="_valid && !campaign.begin_date">请输入投放日期</p>

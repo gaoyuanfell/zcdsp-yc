@@ -136,7 +136,7 @@ export class PublicService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   getAudienceCount(body = {}) {
-    return this.postJson(`/common/orientation/get_audience_count`, body)
+    return this.postJson(`/common/directional/audience/count`, body)
   }
 
   /**

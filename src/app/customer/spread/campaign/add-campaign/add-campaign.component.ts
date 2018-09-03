@@ -1,21 +1,21 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CampaignService } from '../../../../../service/customer/campaign.service';
-import { Subject } from 'rxjs';
-import { Notification } from '../../../../../components/notification/notification';
-import { Dialog } from '../../../../../components/dialog/dialog';
-import { DirectionalService } from '../../../../../service/customer/directional.service';
-import { PublicService } from '../../../../../service/public.service';
-import { Global } from '../../../../../service/global';
-import { Util } from '../../../../../service/util-service';
-import { DecimalPipe, DOCUMENT } from '@angular/common';
-import { ScheduleComponent } from '../../../../../components/schedule/schedule.component';
-import { TemplateService } from '../../../../../service/template.service';
-import { environment } from '../../../../../environments/environment';
-import { DomSanitizer } from '@angular/platform-browser';
-import { debounceTime } from 'rxjs/operators';
-import { ScrollService } from '../../../../../service/scroll.service';
-import { OrientationService } from '../../../../../service/customer/orientation.service';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CampaignService} from '../../../../../service/customer/campaign.service';
+import {Subject} from 'rxjs';
+import {Notification} from '../../../../../components/notification/notification';
+import {Dialog} from '../../../../../components/dialog/dialog';
+import {DirectionalService} from '../../../../../service/customer/directional.service';
+import {PublicService} from '../../../../../service/public.service';
+import {Global} from '../../../../../service/global';
+import {Util} from '../../../../../service/util-service';
+import {DecimalPipe, DOCUMENT} from '@angular/common';
+import {ScheduleComponent} from '../../../../../components/schedule/schedule.component';
+import {TemplateService} from '../../../../../service/template.service';
+import {environment} from '../../../../../environments/environment';
+import {DomSanitizer} from '@angular/platform-browser';
+import {debounceTime} from 'rxjs/operators';
+import {ScrollService} from '../../../../../service/scroll.service';
+import {OrientationService} from '../../../../../service/customer/orientation.service';
 
 export interface CampaignModel {
   campaign_id?: number,
@@ -78,7 +78,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     frequency: 3,
   }; // 活动提交对象
 
-  orientation: any; // 定向
+  // orientation: any; // 定向
   directional: any; // 定向
   package_name; // 定向包名
   direction_packages; // 定向包下拉
@@ -102,7 +102,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     return this._timeSchedule;
   }
 
-  @ViewChild('timeSchedule', { read: ScheduleComponent }) set timeSchedule(value) {
+  @ViewChild('timeSchedule', {read: ScheduleComponent}) set timeSchedule(value) {
     console.dir(value);
     this._timeSchedule = value;
   }
@@ -185,7 +185,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
   setAppInfo(result) {
     this.campaign.app_name = result.app_name;
     this.campaign.app_description = result.description;
-    this.campaign.app_size = this._util.pipes(result.file_size / 1024 / 1024 || 0, [{ transform: DecimalPipe }]);
+    this.campaign.app_size = this._util.pipes(result.file_size / 1024 / 1024 || 0, [{transform: DecimalPipe}]);
     this.campaign.app_file_byte = String(result.file_size || '');
     this.campaign.app_file_md5 = result.md5;
     this.campaign.app_package_name = result.package_name;
@@ -197,7 +197,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
 
   /*1053012308*/
   parseIos() {
-    this._campaignService.parseIos({ appid: this.campaign.app_bundle_id }).subscribe(
+    this._campaignService.parseIos({appid: this.campaign.app_bundle_id}).subscribe(
       res => {
         this.setAppInfo(res.result);
       },
@@ -210,14 +210,12 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
   _audienceCount;
 
   audienceCount() {
-    // let body = {
-    //   ...this.orientation,
-    // };
-    // delete  body.dtl_address.selected_lbs_locations;
-    // delete  body.dtl_address.selected_lbs_location_details;
-    // this._publicService.getAudienceCount(body).subscribe(res => {
-    //   this._audienceCount = res.result || 0;
-    // });
+    let body = {
+      ...this.directional,
+    };
+    this._publicService.getAudienceCount(body).subscribe(res => {
+      this._audienceCount = res.result || 0;
+    });
   }
 
   get containerFullRef() {
@@ -333,15 +331,16 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
   save(type) {
     if (this.valid()) return;
     let body: any = {
-      campaign: this.campaign
-    }
+      campaign: {...this.campaign}
+    };
 
-    let show_hours = body.campaign.show_hours
-    delete body.campaign.show_hours
+    let show_hours = body.campaign.show_hours;
+    delete body.campaign.show_hours;
     body.show_hours = show_hours;
 
     if (this.directional) {
       body.directional = this.directional;
+      body.lbs_scene_type = this.directional.dtl_address.scene_type
     }
 
     if (this.package_name) {
@@ -355,7 +354,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
           this.router.navigate(['/ads/spread/campaign']);
           break;
         case 2:
-          this.router.navigate(['/ads/spread/creative-add/0'], { queryParams: { campaign_id: res.result } });
+          this.router.navigate(['/ads/spread/creative-add/0'], {queryParams: {campaign_id: res.result}});
           break;
       }
     });
@@ -363,13 +362,13 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
 
   setOrientation(data) {
 
-    this._orientationService.detail({ package_id: data.value }).subscribe(res => {
+    this._orientationService.detail({package_id: data.value}).subscribe(res => {
       this.directional = {
         dtl_address: res.result.dtl_address,
         dtl_attribute: res.result.dtl_attribute,
         dtl_behavior: res.result.dtl_behavior,
         dtl_devices: res.result.dtl_devices,
-      }
+      };
       this.changeDetectorRef.markForCheck();
     });
   }
@@ -390,13 +389,14 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
    */
   templatePreviewCode() {
     this.template_temp_id = null;
-    this._templateService.templatePreview({ id: this.campaign.template_id }).subscribe(res => {
+    this._templateService.landingPreview({id: this.campaign.template_id}).subscribe(res => {
       this.template_temp_id = res.result.id;
-      this._previewCodeUrl = this._templateService.previewTpl({
-        tmp_tpl_id: this.template_temp_id,
+      this._previewCodeUrl = this._templateService.landingQrcode({
+        tmp_id: this.template_temp_id,
         render_url: `${this.templateUrl}/template/preview`,
         _: Date.now()
       });
+      this.changeDetectorRef.markForCheck();
     });
   }
 
@@ -412,93 +412,95 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
 
   // 侧边导航栏设置
 
-  navList = [{
-    name: '推广目标',
-    status: 2,
-    child: [{
-      name: '目标类型',
-      id: 'tuiguangmubiao',
+  navList = [
+    {
+      name: '推广目标',
       status: 2,
-    }, {
-      name: '落地页',
-      id: 'tuiguangmubiao',
-      status: 0,
-    }]
-  }, {
-    name: '活动设置',
-    status: 0,
-    child: [{
-      name: '预算',
-      id: 'huodongshezhi',
-      status: 0,
-    }, {
-      name: '排期',
-      id: 'huodongshezhi',
-      status: 0,
-    }]
-  }, {
-    name: '定向',
-    status: 0,
-    child: [{
-      name: '地域定向',
-      id: 'dingxiangshezhi',
-      status: 0,
-    }, {
-      name: '人群定向',
-      id: 'dingxiangshezhi',
-      status: 0,
-    }, {
-      name: '行为定向',
-      id: 'dingxiangshezhi',
-      status: 0,
-    }, {
-      name: '设备定向',
-      id: 'dingxiangshezhi',
-      status: 0,
-    }]
-  }, {
-    name: '出价',
-    status: 0,
-    child: [
-      {
-        name: '出价',
-        id: 'chujia',
+      child: [{
+        name: '目标类型',
+        id: 'tuiguangmubiao',
+        status: 2,
+      }, {
+        name: '落地页',
+        id: 'tuiguangmubiao',
         status: 0,
-      }
-    ]
-  }]
+      }]
+    }, {
+      name: '活动设置',
+      status: 0,
+      child: [{
+        name: '预算',
+        id: 'huodongshezhi',
+        status: 0,
+      }, {
+        name: '排期',
+        id: 'huodongshezhi',
+        status: 0,
+      }]
+    }, {
+      name: '定向',
+      status: 0,
+      child: [{
+        name: '地域定向',
+        id: 'dingxiangshezhi',
+        status: 0,
+      }, {
+        name: '人群定向',
+        id: 'dingxiangshezhi',
+        status: 0,
+      }, {
+        name: '行为定向',
+        id: 'dingxiangshezhi',
+        status: 0,
+      }, {
+        name: '设备定向',
+        id: 'dingxiangshezhi',
+        status: 0,
+      }]
+    }, {
+      name: '出价',
+      status: 0,
+      child: [
+        {
+          name: '出价',
+          id: 'chujia',
+          status: 0,
+        }
+      ]
+    }
+  ];
 
   navScrollTo(id) {
-    this._scrollService.scrollTo(this._global.containerFullRef, { top: this.document.getElementById(id).offsetTop })
+    this._scrollService.scrollTo(this._global.containerFullRef, {top: this.document.getElementById(id).offsetTop});
   }
 
   constructor(private router: Router,
-    private route: ActivatedRoute,
-    @Inject(DOCUMENT) private document: Document,
-    private domSanitizer: DomSanitizer,
-    private changeDetectorRef: ChangeDetectorRef,
-    private _notification: Notification,
-    private _dialog: Dialog,
-    private _directionalService: DirectionalService,
-    private _orientationService: OrientationService,
-    private _publicService: PublicService,
-    private _scrollService: ScrollService,
-    private _global: Global,
-    private _util: Util,
-    private _templateService: TemplateService,
-    private _campaignService: CampaignService) {
+              private route: ActivatedRoute,
+              @Inject(DOCUMENT) private document: Document,
+              private domSanitizer: DomSanitizer,
+              private changeDetectorRef: ChangeDetectorRef,
+              private _notification: Notification,
+              private _dialog: Dialog,
+              private _directionalService: DirectionalService,
+              private _orientationService: OrientationService,
+              private _publicService: PublicService,
+              private _scrollService: ScrollService,
+              private _global: Global,
+              private _util: Util,
+              private _templateService: TemplateService,
+              private _campaignService: CampaignService) {
     let params = route.snapshot.params;
     let queryParams = route.snapshot.queryParams;
     let data = route.snapshot.data;
     this.id = params.id;
 
     _templateService.landingSelect().subscribe(res => {
-      this.templateList = res.result
-    })
+      this.templateList = res.result;
+    });
   }
 
   isPermit(type) {
-    return this.jurisdiction[type]
+    return this.jurisdiction[type];
   }
 
   can_modify: boolean = true;
@@ -525,7 +527,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     }).subscribe(res => {
       this.can_modify = res.result.hasOwnProperty('can_modify') ? res.result.can_modify : true;  // false的时候 不可编辑
       this.app_stores = res.result.app_stores;
-      this.orientation = res.result.orientation;
+      this.directional = res.result.directional;
       this.target_types = res.result.target_types;
       this.speeds = res.result.speeds;
       this.show_time_types = res.result.show_time_types;
@@ -533,22 +535,22 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
       this.direction_packages = res.result.direction_packages;
       if (res.result.campaign) {
         this.campaign = res.result.campaign;
-        this.campaignTimes = [this.campaign.begin_date, this.campaign.end_date]
+        this.campaignTimes = [this.campaign.begin_date, this.campaign.end_date];
       }
       this.changeDetectorRef.markForCheck();
     });
 
-    if(!this._isEdit){
+    if (!this._isEdit) {
       this._directionalService.directionalRecommend().subscribe(res => {
-        this.directional = res.result
-      })
+        this.directional = res.result;
+      });
     }
 
     for (let i = 1; i <= 20; i++) {
       this.frequencyList.push({
         label: i,
         value: i,
-      })
+      });
     }
     this.frequencyList.unshift({
       label: '不限',
@@ -559,11 +561,11 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
       debounceTime(500)
     ).subscribe(() => {
       this.parseIos();
-    })
+    });
   }
 
   ngOnDestroy(): void {
-    this._appIdSubject.unsubscribe()
+    this._appIdSubject.unsubscribe();
   }
 
   flag = true;
