@@ -111,7 +111,7 @@
       <img [src]="forgetCodeUrl" width="100%" height="100%" style="border-radius:4px;" title="看不清" (click)="forget_vertify_Code()" id="imgReload">
       <div>
         <img src="assets/index/freshen.png" id="freshen">
-        <span>点击图片刷新</span>
+        <span (click)="forget_vertify_Code()">点击图片刷新</span>
       </div>
     </a>
     <div class="input">
@@ -120,5 +120,5 @@
     <p class="error" style="margin-top: 10px;margin-left:19px;" *ngIf="(forget_code.dirty || forget_code.touched || _valid) && forget_code.invalid"><img src="assets/img/index/tips.png" alt="">请输入验证码</p>
     <p class="error" style="margin-top: 10px;margin-left:19px;" *ngIf="pwd_vertify_show"><img src="assets/img/index/tips.png" alt="">{{pwd_vertify_show}}</p>
   </div>
-
+  <!--<img [src]="forgetCodeUrl" width="100%" height="100%" style="border-radius:4px;" title="看不清" (click)="forget_vertify_Code()" id="imgReload1">-->
 </ng-template>
