@@ -7,7 +7,7 @@ import {PopoverDirective} from '../../../../components/popover/popover.directive
 @Component({
   selector: 'app-recharge',
   templateUrl: './recharge.component.html',
-  styleUrls: ['./recharge.component.less']
+  styleUrls: ['../finance.component.less' , './recharge.component.less']
 })
 export class RechargeComponent implements OnInit {
 

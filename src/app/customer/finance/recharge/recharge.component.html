@@ -1,109 +1,53 @@
 <div class="container-list">
-  <div class="flex-center-between recharge">
-    <div class="group cart-left card-box ">
-      <div class="data-top flex">
-        <div class="info-img">
-          <img src="assets/img/customer/img/balance-icon.png" alt="balance-icon.png">
-        </div>
-        <div class="info">
-          <p>账户余额</p>
-          <p>{{userData?.balance | currencyFormat}}</p>
-        </div>
-        <div class="recharge">
-          <a class="btn-recharge" (click)="recharge()">充值流程</a>
+  <ul class="top">
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/indexjinr.png" alt=""></div>
+        <div class="right">
+          <p>今日消耗</p>
+          <h1>{{userData?.consume | currencyFormat}}</h1>
         </div>
       </div>
-      <div class="data-bottom flex">
-        <div class="today-data flex">
-          <div class="info-img">
-            <img src="assets/img/customer/img/yusuan-icon.png" alt="yusuan-icon.png">
-          </div>
-          <div class="info">
-            <p>
-              每日预算
-              <i yc-popover [template]="template" #popover="ycPopover" class="icon-img-modify" *ngIf="isPermit('ZCMOBI_ADS_FINACE_RECHARGE_UPDATE_MAX_DAY_MONEY')"
-                 (openEvent)="  money = (userData?.max_day_money) "></i>
-
-              <ng-template #template>
-                <div class="day-money-home">
-                  <label class="form-label">修改每日预算</label>
-                  <div style="" class="form-group flex-center">
-                    <div class="form-input">
-                      <input type="text" class="form-control" autofocus [(ngModel)]="money" (keyup.enter)="postBudget();_popoverRef.close()" name="money"
-                             [ngClass]="{'red': moneyRef.invalid || (userData?.consume <= 0 && money < 100) || (userData?.consume > 0 && money < (100 + userData?.consume))}"
-                             #moneyRef="ngModel"  pattern="^[0-9]\d*(\.\d{1,2})?$">
-                      <!--pattern="^\d([.]{1}\d{1,2})?$"-->
-            <p class="input-error" *ngIf="moneyRef.invalid">请输入正确的金额</p>
-            <p class="input-error" *ngIf="userData?.consume <= 0  && money < 100 && moneyRef.valid">每日预算不能小于100元！</p>
-            <p class="input-error" *ngIf="userData?.consume > 0 && money && money < (100 + userData?.consume) && moneyRef.valid">预算金额需大于{{(100 + userData?.consume) | number:'1.2-2'}}！</p>
-          </div>
-        </div>
-        <div class="text-right">
-          <button class="btn btn-border" (click)="_popoverRef.close()">取消</button>
-          <button class="btn btn-small" (click)="postBudget();_popoverRef.close();"
-                  [disabled]="!money || moneyRef.invalid || (userData?.consume <= 0 && money < 100) || (userData?.consume > 0 && money < (100 + userData?.consume))">确定</button>
+      <div class="ratio"></div>
+      <div class="number clear">
+        <div class="list">账户余额<span>{{userData?.balance | currencyFormat}}</span><i class="icon-tool-tip"></i></div>
+        <div class="list">每日预算<span>{{userData?.max_day_money | currencyFormat}}</span><i class="icon-tool-edit"></i></div>
+      </div>
+    </li>
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/customer/img/liushui-recharge.png" alt=""></div>
+        <div class="right">
+          <p>累计充值</p>
+          <h1>{{userData?.c_money | currencyFormat}}</h1>
         </div>
       </div>
-      </ng-template>
-
-      </p>
-      <p>{{userData?.max_day_money | currencyFormat}}</p>
-    </div>
-  </div>
-    <div class="today-data flex">
-      <div class="info-img">
-        <img src="assets/img/customer/img/xiaohao.png" alt="yusuan-icon.png">
+      <div class="echart" #todayAllSpendChartSmall></div>
+      <div class="number"></div>
+    </li>
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/customer/img/liushui-dispatching.png" alt=""></div>
+        <div class="right">
+          <p>累计配送</p>
+          <h1>{{userData?.p_money | currencyFormat}}</h1>
+        </div>
       </div>
-      <div class="info">
-        <p>今日消耗</p>
-        <p>{{userData?.consume | currencyFormat}}</p>
+      <div class="echart" #todayAllSpendChartLine></div>
+      <div class="number"></div>
+    </li>
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/customer/img/liushui-refund.png" alt=""></div>
+        <div class="right">
+          <p>累计退款</p>
+          <h1>{{userData?.t_money | currencyFormat}}</h1>
+        </div>
       </div>
-    </div>
-    </div>
-  </div>
-
-  <div class="consume card-box">
-    <div class="item">
-      <div class="info-img">
-        <img src="assets/img/customer/img/liushui-recharge.png" alt="">
-      </div>
-      <div class="info">
-        <p>累计充值</p>
-        <p>
-          <span>{{userData?.c_money | currencyFormat}}</span>
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="consume card-box">
-    <div class="item">
-      <div class="info-img">
-        <img src="assets/img/customer/img/liushui-dispatching.png" alt="">
-      </div>
-      <div class="info">
-        <p>累计配送</p>
-        <p>
-          <span>{{userData?.p_money | currencyFormat}}</span>
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="consume card-box">
-    <div class="item">
-      <div class="info-img">
-        <img src="assets/img/customer/img/liushui-refund.png" alt="">
-      </div>
-      <div class="info">
-        <p>累计退款</p>
-        <p>
-          <span>{{userData?.t_money | currencyFormat}}</span>
-        </p>
-      </div>
-    </div>
-  </div>
-
-</div>
-
+      <div class="echart" #todayAllSpendChartLine></div>
+      <div class="number"></div>
+    </li>
+  </ul>
 
  <div class="table-content">
 
@@ -151,6 +95,7 @@
     </table>
   </yc-table>
 </div>
+
 </div>
 
 

@@ -29,9 +29,13 @@ export class LoginComponent implements OnInit {
   _valid = false;
   vertCodeUrl;
   verifyCode() {
-    this.vertCodeUrl = this._publicService.verifyCode({_: Date.now()})
+    let obj = {
+      _: Date.now(),
+      w: 110,
+      h:45
+    }
+    this.vertCodeUrl = this._publicService.verifyCode(obj)
   }
-
 
 
   countdown =  60;
@@ -114,7 +118,12 @@ export class LoginComponent implements OnInit {
     if (document.getElementById('freshen')) {
       this.render.setStyle(document.getElementById('freshen'), 'transform', `rotate(${this.number * 360}deg)`)
     }
-    this.forgetCodeUrl = this._publicService.verifyCode({_: Date.now()})
+    let obj = {
+      _: Date.now(),
+      w: 500,
+      h:45
+    }
+    this.forgetCodeUrl = this._publicService.verifyCode(obj)
   }
 
   setInvalidClass(form, formControl) {
