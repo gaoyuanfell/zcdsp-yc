@@ -47,7 +47,7 @@ export class AddDirectionalComponent implements OnInit {
     let queryParams = route.snapshot.queryParams;
     let data = route.snapshot.data;
     this.id = params.id;
-    
+
   }
 
   ngOnInit() {

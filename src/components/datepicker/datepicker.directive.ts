@@ -20,8 +20,6 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class DatepickerDirective implements ControlValueAccessor, OnDestroy {
 
-  @Input('appendField') appendField;
-
   private onChange: (value: any) => void = () => {
   };
 

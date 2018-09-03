@@ -1,4 +1,4 @@
-<div class="yc-date-picker" [ngStyle]="{'width.px':width}">
+<div class="yc-date-picker" [ngClass]="{'mini-date-picker': size === 'small'}" [ngStyle]="{'width.px':width}">
   <label>
     <i #close></i>
     <i #active (mouseover)="showClose($event,active,close)" (mouseout)="hideClose($event,active,close)" (click)="removeValue($event,active,close)">X</i>
