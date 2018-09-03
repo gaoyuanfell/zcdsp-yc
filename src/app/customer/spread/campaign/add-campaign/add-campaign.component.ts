@@ -520,7 +520,6 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     // 关于创意的一系列状态 待提交创意数量(need_check_count)、审核中数量(in_check_count)、审核通过数量(check_success_count)、审核未通过数量(check_failed_count)
     // 和总数量(total_count)。用来处理这个需求：
 
-
     this._campaignService.addEditInit({
       campaign_id: this.id
     }).subscribe(res => {
@@ -539,9 +538,11 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
       this.changeDetectorRef.markForCheck();
     });
 
-    this._directionalService.directionalRecommend().subscribe(res => {
-      this.directional = res.result
-    })
+    if(!this._isEdit){
+      this._directionalService.directionalRecommend().subscribe(res => {
+        this.directional = res.result
+      })
+    }
 
     for (let i = 1; i <= 20; i++) {
       this.frequencyList.push({
