@@ -22,7 +22,7 @@ export class BoardComponent implements OnInit,OnDestroy {
 
   destroy = false;
 
-  hash = 'home'
+  // hash = 'home'
   leftTo;
   height;
   topTo;
@@ -122,7 +122,7 @@ export class BoardComponent implements OnInit,OnDestroy {
   }
 
   scrollTop(name) {
-    this.hash = name
+    // this.hash = name
     this.containerFullRef.nativeElement.scrollTop = document.getElementById(name).offsetTop - 80
     console.info(name)
     if (name === 'home') {
