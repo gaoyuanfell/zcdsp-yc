@@ -55,7 +55,7 @@ export class OrientationService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   update(body = {}) {
-    return this.postForm(`/ads/spread/directional/package/update`, body);
+    return this.postJson(`/ads/spread/directional/package/update`, body);
   }
 
 }

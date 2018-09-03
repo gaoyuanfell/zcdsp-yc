@@ -425,7 +425,6 @@ export class CampaignDetailComponent implements OnInit,OnDestroy {
   }
 
   constructor(@Inject(YC_SIDEBAR_DATA) public data: any) {
-    console.info(data)
     this.campaignData = data.campaignData
     this.creativeChartData = data.chartData
 

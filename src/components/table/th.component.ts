@@ -107,7 +107,6 @@ export class ThComponent implements OnChanges, OnInit {
   ngOnInit(): void {
     if (this.showCheckbox) {
       this.tableComponent.changeTdStateObservable.subscribe((data) => {
-        console.info(data);
         this._checked = data.checked;
         this._checkState = data.checkState;
         this.changeDetectorRef.markForCheck();

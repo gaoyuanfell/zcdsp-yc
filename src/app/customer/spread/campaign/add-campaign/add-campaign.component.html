@@ -1,4 +1,4 @@
-<div class="extension-nav">
+<!--<div class="extension-nav">
 
   <ng-template [ngForOf]="navList" ngFor let-nav let-index>
     <div class="nav-feedback-list">
@@ -11,7 +11,7 @@
     </div>
   </ng-template>
 
-</div>
+</div>-->
 
 <div class="submit-toolbar">
   <div class="submit-box flex-center">
@@ -40,7 +40,7 @@
     <!--落地页-->
     <ng-template [ngIf]="campaign.target_type == '1'">
       <div class="form-group flex-center">
-        <label class="form-label"><span>*</span>落地页</label>
+        <label class="form-label">落地页<span>（必选）:</span></label>
         <div class="form-input">
           <!--活动下有创意，并且部分审核中或者部分审核通过，落地页不可编辑-->
           <yc-radio-group [disabled]="!can_modify" [(ngModel)]="campaign.click_type" [list]="landingpage_types" [props]="{label: 'name'}" (changeEvent)="_landingChange()"></yc-radio-group>
@@ -84,7 +84,7 @@
     <!--安卓应用下载-->
     <ng-template [ngIf]="campaign.target_type == '2'">
       <div class="form-group flex">
-        <label class="form-label"><span>*</span>下载地址</label>
+        <label class="form-label">下载地址<span>（必选）:</span></label>
         <div class="form-input">
         <textarea [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.download_link" #download_link="ngModel" placeholder="http://、https://" (ngModelChange)="campaign.click_link = campaign.download_link"
                   pattern="^([hH]{1}[tT]{2}[pP]:\/\/|[hH]{1}[tT]{2}[pP][sS]:\/\/)[\d,a-z,A-Z]+[\w,\W]*$" required
@@ -93,7 +93,7 @@
         </div>
       </div>
       <div class="form-group flex-center">
-        <label class="form-label"><span>*</span>应用市场</label>
+        <label class="form-label">应用市场<span>（必选）:</span></label>
         <div class="form-input">
           <yc-radio-group [disabled]="!can_modify" [(ngModel)]="campaign.app_store_id" [list]="app_stores" [props]="{label:'name'}" (changeEvent)="_appStoreIdChange()"></yc-radio-group>
         </div>
@@ -101,13 +101,13 @@
 
       <ng-template [ngIf]="campaign.app_store_id == '1'">
         <div class="form-group flex-center">
-          <label class="form-label"><span>*</span>APP包类型</label>
+          <label class="form-label">APP包类型<span>（必选）:</span></label>
           <div class="form-input">
             <yc-radio-group [disabled]="!can_modify" [(ngModel)]="campaign.app_package_type" [list]="[{value:'1',label:'主线包'},{value:'2',label:'渠道包'}]" (changeEvent)="_appPackageTypeChange()"></yc-radio-group>
           </div>
         </div>
         <div class="form-group flex">
-          <label class="form-label"><span>*</span>APPID</label>
+          <label class="form-label">APPID<span>（必选）:</span></label>
           <div class="form-input">
             <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_bundle_id" #app_bundle_id="ngModel" type="text" placeholder="请输入APPID">
             <p class="input-error" *ngIf="(_valid || app_bundle_id.dirty) && !campaign.app_bundle_id">请输入APPID</p>
@@ -124,35 +124,35 @@
       </div>
       <!--app_upload_url-->
       <div class="form-group flex-center">
-        <label class="form-label"><span>*</span>apk上传</label>
+        <label class="form-label">apk上传<span>（必选）:</span></label>
         <div class="form-input flex-center">
           <div [disabled]="!can_modify" yc-file-upload class="btn btn-outline"  [slice]="true" [auto]="false" [sliceSize]="10" (eventChange)="uploadParseApk($event)">点击上传</div>
           <p class="m-l-1" *ngIf="can_modify">点击上传文件包，自动获取或手动填写以下信息，无法解析？ <a href="https://f2.adpush.cn/platform/1482116942716.zip">点击下载工具。</a></p>
         </div>
       </div>
       <div class="form-group flex">
-        <label class="form-label"><span>*</span>APP包名</label>
+        <label class="form-label">APP包名<span>（必选）:</span></label>
         <div class="form-input">
           <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_package_name" #app_package_name="ngModel" type="text" placeholder="请选择输入APP包名">
           <p class="input-error" *ngIf="(_valid || app_package_name.dirty) && !campaign.app_package_name">请选择输入APP包名</p>
         </div>
       </div>
       <div class="form-group flex">
-        <label class="form-label"><span>*</span>APP名称</label>
+        <label class="form-label">APP名称<span>（必选）:</span></label>
         <div class="form-input">
           <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_name" #app_name="ngModel" type="text" placeholder="请输入APP名称">
           <p class="input-error" *ngIf="(_valid || app_name.dirty) && !campaign.app_name">请输入APP名称</p>
         </div>
       </div>
       <div class="form-group flex">
-        <label class="form-label"><span>*</span>APP版本</label>
+        <label class="form-label">APP版本<span>（必选）:</span></label>
         <div class="form-input">
           <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_version" #app_version="ngModel" type="text" placeholder="请输入APP版本">
           <p class="input-error" *ngIf="(_valid || app_version.dirty) && !campaign.app_version">请输入APP版本</p>
         </div>
       </div>
       <div class="form-group flex">
-        <label class="form-label"><span>*</span>APP大小</label>
+        <label class="form-label">APP大小<span>（必选）:</span></label>
         <div class="form-input">
           <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_size" #app_size="ngModel" type="text" placeholder="请输入APP大小">
           <p class="input-error" *ngIf="(_valid || app_size.dirty) && (_isNumber2(campaign.app_size) || !campaign.app_size)">请输入有效数字</p>
@@ -170,14 +170,14 @@
     <!--苹果应用下载-->
     <ng-template [ngIf]="campaign.target_type == '3'">
       <div class="form-group flex">
-        <label class="form-label"><span>*</span>下载地址</label>
+        <label class="form-label">下载地址<span>（必选）:</span></label>
         <div class="form-input">
           <textarea [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.download_link" #download_link="ngModel" placeholder="http://、https://" (ngModelChange)="campaign.click_link = campaign.download_link"></textarea>
           <p class="input-error" *ngIf="(_valid || download_link.dirty) && !campaign.download_link">请输入下载地址</p>
         </div>
       </div>
       <div class="form-group flex">
-        <label class="form-label"><span>*</span>APPID</label>
+        <label class="form-label">APPID<span>（必选）:</span></label>
         <div class="form-input">
           <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_bundle_id" #app_bundle_id="ngModel" (input)="_appIdSubject.next(campaign.app_bundle_id)" type="text" placeholder="请输入APPID">
           <p class="input-error" *ngIf="(_valid || app_bundle_id.dirty) && !campaign.app_bundle_id">请输入APPID</p>
@@ -186,21 +186,21 @@
         <a *ngIf="campaign.app_bundle_id" href="javascript:void 0" class="m-l-1" (click)="parseIos()">再次获取APP信息</a>
       </div>
       <div class="form-group flex">
-        <label class="form-label"><span>*</span>APP名称</label>
+        <label class="form-label">APP名称<span>（必选）:</span></label>
         <div class="form-input">
           <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_name" #app_name="ngModel" type="text" placeholder="请输入APP名称">
           <p class="input-error" *ngIf="(_valid || app_name.dirty) && !campaign.app_name">请输入APP名称</p>
         </div>
       </div>
       <div class="form-group flex">
-        <label class="form-label"><span>*</span>APP版本</label>
+        <label class="form-label">APP版本<span>（必选）:</span></label>
         <div class="form-input">
           <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_version" #app_version="ngModel" type="text" placeholder="请输入APP版本">
           <p class="input-error" *ngIf="(_valid || app_version.dirty) && !campaign.app_version">请输入APP版本</p>
         </div>
       </div>
       <div class="form-group flex-center">
-        <label class="form-label"><span>*</span>APP大小</label>
+        <label class="form-label">APP大小<span>（必选）:</span></label>
         <div class="form-input">
           <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_size" #app_size="ngModel" type="text" placeholder="请输入APP大小">
           <p class="input-error" *ngIf="(_valid || app_size.dirty) && (_isNumber2(campaign.app_size) || !campaign.app_size)">请输入有效数字</p>
@@ -224,7 +224,7 @@
   <div class="extension-form-box">
 
     <div class="form-group flex">
-      <label class="form-label"><span>*</span>活动名称</label>
+      <label class="form-label">活动名称<span>（必选）:</span></label>
       <div class="form-input">
         <input class="form-control" [(ngModel)]="campaign.campaign_name" #campaign_name="ngModel" type="text" required placeholder="请填写活动名称" (ngModelChange)="package_name = campaign.campaign_name + '_定向包'"
                [ngClass]="{'has-error':(_valid || campaign_name.dirty || campaign_name.touched) && campaign_name.invalid }">
@@ -234,7 +234,7 @@
 
     <!--每次修改预算不可少于活动当天已消耗金额-->
     <div class="form-group flex">
-      <label class="form-label"><span>*</span>每日预算</label>
+      <label class="form-label">每日预算<span>（必选）:</span></label>
       <div class="form-input">
         <input class="form-control" [(ngModel)]="campaign.day_budget" #day_budget="ngModel" type="text" placeholder="预算需大于100元" required
                [ngClass]="{'has-error':(_valid || day_budget.dirty || day_budget.touched) && ((_isNumber(campaign.day_budget) || !campaign.day_budget) || (campaign.day_budget && campaign.day_budget < 100))}">
@@ -245,14 +245,14 @@
     </div>
 
     <div class="form-group flex-center">
-      <label class="form-label"><span>*</span>投放速度</label>
+      <label class="form-label">投放速度<span>（必选）:</span></label>
       <div class="form-input">
         <yc-radio-group [(ngModel)]="campaign.speed" [list]="speeds" [props]="{label:'name'}"></yc-radio-group>
       </div>
     </div>
 
     <div class="form-group flex">
-      <label class="form-label"><span>*</span>投放频次</label>
+      <label class="form-label">投放频次<span>（必选）:</span></label>
       <div class="form-input">
         <yc-select [width]="360" placeholder="请选择频次" [(ngModel)]="campaign.frequency" [list]="frequencyList"></yc-select>
       </div>
@@ -260,7 +260,7 @@
     </div>
 
     <div class="form-group flex">
-      <label class="form-label"><span>*</span>投放日期</label>
+      <label class="form-label">投放日期<span>（必选）:</span></label>
       <div class="form-input">
         <i class="input-icon icon-input-datepicker"></i>
         <input-datepicker [width]="360" [(ngModel)]="campaignTimes" [isShortcutKey]="false" [disabledTodayBefore]="true" [query]="campaign" [appendField]="['begin_date', 'end_date']" [isRange]="true" placeholder="请选择投放日期"
@@ -270,7 +270,7 @@
     </div>
 
     <div class="form-group flex-center">
-      <label class="form-label"><span>*</span>投放小时</label>
+      <label class="form-label">投放小时<span>（必选）:</span></label>
       <div class="form-input">
         <yc-radio-group [(ngModel)]="campaign.show_time_type" [list]="show_time_types" [props]="{label: 'name'}"></yc-radio-group>
       </div>
@@ -296,7 +296,7 @@
         <div class="form-group flex-center">
           <label class="form-label">快捷定向：</label>
           <div class="form-input">
-            <yc-select [placeholder]="'请选择已保存的定向包'" [list]="orientation_packages" [props]="{label:'name'}" (selectedEvent)="setOrientation($event)"></yc-select>
+            <yc-select [placeholder]="'请选择已保存的定向包'" [list]="direction_packages" [props]="{label:'name'}" (selectedEvent)="setOrientation($event)"></yc-select>
           </div>
         </div>
       </div>

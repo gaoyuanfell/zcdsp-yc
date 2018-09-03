@@ -348,7 +348,6 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
               }
               case 'right': {
                 th.style.left = `${-(_tableRef.clientWidth - tableBcrt.width + 2)}px`;
-                console.info(th.style.left);
                 break;
               }
             }
@@ -426,7 +425,6 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
     });
 
     this.changeSortObservable.subscribe(params => {
-      console.info(params);
       if (this.theadList[0]) {
         let allList = this.theadList[0].trList.map(tr => tr.thList.filter(th => th.showSort))[0];
         if (allList instanceof Array && allList.length) {

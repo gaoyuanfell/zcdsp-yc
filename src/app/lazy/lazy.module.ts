@@ -3,7 +3,6 @@ import {RouterModule} from '@angular/router';
 import {Module} from '../module';
 import {MenuGuard} from '../../auth/menu.guard';
 import {Sidebar, YC_SIDEBAR_DATA} from '../../components/sidebar/sidebar';
-import {DirectionalDataService} from '../../service/directional-data.service';
 import { Dialog, YC_DIALOG_DATA } from '../../components/dialog/dialog';
 
 @Component({
@@ -46,8 +45,7 @@ export class LazyComponent implements OnDestroy, OnInit {
   }
 
   constructor(private _sidebar: Sidebar, 
-    private _dialog: Dialog,
-    private _directionalDataService: DirectionalDataService) {
+    private _dialog: Dialog) {
 
   }
 

@@ -29,13 +29,13 @@
           复制活动
           <i class="btn-icon-copy"></i>
         </div>
-        <div class="btn btn-outline" [yc-drop-menu]="batchUpdateMenu" (selectedEvent)="batchUpdate($event.value)">
-          批量修改
-          <i class="icon-btn-menu m-l-1"></i>
-        </div>
         <div class="btn" (click)="exportUrl()">
           导出
           <i class="btn-icon-export"></i>
+        </div>
+        <div class="btn btn-outline" [yc-drop-menu]="batchUpdateMenu" (selectedEvent)="batchUpdate($event.value)">
+          批量修改
+          <i class="icon-btn-menu m-l-1"></i>
         </div>
       </div>
 
@@ -100,7 +100,8 @@
           <td class="text-right">{{ data.cpm * 1000 | currencyFormat}}</td>
           <td class="text-right">{{ data.admoney | currencyFormat }}</td>
           <td class="text-right">
-            <a href="javascript:void 0" (click)="openCampaignDetail(data)">修改</a>
+            <a href="javascript:void 0" [routerLink]="['/ads/spread/campaign/edit',data.campaign_id]">修改</a>
+            <a href="javascript:void 0" (click)="openCampaignDetail(data)">详情</a>
           </td>
         </tr>
 

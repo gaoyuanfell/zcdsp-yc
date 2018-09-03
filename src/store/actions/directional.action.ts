@@ -31,7 +31,9 @@ export enum DirectionalActionTypes {
   QUERY_AUDIENCES_ACTION2_BY_NAME = '[DIRECTIONAL] QUERY_AUDIENCES_ACTION2_BY_NAME',
 
 
-  DIRECTIONAL_RECOVERY = '[DIRECTIONAL] DIRECTIONAL_RECOVERY'
+  DIRECTIONAL_RECOVERY = '[DIRECTIONAL] DIRECTIONAL_RECOVERY',
+  DIRECTIONAL_SHOW_RESULT = '[DIRECTIONAL] DIRECTIONAL_SHOW_RESULT',
+  DIRECTIONAL_SET_RESULT = '[DIRECTIONAL] DIRECTIONAL_SET_RESULT',
 }
 
 // effects 数据初始化
@@ -218,6 +220,14 @@ export class DirectionalRecovery implements Action{
   readonly type = DirectionalActionTypes.DIRECTIONAL_RECOVERY;
 }
 
+// 数据回显
+export class DirectionalSetResult implements Action{
+  readonly type = DirectionalActionTypes.DIRECTIONAL_SET_RESULT;
+  constructor(public payload: any) {
+
+  }
+}
+
 export type DirectionalActionUnion
   = DirectionalAssign
   | DirectionalInit
@@ -241,6 +251,8 @@ export type DirectionalActionUnion
   | CheckAudiencesActionChange
   | CheckAudiencesActionChange2
   | QueryAudiencesActionByName
+  | QueryAudiencesAction2ByName
 
   | DirectionalRecovery
+  | DirectionalSetResult
 

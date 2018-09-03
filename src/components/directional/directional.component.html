@@ -107,52 +107,53 @@
   </div>
   <div class="flex-center lbstop">
     <label>场景：</label>
-    <yc-checkbox-group [list]="[{name:'实时', desc: '实时', value:1},{name:'7天内', desc: '7天内', value:2},{name:'30天内', desc: '30天内', value:3}]" [props]="{label:'name'}"></yc-checkbox-group>
+    <yc-radio-group [(ngModel)]="scene_type" [list]="[{name:'实时', desc: '实时', value:1},{name:'7天内', desc: '7天内', value:2},{name:'30天内', desc: '30天内', value:3}]" [props]="{label:'name'}"></yc-radio-group>
   </div>
 </div>
 
 <!--受众定向-->
 <div class="flex margin-center border">
   <h3 class="directional-info-title" style="margin-right: 0">受众定向：</h3>
-  <!--<div class="directional-info" *ngIf="q2.hide">
+  <div class="directional-info" *ngIf="q2.hide">
     <h4>人群</h4>
     <p>当前已选择（{{(audiencesViewResult$ | async)?.length || 0}}）</p>
     <button class="btn btn-outline btn-round" (click)="removeAllAudiences()">清除全部</button>
-  </div>-->
-  <!--受众定向 expanded-->
-  <div class="expanded expanded1" [@panel]="q2.hide || false" #q2>
-    <!--choice-->
-    <div class="choice-values-box" [hidden]="!(audiencesViewResult$ | async)?.length">
-      <div class="choice-values">
-        <ng-template [ngForOf]="audiencesViewResult$ | async" ngFor let-value>
-          <span class="label-value">
-            {{value.name}}
-            <i (click)="value.checked = false;checkAudiencesChange(value)">&times;</i>
-          </span>
-        </ng-template>
-      </div>
-      <div class="triangle"></div>
-    </div>
-
-    <div>
-      <ng-template [ngForOf]="audiences$ | async" ngFor let-value>
-
-        <div class="flex">
-          <yc-checkbox [label]="value.value.name" [checkState]="value.value.checkState" [(ngModel)]="value.value.checked" (changeEvent)="checkAudiencesChange(value.value)"></yc-checkbox>
-          <div>
-            <ng-template [ngForOf]="value.value.children" ngFor let-value2 let-index="index">
-              <yc-checkbox [label]="value2.name" [checkState]="value2.checkState" [(ngModel)]="value2.checked" (changeEvent)="checkAudiencesChange(value2)"></yc-checkbox>
-            </ng-template>
-          </div>
-        </div>
-
-      </ng-template>
-    </div>
-
   </div>
   <div class="directional-operation">
     <yc-switch-input [(ngModel)]="q2.hide"></yc-switch-input>
   </div>
+</div>
+
+<!--受众定向 expanded-->
+<div class="expanded" [@panel]="q2.hide || false" #q2>
+  <!--choice-->
+  <div class="choice-values-box" [hidden]="!(audiencesViewResult$ | async)?.length">
+    <div class="choice-values">
+      <ng-template [ngForOf]="audiencesViewResult$ | async" ngFor let-value>
+        <span class="label-value">
+          {{value.name}}
+          <i (click)="value.checked = false;checkAudiencesChange(value)">&times;</i>
+        </span>
+      </ng-template>
+    </div>
+    <div class="triangle"></div>
+  </div>
+
+  <div style="margin-top: 30px">
+    <ng-template [ngForOf]="audiences$ | async" ngFor let-value>
+
+      <div class="flex">
+        <yc-checkbox class="yccheckbox" [label]="value.value.name" [checkState]="value.value.checkState" [(ngModel)]="value.value.checked" (changeEvent)="checkAudiencesChange(value.value)"></yc-checkbox>
+        <div>
+          <ng-template [ngForOf]="value.value.children" ngFor let-value2 let-index="index">
+            <yc-checkbox class="yccheckbox" [label]="value2.name" [checkState]="value2.checkState" [(ngModel)]="value2.checked" (changeEvent)="checkAudiencesChange(value2)"></yc-checkbox>
+          </ng-template>
+        </div>
+      </div>
+
+    </ng-template>
+  </div>
+
 </div>
 
 
@@ -296,15 +297,15 @@
     </div>
     <div class="triangle"></div>
   </div>
-  <div>
+  <div style="margin-top: 30px">
 
     <ng-template [ngForOf]="device$ | async" ngFor let-value>
 
       <div class="flex">
-        <yc-checkbox [label]="value.value.name" [checkState]="value.value.checkState" [(ngModel)]="value.value.checked" (changeEvent)="checkDeviceChange(value.value)"></yc-checkbox>
+        <yc-checkbox class="yccheckbox" [label]="value.value.name" [checkState]="value.value.checkState" [(ngModel)]="value.value.checked" (changeEvent)="checkDeviceChange(value.value)"></yc-checkbox>
         <div>
           <ng-template [ngForOf]="value.value.children" ngFor let-value2 let-index="index">
-            <yc-checkbox [label]="value2.name" [checkState]="value2.checkState" [(ngModel)]="value2.checked" (changeEvent)="checkDeviceChange(value2)"></yc-checkbox>
+            <yc-checkbox class="yccheckbox" [label]="value2.name" [checkState]="value2.checkState" [(ngModel)]="value2.checked" (changeEvent)="checkDeviceChange(value2)"></yc-checkbox>
           </ng-template>
         </div>
       </div>

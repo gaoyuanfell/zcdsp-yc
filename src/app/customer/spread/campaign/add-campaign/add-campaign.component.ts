@@ -1,21 +1,21 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {CampaignService} from '../../../../../service/customer/campaign.service';
-import {Subject} from 'rxjs';
-import {Notification} from '../../../../../components/notification/notification';
-import {Dialog} from '../../../../../components/dialog/dialog';
-import {DirectionalService} from '../../../../../service/customer/directional.service';
-import {PublicService} from '../../../../../service/public.service';
-import {Global} from '../../../../../service/global';
-import {Util} from '../../../../../service/util-service';
-import {DecimalPipe, DOCUMENT} from '@angular/common';
-import {ScheduleComponent} from '../../../../../components/schedule/schedule.component';
-import {TemplateService} from '../../../../../service/template.service';
-import {environment} from '../../../../../environments/environment';
-import {DomSanitizer} from '@angular/platform-browser';
-import {debounceTime} from 'rxjs/operators';
-import {ScrollService} from '../../../../../service/scroll.service';
-import {OrientationService} from '../../../../../service/customer/orientation.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CampaignService } from '../../../../../service/customer/campaign.service';
+import { Subject } from 'rxjs';
+import { Notification } from '../../../../../components/notification/notification';
+import { Dialog } from '../../../../../components/dialog/dialog';
+import { DirectionalService } from '../../../../../service/customer/directional.service';
+import { PublicService } from '../../../../../service/public.service';
+import { Global } from '../../../../../service/global';
+import { Util } from '../../../../../service/util-service';
+import { DecimalPipe, DOCUMENT } from '@angular/common';
+import { ScheduleComponent } from '../../../../../components/schedule/schedule.component';
+import { TemplateService } from '../../../../../service/template.service';
+import { environment } from '../../../../../environments/environment';
+import { DomSanitizer } from '@angular/platform-browser';
+import { debounceTime } from 'rxjs/operators';
+import { ScrollService } from '../../../../../service/scroll.service';
+import { OrientationService } from '../../../../../service/customer/orientation.service';
 
 export interface CampaignModel {
   campaign_id?: number,
@@ -57,7 +57,7 @@ export interface CampaignModel {
   changeDetection: ChangeDetectionStrategy.OnPush,  // 数据手动刷新
   preserveWhitespaces: true,
 })
-export class AddCampaignComponent implements OnInit,OnDestroy {
+export class AddCampaignComponent implements OnInit, OnDestroy {
 
   id;
 
@@ -81,7 +81,7 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
   orientation: any; // 定向
   directional: any; // 定向
   package_name; // 定向包名
-  orientation_packages; // 定向包下拉
+  direction_packages; // 定向包下拉
   is_need_package;
 
   target_types; // 推广类型
@@ -102,7 +102,7 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
     return this._timeSchedule;
   }
 
-  @ViewChild('timeSchedule', {read: ScheduleComponent}) set timeSchedule(value) {
+  @ViewChild('timeSchedule', { read: ScheduleComponent }) set timeSchedule(value) {
     console.dir(value);
     this._timeSchedule = value;
   }
@@ -185,7 +185,7 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
   setAppInfo(result) {
     this.campaign.app_name = result.app_name;
     this.campaign.app_description = result.description;
-    this.campaign.app_size = this._util.pipes(result.file_size / 1024 / 1024 || 0, [{transform: DecimalPipe}]);
+    this.campaign.app_size = this._util.pipes(result.file_size / 1024 / 1024 || 0, [{ transform: DecimalPipe }]);
     this.campaign.app_file_byte = String(result.file_size || '');
     this.campaign.app_file_md5 = result.md5;
     this.campaign.app_package_name = result.package_name;
@@ -197,7 +197,7 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
 
   /*1053012308*/
   parseIos() {
-    this._campaignService.parseIos({appid: this.campaign.app_bundle_id}).subscribe(
+    this._campaignService.parseIos({ appid: this.campaign.app_bundle_id }).subscribe(
       res => {
         this.setAppInfo(res.result);
       },
@@ -333,18 +333,18 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
   save(type) {
     if (this.valid()) return;
     let body: any = {
-      campaign:this.campaign
+      campaign: this.campaign
     }
 
     let show_hours = body.campaign.show_hours
     delete body.campaign.show_hours
     body.show_hours = show_hours;
 
-    if(this.directional){
+    if (this.directional) {
       body.directional = this.directional;
     }
 
-    if(this.package_name){
+    if (this.package_name) {
       body.package_name = this.package_name;
     }
 
@@ -355,7 +355,7 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
           this.router.navigate(['/ads/spread/campaign']);
           break;
         case 2:
-          this.router.navigate(['/ads/spread/creative-add/0'], {queryParams: {campaign_id: res.result}});
+          this.router.navigate(['/ads/spread/creative-add/0'], { queryParams: { campaign_id: res.result } });
           break;
       }
     });
@@ -363,20 +363,14 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
 
   setOrientation(data) {
 
-    this._orientationService.detail({package_id: data.value}).subscribe(res => {
-
-      console.info(res);
-
-      delete res.result.dtl_address.selected_lbs_location_details;
-      delete res.result.dtl_address.selected_lbs_locations;
-
+    this._orientationService.detail({ package_id: data.value }).subscribe(res => {
       this.directional = {
         dtl_address: res.result.dtl_address,
         dtl_attribute: res.result.dtl_attribute,
         dtl_behavior: res.result.dtl_behavior,
         dtl_devices: res.result.dtl_devices,
       }
-
+      this.changeDetectorRef.markForCheck();
     });
   }
 
@@ -396,7 +390,7 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
    */
   templatePreviewCode() {
     this.template_temp_id = null;
-    this._templateService.templatePreview({id: this.campaign.template_id}).subscribe(res => {
+    this._templateService.templatePreview({ id: this.campaign.template_id }).subscribe(res => {
       this.template_temp_id = res.result.id;
       this._previewCodeUrl = this._templateService.previewTpl({
         tmp_tpl_id: this.template_temp_id,
@@ -421,78 +415,78 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
   navList = [{
     name: '推广目标',
     status: 2,
-    child:[{
+    child: [{
       name: '目标类型',
       id: 'tuiguangmubiao',
       status: 2,
-    },{
+    }, {
       name: '落地页',
       id: 'tuiguangmubiao',
       status: 0,
     }]
-  },{
+  }, {
     name: '活动设置',
     status: 0,
-    child:[{
+    child: [{
       name: '预算',
       id: 'huodongshezhi',
       status: 0,
-    },{
+    }, {
       name: '排期',
       id: 'huodongshezhi',
       status: 0,
     }]
-  },{
+  }, {
     name: '定向',
     status: 0,
-    child:[{
+    child: [{
       name: '地域定向',
       id: 'dingxiangshezhi',
       status: 0,
-    },{
+    }, {
       name: '人群定向',
       id: 'dingxiangshezhi',
       status: 0,
-    },{
+    }, {
       name: '行为定向',
       id: 'dingxiangshezhi',
       status: 0,
-    },{
+    }, {
       name: '设备定向',
       id: 'dingxiangshezhi',
       status: 0,
     }]
-  },{
-    name:'出价',
+  }, {
+    name: '出价',
     status: 0,
-    child:[
+    child: [
       {
-        name:'出价',
+        name: '出价',
         id: 'chujia',
         status: 0,
       }
     ]
   }]
 
-  navScrollTo(id){
-    this._scrollService.scrollTo(this._global.containerFullRef, {top: this.document.getElementById(id).offsetTop})
+  navScrollTo(id) {
+    this._scrollService.scrollTo(this._global.containerFullRef, { top: this.document.getElementById(id).offsetTop })
   }
 
   constructor(private router: Router,
-              private route: ActivatedRoute,
-              @Inject(DOCUMENT) private document: Document,
-              private domSanitizer: DomSanitizer,
-              private changeDetectorRef: ChangeDetectorRef,
-              private _notification: Notification,
-              private _dialog: Dialog,
-              private _directionalService: DirectionalService,
-              private _orientationService: OrientationService,
-              private _publicService: PublicService,
-              private _scrollService: ScrollService,
-              private _global: Global,
-              private _util: Util,
-              private _templateService: TemplateService,
-              private _campaignService: CampaignService) {
+    private route: ActivatedRoute,
+    @Inject(DOCUMENT) private document: Document,
+    private domSanitizer: DomSanitizer,
+    private changeDetectorRef: ChangeDetectorRef,
+    private _notification: Notification,
+    private _dialog: Dialog,
+    private _directionalService: DirectionalService,
+    private _orientationService: OrientationService,
+    private _publicService: PublicService,
+    private _scrollService: ScrollService,
+    private _global: Global,
+    private _util: Util,
+    private _templateService: TemplateService,
+    private _campaignService: CampaignService) {
     let params = route.snapshot.params;
     let queryParams = route.snapshot.queryParams;
     let data = route.snapshot.data;
@@ -517,7 +511,6 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
     this.bid_max = this._global.bid_max;
 
     let auth = this.route.snapshot.data.auth;
-    console.info(auth)
     this.jurisdiction = auth.jurisdiction_list;
     this.authUser = auth.user;
     if (+this.id) {
@@ -526,7 +519,6 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
 
     // 关于创意的一系列状态 待提交创意数量(need_check_count)、审核中数量(in_check_count)、审核通过数量(check_success_count)、审核未通过数量(check_failed_count)
     // 和总数量(total_count)。用来处理这个需求：
-
 
     this._campaignService.addEditInit({
       campaign_id: this.id
@@ -538,7 +530,7 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
       this.speeds = res.result.speeds;
       this.show_time_types = res.result.show_time_types;
       this.landingpage_types = res.result.landingpage_types;
-      this.orientation_packages = res.result.orientation_packages;
+      this.direction_packages = res.result.direction_packages;
       if (res.result.campaign) {
         this.campaign = res.result.campaign;
         this.campaignTimes = [this.campaign.begin_date, this.campaign.end_date]
@@ -546,9 +538,11 @@ export class AddCampaignComponent implements OnInit,OnDestroy {
       this.changeDetectorRef.markForCheck();
     });
 
-    this._directionalService.directionalRecommend().subscribe(res => {
-      console.info(res);
-    })
+    if(!this._isEdit){
+      this._directionalService.directionalRecommend().subscribe(res => {
+        this.directional = res.result
+      })
+    }
 
     for (let i = 1; i <= 20; i++) {
       this.frequencyList.push({

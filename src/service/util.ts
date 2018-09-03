@@ -5,6 +5,9 @@
  */
 export function recursionChildCheck(target) {
   let list = target.children;
+  if(!target.checked) {
+    target.checkState = 0;
+  }
   if (list && list.length > 0) {
     list.forEach(data => {
       let checked = data.parent.checked;
@@ -196,18 +199,4 @@ export function hoursFormat(list) {
     li.length = 0;
   }
   return result;
-}
-
-/**
- *
- * @param target
- * @param source
- */
-export function assign(target, source) {
-  if(target instanceof Array && source instanceof Array){
-
-  }
-  if(typeof target === 'object' && typeof source === 'object'){
-
-  }
 }
