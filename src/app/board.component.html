@@ -1,17 +1,17 @@
 <div class="container-main">
   <div style="width:100%;height: 100%;overflow: auto;position: relative" #container>
-    <div class="top" id="home" [ngStyle]="background">
+    <div class="top" [ngStyle]="background">
       <div class="nav_main">
         <div class="logo">
           <img src="assets/img/index/logo1.png" alt="">
         </div>
         <ul class="nav clear">
-          <li><a href="#home" [ngClass]="{'active': hash === 'home'}" (click)="scrollTop('home')">首页</a></li>
-          <li><a href="#engine" [ngClass]="{'active': hash === 'engine'}" (click)="scrollTop('engine')">决策引擎</a></li>
-          <li><a href="#scheme" [ngClass]="{'active': hash === 'scheme'}" (click)="scrollTop('scheme')">解决方案</a></li>
-          <li><a href="#case" [ngClass]="{'active': hash === 'case'}" (click)="scrollTop('case')">成功案例</a></li>
-          <li><a href="#media" [ngClass]="{'active': hash === 'media'}" (click)="scrollTop('media')">媒体资源</a></li>
-          <li><a href="#contact" [ngClass]="{'active': hash === 'contact'}" (click)="scrollTop('contact')">联系我们</a></li>
+          <li><a href="javascript:;" [ngClass]="{'active': hash === 'home'}" (click)="scrollTop('home')">首页</a></li>
+          <li><a href="javascript:;" [ngClass]="{'active': hash === 'engine'}" (click)="scrollTop('engine')">决策引擎</a></li>
+          <li><a href="javascript:;" [ngClass]="{'active': hash === 'scheme'}" (click)="scrollTop('scheme')">解决方案</a></li>
+          <li><a href="javascript:;" [ngClass]="{'active': hash === 'case'}" (click)="scrollTop('case')">成功案例</a></li>
+          <li><a href="javascript:;" [ngClass]="{'active': hash === 'media'}" (click)="scrollTop('media')">媒体资源</a></li>
+          <li><a href="javascript:;" [ngClass]="{'active': hash === 'contact'}" (click)="scrollTop('contact')">联系我们</a></li>
         </ul>
         <div class="right">
           <div class="btn-login clear">
@@ -23,7 +23,7 @@
       </div>
     </div>
       <div class="container">
-        <div class="banner">
+        <div class="banner" id="home">
           <img src="http://img.zcdsp.com/common/33548fa9b735a3e25b0541c7d8b6ed61.jpg" alt="">
         </div>
         <div class="mobel" id="engine">
@@ -282,6 +282,6 @@
 <div class="goback">
   <div class="function"><img src="assets/img/index/qq.png" alt=""></div>
   <div class="function"><img src="assets/img/index/dhj.png" alt=""></div>
-  <div class="function"><a href="#home" [ngClass]="{'active': hash === 'home'}" (click)="scrollTop('home')"><img src="assets/img/index/up.png" alt=""></a></div>
+  <div class="function"><a href="javascript:;" [ngClass]="{'active': hash === 'home'}" (click)="scrollTop('home')"><img src="assets/img/index/up.png" alt=""></a></div>
 </div>
 

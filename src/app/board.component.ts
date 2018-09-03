@@ -75,7 +75,7 @@ export class BoardComponent implements OnInit,OnDestroy {
     })
   }
 
-  /*scrolls() {
+  scrolls() {
     this.setIntervalNum = setInterval(() => {
       if(this.destroy) return;
       this.currentPic++
@@ -89,7 +89,7 @@ export class BoardComponent implements OnInit,OnDestroy {
         'left.px': -this.currentPic * 1352
       }
     }, 3000)
-  }*/
+  }
 
   scrolls1() {
     this.setInterval1 = setInterval(() => {
@@ -124,8 +124,10 @@ export class BoardComponent implements OnInit,OnDestroy {
   scrollTop(name) {
     this.hash = name
     this.containerFullRef.nativeElement.scrollTop = document.getElementById(name).offsetTop - 80
+    console.info(name)
     if (name === 'home') {
-      this.containerFullRef.nativeElement.scrollTop = 0
+      <HTMLDivElement>this.containerFullRef.nativeElement.scrollTop = 0
+      // this.containerFullRef.nativeElement.scrollTo({top: 0})
       // this._scrollService.scrollTo(this.containerFullRef.nativeElement, {top: 0})
     }
   }
