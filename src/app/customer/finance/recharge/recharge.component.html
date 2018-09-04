@@ -1,53 +1,59 @@
 <div class="container-list">
-  <ul class="top">
-    <li>
-      <div class="title">
-        <div class="img"><img src="assets/img/indexjinr.png" alt=""></div>
-        <div class="right">
-          <p>今日消耗</p>
-          <h1>{{userData?.consume | currencyFormat}}</h1>
+  <div class="topPar">
+    <ul class="top">
+      <li>
+        <div class="title">
+          <div class="img"><img src="assets/img/indexjinr.png" alt=""></div>
+          <div class="right">
+            <p>今日消耗</p>
+            <h1>{{userData?.consume | currencyFormat}}</h1>
+          </div>
         </div>
-      </div>
-      <div class="ratio"></div>
+      </li>
+
+      <li>
+        <div class="title">
+          <div class="img"><img src="assets/img/customer/img/liushui-recharge.png" alt=""></div>
+          <div class="right">
+            <p>累计充值</p>
+            <h1>{{userData?.c_money | currencyFormat}}</h1>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="title">
+          <div class="img"><img src="assets/img/customer/img/liushui-dispatching.png" alt=""></div>
+          <div class="right">
+            <p>累计配送</p>
+            <h1>{{userData?.p_money | currencyFormat}}</h1>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="title">
+          <div class="img"><img src="assets/img/customer/img/liushui-refund.png" alt=""></div>
+          <div class="right">
+            <p>累计退款</p>
+            <h1>{{userData?.t_money | currencyFormat}}</h1>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+    <hr>
+    <div class="bottom">
       <div class="number clear">
         <div class="list">账户余额<span>{{userData?.balance | currencyFormat}}</span><i class="icon-tool-tip"></i></div>
+      </div>
+
+      <div class="number clear">
         <div class="list">每日预算<span>{{userData?.max_day_money | currencyFormat}}</span><i class="icon-tool-edit"></i></div>
       </div>
-    </li>
-    <li>
-      <div class="title">
-        <div class="img"><img src="assets/img/customer/img/liushui-recharge.png" alt=""></div>
-        <div class="right">
-          <p>累计充值</p>
-          <h1>{{userData?.c_money | currencyFormat}}</h1>
-        </div>
-      </div>
-      <div class="echart" #todayAllSpendChartSmall></div>
-      <div class="number"></div>
-    </li>
-    <li>
-      <div class="title">
-        <div class="img"><img src="assets/img/customer/img/liushui-dispatching.png" alt=""></div>
-        <div class="right">
-          <p>累计配送</p>
-          <h1>{{userData?.p_money | currencyFormat}}</h1>
-        </div>
-      </div>
-      <div class="echart" #todayAllSpendChartLine></div>
-      <div class="number"></div>
-    </li>
-    <li>
-      <div class="title">
-        <div class="img"><img src="assets/img/customer/img/liushui-refund.png" alt=""></div>
-        <div class="right">
-          <p>累计退款</p>
-          <h1>{{userData?.t_money | currencyFormat}}</h1>
-        </div>
-      </div>
-      <div class="echart" #todayAllSpendChartLine></div>
-      <div class="number"></div>
-    </li>
-  </ul>
+    </div>
+  </div>
+
 
  <div class="table-content">
 
