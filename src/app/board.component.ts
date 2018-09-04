@@ -99,7 +99,7 @@ export class BoardComponent implements OnInit,OnDestroy {
         this.currentPic = 0
       }
       this.height = {
-        'top.px': -this.currentPic * 430
+        'top.px': -this.currentPic * 472
       }
     }, 3000)
   }
@@ -126,7 +126,7 @@ export class BoardComponent implements OnInit,OnDestroy {
     this.containerFullRef.nativeElement.scrollTop = document.getElementById(name).offsetTop - 80
     console.info(name)
     if (name === 'home') {
-      <HTMLDivElement>this.containerFullRef.nativeElement.scrollTop = 0
+      (<HTMLDivElement>this.containerFullRef.nativeElement).scrollTop = 0;
       // this.containerFullRef.nativeElement.scrollTo({top: 0})
       // this._scrollService.scrollTo(this.containerFullRef.nativeElement, {top: 0})
     }

@@ -71,4 +71,9 @@ export class HomeComponent implements OnInit,OnDestroy {
       }
     })
   }
+  navigate(menu){
+    if (!menu.child) {
+        this.router.navigate([menu.route])
+    }
+  }
 }

@@ -12,68 +12,7 @@
     </div>
   </div>
 
-  <div class="data-panel">
-    <div class="card-box item">
-      <p>
-        <span class="img-icon"><img src="assets/img/customer/img/baoguang-cam-icom.png" alt=""></span>
-        <span title="广告被展现给受众的次数">曝光量</span>
-      </p>
-      <p>
-        <span>{{listTitle?.pv * 1 | number }}</span>
-        <span>次</span>
-      </p>
-    </div>
-    <div class="card-box item">
-      <p>
-        <img src="assets/img/customer/img/dianji-cam-icom.png" alt="">
-        <span title="排除恶意点击后，广告被受众点击的次数">点击量</span>
-      </p>
-      <p>
-        <span>{{listTitle?.click * 1 | number}}</span>
-        <span>次</span>
-      </p>
-    </div>
-    <div class="card-box item">
-      <p>
-        <img src="assets/img/customer/img/dianjilv-cam-icom.png" alt="">
-        <span title="广告被点击的比率(点击量/曝光量*100%)">点击率</span>
-      </p>
-      <p>
-        <span>{{ listTitle?.ctr * 100 | number: '1.2-2' }}</span>
-        <span>%</span>
-      </p>
-    </div>
-    <div class="card-box item">
-      <p>
-        <img src="assets/img/customer/img/dianjijj-cam-icom.png" alt="">
-        <span title="广告主为每次点击付出的平均花费(花费/点击量)">点击成本</span>
-      </p>
-      <p>
-        <span>{{listTitle?.cpc * 1 | number: '1.2-2'}}</span>
-        <span>元</span>
-      </p>
-    </div>
-    <div class="card-box item">
-      <p>
-        <img src="assets/img/customer/img/baoguangjj-cam-icom.png" alt="">
-        <span title="广告主为每1000次曝光付出平均花费(花费/曝光量*1000)">曝光成本</span>
-      </p>
-      <p>
-        <span>{{listTitle?.cpm * 1000| number: '1.2-2'}}</span>
-        <span>元</span>
-      </p>
-    </div>
-    <div class="card-box item">
-      <p>
-        <img src="assets/img/customer/img/zonghuafei-cam-icom.png" alt="">
-        <span title="广告点击后产生的费用">总花费</span>
-      </p>
-      <p>
-        <span>{{listTitle?.admoney * 1 | number: '1.2-2'}}</span>
-        <span>元</span>
-      </p>
-    </div>
-  </div>
+
 
   <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
     <table #tableRef table>
@@ -113,6 +52,20 @@
           <td colspan="1000" *ngIf="trExpand.show">
             <yc-report-expand [type]="'campaign-report'" [begin_date]="query.begin_date" [end_date]="query.end_date" [id]="data.campaign_id"></yc-report-expand>
           </td>
+        </tr>
+      </ng-template>
+      <ng-template [ngIf]="tableList?.length > 0">
+        <!--tableList?.length > 0-->
+        <tr #tr>
+          <td class="text-left">全部集合</td>
+          <td class="text-left"></td>
+          <td class="text-left"></td>
+          <td class="text-right">{{ listTitle?.pv * 1| number}}</td>
+          <td class="text-right">{{listTitle?.click * 1| number}}</td>
+          <td class="text-right">{{ listTitle?.ctr * 100 | number: '1.2-2' }}</td>
+          <td class="text-right">{{listTitle?.cpc * 1 | number: '1.2-2'}}</td>
+          <td class="text-right">{{listTitle?.cpm * 1000| number: '1.2-2'}}</td>
+          <td class="text-right">{{listTitle?.admoney * 1| number: '1.2-2'}}</td>
         </tr>
       </ng-template>
       </tbody>
