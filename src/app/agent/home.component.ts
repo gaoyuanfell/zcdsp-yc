@@ -63,5 +63,10 @@ export class HomeComponent implements OnInit,OnDestroy {
     console.log(this.menuList$.subscribe( res => console.log(res)));
 
   }
+  navigate(menu){
+    if (!menu.child) {
+      this.router.navigate([menu.route])
+    }
+  }
 
 }
