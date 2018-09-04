@@ -14,6 +14,7 @@ export class BoardComponent implements OnInit,OnDestroy {
   @ViewChild('picList') picList: ElementRef;
   @ViewChild('caseMainLeft') caseMainLeft: ElementRef;
   @ViewChild('caseMainRight') caseMainRight: ElementRef;
+  @ViewChild('scheme') scheme: ElementRef;
 
   constructor(private renderer: Renderer2,
               private _scrollService: ScrollService,) {
@@ -26,6 +27,7 @@ export class BoardComponent implements OnInit,OnDestroy {
   leftTo;
   height;
   topTo;
+  leftNum;
   background: any = {
     background: 'rgba(255,255,255,0.7)',
     'top.px': 0
@@ -33,45 +35,50 @@ export class BoardComponent implements OnInit,OnDestroy {
   setIntervalNum;
   setInterval1;
   setInterval2;
+  setinter;
   currentPic = 0
+  currents = 0
   num = 0
   user: any = {}
   flags = false;
   ngOnInit(): void {
+    this.scrolls()
+    this.scrolls1()
+    this.scrolls2()
+    this.schemeImg()
     this.renderer.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
 
       this.background['top.px'] = event.target.scrollTop
 
       this.background['background'] = `rgba(255,255,255,${(event.target.scrollTop / 180) * 0.3 + 0.7})`
     })
-    this.scrolls()
-    this.renderer.listen(this.picList.nativeElement, 'mouseenter', (event) => {
+    this.renderer.listen(this.picList.nativeElement, 'mouseenter', () => {
       clearInterval(this.setIntervalNum)
     })
-    this.renderer.listen(this.picList.nativeElement, 'mouseleave', (event) => {
+    this.renderer.listen(this.picList.nativeElement, 'mouseleave', () => {
       this.scrolls()
     })
-    this.scrolls1()
-    this.scrolls2()
-    this.renderer.listen(this.caseMainLeft.nativeElement, 'mouseenter', (event) => {
-      event.stopPropagation();
-      event.preventDefault();
+    this.renderer.listen(this.caseMainLeft.nativeElement, 'mouseenter', () => {
       clearInterval(this.setInterval1)
       clearInterval(this.setInterval2)
     })
-    this.renderer.listen(this.caseMainLeft.nativeElement, 'mouseleave', (event) => {
+    this.renderer.listen(this.caseMainLeft.nativeElement, 'mouseleave', () => {
       this.scrolls1()
       this.scrolls2()
     })
-    this.renderer.listen(this.caseMainRight.nativeElement, 'mouseenter', (event) => {
-      event.stopPropagation();
-      event.preventDefault();
+    this.renderer.listen(this.caseMainRight.nativeElement, 'mouseenter', () => {
       clearInterval(this.setInterval1)
       clearInterval(this.setInterval2)
     })
-    this.renderer.listen(this.caseMainRight.nativeElement, 'mouseleave', (event) => {
+    this.renderer.listen(this.caseMainRight.nativeElement, 'mouseleave', () => {
       this.scrolls1()
       this.scrolls2()
+    })
+    this.renderer.listen(this.scheme.nativeElement, 'mouseenter', () => {
+      clearInterval(this.setinter)
+    })
+    this.renderer.listen(this.scheme.nativeElement, 'mouseleave', () => {
+      this.schemeImg()
     })
   }
 
@@ -116,7 +123,18 @@ export class BoardComponent implements OnInit,OnDestroy {
       }
     }, 3000)
   }
-
+  schemeImg() {
+    this.setinter = setInterval(() => {
+      if(this.destroy) return;
+      this.currents++
+      if (this.currents > document.querySelector('.listimg').children.length - 1) {
+        this.currents = 0
+      }
+      this.leftNum = {
+        'left.px': -this.currents * 85
+      }
+    }, 3000)
+  }
   changeElement(index) {
     this.num = index
   }
