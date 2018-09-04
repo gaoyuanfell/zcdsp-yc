@@ -1,14 +1,24 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChild, Inject, OnDestroy } from '@angular/core';
-import { AutoCookie } from '../../../../decorator/decorator';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Global } from '../../../../service/global';
-import { Dialog } from '../../../../components/dialog/dialog';
-import { Notification } from '../../../../components/notification/notification';
-import { CampaignService } from '../../../../service/customer/campaign.service';
-import { TableComponent } from '../../../../components/table/table.component';
-import { Sidebar, YC_SIDEBAR_DATA } from '../../../../components/sidebar/sidebar';
-import { hoursFormat } from '../../../../service/util';
-import { forkJoin } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+  Inject,
+  OnDestroy
+} from '@angular/core';
+import {AutoCookie} from '../../../../decorator/decorator';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Global} from '../../../../service/global';
+import {Dialog} from '../../../../components/dialog/dialog';
+import {Notification} from '../../../../components/notification/notification';
+import {CampaignService} from '../../../../service/customer/campaign.service';
+import {TableComponent} from '../../../../components/table/table.component';
+import {Sidebar, YC_SIDEBAR_DATA} from '../../../../components/sidebar/sidebar';
+import {hoursFormat} from '../../../../service/util';
+import {forkJoin} from 'rxjs';
 
 @Component({
   selector: 'app-campaign',
@@ -63,36 +73,36 @@ export class CampaignComponent implements OnInit {
 
   ////*******************************///
 
-  @ViewChild('ycTable', { read: TableComponent }) table: TableComponent;
+  @ViewChild('ycTable', {read: TableComponent}) table: TableComponent;
 
-  @ViewChild('batch_update_show_hours', { read: TemplateRef }) batch_update_show_hours_ref: TemplateRef<any>;
+  @ViewChild('batch_update_show_hours', {read: TemplateRef}) batch_update_show_hours_ref: TemplateRef<any>;
   batch_show_hours_data = {
     show_time_type: 0,
     show_hours: []
   };
 
-  @ViewChild('batch_update_begin_end_date', { read: TemplateRef }) batch_update_begin_end_date_ref: TemplateRef<any>;
+  @ViewChild('batch_update_begin_end_date', {read: TemplateRef}) batch_update_begin_end_date_ref: TemplateRef<any>;
   batch_begin_end_data = {
     begin_date: new Date(),
     end_date: new Date()
   };
 
-  @ViewChild('batch_update_speed', { read: TemplateRef }) batch_update_speed_ref: TemplateRef<any>;
+  @ViewChild('batch_update_speed', {read: TemplateRef}) batch_update_speed_ref: TemplateRef<any>;
   batch_speed_data = {
     new_speed: 1
   };
 
-  @ViewChild('batch_update_price', { read: TemplateRef }) batch_update_price_ref: TemplateRef<any>;
+  @ViewChild('batch_update_price', {read: TemplateRef}) batch_update_price_ref: TemplateRef<any>;
   batch_price_data = {
     new_price: null
   };
 
-  @ViewChild('batch_update_show_state', { read: TemplateRef }) batch_update_show_state_ref: TemplateRef<any>;
+  @ViewChild('batch_update_show_state', {read: TemplateRef}) batch_update_show_state_ref: TemplateRef<any>;
   batch_price_state = {
     new_show_state: 1
   };
 
-  @ViewChild('batch_update_budget', { read: TemplateRef }) batch_update_budget_ref: TemplateRef<any>;
+  @ViewChild('batch_update_budget', {read: TemplateRef}) batch_update_budget_ref: TemplateRef<any>;
   batch_budget_state = {
     new_budget: null
   };
@@ -191,7 +201,7 @@ export class CampaignComponent implements OnInit {
           show_time_type: 0,
           show_hours: []
         };
-        this._dialog.open(this.batch_update_show_hours_ref, { title: '修改投放小时', async: true }).subscribe((data: any) => {
+        this._dialog.open(this.batch_update_show_hours_ref, {title: '修改投放小时', async: true}).subscribe((data: any) => {
           if (data) {
             if (this.batch_show_hours_data.show_time_type === 1) {
               let flag = this.batch_show_hours_data.show_hours.some(item => !!item);
@@ -219,7 +229,7 @@ export class CampaignComponent implements OnInit {
           begin_date: new Date(),
           end_date: new Date()
         };
-        this._dialog.open(this.batch_update_begin_end_date_ref, { title: '修改投放日期' }).subscribe(data => {
+        this._dialog.open(this.batch_update_begin_end_date_ref, {title: '修改投放日期'}).subscribe(data => {
           if (data) {
             this._campaignService.batchUpdateBeginEndDate({
               campaign_ids: campaign_ids,
@@ -232,7 +242,7 @@ export class CampaignComponent implements OnInit {
         break;
       case 'batch_update_speed':
         this.batch_speed_data.new_speed = 1;
-        this._dialog.open(this.batch_update_speed_ref, { title: '修改投放速度' }).subscribe(data => {
+        this._dialog.open(this.batch_update_speed_ref, {title: '修改投放速度'}).subscribe(data => {
           if (data) {
             this._campaignService.batchUpdateSpeed({
               new_speed: this.batch_speed_data.new_speed,
@@ -244,7 +254,7 @@ export class CampaignComponent implements OnInit {
         });
         break;
       case 'batch_delete':
-        this._dialog.open('是否删除被选活动？', { title: '活动删除' }).subscribe(data => {
+        this._dialog.open('是否删除被选活动？', {title: '活动删除'}).subscribe(data => {
           if (data) {
             this._campaignService.batchDelete({
               campaign_ids
@@ -257,7 +267,7 @@ export class CampaignComponent implements OnInit {
       case 'batch_update_price':
         this._valid = false;
         this.batch_price_data.new_price = null;
-        this._dialog.open(this.batch_update_price_ref, { title: '修改出价', async: true }).subscribe((data: any) => {
+        this._dialog.open(this.batch_update_price_ref, {title: '修改出价', async: true}).subscribe((data: any) => {
           if (data) {
             if (this.new_priceRef.invalid || this.batch_price_data.new_price > this.bid_max || this.batch_price_data.new_price < this.bid_min) {
               this._valid = true;
@@ -275,7 +285,7 @@ export class CampaignComponent implements OnInit {
         break;
       case 'batch_update_show_state':
         this.batch_price_state.new_show_state = 1;
-        this._dialog.open(this.batch_update_show_state_ref, { title: '修改状态' }).subscribe(data => {
+        this._dialog.open(this.batch_update_show_state_ref, {title: '修改状态'}).subscribe(data => {
           if (data) {
             this._campaignService.batchUpdateState({
               campaign_ids,
@@ -290,10 +300,10 @@ export class CampaignComponent implements OnInit {
         this._valid = false;
         this.batch_budget_state.new_budget = null;
         this.admoneyTotal = 0;
-        this._campaignService.get_day_consume({ campaign_ids: list.join(',') }).subscribe(res => {
+        this._campaignService.get_day_consume({campaign_ids: list.join(',')}).subscribe(res => {
           this.admoneyTotal = res.result;
           this.changeDetectorRef.markForCheck();  // 强制行刷新 input框中使用了admoneyTotal这个变量，可能导致input这个dom有问题，导致_batch_moneyRef有问题
-          this._dialog.open(this.batch_update_budget_ref, { title: '修改预算', async: true }).subscribe((data: any) => {
+          this._dialog.open(this.batch_update_budget_ref, {title: '修改预算', async: true}).subscribe((data: any) => {
             if (data) {
               console.dir(this._batch_moneyRef);
               if (this.batch_moneyRef.invalid || this.batch_budget_state.new_budget < (100 + this.admoneyTotal)) {
@@ -312,7 +322,7 @@ export class CampaignComponent implements OnInit {
         });
         break;
       case 'batch_copy':
-        this._dialog.open('是否复制被选活动？', { title: '活动复制' }).subscribe(data => {
+        this._dialog.open('是否复制被选活动？', {title: '活动复制'}).subscribe(data => {
           if (data) {
             this._campaignService.batchCopy({
               campaign_ids
@@ -329,7 +339,7 @@ export class CampaignComponent implements OnInit {
   admoney;
 
   popoverOpen(ref, data) {
-    this._campaignService.get_day_consume({ campaign_ids: data.campaign_id }).subscribe(res => {
+    this._campaignService.get_day_consume({campaign_ids: data.campaign_id}).subscribe(res => {
       this.admoney = res.result;
       ref.open();
     });
@@ -338,8 +348,8 @@ export class CampaignComponent implements OnInit {
   ///////// *********************************** 显示活动详情  ****************************************** /////////
   openCampaignDetail(data) {
     forkJoin([
-      this._campaignService.campaignDetail({ campaign_id: data.campaign_id }),
-      this._campaignService.charData({ campaign_id: data.campaign_id }),
+      this._campaignService.campaignDetail({campaign_id: data.campaign_id}),
+      this._campaignService.charData({campaign_id: data.campaign_id}),
     ]).subscribe(([campaignRes, campaignChartRes]) => {
       this._sidebar.open(CampaignDetailComponent, {
         data: {
@@ -347,17 +357,17 @@ export class CampaignComponent implements OnInit {
           chartData: campaignChartRes.result
         }
       });
-    })
+    });
   }
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
-    private router: Router,
-    private route: ActivatedRoute,
-    private _notification: Notification,
-    private _global: Global,
-    private _dialog: Dialog,
-    private _sidebar: Sidebar,
-    private _campaignService: CampaignService) {
+              private router: Router,
+              private route: ActivatedRoute,
+              private _notification: Notification,
+              private _global: Global,
+              private _dialog: Dialog,
+              private _sidebar: Sidebar,
+              private _campaignService: CampaignService) {
     let params = route.snapshot.params;
     let queryParams = route.snapshot.queryParams;
     let data = route.snapshot.data;
@@ -376,7 +386,7 @@ export class CampaignComponent implements OnInit {
 
     // 批量修改所拥有的权限
     this.batchUpdateMenu = obj['jurisdiction_list']['ZCMOBI_ADS_SPREAD_CAMPAIGN_BATCH'] ? obj['jurisdiction_list']['ZCMOBI_ADS_SPREAD_CAMPAIGN_BATCH']['child'].map(item => {
-      return { value: item.route, label: item.name };
+      return {value: item.route, label: item.name};
     }) : [];
 
     this._campaignService.init().subscribe(res => {
@@ -391,30 +401,39 @@ export class CampaignComponent implements OnInit {
 
 @Component({
   selector: 'campaign-detail',
-  styles:[
-    `
-    .chart-box {
-      position: relative;
-      width: 100%;
-      height: 300px;
-    }
-    .chart-box .tool {
-      position: absolute;
-      right: 10px;
-      top: 0;
-      z-index: 1;
-    }
-    .chart-box .chart-data{
-      width: 100%;
-      height: 100%;
-    }
+  styles: [
+      `
+      .chart-box {
+        position: relative;
+        width: 100%;
+        height: 300px;
+      }
+
+      .chart-box .tool {
+        position: absolute;
+        right: 10px;
+        top: 0;
+        z-index: 1;
+      }
+
+      .chart-box .chart-data {
+        width: 100%;
+        height: 100%;
+      }
+
+      .mini-input {
+        border: 1px solid #ccc;
+      }
     `
   ],
   templateUrl: 'campaign-detail.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: true,
 })
-export class CampaignDetailComponent implements OnInit,OnDestroy {
+export class CampaignDetailComponent implements OnInit, OnDestroy {
+
+  edit = false;
+
   ngOnDestroy(): void {
 
   }
@@ -425,8 +444,8 @@ export class CampaignDetailComponent implements OnInit,OnDestroy {
   }
 
   constructor(@Inject(YC_SIDEBAR_DATA) public data: any) {
-    this.campaignData = data.campaignData
-    this.creativeChartData = data.chartData
+    this.campaignData = data.campaignData;
+    this.creativeChartData = data.chartData;
 
     this.creativeList = this.campaignData.creatives;
     if (this.campaignData.show_hours_today) {
@@ -437,16 +456,16 @@ export class CampaignDetailComponent implements OnInit,OnDestroy {
     this.show_time_type = this.campaignData.show_time_type;
     this.orientationValue = this.campaignData.orientation_name_values;
 
-    this.campaignChartDataList = this.changeDayTotalList(this.creativeChartData)
+    this.campaignChartDataList = this.changeDayTotalList(this.creativeChartData);
   }
 
   // 显示活动详情
-  @ViewChild('campaignDetail', { read: TemplateRef }) campaignDetailRef: TemplateRef<any>;
+  @ViewChild('campaignDetail', {read: TemplateRef}) campaignDetailRef: TemplateRef<any>;
 
   show_hour_today_format;
   orientationValue;
   creativeList;
-  campaignData;
+  campaignData: any = {};
   show_time_type;
 
   campaignCode = 'pv';
@@ -454,14 +473,21 @@ export class CampaignDetailComponent implements OnInit,OnDestroy {
   creativeChartData;
   @ViewChild('chartData') chartDataRef: ElementRef;
 
-  isChart = true
-  campaignChartDataList
+  isChart = true;
+  campaignChartDataList;
 
-  changeDayTotalList(chartDatas){
+  startList = Array.from({length: 12}).map((a,b) => ({label:b, value:b}));
+  endList = Array.from({length: 12}).map((a,b) => ({label:b, value:b}));
+
+  save() {
+
+  }
+
+  changeDayTotalList(chartDatas) {
     let x = chartDatas.x;
     let y = chartDatas.y;
     let list = [];
-    x.forEach((item,index) => {
+    x.forEach((item, index) => {
       list.push({
         'time': x[index],
         'admoney': y.admoney[index],
@@ -470,8 +496,8 @@ export class CampaignDetailComponent implements OnInit,OnDestroy {
         'cpm': y.cpm[index],
         'ctr': y.ctr[index],
         'pv': y.pv[index]
-      })
-    })
+      });
+    });
     return list;
   }
 
@@ -519,7 +545,7 @@ export class CampaignDetailComponent implements OnInit,OnDestroy {
         }
       },
       series: [
-        { data: d },
+        {data: d},
       ]
     };
 

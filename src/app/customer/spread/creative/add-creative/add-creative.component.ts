@@ -589,7 +589,7 @@ export class AddCreativeComponent implements OnInit {
         });
         this.campaign = res.result.campaign;
         this.show_hours = res.result.show_hours;
-        // this.direction = res.result.direction;
+        this.direction = res.result.direction;
         this.media_list = res.result.media_list;
         this.rec_media_list = res.result.rec_media_list;
         this.first_char_list = res.result.first_char_list;

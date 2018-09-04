@@ -527,7 +527,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     }).subscribe(res => {
       this.can_modify = res.result.hasOwnProperty('can_modify') ? res.result.can_modify : true;  // false的时候 不可编辑
       this.app_stores = res.result.app_stores;
-      this.directional = res.result.directional;
+
       this.target_types = res.result.target_types;
       this.speeds = res.result.speeds;
       this.show_time_types = res.result.show_time_types;
@@ -537,12 +537,16 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
         this.campaign = res.result.campaign;
         this.campaignTimes = [this.campaign.begin_date, this.campaign.end_date];
       }
+      if(res.result.directional){
+        this.directional = res.result.directional;
+      }
       this.changeDetectorRef.markForCheck();
     });
 
     if (!this._isEdit) {
       this._directionalService.directionalRecommend().subscribe(res => {
         this.directional = res.result;
+        this.changeDetectorRef.markForCheck();
       });
     }
 

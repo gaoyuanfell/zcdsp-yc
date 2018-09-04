@@ -87,6 +87,8 @@ export class InputDatepickerComponent implements ControlValueAccessor, OnInit, O
     }
   }
 
+
+  @Input() size: 'small' | 'default' | 'large' = 'default';
   @Input() isRange = false;
   @Input() isShortcutKey = true;
 

@@ -5,7 +5,9 @@
     </div>
 
     <div style="margin-left: auto">
-      <i class="zcdsp-icon">&#xe627;</i>
+      <i class="zcdsp-icon" style="cursor: pointer;" *ngIf="!edit" (click)="edit = true;">&#xe632;</i>
+      <button class="btn btn-link" *ngIf="edit" (click)="save()">保存</button>
+      <button class="btn btn-link" *ngIf="edit" (click)="edit = false;">取消</button>
     </div>
   </div>
 
@@ -19,35 +21,59 @@
         </div>
         <div class="word-data-box">
           <span>活动名称：</span>
-          <p>{{campaignData?.campaign_name}}</p>
-        </div>
-        <div class="word-data-box">
-          <span>投放媒体：</span>
-          <p></p>
+          <p *ngIf="!edit">{{campaignData?.campaign_name}}</p>
+          <p *ngIf="edit"><input [(ngModel)]="campaignData.campaign_name" class="mini-input"></p>
         </div>
         <div class="word-data-box">
           <span>投放日期：</span>
-          <p>{{campaignData?.begin_date}}~{{campaignData?.end_date}}</p>
+          <p *ngIf="!edit">{{campaignData?.begin_date}}~{{campaignData?.end_date}}</p>
+          <p *ngIf="edit">
+            <input-datepicker [isRange]="true" [size]="'small'" [width]="200" [query]="campaignData" [appendField]="['begin_date','end_date']"></input-datepicker>
+          </p>
         </div>
         <div class="word-data-box">
           <span>投放小时：</span>
-          <ng-template [ngIf]="show_hour_today_format">
-            <p><span>{{show_hour_today_format}}</span></p>
+
+          <ng-template [ngIf]="!edit">
+            <ng-template [ngIf]="show_hour_today_format">
+              <p><span>{{show_hour_today_format}}</span></p>
+            </ng-template>
+            <ng-template [ngIf]="!show_hour_today_format && show_time_type === 1">
+              <span>不投</span>
+            </ng-template>
+            <ng-template [ngIf]="!show_hour_today_format && show_time_type === 0">
+              <p><span>00:00~23:59</span></p>
+            </ng-template>
           </ng-template>
-          <ng-template [ngIf]="!show_hour_today_format && show_time_type === 1">
-            <span>不投</span>
+
+          <ng-template [ngIf]="edit">
+            <yc-select [list]="startList"></yc-select> - <yc-select [list]="endList"></yc-select>
           </ng-template>
-          <ng-template [ngIf]="!show_hour_today_format && show_time_type === 0">
-            <p><span>00:00~23:59</span></p>
-          </ng-template>
+
         </div>
         <div class="word-data-box">
           <span>广告出价：</span>
-          <p>{{campaignData?.ad_price | currencyFormat}}</p>
+          <p *ngIf="!edit">{{campaignData?.ad_price | currencyFormat}}</p>
+          <p *ngIf="edit"><input [(ngModel)]="campaignData.ad_price" class="mini-input"></p>
         </div>
-
+        <div class="word-data-box">
+          <span>广告预算：</span>
+          <p *ngIf="!edit">{{campaignData?.day_budget | currencyFormat}}</p>
+          <p *ngIf="edit"><input [(ngModel)]="campaignData.day_budget" class="mini-input"></p>
+        </div>
+        <div class="word-data-box">
+          <span>目标类型：</span>
+          <p>{{campaignData?.day_budget | currencyFormat}}</p>
+        </div>
+        <div class="word-data-box">
+          <span>目标详情：</span>
+          <p>{{campaignData?.day_budget | currencyFormat}}</p>
+          <p>{{campaignData?.day_budget | currencyFormat}}</p>
+          <p>{{campaignData?.day_budget | currencyFormat}}</p>
+        </div>
       </div>
       <div style="width: 30%">
+
         <div class="word-data-box">
           <span>定向：</span>
           <ng-template [ngIf]="orientationValue?.length">
@@ -57,9 +83,18 @@
             <p>不限</p>
           </ng-template>
         </div>
+
       </div>
       <div style="width: 40%">
-
+        <div class="word-data-box" *ngIf="creativeList?.length">
+          <span>创意</span>
+          <ng-template [ngForOf]="creativeList" ngFor let-item>
+            <p>{{item.creative_name}}</p>
+          </ng-template>
+        </div>
+        <div *ngIf="!creativeList || creativeList?.length === 0">
+          <h3>暂无创意</h3>
+        </div>
       </div>
     </div>
 
@@ -77,13 +112,12 @@
     </div>
 
     <div style="margin-left: auto">
-      <i class="zcdsp-icon" (click)="isChart = true;">&#xe627;</i>
-      <i class="zcdsp-icon" (click)="isChart = false;">&#xe627;</i>
-      <i class="zcdsp-icon">&#xe627;</i>
+      <i class="icon-tool-img-line" [ngClass]="{'active': isChart}" (click)="isChart = true;"></i>
+      <i class="icon-tool-img-table" [ngClass]="{'active': !isChart}" (click)="isChart = false;"></i>
     </div>
   </div>
 
-  <div style="padding: 30px 60px;">
+  <div style="padding: 30px 30px;">
     <div class="chart-box">
       <div [hidden]="!isChart" class="chart-data" #chartData></div>
       <div style="max-height: 300px;overflow-y: auto;overflow-x: hidden;">

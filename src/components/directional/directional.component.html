@@ -1,17 +1,17 @@
 <!--定向省市-->
 <div class="flex-center margin-center">
-  <h3 class="directional-info-title">地域定向：</h3>
-  <div class="directional-info" *ngIf="q1.hide">
+  <h3 class="directional-info-title">地域定向</h3>
+  <div class="directional-info" *ngIf="areasShow">
     <h4>定向省市</h4>
     <p>当前已选择（{{(areasResult$ | async)?.length || 0}}）</p>
     <button class="btn btn-outline btn-round" (click)="checkAreasChange(false)">清除全部</button>
   </div>
   <div class="directional-operation">
-    <yc-switch-input [(ngModel)]="q1.hide"></yc-switch-input>
+    <yc-switch-input [(ngModel)]="areasShow"></yc-switch-input>
   </div>
 </div>
 <!--定向省市 expanded-->
-<div class="expanded" [@panel]="q1.hide || false" #q1 style="margin:0 115px;">
+<div class="expanded" [@panel]="areasShow" style="margin:0 115px;">
   <!---->
   <div class="choice-values-box" [hidden]="!(areasResult$ | async)?.length">
     <div class="choice-values">
@@ -113,19 +113,19 @@
 
 <!--受众定向-->
 <div class="flex margin-center border">
-  <h3 class="directional-info-title" style="margin-right: 0">受众定向：</h3>
-  <div class="directional-info" *ngIf="q2.hide">
+  <h3 class="directional-info-title" style="margin-right: 0">受众定向</h3>
+  <div class="directional-info" *ngIf="audiencesShow">
     <h4>人群</h4>
     <p>当前已选择（{{(audiencesViewResult$ | async)?.length || 0}}）</p>
     <button class="btn btn-outline btn-round" (click)="removeAllAudiences()">清除全部</button>
   </div>
   <div class="directional-operation">
-    <yc-switch-input [(ngModel)]="q2.hide"></yc-switch-input>
+    <yc-switch-input [(ngModel)]="audiencesShow"></yc-switch-input>
   </div>
 </div>
 
 <!--受众定向 expanded-->
-<div class="expanded" [@panel]="q2.hide || false" #q2>
+<div class="expanded" [@panel]="audiencesShow">
   <!--choice-->
   <div class="choice-values-box" [hidden]="!(audiencesViewResult$ | async)?.length">
     <div class="choice-values">
@@ -159,18 +159,18 @@
 
 <!--受众行为：-->
 <div class="flex-center margin-center">
-  <h3 class="directional-info-title">受众行为：</h3>
-  <div class="directional-info" *ngIf="q3.hide">
+  <h3 class="directional-info-title">受众行为</h3>
+  <div class="directional-info" *ngIf="audiencesActionShow">
     <h4>行为指定</h4>
     <p>当前已选择（{{(audiencesActionResult$ | async)?.length || 0}}）</p>
     <button class="btn btn-outline btn-round" (click)="checkAudiencesActionChange(false)">清除全部</button>
   </div>
   <div class="directional-operation">
-    <yc-switch-input [(ngModel)]="q3.hide"></yc-switch-input>
+    <yc-switch-input [(ngModel)]="audiencesActionShow"></yc-switch-input>
   </div>
 </div>
 <!--受众行为 expanded-->
-<div class="expanded" [@panel]="q3.hide || false" #q3>
+<div class="expanded" [@panel]="audiencesActionShow">
   <!--choice-->
 
   <div class="choice-values-box" [hidden]="!(audiencesActionResult$ | async)?.length">
@@ -273,18 +273,18 @@
 
 <!--设备定向-->
 <div class="flex-center margin-center">
-  <h3 class="directional-info-title">设备定向：</h3>
-  <div class="directional-info" *ngIf="q4.hide">
+  <h3 class="directional-info-title">设备定向</h3>
+  <div class="directional-info" *ngIf="deviceShow">
     <h4>设备</h4>
     <p>当前已选择（{{(deviceViewResult$ | async)?.length || 0}}）</p>
     <button class="btn btn-outline btn-round" (click)="removeAllDevice()">清除全部</button>
   </div>
   <div class="directional-operation">
-    <yc-switch-input [(ngModel)]="q4.hide"></yc-switch-input>
+    <yc-switch-input [(ngModel)]="deviceShow"></yc-switch-input>
   </div>
 </div>
 <!--设备定向 expanded-->
-<div class="expanded" [@panel]="q4.hide || false" #q4>
+<div class="expanded" [@panel]="deviceShow">
   <!--choice-->
   <div class="choice-values-box" [hidden]="!(deviceViewResult$ | async)?.length">
     <div class="choice-values">
