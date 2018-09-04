@@ -39,7 +39,7 @@
               <p><span>{{show_hour_today_format}}</span></p>
             </ng-template>
             <ng-template [ngIf]="!show_hour_today_format && show_time_type === 1">
-              <span>不投</span>
+              <p>不投</p>
             </ng-template>
             <ng-template [ngIf]="!show_hour_today_format && show_time_type === 0">
               <p><span>00:00~23:59</span></p>
@@ -47,7 +47,21 @@
           </ng-template>
 
           <ng-template [ngIf]="edit">
-            <yc-select [list]="startList"></yc-select> - <yc-select [list]="endList"></yc-select>
+
+            <!--<p>
+              <select>
+                <option *ngFor="let s of startList" [value]="s.value">{{s.label}}</option>
+              </select>
+
+              <select>
+                <option *ngFor="let s of endList" [value]="s.value">{{s.label}}</option>
+              </select>
+            </p>-->
+
+            <p>
+              <yc-select [width]="80" [(ngModel)]="startData" [list]="startList" (selectedEvent)="startListChange()"></yc-select> - <yc-select [width]="80" [(ngModel)]="endData" [list]="endList"></yc-select>
+            </p>
+
           </ng-template>
 
         </div>

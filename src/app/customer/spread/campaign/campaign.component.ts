@@ -3,11 +3,11 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  Inject,
+  OnDestroy,
   OnInit,
   TemplateRef,
-  ViewChild,
-  Inject,
-  OnDestroy
+  ViewChild
 } from '@angular/core';
 import {AutoCookie} from '../../../../decorator/decorator';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -476,11 +476,34 @@ export class CampaignDetailComponent implements OnInit, OnDestroy {
   isChart = true;
   campaignChartDataList;
 
-  startList = Array.from({length: 12}).map((a,b) => ({label:b, value:b}));
-  endList = Array.from({length: 12}).map((a,b) => ({label:b, value:b}));
+  ///------------------------------ 详情修改
+
+  startList: Array<any> = Array.from({length: 12}).map((a, b) => ({label: b, value: b}));
+  endList: Array<any> = Array.from({length: 12}).map((a, b) => ({label: b, value: b}));
+
+  startData;
+  endData;
+
+  startListChange() {
+    console.info(this.startData);
+    this.endList = Array.from({length: 12}).map((a, b) => {
+      let data = {label: b, value: b, disabled: false};
+      if (this.startData >= b) {
+        data.disabled = true;
+      }
+      return data;
+    });
+  }
 
   save() {
-
+    let body = {
+      campaign_name:this.campaignData.campaign_name,
+      ad_price:this.campaignData.ad_price,
+      day_budget:this.campaignData.day_budget,
+      begin_date:this.campaignData.begin_date,
+      end_date:this.campaignData.end_date,
+    };
+    console.info(body);
   }
 
   changeDayTotalList(chartDatas) {
