@@ -13,8 +13,8 @@
     </div>
 
     <div class="right-tool">
-      <input-datepicker [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
-      <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'请输入活动的名称、ID'"></yc-input-search>
+      <yc-select [(ngModel)]="query.show_state" [list]="show_state_list" [props]="{value:'value',label:'name'}" [placeholder]="'操作'" [whole]="'全部'" (selectedEvent)="search()"></yc-select>
+      <yc-select [(ngModel)]="query.current_state" [list]="current_state_list" [props]="{value:'value',label:'name'}" [placeholder]="'投放状态'" [whole]="'全部'" (selectedEvent)="search()"></yc-select>
     </div>
   </div>
 
@@ -40,8 +40,8 @@
       </div>
 
       <div class="right-tool">
-        <yc-select [(ngModel)]="query.show_state" [list]="show_state_list" [props]="{value:'value',label:'name'}" [placeholder]="'操作'" [whole]="'全部'" (selectedEvent)="search()"></yc-select>
-        <yc-select [(ngModel)]="query.current_state" [list]="current_state_list" [props]="{value:'value',label:'name'}" [placeholder]="'投放状态'" [whole]="'全部'" (selectedEvent)="search()"></yc-select>
+        <input-datepicker [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
+        <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'请输入活动的名称、ID'"></yc-input-search>
       </div>
 
     </div>

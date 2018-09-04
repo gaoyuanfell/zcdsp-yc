@@ -8,6 +8,7 @@ const initState: DirectionalState = {
   lbsCityList: [],
   audiencesActionList: [],
   audiencesAction2List: [],
+  lbsCityMapResult:[],
 };
 
 export function directionalReducer(state: DirectionalState = initState, action: DirectionalActionUnion) {
@@ -170,6 +171,20 @@ export function directionalReducer(state: DirectionalState = initState, action: 
       }
       return { ...state };
     }
+    case DirectionalActionTypes.LBS_CITY_MAP_PUSH: {
+      state.lbsCityMapResult.push(action.payload);
+      return { ...state };
+    }
+    case DirectionalActionTypes.LBS_CITY_MAP_REMOVE:{
+      if(!action.payload) return;
+      let {longitude, latitude} = action.payload.coords;
+      debugger;
+      let index = state.lbsCityMapResult.findIndex(lbs => lbs.coords.longitude === longitude && lbs.coords.latitude === latitude)
+      if(!!~index){
+        state.lbsCityMapResult.splice(index,1)
+      }
+      return { ...state };
+    }
 
     /////// ----------- audiencesAction ----------- /////////
 
@@ -277,7 +292,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
 
       return { ...state };
     }
-    
+
     case DirectionalActionTypes.DIRECTIONAL_SET_RESULT: {
       state.result = action.payload
       setResult()
@@ -456,57 +471,62 @@ export const DeviceViewResult = createSelector(
 
 export const LbsCity = createSelector(
   getDirectionalState,
-  (state: LbsCityState) => state.lbsCity
+  (state: DirectionalState) => state.lbsCity
 );
 
 export const LbsScenes = createSelector(
   getDirectionalState,
-  (state: LbsCityState) => state.lbsScenes
+  (state: DirectionalState) => state.lbsScenes
 );
 
 export const LbsCityList = createSelector(
   getDirectionalState,
-  (state: LbsCityState) => state.lbsCityList
+  (state: DirectionalState) => state.lbsCityList
 );
 
 export const LbsCityResult = createSelector(
   getDirectionalState,
-  (state: LbsCityState) => state.lbsCityResult
+  (state: DirectionalState) => state.lbsCityResult
+);
+
+export const LbsCityMapResult = createSelector(
+  getDirectionalState,
+  (state: DirectionalState) => state.lbsCityMapResult
 );
 
 export const LbsCityViewResult = createSelector(
   getDirectionalState,
-  (state: LbsCityState) => state.lbsCityViewResult
+  (state: DirectionalState) => state.lbsCityViewResult
 );
 
 //---------------- AudiencesAction
 
 export const AudiencesAction = createSelector(
   getDirectionalState,
-  (state: AudiencesActionState) => state.audiencesAction
+  (state: DirectionalState) => state.audiencesAction
 );
 
 export const AudiencesActionList = createSelector(
   getDirectionalState,
-  (state: AudiencesActionState) => state.audiencesActionList
+  (state: DirectionalState) => state.audiencesActionList
 );
 
 export const AudiencesActionResult = createSelector(
   getDirectionalState,
-  (state: AudiencesActionState) => state.audiencesActionResult
+  (state: DirectionalState) => state.audiencesActionResult
 );
 
 export const AudiencesAction2 = createSelector(
   getDirectionalState,
-  (state: AudiencesActionState) => state.audiencesAction2
+  (state: DirectionalState) => state.audiencesAction2
 );
 
 export const AudiencesAction2List = createSelector(
   getDirectionalState,
-  (state: AudiencesActionState) => state.audiencesAction2List
+  (state: DirectionalState) => state.audiencesAction2List
 );
 
 export const AudiencesAction2Result = createSelector(
   getDirectionalState,
-  (state: AudiencesActionState) => state.audiencesAction2Result
+  (state: DirectionalState) => state.audiencesAction2Result
 );

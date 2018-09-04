@@ -6,40 +6,66 @@
     </div>
 
     <div style="margin-left: auto">
-      <i class="zcdsp-icon">&#xe627;</i>
+      <i class="zcdsp-icon" style="cursor: pointer;" *ngIf="!edit" (click)="edit = true;">&#xe632;</i>
+      <button class="btn btn-link" *ngIf="edit" (click)="save()">保存</button>
+      <button class="btn btn-link" *ngIf="edit" (click)="edit = false;">取消</button>
     </div>
   </div>
 
   <div class="flex" style="padding: 30px 60px;">
-    <yc-creative-box [(ngModel)]="creativeValue" [preview]="true" *ngIf="creativeData?.material_elements" [elements]="creativeData?.material_elements"></yc-creative-box>
 
-    <div style="flex: auto;padding: 0 10px;max-width: 300px;">
+    <yc-creative-box [(ngModel)]="creativeValue" [preview]="!edit" *ngIf="creativeData?.material_elements" [editCreative]="false" [(elementList)]="elementList" #creativeBox="creativeBox"
+                     [elements]="elements" [selectMediaSize]="selectMediaSize"></yc-creative-box>
+
+    <!--<yc-creative-box [(ngModel)]="creativeValue" [preview]="!edit" *ngIf="creativeData?.material_elements" [elements]="creativeData?.material_elements"></yc-creative-box>-->
+
+    <div style="flex: auto;padding: 0 30px;padding-right: 0;max-width: 300px;">
       <div class="word-data-box">
         <span>创意ID：</span>
-        <p>{{creativeData?.campaign_id}}</p>
+        <p>{{creativeData?.creative_id}}</p>
+      </div>
+      <div class="word-data-box">
+        <span>创意名称：</span>
+        <p>{{creativeData?.creative_name}}</p>
       </div>
       <div class="word-data-box">
         <span>活动名称：</span>
-        <p>{{creativeData?.campaign_id}}</p>
+        <p>{{creativeData?.campaign_name}}</p>
       </div>
       <div class="word-data-box">
-        <span>投放媒体：</span>
-        <p>{{creativeData?.campaign_id}}</p>
+        <span>媒体样式：</span>
+        <p>{{creativeData?.media_name}}-{{creativeData?.ad_width}}X{{creativeData?.ad_height}}-{{creativeData?.material_type_name}}</p>
       </div>
       <div class="word-data-box">
         <span>投放日期：</span>
-        <p>{{creativeData?.campaign_id}}</p>
+        <p>{{creativeData?.begin_date | date:'yyyy/MM/dd'}}~{{creativeData?.end_date | date:'yyyy/MM/dd'}}</p>
       </div>
       <div class="word-data-box">
         <span>投放时间：</span>
-        <p>{{creativeData?.campaign_id}}</p>
+
+        <ng-template [ngIf]="!edit">
+          <ng-template [ngIf]="show_hour_today_format">
+            <p><span>{{show_hour_today_format}}</span></p>
+          </ng-template>
+          <ng-template [ngIf]="!show_hour_today_format">
+            <p>不投</p>
+          </ng-template>
+        </ng-template>
+
+        <ng-template [ngIf]="edit">
+          <p>
+            <yc-select [width]="80" [(ngModel)]="startData" [list]="startList" (selectedEvent)="startListChange()"></yc-select> - <yc-select [width]="80" [(ngModel)]="endData" [list]="endList"></yc-select>
+          </p>
+        </ng-template>
+
       </div>
       <div class="word-data-box">
         <span>广告出价：</span>
-        <p>{{creativeData?.campaign_id}}</p>
+        <p *ngIf="!edit">{{creativeData?.ad_price | currencyFormat}}</p>
+        <p *ngIf="edit"><input [(ngModel)]="creativeData.ad_price" class="mini-input"></p>
       </div>
     </div>
-    <div style="flex: auto;padding: 0 10px;max-width: 300px;">
+    <div style="flex: auto;padding: 0 30px;max-width: 300px;">
       <div class="word-data-box">
         <span>定向：</span>
         <ng-template [ngIf]="orientationValue?.length">
@@ -64,9 +90,8 @@
     </div>
 
     <div style="margin-left: auto">
-      <i class="zcdsp-icon" (click)="isChart = true;">&#xe627;</i>
-      <i class="zcdsp-icon" (click)="isChart = false;">&#xe627;</i>
-      <i class="zcdsp-icon">&#xe627;</i>
+      <i class="icon-tool-img-line" [ngClass]="{'active': isChart}" (click)="isChart = true;"></i>
+      <i class="icon-tool-img-table" [ngClass]="{'active': !isChart}" (click)="isChart = false;"></i>
     </div>
   </div>
 
@@ -88,13 +113,13 @@
           </thead>
           <tbody>
             <tr *ngFor="let x of creativeChartDataList">
-              <td>{{x.time}}次</td>
+              <td>{{x.time}}</td>
               <td>{{x.pv}}次</td>
               <td>{{x.click}}次</td>
-              <td>{{x.cpc}}次</td>
-              <td>{{x.cpm}}次</td>
-              <td>{{x.ctr}}次</td>
-              <td>{{x.admoney }}次</td>
+              <td>{{x.cpc}}%</td>
+              <td>{{x.cpm | currencyFormat}}</td>
+              <td>{{x.ctr | currencyFormat}}</td>
+              <td>{{x.admoney | currencyFormat }}</td>
             </tr>
           </tbody>
         </table>

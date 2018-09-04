@@ -14,6 +14,9 @@ export enum DirectionalActionTypes {
   CHECK_LBS_CITY_CHANGE = '[DIRECTIONAL] CHECK_LBS_CITY_CHANGE',
   QUERY_LBS_CITY_BY_NAME = '[DIRECTIONAL] QUERY_LBS_CITY_BY_NAME',
 
+  LBS_CITY_MAP_PUSH = '[DIRECTIONAL] LBS_CITY_MAP_PUSH',
+  LBS_CITY_MAP_REMOVE = '[DIRECTIONAL] LBS_CITY_MAP_REMOVE',
+
   CHECK_AUDIENCES_CHANGE = '[DIRECTIONAL] CHECK_AUDIENCES_CHANGE',
   REMOVE_ALL_AUDIENCES = '[DIRECTIONAL] REMOVE_ALL_AUDIENCES',
 
@@ -78,6 +81,22 @@ export class AudiencesActionAssign implements Action {
 // 定向数据赋值 AudiencesAction
 export class AudiencesActionAssign2 implements Action {
   readonly type = DirectionalActionTypes.AUDIENCES_ACTION_ASSIGN2;
+
+  constructor(public payload: any) {
+  }
+}
+
+// LBS 地图数据添加 LBS_CITY_MAP_PUSH
+export class LbsCityMapPush implements Action {
+  readonly type = DirectionalActionTypes.LBS_CITY_MAP_PUSH;
+
+  constructor(public payload: any) {
+  }
+}
+
+// LBS 地图数据添加 LBS_CITY_MAP_PUSH
+export class LbsCityMapRemove implements Action {
+  readonly type = DirectionalActionTypes.LBS_CITY_MAP_REMOVE;
 
   constructor(public payload: any) {
   }
@@ -232,6 +251,8 @@ export type DirectionalActionUnion
   = DirectionalAssign
   | DirectionalInit
   | LbsCityAssign
+  | LbsCityMapPush
+  | LbsCityMapRemove
   | LbsCityInit
   | AudiencesActionAssign
   | AudiencesActionAssign2

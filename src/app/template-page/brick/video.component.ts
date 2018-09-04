@@ -6,7 +6,7 @@ import {Configure} from './interface';
   selector: 'video-template',
   template: `
     <div class="video-box flex-center-between">
-      <video autoplay controls *ngIf="configure.value" [src]="configure.value"></video>
+      <video autoplay loop controls *ngIf="configure.value" [src]="configure.value"></video>
     </div>
   `,
   styles: [

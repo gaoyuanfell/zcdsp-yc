@@ -22,7 +22,7 @@ export class BoardComponent implements OnInit,OnDestroy {
 
   destroy = false;
 
-  // hash = 'home'
+  hash
   leftTo;
   height;
   topTo;

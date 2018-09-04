@@ -42,4 +42,4 @@ function copyFolder(src, dst) {
 
 deleteFolder(dst);
 
-copyFolder(path.join(__dirname, 'dist'), dst);
+copyFolder(path.join(__dirname, 'dist\\zcdsp-yc'), dst);

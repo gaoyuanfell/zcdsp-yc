@@ -39,6 +39,7 @@ import {CreativeTemplateModule} from '../components/creative-template/creative-t
 import {CreativeBoxModule} from '../components/creative-box/creative-box.module';
 import {CreativeMaterialModule} from '../components/creative-material/creative-material.module';
 import {TooltipModule} from '../components/tooltip/tooltip.module';
+import {MapModule} from '../components/map/map.module';
 
 @NgModule({
   imports: [
@@ -77,6 +78,7 @@ import {TooltipModule} from '../components/tooltip/tooltip.module';
     CreativeBoxModule,
     CreativeMaterialModule,
     TooltipModule,
+    MapModule,
   ],
   declarations: [],
   exports: [
@@ -115,6 +117,7 @@ import {TooltipModule} from '../components/tooltip/tooltip.module';
     CreativeBoxModule,
     CreativeMaterialModule,
     TooltipModule,
+    MapModule,
   ],
   providers: [
     {

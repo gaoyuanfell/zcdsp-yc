@@ -183,4 +183,14 @@ export class CampaignService extends ConfigService {
     return this.get(`/ads/spread/campaign/get_day_consume`, body)
   }
 
+
+  /**
+   * 详情修改
+   * @param {{}} body
+   * @returns {Observable<Result<any>>}
+   */
+  campaignDetailUpdate(body = {}){
+    return this.postJson(`/ads/spread/campaign/campaign_detail/edit`, body)
+  }
+
 }

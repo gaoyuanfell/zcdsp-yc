@@ -28,7 +28,6 @@
   <div class="input-query directional-query" style="margin-bottom: 10px;">
     <i class="input-query-icon"></i>
     <input type="text" placeholder="搜索省、市、区、商圈">
-    <span>从地图选择</span>
   </div>
   <!---->
   <div class="flex">
@@ -44,9 +43,9 @@
             <!---->
             <li [ngClass]="{'active': valueList[index].children === (areasChildList$ | async)[indexList + 1] && valueList[index].children?.length}">
               <div class="flex-center" (click)="setAreasNextChild({value:value,index:indexList})">
-                <label class="linkage-item">
+                <div class="linkage-item">
                   <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkAreasChange(value)"></yc-checkbox><!--'北京市(0/20)'-->
-                </label>
+                </div>
                 <i class="choice-arrow" *ngIf="value.children?.length"></i>
               </div>
             </li>
@@ -64,12 +63,18 @@
     <button class="btn btn-outline btn-round" (click)="checkLbsCityChange(false)">清除全部</button>
   </div>
   <!---->
-  <div class="choice-values-box" [hidden]="!(lbsCityViewResult$ | async)?.length">
+  <div class="choice-values-box" [hidden]="!(lbsCityViewResult$ | async)?.length && !(LbsCityMapResult$ | async)?.length">
     <div class="choice-values">
       <ng-template [ngForOf]="(lbsCityViewResult$ | async)" ngFor let-value>
           <span class="label-value">
             {{value.name}}
             <i (click)="value.checked = false;checkLbsCityChange(value)">&times;</i>
+          </span>
+      </ng-template>
+      <ng-template [ngForOf]="(LbsCityMapResult$ | async)" ngFor let-value>
+          <span class="label-value">
+            {{value.name}}
+            <i (click)="lbsCityMapRemove(value)">&times;</i>
           </span>
       </ng-template>
     </div>
@@ -79,11 +84,18 @@
   <div class="input-query directional-query" style="margin-bottom: 10px;">
     <i class="input-query-icon"></i>
     <input type="text" placeholder="搜索省、市、区、商圈">
-    <span>从地图选择</span>
+    <span style="cursor: pointer;" *ngIf="lbsCityType" (click)="lbsCityType = !lbsCityType">从列表选择</span>
+    <span style="cursor: pointer;" *ngIf="!lbsCityType" (click)="lbsCityType = !lbsCityType">从地图选择</span>
   </div>
-  <!---->
-  <div class="flex">
 
+  <!-- 地图选着 -->
+  <ng-template [ngIf]="lbsCityType">
+    <div style="position: relative;" [hidden]="!lbsCityType">
+      <yc-map (pushCoordinate)="pushCoordinate($event)" (removeCoordinate)="removeCoordinate($event)"></yc-map>
+    </div>
+  </ng-template>
+
+  <div class="flex" [hidden]="lbsCityType">
     <ng-template [ngForOf]="lbsCityList$ | async" ngFor let-valueList let-indexList="index">
       <div class="linkage-box w25">
         <div class="input-query">
@@ -94,9 +106,9 @@
           <ng-template [ngForOf]="valueList" ngFor let-value let-index="index">
             <li [ngClass]="{'active': valueList[index].children === (lbsCityList$ | async)[indexList + 1] && valueList[index].children?.length}">
               <div class="flex-center" (click)="setLbsCityNextChild({value:value,index:indexList})">
-                <label class="linkage-item">
+                <div class="linkage-item">
                   <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkLbsCityChange(value)"></yc-checkbox><!--'北京市(0/20)'-->
-                </label>
+                </div>
                 <i class="choice-arrow" *ngIf="value.children?.length"></i>
               </div>
             </li>
@@ -105,6 +117,7 @@
       </div>
     </ng-template>
   </div>
+
   <div class="flex-center lbstop">
     <label>场景：</label>
     <yc-radio-group [(ngModel)]="scene_type" [list]="[{name:'实时', desc: '实时', value:1},{name:'7天内', desc: '7天内', value:2},{name:'30天内', desc: '30天内', value:3}]" [props]="{label:'name'}"></yc-radio-group>

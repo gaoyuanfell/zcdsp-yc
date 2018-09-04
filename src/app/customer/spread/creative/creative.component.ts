@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TableComponent } from '../../../../components/table/table.component';
 import { hoursFormat } from '../../../../service/util';
 import { Sidebar, YC_SIDEBAR_DATA } from '../../../../components/sidebar/sidebar';
+import {CampaignService} from '../../../../service/customer/campaign.service';
 
 @Component({
   selector: 'app-creative',
@@ -335,13 +336,17 @@ export class CreativeComponent implements OnInit {
   preserveWhitespaces: true,
 })
 export class CreativeDetailComponent implements OnInit, OnDestroy {
+
+  edit = false
+
   ngOnDestroy(): void {
-    
+
   }
 
   ngOnInit(): void {
     this.chartData();
     this._changeCampaignAndCreativeChart(this.chartDataInstance, this.creativeChartData, this.creativeCode);
+    this.changeDetectorRef.markForCheck()
   }
 
   show_hour_today_format
@@ -351,16 +356,28 @@ export class CreativeDetailComponent implements OnInit, OnDestroy {
   creativeChartDataList
   creativeData
   direction
+
+
+
   orientationValue
   creativeValue
+  selectMediaSize
+  elementList = []
+  elements
 
   isChart = true;
 
   @ViewChild('chartData') chartDataRef: ElementRef
 
-  constructor(@Inject(YC_SIDEBAR_DATA) private data: any) {
-    this.creativeChartData = data.report;
+  constructor(@Inject(YC_SIDEBAR_DATA) private data: any, private changeDetectorRef: ChangeDetectorRef,private _creativeService: CreativeService) {
+    console.info(data)
+
+    this.elements = data.creative.material_elements;
+    this.elements.is_dynamic_words = data.creative.is_dynamic_words;
+    this.elements.creative_name = data.creative.creative_name;
     this.creativeValue = data.creative.elements;
+
+    this.creativeChartData = data.report;
     this.creativeData = data.creative;
     this.direction = data.direction;
     this.orientationValue = data.direction_name_values;
@@ -371,6 +388,85 @@ export class CreativeDetailComponent implements OnInit, OnDestroy {
     }
 
     this.creativeChartDataList = this.changeDayTotalList(this.creativeChartData)
+
+    this.selectMediaSize = {
+      media_material_id: data.creative.media_material_id
+    }
+  }
+
+  ///------------------------------ 详情修改
+
+  startList: Array<any> = Array.from({length: 24}).map((a, b) => ({label: b, value: b}));
+  endList: Array<any> = Array.from({length: 24}).map((a, b) => ({label: b, value: b}));
+
+  startData;
+  endData;
+
+  startListChange() {
+    console.info(this.startData);
+    this.endList = Array.from({length: 24}).map((a, b) => {
+      let data = {label: b, value: b, disabled: false};
+      if (this.startData > b) {
+        data.disabled = true;
+      }
+      return data;
+    });
+  }
+
+  save(){
+
+    let elements = this.elementList[0];
+    console.log(this.elementList)
+    if (!elements) return
+
+    let element_data: any = {
+      creative_id: this.creativeData.creative_id,
+      campaign_id: this.creativeData.campaign_id,
+      creative_name:  elements.creative_name,
+      ad_price: this.creativeData.ad_price,
+      is_dynamic_words: elements.is_dynamic_words ? elements.is_dynamic_words : 0,
+      elements: {
+        data_list: []
+      }
+    };
+
+    let element = elements.data_list
+
+    if (!element) return
+
+    element.forEach(ele => {
+      let body = {};
+      Object.keys(ele).forEach(oke => {
+        if (ele[oke] instanceof Array) {
+          body[oke] = [];
+          ele[oke].forEach(el => {
+            body[oke].push({
+              [el.name]: el[el.name]
+            })
+          })
+        }
+      });
+      element_data.elements.data_list.push(body);
+    });
+
+    let today_show_hours = Array.from({length: 24}).map((a, b) => {
+      if(this.startData <= b && this.endData >= b){
+        return 1
+      }
+      return 0
+    })
+
+    let body = {
+      creative: element_data,
+      today_show_hours: today_show_hours
+    }
+
+    this._creativeService.creativeDetailUpdate(body).subscribe(res => {
+      this.edit = false;
+      this.changeDetectorRef.markForCheck();
+    })
+
+    console.info(body);
   }
 
   changeDayTotalList(chartDatas){
