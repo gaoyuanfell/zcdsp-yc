@@ -6,6 +6,7 @@ import {FileUploadModule} from '../file-upload/file-upload.module';
 import {CheckboxModule} from '../checkbox/checkbox.module';
 import {SelectModule} from '../select/select.module';
 import {ScrollMoreModule} from '../scroll-more/scroll-more.module';
+import {ColorPaletteModule} from '../color-palette/color-palette.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import {ScrollMoreModule} from '../scroll-more/scroll-more.module';
     CheckboxModule,
     SelectModule,
     ScrollMoreModule,
+    ColorPaletteModule,
   ],
   declarations: [
     CreativeTemplateComponent

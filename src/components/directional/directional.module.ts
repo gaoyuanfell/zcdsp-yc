@@ -8,6 +8,7 @@ import {ModulePipe} from '../../app/module-pipe';
 import {CheckboxGroupModule} from "../checkbox-group/checkbox-group.module";
 import { RadioGroupModule } from '../radio-group/radio-group.module';
 import {MapModule} from '../map/map.module';
+import {DirectionalAppComponent} from './directional-app.component';
 
 @NgModule({
   imports: [
@@ -22,9 +23,11 @@ import {MapModule} from '../map/map.module';
   ],
   declarations: [
     DirectionalComponent,
+    DirectionalAppComponent,
   ],
   exports: [
-    DirectionalComponent
+    DirectionalComponent,
+    DirectionalAppComponent,
   ]
 })
 export class DirectionalModule {

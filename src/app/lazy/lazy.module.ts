@@ -17,6 +17,9 @@ import { Dialog, YC_DIALOG_DATA } from '../../components/dialog/dialog';
       <button class="btn" (click)="open()">open</button>
       <button class="btn" (click)="open2()">open2</button>
       <button class="btn" routerLink="1">lazy</button>
+
+      <input-color-palette></input-color-palette>
+      
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,7 +47,7 @@ export class LazyComponent implements OnDestroy, OnInit {
 
   }
 
-  constructor(private _sidebar: Sidebar, 
+  constructor(private _sidebar: Sidebar,
     private _dialog: Dialog) {
 
   }

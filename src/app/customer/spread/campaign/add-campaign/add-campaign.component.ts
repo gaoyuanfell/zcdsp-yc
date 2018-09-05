@@ -80,6 +80,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
 
   // orientation: any; // 定向
   directional: any; // 定向
+  directionalSmart: any; // 智能定向
   package_name; // 定向包名
   direction_packages; // 定向包下拉
   is_need_package;
@@ -103,9 +104,10 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
   }
 
   @ViewChild('timeSchedule', {read: ScheduleComponent}) set timeSchedule(value) {
-    console.dir(value);
     this._timeSchedule = value;
   }
+
+  previewBoxShow = false;
 
   _isNumber(val) {
     return !/^\+?(\d*\.?\d{0,2})$/.test(val);
@@ -341,7 +343,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
 
     if (this.directional) {
       body.directional = this.directional;
-      body.lbs_scene_type = this.directional.dtl_address.scene_type
+      body.lbs_scene_type = this.directional.dtl_address.scene_type;
     }
 
     if (this.package_name) {
@@ -475,6 +477,22 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     this._scrollService.scrollTo(this._global.containerFullRef, {top: this.document.getElementById(id).offsetTop});
   }
 
+  // 定向智能推荐
+  directionalType;
+
+  directionalTypeChange() {
+    switch (this.directionalType) {
+      case '1': {
+        this.directional = {...this.directionalSmart};
+        break;
+      }
+      case '2': {
+        this.directional = null;
+        break;
+      }
+    }
+  }
+
   constructor(private router: Router,
               private route: ActivatedRoute,
               @Inject(DOCUMENT) private document: Document,
@@ -546,13 +564,15 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
       this.changeDetectorRef.markForCheck();
     });
 
-    if (!this._isEdit) {
-      this._directionalService.directionalRecommend().subscribe(res => {
-        this.directional = res.result;
+    this._directionalService.directionalRecommend().subscribe(res => {
+      this.directionalSmart = res.result;
+      if(!this._isEdit){
+        this.directional = {...this.directionalSmart};
+        this.directionalType = '1';
         this.audienceCount();
         this.changeDetectorRef.markForCheck();
-      });
-    }
+      }
+    });
 
     for (let i = 1; i <= 20; i++) {
       this.frequencyList.push({

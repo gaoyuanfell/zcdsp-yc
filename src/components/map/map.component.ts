@@ -28,8 +28,6 @@ export class MapComponent implements OnInit, ControlValueAccessor {
   @ViewChild('suggestId') suggestId;
 
 
-  arrCoordinate: any;
-
   ngOnInit() {
     this.init();
   }
@@ -46,14 +44,6 @@ export class MapComponent implements OnInit, ControlValueAccessor {
     //  marker.closeInfoWindow();
     this.map.closeInfoWindow();   // 谁开的  谁关
     this.map.removeOverlay(marker);
-
-    // this.arrCoordinate.find((item, index): boolean => {
-    //   let flag = item.X === marker.point.lng && item.Y === marker.point.lat;
-    //   if (flag) {
-    //     this.arrCoordinate.splice(index, 1);
-    //   }
-    //   return flag;
-    // });
 
     this.removeCoordinate.emit({
       coords:{
@@ -83,11 +73,18 @@ export class MapComponent implements OnInit, ControlValueAccessor {
     this.geoc.getLocation(pp, (rs) => {
       // 弹框显示详细信息
       this.getLocationOpen(pp, rs);
-      this.arrCoordinate.push({
-        lbslocationName: rs.surroundingPois.length === 0 ? rs.address : rs.surroundingPois[0].title,
-        X: pp.lng,
-        Y: pp.lat
-      });
+
+      this.pushCoordinate.emit({
+        coords:{
+          longitude:pp.lng,
+          latitude:pp.lat,
+          radius: 30,
+        },
+        type_id:0,
+        id:`80${Math.round(Math.random()* 1000000)}`,
+        name: rs.surroundingPois.length === 0 ? rs.address : rs.surroundingPois[0].title,
+      })
+
     });
     // 创建右键菜单  给每一个标注添加右键删除事件
     let markerMenu = new BMap.ContextMenu();   // 给每一个标注加事件  每次都要new一个新的对象 ！！！！
@@ -150,12 +147,6 @@ export class MapComponent implements OnInit, ControlValueAccessor {
         // 弹框处理
         this.getLocationOpen(pt, rs);
 
-        // this.arrCoordinate.push({
-        //   lbslocationName: rs.surroundingPois.length === 0 ? rs.address : rs.surroundingPois[0].title,
-        //   X: pt.lng,
-        //   Y: pt.lat
-        // });
-
         this.pushCoordinate.emit({
           coords:{
             longitude:pt.lng,
@@ -200,7 +191,7 @@ export class MapComponent implements OnInit, ControlValueAccessor {
   }
 
   writeValue(obj: any): void {
-    this.arrCoordinate = obj;
+
   }
 
 }

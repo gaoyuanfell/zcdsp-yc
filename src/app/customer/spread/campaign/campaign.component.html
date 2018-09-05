@@ -42,6 +42,9 @@
       <div class="right-tool">
         <input-datepicker [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
         <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'请输入活动的名称、ID'"></yc-input-search>
+        <div class="btn btn-link" (click)="refresh()">
+          刷新
+        </div>
       </div>
 
     </div>

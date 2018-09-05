@@ -377,7 +377,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   }
 
   writeValue(obj: any): void {
-    if (!obj) return;
+    if (!obj) obj = {};
     this.assignDefaultData(obj, getDirectionalData());
     this.result = obj;
     this.store.dispatch(new directionalAction.DirectionalRecovery());
