@@ -39,36 +39,38 @@
 
       <form class="from" #infoForm1="ngForm" (ngSubmit)="save1()" *ngIf="!pwd_show">
 
-        <input class="form-control" type="text" class="name" [(ngModel)]="user_name" placeholder="请填写账号" name="user_name" required (focus)="userNameFocus()" [ngClass]="setInvalidClass(infoForm1, infoForm1.controls['user_name'])">
+        <input class="form-control" type="text" class="name" [(ngModel)]="user_name" placeholder="请填写账号" name="user_name" required (focus)="errorFocus('user_name')" [ngClass]="setInvalidClass(infoForm1, infoForm1.controls['user_name'])">
         <app-form-tips [target]="infoForm1.controls['user_name']"  placeholder="请输入账号" [formTarget]="infoForm1"></app-form-tips>
-        <p class="error" *ngIf="_description"><img src="assets/img/index/tips.png" alt="">{{_description}}</p>
+        <p class="error"  *ngIf="error === 'user_name'"><img src="assets/img/index/tips.png" alt="">{{errorText}}</p>
+
 
 
         <div class="radio">
           <label for="phone-verification" class="radio_label">
-            <input type="radio" name="radio" checked="checked" id="phone-verification" (change)=" type = 1; type_show = undefined "/>
+            <input type="radio" name="radio" checked="checked" id="phone-verification" (change)=" type = 1; errorFocus('type')"/>
             <span></span>
             <i>手机验证</i>
           </label>
           <label for="mail-verification" class="radio_label">
-            <input type="radio" name="radio" id="mail-verification" (change)=" type = 2; type_show = undefined"/>
+            <input type="radio" name="radio" id="mail-verification" (change)=" type = 2; errorFocus('type')"/>
             <span></span>
             <i>邮箱验证</i>
           </label>
-          <p class="error" *ngIf="type_show"><img src="assets/img/index/tips.png" alt="">{{type_show}}</p>
+          <p class="error"  *ngIf="error === 'type'"><img src="assets/img/index/tips.png" alt="">{{errorText}}</p>
         </div>
 
 
         <div class="verification clear">
-          <input type="text" class="verifica" class="verifica" (focus)="_codeFocus()" autocomplete="off" [(ngModel)]="pwd_code" placeholder="请输入验证码" name="pwd_code" required [ngClass]="setInvalidClass(infoForm1, infoForm1.controls['pwd_code'])">
+          <input type="text" class="verifica" class="verifica" (focus)="errorFocus('code')" autocomplete="off" [(ngModel)]="pwd_code" placeholder="请输入验证码" name="pwd_code" required [ngClass]="setInvalidClass(infoForm1, infoForm1.controls['pwd_code'])">
           <button type="button" class="send" (click)="verifyPwd()" [disabled]="flagCode || !user_name">{{codeText}}
             <span class="countdown" *ngIf="flagCode">{{countdown}}</span></button>
         </div>
         <app-form-tips [target]="infoForm1.controls['pwd_code']" placeholder="请输入验证码"  [formTarget]="infoForm1"></app-form-tips>
-        <p class="error" *ngIf="_code"><img src="assets/img/index/tips.png" alt="">{{_code}}</p>
+        <p class="error"  *ngIf="error === 'code'"><img src="assets/img/index/tips.png" alt="">{{errorText}}</p>
 
 
-        <button type="submit" class="login" [disabled]="infoForm1.invalid || _description || _code || type_show">验证</button>
+
+        <button type="submit" class="login" [disabled]="infoForm1.invalid || error">验证</button>
 
       </form>
         <!---->
@@ -115,10 +117,9 @@
       </div>
     </a>
     <div class="input">
-      <input type="text" class="verifica forgetCode" autocomplete="off" [(ngModel)]="forgetCode" (focus)="codeFocus()"  placeholder="请输入右侧验证码"  #forget_code="ngModel"  [ngClass]="{ userOn: (forget_code.dirty || forget_code.touched || _valid) && forget_code.invalid}" required   #forget_code="ngModel" name="forgetCode">
+      <input type="text" class="verifica forgetCode" autocomplete="off" [(ngModel)]="forgetCode" (focus)="errorFocus('img_code')"  placeholder="请输入右侧验证码"  #forget_code="ngModel"  [ngClass]="{ userOn: (forget_code.dirty || forget_code.touched || _valid) && forget_code.invalid}" required   #forget_code="ngModel" name="forgetCode">
     </div>
     <p class="error" style="margin-top: 10px;margin-left:19px;" *ngIf="(forget_code.dirty || forget_code.touched || _valid) && forget_code.invalid"><img src="assets/img/index/tips.png" alt="">请输入验证码</p>
-    <p class="error" style="margin-top: 10px;margin-left:19px;" *ngIf="pwd_vertify_show"><img src="assets/img/index/tips.png" alt="">{{pwd_vertify_show}}</p>
+    <p class="error" style="margin-top: 10px;margin-left:19px;" *ngIf="error === 'img_code'"><img src="assets/img/index/tips.png" alt="">{{errorText}}</p>
   </div>
-  <!--<img [src]="forgetCodeUrl" width="100%" height="100%" style="border-radius:4px;" title="看不清" (click)="forget_vertify_Code()" id="imgReload1">-->
 </ng-template>

@@ -1,4 +1,5 @@
 <div class="container-list">
+
   <div class="query-tool">
     <div class="left-tool">
       <input-datepicker [disabledTodayAfter]=true [query]="query" [appendField]="['begin_date']" (search)="search()"></input-datepicker>
@@ -12,7 +13,6 @@
       </div>
     </div>
   </div>
-
 
   <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
     <table #tableRef table>
@@ -45,14 +45,13 @@
           <td class="text-right">{{ listTitle?.pv * 1| number}}</td>
           <td class="text-right">{{listTitle?.click * 1| number}}</td>
           <td class="text-right">{{ listTitle?.ctr * 100 | number: '1.2-2' }}</td>
-          <td class="text-right">{{listTitle?.cpc * 1 | number: '1.2-2'}}</td>
-          <td class="text-right">{{listTitle?.cpm * 1000| number: '1.2-2'}}</td>
-          <td class="text-right">{{listTitle?.admoney * 1| number: '1.2-2'}}</td>
+          <td class="text-right">{{listTitle?.cpc * 1 | currencyFormat}}</td>
+          <td class="text-right">{{listTitle?.cpm * 1000| currencyFormat}}</td>
+          <td class="text-right">{{listTitle?.admoney * 1| currencyFormat}}</td>
         </tr>
       </ng-template>
       </tbody>
     </table>
   </yc-table>
-
 
 </div>

@@ -1,9 +1,8 @@
 .data-top {
   margin-bottom: 30px;
   align-items: center;
-  height: 152px;
   .left-img {
-    width: 124px;
+    width: 122px;
     height: 124px;
     img {
       max-width: 100%;
@@ -12,7 +11,6 @@
   }
   .right-info {
     padding-left: 50px;
-    //width: 369px;
     > p:nth-child(1) {
       font-size: 24px;
       font-weight: bold;
@@ -27,137 +25,179 @@
   }
 }
 
-.container-form {
-  .flex-center {
-    align-items: center;
-    border-radius: 5px;
-    > img {
-      padding-right: 5px;
-    }
-    > .question-icon {
-      margin-left: 10px;
-    }
-    > .info-text {
-      margin-left: 8px;
-      width: 30px;
-      height: 16px;
-      > span {
-        font-size: 14px;
-        color: #2e90ff;
-      }
-    }
-    .btn {
-      margin-left: 0;
+.flex-center {
+  align-items: center;
+  border-radius: 5px;
+  > img {
+    padding-right: 5px;
+  }
+  > .question-icon {
+    margin-left: 10px;
+  }
+  > .info-text {
+    margin-left: 8px;
+    width: 30px;
+    height: 16px;
+    > span {
+      font-size: 14px;
+      color: #2e90ff;
     }
   }
-  .table-top {
-    margin: 50px 0 20px 110px;
-    > span:nth-child(1) {
-      color: red;
-    }
-    > span:nth-child(2) {
-      margin: 0 15px 0 10px;
-      font-weight: bold;
-    }
-    > span:nth-child(3) {
-      color: #979899;
+  .btn {
+    margin-left: 0;
+  }
+}
+hr {
+  width: 90%;
+  margin: 50px auto;
+  background-color: #dbdde2
+}
+.table-top {
+  margin: 50px 0 20px 30px;
+  > span:nth-child(1) {
+    color: red;
+  }
+  > span:nth-child(2) {
+    margin: 0 15px 0 10px;
+    font-weight: bold;
+  }
+  > span:nth-child(3) {
+    color: #979899;
+  }
+}
+
+table {
+  width:90%;
+  cellspacing: 10px;
+  margin-left: 25px;
+  text-align: left;
+  margin-bottom: 20px;
+  border-collapse: separate;
+  border-spacing: 0 20px;
+  thead {
+    th {
+      padding: 0 18px;
     }
   }
-  table {
-    cellspacing: 10px;
-    width: 807px;
-    margin-left: 130px;
-    text-align: left;
-    margin-bottom: 50px;
-    border-collapse: separate;
-    border-spacing: 0 20px;
-    thead {
-      tr {
-        th {
-          padding: 0 18px;
+  > tbody {
+    td {
+      text-align: center;
+      padding: 5px;
+      yc-select {
+        & + app-form-tips{
+          position: absolute;
+          margin-top: 30px;
+          margin-left: -130px;
         }
       }
-    }
-    > tbody {
-      tr {
-        td {
-          padding: 5px;
-          yc-select {
-            & + app-form-tips{
-              position: absolute;
-              margin-top: 30px;
-              margin-left: -130px;
-            }
-          }
-          input-datepicker {
-            & + span {
-              color: red;
-              position: absolute;
-              margin-top: 30px;
-              margin-left: -240px;
-            }
-          }
-          .form-control {
-            width: 220px;
-            border: 1px solid #dbdde2;
-            margin-bottom:0;
-            &:disabled {
-              cursor: not-allowed;
-            }
-            &.number div{
-              width: 220px;
-            }
-            &.has-error {
-              border: 1px solid red;
-            }
-            & + app-form-tips{
-              position:absolute;
-            }
-          }
+      input-datepicker {
+        & + span {
+          color: red;
+          position: absolute;
+          margin-top: 30px;
+          margin-left: -240px;
         }
-        .td-one {
-          width: 100px;
-          display: flex;
-          align-items: center;
-          > .ele-img {
-            display: flex;
-            align-items: center;
-            border: 1px solid #dbdde2;
-            width: 45px;
-            height: 45px;
-            background-color: #f9fafb;
-            padding: 6px;
-            > div {
-              white-space: normal;
-              text-align: center;
-              font-size: 12px;
-              width: 30px;
-              height: 30px;
-              color: #979899;
-            }
-            > img {
-              transition: all 0.6s;
-              vertical-align: middle;
-              max-width: 100%;
-              max-height: 100%;
-            }
-          }
-          .search-icon {
-            margin-left: 5px;
-          }
+      }
+      .form-control {
+        //text-align: center;
+        width:90%;
+        border: 1px solid #dbdde2;
+        margin-bottom:0;
+        &:disabled {
+          cursor: not-allowed;
         }
-        .td-two {
-          width: 130px;
+        &.has-error {
+          border: 1px solid red;
         }
-        .td-four {
-          width: 200px;
+        & + app-form-tips{
+          position:absolute;
         }
       }
     }
+    .td-one {
+      justify-content: center;
+      display: flex;
+      align-items: center;
+      > .ele-img {
+        display: flex;
+        align-items: center;
+        border: 1px solid #dbdde2;
+        width: 45px;
+        height: 45px;
+        background-color: #f9fafb;
+        padding: 6px;
+        > div {
+          white-space: normal;
+          text-align: center;
+          font-size: 12px;
+          width: 30px;
+          height: 30px;
+          color: #979899;
+        }
+        > img {
+          transition: all 0.6s;
+          vertical-align: middle;
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+      .search-icon {
+        margin-left: 5px;
+      }
+    }
   }
-  .form-group-offset {
-    margin-left: 110px;
+}
+// 主体资质信息
+.tableMain,.tableOption {
+  thead {
+    th{
+      text-align: center;
+      &:nth-child(1){
+        min-width: 110px;
+      }
+      &:nth-child(2){
+        min-width: 160px;
+      }
+      &:nth-child(3){
+        min-width: 240px;
+      }
+      &:nth-child(4){
+        min-width: 250px;
+      }
+      &:nth-child(5){
+        min-width: 180px;
+      }
+    }
   }
+  td {
+    div {
+      text-align: left;
+    }
+  }
+}
+.tableLog {
+  thead {
+    th{
+      text-align: center;
+      &:nth-child(1){
+        width: 11%;
+      }
+      &:nth-child(2){
+        width: 19%;
+      }
+      &:nth-child(3){
+        width: 30%;
+      }
+      &:nth-child(4){
+        width: 45px;
+      }
+    }
+  }
+}
+
+
+.form-group-offset {
+  margin-left: 110px;
 }
 
 .pwd-class {
@@ -166,6 +206,9 @@
       padding-left: 0;
       > .form-control {
         text-indent: 40px;
+        &.red {
+          border:1px solid red;
+        }
       }
       > i {
         position: absolute;
@@ -182,7 +225,7 @@
         color: red;
         position: absolute;
         height: 30px;
-        top: 40px;
+        top: 20px;
         left: 30px;
       }
       > .valid {
@@ -205,13 +248,21 @@
   }
 }
 
-//.form-label {
-//  height: 30px;
-//  line-height: 30px;
-//}
 
+.form-label-text {
+  height: 36px;
+  line-height: 36px;
+}
+
+.input-error {
+  color: #ff4500;
+  padding-top: 5px;
+}
+
+.form-group {
+  transition: all 1s ease;
+}
 
 .container-list {
   padding: 20px 30px 30px 70px;
 }
-

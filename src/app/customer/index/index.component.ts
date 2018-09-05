@@ -192,7 +192,8 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
    */
   todayCreative() {
     const todayCreativeRef = this.todayCreativeEcharts = echarts.init(this.todayCreativeRef.nativeElement);
-    todayCreativeRef.setOption({
+    todayCreativeRef.setOption(
+      {
       legend: {   // 失效了
         // orient: 'horizontal', // 'vertical'
         // x: 'center', // 'center' | 'left' | {number},
@@ -423,6 +424,15 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   @ViewChild('templateRecharge', {read: TemplateRef}) templateRecharge: TemplateRef<any>;
   recharge() {
     this._dialog.open(this.templateRecharge, {title: '充值流程', flag: false})
+  }
+  _dayMoney;
+  _editBudget() {
+    this._indexService.dayMoneyUpdate({money: this._dayMoney}).subscribe(res => {
+      this._indexService.init().subscribe(res => {
+        this.userData = res.result.user;
+        this.changeDetectorRef.markForCheck();
+      })
+    })
   }
 
 
