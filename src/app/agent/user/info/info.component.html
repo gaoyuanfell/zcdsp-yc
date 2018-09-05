@@ -1,4 +1,6 @@
 <div class="container-list">
+
+
   <div class="anchor-position">
     <yc-anchor [overflow]="containerFullRef">
       <a anchor-link="#account" *ngIf="!type && !self">账户信息</a>
@@ -30,106 +32,104 @@
 
 
 
-  <form class="container-form" #containerForm #infoForm="ngForm" (ngSubmit)="save(infoForm)">
+  <form class="extension-main" #containerForm #infoForm="ngForm" (ngSubmit)="save(infoForm)">
 
     <!--账户信息-->
     <ng-template [ngIf]="!type && !self">
-      <div class="bookmark" id="account" #account>
-        <h2>账户信息</h2>
-      </div>
-      <div class="form-group flex">
-        <label class="form-label"><span>*</span>账号</label>
-        <div class="form-input">
-          <input class="form-control" type="text" [(ngModel)]="user.user_name" required pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" placeholder="请填写邮箱作为账号" name="user_name" (blur)="userNameVaild()" (focus)="exist_flag = false;">
-          <app-form-tips [target]="infoForm.controls['user_name']" [formTarget]="infoForm" [tips]="'请填写邮箱作为账号'" placeholder="请填写邮箱作为账号"></app-form-tips>
-          <p class="input-error" *ngIf="exist_flag">账户已存在,请重新输入</p>
+      <h2 class="extension-title" id="account" #account>
+        账户信息
+      </h2>
+      <div class="extension-form-box">
+        <div class="form-group flex">
+          <label class="form-label"><span>*</span>账号</label>
+          <div class="form-input">
+            <input class="form-control" type="text" [(ngModel)]="user.user_name" required pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" placeholder="请填写邮箱作为账号" name="user_name" (blur)="userNameVaild()" (focus)="exist_flag = false;">
+            <app-form-tips [target]="infoForm.controls['user_name']" [formTarget]="infoForm" [tips]="'请填写邮箱作为账号'" placeholder="请填写邮箱作为账号"></app-form-tips>
+            <p class="input-error" *ngIf="exist_flag">账户已存在,请重新输入</p>
+          </div>
         </div>
-      </div>
-      <div class="form-group flex">
-        <label class="form-label"><span>*</span>密码</label>
-        <div class="form-input">
-          <input class="form-control" type="text" required [(ngModel)]="user.password" name="password" placeholder="请填写密码"
-                 pattern="((?=.*\d)(?=.*[A-Za-z])|(?=.*\d)(?=.*\W)|(?=.*[A-Za-z])(?=.*\W))^[A-Za-z\d\W]{6,18}$">
-          <app-form-tips [target]="infoForm.controls['password']" [formTarget]="infoForm" [tips]="'请输入8~18位字母和数字或符号的组合!'" placeholder="请填写密码"></app-form-tips>
+        <div class="form-group flex">
+          <label class="form-label"><span>*</span>密码</label>
+          <div class="form-input">
+            <input class="form-control" type="text" required [(ngModel)]="user.password" name="password" placeholder="请填写密码"
+                   pattern="((?=.*\d)(?=.*[A-Za-z])|(?=.*\d)(?=.*\W)|(?=.*[A-Za-z])(?=.*\W))^[A-Za-z\d\W]{6,18}$">
+            <app-form-tips [target]="infoForm.controls['password']" [formTarget]="infoForm" [tips]="'请输入8~18位字母和数字或符号的组合!'" placeholder="请填写密码"></app-form-tips>
+          </div>
         </div>
-      </div>
-      <div class="bookmark">
-        <hr>
       </div>
     </ng-template>
 
     <!--基本信息-->
     <div>
-      <div class="bookmark" id="info" #info>
-        <h2>基本信息</h2>
-      </div>
-
-      <div class="form-group flex">
-        <label class="form-label"><span>*</span>公司名称</label>
-        <div class="form-input" *ngIf="!type && !self">
-          <input class="form-control" type="text" [(ngModel)]="user.nick_name" [placeholder]="'请填写公司名称'" required   name="nick_name" [ngClass]="setInvalidClass(infoForm, infoForm.controls['nick_name'])">
-          <app-form-tips [target]="infoForm.controls['nick_name']" [formTarget]="infoForm" placeholder="请填写公司名称"></app-form-tips>
+      <h2 class="extension-title" id="info" #info>
+        基本信息
+      </h2>
+      <div class="extension-form-box">
+        <div class="form-group flex">
+          <label class="form-label"><span>*</span>公司名称</label>
+          <div class="form-input" *ngIf="!type && !self">
+            <input class="form-control" type="text" [(ngModel)]="user.nick_name" [placeholder]="'请填写公司名称'" required   name="nick_name" [ngClass]="setInvalidClass(infoForm, infoForm.controls['nick_name'])">
+            <app-form-tips [target]="infoForm.controls['nick_name']" [formTarget]="infoForm" placeholder="请填写公司名称"></app-form-tips>
+          </div>
+          <p class="input-text" *ngIf="type || self">{{user.nick_name}}</p>
+          <div class="question-icon" title="公司名称必须与营业执照公司名称一致" *ngIf="!type && !self"></div>
         </div>
-        <p class="input-text" *ngIf="type || self">{{user.nick_name}}</p>
-        <div class="question-icon" title="公司名称必须与营业执照公司名称一致" *ngIf="!type && !self"></div>
-      </div>
-      <div class="form-group flex">
-        <label class="form-label"><span>*</span>网站名称</label>
-        <div class="form-input" *ngIf="!_audit_status">
-          <input class="form-control" type="text" required [(ngModel)]="user.site_name" placeholder="请填写网站名称" name="site_name" [ngClass]="setInvalidClass(infoForm, infoForm.controls['site_name'])">
-          <app-form-tips [target]="infoForm.controls['site_name']" [formTarget]="infoForm" placeholder="请填写网站名称"></app-form-tips>
+        <div class="form-group flex">
+          <label class="form-label"><span>*</span>网站名称</label>
+          <div class="form-input" *ngIf="!_audit_status">
+            <input class="form-control" type="text" required [(ngModel)]="user.site_name" placeholder="请填写网站名称" name="site_name" [ngClass]="setInvalidClass(infoForm, infoForm.controls['site_name'])">
+            <app-form-tips [target]="infoForm.controls['site_name']" [formTarget]="infoForm" placeholder="请填写网站名称"></app-form-tips>
+          </div>
+          <p  *ngIf="_audit_status" class="input-text">{{user.site_name}}</p>
         </div>
-        <p  *ngIf="_audit_status" class="input-text">{{user.site_name}}</p>
-      </div>
-      <div class="form-group flex">
-        <label class="form-label"><span>*</span>推广域名</label>
-        <div class="form-input" *ngIf="!_audit_status">
-          <input class="form-control" type="text" required [(ngModel)]="user.site_domain_name" placeholder="请填写推广域名" name="site_domain_name" [ngClass]="setInvalidClass(infoForm, infoForm.controls['site_domain_name'])"
-                 pattern="^([hH]{1}[tT]{2}[pP]:\/\/|[hH]{1}[tT]{2}[pP][sS]:\/\/)[\d,a-z,A-Z]+[\w,\W]*$">
-          <app-form-tips [target]="infoForm.controls['site_domain_name']" [formTarget]="infoForm" placeholder="请填写推广域名" [tips]="'请填写推广域名'"></app-form-tips>
+        <div class="form-group flex">
+          <label class="form-label"><span>*</span>推广域名</label>
+          <div class="form-input" *ngIf="!_audit_status">
+            <input class="form-control" type="text" required [(ngModel)]="user.site_domain_name" placeholder="请填写推广域名" name="site_domain_name" [ngClass]="setInvalidClass(infoForm, infoForm.controls['site_domain_name'])"
+                   pattern="^([hH]{1}[tT]{2}[pP]:\/\/|[hH]{1}[tT]{2}[pP][sS]:\/\/)[\d,a-z,A-Z]+[\w,\W]*$">
+            <app-form-tips [target]="infoForm.controls['site_domain_name']" [formTarget]="infoForm" placeholder="请填写推广域名" [tips]="'请填写推广域名'"></app-form-tips>
+          </div>
+          <p *ngIf="_audit_status" class="input-text">{{user.site_domain_name}}</p>
         </div>
-        <p *ngIf="_audit_status" class="input-text">{{user.site_domain_name}}</p>
-      </div>
-      <div class="form-group flex">
-        <label class="form-label"><span></span>公司地址</label>
-        <div class="form-input">
-          <input class="form-control" type="text" [(ngModel)]="user.address" placeholder="请填写公司地址" name="address">
+        <div class="form-group flex">
+          <label class="form-label"><span></span>公司地址</label>
+          <div class="form-input">
+            <input class="form-control" type="text" [(ngModel)]="user.address" placeholder="请填写公司地址" name="address">
+          </div>
         </div>
-      </div>
-      <div class="form-group flex">
-        <label class="form-label"><span>*</span>行业分类</label>
-        <div class="form-input" *ngIf="!_audit_status">
-          <yc-select  [(ngModel)]="user.ad_category_id" name="ad_category_id" required [searchCtrl]="true" [width]="360" placeholder="请选择行业分类" [list]="ad_category_list" [props]="{value:'ad_category_id',label:'ad_category_name'}" [ngClass]="setInvalidClass(infoForm, infoForm.controls['ad_category_id'])"></yc-select>
-          <app-form-tips [target]="infoForm.controls['ad_category_id']" [formTarget]="infoForm" placeholder="请选择行业分类"></app-form-tips>
+        <div class="form-group flex">
+          <label class="form-label"><span>*</span>行业分类</label>
+          <div class="form-input" *ngIf="!_audit_status">
+            <yc-select  [(ngModel)]="user.ad_category_id" name="ad_category_id" required [searchCtrl]="true" [width]="360" placeholder="请选择行业分类" [list]="ad_category_list" [props]="{value:'ad_category_id',label:'ad_category_name'}" [ngClass]="setInvalidClass(infoForm, infoForm.controls['ad_category_id'])"></yc-select>
+            <app-form-tips [target]="infoForm.controls['ad_category_id']" [formTarget]="infoForm" placeholder="请选择行业分类"></app-form-tips>
+          </div>
+          <p *ngIf="_audit_status" class="input-text">{{_ad_category_name}}</p>
         </div>
-        <p *ngIf="_audit_status" class="input-text">{{_ad_category_name}}</p>
-      </div>
-      <div class="form-group flex">
-        <label class="form-label">关联QQ</label>
-        <div class="form-input">
-          <input class="form-control" type="text" [(ngModel)]="user.gdt_qq" placeholder="请填写关联qq" pattern="[\d]{1,14}" name="gdt_qq" [ngClass]="setInvalidClass(infoForm, infoForm.controls['gdt_qq'])">
-          <app-form-tips [target]="infoForm.controls['gdt_qq']" [tips]="'请输入正确的QQ号'" [formTarget]="infoForm" placeholder="请填写关联qq"></app-form-tips>
+        <div class="form-group flex">
+          <label class="form-label">关联QQ</label>
+          <div class="form-input">
+            <input class="form-control" type="text" [(ngModel)]="user.gdt_qq" placeholder="请填写关联qq" pattern="[\d]{1,14}" name="gdt_qq" [ngClass]="setInvalidClass(infoForm, infoForm.controls['gdt_qq'])">
+            <app-form-tips [target]="infoForm.controls['gdt_qq']" [tips]="'请输入正确的QQ号'" [formTarget]="infoForm" placeholder="请填写关联qq"></app-form-tips>
+          </div>
+          <div class="question-icon" title="用户在腾讯开发平台上传应用时的登录QQ"></div>
         </div>
-        <div class="question-icon" title="用户在腾讯开发平台上传应用时的登录QQ"></div>
-      </div>
-      <div class="form-group flex-center" *ngIf="type || self">
-        <label class="form-label"><span>*</span>密码</label>
-        <div class="form-input">
-          <button type="button" class="btn btn-info  flex-center" (click)="changePwd()"><img src="assets/img/customer/img/key-icon.png"><span>修改密码</span></button>
+        <div class="form-group flex-center" *ngIf="type || self">
+          <label class="form-label"><span>*</span>密码</label>
+          <div class="form-input">
+            <button type="button" class="btn btn-info  flex-center" (click)="changePwd()"><img src="assets/img/customer/img/key-icon.png"><span>修改密码</span></button>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="bookmark">
-      <hr>
-    </div>
+
 
     <!--联系人-->
     <div>
-        <div class="bookmark" id="link" #link>
-          <h2>联系人</h2>
-        </div>
-
+      <h2 class="extension-title" id="link" #link>
+        联系人
+      </h2>
+      <div class="extension-form-box">
         <div class="form-group flex">
           <label class="form-label"><span>*</span>联系人&nbsp;&nbsp;</label>
           <div class="form-input">
@@ -151,89 +151,21 @@
             <app-form-tips [target]="infoForm.controls['email']" [tips]="'请输入正确邮箱'" placeholder="请填写联系邮箱" [formTarget]="infoForm"></app-form-tips>
           </div>
         </div>
+      </div>
     </div>
 
-    <div class="bookmark">
-      <hr>
-    </div>
 
   <!--资质信息-->
     <div>
-      <div class="bookmark" id="apititude" #apititude>
-        <h2>资质信息</h2>
-      </div>
+      <h2 class="extension-title" id="apititude" #apititude>
+        资质信息
+      </h2>
+      <div class="extension-form-box">
 
-      <div class="table-top">
-        <span>*</span><span>主体资质</span><span>请上传如下资料或复印件。 支持jpg，jpeg，bmp，png, 大小不要超过5M</span>
-      </div>
-      <table class="table-border">
-        <thead>
-        <tr>
-          <th>图片</th>
-          <th>资质分类</th>
-          <th>资质名称</th>
-          <th>编号或登记号</th>
-          <th>有效期</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let x of main_qualification_list">
-          <td>
-            <div class="td-one" *ngIf="!_audit_status">
-              <div *ngIf="!x[x.name] && !x.url" class="ele-img" yc-file-upload #eleImg (eventChange)="upload($event,x,x.name,'')"
-                   [dataType]="'M'"
-                   [accept]="{extensions: extensions.extensions,maxSize: extensions.maxSize}"
-                   (eventError)="_imgError($event)">
-                <div *ngIf="!x[x.name] && !x.url">点击上传</div>
-              </div>
-              <div *ngIf="x[x.name] ||  x.url" class="ele-img" yc-file-upload #eleImg (eventChange)="upload($event,x,x.name,'')" style="background-color:#dbdde2"
-                   [dataType]="'M'"
-                   [accept]="{extensions: extensions.extensions,maxSize: extensions.maxSize}"
-                   (eventError)="_imgError($event)">
-                <img  *ngIf="x[x.name] ||  x.url" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.url)" alt="">
-              </div>
-              <i preview-img *ngIf="x.url" [list]="[x.url]" class="search-icon"></i>
-            </div>
-            <div class="td-one" *ngIf="_audit_status">
-              <div  class="ele-img"   style="background-color:#dbdde2">
-                <img  *ngIf="x[x.name] ||  x.url" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.url)" alt="">
-              </div>
-              <i preview-img *ngIf="x.url" [list]="[x.url]" class="search-icon"></i>
-            </div>
-          </td>
-          <td>
-            <div class="td-two">{{x.item_type_name}}</div>
-          </td>
-          <td>
-            <div *ngIf="!_audit_status">
-              <input class="form-control" type="text" required [(ngModel)]="x.quatification_name" placeholder="请输入名称" [name]="x.item_type_id + 'quatification_name'" id="{{x.item_type_id + 'quatification_name'}}" [ngClass]="setInvalidClass(infoForm, infoForm.controls[x.item_type_id + 'quatification_name'])">
-              <app-form-tips [target]="infoForm.controls[x.item_type_id + 'quatification_name']" [formTarget]="infoForm" placeholder="请输入名称"></app-form-tips>
-            </div>
-            <div *ngIf="_audit_status">{{x.quatification_name}}</div>
-          </td>
-          <td class="number">
-            <div *ngIf="!_audit_status">
-              <input class="form-control td-four" type="text" required [(ngModel)]="x.quatification_number" placeholder="请输入编号" [name]="x.item_type_id + 'quatification_number'" id="{{x.item_type_id + 'quatification_number'}}" [ngClass]="setInvalidClass(infoForm, infoForm.controls[x.item_type_id + 'quatification_number'])">
-              <app-form-tips [target]="infoForm.controls[x.item_type_id + 'quatification_number']" [formTarget]="infoForm" placeholder="请输入编号"></app-form-tips>
-            </div>
-            <div *ngIf="_audit_status">{{x.quatification_number}}</div>
-          </td>
-          <td>
-            <div *ngIf="!_audit_status">
-              <input-datepicker [isRange]="true" [query]="x" [appendField]="['begin_date','end_date']" [name]="(x.id || x.item_type_id) + 'time'" placeholder="请填写时间" id="{{ (x.id || x.item_type_id) + 'time'}}" [ngClass]="{'has-error': !x.begin_date && infoForm.submitted}"></input-datepicker>
-              <span *ngIf="!x.begin_date && infoForm.submitted">请填写时间</span>
-            </div>
-            <div *ngIf="_audit_status">{{x.begin_date + '~' + x.end_date}}</div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-
-      <ng-template [ngIf]="!self">
-        <div class="table-top"  #trade>
-          <span></span><span>行业资质</span><span>请上传如下资料或复印件。 支持jpg，jpeg，bmp，png, 大小不要超过5M</span>
+        <div class="table-top">
+          <span>*</span><span>主体资质</span><span>请上传如下资料或复印件。 支持jpg，jpeg，bmp，png, 大小不要超过5M</span>
         </div>
-        <table class="table-border">
+        <table class="table-border tableMain" *ngIf="main_qualification_list.length > 0">
           <thead>
           <tr>
             <th>图片</th>
@@ -241,120 +173,184 @@
             <th>资质名称</th>
             <th>编号或登记号</th>
             <th>有效期</th>
-            <th></th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let x of optional_qualification_list;let index = index">
+          <tr *ngFor="let x of main_qualification_list">
             <td>
-              <div class="td-one">
+              <div class="td-one" *ngIf="!_audit_status">
                 <div *ngIf="!x[x.name] && !x.url" class="ele-img" yc-file-upload #eleImg (eventChange)="upload($event,x,x.name,'')"
                      [dataType]="'M'"
                      [accept]="{extensions: extensions.extensions,maxSize: extensions.maxSize}"
                      (eventError)="_imgError($event)">
                   <div *ngIf="!x[x.name] && !x.url">点击上传</div>
                 </div>
-
                 <div *ngIf="x[x.name] ||  x.url" class="ele-img" yc-file-upload #eleImg (eventChange)="upload($event,x,x.name,'')" style="background-color:#dbdde2"
                      [dataType]="'M'"
                      [accept]="{extensions: extensions.extensions,maxSize: extensions.maxSize}"
                      (eventError)="_imgError($event)">
-                  <img #imgRef *ngIf="x[x.name] ||  x.url" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.url)" alt="">
+                  <img  *ngIf="x[x.name] ||  x.url" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.url)" alt="">
                 </div>
-                <!--<div *ngIf="x[x.name] || x.url" class="search-icon"></div>-->
+                <i preview-img *ngIf="x.url" [list]="[x.url]" class="search-icon"></i>
+              </div>
+              <div class="td-one" *ngIf="_audit_status">
+                <div  class="ele-img"   style="background-color:#dbdde2">
+                  <img  *ngIf="x[x.name] ||  x.url" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.url)" alt="">
+                </div>
                 <i preview-img *ngIf="x.url" [list]="[x.url]" class="search-icon"></i>
               </div>
             </td>
             <td>
-              <yc-select [searchCtrl]="true" name="{{(x.id || x.item_type_id) + 'item_type_id'}}"  [(ngModel)]="x.item_type_id" (ngModelChange)='changeSelect($event, x)' [width]="130" placeholder="请选择行业分类" [list]="optional_ad_category_list" [props]="{value:'item_type_id',label:'item_type_name', disabled: 'disabled'}"></yc-select>
+              {{x.item_type_name}}
             </td>
             <td>
-              <input class="form-control" type="text"  [(ngModel)]="x.quatification_name" placeholder="请输入名称" name="{{ (x.id || x.item_type_id) + 'quatification_name'}}">
+              <div *ngIf="!_audit_status">
+                <input class="form-control" type="text" required [(ngModel)]="x.quatification_name" placeholder="请输入名称" [name]="x.item_type_id + 'quatification_name'" id="{{x.item_type_id + 'quatification_name'}}" [ngClass]="setInvalidClass(infoForm, infoForm.controls[x.item_type_id + 'quatification_name'])">
+                <app-form-tips [target]="infoForm.controls[x.item_type_id + 'quatification_name']" [formTarget]="infoForm" placeholder="请输入名称"></app-form-tips>
+              </div>
+              <div *ngIf="_audit_status">{{x.quatification_name}}</div>
+            </td>
+            <td class="number">
+              <div *ngIf="!_audit_status">
+                <input class="form-control td-four" type="text" required [(ngModel)]="x.quatification_number" placeholder="请输入编号" [name]="x.item_type_id + 'quatification_number'" id="{{x.item_type_id + 'quatification_number'}}" [ngClass]="setInvalidClass(infoForm, infoForm.controls[x.item_type_id + 'quatification_number'])">
+                <app-form-tips [target]="infoForm.controls[x.item_type_id + 'quatification_number']" [formTarget]="infoForm" placeholder="请输入编号"></app-form-tips>
+              </div>
+              <div *ngIf="_audit_status">{{x.quatification_number}}</div>
             </td>
             <td>
-              <input class="form-control td-four" type="text"  [(ngModel)]="x.quatification_number" placeholder="请输入编号" name="{{(x.id || x.item_type_id) + 'quatification_number'}}" >
+              <div *ngIf="!_audit_status">
+                <input-datepicker [isRange]="true" [query]="x" [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time'}}" placeholder="请填写时间" id="{{ (x.id || x.item_type_id) + 'time'}}" [ngClass]="{'has-error': !x.begin_date && infoForm.submitted}"></input-datepicker>
+                <span *ngIf="!x.begin_date && infoForm.submitted">请填写时间</span>
+              </div>
+              <div *ngIf="_audit_status">{{x.begin_date + '~' + x.end_date}}</div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <ng-template [ngIf]="!self">
+          <div class="table-top" #trade>
+            <span></span><span>行业资质</span><span>请上传如下资料或复印件。 支持jpg，jpeg，bmp，png, 大小不要超过5M</span>
+          </div>
+          <table class="table-border tableOption" *ngIf="optional_qualification_list.length > 0">
+            <thead>
+            <tr>
+              <th>图片</th>
+              <th>资质分类</th>
+              <th>资质名称</th>
+              <th>编号或登记号</th>
+              <th>有效期</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let x of optional_qualification_list;let index = index">
+              <td>
+                <div class="td-one">
+                  <div *ngIf="!x[x.name] && !x.url" class="ele-img" yc-file-upload #eleImg (eventChange)="upload($event,x,x.name,'')"
+                       [dataType]="'M'"
+                       [accept]="{extensions: extensions.extensions,maxSize: extensions.maxSize}"
+                       (eventError)="_imgError($event)">
+                    <div *ngIf="!x[x.name] && !x.url">点击上传</div>
+                  </div>
+
+                  <div *ngIf="x[x.name] ||  x.url" class="ele-img" yc-file-upload #eleImg (eventChange)="upload($event,x,x.name,'')" style="background-color:#dbdde2"
+                       [dataType]="'M'"
+                       [accept]="{extensions: extensions.extensions,maxSize: extensions.maxSize}"
+                       (eventError)="_imgError($event)">
+                    <img #imgRef *ngIf="x[x.name] ||  x.url" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.url)" alt="">
+                  </div>
+                  <i preview-img *ngIf="x.url" [list]="[x.url]" class="search-icon"></i>
+                </div>
+              </td>
+              <td>
+                <yc-select [searchCtrl]="true" name="{{(x.id || x.item_type_id) + 'item_type_id'}}" [(ngModel)]="x.item_type_id" (ngModelChange)='changeSelect($event, x)' [width]="130" placeholder="请选择行业分类" [list]="optional_ad_category_list" [props]="{value:'item_type_id',label:'item_type_name', disabled: 'disabled'}"></yc-select>
+              </td>
+              <td>
+                <input class="form-control" type="text"  [(ngModel)]="x.quatification_name" placeholder="请输入名称" name="{{ (x.id || x.item_type_id) + 'quatification_name'}}">
+              </td>
+              <td>
+                <input class="form-control td-four" type="text"  [(ngModel)]="x.quatification_number" placeholder="请输入编号" name="{{(x.id || x.item_type_id) + 'quatification_number'}}">
+              </td>
+              <td>
+                <input-datepicker [isRange]="true" [query]="x"   [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time1'}}"></input-datepicker>
+              </td>
+              <td class="text-right">
+                <div style="width:35px;">
+                  <a data-link (click)="_remove(optional_qualification_list, index)">删除</a>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="form-group-offset">
+            <div class="btn" (click)="addQualification()">
+              <i>+</i>
+              新增资质
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+
+    <!--品牌商标-->
+    <ng-template [ngIf]="!self">
+      <h2 class="extension-title" id="logo" #logo>
+        品牌商标（LOGO）
+      </h2>
+      <div class="extension-form-box">
+        <div class="table-top">
+          <span></span><span>支持尺寸</span><span><span *ngFor="let x of user_logo_size_list;let index = index">{{x}}&nbsp;/&nbsp;</span>
+          <br/>支持jpg， 大小不要超过30KB</span>
+        </div>
+        <table class="tableLog">
+          <thead>
+          <tr>
+            <th>商标</th>
+            <th>商标尺寸</th>
+            <th>品牌名称</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let x of user_logo_list;let index = index">
+            <td>
+              <!--换背景-->
+              <div class="td-one">
+                <div class="ele-img" yc-file-upload (eventChange)="upload($event,x,x.name,'logo')"
+                     [dataType]="'K'"
+                     [accept]="{extensions: extensions1.extensions,maxSize: extensions1.maxSize,size: user_logo_size_list}"
+                     (eventError)="_imgError($event)">
+                  <div *ngIf="!x[x.name] && !x.logo_src">点击上传</div>
+                  <img *ngIf="x[x.name] ||  x.logo_src" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.logo_src)" alt="">
+                </div>
+              </div>
             </td>
             <td>
-              <input-datepicker [isRange]="true" [query]="x"  [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time1'}}"></input-datepicker>
+              <span>{{x.logo_height ?  x.logo_height + '*' + x.logo_width: '' }}</span>
+            </td>
+            <td>
+              <input class="form-control" type="text"  [(ngModel)]="x.brand_name" placeholder="请输入名称" name="{{(x.id || x.item_id) + 'brand_name'}}">
             </td>
             <td class="text-right">
-              <a data-link (click)="_remove(optional_qualification_list, index)">删除</a>
+              <a data-link (click)="_remove(user_logo_list, index, 'logo')">删除</a>
             </td>
           </tr>
           </tbody>
         </table>
         <div class="form-group-offset">
-          <div class="btn" (click)="addQualification()">
+          <div class="btn" (click)="addLogo()">
             <i>+</i>
-            新增资质
+            新增logo
           </div>
-        </div>
-      </ng-template>
-    </div>
-
-    <div class="bookmark">
-      <hr>
-    </div>
-
-    <!--品牌商标-->
-    <ng-template [ngIf]="!self">
-      <div class="bookmark" id="logo" #logo>
-        <h2>品牌商标（LOGO）</h2>
-      </div>
-      <div class="table-top">
-        <span></span><span>支持尺寸</span><span><span *ngFor="let x of user_logo_size_list;let index = index">{{x}}&nbsp;/&nbsp;</span>
-          <br/>支持jpg， 大小不要超过30KB</span>
-      </div>
-      <table>
-        <thead>
-        <tr>
-          <th>商标</th>
-          <th>商标尺寸</th>
-          <th>品牌名称</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let x of user_logo_list;let index = index">
-          <td>
-            <!--换背景-->
-            <div class="td-one">
-              <div class="ele-img" yc-file-upload (eventChange)="upload($event,x,x.name,'logo')"
-                   [dataType]="'K'"
-                   [accept]="{extensions: extensions1.extensions,maxSize: extensions1.maxSize,size: user_logo_size_list}"
-                   (eventError)="_imgError($event)">
-                <div *ngIf="!x[x.name] && !x.logo_src">点击上传</div>
-                <img *ngIf="x[x.name] ||  x.logo_src" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.logo_src)" alt="">
-              </div>
-            </div>
-          </td>
-          <td>
-            <span>{{x.logo_height ?  x.logo_height + '*' + x.logo_width: '' }}</span>
-          </td>
-          <td>
-            <input class="form-control" type="text"  [(ngModel)]="x.brand_name" placeholder="请输入名称" name="{{(x.id || x.item_id) + 'brand_name'}}">
-          </td>
-          <td class="text-right">
-            <a data-link (click)="_remove(user_logo_list, index, 'logo')">删除</a>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      <div class="form-group-offset">
-        <div class="btn" (click)="addLogo()">
-          <i>+</i>
-          新增logo
         </div>
       </div>
     </ng-template>
 
-    <div class="bookmark">
-      <hr>
-    </div>
 
     <div class="submit-toolbar">
-      <div class="submit-box">
-        <button class="btn btn-fill" style="padding: 0 40px;" type='submit'>提交</button>
+      <div class="submit-box flex-center">
+        <button class="btn btn-round" style="padding: 0 40px;" type='submit'>提交</button>
       </div>
     </div>
 

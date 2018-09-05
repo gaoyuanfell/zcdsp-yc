@@ -72,6 +72,8 @@ export class LoginComponent implements OnInit {
   pwd_vertify_show;
   type_show;
   // 发送验证码前奏
+  error;
+  errorText;
   verifyPwd() {
     // this._description = undefined;
     this.forgetCode = undefined;
@@ -85,7 +87,7 @@ export class LoginComponent implements OnInit {
 
 
     this._dialog.open(this.code_template_ref, {title: '', flag: true, async: true}).subscribe((data: any) => {
-        if (data && this.forget_code_ref.valid && !this.pwd_vertify_show) {
+        if (data && this.forget_code_ref.valid && !this.error) {
           let obj = {
             type: this.type,
             user_name: this.user_name,
@@ -100,12 +102,11 @@ export class LoginComponent implements OnInit {
                 this.codeTest()
               }
           }, error => {  // 这边做了处理 前端是抛出异常
-              this.pwd_vertify_show = error.errorList[0]._code === 'img_code' ?  error.errorList[0]._description : undefined;
+            this.error = error.errorList[0]._code;
+            this.errorText = error.errorList[0]._description;
               if (error.errorList[0]._code === 'user_name' || error.errorList[0]._code === 'type') {
                 data();
               }
-              this._description = error.errorList[0]._code === 'user_name' ?  error.errorList[0]._description : undefined;
-              this.type_show = error.errorList[0]._code === 'type' ?  error.errorList[0]._description : undefined;
               this.pwd_show = false;
           })
         }
@@ -148,7 +149,9 @@ export class LoginComponent implements OnInit {
         this.pwd_show = true;
       }
     }, error => {
-      this._code = error.errorList[0]._code === 'code' ?  error.errorList[0]._description : undefined;
+      this.error = error.errorList[0]._code;
+      this.errorText = error.errorList[0]._description;
+      // this._code = error.errorList[0]._code === 'code' ?  error.errorList[0]._description : undefined;
       this.pwd_show = false;
     })
   }
@@ -177,15 +180,14 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  userNameFocus() {
-    this._description = undefined;
+
+  errorFocus(errorName) {
+    if(errorName === this.error) {
+      this.error = undefined;
+      this.errorText = undefined;
+    }
   }
-  codeFocus() {
-    this.pwd_vertify_show = undefined;
-  }
-  _codeFocus() {
-    this._code = undefined;
-  }
+
 
 
 

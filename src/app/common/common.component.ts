@@ -602,27 +602,40 @@ export class BaseIndexComponent implements OnInit{
             str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
             str = str +  `
               <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${params[0].color}"></div>
-              ${params[0].seriesName}<span style="margin-right:20px"></span>${params[0].data}
+              数据趋势<span style="margin-right:20px"></span>${params[0].data}
               `
             return str;
           }
         },
         color: ['#31c38f'],
+        grid: { // 整体位置
+          top: '0',
+          left: '-30',
+          right: '0',
+          bottom: '0',
+          containLabel: true
+        },
         xAxis: {
           type: 'category',
           axisTick: {
             show: false,
           },
           axisLine: {
-            show: false,
+            show: true,
+            lineStyle: {
+              color: '#31c38f',
+              width: 2,
+              type: 'solid'
           },
+          },
+          axisLabel: {
+            show:false
+          },
+          data: [],
 
-          show:false,
-
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
         },
         yAxis: {
-          show:false,  // x,y周数据全部去掉 线也去 网格线也去
+          show:false,
           type: 'value',
           axisTick: {
             show: false,
@@ -638,11 +651,14 @@ export class BaseIndexComponent implements OnInit{
               // barBorderRadius:[10, 10, 0, 0]
             }
           },
-          data: [120, 200, 150, 80, 70, 110, 130],
+          data: [],
           type: 'bar'
         }]
       }
     );
+    window.addEventListener('resize', () => {
+      todayAllSpendChartSmallRef.resize();
+    });
   }
 
 
@@ -933,6 +949,13 @@ export class BaseIndexComponent implements OnInit{
     const todayAllSpendChartLine = this.todayAllSpendChartLines = echarts.init(this.todayAllSpendChartLineRef.nativeElement);
     todayAllSpendChartLine.setOption(
       {
+        grid: {
+          top: '0',
+          left: '-30',
+          right: '0',
+          bottom: '0',
+          containLabel: true
+        },
         color: ['#975fe4'],
         tooltip: {
           trigger: 'axis',
@@ -955,33 +978,43 @@ export class BaseIndexComponent implements OnInit{
                 <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${item.color}"></div>
                 ${item.seriesName}<span style="margin-right:20px"></span>${item.data}<div style="margin-top:5px"></div>
               `;
-                /*str = str + '<div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: "' + params.color + ' ></div>' +
-                  item.seriesName + '<span style="margin-right:20px"></span>' + item.data + '<div style="margin-top:5px"></div>';*/
               });
             } else {
               str = str +  `
               <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${params[0].color}"></div>
-              ${params[0].seriesName}<span style="margin-right:20px"></span>${params[0].data}
+              数据趋势<span style="margin-right:20px"></span>${params[0].data}
               `
             }
             return str;
           }
         },
         xAxis: {
-          show: false,
+          axisTick: {
+            show: false,
+          },
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: '#975fe4',
+              width: 2,
+              type: 'solid'
+            },
+          },
+          axisLabel: {
+            show:false
+          },
           type: 'category',
           boundaryGap: false,
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          data: []
         },
         yAxis: {
           show: false,
           type: 'value'
         },
         series: [{
-
           symbol:'circle',
-          symbolSize: 8,//拐点大小
-          data: [820, 932, 901, 934, 1290, 1330, 1320],
+          symbolSize: 2,//拐点大小
+          data: [],
           type: 'line',
           areaStyle: {}
         }]

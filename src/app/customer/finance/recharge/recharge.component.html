@@ -5,7 +5,7 @@
         <div class="title">
           <div class="img"><img src="assets/img/indexjinr.png" alt=""></div>
           <div class="right">
-            <p>今日消耗</p>
+            <p>今日花费</p>
             <h1>{{userData?.consume | currencyFormat}}</h1>
           </div>
         </div>
@@ -45,12 +45,15 @@
     <hr>
     <div class="bottom">
       <div class="number clear">
-        <div class="list">账户余额<span>{{userData?.balance | currencyFormat}}</span><i class="icon-tool-tip"></i></div>
+        <div class="list">每日预算<span>{{userData?.max_day_money | currencyFormat}}</span>
+          <i yc-popover [template]="template" #popover="ycPopover" class="icon-tool-edit" (openEvent)=" money = (userData?.max_day_money)" *ngIf="isPermit('ZCMOBI_ADS_FINACE_RECHARGE_UPDATE_MAX_DAY_MONEY')"></i>
+        </div>
       </div>
 
       <div class="number clear">
-        <div class="list">每日预算<span>{{userData?.max_day_money | currencyFormat}}</span><i class="icon-tool-edit"></i></div>
+        <div class="list">账户余额<span>{{userData?.balance | currencyFormat}}</span><i class="icon-tool-tip"></i></div>
       </div>
+
     </div>
   </div>
 
@@ -103,7 +106,27 @@
 </div>
 
 </div>
-
+<ng-template #template>
+  <div class="day-money-home">
+    <label class="form-label">修改每日预算</label>
+    <div style="" class="form-group flex-center">
+      <div class="form-input">
+        <input type="text" class="form-control" autofocus [(ngModel)]="money" (keyup.enter)="postBudget();_popoverRef.close()" name="money"
+               [ngClass]="{'red': moneyRef.invalid || (userData?.consume <= 0 && money < 100) || (userData?.consume > 0 && money < (100 + userData?.consume))}"
+               #moneyRef="ngModel"  pattern="^[0-9]\d*(\.\d{1,2})?$">
+        <!--pattern="^\d([.]{1}\d{1,2})?$"-->
+        <p class="input-error" *ngIf="moneyRef.invalid">请输入正确的金额</p>
+        <p class="input-error" *ngIf="userData?.consume <= 0  && money < 100 && moneyRef.valid">每日预算不能小于100元！</p>
+        <p class="input-error" *ngIf="userData?.consume > 0 && money && money < (100 + userData?.consume) && moneyRef.valid">预算金额需大于{{(100 + userData?.consume) | number:'1.2-2'}}！</p>
+      </div>
+    </div>
+    <div class="text-right">
+      <button class="btn btn-border" (click)="_popoverRef.close()">取消</button>
+      <button class="btn btn-small" (click)="postBudget();_popoverRef.close();"
+              [disabled]="!money || moneyRef.invalid || (userData?.consume <= 0 && money < 100) || (userData?.consume > 0 && money < (100 + userData?.consume))">确定</button>
+    </div>
+  </div>
+</ng-template>
 
 <ng-template #templateRecharge>
   <div class="recharge-par">

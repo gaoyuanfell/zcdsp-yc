@@ -159,9 +159,9 @@ export class ConsumeExpandComponent implements OnInit, AfterViewInit {
         }
       ]
     });
-    // window.addEventListener('resize', () => {
-    //   chartDataRef.resize();
-    // });
+    window.addEventListener('resize', () => {
+      chartDataRef.resize();
+    });
   }
 
 }

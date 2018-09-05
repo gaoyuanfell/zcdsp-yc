@@ -11,7 +11,6 @@ declare module '*.json' {
 }
 
 declare var echarts: any;
-declare var SparkMD5: any;
 declare var domtoimage: any;
 declare var wangEditor: any;
 declare var BMap: any;
