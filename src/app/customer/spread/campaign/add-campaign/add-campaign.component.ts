@@ -215,6 +215,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     };
     this._publicService.getAudienceCount(body).subscribe(res => {
       this._audienceCount = res.result || 0;
+      this.changeDetectorRef.markForCheck();
     });
   }
 
@@ -535,10 +536,12 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
       this.direction_packages = res.result.direction_packages;
       if (res.result.campaign) {
         this.campaign = res.result.campaign;
+        this.campaign.show_hours = res.result.show_hours;
         this.campaignTimes = [this.campaign.begin_date, this.campaign.end_date];
       }
       if(res.result.directional){
         this.directional = res.result.directional;
+        this.audienceCount();
       }
       this.changeDetectorRef.markForCheck();
     });
@@ -546,6 +549,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     if (!this._isEdit) {
       this._directionalService.directionalRecommend().subscribe(res => {
         this.directional = res.result;
+        this.audienceCount();
         this.changeDetectorRef.markForCheck();
       });
     }

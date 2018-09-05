@@ -443,8 +443,9 @@ export class CampaignDetailComponent implements OnInit, OnDestroy {
     this._changeCampaignAndCreativeChart(this.chartDataInstance, this.creativeChartData, this.campaignCode);
   }
 
-  constructor(@Inject(YC_SIDEBAR_DATA) public data: any) {
+  constructor(@Inject(YC_SIDEBAR_DATA) public data: any, private _campaignService: CampaignService, private changeDetectorRef:ChangeDetectorRef) {
     this.campaignData = data.campaignData;
+    this.campaign = data.campaignData.campaign;
     this.creativeChartData = data.chartData;
 
     this.creativeList = this.campaignData.creatives;
@@ -466,6 +467,7 @@ export class CampaignDetailComponent implements OnInit, OnDestroy {
   orientationValue;
   creativeList;
   campaignData: any = {};
+  campaign:any = {};
   show_time_type;
 
   campaignCode = 'pv';
@@ -478,17 +480,17 @@ export class CampaignDetailComponent implements OnInit, OnDestroy {
 
   ///------------------------------ 详情修改
 
-  startList: Array<any> = Array.from({length: 12}).map((a, b) => ({label: b, value: b}));
-  endList: Array<any> = Array.from({length: 12}).map((a, b) => ({label: b, value: b}));
+  startList: Array<any> = Array.from({length: 24}).map((a, b) => ({label: b, value: b}));
+  endList: Array<any> = Array.from({length: 24}).map((a, b) => ({label: b, value: b}));
 
   startData;
   endData;
 
   startListChange() {
     console.info(this.startData);
-    this.endList = Array.from({length: 12}).map((a, b) => {
+    this.endList = Array.from({length: 24}).map((a, b) => {
       let data = {label: b, value: b, disabled: false};
-      if (this.startData >= b) {
+      if (this.startData > b) {
         data.disabled = true;
       }
       return data;
@@ -497,13 +499,28 @@ export class CampaignDetailComponent implements OnInit, OnDestroy {
 
   save() {
     let body = {
-      campaign_name:this.campaignData.campaign_name,
-      ad_price:this.campaignData.ad_price,
-      day_budget:this.campaignData.day_budget,
-      begin_date:this.campaignData.begin_date,
-      end_date:this.campaignData.end_date,
+      campaign_id:this.campaign.campaign_id,
+      campaign_name:this.campaign.campaign_name,
+      ad_price:this.campaign.ad_price,
+      day_budget:this.campaign.day_budget,
+      begin_date:this.campaign.begin_date,
+      end_date:this.campaign.end_date,
     };
-    console.info(body);
+
+    let today_show_hours = Array.from({length: 24}).map((a, b) => {
+      if(this.startData <= b && this.endData >= b){
+        return 1
+      }
+      return 0
+    })
+
+    this._campaignService.campaignDetailUpdate({
+      campaign:body,
+      today_show_hours: today_show_hours
+    }).subscribe(res => {
+      this.edit = false;
+      this.changeDetectorRef.markForCheck();
+    })
   }
 
   changeDayTotalList(chartDatas) {

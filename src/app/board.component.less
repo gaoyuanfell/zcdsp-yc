@@ -92,9 +92,108 @@
   width: 100%;
   min-width: 1366px;
   margin-bottom: 40px;
-  img {
-    display: block;
-    width: 100%;
+  background: url("../assets/img/index/bannerbg.jpg") no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+  padding-bottom: 46%;
+  .tit{
+    width: 1220px;
+    margin: auto;
+    position: absolute;
+    top: 234px;
+    left: 0;
+    right: 0;
+    p {
+      font-size: 28px;
+      color: #1c2c50;
+      margin-top: 10px;
+    }
+  }
+  .img0{
+    position: absolute;
+    left: 609px;
+    top: 484px;
+    .img11{
+      position: absolute;
+      width: 186px;
+      left: 62px;
+      top: -47px;
+    }
+    .img12{
+      position: absolute;
+      width: 52px;
+      left: 82px;
+      top: 62px;
+    }
+  }
+  .img1{
+    position: absolute;
+    left: 716px;
+    top: 263px;
+    .img21{
+      position: absolute;
+      width: 188px;
+      left: 62px;
+      top: -50px;
+    }
+    .img22{
+      position: absolute;
+      width: 52px;
+      left: 194px;
+      top: 66px;
+    }
+  }
+  .img2{
+    position: absolute;
+    left: 1017px;
+    top: 169px;
+    .img31{
+      position: absolute;
+      width: 186px;
+      left: 62px;
+      top: -50px;
+    }
+    .img32{
+      position: absolute;
+      width: 40px;
+      left: 126px;
+      top: 91px;
+    }
+  }
+  .img3{
+    position: absolute;
+    right: 723px;
+    top: 295px;
+    .img41{
+      position: absolute;
+      width: 187px;
+      left: 62px;
+      top: -50px;
+    }
+    .img42{
+      position: absolute;
+      width: 42px;
+      left: 230px;
+      top: 50px;
+    }
+  }
+  .img5{
+    position: absolute;
+    width: 172px;
+    right: 446px;
+    top: 516px;
+  }
+  .img6{
+    position: absolute;
+    width: 70px;
+    left: 988px;
+    top: 424px;
+  }
+  .img7{
+    position: absolute;
+    width: 53px;
+    left: 1100px;
+    top: 358px;
   }
 }
 
@@ -102,10 +201,14 @@
   padding-top: 38px;
   width: 1352px;
   margin: auto;
+  .tit{
+    width: 1220px;
+    margin: auto;
+  }
   p {
     font-size: 16px;
     color: #313a5a;
-    line-height: 1.5;
+    line-height: 1.6;
     margin-top: 20px;
     margin-bottom: 58px;
   }
@@ -116,6 +219,34 @@
 }
 .scheme{
   padding-bottom: 116px;
+}
+.schemeimg{
+  width: 1352px;
+  height:1098px;
+  background: url("../assets/img/index/fa.png") no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+  .scheimgbox{
+    width:85px;
+    height: 254px;
+    overflow: hidden;
+    position: absolute;
+    top: 50%;
+    left:50%;
+    margin-top:-118px;
+    margin-left: -33px;
+  }
+  .listimg{
+    display: flex;
+    width: 600%;
+    height: 254px;
+    position: absolute;
+    transition: all 0.2s ease;
+    img{
+      width:85px;
+      height: 254px;
+    }
+  }
 }
 .huibg {
   background: #f9fcff;
@@ -518,10 +649,5 @@
         margin: 0 10px;
       }
     }
-  }
-}
-@media screen and (max-width: 1366px){
-  .mobel {
-    width: 1314px;
   }
 }

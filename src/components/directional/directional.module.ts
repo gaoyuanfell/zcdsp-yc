@@ -7,6 +7,7 @@ import {SwitchInputModule} from '../switch-input/switch-input.module';
 import {ModulePipe} from '../../app/module-pipe';
 import {CheckboxGroupModule} from "../checkbox-group/checkbox-group.module";
 import { RadioGroupModule } from '../radio-group/radio-group.module';
+import {MapModule} from '../map/map.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { RadioGroupModule } from '../radio-group/radio-group.module';
     ModulePipe,
     CheckboxGroupModule,
     RadioGroupModule,
+    MapModule,
   ],
   declarations: [
     DirectionalComponent,

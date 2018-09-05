@@ -17,18 +17,18 @@
       <div style="width: 30%">
         <div class="word-data-box">
           <span>活动ID：</span>
-          <p>{{campaignData?.campaign_id}}</p>
+          <p>{{campaign?.campaign_id}}</p>
         </div>
         <div class="word-data-box">
           <span>活动名称：</span>
-          <p *ngIf="!edit">{{campaignData?.campaign_name}}</p>
-          <p *ngIf="edit"><input [(ngModel)]="campaignData.campaign_name" class="mini-input"></p>
+          <p *ngIf="!edit">{{campaign?.campaign_name}}</p>
+          <p *ngIf="edit"><input [(ngModel)]="campaign.campaign_name" class="mini-input"></p>
         </div>
         <div class="word-data-box">
           <span>投放日期：</span>
-          <p *ngIf="!edit">{{campaignData?.begin_date}}~{{campaignData?.end_date}}</p>
+          <p *ngIf="!edit">{{campaign?.begin_date}}~{{campaign?.end_date}}</p>
           <p *ngIf="edit">
-            <input-datepicker [isRange]="true" [size]="'small'" [width]="200" [query]="campaignData" [appendField]="['begin_date','end_date']"></input-datepicker>
+            <input-datepicker [isRange]="true" [size]="'small'" [width]="200" [query]="campaign" [appendField]="['begin_date','end_date']"></input-datepicker>
           </p>
         </div>
         <div class="word-data-box">
@@ -67,23 +67,34 @@
         </div>
         <div class="word-data-box">
           <span>广告出价：</span>
-          <p *ngIf="!edit">{{campaignData?.ad_price | currencyFormat}}</p>
-          <p *ngIf="edit"><input [(ngModel)]="campaignData.ad_price" class="mini-input"></p>
+          <p *ngIf="!edit">{{campaign?.ad_price | currencyFormat}}</p>
+          <p *ngIf="edit"><input [(ngModel)]="campaign.ad_price" class="mini-input"></p>
         </div>
         <div class="word-data-box">
           <span>广告预算：</span>
-          <p *ngIf="!edit">{{campaignData?.day_budget | currencyFormat}}</p>
-          <p *ngIf="edit"><input [(ngModel)]="campaignData.day_budget" class="mini-input"></p>
+          <p *ngIf="!edit">{{campaign?.day_budget | currencyFormat}}</p>
+          <p *ngIf="edit"><input [(ngModel)]="campaign.day_budget" class="mini-input"></p>
         </div>
         <div class="word-data-box">
           <span>目标类型：</span>
-          <p>{{campaignData?.day_budget | currencyFormat}}</p>
+          <p>{{campaign?.target_type_name}}</p>
         </div>
         <div class="word-data-box">
           <span>目标详情：</span>
-          <p>{{campaignData?.day_budget | currencyFormat}}</p>
-          <p>{{campaignData?.day_budget | currencyFormat}}</p>
-          <p>{{campaignData?.day_budget | currencyFormat}}</p>
+
+          <ng-template [ngIf]="campaign?.target_type == 1">
+            <p>{{campaign?.click_link}}</p>
+          </ng-template>
+          <ng-template [ngIf]="campaign?.target_type == 2">
+            <p>下载地址：{{campaign?.download_link}}</p>
+            <p>APPID：{{campaign?.app_bundle_id}}</p>
+            <p>APP名称：{{campaign?.app_package_name}}</p>
+          </ng-template>
+          <ng-template [ngIf]="campaign?.target_type == 3">
+            <p>下载地址：{{campaign?.download_link}}</p>
+            <p>APPID：{{campaign?.app_bundle_id}}</p>
+            <p>APP名称：{{campaign?.app_name}}</p>
+          </ng-template>
         </div>
       </div>
       <div style="width: 30%">

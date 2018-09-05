@@ -19,7 +19,7 @@ import {TrComponent} from './tr.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <yc-checkbox *ngIf="showCheckbox" [(ngModel)]="checked" [checkState]="_checkState" (changeEvent)="_change()"></yc-checkbox>
-    <span class="nowrap"><ng-content></ng-content></span>
+    <span [ngStyle]="{'width.px': width}" class="nowrap"><ng-content></ng-content></span>
   `,
 })
 export class TdComponent implements OnChanges{
@@ -28,6 +28,7 @@ export class TdComponent implements OnChanges{
 
   @Input() fixed: 'left' | 'right'; // 是否固定列
   @Input() showCheckbox;
+  @Input() width
 
   @Input() set checked(val) {
     this._checked = val;
