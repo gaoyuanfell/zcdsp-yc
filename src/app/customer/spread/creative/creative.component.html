@@ -45,12 +45,14 @@
         <yc-select [width]="200" [(ngModel)]="query.campaign_id" (selectedEvent)="search()" [placeholder]="'活动'" [list]="campaign_list" [props]="{value:'campaign_id',label:'campaign_name'}" [searchCtrl]="true" [whole]="'全部'"></yc-select>
         <input-datepicker [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
         <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'请输入创意的名称、ID'"></yc-input-search>
+        <i title="刷新" class="zcdsp-icon pointer" (click)="refresh()">&#xe91e;</i>
       </div>
     </div>
     <table #tableRef table>
       <thead>
       <tr>
         <th fixed="left" width="50" [showCheckbox]="true"></th>
+        <th></th>
         <th>创意ID</th>
         <th class="text-left" width="200">创意名称</th>
         <th></th>
@@ -66,14 +68,17 @@
         <th class="text-right" [showSort]="true" [sortKey]="'cpc'" title="广告主为每次点击付出的平均花费(花费/点击量)">点击成本</th>
         <th class="text-right" [showSort]="true" [sortKey]="'cpm'" title="广告主为每1000次曝光付出平均花费(花费/曝光量*1000)">曝光成本</th>
         <th class="text-right" [showSort]="true" [sortKey]="'admoney'" title="广告点击后产生的费用">花费</th>
-        <th class="text-right">操作</th>
+        <!--<th class="text-right">操作</th>-->
       </tr>
       </thead>
       <tbody>
       <ng-template [ngForOf]="ycTable.data" ngFor let-data let-index="index">
         <tr [expand]="trExpand" #tr>
           <td fixed="left" [showCheckbox]="data"></td>
-          <td (click)="tr.trigger()">{{data.creative_id}}</td>
+          <td (click)="tr.trigger()" class="pointer">
+            <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}"></i>
+          </td>
+          <td>{{data.creative_id}}</td>
           <td class="text-left" [width]="200" title="{{data.creative_name}}">
             <a data-link (click)="_showCreative(data)">{{data.creative_name}}</a>
           </td>
@@ -102,17 +107,15 @@
           <td class="text-right">{{ data.cpc | currencyFormat}}</td>
           <td class="text-right">{{ data.cpm * 1000 | currencyFormat}}</td>
           <td class="text-right">{{ data.admoney | currencyFormat }}</td>
-          <td class="text-right">
+          <!--<td class="text-right">
             <a href="javascript:void 0" [routerLink]="['/ads/spread/creative/edit',data.creative_id]">修改</a>
             <a href="javascript:void 0" (click)="openCampaignDetail(data)">详情</a>
-          </td>
+          </td>-->
         </tr>
 
         <tr #trExpand>
-          <td colspan="1000" *ngIf="trExpand.show">
-            <div style="width: 100%;height: 500px;background-color: red">
-
-            </div>
+          <td colspan="100%" *ngIf="trExpand.show">
+            <yc-creative-expand (change)="list()" [id]="data.creative_id" [authList]="authList"></yc-creative-expand>
           </td>
         </tr>
 
@@ -131,7 +134,6 @@
             </div>
           </div>
         </ng-template>
-
 
         <ng-template #adPrice>
           <div class="day-money-home">
@@ -153,6 +155,23 @@
         </ng-template>
 
       </ng-template>
+      <tr *ngIf="ycTable.data?.length">
+        <td colspan="3">本页合计</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td class="text-right">{{other?.pv | number}}</td>
+        <td class="text-right">{{other?.click | number}}</td>
+        <td class="text-right">{{ other?.ctr * 100 | number: '1.2-2' }}%</td>
+        <td class="text-right">{{ other?.cpc | currencyFormat}}</td>
+        <td class="text-right">{{ other?.cpm * 1000 | currencyFormat}}</td>
+        <td class="text-right">{{ other?.admoney | currencyFormat }}</td>
+      </tr>
       </tbody>
     </table>
   </yc-table>

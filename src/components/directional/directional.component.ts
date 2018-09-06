@@ -223,6 +223,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   }
 
   ngOnInit() {
+    this.store.dispatch(new directionalAction.DirectionalRecovery());
     this.getResultInit();
   }
 
@@ -274,6 +275,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   getResultInit() {
     let resultSubject = new Subject();
     resultSubject.subscribe(data => {
+      console.info(data)
       this.onChange(data);
     });
 
@@ -287,7 +289,6 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     });
 
     this.lbsCityResult$$ = this.lbsCityResult$.subscribe(data => {
-      console.info(data)
       if (!data) return;
       if (data instanceof Array && data.length) this.areasShow = true;
       result.dtl_address.lbs = data.map(ar => ({id: ar.id, name: ar.name, coords: ar.location_items, type_id: ar.type_id}));
@@ -295,7 +296,6 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     });
 
     this.LbsCityMapResult$$ = this.LbsCityMapResult$.subscribe(data => {
-      console.info(data)
       if (!data) return;
       if (data instanceof Array && data.length) this.areasShow = true;
       result.dtl_address.lbs = data.map(ar => ({id: ar.id, name: ar.name, coords: ar.location_items, type_id: ar.type_id}));
@@ -336,7 +336,6 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
       Object.keys(data).every(key => {
         if (data[key] instanceof Array && data[key].length) {
           this.deviceShow = true;
-          console.info(this.deviceShow);
           this.changeDetectorRef.markForCheck();
           return false;
         }
@@ -377,10 +376,9 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   }
 
   writeValue(obj: any): void {
-    if (!obj) obj = {};
+    if (!obj) return;
     this.assignDefaultData(obj, getDirectionalData());
     this.result = obj;
-    this.store.dispatch(new directionalAction.DirectionalRecovery());
     this.store.dispatch(new directionalAction.DirectionalSetResult(this.result));
   }
 
@@ -389,7 +387,6 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(new directionalAction.DirectionalRecovery());
     this.getResultDestroy();
   }
 

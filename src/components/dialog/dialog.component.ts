@@ -24,22 +24,12 @@ import {DOCUMENT} from '@angular/common';
 })
 export class DialogComponent implements OnInit {
   ngOnInit(): void {
-    this._fullMaxHeight = this.document.body.clientHeight - 60 + 'px';
   }
 
-  _fullMaxHeight;
   _state: 'void' | 'enter' | 'exit' = 'enter';
   closeSubject = new Subject();
   description;
   config;
-
-  get fullMaxHeight() {
-    if (!this.config) return null;
-    if (this.config.fullScreen) return {'max-height': this.document.body.clientHeight - 60 + 'px', 'height': this.document.body.clientHeight - 60 + 'px'}
-    return {
-      'max-height': this.config.maxHeight || '80vh'
-    };
-  }
 
   constructor(@Inject(DOCUMENT) private document: Document) {
   }
@@ -59,7 +49,7 @@ export class DialogComponent implements OnInit {
 
   animationStarted(event){
     this._animationStateChanged.emit(event)
-    
+
   }
 
   animationDone(event){
