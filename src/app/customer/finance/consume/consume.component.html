@@ -1,73 +1,6 @@
 
 <div class="container-list">
 
-
-  <!--<div class="topPar">-->
-    <!--<ul class="top">-->
-      <!--<li>-->
-        <!--<div>-->
-          <!--<div class="title">-->
-            <!--<div class="img"><img src="assets/img/indexjinr.png" alt=""></div>-->
-            <!--<div class="right">-->
-              <!--<p>今日消耗</p>-->
-              <!--<h1>{{userData?.consume | currencyFormat}}</h1>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="number">-->
-          <!--<button class="btn btn-round" style="padding: 0 20px;" (click)="recharge()">充值流程</button>-->
-        <!--</div>-->
-      <!--</li>-->
-
-      <!--<li>-->
-        <!--<div class="title">-->
-          <!--<div class="img"><img src="assets/img/indexbaog.png" alt=""></div>-->
-          <!--<div class="right">-->
-            <!--<p>曝光总量</p>-->
-            <!--<h1>{{echartsData?.pv | numberFormat}}</h1>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</li>-->
-
-      <!--<li>-->
-        <!--<div class="title">-->
-          <!--<div class="img"><img src="assets/img/indexdianj.png" alt=""></div>-->
-          <!--<div class="right">-->
-            <!--<p>点击总量</p>-->
-            <!--<h1>{{echartsData?.click | numberFormat}}</h1>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</li>-->
-
-    <!--</ul>-->
-    <!--<hr>-->
-    <!--<div class="bottom">-->
-
-
-
-      <!--<div class="number">-->
-
-        <!--<div class="list">每日预算<span>{{userData?.max_day_money | currencyFormat}}</span>-->
-          <!--<i yc-popover [template]="template" #popover="ycPopover" class="icon-tool-edit" (openEvent)=" money = (userData?.max_day_money) " *ngIf="isPermit('ZCMOBI_ADS_FINACE_CONSUME_UPDATE_MAX_DAY_MONEY')"></i>-->
-        <!--</div>-->
-      <!--</div>-->
-
-      <!--<div class="number clear">-->
-        <!--<div class="list">账户余额<span>{{userData?.balance | currencyFormat}}</span><i class="icon-tool-tip"></i></div>-->
-      <!--</div>-->
-
-
-      <!--<div class="number">-->
-        <!--<div class="list">曝光成本<span>{{echartsData?.cpm * 1000 | currencyFormat}}</span></div>-->
-      <!--</div>-->
-
-      <!--<div class="number">-->
-        <!--<div class="list">点击成本<span>{{echartsData?.cpc | currencyFormat}}</span></div>-->
-      <!--</div>-->
-
-
-    <!--</div>-->
-  <!--</div>-->
   <ul class="top">
     <li>
       <div class="title">
@@ -80,7 +13,9 @@
       <div class="echart"></div>
       <div class="number">
         <div class="list">今日花费<span>{{userData?.consume | currencyFormat}}</span></div>
-          <div class="list">每日预算<span>{{userData?.max_day_money | currencyFormat}}</span></div>
+          <div class="list">每日预算<span>{{userData?.max_day_money | currencyFormat}}
+            <i yc-popover [template]="template" #popover="ycPopover" class="icon-tool-edit" (openEvent)=" money = (userData?.max_day_money) " *ngIf="isPermit('ZCMOBI_ADS_FINACE_CONSUME_UPDATE_MAX_DAY_MONEY')"></i>
+          </span></div>
       </div>
     </li>
     <li>
@@ -93,7 +28,7 @@
       </div>
       <div class="echart"></div>
       <div class="number">
-        <div class="list">今日曝光成本<span>{{echartsData?.cpm * 1000 | currencyFormat}}</span></div>
+        <div class="list">曝光成本<span>{{echartsData?.cpm * 1000 | currencyFormat}}</span></div>
       </div>
     </li>
     <li>
@@ -106,8 +41,8 @@
       </div>
       <div class="echart"></div>
       <div class="number">
-        <div class="list">今日点击成本<span>{{echartsData?.cpc | currencyFormat}}</span></div>
-        <div class="list">今日点击率<span>{{echartsData?.ctr * 100 | number: '1.2-2'}}%</span></div>
+        <div class="list">点击成本<span>{{echartsData?.cpc | currencyFormat}}</span></div>
+        <div class="list">点击率<span>{{echartsData?.ctr * 100 | number: '1.2-2'}}%</span></div>
       </div>
     </li>
   </ul>
@@ -177,7 +112,7 @@
   </div>
 </ng-template>
 
-  <ng-template #templateRecharge>
+<ng-template #templateRecharge>
     <div class="recharge-par">
       <div class="recharge-tem">
         <h3>一、智橙收款账户</h3>

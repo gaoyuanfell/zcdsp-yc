@@ -1,20 +1,23 @@
 <div class="container-list">
-  <div class="data-top flex">
+
+  <div class="data-top">
     <div class="left-img">
-      <img src="assets/img/customer/img/user-icon.png">
+      <img src="assets/img/user/head.png">
     </div>
     <div class="right-info">
-      <p class="flex-center">
+      <div class="nick_name">
         {{user?.nick_name}}
-      </p>
-      <p class="flex-center">
-        <i class="login-icon"></i>
-        <span>登入账号：{{user?.user_name}}</span>
-      </p>
-      <p class="flex-center">
-        <i class="time-icon"></i>
-        <span>注册时间：{{user?.creation_date | date: 'yyyy-MM-dd HH-mm-ss'}}</span>
-      </p>
+      </div>
+      <div class="user_name">
+        <div>
+          <i class="login-icon"></i>
+          <span>登入账号：{{user?.user_name}}</span>
+        </div>
+        <div>
+          <i class="time-icon"></i>
+          <span>注册时间：{{user?.creation_date | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
+        </div>
+      </div>
     </div>
   </div>
 

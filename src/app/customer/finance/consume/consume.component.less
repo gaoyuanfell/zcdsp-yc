@@ -2,92 +2,7 @@
 .container-list {
   padding: 45px 25px;
 }
-//.topPar {
-//  background: #fff;
-//  height:195px;
-//  margin-bottom:30px;
-//  .top{
-//    display: flex;
-//    justify-content: space-around;
-//    margin-bottom: 24px;
-//    padding:20px 0 0 0;
-//    li{
-//      &:nth-child(1) {
-//        display: flex;
-//        justify-content: space-around;
-//        align-items: center;
-//      }
-//      &:last-child{
-//        border: none;
-//      }
-//      border-right: 1px solid lightgray;
-//      width: 33%;
-//      height:105px;
-//      padding: 18px;
-//      &:last-child{
-//        margin-right: 0;
-//      }
-//      .title{
-//        margin: 0 auto;
-//        display: table;
-//        .img{
-//          width: 52px;
-//          height:52px;
-//          display: table-cell;
-//          vertical-align: middle;
-//          img{
-//            display: block;
-//            width: 100%;
-//          }
-//        }
-//        .right{
-//          display: table-cell;
-//          vertical-align: middle;
-//          padding-left: 16px;
-//          p{
-//            margin-bottom: 8px;
-//            font-weight: bold;
-//            color: #666666;
-//          }
-//          h1{
-//            color: #111;
-//            font-size: 24px;
-//            font-weight: normal;
-//            white-space: nowrap;
-//          }
-//        }
-//      }
-//    }
-//  }
-//  hr {
-//    background: lightgray;
-//    width:95%;
-//    margin:0 auto
-//  }
-//  .bottom {
-//    display: flex;
-//    justify-content:space-between;
-//    .number{
-//      &:last-child {
-//        margin-right: 5%;
-//      }
-//      margin-left: 5%;
-//      font-size: 14px;
-//      color: #979899;
-//      margin-top: 14px;
-//      .list{
-//        float: left;
-//        white-space: nowrap;
-//        width: 50%;
-//        span {
-//          margin-left: 6px;
-//          color: #333;
-//          margin-right: 5px;
-//        }
-//      }
-//    }
-//  }
-//}
+
 
 .top{
   display: flex;
@@ -126,7 +41,7 @@
         }
         h1{
           color: #111;
-          font-size: 36px;
+          font-size: 30px;
           font-weight: normal;
           white-space: nowrap;
         }
@@ -174,6 +89,21 @@
     margin-top: 16px;
     border-bottom: 1px #efefef solid;
   }
+}
+
+@media screen and (max-width: 1480px) {  // id class 优先级呀 嵌套越深优先级高  保持一致
+  .top{
+    li {
+      .title {
+        .right{
+          h1{
+            font-size: 24px;
+          }
+        }
+      }
+    }
+  }
+
 }
 
 
