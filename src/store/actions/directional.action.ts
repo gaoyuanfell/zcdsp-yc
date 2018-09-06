@@ -35,8 +35,14 @@ export enum DirectionalActionTypes {
 
 
   DIRECTIONAL_RECOVERY = '[DIRECTIONAL] DIRECTIONAL_RECOVERY',
-  DIRECTIONAL_SHOW_RESULT = '[DIRECTIONAL] DIRECTIONAL_SHOW_RESULT',
   DIRECTIONAL_SET_RESULT = '[DIRECTIONAL] DIRECTIONAL_SET_RESULT',
+  DIRECTIONAL_RECOVERY2 = '[DIRECTIONAL] DIRECTIONAL_RECOVERY2',
+  DIRECTIONAL_SET_RESULT2 = '[DIRECTIONAL] DIRECTIONAL_SET_RESULT2',
+
+  AUDIENCES_APP_ASSIGN = '[DIRECTIONAL] AUDIENCES_APP_ASSIGN',
+  QUERY_AUDIENCES_APP_BY_NAME = '[DIRECTIONAL] QUERY_AUDIENCES_APP_BY_NAME',
+  AUDIENCES_APP_NEXT_CHILD = '[DIRECTIONAL] AUDIENCES_APP_NEXT_CHILD',
+  CHECK_AUDIENCES_APP_CHANGE = '[DIRECTIONAL] CHECK_AUDIENCES_APP_CHANGE',
 }
 
 // effects 数据初始化
@@ -232,6 +238,36 @@ export class QueryAudiencesAction2ByName implements Action{
   }
 }
 
+// ------------------   app   ---------------------- //
+
+export class AudiencesAppAssign implements Action{
+  readonly type = DirectionalActionTypes.AUDIENCES_APP_ASSIGN;
+  constructor(public payload: any) {
+
+  }
+}
+
+export class QueryAudiencesAppByName implements Action{
+  readonly type = DirectionalActionTypes.QUERY_AUDIENCES_APP_BY_NAME;
+  constructor(public payload: any) {
+
+  }
+}
+
+export class AudiencesAppNextChild implements Action{
+  readonly type = DirectionalActionTypes.AUDIENCES_APP_NEXT_CHILD;
+  constructor(public payload: any) {
+
+  }
+}
+
+export class CheckAudiencesAppChange implements Action{
+  readonly type = DirectionalActionTypes.CHECK_AUDIENCES_APP_CHANGE;
+  constructor(public payload: any) {
+
+  }
+}
+
 // ------------------  功能 ------------------------ //
 
 // 数据恢复 原始状态
@@ -242,6 +278,19 @@ export class DirectionalRecovery implements Action{
 // 数据回显
 export class DirectionalSetResult implements Action{
   readonly type = DirectionalActionTypes.DIRECTIONAL_SET_RESULT;
+  constructor(public payload: any) {
+
+  }
+}
+
+// 数据恢复 原始状态 APP
+export class DirectionalRecovery2 implements Action{
+  readonly type = DirectionalActionTypes.DIRECTIONAL_RECOVERY2;
+}
+
+// 数据回显 APP
+export class DirectionalSetResult2 implements Action{
+  readonly type = DirectionalActionTypes.DIRECTIONAL_SET_RESULT2;
   constructor(public payload: any) {
 
   }
@@ -276,4 +325,11 @@ export type DirectionalActionUnion
 
   | DirectionalRecovery
   | DirectionalSetResult
+
+  | AudiencesAppAssign
+  | QueryAudiencesAppByName
+  | AudiencesAppNextChild
+  | CheckAudiencesAppChange
+  | DirectionalRecovery2
+  | DirectionalSetResult2
 

@@ -22,7 +22,7 @@ export class CreativeComponent implements OnInit {
   @AutoCookie({
     defaultValue: {
       page_index: 1,
-      page_size: 100
+      page_size: 20
     },
     keepValue: {
       begin_date: new Date().calendar(3, -7).formatDate('yyyy-MM-dd'),
@@ -64,6 +64,15 @@ export class CreativeComponent implements OnInit {
       this.other = res.result.other;
       this.changeDetectorRef.markForCheck();
     });
+  }
+
+  refresh() {
+    Object.keys(this.query).forEach(key => {
+      let list = ['page_index', 'page_size', 'begin_date', 'end_date'];
+      if (!!~list.indexOf(key)) return;
+      Reflect.deleteProperty(this.query, key);
+    })
+    this.search()
   }
 
   @ViewChild('ycTable', { read: TableComponent }) table: TableComponent;
@@ -329,6 +338,9 @@ export class CreativeComponent implements OnInit {
       width: 100%;
       height: 100%;
     }
+    .mini-input {
+      border: 1px solid #ccc;
+    }
     `
   ],
   templateUrl: 'creative-detail.component.html',
@@ -449,16 +461,19 @@ export class CreativeDetailComponent implements OnInit, OnDestroy {
       element_data.elements.data_list.push(body);
     });
 
-    let today_show_hours = Array.from({length: 24}).map((a, b) => {
-      if(this.startData <= b && this.endData >= b){
-        return 1
-      }
-      return 0
-    })
+    let body:any = {
+      creative: element_data
+    }
 
-    let body = {
-      creative: element_data,
-      today_show_hours: today_show_hours
+    if(!isNaN(+this.startData) && !isNaN(+this.endData)){
+      let today_show_hours = Array.from({length: 24}).map((a, b) => {
+        if(this.startData <= b && this.endData >= b){
+          return 1
+        }
+        return 0
+      })
+
+      body.today_show_hours = today_show_hours
     }
 
     this._creativeService.creativeDetailUpdate(body).subscribe(res => {

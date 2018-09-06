@@ -32,7 +32,7 @@ export class CampaignComponent implements OnInit {
   @AutoCookie({
     defaultValue: {
       page_index: 1,
-      page_size: 100
+      page_size: 20
     },
     keepValue: {
       begin_date: new Date().calendar(2, -1).formatDate('yyyy-MM-dd'),
@@ -69,6 +69,15 @@ export class CampaignComponent implements OnInit {
       this.total_count = res.result.total_count;
       this.changeDetectorRef.markForCheck();
     });
+  }
+
+  refresh() {
+    Object.keys(this.query).forEach(key => {
+      let list = ['page_index', 'page_size', 'begin_date', 'end_date'];
+      if (!!~list.indexOf(key)) return;
+      Reflect.deleteProperty(this.query, key);
+    })
+    this.search()
   }
 
   ////*******************************///
@@ -189,6 +198,7 @@ export class CampaignComponent implements OnInit {
   _valid;
   admoneyTotal; // 所选活动总共的花费
   batchUpdate(type) {
+    console.info(this.table)
     let list = this.table.selectData.map(d => d.campaign_id);
     if (!list.length) {
       this._notification.warning('批量修改！', '至少选择一项');
@@ -438,19 +448,22 @@ export class CampaignDetailComponent implements OnInit, OnDestroy {
 
   }
 
+
   ngOnInit(): void {
     this.chartData();
     this._changeCampaignAndCreativeChart(this.chartDataInstance, this.creativeChartData, this.campaignCode);
   }
 
   constructor(@Inject(YC_SIDEBAR_DATA) public data: any, private _campaignService: CampaignService, private changeDetectorRef:ChangeDetectorRef) {
+
     this.campaignData = data.campaignData;
     this.campaign = data.campaignData.campaign;
     this.creativeChartData = data.chartData;
 
     this.creativeList = this.campaignData.creatives;
-    if (this.campaignData.show_hours_today) {
-      this.show_hour_today_format = hoursFormat(this.campaignData.show_hours_today).join(' ');
+    this.show_hours_today = this.campaignData.show_hours_today
+    if (this.show_hours_today) {
+      this.show_hour_today_format = hoursFormat(this.show_hours_today).join(' ');
     } else {
       this.show_hour_today_format = undefined;
     }
@@ -463,6 +476,7 @@ export class CampaignDetailComponent implements OnInit, OnDestroy {
   // 显示活动详情
   @ViewChild('campaignDetail', {read: TemplateRef}) campaignDetailRef: TemplateRef<any>;
 
+  show_hours_today
   show_hour_today_format;
   orientationValue;
   creativeList;
@@ -497,8 +511,12 @@ export class CampaignDetailComponent implements OnInit, OnDestroy {
     });
   }
 
+  cancel(){
+    this.edit = false;
+  }
+
   save() {
-    let body = {
+    let campaign = {
       campaign_id:this.campaign.campaign_id,
       campaign_name:this.campaign.campaign_name,
       ad_price:this.campaign.ad_price,
@@ -507,17 +525,21 @@ export class CampaignDetailComponent implements OnInit, OnDestroy {
       end_date:this.campaign.end_date,
     };
 
-    let today_show_hours = Array.from({length: 24}).map((a, b) => {
-      if(this.startData <= b && this.endData >= b){
-        return 1
-      }
-      return 0
-    })
+    let body: any = {
+      campaign:campaign,
+    }
 
-    this._campaignService.campaignDetailUpdate({
-      campaign:body,
-      today_show_hours: today_show_hours
-    }).subscribe(res => {
+    if(!isNaN(+this.startData) && !isNaN(+this.endData)){
+      let today_show_hours = Array.from({length: 24}).map((a, b) => {
+        if(this.startData <= b && this.endData >= b){
+          return 1
+        }
+        return 0
+      })
+      body.today_show_hours = today_show_hours
+    }
+
+    this._campaignService.campaignDetailUpdate(body).subscribe(res => {
       this.edit = false;
       this.changeDetectorRef.markForCheck();
     })

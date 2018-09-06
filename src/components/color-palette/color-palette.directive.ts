@@ -82,13 +82,12 @@ export class ColorPaletteDirective implements ControlValueAccessor {
 
     if (!this.popup.hasAttached()) {
       this.componentRef = this.popup.attach(this.portal);
-
-      this.componentRef.instance.value = this.rgbaHexBy(this.value);
       this.componentRef.instance.changeEvent.subscribe(data => {
         this.value = data
-        this.onChange(data);
         this.changeEvent.emit(data)
+        this.onChange(data);
       })
+      this.componentRef.instance.value = this.rgbaHexBy(this.value);
     }
     this.opened = true;
   }

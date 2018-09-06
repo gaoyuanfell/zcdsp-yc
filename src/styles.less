@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'zcdsp-icon';  /* project id 811354 */
-  src: url('//at.alicdn.com/t/font_811354_y9xa2fxsof.eot');
-  src: url('//at.alicdn.com/t/font_811354_y9xa2fxsof.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_811354_y9xa2fxsof.woff') format('woff'),
-  url('//at.alicdn.com/t/font_811354_y9xa2fxsof.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_811354_y9xa2fxsof.svg#zcdsp-icon') format('svg');
+  src: url('//at.alicdn.com/t/font_811354_yuwc69dwu2a.eot');
+  src: url('//at.alicdn.com/t/font_811354_yuwc69dwu2a.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_811354_yuwc69dwu2a.woff') format('woff'),
+  url('//at.alicdn.com/t/font_811354_yuwc69dwu2a.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_811354_yuwc69dwu2a.svg#zcdsp-icon') format('svg');
 }
 // @font-face {font-family: "zcdsp-icon";
 //   src: url('./assets/font/iconfont.eot?t=1535527923358'); /* IE9*/
@@ -404,6 +404,23 @@ body {
 .m-r-1 {
   margin-right: 1rem !important;
 }
+
+.p-t-1 {
+  padding-top: 1rem !important;
+}
+
+.p-b-1 {
+  padding-bottom: 1rem !important;
+}
+
+.m-t-1 {
+  margin-top: 1rem !important;
+}
+
+.m-b-1 {
+  margin-bottom:1rem !important;
+}
+
 .w0{
   width: 0%;
 }
@@ -418,6 +435,10 @@ body {
 }
 .w100{
   width: 100%;
+}
+
+.pointer{
+  cursor: pointer;
 }
 /////////////////////// 公共样式
 
@@ -447,7 +468,7 @@ body {
 
 .cover-people {
   margin-right: auto;
-  color: #979899;
+  color: #212121;
   font-size: 14px;
   font-weight: 700;
   > span {
@@ -696,9 +717,67 @@ body {
   margin-bottom: 100px;
 }
 
+.chart-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  .tool {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    z-index: 1;
+  }
+}
 
+.pointer-outline-none {
+  cursor: pointer;
+  outline: none;
+}
 ////////////////////// 推广
 
+/// ============================== yc-popover 修改数据
+
+.day-money-home {
+  .form-group {
+    margin-top: 10px;
+    padding-bottom: 10px;
+  }
+  .form-label {
+    width: 50px;
+    text-align:left;
+    padding-right: 0;
+  }
+  .form-group-offset {
+    margin-left: 50px;
+    padding-bottom: 0;
+    min-height: auto;
+  }
+  .input-error {
+    color: #ff4500;
+    position:absolute;
+  }
+  .form-input {
+    min-width: 160px;
+    padding-left:0;
+    .form-control {
+      &.red {
+        border:1px solid red;
+      }
+    }
+  }
+  .text-right {
+    margin-top:5px;
+    .btn:nth-child(1){
+      margin-right:10px;
+    }
+    button {
+      &:disabled{
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+    }
+  }
+}
 
 //////////////////// 按钮
 
@@ -810,7 +889,7 @@ body {
 
 
 .input-text{
-  line-height: 30px;
+  line-height: 36px;
   padding-left: 20px;
 }
 
@@ -848,8 +927,8 @@ textarea.form-control {
   color: #979899;
   font-size: 14px;
   font-weight: 400;
-  padding-left: 24px;
-  line-height: 30px;
+  padding-left: 20px;
+  line-height: 36px;
 }
 
 // *********************** 表单

@@ -36,7 +36,7 @@
       <div class="linkage-box w50">
         <div class="input-query">
           <i class="input-query-icon"></i>
-          <input type="text" placeholder="输入拼音首字母或名称" #input1 (change)="queryAreasByName({value: input1.value, target: valueList})">
+          <input type="text" placeholder="输入名称" #input1 (change)="queryAreasByName({value: input1.value, target: valueList})">
         </div>
         <ul class="linkage-list">
           <ng-template [ngForOf]="valueList" ngFor let-value let-index="index">
@@ -57,7 +57,7 @@
   </div>
 
   <!--LBS-->
-  <div class="directional-info" style="margin-top: 50px;">
+  <div class="directional-info" style="margin: 50px 0 15px 0;">
     <h4>LBS</h4>
     <p>当前已选择（{{(lbsCityViewResult$ | async)?.length || 0}}）</p>
     <button class="btn btn-outline btn-round" (click)="checkLbsCityChange(false)">清除全部</button>
@@ -88,9 +88,9 @@
     <span style="cursor: pointer;" *ngIf="!lbsCityType" (click)="lbsCityType = !lbsCityType">从地图选择</span>
   </div>
 
-  <!-- 地图选着 -->
+  <!-- 地图选择 -->
   <ng-template [ngIf]="lbsCityType">
-    <div style="position: relative;" [hidden]="!lbsCityType">
+    <div style="position: relative;margin-bottom: 20px;" [hidden]="!lbsCityType">
       <yc-map (pushCoordinate)="pushCoordinate($event)" (removeCoordinate)="removeCoordinate($event)"></yc-map>
     </div>
   </ng-template>
@@ -100,7 +100,7 @@
       <div class="linkage-box w25">
         <div class="input-query">
           <i class="input-query-icon"></i>
-          <input type="text" placeholder="输入拼音首字母或名称" #input3 (change)="queryLbsCityByName({value: input3.value, target: valueList})">
+          <input type="text" placeholder="输入名称" #input3 (change)="queryLbsCityByName({value: input3.value, target: valueList})">
         </div>
         <ul class="linkage-list">
           <ng-template [ngForOf]="valueList" ngFor let-value let-index="index">
@@ -201,7 +201,7 @@
   <!--query-->
   <div class="input-query directional-query" style="margin-bottom: 10px;">
     <i class="input-query-icon"></i>
-    <input type="text" placeholder="输入拼音首字母或名称">
+    <input type="text" placeholder="输入名称">
   </div>
   <!--list-->
   <div class="flex">
@@ -210,7 +210,7 @@
       <div class="linkage-box w50">
         <div class="input-query">
           <i class="input-query-icon"></i>
-          <input type="text" placeholder="输入拼音首字母或名称" #input4 (change)="queryAudiencesActionByName({value: input4.value, target: valueList})">
+          <input type="text" placeholder="输入名称" #input4 (change)="queryAudiencesActionByName({value: input4.value, target: valueList})">
         </div>
 
         <ul class="linkage-list">
@@ -252,7 +252,7 @@
   <!--query-->
   <div class="input-query directional-query" style="margin-bottom: 10px;">
     <i class="input-query-icon"></i>
-    <input type="text" placeholder="输入拼音首字母或名称">
+    <input type="text" placeholder="输入名称">
   </div>
   <!--list-->
   <div class="flex lbstop">
@@ -261,7 +261,7 @@
       <div class="linkage-box w50">
         <div class="input-query">
           <i class="input-query-icon"></i>
-          <input type="text" placeholder="输入拼音首字母或名称" #input4 (change)="queryAudiencesAction2ByName({value: input4.value, target: valueList})">
+          <input type="text" placeholder="输入名称" #input4 (change)="queryAudiencesAction2ByName({value: input4.value, target: valueList})">
         </div>
 
         <ul class="linkage-list">

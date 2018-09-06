@@ -47,7 +47,7 @@
               <p>{{ele.file_size}}</p>
               <p>{{ele.support_file_type}},小于{{ele.max_file_size}}KB</p>
               <p>{{ele.placeholder}}</p>
-              <a class="fast-drawing" *ngIf="ele.is_support_tpl" data-link (click)="openTemplate($event,ele,data_index,file_index)">快速制图</a>
+              <a class="fast-drawing m-r-1" *ngIf="ele.is_support_tpl" data-link (click)="openTemplate($event,ele,data_index,file_index)">快速制图</a>
               <a class="fast-drawing" *ngIf="ele.is_support_history" data-link (click)="materialLibrary($event,ele,data_index,file_index)">创意库</a>
             </div>
           </div>
@@ -130,7 +130,7 @@
 </ng-template>
 
 <div *ngIf="is_edit && editCreative" (click)="addCreative()" class="flex-wrap-center add-creative-btn">
-  <div>
+  <div class="add-creative-image">
     <img src="assets/customer/img/creative-add.png" alt="">
   </div>
   <p>添加创意</p>

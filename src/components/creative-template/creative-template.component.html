@@ -51,7 +51,8 @@
             <div class="form-group">
               <div class="form-input flex-center">
                 <input class="form-control" [(ngModel)]="ele.value" (ngModelChange)="textAndImgChange()">
-                <input class="font-size-change" type="color" [(ngModel)]="ele.fill" (ngModelChange)="textAndImgChange()">
+                <input-color-palette class="font-size-change" [(ngModel)]="ele.fill" (ngModelChange)="textAndImgChange()"></input-color-palette>
+                <!--<input class="font-size-change" type="color" [(ngModel)]="ele.fill" (ngModelChange)="textAndImgChange()">-->
                 <span class="font-size-change" (click)="fontSizeChange(ele, 1)">A+</span>
                 <span class="font-size-change" (click)="fontSizeChange(ele, -1)">A-</span>
               </div>

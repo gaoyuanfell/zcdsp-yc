@@ -1,0 +1,54 @@
+<!--受众行为：-->
+<div class="flex-center margin-center">
+  <h3 class="directional-info-title">受众行为</h3>
+  <div class="directional-info">
+    <h4>行为指定</h4>
+    <p>当前已选择（{{(audiencesAppResult$ | async)?.length || 0}}）</p>
+    <button class="btn btn-outline btn-round" (click)="checkAudiencesAppChange(false)">清除全部</button>
+  </div>
+</div>
+<div class="expanded">
+  <div class="choice-values-box" [hidden]="!(audiencesAppResult$ | async)?.length">
+    <div class="choice-values">
+      <ng-template [ngForOf]="audiencesAppResult$ | async" ngFor let-value>
+          <span class="label-value">
+            {{value.name}}
+            <i (click)="value.checked = false;checkAudiencesAppChange(value)">&times;</i>
+          </span>
+      </ng-template>
+    </div>
+    <div class="triangle"></div>
+  </div>
+  <!--query-->
+  <div class="input-query directional-query" style="margin-bottom: 10px;">
+    <i class="input-query-icon"></i>
+    <input type="text" placeholder="输入名称">
+  </div>
+  <!--list-->
+  <div class="flex">
+
+    <ng-template [ngForOf]="audiencesAppList$ | async" ngFor let-valueList let-indexList="index">
+      <div class="linkage-box w50">
+        <div class="input-query">
+          <i class="input-query-icon"></i>
+          <input type="text" placeholder="输入拼音首字母或名称" #input4 (change)="queryAudiencesAppByName({value: input4.value, target: valueList})">
+        </div>
+
+        <ul class="linkage-list">
+          <ng-template [ngForOf]="valueList" ngFor let-value let-index="index" [ngForTrackBy]="trackByFn">
+            <li [ngClass]="{'active': valueList[index].children === (audiencesAppList$ | async)[indexList + 1] && valueList[index].children?.length}">
+              <div class="flex-center" (click)="setAudiencesAppNextChild({value:value,index:indexList})">
+                <div class="linkage-item">
+                  <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkAudiencesAppChange(value)"></yc-checkbox><!--'北京市(0/20)'-->
+                </div>
+                <i class="choice-arrow" *ngIf="value.children?.length"></i>
+              </div>
+            </li>
+          </ng-template>
+        </ul>
+
+      </div>
+    </ng-template>
+
+  </div>
+</div>

@@ -9,6 +9,8 @@ import {AddCreativeComponent} from './creative/add-creative/add-creative.compone
 import {DirectionalComponent} from './directional/directional.component';
 import {AddDirectionalComponent} from './directional/add-directional/add-directional.component';
 import {EditCreativeComponent} from './creative/edit-creative/edit-creative.component';
+import {CampaignExpandComponent} from './campaign/campaign-expand.component';
+import {CreativeExpandComponent} from './creative/creative-expand.component';
 
 @NgModule({
   imports: [
@@ -26,6 +28,10 @@ import {EditCreativeComponent} from './creative/edit-creative/edit-creative.comp
     CampaignDetailComponent,
     CreativeDetailComponent,
     AddDirectionalComponent,
+
+
+    CampaignExpandComponent,
+    CreativeExpandComponent,
   ],
   entryComponents:[
     CampaignDetailComponent,

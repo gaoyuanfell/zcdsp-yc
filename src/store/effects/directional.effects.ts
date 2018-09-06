@@ -7,6 +7,7 @@ import { switchMap } from 'rxjs/operators';
 import { DirectionalService } from '../../service/customer/directional.service';
 import * as directionalActionUnion from '../actions/directional.action';
 import { DirectionalActionTypes } from '../actions/directional.action';
+import {recursionChild} from '../../service/util';
 
 @Injectable()
 export class DirectionalEffects {
@@ -41,19 +42,19 @@ export class DirectionalEffects {
             let lbs_location = b.result.lbs_location
 
             let recursion = [
-              this.recursionChild({ children: a.result }),
-              this.recursionChild({ children: lbs_location }),
-              this.recursionChild({ children: age, name: '年龄' }),
-              this.recursionChild({ children: education, name: '学历' }),
-              this.recursionChild({ children: sex, name: '性别' }),
-              this.recursionChild({ children: d.result }),
-              this.recursionChild({ children: e.result }),
-              this.recursionChild({ children: browsers, name: '浏览器' }),
-              this.recursionChild({ children: devicesType, name: '设备类型' }),
-              this.recursionChild({ children: brand, name: '设备品牌' }),
-              this.recursionChild({ children: netType, name: '联网方式' }),
-              this.recursionChild({ children: operators, name: '运营商' }),
-              this.recursionChild({ children: mobileOS, name: '操作系统' }),
+              recursionChild({ children: a.result }),
+              recursionChild({ children: lbs_location }),
+              recursionChild({ children: age, name: '年龄' }),
+              recursionChild({ children: education, name: '学历' }),
+              recursionChild({ children: sex, name: '性别' }),
+              recursionChild({ children: d.result }),
+              recursionChild({ children: e.result }),
+              recursionChild({ children: browsers, name: '浏览器' }),
+              recursionChild({ children: devicesType, name: '设备类型' }),
+              recursionChild({ children: brand, name: '设备品牌' }),
+              recursionChild({ children: netType, name: '联网方式' }),
+              recursionChild({ children: operators, name: '运营商' }),
+              recursionChild({ children: mobileOS, name: '操作系统' }),
             ];
 
             Promise.all(recursion).then(([
@@ -84,40 +85,12 @@ export class DirectionalEffects {
     );
   };
 
+  // @Effect()
+  // initAudiencesApp$ = (): Observable<Action> => {
+  //
+  // }
+
   constructor(private actions$: Actions,
     private _directionalService: DirectionalService) {
-  }
-
-  recursionChild(target) {
-    return new Promise((resolve, reject) => {
-      let fun = `
-      onmessage = function (e) {
-          function recursionChild(target) {
-            if(target instanceof Array && target.length > 0){
-              target.forEach(data => {
-                recursionChild(data);
-              });
-            }else{
-              let list = target.children;
-              if (list && list.length > 0) {
-                list.forEach(data => {
-                  data.parent = target;
-                  recursionChild(data);
-                });
-              }
-            }
-          }
-          recursionChild(e.data)
-          postMessage(e.data);
-      }
-    `;
-      const blob = new Blob([fun], { type: 'application/javascript' });
-      const url = URL.createObjectURL(blob);
-      const worker = new Worker(url);
-      worker.postMessage(target);
-      worker.onmessage = (e) => {
-        resolve(e.data);
-      };
-    });
   }
 }

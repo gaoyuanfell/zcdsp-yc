@@ -39,7 +39,12 @@ export interface DirectionalState {
   audiencesAction2List?:Array<Array<any>>
   audiencesAction2Result?: Array<any>
 
+  audiencesApp?: Directional
+  audiencesAppList?:Array<Array<any>>
+  audiencesAppResult?:Array<Array<any>>
+
   result?: any
+  result2?: any
 }
 
 export interface LbsCityState {

@@ -1,4 +1,15 @@
-import {Component, ComponentFactoryResolver, ElementRef, Inject, Injector, OnInit, Renderer2, ViewChild, ViewContainerRef} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ComponentFactoryResolver,
+  ElementRef,
+  Inject,
+  Injector,
+  OnInit,
+  Renderer2,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import {PublicService} from '../../service/public.service';
 import * as qs from 'querystring';
 import {TemplateService} from '../../service/template.service';
@@ -20,7 +31,9 @@ import {DOCUMENT} from '@angular/common';
 @Component({
   selector: 'app-template-page',
   templateUrl: './template-page.component.html',
-  styleUrls: ['./template-page.component.less']
+  styleUrls: ['./template-page.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush,  // 数据手动刷新
+  preserveWhitespaces: true,
 })
 export class TemplatePageComponent implements OnInit {
 

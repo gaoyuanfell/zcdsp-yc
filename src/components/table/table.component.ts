@@ -377,6 +377,11 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
 
   ngOnInit() {
     this.checkAllObservable.subscribe((data) => {
+      if(data){
+        this.selectData.push(...this.data)
+      }else{
+        this.selectData.length = 0
+      }
       this.tbodyList.forEach(tbody => {
         tbody.trList.forEach(tr => {
           let list = tr.tdList.filter(td => td.showCheckbox);
@@ -399,7 +404,7 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
       this.tbodyList.forEach(tbody => {
 
         let allList = tbody.trList.map(tr => tr.tdList.filter(td => td.showCheckbox)[0]);
-        let checkList = allList.filter(l => l.checked);
+        let checkList = allList.filter(l => l && l.checked);
 
         if (checkList.length === allList.length && checkList.length && allList.length) {
           // 全选状态

@@ -12,14 +12,14 @@
     </div>
   </div>
 
-  <div class="flex" style="padding: 30px 60px;">
+  <div class="flex-wrap" style="padding: 10px 20px;">
 
     <yc-creative-box [(ngModel)]="creativeValue" [preview]="!edit" *ngIf="creativeData?.material_elements" [editCreative]="false" [(elementList)]="elementList" #creativeBox="creativeBox"
                      [elements]="elements" [selectMediaSize]="selectMediaSize"></yc-creative-box>
 
     <!--<yc-creative-box [(ngModel)]="creativeValue" [preview]="!edit" *ngIf="creativeData?.material_elements" [elements]="creativeData?.material_elements"></yc-creative-box>-->
 
-    <div style="flex: auto;padding: 0 30px;padding-right: 0;max-width: 300px;">
+    <div style="flex: 1;padding-left: 30px;max-width: 300px;">
       <div class="word-data-box">
         <span>创意ID：</span>
         <p>{{creativeData?.creative_id}}</p>
@@ -65,7 +65,7 @@
         <p *ngIf="edit"><input [(ngModel)]="creativeData.ad_price" class="mini-input"></p>
       </div>
     </div>
-    <div style="flex: auto;padding: 0 30px;max-width: 300px;">
+    <div style="flex: 1;padding-left: 30px;max-width: 300px;">
       <div class="word-data-box">
         <span>定向：</span>
         <ng-template [ngIf]="orientationValue?.length">
@@ -95,7 +95,7 @@
     </div>
   </div>
 
-  <div style="padding: 30px 60px;">
+  <div style="padding: 20px 30px 0 30px;">
     <div class="chart-box">
       <div [hidden]="!isChart" class="chart-data" #chartData></div>
       <div style="max-height: 300px;overflow-y: auto;overflow-x: hidden;">

@@ -172,3 +172,29 @@
     z-index: 1;
   }
 }
+
+.user-tool-box{
+  width: 170px;
+  height: 128px;
+  position: absolute;
+  box-shadow: 0 2px 5px rgba(26, 38, 72, 0.08);
+  background-color: #031220;
+  opacity: 0.92;
+  top: 70px;
+  right: 20px;
+  z-index: 999;
+  border-radius: 3px;
+  .item{
+    height: 32px;
+    line-height: 32px;
+    padding-left: 45px;
+    position: relative;
+    color: #cccccc;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    &:last-child{
+      border-top: 2px solid #fff;
+    }
+  }
+}

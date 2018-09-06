@@ -7,11 +7,11 @@
     <div style="margin-left: auto">
       <i class="zcdsp-icon" style="cursor: pointer;" *ngIf="!edit" (click)="edit = true;">&#xe632;</i>
       <button class="btn btn-link" *ngIf="edit" (click)="save()">保存</button>
-      <button class="btn btn-link" *ngIf="edit" (click)="edit = false;">取消</button>
+      <button class="btn btn-link" *ngIf="edit" (click)="cancel()">取消</button>
     </div>
   </div>
 
-  <div style="padding: 30px 60px;">
+  <div style="padding: 10px 20px;">
 
     <div class="flex">
       <div style="width: 30%">
@@ -48,19 +48,15 @@
 
           <ng-template [ngIf]="edit">
 
+            <div>
+              <ng-template [ngForOf]="show_hours_today" ngFor let-index="index" let-number>
+                <span>{{number}}</span>
+              </ng-template>
+            </div>
+
             <!--<p>
-              <select>
-                <option *ngFor="let s of startList" [value]="s.value">{{s.label}}</option>
-              </select>
-
-              <select>
-                <option *ngFor="let s of endList" [value]="s.value">{{s.label}}</option>
-              </select>
-            </p>-->
-
-            <p>
               <yc-select [width]="80" [(ngModel)]="startData" [list]="startList" (selectedEvent)="startListChange()"></yc-select> - <yc-select [width]="80" [(ngModel)]="endData" [list]="endList"></yc-select>
-            </p>
+            </p>-->
 
           </ng-template>
 
@@ -68,12 +64,23 @@
         <div class="word-data-box">
           <span>广告出价：</span>
           <p *ngIf="!edit">{{campaign?.ad_price | currencyFormat}}</p>
-          <p *ngIf="edit"><input [(ngModel)]="campaign.ad_price" class="mini-input"></p>
+          <p *ngIf="edit">
+            <input [(ngModel)]="campaign.ad_price" class="mini-input" #adPriceRef="ngModel" required pattern="(^[0-9]\d*\.?\d{0,2}$)">
+            <span class="input-error" *ngIf="(adPriceRef.dirty || adPriceRef.touched) && adPriceRef.invalid">
+              请输入正确的金额
+            </span>
+          </p>
         </div>
         <div class="word-data-box">
           <span>广告预算：</span>
           <p *ngIf="!edit">{{campaign?.day_budget | currencyFormat}}</p>
-          <p *ngIf="edit"><input [(ngModel)]="campaign.day_budget" class="mini-input"></p>
+          <p *ngIf="edit">
+            <input [(ngModel)]="campaign.day_budget" class="mini-input" name="money" #dayBudget="ngModel" pattern="^[0-9]\d*(\.\d{1,2})?$" required>
+            <span class="input-error" *ngIf="(dayBudget.dirty || dayBudget.touched) && dayBudget.invalid">
+              请输入正确的金额
+            </span>
+          </p>
+
         </div>
         <div class="word-data-box">
           <span>目标类型：</span>
@@ -142,7 +149,7 @@
     </div>
   </div>
 
-  <div style="padding: 30px 30px;">
+  <div style="padding: 30px 30px 0 30px;">
     <div class="chart-box">
       <div [hidden]="!isChart" class="chart-data" #chartData></div>
       <div style="max-height: 300px;overflow-y: auto;overflow-x: hidden;">

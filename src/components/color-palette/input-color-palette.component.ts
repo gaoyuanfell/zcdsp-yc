@@ -1,4 +1,4 @@
-import {Component, forwardRef} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -32,6 +32,8 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
       }
     `
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,  // 数据手动刷新
+  preserveWhitespaces: true,
   providers: [
     CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR
   ]
@@ -39,12 +41,14 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 export class InputColorPaletteComponent implements ControlValueAccessor {
 
   changeEvent(data) {
+    this.value = data
     this.onChange(data)
+    this.changeDetectorRef.markForCheck()
   }
 
   value
 
-  constructor() {
+  constructor(private changeDetectorRef:ChangeDetectorRef) {
 
   }
 

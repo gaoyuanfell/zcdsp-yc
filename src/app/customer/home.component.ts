@@ -8,17 +8,23 @@ import {fromEvent, Observable, Subject} from 'rxjs';
 import {Loading} from '../../components/loading/loading.service';
 import {Global} from '../../service/global';
 import * as directionalAction from '../../store/actions/directional.action'
+import {PublicService} from '../../service/public.service';
+import {fadeIn} from '../animations/fadeIn';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.less'],
   preserveWhitespaces: true,
+  animations:[
+    fadeIn
+  ]
 })
 export class HomeComponent implements OnInit,OnDestroy {
 
   fixed = false; // 导航栏固定
   hover = false; // 导航悬浮控制
+  userToolBox
 
   menuList$: Observable<any[]>;
 
@@ -42,6 +48,16 @@ export class HomeComponent implements OnInit,OnDestroy {
   private _scroll
   @ViewChild('containerFull') containerFullRef: ElementRef;
 
+  logout(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this._publicService.quit().subscribe(res => {
+      this._global.token = null;
+      this.userToolBox = false;
+      this.router.navigate(['/login'])
+    })
+  }
+
   ngOnInit(): void {
     this._global.overflowSubject = new Subject<{[key: string]: any}>();
     this._global.containerFullRef = this.containerFullRef.nativeElement;
@@ -59,6 +75,7 @@ export class HomeComponent implements OnInit,OnDestroy {
               private route: ActivatedRoute,
               private router: Router,
               private _global: Global,
+              private _publicService: PublicService,
               private _loading: Loading) {
     this.store.dispatch(new directionalAction.DirectionalInit());
     this.store.dispatch(new directionalAction.LbsCityInit());

@@ -1,8 +1,19 @@
-import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 
 @Component({
-  selector: 'color-palette',
+  selector: 'yc-color-palette',
   templateUrl: './color-palette.component.html',
   styleUrls: ['./color-palette.component.less'],
   preserveWhitespaces: true,
@@ -61,6 +72,7 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
       b: b,
       a: this.opacity,
     };
+    console.info(this.color)
     this.changeEvent.emit(this.color)
   }
 
@@ -113,7 +125,10 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
 
   set value(value) {
     this._value = value;
-    this.opacity = value.a || 1;
+    this.opacity = 1;
+    if(value){
+      this.opacity = value.a || 1;
+    }
   }
 
   get hex() {
@@ -162,6 +177,7 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
 
   opacityChange() {
     this.value.a = this.opacity
+    this.getRgbaByXY(this.layerX, this.layerY)
   }
 
   /**
