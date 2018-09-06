@@ -83,7 +83,7 @@ export class CustomerComponent implements OnInit {
     // this.router.navigate(['/us/user/info'], {
     //   queryParams: {
     //     user_id: '',
-    //     type: 'add'
+    //     type: 'add'audit_status_list
     //   }
     // });
   }

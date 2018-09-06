@@ -1,51 +1,42 @@
 <div class="container-list">
-
-
-
-  <div class="topPar">
-    <ul class="top">
-      <li>
-        <div class="title">
-          <div class="img"><img src="assets/img/indexjinr.png" alt=""></div>
-          <div class="right">
-            <p>客户余额</p>
-            <h1>{{userData?.c_balance | currencyFormat}}</h1>
-          </div>
+  <ul class="top">
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/user/customer-balance.png" alt=""></div>
+        <div class="right">
+          <p>客户余额</p>
+          <h1>{{userData?.c_balance | currencyFormat}}</h1>
         </div>
-      </li>
-
-      <li>
-        <div class="title">
-          <div class="img">  <img src="assets/agent/img/check-in.png" alt=""></div>
-          <div class="right">
-            <p>总转入</p>
-            <h1>{{userData?.in_money | currencyFormat}}</h1>
-          </div>
+      </div>
+    </li>
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/user/in_money.png" alt=""></div>
+        <div class="right">
+          <p>累计转入</p>
+          <h1>{{userData?.in_money | currencyFormat}}</h1>
         </div>
-      </li>
-
-      <li>
-        <div class="title">
-          <div class="img"> <img src="assets/agent/img/check-out.png" alt=""></div>
-          <div class="right">
-            <p>总转出</p>
-            <h1>{{userData?.out_money | currencyFormat}}</h1>
-          </div>
+      </div>
+    </li>
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/user/out_money.png" alt=""></div>
+        <div class="right">
+          <p>累计转出</p>
+          <h1>{{userData?.out_money | currencyFormat}}</h1>
         </div>
-      </li>
-
-      <li>
-        <div class="title">
-          <div class="img">  <img src="assets/img/customer/img/liushui-recharge.png" alt=""></div>
-          <div class="right">
-            <p>总消耗</p>
-            <h1>{{userData?.consume_money | currencyFormat}}</h1>
-          </div>
+      </div>
+    </li>
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/user/customer-consume.png" alt=""></div>
+        <div class="right">
+          <p>客户消耗</p>
+          <h1>{{userData?.consume_money | currencyFormat}}</h1>
         </div>
-      </li>
-
-    </ul>
-  </div>
+      </div>
+    </li>
+  </ul>
 
 
   <div class="table-content">
@@ -100,6 +91,17 @@
             </td>
           </tr>
         </ng-template>
+        <!--<ng-template [ngIf]="tableList?.length > 0">-->
+          <!--<tr #tr>-->
+            <!--<td>全部合计</td>-->
+            <!--<td></td>-->
+            <!--<td class="text-right">{{userData?.in_money | currencyFormat}}</td>-->
+            <!--<td class="text-right">{{userData?.out_money | currencyFormat}}</td>-->
+            <!--<td class="text-right">{{userData?.consume_money | currencyFormat}}</td>-->
+            <!--<td class="text-right">{{userData?.c_balance | currencyFormat}}</td>-->
+            <!--<td></td>-->
+          <!--</tr>-->
+        <!--</ng-template>-->
         </tbody>
       </table>
     </yc-table>
