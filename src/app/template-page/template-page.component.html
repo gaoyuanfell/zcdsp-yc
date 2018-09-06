@@ -1,3 +1,18 @@
+<div class="header flex-center-between">
+  <div class="logo">
+    <img src="assets/img/logo.png" alt="">
+  </div>
+  <p></p>
+  <div class="user-info flex-center-between">
+    <i class="header-search-icon"></i>
+    <i class="header-help-icon"></i>
+    <i class="header-phone-icon"></i>
+    <img class="user-head" src="assets/img/default-user-head.png" alt="">
+    <p>Lecheng Zhou</p>
+  </div>
+</div>
+
+
 <div class="container-full">
 
   <div class="brick-box flex">
@@ -265,7 +280,8 @@
             <div class="form-group flex-center">
               <label class="form-label">边框色</label>
               <div class="form-input">
-                <input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.configure.style['border-color']">
+                <input-color-palette [(ngModel)]="componentInstance.templateInstance.configure.style['border-color']"></input-color-palette>
+                <!--<input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.configure.style['border-color']">-->
               </div>
             </div>
           </ng-template>
@@ -273,7 +289,8 @@
           <div class="form-group flex-center">
             <label class="form-label">背景色</label>
             <div class="form-input">
-              <input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.configure.style['background-color']">
+              <input-color-palette [(ngModel)]="componentInstance.templateInstance.configure.style['background-color']"></input-color-palette>
+              <!--<input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.configure.style['background-color']">-->
             </div>
           </div>
 
@@ -545,7 +562,8 @@
           <div class="form-group flex-center">
             <label class="form-label">背景色</label>
             <div class="form-input">
-              <input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.configure.style['background-color']">
+              <input-color-palette [(ngModel)]="componentInstance.templateInstance.configure.style['background-color']"></input-color-palette>
+              <!--<input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.configure.style['background-color']">-->
             </div>
           </div>
           <div class="set-title">
@@ -560,7 +578,8 @@
           <div class="form-group flex-center">
             <label class="form-label">颜色</label>
             <div class="form-input">
-              <input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.configure.style['color']">
+              <input-color-palette [(ngModel)]="componentInstance.templateInstance.configure.style['color']"></input-color-palette>
+              <!--<input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.configure.style['color']">-->
             </div>
           </div>
           <div class="set-title">
@@ -633,13 +652,15 @@
           <div class="form-group flex-center">
             <label class="form-label">背景色</label>
             <div class="form-input">
-              <input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.submitStyle.style['background-color']">
+              <input-color-palette [(ngModel)]="componentInstance.templateInstance.submitStyle.style['background-color']"></input-color-palette>
+              <!--<input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.submitStyle.style['background-color']">-->
             </div>
           </div>
           <div class="form-group flex-center">
             <label class="form-label">文字色</label>
             <div class="form-input">
-              <input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.submitStyle.style['color']">
+              <input-color-palette [(ngModel)]="componentInstance.templateInstance.submitStyle.style['color']"></input-color-palette>
+              <!--<input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.submitStyle.style['color']">-->
             </div>
           </div>
           <div class="form-group flex-center">
@@ -721,7 +742,8 @@
           <div class="form-group flex-center">
             <label class="form-label">颜色</label>
             <div class="form-input">
-              <input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.configure.style['border-top-color']">
+              <input-color-palette [(ngModel)]="componentInstance.templateInstance.configure.style['border-top-color']"></input-color-palette>
+              <!--<input class="form-control" type="color" [(ngModel)]="componentInstance.templateInstance.configure.style['border-top-color']">-->
             </div>
           </div>
           <div class="form-group flex-center">

@@ -1,60 +1,48 @@
 <div class="container-list">
-  <div class="flex-center-between">
-    <div class="group cart-left card-box ">
-      <div class="data-top flex">
-        <div class="info-img">
-          <img src="assets/img/customer/img/balance-icon.png" alt="balance-icon.png">
-        </div>
-        <div class="info">
-          <p>账户余额</p>
-          <p>{{userData?.balance | currencyFormat}}</p>
-        </div>
-        <div class="recharge">
-          <a class="btn-recharge" (click)="recharge()">充值流程</a>
-        </div>
-      </div>
-    </div>
 
-    <div class="consume card-box">
-      <div class="item">
-        <div class="info-img">
-          <img src="assets/img/customer/img/liushui-recharge.png" alt="">
+  <div class="topPar">
+    <ul class="top">
+      <li>
+        <div class="title">
+          <div class="img"><img src="assets/img/indexjinr.png" alt=""></div>
+          <div class="right">
+            <p>账户余额</p>
+            <h1>{{userData?.balance | currencyFormat}}</h1>
+          </div>
         </div>
-        <div class="info">
-          <p>累计充值</p>
-          <p>
-            <span>{{userData?.c_money | currencyFormat}}</span>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="consume card-box">
-      <div class="item">
-        <div class="info-img">
-          <img src="assets/img/customer/img/liushui-dispatching.png" alt="">
-        </div>
-        <div class="info">
-          <p>累计配送</p>
-          <p>
-            <span>{{userData?.p_money | currencyFormat}}</span>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="consume card-box">
-      <div class="item">
-        <div class="info-img">
-          <img src="assets/img/customer/img/liushui-refund.png" alt="">
-        </div>
-        <div class="info">
-          <p>累计退款</p>
-          <p>
-            <span>{{userData?.t_money | currencyFormat}}</span>
-          </p>
-        </div>
-      </div>
-    </div>
+      </li>
 
+      <li>
+        <div class="title">
+          <div class="img"><img src="assets/img/customer/img/liushui-recharge.png" alt=""></div>
+          <div class="right">
+            <p>累计充值</p>
+            <h1>{{userData?.c_money | currencyFormat}}</h1>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="title">
+          <div class="img"><img src="assets/img/customer/img/liushui-dispatching.png" alt=""></div>
+          <div class="right">
+            <p>累计配送</p>
+            <h1>{{userData?.p_money | currencyFormat}}</h1>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="title">
+          <div class="img"><img src="assets/img/customer/img/liushui-refund.png" alt=""></div>
+          <div class="right">
+            <p>累计退款</p>
+            <h1>{{userData?.t_money | currencyFormat}}</h1>
+          </div>
+        </div>
+      </li>
+
+    </ul>
   </div>
 
   <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">

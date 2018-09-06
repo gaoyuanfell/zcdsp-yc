@@ -8,6 +8,11 @@ import {Dialog} from '../../../../../components/dialog/dialog';
 import {PublicService} from '../../../../../service/public.service';
 import {Global} from '../../../../../service/global';
 import {DOCUMENT} from '@angular/common';
+import {DirectionalService} from '../../../../../service/customer/directional.service';
+import {AppState} from '../../../../../store/model';
+import {Store} from '@ngrx/store';
+import * as directionalAction from '../../../../../store/actions/directional.action';
+import {recursionChild} from '../../../../../service/util';
 
 @Component({
   selector: 'app-add-creative',
@@ -18,56 +23,58 @@ import {DOCUMENT} from '@angular/common';
 })
 export class AddCreativeComponent implements OnInit {
 
-  navList = [{
-    name: '选择活动',
-    status: 2,
-    child:[{
+  navList = [
+    {
       name: '选择活动',
-      id: 'tuiguangmubiao',
       status: 2,
-    },{
-      name: '落地页',
-      id: 'tuiguangmubiao',
-      status: 0,
-    }]
-  },{
-    name: '投放媒体',
-    status: 0,
-    child:[{
-      name: '媒体选择',
-      id: 'huodongshezhi',
-      status: 0,
-    },{
-      name: '创意上传',
-      id: 'huodongshezhi',
-      status: 0,
-    }]
-  },{
-    name: '投放应用',
-    status: 0,
-    child:[{
-      name: '应用选择',
-      id: 'dingxiangshezhi',
-      status: 0,
-    }]
-  },{
-    name:'出价',
-    status: 0,
-    child:[
-      {
-        name:'出价',
-        id: 'chujia',
+      child: [{
+        name: '选择活动',
+        id: 'tuiguangmubiao',
+        status: 2,
+      }, {
+        name: '落地页',
+        id: 'tuiguangmubiao',
         status: 0,
-      }
-    ]
-  }]
+      }]
+    }, {
+      name: '投放媒体',
+      status: 0,
+      child: [{
+        name: '媒体选择',
+        id: 'huodongshezhi',
+        status: 0,
+      }, {
+        name: '创意上传',
+        id: 'huodongshezhi',
+        status: 0,
+      }]
+    }, {
+      name: '投放应用',
+      status: 0,
+      child: [{
+        name: '应用选择',
+        id: 'dingxiangshezhi',
+        status: 0,
+      }]
+    }, {
+      name: '出价',
+      status: 0,
+      child: [
+        {
+          name: '出价',
+          id: 'chujia',
+          status: 0,
+        }
+      ]
+    }
+  ];
 
   campaign: any = {};
   campaignList;
   campaign_id;
   show_hours; // 小时
   direction; // 定向
-  _valid
+  _valid;
 
   elementList = [];
   template_size_list = [];
@@ -75,7 +82,7 @@ export class AddCreativeComponent implements OnInit {
   @ViewChild('ad_price_ref') ad_price_ref;
 
   campaignChange(data) {
-    this.show_hours = []
+    this.show_hours = [];
     this.init(data.campaign_id);
   }
 
@@ -98,8 +105,8 @@ export class AddCreativeComponent implements OnInit {
       delete data.filePath;
       body[body.name] = `${filePath}?${qs.stringify(data)}`;
       body.validate = true;
-      this.changeDetectorRef.markForCheck()
-    })
+      this.changeDetectorRef.markForCheck();
+    });
   }
 
   private creativeNumber = 0;
@@ -108,10 +115,10 @@ export class AddCreativeComponent implements OnInit {
    * 添加创意 最多5个
    */
   addCreative = () => {
-  }
+  };
 
   elementChange() {
-    this.addCreative()
+    this.addCreative();
   }
 
   /**
@@ -127,22 +134,22 @@ export class AddCreativeComponent implements OnInit {
   }
 
   // /////////媒体
-  media_search_text
-  media_search_letters
-  material_search_first_char
-  material_search_first_text
+  media_search_text;
+  media_search_letters;
+  material_search_first_char;
+  material_search_first_text;
   first_char_list;
-  ad_price // 出价
+  ad_price; // 出价
   private _media_list;
-  rec_media_list // 建议媒体
-  rec_media_type = '1'
+  rec_media_list; // 建议媒体
+  rec_media_type = '1';
 
   /**
    * 获取媒体列表
    * @returns {any}
    */
   get media_list() {
-    let list = this._media_list
+    let list = this._media_list;
     if (this.media_search_text && list instanceof Array) {
       list = list.filter(ml => !!~ml.media_name.toLocaleLowerCase().indexOf(this.media_search_text.toLocaleLowerCase()));
     }
@@ -164,7 +171,7 @@ export class AddCreativeComponent implements OnInit {
    */
   get material_first_char_list() {
     if (this.selectMedia) {
-      return this.selectMedia.material_first_char_list
+      return this.selectMedia.material_first_char_list;
     }
     return null;
   }
@@ -175,17 +182,17 @@ export class AddCreativeComponent implements OnInit {
    */
   get media_material_list() {
     if (this.selectMedia) {
-      let list = this.selectMedia.media_material_list
+      let list = this.selectMedia.media_material_list;
       if (this.material_search_first_char && list instanceof Array) {
-        list = list.filter(mml => mml.material_first_char == this.material_search_first_char)
+        list = list.filter(mml => mml.material_first_char == this.material_search_first_char);
       }
       if (this.material_search_first_text && list instanceof Array) {
         list = list.filter(ml => !!~(`${ml.material_width}*${ml.material_height}`).indexOf(this.material_search_first_text));
       }
       if (this.material_search_first_char && list instanceof Array) {
-        list = list.filter(mml => mml.material_first_char == this.material_search_first_char)
+        list = list.filter(mml => mml.material_first_char == this.material_search_first_char);
       }
-      return list
+      return list;
     }
     return null;
   }
@@ -212,13 +219,13 @@ export class AddCreativeComponent implements OnInit {
       if (logo) {
         if (logo.logo_size) {
           logo.size = logo.logo_size.split('X');
-          logo.extensions = logo.support_file_type.split(',')
+          logo.extensions = logo.support_file_type.split(',');
         }
       }
       if (logo) {
         logo.logo_src = '';
       }
-      return logo
+      return logo;
     }
     return null;
   }
@@ -233,7 +240,7 @@ export class AddCreativeComponent implements OnInit {
     this.removeElementList();
     this.selectMedia = media;
     if (this.media_material_list instanceof Array) {
-      this.changeMediaSize(this.media_material_list[0])
+      this.changeMediaSize(this.media_material_list[0]);
     }
   }
 
@@ -272,12 +279,12 @@ export class AddCreativeComponent implements OnInit {
     if (flag && media !== this.selectMedia) { // 重复点击被选择项
       this._dialog.open('您还没提交，是否放弃当前编辑的内容？', {btn1: '取消', btn2: '确定'}).subscribe(data => {
         if (data) { // 确定
-          this.changeMedia(media)
+          this.changeMedia(media);
         }
-      })
+      });
     }
     if (!flag) {
-      this.changeMedia(media)
+      this.changeMedia(media);
     }
   }
 
@@ -287,12 +294,12 @@ export class AddCreativeComponent implements OnInit {
     switch (this.rec_media_type) {
       case '1':
         if (this.rec_media_list instanceof Array && this.rec_media_list.length) {
-          this.changeMediaSize(this.rec_media_list[0])
+          this.changeMediaSize(this.rec_media_list[0]);
         }
         break;
       case '2':
         if (this._media_list instanceof Array) {
-          this.changeMedia(this._media_list[0])
+          this.changeMedia(this._media_list[0]);
         }
         break;
     }
@@ -301,7 +308,7 @@ export class AddCreativeComponent implements OnInit {
 
   selectMediaSize;
   adPricePlaceholder;
-  default_price_range
+  default_price_range;
   // element;
   logoElement;
 
@@ -345,12 +352,12 @@ export class AddCreativeComponent implements OnInit {
     if (flag && mediaSize !== this.selectMediaSize) { // 重复点击被选择项
       this._dialog.open('您还没提交，是否放弃当前编辑的内容？', {btn1: '取消', btn2: '确定'}).subscribe(data => {
         if (data) { // 确定
-          this.changeMediaSize(mediaSize)
+          this.changeMediaSize(mediaSize);
         }
-      })
+      });
     }
     if (!flag) {
-      this.changeMediaSize(mediaSize)
+      this.changeMediaSize(mediaSize);
     }
   }
 
@@ -361,6 +368,7 @@ export class AddCreativeComponent implements OnInit {
   changeMediaSize(mediaSize) {
     if (mediaSize === this.selectMediaSize) return;
     this.removeElementList();
+    this.showAppAudiences(mediaSize);
 
     // 判断是否需要 快速制图 和 历史图库
     mediaSize.elements.data_list.forEach(ed => {
@@ -371,19 +379,19 @@ export class AddCreativeComponent implements OnInit {
         } else {
           fl.is_support_tpl = false;
         }
-        if(mediaSize.is_support_history == 'Y'){
+        if (mediaSize.is_support_history == 'Y') {
           fl.is_support_history = true;
         } else {
           fl.is_support_history = false;
         }
-      })
+      });
     });
 
     this.selectMediaSize = mediaSize; // 赋值 被选中的项
     this.logoElement = this.getLogoElement();
     if (mediaSize.is_recommend) {
-      this.adPricePlaceholder = `（建议出价${mediaSize.cpc_recommend || '0.00~0.00'} CPC）`
-      this.changeDetectorRef.markForCheck()
+      this.adPricePlaceholder = `（建议出价${mediaSize.cpc_recommend || '0.00~0.00'} CPC）`;
+      this.changeDetectorRef.markForCheck();
     } else {
       /**
        * 媒体尺寸 对应出价
@@ -395,14 +403,28 @@ export class AddCreativeComponent implements OnInit {
         this.default_price_range = null;
         if (res.result) {
           this.adPricePlaceholder = `（推荐出价${res.result} CPC）`;
-          this.default_price_range = res.result.split('~')
+          this.default_price_range = res.result.split('~');
         }
-        this.changeDetectorRef.markForCheck()
-      })
+        this.changeDetectorRef.markForCheck();
+      });
     }
 
   }
 
+  showAppAudiences(mediaSize) {
+    let is_need_app = mediaSize.is_need_app;
+    if (!is_need_app) return;
+    let media_material_id = mediaSize.media_material_id;
+    this._directionalService.directionalNeedAudiences({
+      media_material_id: media_material_id
+    }).subscribe(res => {
+      console.info(res.result);
+      recursionChild({children: res.result}).then(result => {
+        this.store.dispatch(new directionalAction.AudiencesAppAssign(result));
+        this.changeDetectorRef.markForCheck();
+      });
+    });
+  }
 
   /**
    * logo 上传
@@ -416,12 +438,12 @@ export class AddCreativeComponent implements OnInit {
       let filePath = data.filePath;
       delete data.filePath;
       this.logoElement[this.logoElement.name] = `${filePath}?${qs.stringify(data)}`;
-      this.changeDetectorRef.markForCheck()
-    })
+      this.changeDetectorRef.markForCheck();
+    });
   }
 
   imgError(error) {
-    this._notification.error('上传', error.message)
+    this._notification.error('上传', error.message);
   }
 
   /**
@@ -436,30 +458,29 @@ export class AddCreativeComponent implements OnInit {
   _audienceCount;
 
   audienceCount() {
+    if (!this.direction) return;
     let body = {
       ...this.direction,
-    }
-    delete  body.dtl_address.selected_lbs_locations
-    delete  body.dtl_address.selected_lbs_location_details
+    };
     this._publicService.getAudienceCount(body).subscribe(res => {
       this._audienceCount = res.result || 0;
-      this.changeDetectorRef.markForCheck()
-    })
+      this.changeDetectorRef.markForCheck();
+    });
   }
 
   _isNumber(val) {
-    return !/^\+?(\d*\.?\d{0,2})$/.test(val)
+    return !/^\+?(\d*\.?\d{0,2})$/.test(val);
   }
 
   valid() {
     this._valid = true;
-    if ( this.ad_price_ref.invalid || this.ad_price > this.bid_max || this.ad_price < this.bid_min) {
+    if (this.ad_price_ref.invalid || this.ad_price > this.bid_max || this.ad_price < this.bid_min) {
       let chujiaRef = this.document.getElementById('chujia');
       if (chujiaRef) {
         let offsetTop = chujiaRef.offsetTop;
-        this._scrollService.scrollTo(this.containerFullRef, {top: offsetTop})
+        this._scrollService.scrollTo(this.containerFullRef, {top: offsetTop});
       }
-      return true
+      return true;
     }
   }
 
@@ -501,59 +522,76 @@ export class AddCreativeComponent implements OnInit {
               // 内容校验
               if (!validate) {
                 if (el.element_type === 'img' || el.element_type === 'video') {
-                  this._notification.error('创意', `第${index + 1}个创意中第${inx + 1}组素材未上传！`)
+                  this._notification.error('创意', `第${index + 1}个创意中第${inx + 1}组素材未上传！`);
                 } else {
-                  this._notification.error('创意', `第${index + 1}个创意中第${inx + 1}组内容填写有误！`)
+                  this._notification.error('创意', `第${index + 1}个创意中第${inx + 1}组内容填写有误！`);
                 }
 
                 let creativeBox = this.document.getElementById('creative-box');
                 if (creativeBox) {
                   let offsetTop = creativeBox.offsetTop;
-                  this._scrollService.scrollTo(this.containerFullRef, {top: offsetTop})
+                  this._scrollService.scrollTo(this.containerFullRef, {top: offsetTop});
                 }
 
               }
-              return validate
+              return validate;
             });
           }
-          return validate
+          return validate;
         });
         element_data.elements.data_list.push(body);
-        return validate
+        return validate;
       });
 
       let logo = this.selectMediaSize.elements.logo;
       if (logo) {
         element_data.elements.logo = {
           [logo.name]: logo[logo.name]
-        }
+        };
       }
       result.push(element_data);
-      return validate
+      return validate;
     });
 
     if (!validate) return;
 
-    let body = {
-      direction: this.direction,
+    let body: any = {
       campaign_id: this.campaign_id,
       creative_list: result,
       show_hours: this.show_hours,
     };
 
+    if (this.is_need_app) {
+      let dtl_app = {
+        appAttribute: [],
+        filterAppAttribute: []
+      };
+      if (this.dtlAppType === 1) {
+        dtl_app.appAttribute = this.dtlApp;
+      } else {
+        dtl_app.filterAppAttribute = this.dtlApp;
+      }
+      body.directional = {dtl_app};
+    }
+
     this._creativeService.addCreative(body).subscribe(() => {
       this._dialog.open('新建创意成功，是否继续添加？', {btn1: '取消', btn2: '继续添加'}).subscribe(data => {
         if (data) {
-          this.elementList.length = 0
+          this.elementList.length = 0;
           this.addCreative();
           this.changeDetectorRef.markForCheck();
-          this._scrollService.scrollTo(this._global.containerFullRef, {top: this.toufangmeiti.nativeElement.offsetTop - this.toufangmeiti.nativeElement.clientHeight})
+          this._scrollService.scrollTo(this._global.containerFullRef, {top: this.toufangmeiti.nativeElement.offsetTop - this.toufangmeiti.nativeElement.clientHeight});
         } else {
-          this.router.navigate(['/ads/spread/creative'])
+          this.router.navigate(['/ads/spread/creative']);
         }
-      })
-    })
+      });
+    });
   }
+
+  /////// dtlApp
+
+  dtlApp;
+  dtlAppType = 1;
 
   /////////////// 快速导航栏
 
@@ -567,14 +605,16 @@ export class AddCreativeComponent implements OnInit {
               @Inject(DOCUMENT) private document: Document,
               private router: Router,
               private route: ActivatedRoute,
+              private store: Store<AppState>,
               private changeDetectorRef: ChangeDetectorRef,
               private _publicService: PublicService,
               private _creativeService: CreativeService,
+              private _directionalService: DirectionalService,
               private _dialog: Dialog) {
     let params = route.snapshot.params;
     let queryParams = route.snapshot.queryParams;
     let data = route.snapshot.data;
-    this.campaign_id = queryParams.campaign_id
+    this.campaign_id = queryParams.campaign_id;
   }
 
   _campaignShow = false;
@@ -585,48 +625,50 @@ export class AddCreativeComponent implements OnInit {
         this._campaignShow = true;
         this.elementList = [];
         this.template_size_list = res.result.template_size_list.map(ts => {
-          return `${ts.width}X${ts.height}`
+          return `${ts.width}X${ts.height}`;
         });
         this.campaign = res.result.campaign;
         this.show_hours = res.result.show_hours;
-        this.direction = res.result.direction;
+        // this.direction = res.result.direction;
         this.media_list = res.result.media_list;
         this.rec_media_list = res.result.rec_media_list;
         this.first_char_list = res.result.first_char_list;
 
         if (this.rec_media_list instanceof Array && this.rec_media_list.length) {
-          this.changeMediaSize(this.rec_media_list[0])
+          this.changeMediaSize(this.rec_media_list[0]);
         } else {
           if (this._media_list instanceof Array) {
-            this.rec_media_type = '2'
-            this.changeMedia(this._media_list[0])
+            this.rec_media_type = '2';
+            this.changeMedia(this._media_list[0]);
           }
         }
 
         // 获取覆盖人数
         this.audienceCount();
-        this.changeDetectorRef.markForCheck()
+        this.changeDetectorRef.markForCheck();
       },
       (error) => {
         this.campaign_id = null;
         this._campaignShow = false;
-        this.changeDetectorRef.markForCheck()
+        this.changeDetectorRef.markForCheck();
       }
-    )
+    );
   }
+
   bid_min;
   bid_max;
+
   ngOnInit() {
-    this.bid_min = this._global.bid_min
-    this.bid_max = this._global.bid_max
+    this.bid_min = this._global.bid_min;
+    this.bid_max = this._global.bid_max;
     this.campaign_id = this.route.snapshot.queryParams.campaign_id;
     if (this.campaign_id) {
-      this.init(this.campaign_id)
+      this.init(this.campaign_id);
     }
     this._creativeService.campaignList().subscribe(res => {
       this.campaignList = res.result;
-      this.changeDetectorRef.markForCheck()
-    })
+      this.changeDetectorRef.markForCheck();
+    });
   }
 
   operating(overflowRef, clientWidth) {

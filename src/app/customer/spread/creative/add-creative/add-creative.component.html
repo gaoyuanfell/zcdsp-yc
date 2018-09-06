@@ -25,8 +25,9 @@
 <div class="submit-toolbar">
   <div class="submit-box flex-center">
     <p class="cover-people">可覆盖<span>{{(_audienceCount || 0) | number}}</span>人</p>
+    <a class="btn btn-link" style="padding: 0 40px;" href="javascript:history.back()">返回</a>
     <button class="btn" (click)="save()"><span style="padding: 0 20px;">提 交</span></button>
-    <span class="add-creative-info">创意上传成功后将在1~3个工作日内审核完毕，若给您带来不便敬请谅解！</span>
+    <!--<span class="add-creative-info">创意上传成功后将在1~3个工作日内审核完毕，若给您带来不便敬请谅解！</span>-->
   </div>
 </div>
 
@@ -63,7 +64,7 @@
 
   <ng-template [ngIf]="_campaignShow">
     <div class="flex-center">
-      <h2 class="creative-title">
+      <h2 class="extension-title">
         投放媒体
       </h2>
       <div>
@@ -71,16 +72,15 @@
       </div>
     </div>
 
-
     <div class="extension-form-box">
 
       <div style="padding: 20px 70px">
         <!--推荐媒体-->
-        <div class="select-group">
+        <!--<div class="select-group">
           <yc-select placeholder="媒体类型"></yc-select>
           <yc-select placeholder="展现形式"></yc-select>
           <yc-select placeholder="尺寸筛选"></yc-select>
-        </div>
+        </div>-->
         <div class="recommend-media flex-wrap-center margintop" *ngIf="rec_media_type === '1'">
           <div class="item-box" *ngFor="let rml of rec_media_list" [ngClass]="{'active':selectMediaSize === rml}" (click)="changeContentTip(rml)">
             <p>{{rml.media_name}}</p>
@@ -155,15 +155,13 @@
                   <thead>
                   <tr>
                     <th>媒体平台</th>
-                    <th>展现形式</th>
                     <th>尺寸</th>
-                    <th>样式</th>
+                    <th>展现形式</th>
                   </tr>
                   </thead>
                   <tbody>
                   <tr>
                     <td>{{selectMediaSize.media_name}}</td>
-                    <td>Banner广告</td>
                     <td>{{selectMediaSize.material_width}}*{{selectMediaSize.material_height}}</td>
                     <td>{{selectMediaSize.material_type_name}}</td>
                   </tr>
@@ -183,9 +181,10 @@
               </div>
               <div class="creative-info-photo">
                 <div class="photo-bj">
-                  <img src="assets/img/photo-img-test.png" alt="">
+                  <h3 style="text-align: center" *ngIf="!selectMediaSize?.creative_show_img">暂无投放参考示意图</h3>
+                  <img *ngIf="selectMediaSize?.creative_show_img" [src]="selectMediaSize?.creative_show_img"> <!--src="assets/img/photo-img-test.png"-->
                 </div>
-                <p>投放参考示意图</p>
+                <p class="m-t-1">----投放参考示意图----</p>
               </div>
             </div>
 
@@ -196,11 +195,28 @@
       </div>
 
     </div>
+
+    <ng-template [ngIf]="is_need_app">
+      <h2 class="extension-title">
+        投放应用
+      </h2>
+
+      <div class="extension-form-box">
+
+        <yc-directional-app [(ngModel)]="dtlApp"></yc-directional-app>
+
+        <div style="margin: 15px 115px;">
+          <yc-radio-group [(ngModel)]="dtlAppType" [list]="[{label: '应用', value: 1}, {label: '过滤', value: 2}]"></yc-radio-group>
+        </div>
+
+      </div>
+    </ng-template>
+
     <div class="flex">
       <h2 class="extension-title" id="chujia">
         出价
       </h2>
-      <div class="flex" style="margin-top: 30px;">
+      <div class="flex" style="margin-top: 30px;margin-left: 45px;">
         <div class="form-input">
           <input class="form-control" type="text" [(ngModel)]="ad_price" #ad_price_ref="ngModel" [placeholder]="adPricePlaceholder || '请填写出价'" required
                  pattern="(^[0-9]\d*\.?\d{0,2}$)"

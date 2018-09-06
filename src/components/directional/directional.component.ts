@@ -17,6 +17,7 @@ import {Directional} from '../../store/model/directional.state';
 import * as directionalReducer from '../../store/reducer/directional.reducer';
 import * as directionalAction from '../../store/actions/directional.action';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {LbsCityMapRemove} from '../../store/actions/directional.action';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -79,6 +80,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   LbsScenes$: Observable<Array<any>>;
   lbsCityList$: Observable<Array<any>>;
   lbsCityResult$: Observable<Array<any>>;
+  LbsCityMapResult$: Observable<Array<any>>;
   lbsCityViewResult$: Observable<Array<any>>;
 
   audiences$: Observable<Array<any>>;
@@ -131,6 +133,10 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   queryLbsCityByName({target, value}) {
     if (!value) return;
     this.store.dispatch(new directionalAction.QueryLbsCityByName({target, value}));
+  }
+
+  lbsCityMapRemove(data){
+    this.store.dispatch(new directionalAction.LbsCityMapRemove(data));
   }
 
   // ------------------------------- AudiencesAction
@@ -192,6 +198,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     this.LbsScenes$ = store.pipe(select(directionalReducer.LbsScenes));
     this.lbsCityList$ = store.pipe(select(directionalReducer.LbsCityList));
     this.lbsCityResult$ = store.pipe(select(directionalReducer.LbsCityResult));
+    this.LbsCityMapResult$ = store.pipe(select(directionalReducer.LbsCityMapResult));
     this.lbsCityViewResult$ = store.pipe(select(directionalReducer.LbsCityViewResult));
 
     this.audiences$ = store.pipe(select(directionalReducer.Audiences));
@@ -246,6 +253,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
 
   areasResult$$;
   lbsCityResult$$;
+  LbsCityMapResult$$;
   audiencesActionResult$$;
   audiencesAction2Result$$;
   audiencesResult$$;
@@ -279,6 +287,15 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     });
 
     this.lbsCityResult$$ = this.lbsCityResult$.subscribe(data => {
+      console.info(data)
+      if (!data) return;
+      if (data instanceof Array && data.length) this.areasShow = true;
+      result.dtl_address.lbs = data.map(ar => ({id: ar.id, name: ar.name, coords: ar.location_items, type_id: ar.type_id}));
+      resultSubject.next(result);
+    });
+
+    this.LbsCityMapResult$$ = this.LbsCityMapResult$.subscribe(data => {
+      console.info(data)
       if (!data) return;
       if (data instanceof Array && data.length) this.areasShow = true;
       result.dtl_address.lbs = data.map(ar => ({id: ar.id, name: ar.name, coords: ar.location_items, type_id: ar.type_id}));
@@ -330,6 +347,21 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     });
   }
 
+
+  // 地图
+
+  lbsCityType
+
+  pushCoordinate(event){
+    this.store.dispatch(new directionalAction.LbsCityMapPush(event));
+    this.changeDetectorRef.markForCheck();
+  }
+
+  removeCoordinate(event){
+    this.store.dispatch(new directionalAction.LbsCityMapRemove(event));
+    this.changeDetectorRef.markForCheck();
+  }
+
   onChange = (value) => {
 
   };
@@ -345,7 +377,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   }
 
   writeValue(obj: any): void {
-    if (!obj) return;
+    if (!obj) obj = {};
     this.assignDefaultData(obj, getDirectionalData());
     this.result = obj;
     this.store.dispatch(new directionalAction.DirectionalRecovery());

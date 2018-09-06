@@ -2,6 +2,11 @@
   <ng-content select="[query]"></ng-content>
   <div class="table-wrap" #tableWrapRef>
     <ng-content select="[table]"></ng-content>
+    <div *ngIf="data?.length === 0" class="wrapShow">
+      <img src="assets/img/none.png">
+      <div>暂无数据</div>
+      <div>数据如有异常请联系客服：400-692-9606</div>
+    </div>
   </div>
   <div class="overflow" #overflowRef><div style="height: 10px;"></div></div>
 </div>

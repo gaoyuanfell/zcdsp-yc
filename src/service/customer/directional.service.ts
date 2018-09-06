@@ -67,6 +67,15 @@ export class DirectionalService extends ConfigService {
     return this.get(`/common/directional/recommend`, body)
   }
 
+  /**
+   * 是否需要app media_material_id
+   * @param {{}} body
+   * @returns {Observable<Result<any>>}
+   */
+  directionalNeedAudiences(body = {}){
+    return this.get(`/common/directional/creative/audiences`, body)
+  }
+
 
 /*
 

@@ -2,77 +2,129 @@
 <div class="container-list">
 
 
-  <div class="topPar">
-    <ul class="top">
-      <li>
-        <div class="title">
-          <div class="img"><img src="assets/img/indexjinr.png" alt=""></div>
-          <div class="right">
-            <p>今日消耗</p>
-            <h1>{{userData?.consume | currencyFormat}}</h1>
-          </div>
+  <!--<div class="topPar">-->
+    <!--<ul class="top">-->
+      <!--<li>-->
+        <!--<div>-->
+          <!--<div class="title">-->
+            <!--<div class="img"><img src="assets/img/indexjinr.png" alt=""></div>-->
+            <!--<div class="right">-->
+              <!--<p>今日消耗</p>-->
+              <!--<h1>{{userData?.consume | currencyFormat}}</h1>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="number">-->
+          <!--<button class="btn btn-round" style="padding: 0 20px;" (click)="recharge()">充值流程</button>-->
+        <!--</div>-->
+      <!--</li>-->
+
+      <!--<li>-->
+        <!--<div class="title">-->
+          <!--<div class="img"><img src="assets/img/indexbaog.png" alt=""></div>-->
+          <!--<div class="right">-->
+            <!--<p>曝光总量</p>-->
+            <!--<h1>{{echartsData?.pv | numberFormat}}</h1>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</li>-->
+
+      <!--<li>-->
+        <!--<div class="title">-->
+          <!--<div class="img"><img src="assets/img/indexdianj.png" alt=""></div>-->
+          <!--<div class="right">-->
+            <!--<p>点击总量</p>-->
+            <!--<h1>{{echartsData?.click | numberFormat}}</h1>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</li>-->
+
+    <!--</ul>-->
+    <!--<hr>-->
+    <!--<div class="bottom">-->
+
+
+
+      <!--<div class="number">-->
+
+        <!--<div class="list">每日预算<span>{{userData?.max_day_money | currencyFormat}}</span>-->
+          <!--<i yc-popover [template]="template" #popover="ycPopover" class="icon-tool-edit" (openEvent)=" money = (userData?.max_day_money) " *ngIf="isPermit('ZCMOBI_ADS_FINACE_CONSUME_UPDATE_MAX_DAY_MONEY')"></i>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <!--<div class="number clear">-->
+        <!--<div class="list">账户余额<span>{{userData?.balance | currencyFormat}}</span><i class="icon-tool-tip"></i></div>-->
+      <!--</div>-->
+
+
+      <!--<div class="number">-->
+        <!--<div class="list">曝光成本<span>{{echartsData?.cpm * 1000 | currencyFormat}}</span></div>-->
+      <!--</div>-->
+
+      <!--<div class="number">-->
+        <!--<div class="list">点击成本<span>{{echartsData?.cpc | currencyFormat}}</span></div>-->
+      <!--</div>-->
+
+
+    <!--</div>-->
+  <!--</div>-->
+  <ul class="top">
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/indexjinr.png" alt=""></div>
+        <div class="right">
+          <p>账户余额</p>
+          <h1>{{userData?.balance | currencyFormat}}</h1>
         </div>
-      </li>
-
-      <li>
-        <div class="title">
-          <div class="img"><img src="assets/img/indexbaog.png" alt=""></div>
-          <div class="right">
-            <p>曝光总量</p>
-            <h1>{{echartsData?.pv | numberFormat}}</h1>
-          </div>
+      </div>
+      <div class="echart"></div>
+      <div class="number">
+        <div class="list">今日花费<span>{{userData?.consume | currencyFormat}}</span></div>
+          <div class="list">每日预算<span>{{userData?.max_day_money | currencyFormat}}</span></div>
+      </div>
+    </li>
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/indexbaog.png" alt=""></div>
+        <div class="right">
+          <p>曝光总量</p>
+          <h1>{{echartsData?.pv | numberFormat}}</h1>
         </div>
-      </li>
-
-      <li>
-        <div class="title">
-          <div class="img"><img src="assets/img/indexdianj.png" alt=""></div>
-          <div class="right">
-            <p>点击总量</p>
-            <h1>{{echartsData?.click | numberFormat}}</h1>
-          </div>
+      </div>
+      <div class="echart"></div>
+      <div class="number">
+        <div class="list">今日曝光成本<span>{{echartsData?.cpm * 1000 | currencyFormat}}</span></div>
+      </div>
+    </li>
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/indexdianj.png" alt=""></div>
+        <div class="right">
+          <p>点击总量</p>
+          <h1>{{echartsData?.click | numberFormat}}</h1>
         </div>
-      </li>
-
-    </ul>
-    <hr>
-    <div class="bottom">
-      <div class="number clear">
-        <div class="list">账户余额<span>{{userData?.balance | currencyFormat}}</span><i class="icon-tool-tip"></i></div>
       </div>
-
+      <div class="echart"></div>
       <div class="number">
-        <div class="list">每日预算<span>{{userData?.max_day_money | currencyFormat}}</span><i class="icon-tool-edit"></i></div>
+        <div class="list">今日点击成本<span>{{echartsData?.cpc | currencyFormat}}</span></div>
+        <div class="list">今日点击率<span>{{echartsData?.ctr * 100 | number: '1.2-2'}}%</span></div>
       </div>
-
-      <div class="number">
-        <div class="list">曝光成本<span>{{echartsData?.cpm * 1000 | currencyFormat}}</span></div>
-      </div>
-
-      <div class="number">
-        <div class="list">点击成本<span>{{echartsData?.cpc | currencyFormat}}</span></div>
-      </div>
-    </div>
-  </div>
-
-
-
+    </li>
+  </ul>
 
   <div class="table-content">
-
-    <div class="query-tool">
-      <div class="left-tool">
-        <input-datepicker [disabledTodayAfter]=true [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
-      </div>
-      <div class="right-tool">
-        <div class="btn" (click)="exportUrl()">
-          导出
-          <i class="btn-icon-export"></i>
+    <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
+      <div class="query-tool"  #queryRef query >
+        <div class="left-tool">
+          <input-datepicker [disabledTodayAfter]=true [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
+        </div>
+        <div class="right-tool">
+          <div class="btn" (click)="exportUrl()">
+            导出
+            <i class="btn-icon-export"></i>
+          </div>
         </div>
       </div>
-    </div>
-
-    <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
       <table #tableRef table>
         <thead>
         <tr class="text-center">
@@ -103,6 +155,27 @@
   </div>
 </div>
 
+
+<ng-template #template>
+  <div class="day-money-home">
+    <label class="form-label">修改每日预算</label>
+    <div style="" class="form-group flex-center">
+      <div class="form-input">
+        <input type="text" class="form-control" autofocus [(ngModel)]="money" (keyup.enter)="postBudget();_popoverRef.close()" name="money"
+               [ngClass]="{'has-error': moneyRef.invalid || (userData?.consume <= 0 && money < 100) || (userData?.consume > 0 && money < (100 + userData?.consume))}"
+               #moneyRef="ngModel"  pattern="^[0-9]\d*(\.\d{1,2})?$">
+        <p class="input-error" *ngIf="moneyRef.invalid">请输入正确的金额</p>
+        <p class="input-error" *ngIf="userData?.consume <= 0  && money < 100 && moneyRef.valid">每日预算不能小于100元</p>
+        <p class="input-error" *ngIf="userData?.consume > 0 && money && money < (100 + userData?.consume) && moneyRef.valid">预算金额需大于{{(100 + userData?.consume) | number:'1.2-2'}}</p>
+      </div>
+    </div>
+    <div class="text-right">
+      <button class="btn btn-border" (click)="_popoverRef.close()">取消</button>
+      <button class="btn btn-small" (click)="postBudget();_popoverRef.close();"
+              [disabled]="!money || moneyRef.invalid || (userData?.consume <= 0 && money < 100) || (userData?.consume > 0 && money < (100 + userData?.consume))">确定</button>
+    </div>
+  </div>
+</ng-template>
 
   <ng-template #templateRecharge>
     <div class="recharge-par">

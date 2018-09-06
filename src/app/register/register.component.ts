@@ -3,7 +3,7 @@ import {Base64} from 'js-base64';
 import {PublicService} from '../../service/public.service';
 import {Router} from '@angular/router';
 import {Notification} from '../../components/notification/notification';
-
+import SparkMD5 from 'spark-md5'
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -57,7 +57,8 @@ export class RegisterComponent implements OnInit {
     this.codeTest();
     this._publicService.RegisterVerifyCode({mobile_number: this.user.mobile_phone}).subscribe( res => {})
   }
-
+  error; // error信息
+  errorText;
   save() {
     this.user.new_pwd = SparkMD5.hash(this.user.password);
     this.user.base64_pwd = Base64.encode(this.user.password);
@@ -71,7 +72,16 @@ export class RegisterComponent implements OnInit {
           }
         })
       }
+    }, error => {
+      this.error = error.errorList[0]._code;
+      this.errorText = error.errorList[0]._description;
     })
+  }
+  errorFocus(errorName) {
+    if (errorName ===  this.error) {
+      this.error = undefined;
+      this.errorText = undefined;
+    }
   }
 
   setInvalidClass(form, formControl) {
@@ -83,6 +93,14 @@ export class RegisterComponent implements OnInit {
       cl = 'has-success';
     }
     return cl;
+  }
+
+  exist_flag;
+  // 账户校验
+  userNameVaild() {
+    this._publicService.existUser({userName: this.user.user_name}).subscribe( res => {
+      this.exist_flag = res.result;  // false说明账户不存在
+    })
   }
 
 }

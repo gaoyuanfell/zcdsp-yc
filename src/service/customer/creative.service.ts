@@ -193,4 +193,13 @@ export class CreativeService extends ConfigService {
     return this.get(`/ads/spread/creative/dynamicWords`, body)
   }
 
+  /**
+   *
+   * @param {{}} body
+   * @returns {Observable<Result<any>>}
+   */
+  creativeDetailUpdate(body = {}){
+    return this.postJson(`/ads/spread/creative/detail/update`, body)
+  }
+
 }

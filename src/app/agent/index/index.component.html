@@ -57,7 +57,7 @@
         </div>
         <div class="number clear">
           <div class="list">账户余额<span>{{user?.balance | currencyFormat}}</span><i class="icon-tool-tip"></i></div>
-          <div class="list">客户余额<span>{{user?.c_balance | currencyFormat}}</span><i class="icon-tool-edit"></i></div>
+          <div class="list">客户余额<span>{{user?.c_balance | currencyFormat}}</span><i class="icon-tool-tip"></i></div>
         </div>
       </li>
       <li>
@@ -111,14 +111,14 @@
           <div class="list">冻结中<span>{{user_state_count?.freeze | number }}</span></div>
         </div>
         <div class="state-rate">
-          <div class="list">审核通过<span>{{user_state_count?.audited | number}}</span></div>
-          <div class="list">审核失败<span>{{user_state_count?.audit_failed  | number }}</span></div>
-          <div class="list">审核中<span>{{user_state_count?.penging_audit | number}}</span></div>
-          <div class="list">冻结中<span>{{user_state_count?.freeze | number }}</span></div>
+          <div class="list">审核通过<span>{{user_state_count?.audited / user_state_count?.total_count | number: '1.2-2'}}%</span></div>
+          <div class="list">审核失败<span>{{user_state_count?.audit_failed  / user_state_count?.total_count | number: '1.2-2' }}%</span></div>
+          <div class="list">审核中<span>{{user_state_count?.penging_audit / user_state_count?.total_count | number: '1.2-2'}}%</span></div>
+          <div class="list">冻结中<span>{{user_state_count?.freeze / user_state_count?.total_count | number: '1.2-2' }}%</span></div>
         </div>
       </li>
     </ul>
-    <div class="originality">
+    <div class="originality" [ngStyle]="{'display':childList?.length > 0 ?'block':'none'}">
       <div class="title">
         <div class="left">
           客户列表<i class="icon-tool-help"></i>
@@ -167,7 +167,7 @@
         </div>
       </div>
     </div>
-    <div class="originality">
+    <div class="originality" [ngStyle]="{'display':dayTotalListData?.length > 0 ?'block':'none'}">
       <div class="title">
         <div class="left">
           近期数据趋势<i class="icon-tool-help"></i>

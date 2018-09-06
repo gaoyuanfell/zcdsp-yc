@@ -5,6 +5,8 @@
     "ng": "ng",
     "hmr": "ng serve --hmr --configuration=hmr --host 0.0.0.0 --disable-host-check true --port 4800",
     "start": "ng serve --host 0.0.0.0 --port 4800 --disable-host-check true",
+    "build:test": "ng build --prod --configuration=test --named-chunks --output-hashing=media",
+    "build:test:worker": "ng build --prod --configuration=test --named-chunks --output-hashing=media --service-worker",
     "build": "ng build --prod --named-chunks --output-hashing=media",
     "build:worker": "ng build --prod --named-chunks --output-hashing=media --service-worker",
     "build:worker:push": "ng build --prod --named-chunks --output-hashing=media --service-worker && node push.js && ./svn.sh",

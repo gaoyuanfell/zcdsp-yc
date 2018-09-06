@@ -20,8 +20,10 @@
 
 
 
-        <input type="text" class="mail" placeholder="登录邮箱"  required pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" [(ngModel)]="user.user_name" name="user_name" #userName="ngModel" required [ngClass]="setInvalidClass(infoForm, infoForm.controls['user_name'])">
+
+        <input type="text" class="mail" placeholder="登录邮箱" (blur)="userNameVaild()" (focus)="exist_flag = false;"  required pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" [(ngModel)]="user.user_name" name="user_name" #userName="ngModel" required [ngClass]="setInvalidClass(infoForm, infoForm.controls['user_name'])">
         <app-form-tips [target]="infoForm.controls['user_name']" [tips]="'请输入正确邮箱'" placeholder="请填写登录邮箱" [formTarget]="infoForm"></app-form-tips>
+        <p class="error" *ngIf="exist_flag"><img src="../assets/img/index/tips.png" alt="">账户已存在,请重新输入</p>
 
 
 
@@ -41,17 +43,19 @@
 
 
         <div class="verification clear">
-              <input type="text" class="verifica" placeholder="获取验证码" required  [(ngModel)]="user.verify_code"  name="verify_code" autocomplete="off" [ngClass]="setInvalidClass(infoForm, infoForm.controls['verify_code'])">
+              <input (focus)="errorFocus('verify_code')" type="text" class="verifica" placeholder="获取验证码" required  [(ngModel)]="user.verify_code"  name="verify_code" autocomplete="off" [ngClass]="setInvalidClass(infoForm, infoForm.controls['verify_code'])">
               <button type="button" class="send" (click)="verifyCode(mobile_phone)" [disabled]="flagCode || mobile_phone.invalid">
                 {{codeText}}<span class="countdown" *ngIf="flagCode">{{countdown}}</span>
               </button>
-
         </div>
+        <p class="error" *ngIf="error === 'verify_code'" id="verify_code"><img src="assets/img/index/tips.png" alt="">{{errorText}}</p>
+
+
         <app-form-tips [target]="infoForm.controls['verify_code']" [tips]="'请输入手机验证码'" placeholder="请输入手机验证码" [formTarget]="infoForm"></app-form-tips>
         <div style="margin-top:10px;">
           <yc-checkbox [(ngModel)]="service_data"  [label]="'我已阅读并同意服务协议'" name="service_data"></yc-checkbox>
         </div>
-        <button type="submit" class="login" [disabled]="!service_data || infoForm.invalid || flag">注册</button>
+        <button type="submit" class="login" [disabled]="!service_data || infoForm.invalid || flag || exist_flag || error">注册</button>
       </form>
     </div>
   </div>

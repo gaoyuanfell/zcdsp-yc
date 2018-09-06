@@ -277,7 +277,7 @@
 
 /////////////////////
 .form-label{
-  width: 60px;
+  width: 85px;
   text-align: left;
 }
 .form-input{
@@ -333,4 +333,64 @@ input[type=color]{
       }
     }
   }
+}
+
+.container-full {
+  background-color: #f9fafb;
+  position: absolute;
+  z-index: 1;
+  top: 65px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+@header-height: 66px;
+@nav-main-width: 60px;
+@nav-main-width-hover: 200px;
+@theme-color: #001529;
+
+
+.header {
+  height: @header-height;
+  background: @theme-color;
+  width: 100%;
+  padding: 0 20px;
+  .logo {
+    width: 150px;
+    height: 32px;
+    > img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+  .user-info {
+    margin-left: auto;
+    > i {
+      margin-right: 20px;
+      cursor: pointer;
+    }
+  }
+  .user-head {
+    margin-right: 10px;
+  }
+  .header-search-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url("../../assets/img/header-search-icon.png") no-repeat center;
+  }
+  .header-help-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url("../../assets/img/header-help-icon.png") no-repeat center;
+  }
+  .header-phone-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url("../../assets/img/header-phone-icon.png") no-repeat center;
+  }
+
 }

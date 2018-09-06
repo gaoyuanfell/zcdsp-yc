@@ -58,9 +58,9 @@
         <td class="text-right">{{ listTitle?.pv * 1| number}}</td>
         <td class="text-right">{{listTitle?.click * 1| number}}</td>
         <td class="text-right">{{ listTitle?.ctr * 100 | number: '1.2-2' }}</td>
-        <td class="text-right">{{listTitle?.cpc * 1 | number: '1.2-2'}}</td>
-        <td class="text-right">{{listTitle?.cpm * 1000| number: '1.2-2'}}</td>
-        <td class="text-right">{{listTitle?.admoney * 1| number: '1.2-2'}}</td>
+        <td class="text-right">{{listTitle?.cpc * 1 | currencyFormat}}</td>
+        <td class="text-right">{{listTitle?.cpm * 1000| currencyFormat}}</td>
+        <td class="text-right">{{listTitle?.admoney * 1| currencyFormat}}</td>
       </tr>
     </ng-template>
     </tbody>

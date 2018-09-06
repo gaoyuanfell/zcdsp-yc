@@ -1,4 +1,42 @@
 /**
+ * 子集包含父级元素
+ * @param target
+ * @returns {Promise<any>}
+ */
+export function recursionChild(target) {
+  return new Promise((resolve, reject) => {
+    let fun = `
+      onmessage = function (e) {
+          function recursionChild(target) {
+            if(target instanceof Array && target.length > 0){
+              target.forEach(data => {
+                recursionChild(data);
+              });
+            }else{
+              let list = target.children;
+              if (list && list.length > 0) {
+                list.forEach(data => {
+                  data.parent = target;
+                  recursionChild(data);
+                });
+              }
+            }
+          }
+          recursionChild(e.data)
+          postMessage(e.data);
+      }
+    `;
+    const blob = new Blob([fun], { type: 'application/javascript' });
+    const url = URL.createObjectURL(blob);
+    const worker = new Worker(url);
+    worker.postMessage(target);
+    worker.onmessage = (e) => {
+      resolve(e.data);
+    };
+  });
+}
+
+/**
  * 同步子集和父级的状态
  * 递归
  * @param target

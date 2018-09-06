@@ -28,6 +28,7 @@ export interface DirectionalState {
   lbsScenes?: Array<any>
   lbsCityList?:Array<Array<any>>
   lbsCityResult?: Array<any>
+  lbsCityMapResult?: Array<any>
   lbsCityViewResult?: Array<any>
 
   audiencesAction?: Directional
@@ -38,7 +39,12 @@ export interface DirectionalState {
   audiencesAction2List?:Array<Array<any>>
   audiencesAction2Result?: Array<any>
 
+  audiencesApp?: Directional
+  audiencesAppList?:Array<Array<any>>
+  audiencesAppResult?:Array<Array<any>>
+
   result?: any
+  result2?: any
 }
 
 export interface LbsCityState {

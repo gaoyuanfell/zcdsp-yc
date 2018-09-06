@@ -1,60 +1,50 @@
 <div class="container-list">
 
-  <div class="flex-center-between">
-    <div class="group cart-left card-box ">
-      <div class="data-top flex">
-        <div class="info-img">
-          <img src="assets/img/customer/img/balance-icon.png" alt="balance-icon.png">
-        </div>
-        <div class="info">
-          <p>客户余额</p>
-          <p>{{userData?.c_balance | currencyFormat}}</p>
-        </div>
-      </div>
-    </div>
-    <div class="consume card-box">
-      <div class="item">
-        <div class="info-img">
-          <img src="assets/agent/img/check-in.png" alt="">
-        </div>
-        <div class="info">
-          <p>总转入</p>
-          <!--<p>累计充值</p>-->
-          <p>
-            <span>{{userData?.in_money | currencyFormat}}</span>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="consume card-box">
-      <div class="item">
-        <div class="info-img">
-          <img src="assets/agent/img/check-out.png" alt="">
-        </div>
-        <div class="info">
-          <p>总转出</p>
-          <!--<p>累计转入</p>-->
-          <p>
-            <span>{{userData?.out_money | currencyFormat}}</span>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="consume card-box">
-      <div class="item">
-        <div class="info-img">
-          <img src="assets/img/customer/img/liushui-recharge.png" alt="">
-        </div>
-        <div class="info">
-          <p>总消耗</p>
-          <p>
-            <span>{{userData?.consume_money | currencyFormat}}</span>
-          </p>
-        </div>
-      </div>
-    </div>
 
 
+  <div class="topPar">
+    <ul class="top">
+      <li>
+        <div class="title">
+          <div class="img"><img src="assets/img/indexjinr.png" alt=""></div>
+          <div class="right">
+            <p>客户余额</p>
+            <h1>{{userData?.c_balance | currencyFormat}}</h1>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="title">
+          <div class="img">  <img src="assets/agent/img/check-in.png" alt=""></div>
+          <div class="right">
+            <p>总转入</p>
+            <h1>{{userData?.in_money | currencyFormat}}</h1>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="title">
+          <div class="img"> <img src="assets/agent/img/check-out.png" alt=""></div>
+          <div class="right">
+            <p>总转出</p>
+            <h1>{{userData?.out_money | currencyFormat}}</h1>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="title">
+          <div class="img">  <img src="assets/img/customer/img/liushui-recharge.png" alt=""></div>
+          <div class="right">
+            <p>总消耗</p>
+            <h1>{{userData?.consume_money | currencyFormat}}</h1>
+          </div>
+        </div>
+      </li>
+
+    </ul>
   </div>
 
 
@@ -118,7 +108,7 @@
 
 
 <ng-template #transferIn_template>
-  <form #transForm="ngForm">
+  <form #transForm="ngForm" class="transfer">
     <div class="form-group flex">
       <label class="form-label"><span>*</span>操作金额</label>
       <div class="form-input">

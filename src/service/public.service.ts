@@ -100,6 +100,15 @@ export class PublicService extends ConfigService {
   register(body = {}) {
   return this.postJson('/jurisdiction/register', body, {})
   }
+  /**
+   * 判断账户是否存在
+   * @param {{}} body
+   * @returns {Observable<Result<any>>}
+   */
+
+  existUser(body = {}) {
+    return this.get(`/us/user/exist/user_name` , body)
+  }
 
   /**
    * 退出

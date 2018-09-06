@@ -32,13 +32,13 @@
           复制创意
           <i class="btn-icon-copy"></i>
         </div>
-        <div class="btn btn-outline" [yc-drop-menu]="batchUpdateMenu" (selectedEvent)="batchUpdate($event.value)">
-          批量修改
-          <i class="icon-btn-menu m-l-1"></i>
-        </div>
         <div class="btn" (click)="exportUrl()">
           导出
           <i class="btn-icon-export"></i>
+        </div>
+        <div class="btn btn-outline" [yc-drop-menu]="batchUpdateMenu" (selectedEvent)="batchUpdate($event.value)">
+          批量修改
+          <i class="icon-btn-menu m-l-1"></i>
         </div>
       </div>
       <div class="right-tool">
@@ -52,7 +52,7 @@
       <tr>
         <th fixed="left" width="50" [showCheckbox]="true"></th>
         <th>创意ID</th>
-        <th class="text-left">创意名称</th>
+        <th class="text-left" width="200">创意名称</th>
         <th></th>
         <th class="text-left">活动名称</th>
         <th class="text-left">媒体</th>
