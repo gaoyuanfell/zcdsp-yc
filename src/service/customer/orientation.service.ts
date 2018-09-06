@@ -37,7 +37,7 @@ export class OrientationService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   deleteOrientation(body = {}) {
-    return this.get(`/ads/spread/directional/package/delete`, body);
+    return this.postForm(`/ads/spread/directional/package/delete`, body);
   }
 
   /**

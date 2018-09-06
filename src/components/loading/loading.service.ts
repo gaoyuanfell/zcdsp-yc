@@ -25,11 +25,7 @@ export class Loading {
       });
       this.popup = this.overlay.create(overlayConfig);
     }
-    if (!this.popup.hasAttached()) {
-      this.componentRef = this.popup.attach(this.portal);
-      this.componentRef.instance.state = false;
-      this._container = this.componentRef.instance;
-    }
+
   }
 
   config: any = {};
@@ -39,6 +35,11 @@ export class Loading {
   cache = [];
 
   open(config = {}) {
+    if (!this.popup.hasAttached()) {
+      this.componentRef = this.popup.attach(this.portal);
+      this.componentRef.instance.state = false;
+      this._container = this.componentRef.instance;
+    }
     config = {...this.config, config}
 
     this.cache.push(0);
