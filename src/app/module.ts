@@ -40,6 +40,7 @@ import {CreativeBoxModule} from '../components/creative-box/creative-box.module'
 import {CreativeMaterialModule} from '../components/creative-material/creative-material.module';
 import {TooltipModule} from '../components/tooltip/tooltip.module';
 import {MapModule} from '../components/map/map.module';
+import {LoadingModule} from '../components/loading/loading.module';
 
 @NgModule({
   imports: [
@@ -79,6 +80,7 @@ import {MapModule} from '../components/map/map.module';
     CreativeMaterialModule,
     TooltipModule,
     MapModule,
+    LoadingModule,
   ],
   declarations: [],
   exports: [
@@ -118,6 +120,7 @@ import {MapModule} from '../components/map/map.module';
     CreativeMaterialModule,
     TooltipModule,
     MapModule,
+    LoadingModule,
   ],
   providers: [
     {
