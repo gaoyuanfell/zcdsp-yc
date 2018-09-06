@@ -60,15 +60,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  _router;
   ngOnInit(): void {
-<<<<<<< HEAD
-    console.log(this.router.url)  //   /ads/home
-    this._router = this.router.url;
     this._global.overflowSubject = new Subject<{[key: string]: any}>();
-=======
-    this._global.overflowSubject = new Subject<{ [key: string]: any }>();
->>>>>>> 3d4f1eff511064a00fb21a2281163a6ad019aa3c
     this._global.containerFullRef = this.containerFullRef.nativeElement;
     this._scroll = fromEvent(this._global.containerFullRef, 'scroll').subscribe((event: Event | any) => {
       this._global.overflowSubject.next({top: event.target.scrollTop, left: event.target.scrollLeft});
@@ -102,15 +95,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.title.setTitle(`智橙移动-${this.auth.user.user_name}`);
     }
   }
-<<<<<<< HEAD
-  _menu;
-  navigate(menu){
-=======
 
   navigate(menu) {
->>>>>>> 3d4f1eff511064a00fb21a2281163a6ad019aa3c
     if (!menu.child) {
+      menu.active = true
       this.router.navigate([menu.route]);
+    }else{
+      menu.active = !menu.active
     }
   }
 }

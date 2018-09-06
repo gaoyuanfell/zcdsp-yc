@@ -39,7 +39,7 @@
       <ul class="nav-list">
         <ng-template [ngForOf]="menuList$ | async" ngFor let-menu>
           <li>
-            <div class="nav-item flex-center" (click)="menu.active = !menu.active;navigate(menu)" [ngClass]="{'yes-child': menu.child?.length, 'active': menu.active}">
+            <div class="nav-item flex-center" (click)="navigate(menu)" [ngClass]="{'yes-child': menu.child?.length, 'active': menu.active}">
               <!--[routerLink]="menu.route" routerLinkActive="active"-->
               <i class="nav-icon zcdsp-icon" [innerHTML]="menu.icon"></i>
               <span class="nav-name">{{menu.name}}</span>
