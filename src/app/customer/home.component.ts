@@ -58,7 +58,10 @@ export class HomeComponent implements OnInit,OnDestroy {
     })
   }
 
+  _router;
   ngOnInit(): void {
+    console.log(this.router.url)  //   /ads/home
+    this._router = this.router.url;
     this._global.overflowSubject = new Subject<{[key: string]: any}>();
     this._global.containerFullRef = this.containerFullRef.nativeElement;
     this._scroll = fromEvent(this._global.containerFullRef, 'scroll').subscribe((event:  Event | any) => {
@@ -88,6 +91,7 @@ export class HomeComponent implements OnInit,OnDestroy {
       }
     })
   }
+  _menu;
   navigate(menu){
     if (!menu.child) {
         this.router.navigate([menu.route])
