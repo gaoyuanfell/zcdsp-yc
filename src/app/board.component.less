@@ -92,7 +92,7 @@
   width: 100%;
   min-width: 1366px;
   margin-bottom: 40px;
-  background: url("../assets/img/index/bannerbg.jpg") no-repeat;
+  background: url("../assets/img/index/bannerbg1.jpg") no-repeat;
   background-size: 100% 100%;
   position: relative;
   padding-bottom: 46%;
@@ -111,89 +111,104 @@
   }
   .img0{
     position: absolute;
-    left: 609px;
-    top: 484px;
+    width: 186px;
+    height: 186px;
+    left: 31.8%;
+    top: 54.4%;
     .img11{
       position: absolute;
       width: 186px;
-      left: 62px;
-      top: -47px;
+      left: 34%;
+      top: -23%;
+      animation: dropdown 2s ease-out Infinite;
     }
     .img12{
       position: absolute;
-      width: 52px;
-      left: 82px;
-      top: 62px;
+      width: 49px;
+      left: 45%;
+      bottom: 2px;
     }
   }
   .img1{
     position: absolute;
-    left: 716px;
-    top: 263px;
+    width: 188px;
+    height: 188px;
+    left: 45%;
+    top: 26%;
     .img21{
       position: absolute;
       width: 188px;
-      left: 62px;
-      top: -50px;
+      left: -43%;
+      top: -8%;
+      animation: dropdown 2s ease-out 0.8s Infinite;
     }
     .img22{
       position: absolute;
       width: 52px;
-      left: 194px;
-      top: 66px;
+      left: 27%;
+      bottom: -10%;
     }
   }
   .img2{
     position: absolute;
-    left: 1017px;
-    top: 169px;
+    width: 186px;
+    height: 186px;
+    left: 53.3%;
+    top: 19.4%;
     .img31{
       position: absolute;
       width: 186px;
-      left: 62px;
-      top: -50px;
+      left: 32%;
+      top: -27%;
+      animation: dropdown 2s ease-out Infinite;
     }
     .img32{
       position: absolute;
       width: 40px;
-      left: 126px;
-      top: 91px;
+      left: 66%;
+      bottom: -3%;
     }
   }
   .img3{
     position: absolute;
-    right: 723px;
-    top: 295px;
+    width: 187px;
+    height:187px;
+    right: 20%;
+    top: 33.6%;
     .img41{
       position: absolute;
       width: 187px;
-      left: 62px;
-      top: -50px;
+      left: -48%;
+      top: -27%;
+      animation: dropdown 2s ease-out 0.8s Infinite;
     }
     .img42{
       position: absolute;
       width: 42px;
-      left: 230px;
-      top: 50px;
+      left: 41%;
+      bottom: 16%;
     }
   }
   .img5{
     position: absolute;
     width: 172px;
-    right: 446px;
-    top: 516px;
+    right: 23.4%;
+    top: 58.8%;
+    animation: dropdown 2s ease-out Infinite;
   }
   .img6{
     position: absolute;
     width: 70px;
-    left: 988px;
-    top: 424px;
+    left: 51.9%;
+    top: 48%;
+    animation: dropdown 2s ease-out 0.8s Infinite;
   }
   .img7{
     position: absolute;
     width: 53px;
-    left: 1100px;
-    top: 358px;
+    left: 57.6%;
+    top: 41%;
+    animation: dropdown 2s ease-out Infinite;
   }
 }
 
@@ -647,6 +662,504 @@
         color: #0d98f3;
         margin: 0 10px;
       }
+    }
+  }
+}
+@keyframes dropdown {
+  0%{
+    transform: translate(0,-3%);
+  }
+  50%{
+    transform: translate(0,2%);
+  }
+  100%{
+    transform: translate(0,-3%);
+  }
+}
+@-webkit-keyframes dropdown {
+  0%{
+    transform: translate(0,-3%);
+  }
+  50%{
+    transform: translate(0,2%);
+  }
+  100%{
+    transform: translate(0,-3%);
+  }
+}
+@media screen and(max-width: 1880px) {
+  .banner {
+    .img0 {
+      left: 31.8%;
+      top: 53.9%;
+      .img11 {
+        width: 183px;
+        left: 33%;
+        top: -22%;
+      }
+      .img12 {
+        width: 47px;
+      }
+    }
+    .img1 {
+      left: 44.8%;
+      top: 25.3%;
+      .img21 {
+        width: 186px;
+        left: -41%;
+        top: -6%;
+      }
+      .img22 {
+        left: 28%;
+      }
+    }
+    .img2 {
+      left: 53.4%;
+      top: 18.9%;
+      .img31 {
+        width: 184px;
+        left: 31%;
+        top: -25%;
+      }
+      .img32 {
+        left: 65%;
+      }
+    }
+    .img3 {
+      right: 19.8%;
+      top: 33%;
+      .img41 {
+        width: 185px;
+        top: -24%;
+      }
+      .img42 {
+        width: 41px;
+      }
+    }
+    .img5 {
+      width: 170px;
+      right: 23.2%;
+      top: 58.8%;
+    }
+    .img6 {
+      width: 67px;
+      left: 51.8%;
+    }
+    .img7 {
+      width: 52px;
+    }
+  }
+}
+@media screen and(max-width: 1780px){
+  .banner {
+    .img0 {
+      left: 31.5%;
+      top: 52.6%;
+      .img11 {
+        width: 178px;
+        left: 33%;
+        top: -14%;
+      }
+      .img12 {
+        width: 42px;
+        left: 46%;
+      }
+    }
+    .img1 {
+      left: 44.5%;
+      top: 24.1%;
+      .img21 {
+        width: 176px;
+        left: -35%;
+        top: -1%;
+      }
+      .img22 {
+        width: 49px;
+        left: 29%;
+      }
+    }
+    .img2 {
+      left: 53%;
+      top: 17.6%;
+      .img31 {
+        width: 175px;
+        left: 33%;
+        top: -18%;
+      }
+      .img32 {
+        width: 37px;
+      }
+    }
+    .img3 {
+      right: 19.7%;
+      top: 32%;
+      .img41 {
+        width: 175px;
+        left: -41%;
+        top: -19%;
+      }
+      .img42 {
+        width: 40px;
+      }
+    }
+    .img5 {
+      width: 160px;
+      right: 23.4%;
+      top: 59%;
+    }
+    .img6 {
+      width: 65px;
+    }
+    .img7 {
+      width: 48px;
+    }
+  }
+}
+@media screen and(max-width: 1680px){
+  .banner {
+    .img0 {
+      left: 31.2%;
+      top: 51.4%;
+      .img11 {
+        width: 168px;
+        left: 34%;
+        top: -9%;
+      }
+      .img12 {
+        width: 40px;
+        left: 46%;
+      }
+    }
+    .img1 {
+      left: 44.2%;
+      top: 22.4%;
+      .img21 {
+        width: 167px;
+        left: -31%;
+        top: 6%;
+      }
+      .img22 {
+        width: 46px;
+        left: 30%;
+      }
+    }
+    .img2 {
+      left: 52.6%;
+      top: 16.2%;
+      .img31 {
+        width: 164px;
+        left: 35%;
+        top: -11%;
+      }
+      .img32 {
+        width: 37px;
+      }
+    }
+    .img3 {
+      right: 19.3%;
+      top: 30.9%;
+      .img41 {
+        width: 166px;
+        left: -37%;
+        top: -13%;
+      }
+      .img42 {
+        width: 38px;
+      }
+    }
+    .img5 {
+      width: 152px;
+      right: 23.3%;
+      top: 58.7%;
+    }
+    .img6 {
+      width: 60px;
+    }
+    .img7 {
+      width: 46px;
+    }
+  }
+}
+@media screen and(max-width: 1600px){
+  .banner {
+    .img0 {
+      left: 31%;
+      top: 50.0%;
+      .img11 {
+        width: 160px;
+        left: 34%;
+        top: -3%;
+      }
+      .img12 {
+        width: 38px;
+        left: 45%;
+      }
+    }
+    .img1 {
+      left: 44%;
+      top: 21.1%;
+      .img21 {
+        width: 159px;
+        left: -28%;
+        top: 11%;
+      }
+      .img22 {
+        width: 43px;
+        left: 31%;
+      }
+    }
+    .img2 {
+      left: 52.2%;
+      top: 15.3%;
+      .img31 {
+        width: 157px;
+        left: 36%;
+        top: -7%;
+      }
+      .img32 {
+        width: 35px;
+      }
+    }
+    .img3 {
+      right: 19%;
+      top: 30%;
+      .img41 {
+        width: 158px;
+        left: -33%;
+        top: -10%;
+      }
+      .img42 {
+        width: 38px;
+      }
+    }
+    .img5 {
+      width: 145px;
+      right: 23.3%;
+      top: 58.5%;
+    }
+    .img6 {
+      width: 57px;
+    }
+    .img7 {
+      width: 44px;
+    }
+  }
+}
+@media screen and(max-width: 1510px){
+  .banner {
+    .img0 {
+      left: 30.7%;
+      top: 48.6%;
+      .img11 {
+        width: 152px;
+        left: 34%;
+        top: 2%;
+      }
+      .img12 {
+        width: 36px;
+        left: 45%;
+      }
+    }
+    .img1 {
+      left: 43.6%;
+      top: 19.4%;
+      .img21 {
+        width: 151px;
+        left: -23%;
+        top: 16%;
+      }
+      .img22 {
+        width: 40px;
+        left: 33%;
+      }
+    }
+    .img2 {
+      left: 51.7%;
+      top: 13.6%;
+      .img31 {
+        width: 149px;
+        left: 38%;
+        top: -1%;
+      }
+      .img32 {
+        width: 32px;
+        left: 65.2%;
+      }
+    }
+    .img3 {
+      right: 18.7%;
+      top: 28.8%;
+      .img41 {
+        width: 149px;
+        left: -28%;
+        top: -4%;
+      }
+      .img42 {
+        width: 34px;
+        left: 42%;
+      }
+    }
+    .img5 {
+      width: 144px;
+      right: 22.8%;
+      top: 58.7%;
+    }
+    .img6 {
+      width: 54px;
+    }
+    .img7 {
+      width: 41px;
+    }
+  }
+}
+@media screen and(max-width: 1440px){
+  .banner {
+    .img0 {
+      left: 30.4%;
+      top: 47.2%;
+      .img11 {
+        width: 144px;
+        left: 35%;
+        top: 8%;
+      }
+      .img12 {
+        width: 34px;
+        left: 46%;
+      }
+    }
+    .img1 {
+      left: 43.3%;
+      top: 17.9%;
+      .img21 {
+        width: 144px;
+        left: -20%;
+        top: 21%;
+      }
+      .img22 {
+        width: 38px;
+      }
+    }
+    .img2 {
+      left: 51.4%;
+      top: 12%;
+      .img31 {
+        width: 141px;
+        left: 39%;
+        top: 5%;
+      }
+      .img32 {
+        width: 30px;
+      }
+    }
+    .img3 {
+      right: 18.3%;
+      top: 27.5%;
+      .img41 {
+        width: 142px;
+        left: -25%;
+        top: 0%;
+      }
+      .img42 {
+        width: 32px;
+        left: 42%;
+      }
+    }
+    .img5 {
+      width: 142px;
+      right: 22.6%;
+    }
+    .img6 {
+      width: 51px;
+    }
+    .img7 {
+      width: 39px;
+    }
+  }
+}
+@media screen and(max-width: 1400px){
+  .banner {
+    .img0 {
+      left: 30.2%;
+      top: 46.3%;
+      .img11 {
+        width: 141px;
+        top: 9%;
+      }
+      .img12 {
+        width: 34px;
+        left: 46%;
+      }
+    }
+    .img1 {
+      left: 43.1%;
+      top: 17.0%;
+      .img21 {
+        width: 140px;
+        left: -18%;
+        top: 23%;
+      }
+      .img22 {
+        width: 37px;
+        left: 34%;
+      }
+    }
+    .img2 {
+      left: 51.1%;
+      top: 11.2%;
+      .img31 {
+        width: 137px;
+        left: 40%;
+        top: 7%;
+      }
+      .img32 {
+        width: 30px;
+      }
+    }
+    .img3 {
+      right: 18.1%;
+      top: 27%;
+      .img41 {
+        width: 139px;
+        left: -23%;
+        top: 2%;
+      }
+      .img42 {
+        width: 32px;
+        left: 42%;
+      }
+    }
+    .img5 {
+      width: 138px;
+      right: 22.7%;
+    }
+    .img6 {
+      width: 50px;
+    }
+    .img7 {
+      width: 38px;
+    }
+  }
+}
+@media screen and(max-width: 1366px){
+  .banner {
+    .img0 {
+      left: 30%;
+      top: 46%;
+    }
+    .img1 {
+      left: 43%;
+      top: 16.2%;
+    }
+    .img2 {
+      left: 51%;
+      top: 10.8%;
+    }
+    .img3 {
+      right: 17.9%;
+      top: 26.5%;
+    }
+    .img5 {
+      width: 136px;
     }
   }
 }
