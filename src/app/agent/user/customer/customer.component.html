@@ -1,44 +1,4 @@
 <div class="container-list">
-  <!--<div class="parent">-->
-    <!--<div class="data-top flex">-->
-      <!--<div class="left-img">-->
-        <!--<img src="assets/img/customer/img/user-icon.png">-->
-      <!--</div>-->
-      <!--<div class="right-info">-->
-        <!--<p>-->
-          <!--{{userData?.nick_name}}-->
-        <!--</p>-->
-        <!--<p>-->
-          <!--<i class="login-icon"></i>-->
-          <!--<span>登入账号：{{userData?.user_name}}</span>-->
-        <!--</p>-->
-        <!--<p>-->
-          <!--<i class="time-icon"></i>-->
-          <!--<span>注册时间：{{userData?.creation_date | date: 'yyyy-MM-dd HH:mm:ss'}}</span>-->
-        <!--</p>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="data-right card-box">-->
-      <!--<div class="today-data flex">-->
-        <!--<div class="info-img">-->
-          <!--<img src="assets/img/customer/img/balance-icon.png" alt="yusuan-icon.png">-->
-        <!--</div>-->
-        <!--<div class="info">-->
-          <!--<p>客户余额</p>-->
-          <!--<p>{{userData?.c_balance | currencyFormat}}</p>-->
-        <!--</div>-->
-      <!--</div>-->
-      <!--<div class="today-data flex">-->
-        <!--<div class="info-img">-->
-          <!--<img src="assets/img/customer/img/balance-icon.png" alt="yusuan-icon.png">-->
-        <!--</div>-->
-        <!--<div class="info">-->
-          <!--<p>客户消耗</p>-->
-          <!--<p>{{userData?.consume_money | currencyFormat}}</p>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
   <ul class="top">
     <li style="position: relative">
       <div class="title">
@@ -76,26 +36,23 @@
 
 
   <div class="table-content">
-
-    <div class="query-tool">
-      <div class="left-tool">
-        <div class="btn" (click)="addCustomer()" *ngIf="isPermit('ZCMOBI_US_CUSTOMER_ADD')">
-          新增客户
-        </div>
-        <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'请输入客户名称、账号、ID'"></yc-input-search>
-      </div>
-      <div class="right-tool">
-
-        <yc-checkbox-group [(ngModel)]="zc_audit_status" [list]="audit_status_list" (changeEvent)="auditStatusChange()" [props]="{value:'lookup_code',label:'meaning'}"></yc-checkbox-group>
-
-        <div class="btn" (click)="exportUrl()">
-          导出
-          <i class="btn-icon-export"></i>
-        </div>
-      </div>
-    </div>
-
     <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
+      <div class="query-tool" #queryRef query>
+        <div class="left-tool">
+          <div class="btn" (click)="addCustomer()" *ngIf="isPermit('ZCMOBI_US_CUSTOMER_ADD')">
+            新增客户
+          </div>
+          <div class="btn" (click)="exportUrl()">
+            导出
+            <i class="btn-icon-export"></i>
+          </div>
+        </div>
+        <div class="right-tool">
+          <yc-checkbox-group [(ngModel)]="zc_audit_status" [list]="audit_status_list" (changeEvent)="auditStatusChange()" [props]="{value:'lookup_code',label:'meaning'}"></yc-checkbox-group>
+          <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'请输入客户名称、账号、ID'"></yc-input-search>
+        </div>
+      </div>
+
       <table #tableRef table>
         <thead>
         <tr>
@@ -120,8 +77,13 @@
             <td class="text-center">{{ data.zc_audit_date | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
             <td class="text-center">{{ data.creation_date | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
             <td class="text-center">
-              <button class="btn-into-img" (click)="sublogin(data.user_id)"></button>
-              <button class="btn-pencil-icon" (click)="editCustomer(data.user_id)" [disabled]="!isPermit('ZCMOBI_US_CUSTOMER_EDIT')"></button>
+
+
+              <!--<button class="btn-pencil-icon" (click)="editCustomer(data.user_id)" [disabled]="!isPermit('ZCMOBI_US_CUSTOMER_EDIT')"></button>-->
+              <!--<button class="btn-into-img" (click)="sublogin(data.user_id)"></button>-->
+
+              <button  class="btn btn-link" (click)="editCustomer(data.user_id)" [disabled]="!isPermit('ZCMOBI_US_CUSTOMER_EDIT')">修改</button>
+              <button  class="btn btn-link" (click)="sublogin(data.user_id)">进入账户</button>
             </td>
           </tr>
         </ng-template>
