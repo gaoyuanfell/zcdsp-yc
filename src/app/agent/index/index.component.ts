@@ -7,6 +7,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Dialog} from '../../../components/dialog/dialog';
 import {bufferCount} from 'rxjs/operators';
 
+
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',

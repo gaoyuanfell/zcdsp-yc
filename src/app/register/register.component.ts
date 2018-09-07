@@ -98,9 +98,11 @@ export class RegisterComponent implements OnInit {
   exist_flag;
   // 账户校验
   userNameVaild() {
-    this._publicService.existUser({userName: this.user.user_name}).subscribe( res => {
-      this.exist_flag = res.result;  // false说明账户不存在
-    })
+    if(this.user.user_name){
+      this._publicService.existUser({userName: this.user.user_name}).subscribe( res => {
+        this.exist_flag = res.result;  // false说明账户不存在
+      })
+    }
   }
 
 }

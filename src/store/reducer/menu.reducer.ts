@@ -14,6 +14,7 @@ export function menuReducer(state: MenuState = initState, action: MenuActionUnio
     }
     case MenuActionTypes.SELECT_ACTIVE_MENU: {
       let path = action.payload;
+      path = path.split('?')[0];  // 这边把url后面的问号截取
       state.menuList.every(m => {
         m.active = false;
         return true;

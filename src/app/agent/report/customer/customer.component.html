@@ -1,19 +1,22 @@
 <div class="container-list">
-  <div class="query-tool">
-    <div class="left-tool">
-      <input-datepicker [disabledTodayAfter]=true [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
-      <yc-select [width]="240" [searchCtrl]="true" [(ngModel)]="query.user_id" [list]="user_list" [props]="{value:'user_id',label:'user_name'}" (selectedEvent)="search()" [placeholder]="'请选择客户'" [whole]="'全部'"></yc-select>
-    </div>
-    <div class="right-tool">
-      <div class="btn" (click)="exportUrl()">
-        导出
-        <i class="btn-icon-export"></i>
-      </div>
-    </div>
-  </div>
+
 
   <div class="table-content">
     <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
+
+      <div class="query-tool" #queryRef query>
+        <div class="left-tool">
+          <div class="btn" (click)="exportUrl()">
+            导出
+            <i class="btn-icon-export"></i>
+          </div>
+        </div>
+        <div class="right-tool">
+          <input-datepicker [disabledTodayAfter]=true [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
+          <yc-select [width]="240" [searchCtrl]="true" [(ngModel)]="query.user_id" [list]="user_list" [props]="{value:'user_id',label:'user_name'}" (selectedEvent)="search()" [placeholder]="'请选择客户'" [whole]="'全部'"></yc-select>
+        </div>
+      </div>
+
       <table #tableRef table>
         <thead>
         <tr>

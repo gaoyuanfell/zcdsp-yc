@@ -54,6 +54,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     event.preventDefault();
     event.stopPropagation();
     this._publicService.quit().subscribe(res => {
+      console.log(res);
+      console.log(this._global.token)
       this._global.token = null;
       this.userToolBox = false;
       this.router.navigate(['/login']);

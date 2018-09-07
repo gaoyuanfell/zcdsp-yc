@@ -803,7 +803,7 @@ export class BaseIndexComponent implements OnInit{
         {
           name: '年龄比例',
           type: 'pie',
-          radius: ['60%', '99%'],  // 圆的大小是根据第二个参数来的
+          radius: ['57%', '80%'],  // 圆的大小是根据第二个参数来的
           avoidLabelOverlap: false,
           hoverOffset: 3,
           itemStyle: {   // 每个之间的间距
@@ -1303,16 +1303,16 @@ export class BaseIndexComponent implements OnInit{
   }
 
   _showHighlightChart(chart, index) {
-    if (!chart) return;
-    chart.dispatchAction({
-      type: 'downplay',
-      seriesIndex: 0,
-    });
-    chart.dispatchAction({
-      type: 'highlight',
-      seriesIndex: 0,
-      dataIndex: index,
-    });
+    // if (!chart) return;
+    // chart.dispatchAction({
+    //   type: 'downplay',
+    //   seriesIndex: 0,
+    // });
+    // chart.dispatchAction({
+    //   type: 'highlight',
+    //   seriesIndex: 0,
+    //   dataIndex: index,
+    // });
   }
 
 

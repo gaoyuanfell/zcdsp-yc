@@ -97,8 +97,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   navigate(menu) {
+    console.log(menu)
     if (!menu.child) {
-      menu.active = true
+      menu.active = true;
       this.router.navigate([menu.route]);
     }else{
       menu.active = !menu.active
