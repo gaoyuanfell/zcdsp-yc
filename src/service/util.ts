@@ -275,3 +275,18 @@ export function hoursFormat(list) {
 export function codyDepth(target) {
   return JSON.parse(JSON.stringify(target));
 }
+
+/**
+ * 异步加载js
+ */
+export function loadScript(url) {
+  return new Promise((resolve, reject) => {
+    let jsapi = window.document.createElement('script');
+    jsapi.charset = 'utf-8';
+    jsapi.src = url;
+    document.head.appendChild(jsapi);
+    jsapi.onload = () => {
+      resolve()
+    }
+  })
+}

@@ -17,6 +17,11 @@ import { Dialog, YC_DIALOG_DATA } from '../../components/dialog/dialog';
       <button class="btn" (click)="open()">open</button>
       <button class="btn" (click)="open2()">open2</button>
       <button class="btn" routerLink="1">lazy</button>
+
+      <!--<yc-map></yc-map>-->
+
+      <div style="width: 100%;height: 600px;" yc-map></div>
+      
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

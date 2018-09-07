@@ -123,7 +123,7 @@
           <div class="day-money-home">
             <h3>修改创意名称</h3>
             <div style="" class="form-group flex-center">
-              <label style="width: 50px;" class="form-label">名称：</label>
+              <!--<label style="width: 50px;" class="form-label">名称：</label>-->
               <div class="form-input">
                 <input type="text" autofocus class="form-control" [(ngModel)]="creative_name" (keyup.enter)="_updateName(data);popoverCreativeName.close()">
               </div>
@@ -137,7 +137,7 @@
 
         <ng-template #adPrice>
           <div class="day-money-home">
-            <label class="form-label">修改出价</label>
+            <h3>修改出价</h3>
             <div class="form-group flex-center">
               <div class="form-input">
                 <input class="form-control" autofocus type="text" [(ngModel)]="ad_price" #ad_priceRef="ngModel" [placeholder]="'请填写出价'" required
