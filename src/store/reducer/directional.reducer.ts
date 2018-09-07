@@ -101,7 +101,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
         recursionChildCheck(au.value);
         recursionParentCheck(au.value);
       });
-      state.audiencesResult = [];
+      state.audiencesResult = {};
       state.audiencesViewResult = [];
       return {...state};
     }
@@ -133,7 +133,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
         recursionChildCheck(au.value);
         recursionParentCheck(au.value);
       });
-      state.deviceResult = [];
+      state.deviceResult = {};
       state.deviceViewResult = [];
       return {...state};
     }
@@ -294,7 +294,8 @@ export function directionalReducer(state: DirectionalState = initState, action: 
         recursionChildCheck(au.value);
         recursionParentCheck(au.value);
       });
-      state.deviceResult = [];
+      state.deviceResult = {};
+      state.deviceViewResult = [];
 
       state.audiences.forEach(au => {
         au.value.checked = false;
@@ -302,7 +303,8 @@ export function directionalReducer(state: DirectionalState = initState, action: 
         recursionChildCheck(au.value);
         recursionParentCheck(au.value);
       });
-      state.audiencesResult = [];
+      state.audiencesResult = {};
+      state.audiencesViewResult = [];
 
       state.areas.checked = false;
       state.areas.checkState = 0;
@@ -408,11 +410,17 @@ export function directionalReducer(state: DirectionalState = initState, action: 
     let area = state.result.dtl_address.area.map(a => a.id);
 
     // area
+    state.areas.checked = false;
+    state.areas.checkState = 0;
+    recursionChildCheck(state.areas)
     recursionFilter(area, state.areas.children, 'id');
     state.areasResult = recursionResult(state.areas.children); // .map(ar => ({id: ar.id, name: ar.name}));
 
     // audiences
     state.audiences.forEach(au => {
+      au.value.checked = false;
+      au.value.checkState = 0;
+      recursionChildCheck(au.value)
       recursionFilter(state.result.dtl_attribute.crowdAttribute[au.key], au.value.children, 'value');
     });
     let array = [];
@@ -433,6 +441,9 @@ export function directionalReducer(state: DirectionalState = initState, action: 
 
     // device
     state.device.forEach(au => {
+      au.value.checked = false;
+      au.value.checkState = 0;
+      recursionChildCheck(au.value)
       recursionFilter(state.result.dtl_devices[au.key], au.value.children, 'value');
     });
     let array2 = [];
@@ -453,6 +464,9 @@ export function directionalReducer(state: DirectionalState = initState, action: 
 
     // lbsCity
     let lbsCity = state.result.dtl_address.lbs.map(a => a.id);
+    state.lbsCity.checked = false;
+    state.lbsCity.checkState = 0;
+    recursionChildCheck(state.lbsCity)
     recursionFilter(lbsCity, state.lbsCity.children, 'id');
     state.lbsCityViewResult = recursionResult(state.lbsCity.children);
     state.lbsCityResult = recursionResult2(state.lbsCity.children).map(ar => ({
@@ -467,8 +481,16 @@ export function directionalReducer(state: DirectionalState = initState, action: 
     let appCategory = state.result.dtl_behavior.appCategory.map(a => a.id);
     let filterAppAttribute = state.result.dtl_behavior.filterAppAttribute.map(a => a.id);
     let filterAppCategory = state.result.dtl_behavior.filterAppCategory.map(a => a.id);
+
+    state.audiencesAction.checked = false;
+    state.audiencesAction.checkState = 0;
+    recursionChildCheck(state.audiencesAction)
     recursionFilter(appAttribute.concat(appCategory), state.audiencesAction.children, 'id');
     state.audiencesActionResult = recursionResult(state.audiencesAction.children);
+
+    state.audiencesAction2.checked = false;
+    state.audiencesAction2.checkState = 0;
+    recursionChildCheck(state.audiencesAction2)
     recursionFilter(filterAppAttribute.concat(filterAppCategory), state.audiencesAction2.children, 'id');
     state.audiencesAction2Result = recursionResult(state.audiencesAction2.children);
   }

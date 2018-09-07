@@ -1,11 +1,12 @@
 @font-face {
   font-family: 'zcdsp-icon';  /* project id 811354 */
-  src: url('//at.alicdn.com/t/font_811354_y9xa2fxsof.eot');
-  src: url('//at.alicdn.com/t/font_811354_y9xa2fxsof.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_811354_y9xa2fxsof.woff') format('woff'),
-  url('//at.alicdn.com/t/font_811354_y9xa2fxsof.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_811354_y9xa2fxsof.svg#zcdsp-icon') format('svg');
+  src: url('//at.alicdn.com/t/font_811354_yuwc69dwu2a.eot');
+  src: url('//at.alicdn.com/t/font_811354_yuwc69dwu2a.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_811354_yuwc69dwu2a.woff') format('woff'),
+  url('//at.alicdn.com/t/font_811354_yuwc69dwu2a.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_811354_yuwc69dwu2a.svg#zcdsp-icon') format('svg');
 }
+
 // @font-face {font-family: "zcdsp-icon";
 //   src: url('./assets/font/iconfont.eot?t=1535527923358'); /* IE9*/
 //   src: url('./assets/font/iconfont.eot?t=1535527923358#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -225,7 +226,7 @@ input[type="submit"] {
 
 a {
   background-color: transparent;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 ul, ol {
@@ -418,24 +419,59 @@ body {
 }
 
 .m-b-1 {
-  margin-bottom:1rem !important;
+  margin-bottom: 1rem !important;
 }
 
-.w0{
+.w0 {
   width: 0%;
 }
-.w25{
+
+.w25 {
   width: 25%;
 }
-.w50{
+
+.w50 {
   width: 50%;
 }
-.w75{
+
+.w75 {
   width: 75%;
 }
-.w100{
+
+.w100 {
   width: 100%;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+.loading{
+  position: relative;
+}
+.loading:after {
+  content: '';
+  display: block;
+  width: 35px;
+  height: 35px;
+  background: url("assets/img/loading.png") no-repeat center;
+  background-size: 35px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  animation: rotation 0.8s linear infinite;
+}
+
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
 /////////////////////// 公共样式
 
 /////////////////////// 全局样式
@@ -480,30 +516,30 @@ body {
   padding-top: 5px;
 }
 
-.nav-feedback-list{
+.nav-feedback-list {
   color: #999999;
   font-size: 16px;
   font-weight: 400;
-  p{
+  p {
     padding: 10px 0;
-    &.active{
+    &.active {
       color: #212121;
     }
   }
-  .nav-feedback-list-item{
+  .nav-feedback-list-item {
     padding-left: 5px;
-    p{
-      &.active{
+    p {
+      &.active {
         color: #212121;
-        i{
+        i {
           opacity: 1;
         }
       }
-      &.current{
+      &.current {
         color: #2e8fff;
       }
     }
-    i{
+    i {
       margin-right: 5px;
       opacity: 0;
       transition: opacity 0.1s ease;
@@ -511,36 +547,37 @@ body {
   }
 }
 
-.sidebar-data-box{
+.sidebar-data-box {
   width: 100%;
   height: 100%;
   background-color: #fff;
   overflow: auto;
 }
-.title-and-tool{
+
+.title-and-tool {
   height: 50px;
   border-bottom: 2px solid #f0f2f5;
   padding: 0 25px;
   color: #333333;
   font-size: 18px;
   font-weight: 700;
-  h3 .zcdsp-icon{
+  h3 .zcdsp-icon {
     color: #b3b3b4
   }
 
-  .zcdsp-icon{
+  .zcdsp-icon {
     color: #2e90ff;
     font-size: 20px;
   }
 }
 
-.word-data-box{
+.word-data-box {
   position: relative;
   min-height: 35px;
   max-height: 300px;
   overflow-y: auto;
   overflow-x: hidden;
-  > span{
+  > span {
     color: #979899;
     font-size: 14px;
     font-weight: 400;
@@ -548,7 +585,7 @@ body {
     border-left: 3px solid #2e90ff;
     padding: 3px 10px;
   }
-  > p{
+  > p {
     color: #616366;
     font-size: 14px;
     font-weight: 400;
@@ -564,6 +601,7 @@ body {
   cursor: pointer;
   background: url("./assets/img/creative-left-operating.png") no-repeat center;
 }
+
 .right-operating {
   display: block;
   width: 20px;
@@ -576,17 +614,17 @@ body {
 
 ////////////////////// 表格
 
-.container-list{
+.container-list {
   padding: 5px 30px 30px 30px;
 }
 
-.table-title{
+.table-title {
   color: #333333;
   font-size: 22px;
   font-weight: 700;
 }
 
-.no-data{
+.no-data {
   color: #999999;
   font-size: 14px;
   font-weight: 400;
@@ -617,6 +655,7 @@ body {
     }
   }
 }
+
 .data-panel {
   display: flex;
   flex-wrap: wrap;
@@ -666,14 +705,11 @@ body {
   }
 }
 
-
 ////////////////////// 表格
-
-
 
 ////////////////////// 推广
 
-.extension-nav{
+.extension-nav {
   width: 185px;
   position: fixed;
   height: 100%;
@@ -681,7 +717,7 @@ body {
   padding: 40px;
 }
 
-.extension-main{
+.extension-main {
   //max-width: 1600px;
   //margin-left: 185px;
   padding-left: 50px;
@@ -690,18 +726,18 @@ body {
   overflow: hidden;
 }
 
-.extension-title{
+.extension-title {
   margin: 30px 0 30px 5px;
   color: #333;
   font-size: 22px;
   font-weight: 700;
 }
 
-.extension-form-box{
+.extension-form-box {
   //max-width: 1600px;
   min-width: 900px;
   height: auto;
-  border:1px #e2e6eb solid;
+  border: 1px #e2e6eb solid;
   //border-radius: 10px;
   background-color: #ffffff;
   padding: 30px 0;
@@ -709,13 +745,73 @@ body {
     padding-bottom: 0;
   }
 }
+
 .submit-toolbar + .extension-main {
   margin-bottom: 100px;
 }
 
+.chart-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  .tool {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    z-index: 1;
+  }
+}
+
+.pointer-outline-none {
+  cursor: pointer;
+  outline: none;
+}
 
 ////////////////////// 推广
 
+/// ============================== yc-popover 修改数据
+
+.day-money-home {
+  .form-group {
+    margin-top: 10px;
+    padding-bottom: 10px;
+  }
+  .form-label {
+    width: 50px;
+    text-align: left;
+    padding-right: 0;
+  }
+  .form-group-offset {
+    margin-left: 50px;
+    padding-bottom: 0;
+    min-height: auto;
+  }
+  .input-error {
+    color: #ff4500;
+    position: absolute;
+  }
+  .form-input {
+    min-width: 160px;
+    padding-left: 0;
+    .form-control {
+      &.red {
+        border: 1px solid red;
+      }
+    }
+  }
+  .text-right {
+    margin-top: 5px;
+    .btn:nth-child(1) {
+      margin-right: 10px;
+    }
+    button {
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+    }
+  }
+}
 
 //////////////////// 按钮
 
@@ -733,7 +829,7 @@ body {
   display: inline-block;
   border: 1px solid #2e90ff;
   outline: none;
-  &:disabled{
+  &:disabled {
     cursor: not-allowed;
   }
   &.btn-outline {
@@ -825,8 +921,7 @@ body {
   }
 }
 
-
-.input-text{
+.input-text {
   line-height: 36px;
   padding-left: 20px;
 }
@@ -843,7 +938,7 @@ body {
   background-color: #fefefe;
   background-clip: padding-box;
   transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-  &.has-error{
+  &.has-error {
     border: 1px solid red;
   }
 }
@@ -875,10 +970,12 @@ textarea.form-control {
 .flex {
   display: flex;
 }
-.flex-justify-center{
+
+.flex-justify-center {
   display: flex;
   justify-content: center;
 }
+
 .flex-wrap {
   display: flex;
   flex-wrap: wrap;
@@ -917,7 +1014,7 @@ textarea.form-control {
   justify-content: space-between;
 }
 
-.flex-wrap-center-between{
+.flex-wrap-center-between {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -925,6 +1022,7 @@ textarea.form-control {
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
+
 /////////////////////////
 
 //////////////////////// 百度地图
@@ -936,41 +1034,45 @@ textarea.form-control {
 //////////////////////// 百度地图
 
 /*icon*/
-.icon-tool-tip{
+.icon-tool-tip {
   cursor: pointer;
   display: inline-block;
   vertical-align: sub;
   width: 16px;
-  height:16px;
+  height: 16px;
   background: url("assets/img/icon-tool-tip.png") no-repeat center;
 }
-.icon-tool-edit{
+
+.icon-tool-edit {
   cursor: pointer;
   display: inline-block;
   vertical-align: sub;
   width: 16px;
-  height:16px;
+  height: 16px;
   background: url("assets/img/icon-tool-edit.png") no-repeat center;
 }
-.icon-tool-help{
+
+.icon-tool-help {
   cursor: pointer;
   display: inline-block;
   vertical-align: middle;
   width: 16px;
-  height:16px;
+  height: 16px;
   background: url("assets/img/icon-tool-help.png") no-repeat center;
 }
-.icon-tool-img-line{
+
+.icon-tool-img-line {
   cursor: pointer;
   display: inline-block;
   vertical-align: sub;
   width: 22px;
-  height:20px;
+  height: 20px;
   background: url("assets/img/icon-tool-img-line.png") no-repeat center;
-  &.active{
+  &.active {
     background: url("assets/img/icon-tool-img-line2.png") no-repeat;
   }
 }
+
 .icon-tool-img-line2 {
   cursor: pointer;
   display: inline-block;
@@ -980,49 +1082,54 @@ textarea.form-control {
   background: url("assets/img/icon-tool-img-line2.png") no-repeat;
 }
 
-.icon-tool-img-table{
+.icon-tool-img-table {
   cursor: pointer;
   display: inline-block;
   vertical-align: sub;
   width: 22px;
-  height:20px;
+  height: 20px;
   background: url("assets/img/icon-tool-img-table.png") no-repeat center;
-  &.active{
+  &.active {
     background: url("assets/img/icon-tool-img-table2.png") no-repeat;
   }
 }
-.icon-tool-img-table2{
+
+.icon-tool-img-table2 {
   cursor: pointer;
   display: inline-block;
   vertical-align: sub;
   width: 22px;
-  height:20px;
+  height: 20px;
   background: url("assets/img/icon-tool-img-table2.png") no-repeat;
 }
-.icon-tool-add{
+
+.icon-tool-add {
   cursor: pointer;
   display: inline-block;
   vertical-align: sub;
   width: 20px;
-  height:20px;
+  height: 20px;
   background: url("assets/img/icon-tool-add.png") no-repeat center;
 }
-.icon-btn-menu{
+
+.icon-btn-menu {
   cursor: pointer;
   display: inline-block;
   vertical-align: middle;
   width: 10px;
-  height:8px;
+  height: 8px;
   background: url("assets/img/icon-btn-menu.png") no-repeat center;
   background-size: 10px 8px;
 }
-.btn-help{
+
+.btn-help {
   display: inline-block;
   vertical-align: sub;
   width: 17px;
-  height:17px;
+  height: 17px;
   background: url("assets/img/index/btn-help.png") no-repeat;
 }
+
 .icon-img-edit {
   cursor: pointer;
   display: inline-block;
@@ -1033,6 +1140,7 @@ textarea.form-control {
   background: url("assets/img/icon-img-edit.png") no-repeat center;
   background-size: 13px 14px;
 }
+
 .icon-img-question {
   display: inline-block;
   padding: 0;
@@ -1044,6 +1152,7 @@ textarea.form-control {
   background: url("assets/img/icon-img-question.png") no-repeat center;
   background-size: 16px 16px;
 }
+
 .icon-data-yes {
   display: inline-block;
   padding: 0;
@@ -1055,7 +1164,6 @@ textarea.form-control {
   background: url("assets/img/icon-data-yes.png") no-repeat center;
   background-size: 18px 14px;
 }
-
 
 ///**************************** 账户充值
 
@@ -1077,7 +1185,7 @@ textarea.form-control {
     }
     &:nth-child(1) {
       > div {
-        color:red;
+        color: red;
       }
     }
     &:nth-child(2) {
@@ -1110,7 +1218,7 @@ textarea.form-control {
     }
     &:nth-child(4) {
       a {
-        color:#2e90ff;
+        color: #2e90ff;
       }
     }
   }
@@ -1119,7 +1227,7 @@ textarea.form-control {
   }
 }
 
-.icon-img-next-down{
+.icon-img-next-down {
   margin-right: 2px;
   cursor: pointer;
   display: inline-block;
@@ -1128,7 +1236,7 @@ textarea.form-control {
   height: 20px;
   background: url("assets/img/customer/img/show-more.png") no-repeat center;
   transition: all 0.1s ease;
-  &.next-top{
+  &.next-top {
     transform: rotate(180deg);
   }
 }
@@ -1139,6 +1247,7 @@ textarea.form-control {
   height: 13px;
   background: url("assets/img/customer/img/icon-img-modify.png") no-repeat center;
 }
+
 .card-box {
   border-radius: 2px;
   border: 1px solid #f3f5f8;
@@ -1184,6 +1293,7 @@ textarea.form-control {
   outline: none;
   background: url("assets/agent/img/customer-into-img.png") no-repeat center;
 }
+
 .btn-add-img {
   cursor: pointer;
   padding: 0;
@@ -1204,13 +1314,41 @@ textarea.form-control {
 }
 
 .day-money-home {
-  width:200px;
+  width: 200px;
   .form-input {
     min-width: 110px;
   }
-  .text-right{
-    button:nth-child(1){
-      margin-right:20px;
+  .text-right {
+    button:nth-child(1) {
+      margin-right: 20px;
     }
   }
+}
+
+.recharge {
+  vertical-align: middle;
+  margin-left:10px;
+  font-size:12px
+}
+
+.login-icon {
+  vertical-align: middle;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  outline: none;
+  background: url("assets/img/customer/img/login-icon.png") no-repeat;
+}
+
+.time-icon {
+  vertical-align: middle;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  outline: none;
+  background: url("assets/img/customer/img/time-icon.png") no-repeat;
 }

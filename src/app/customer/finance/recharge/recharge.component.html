@@ -1,80 +1,82 @@
 <div class="container-list">
-  <div class="topPar">
-    <ul class="top">
-      <li>
-        <div class="title">
-          <div class="img"><img src="assets/img/indexjinr.png" alt=""></div>
-          <div class="right">
-            <p>今日花费</p>
-            <h1>{{userData?.consume | currencyFormat}}</h1>
-          </div>
-        </div>
-      </li>
 
-      <li>
-        <div class="title">
-          <div class="img"><img src="assets/img/customer/img/liushui-recharge.png" alt=""></div>
-          <div class="right">
-            <p>累计充值</p>
-            <h1>{{userData?.c_money | currencyFormat}}</h1>
-          </div>
-        </div>
-      </li>
-
-      <li>
-        <div class="title">
-          <div class="img"><img src="assets/img/customer/img/liushui-dispatching.png" alt=""></div>
-          <div class="right">
-            <p>累计配送</p>
-            <h1>{{userData?.p_money | currencyFormat}}</h1>
-          </div>
-        </div>
-      </li>
-
-      <li>
-        <div class="title">
-          <div class="img"><img src="assets/img/customer/img/liushui-refund.png" alt=""></div>
-          <div class="right">
-            <p>累计退款</p>
-            <h1>{{userData?.t_money | currencyFormat}}</h1>
-          </div>
-        </div>
-      </li>
-
-    </ul>
-    <hr>
-    <div class="bottom">
-      <div class="number clear">
-        <div class="list">每日预算<span>{{userData?.max_day_money | currencyFormat}}</span>
-          <i yc-popover [template]="template" #popover="ycPopover" class="icon-tool-edit" (openEvent)=" money = (userData?.max_day_money)" *ngIf="isPermit('ZCMOBI_ADS_FINACE_RECHARGE_UPDATE_MAX_DAY_MONEY')"></i>
+  <ul class="top">
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/indexjinr.png" alt=""></div>
+        <div class="right">
+          <p>账户余额
+            <button class="btn btn-small btn-round btn-outline recharge" (click)="recharge()">充值流程</button>
+          </p>
+          <h1>{{userData?.balance | currencyFormat}}</h1>
         </div>
       </div>
-
-      <div class="number clear">
-        <div class="list">账户余额<span>{{userData?.balance | currencyFormat}}</span><i class="icon-tool-tip"></i></div>
+      <div class="echart"></div>
+      <div class="number">
+        <div class="list">今日花费<span>{{userData?.consume | currencyFormat}}</span></div>
+        <div class="list">每日预算<span>{{userData?.max_day_money | currencyFormat}}
+            <i yc-popover [template]="template" #popover="ycPopover" class="icon-tool-edit" (openEvent)=" money = (userData?.max_day_money) " *ngIf="isPermit('ZCMOBI_ADS_FINACE_RECHARGE_UPDATE_MAX_DAY_MONEY')"></i>
+          </span></div>
       </div>
-
-    </div>
-  </div>
+    </li>
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/user/c_money.png" alt=""></div>
+        <div class="right">
+          <p>累计充值</p>
+          <h1>{{userData?.c_money | currencyFormat}}</h1>
+        </div>
+      </div>
+      <div class="echart"></div>
+      <div class="number">
+        <div class="list">本年累计充值<span>{{userData?.c_money_year | currencyFormat}}</span></div>
+      </div>
+    </li>
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/user/p_money.png" alt=""></div>
+        <div class="right">
+          <p>累计配送</p>
+          <h1>{{userData?.p_money | currencyFormat}}</h1>
+        </div>
+      </div>
+      <div class="echart"></div>
+      <div class="number">
+        <div class="list">本年累计配送<span>{{userData?.p_money_year | currencyFormat}}</span></div>
+      </div>
+    </li>
+    <li>
+      <div class="title">
+        <div class="img"><img src="src/assets/img/user/t_money.png" alt=""></div>
+        <div class="right">
+          <p>累计退款</p>
+          <h1>{{userData?.t_money | currencyFormat}}</h1>
+        </div>
+      </div>
+      <div class="echart"></div>
+      <div class="number">
+        <div class="list">本年累计退款<span>{{userData?.t_money_year | currencyFormat}}</span></div>
+      </div>
+    </li>
+  </ul>
 
 
  <div class="table-content">
-
-  <div class="query-tool">
-    <div class="left-tool">
-      <input-datepicker [disabledTodayAfter]=true [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
-      <yc-checkbox-group [(ngModel)]="recharge_type" [list]="rechargeTypeData" (changeEvent)="search()" [props]="{value:'lookup_code',label:'meaning'}"></yc-checkbox-group>
-    </div>
-    <div class="right-tool">
-      <div class="btn" (click)="exportUrl()">
-        导出
-        <i class="btn-icon-export"></i>
-      </div>
-    </div>
-  </div>
-
   <!-- 如果 user_type =1 || ==3 的时候，全部列正常显示（时间，类型，金额，目标账号，备注） 否则值显示  时间，类型，金额-->
   <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
+    <div class="query-tool" #queryRef query>
+      <div class="left-tool">
+        <div class="btn" (click)="exportUrl()">
+          导出
+          <i class="btn-icon-export"></i>
+        </div>
+      </div>
+      <div class="right-tool">
+        <yc-checkbox-group [(ngModel)]="recharge_type" [list]="rechargeTypeData" (changeEvent)="search()" [props]="{value:'lookup_code',label:'meaning'}"></yc-checkbox-group>
+        <input-datepicker [disabledTodayAfter]=true [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
+      </div>
+    </div>
+
     <table #tableRef table>
       <thead>
       <tr class="text-center">

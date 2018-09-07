@@ -19,6 +19,8 @@ import { Dialog, YC_DIALOG_DATA } from '../../components/dialog/dialog';
       <button class="btn" routerLink="1">lazy</button>
 
       <input-color-palette></input-color-palette>
+
+      <app-loading></app-loading>
       
     </div>
   `,

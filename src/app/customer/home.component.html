@@ -1,3 +1,22 @@
+<div class="user-tool-box" [@fadeIn] *ngIf="userToolBox">
+  <div class="flex item">
+    <i></i>
+    <p>用户信息</p>
+  </div>
+  <div class="flex item">
+    <i></i>
+    <p>用户预警</p>
+  </div>
+  <div class="flex item">
+    <i></i>
+    <p>操作日志</p>
+  </div>
+  <div class="flex item" (click)="logout($event)">
+    <i></i>
+    <p>退出登录</p>
+  </div>
+</div>
+
 <div class="header flex-center-between">
   <div class="logo">
     <img src="assets/img/logo.png" alt="">
@@ -8,16 +27,19 @@
     <i class="header-help-icon"></i>
     <i class="header-phone-icon"></i>
     <img class="user-head" src="assets/img/default-user-head.png" alt="">
-    <p>Lecheng Zhou</p>
+    <p style="line-height: 66px;cursor: pointer;outline: none;color: #fff;" (click)="userToolBox = !userToolBox">
+      {{auth?.user.user_name}}
+    </p>
   </div>
 </div>
+
 <div class="main">
   <div class="nav-main" [ngStyle]="{'width.px':fixed?200:60}" [ngClass]="{'hover': hover}" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
     <div class="nav-main-overflow" [ngStyle]="{'width.px':fixed?210:60}" [ngClass]="{'hover': hover}" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
       <ul class="nav-list">
         <ng-template [ngForOf]="menuList$ | async" ngFor let-menu>
           <li>
-            <div class="nav-item flex-center" (click)="navigate(menu);menu.active = !menu.active" [ngClass]="{'yes-child': menu.child?.length}">
+            <div class="nav-item flex-center" (click)="navigate(menu)" [ngClass]="{'yes-child': menu.child?.length, 'active': menu.active}">
               <!--[routerLink]="menu.route" routerLinkActive="active"-->
               <i class="nav-icon zcdsp-icon" [innerHTML]="menu.icon"></i>
               <span class="nav-name">{{menu.name}}</span>

@@ -26,7 +26,7 @@
   <div class="submit-box flex-center">
     <p class="cover-people">可覆盖<span>{{(_audienceCount || 0) | number}}</span>人</p>
     <a class="btn btn-link" style="padding: 0 40px;" href="javascript:history.back()">返回</a>
-    <button class="btn" (click)="save()"><span style="padding: 0 20px;">提 交</span></button>
+    <button class="btn btn-round" (click)="save()"><span style="padding: 0 20px;">提 交</span></button>
     <!--<span class="add-creative-info">创意上传成功后将在1~3个工作日内审核完毕，若给您带来不便敬请谅解！</span>-->
   </div>
 </div>
@@ -157,6 +157,7 @@
                     <th>媒体平台</th>
                     <th>尺寸</th>
                     <th>展现形式</th>
+                    <th>说明</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -164,6 +165,7 @@
                     <td>{{selectMediaSize.media_name}}</td>
                     <td>{{selectMediaSize.material_width}}*{{selectMediaSize.material_height}}</td>
                     <td>{{selectMediaSize.material_type_name}}</td>
+                    <td>{{selectMediaSize.description}}</td>
                   </tr>
                   </tbody>
                 </table>
@@ -179,10 +181,10 @@
 
                 </div>
               </div>
-              <div class="creative-info-photo">
+              <div class="creative-info-photo" *ngIf="selectMediaSize?.creative_show_img">
                 <div class="photo-bj">
                   <h3 style="text-align: center" *ngIf="!selectMediaSize?.creative_show_img">暂无投放参考示意图</h3>
-                  <img *ngIf="selectMediaSize?.creative_show_img" [src]="selectMediaSize?.creative_show_img"> <!--src="assets/img/photo-img-test.png"-->
+                  <img [src]="selectMediaSize?.creative_show_img"> <!--src="assets/img/photo-img-test.png"-->
                 </div>
                 <p class="m-t-1">----投放参考示意图----</p>
               </div>
@@ -206,7 +208,7 @@
         <yc-directional-app [(ngModel)]="dtlApp"></yc-directional-app>
 
         <div style="margin: 15px 115px;">
-          <yc-radio-group [(ngModel)]="dtlAppType" [list]="[{label: '应用', value: 1}, {label: '过滤', value: 2}]"></yc-radio-group>
+          <yc-radio-group [(ngModel)]="dtlAppType" [list]="[{label: '投放指定分类或APP', value: 1}, {label: '排除指定分类或APP', value: 2}]"></yc-radio-group>
         </div>
 
       </div>

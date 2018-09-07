@@ -66,6 +66,15 @@ export class CreativeComponent implements OnInit {
     });
   }
 
+  refresh() {
+    Object.keys(this.query).forEach(key => {
+      let list = ['page_index', 'page_size', 'begin_date', 'end_date'];
+      if (!!~list.indexOf(key)) return;
+      Reflect.deleteProperty(this.query, key);
+    })
+    this.search()
+  }
+
   @ViewChild('ycTable', { read: TableComponent }) table: TableComponent;
 
   // 修改状态

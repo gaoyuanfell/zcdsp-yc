@@ -1,14 +1,23 @@
 <div class="table-container" #tableContainerRef>
   <ng-content select="[query]"></ng-content>
+
   <div class="table-wrap" #tableWrapRef>
     <ng-content select="[table]"></ng-content>
+
     <div *ngIf="data?.length === 0" class="wrapShow">
       <img src="assets/img/none.png">
-      <div>暂无数据</div>
-      <div>数据如有异常请联系客服：400-692-9606</div>
+      <div>暂无数据</div><!--
+      <div>数据如有异常请联系客服：400-692-9606</div>-->
     </div>
+
+    <div *ngIf="!data" style="width: 100%;min-height: 350px;text-align: center;background: rgba(255, 255, 255, 0.4);">
+
+    </div>
+
   </div>
+
   <div class="overflow" #overflowRef><div style="height: 10px;"></div></div>
+
 </div>
 
 <div class="paging" #pagingRef [hidden]="!(pagination && pageList?.length)">

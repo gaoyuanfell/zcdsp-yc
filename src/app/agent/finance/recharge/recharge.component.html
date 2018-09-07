@@ -1,49 +1,45 @@
 <div class="container-list">
 
-  <div class="topPar">
-    <ul class="top">
-      <li>
-        <div class="title">
-          <div class="img"><img src="assets/img/indexjinr.png" alt=""></div>
-          <div class="right">
-            <p>账户余额</p>
-            <h1>{{userData?.balance | currencyFormat}}</h1>
-          </div>
+  <ul class="top">
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/indexjinr.png" alt=""></div>
+        <div class="right">
+          <p>账户余额
+            <button class="btn btn-small btn-round btn-outline recharge" (click)="recharge()">充值</button>
+          </p>
+          <h1>{{userData?.balance | currencyFormat}}</h1>
         </div>
-      </li>
-
-      <li>
-        <div class="title">
-          <div class="img"><img src="assets/img/customer/img/liushui-recharge.png" alt=""></div>
-          <div class="right">
-            <p>累计充值</p>
-            <h1>{{userData?.c_money | currencyFormat}}</h1>
-          </div>
+      </div>
+    </li>
+    <li>
+      <div class="title">
+        <div class="img"><img src="assets/img/user/c_money.png" alt=""></div>
+        <div class="right">
+          <p>累计充值</p>
+          <h1>{{userData?.c_money | currencyFormat}}</h1>
         </div>
-      </li>
-
-      <li>
-        <div class="title">
-          <div class="img"><img src="assets/img/customer/img/liushui-dispatching.png" alt=""></div>
-          <div class="right">
-            <p>累计配送</p>
-            <h1>{{userData?.p_money | currencyFormat}}</h1>
-          </div>
+      </div>
+    </li>
+    <li>
+      <div class="title">
+        <div class="img"><img src="src/assets/img/user/p_money.png" alt=""></div>
+        <div class="right">
+          <p>累计配送</p>
+          <h1>{{userData?.p_money | currencyFormat}}</h1>
         </div>
-      </li>
-
-      <li>
-        <div class="title">
-          <div class="img"><img src="assets/img/customer/img/liushui-refund.png" alt=""></div>
-          <div class="right">
-            <p>累计退款</p>
-            <h1>{{userData?.t_money | currencyFormat}}</h1>
-          </div>
+      </div>
+    </li>
+    <li>
+      <div class="title">
+        <div class="img"><img src="src/assets/img/user/t_money.png" alt=""></div>
+        <div class="right">
+          <p>累计退款</p>
+          <h1>{{userData?.t_money | currencyFormat}}</h1>
         </div>
-      </li>
-
-    </ul>
-  </div>
+      </div>
+    </li>
+  </ul>
 
   <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
       <div  #queryRef query class="query-tool">

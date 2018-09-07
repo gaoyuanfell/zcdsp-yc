@@ -18,6 +18,7 @@ import * as directionalReducer from '../../store/reducer/directional.reducer';
 import * as directionalAction from '../../store/actions/directional.action';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {LbsCityMapRemove} from '../../store/actions/directional.action';
+import {debounceTime} from 'rxjs/operators';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -223,6 +224,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   }
 
   ngOnInit() {
+    this.store.dispatch(new directionalAction.DirectionalRecovery());
     this.getResultInit();
   }
 
@@ -273,7 +275,8 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
    */
   getResultInit() {
     let resultSubject = new Subject();
-    resultSubject.subscribe(data => {
+    resultSubject.pipe(debounceTime(200)).subscribe(data => {
+      this.assignDefaultData(data, getDirectionalData());
       this.onChange(data);
     });
 
@@ -287,7 +290,6 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     });
 
     this.lbsCityResult$$ = this.lbsCityResult$.subscribe(data => {
-      console.info(data)
       if (!data) return;
       if (data instanceof Array && data.length) this.areasShow = true;
       result.dtl_address.lbs = data.map(ar => ({id: ar.id, name: ar.name, coords: ar.location_items, type_id: ar.type_id}));
@@ -295,7 +297,6 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     });
 
     this.LbsCityMapResult$$ = this.LbsCityMapResult$.subscribe(data => {
-      console.info(data)
       if (!data) return;
       if (data instanceof Array && data.length) this.areasShow = true;
       result.dtl_address.lbs = data.map(ar => ({id: ar.id, name: ar.name, coords: ar.location_items, type_id: ar.type_id}));
@@ -336,7 +337,6 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
       Object.keys(data).every(key => {
         if (data[key] instanceof Array && data[key].length) {
           this.deviceShow = true;
-          console.info(this.deviceShow);
           this.changeDetectorRef.markForCheck();
           return false;
         }
@@ -377,10 +377,9 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   }
 
   writeValue(obj: any): void {
-    if (!obj) obj = {};
+    if (!obj) return;
     this.assignDefaultData(obj, getDirectionalData());
     this.result = obj;
-    this.store.dispatch(new directionalAction.DirectionalRecovery());
     this.store.dispatch(new directionalAction.DirectionalSetResult(this.result));
   }
 
@@ -389,7 +388,6 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(new directionalAction.DirectionalRecovery());
     this.getResultDestroy();
   }
 

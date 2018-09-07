@@ -1,31 +1,23 @@
 <div class="container-list">
 
-  <!--导航-->
-  <div class="anchor-position">
-    <yc-anchor [overflow]="containerFullRef">
-      <a anchor-link="#info" [active]="true">基本信息</a>
-      <a anchor-link="#link">联系人</a>
-      <a anchor-link="#apititude">资质信息</a>
-      <a anchor-link="#logo">品牌商标</a>
-    </yc-anchor>
-  </div>
-
-  <div class="data-top flex">
+  <div class="data-top">
     <div class="left-img">
-      <img src="assets/img/customer/img/user-icon.png">
+      <img src="assets/img/user/head.png">
     </div>
     <div class="right-info">
-      <p class="flex-center">
+      <div class="nick_name">
         {{user?.nick_name}}
-      </p>
-      <p class="flex-center">
-        <i class="login-icon"></i>
-        <span>登入账号：{{user?.user_name}}</span>
-      </p>
-      <p class="flex-center">
-        <i class="time-icon"></i>
-        <span>注册时间：{{user?.creation_date | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
-      </p>
+      </div>
+      <div class="user_name">
+        <div>
+          <i class="login-icon"></i>
+          <span>登入账号：{{user?.user_name}}</span>
+        </div>
+        <div>
+          <i class="time-icon"></i>
+          <span>注册时间：{{user?.creation_date | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -37,11 +29,11 @@
       </h2>
       <div class="extension-form-box">
         <div class="form-group flex">
-          <label class="form-label">公司名称<span>（必选）:</span></label>
+          <label class="form-label"><span>*</span>公司名称:</label>
           <p class="input-text">{{user.nick_name}}</p>
         </div>
         <div class="form-group flex">
-          <label class="form-label">网站名称<span>（必选）:</span></label>
+          <label class="form-label"><span>*</span>网站名称:</label>
           <div class="form-input" *ngIf="!_audit_status">
             <input class="form-control" type="text" required [(ngModel)]="user.site_name" placeholder="请填写网站名称" name="site_name" [ngClass]="setInvalidClass(infoForm, infoForm.controls['site_name'])">
             <app-form-tips [target]="infoForm.controls['site_name']" [formTarget]="infoForm" placeholder="请填写网站名称"></app-form-tips>
@@ -49,7 +41,7 @@
           <p  *ngIf="_audit_status" class="input-text">{{user.site_name}}</p>
         </div>
         <div class="form-group flex">
-          <label class="form-label">推广域名<span>（必选）:</span></label>
+          <label class="form-label"><span>*</span>推广域名:</label>
           <div class="form-input" *ngIf="!_audit_status">
             <input class="form-control" type="text" required [(ngModel)]="user.site_domain_name" placeholder="请填写推广域名" name="site_domain_name" [ngClass]="setInvalidClass(infoForm, infoForm.controls['site_domain_name'])"
                    pattern="^([hH]{1}[tT]{2}[pP]:\/\/|[hH]{1}[tT]{2}[pP][sS]:\/\/)[\d,a-z,A-Z]+[\w,\W]*$">
@@ -58,13 +50,13 @@
           <p *ngIf="_audit_status" class="input-text">{{user.site_domain_name}}</p>
         </div>
         <div class="form-group flex">
-          <label class="form-label">公司地址<span>（不必选）:</span></label>
+          <label class="form-label">公司地址:</label>
           <div class="form-input">
             <input class="form-control" type="text" [(ngModel)]="user.address" placeholder="请填写公司地址" name="address">
           </div>
         </div>
         <div class="form-group flex">
-          <label class="form-label">行业分类<span>（必选）:</span></label>
+          <label class="form-label"><span>*</span>行业分类:</label>
           <div class="form-input" *ngIf="!_audit_status">
             <yc-select  [(ngModel)]="user.ad_category_id" name="ad_category_id" required [searchCtrl]="true" [width]="360" placeholder="请选择行业分类" [list]="ad_category_list" [props]="{value:'ad_category_id',label:'ad_category_name'}" [ngClass]="setInvalidClass(infoForm, infoForm.controls['ad_category_id'])"></yc-select>
             <app-form-tips [target]="infoForm.controls['ad_category_id']" [formTarget]="infoForm" placeholder="请选择行业分类"></app-form-tips>
@@ -72,7 +64,7 @@
           <p *ngIf="_audit_status" class="input-text">{{_ad_category_name}}</p>
         </div>
         <div class="form-group flex">
-          <label class="form-label">关联QQ<span>（不必选）:</span></label>
+          <label class="form-label">关联QQ:</label>
           <div class="form-input">
             <input class="form-control" type="text" [(ngModel)]="user.gdt_qq" placeholder="请填写关联qq" pattern="[\d]{1,14}" name="gdt_qq" [ngClass]="setInvalidClass(infoForm, infoForm.controls['gdt_qq'])">
             <app-form-tips [target]="infoForm.controls['gdt_qq']" [tips]="'请输入正确的QQ号'" [formTarget]="infoForm" placeholder="请填写关联qq"></app-form-tips>
@@ -80,7 +72,7 @@
           <div class="question-icon" title="用户在腾讯开发平台上传应用时的登录QQ"></div>
         </div>
         <div class="form-group flex-center">
-          <label class="form-label">密码<span>（不必选）:</span></label>
+          <label class="form-label">密码</label>
           <div class="form-input">
             <button type="button" class="btn btn-info  flex-center" (click)="changePwd()"><img src="assets/img/customer/img/key-icon.png"><span>修改密码</span></button>
           </div>
@@ -95,21 +87,21 @@
       </h2>
       <div class="extension-form-box">
         <div class="form-group flex">
-          <label class="form-label">联系人<span>（必选）:</span></label>
+          <label class="form-label"><span>*</span>联系人:</label>
           <div class="form-input">
             <input class="form-control" type="text" required [(ngModel)]="user.link_user" placeholder="请填写联系人名称" name="link_user" [ngClass]="setInvalidClass(infoForm, infoForm.controls['link_user'])">
             <app-form-tips [target]="infoForm.controls['link_user']" [formTarget]="infoForm" placeholder="请填写联系人名称"></app-form-tips>
           </div>
         </div>
         <div class="form-group flex">
-          <label class="form-label">联系电话<span>（必选）:</span></label>
+          <label class="form-label"><span>*</span>联系电话:</label>
           <div class="form-input">
             <input class="form-control" type="text" required [(ngModel)]="user.mobile_phone" placeholder="请填写联系电话" name="mobile_phone" pattern="^1\d{10}$" [ngClass]="setInvalidClass(infoForm, infoForm.controls['mobile_phone'])">
             <app-form-tips [target]="infoForm.controls['mobile_phone']" [tips]="'请输入以1开头的11位手机号码'" placeholder="请填写联系电话" [formTarget]="infoForm"></app-form-tips>
           </div>
         </div>
         <div class="form-group flex">
-          <label class="form-label">联系邮箱<span>（必选）:</span></label>
+          <label class="form-label"><span>*</span>联系邮箱:</label>
           <div class="form-input">
             <input class="form-control" type="text" required [(ngModel)]="user.email" placeholder="请填写联系邮箱" name="email" pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" [ngClass]="setInvalidClass(infoForm, infoForm.controls['email'])">
             <app-form-tips [target]="infoForm.controls['email']" [tips]="'请输入正确邮箱'" placeholder="请填写联系邮箱" [formTarget]="infoForm"></app-form-tips>
