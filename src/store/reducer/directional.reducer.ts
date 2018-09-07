@@ -1,7 +1,14 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 import {DirectionalState} from '../model/directional.state';
 import {DirectionalActionTypes, DirectionalActionUnion} from '../actions/directional.action';
-import {recursionChildCheck, recursionFilter, recursionParentCheck, recursionResult, recursionResult2} from '../../service/util';
+import {
+  recursionChildCheck,
+  recursionFilter,
+  recursionFilter2,
+  recursionParentCheck,
+  recursionResult,
+  recursionResult2
+} from '../../service/util';
 
 const initState: DirectionalState = {
   areasChildList: [],
@@ -467,7 +474,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
     state.lbsCity.checked = false;
     state.lbsCity.checkState = 0;
     recursionChildCheck(state.lbsCity)
-    recursionFilter(lbsCity, state.lbsCity.children, 'id');
+    recursionFilter2(lbsCity, state.lbsCity.children, 'id');
     state.lbsCityViewResult = recursionResult(state.lbsCity.children);
     state.lbsCityResult = recursionResult2(state.lbsCity.children).map(ar => ({
       id: ar.id,

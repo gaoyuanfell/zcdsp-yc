@@ -162,6 +162,34 @@ export function recursionFilter(target, list, key = 'id') {
 }
 
 /**
+ * 只考虑最后一级的赋值情况
+ * @param target
+ * @param list
+ * @param {string} key
+ */
+export function recursionFilter2(target, list, key = 'id') {
+  if (!(target instanceof Array) || !(list instanceof Array)) return;
+  list.forEach((data) => {
+    let child = data.children;
+    if (child instanceof Array && child.length > 0) {
+      recursionFilter2(target, child);
+    }else{
+      let bo = target.find((d => {
+        if (d == data[key]) {
+          return d;
+        }
+      }));
+      if (bo) {
+        data.checked = true;
+        data.checkState = 1;
+        recursionChildCheck(data);
+        recursionParentCheck(data);
+      }
+    }
+  });
+}
+
+/**
  *
  * @param {string} url
  * @returns {Promise<any>}
@@ -237,4 +265,13 @@ export function hoursFormat(list) {
     li.length = 0;
   }
   return result;
+}
+
+/**
+ * 深度拷贝
+ * @param target
+ * @returns {any}
+ */
+export function codyDepth(target) {
+  return JSON.parse(JSON.stringify(target));
 }
