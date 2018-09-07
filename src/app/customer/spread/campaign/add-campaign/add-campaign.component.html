@@ -305,7 +305,7 @@
     </div>
 
     <!--定向-->
-    <yc-directional [(ngModel)]="directional"></yc-directional>
+    <yc-directional [(ngModel)]="directional" (ngModelChange)="audienceCount()"></yc-directional>
 
     <div class="padding">
       <div class="form-group flex-center">
