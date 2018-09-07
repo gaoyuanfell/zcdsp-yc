@@ -101,7 +101,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
         recursionChildCheck(au.value);
         recursionParentCheck(au.value);
       });
-      state.audiencesResult = [];
+      state.audiencesResult = {};
       state.audiencesViewResult = [];
       return {...state};
     }
@@ -133,7 +133,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
         recursionChildCheck(au.value);
         recursionParentCheck(au.value);
       });
-      state.deviceResult = [];
+      state.deviceResult = {};
       state.deviceViewResult = [];
       return {...state};
     }
@@ -294,7 +294,8 @@ export function directionalReducer(state: DirectionalState = initState, action: 
         recursionChildCheck(au.value);
         recursionParentCheck(au.value);
       });
-      state.deviceResult = [];
+      state.deviceResult = {};
+      state.deviceViewResult = [];
 
       state.audiences.forEach(au => {
         au.value.checked = false;
@@ -302,7 +303,8 @@ export function directionalReducer(state: DirectionalState = initState, action: 
         recursionChildCheck(au.value);
         recursionParentCheck(au.value);
       });
-      state.audiencesResult = [];
+      state.audiencesResult = {};
+      state.audiencesViewResult = [];
 
       state.areas.checked = false;
       state.areas.checkState = 0;

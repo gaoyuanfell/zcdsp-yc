@@ -17,11 +17,11 @@ export interface DirectionalState {
   areasResult?: Array<any>
 
   audiences?: Array<any>
-  audiencesResult?: Array<any>
+  audiencesResult?: any
   audiencesViewResult?: Array<any>
 
   device?: Array<any>
-  deviceResult?: Array<any>
+  deviceResult?: any
   deviceViewResult?: Array<any>
 
   lbsCity?: Directional
