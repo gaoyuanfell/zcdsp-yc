@@ -157,6 +157,7 @@
                     <th>媒体平台</th>
                     <th>尺寸</th>
                     <th>展现形式</th>
+                    <th>说明</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -164,6 +165,7 @@
                     <td>{{selectMediaSize.media_name}}</td>
                     <td>{{selectMediaSize.material_width}}*{{selectMediaSize.material_height}}</td>
                     <td>{{selectMediaSize.material_type_name}}</td>
+                    <td>{{selectMediaSize.description}}</td>
                   </tr>
                   </tbody>
                 </table>
@@ -179,10 +181,10 @@
 
                 </div>
               </div>
-              <div class="creative-info-photo">
+              <div class="creative-info-photo" *ngIf="selectMediaSize?.creative_show_img">
                 <div class="photo-bj">
                   <h3 style="text-align: center" *ngIf="!selectMediaSize?.creative_show_img">暂无投放参考示意图</h3>
-                  <img *ngIf="selectMediaSize?.creative_show_img" [src]="selectMediaSize?.creative_show_img"> <!--src="assets/img/photo-img-test.png"-->
+                  <img [src]="selectMediaSize?.creative_show_img"> <!--src="assets/img/photo-img-test.png"-->
                 </div>
                 <p class="m-t-1">----投放参考示意图----</p>
               </div>

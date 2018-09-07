@@ -90,12 +90,12 @@
 
   <!-- 地图选择 -->
   <ng-template [ngIf]="lbsCityType">
-    <div style="position: relative;margin-bottom: 20px;" [hidden]="!lbsCityType">
+    <div style="position: relative;margin-bottom: 20px;">
       <yc-map (pushCoordinate)="pushCoordinate($event)" (removeCoordinate)="removeCoordinate($event)"></yc-map>
     </div>
   </ng-template>
 
-  <div class="flex" [hidden]="lbsCityType">
+  <div class="flex" *ngIf="!lbsCityType">
     <ng-template [ngForOf]="lbsCityList$ | async" ngFor let-valueList let-indexList="index">
       <div class="linkage-box w25">
         <div class="input-query">
@@ -217,9 +217,9 @@
           <ng-template [ngForOf]="valueList" ngFor let-value let-index="index" [ngForTrackBy]="trackByFn">
             <li [ngClass]="{'active': valueList[index].children === (audiencesActionList$ | async)[indexList + 1] && valueList[index].children?.length}">
               <div class="flex-center" (click)="setAudiencesActionNextChild({value:value,index:indexList})">
-                <label class="linkage-item">
+                <div class="linkage-item">
                   <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkAudiencesActionChange(value)"></yc-checkbox><!--'北京市(0/20)'-->
-                </label>
+                </div>
                 <i class="choice-arrow" *ngIf="value.children?.length"></i>
               </div>
             </li>
@@ -268,9 +268,9 @@
           <ng-template [ngForOf]="valueList" ngFor let-value let-index="index">
             <li [ngClass]="{'active': valueList[index].children === (audiencesAction2List$ | async)[indexList + 1] && valueList[index].children?.length}">
               <div class="flex-center" (click)="setAudiencesActionNextChild2({value:value,index:indexList})">
-                <label class="linkage-item">
+                <div class="linkage-item">
                   <yc-checkbox [label]="value.name" [checkState]="value.checkState" [(ngModel)]="value.checked" (changeEvent)="checkAudiencesActionChange2(value)"></yc-checkbox><!--'北京市(0/20)'-->
-                </label>
+                </div>
                 <i class="choice-arrow" *ngIf="value.children?.length"></i>
               </div>
             </li>

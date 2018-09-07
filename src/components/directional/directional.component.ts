@@ -18,6 +18,7 @@ import * as directionalReducer from '../../store/reducer/directional.reducer';
 import * as directionalAction from '../../store/actions/directional.action';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {LbsCityMapRemove} from '../../store/actions/directional.action';
+import {debounceTime} from 'rxjs/operators';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -274,8 +275,8 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
    */
   getResultInit() {
     let resultSubject = new Subject();
-    resultSubject.subscribe(data => {
-      console.info(data)
+    resultSubject.pipe(debounceTime(200)).subscribe(data => {
+      this.assignDefaultData(data, getDirectionalData());
       this.onChange(data);
     });
 

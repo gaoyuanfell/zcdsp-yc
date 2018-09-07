@@ -14,7 +14,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Dialog} from '../../../../components/dialog/dialog';
 import {PopoverDirective} from '../../../../components/popover/popover.directive';
 import {Notification} from '../../../../components/notification/notification';
-import {hoursFormat} from '../../../../service/util';
+import {codyDepth, hoursFormat} from '../../../../service/util';
 
 @Component({
   selector: 'yc-campaign-expand',
@@ -123,7 +123,7 @@ import {hoursFormat} from '../../../../service/util';
         <yc-time-schedule [grain]="1" [(ngModel)]="show_hour_today" *ngIf="show_time_type === 1"></yc-time-schedule>
       </ng-template>
       <ng-template #directionalRef>
-        <yc-directional [(ngModel)]="directional"></yc-directional>
+        <yc-directional [(ngModel)]="directional$"></yc-directional>
       </ng-template>
     </div>
   `,
@@ -145,6 +145,7 @@ export class CampaignExpandComponent implements OnInit {
   chartDataInstance;
   creativeChartData;
   directional;
+  directional$;
   creatives;
   new_campaign_name;
 
@@ -165,6 +166,7 @@ export class CampaignExpandComponent implements OnInit {
 
   new_date = {};
   _editDirectional(directional) {
+    this.directional$ = codyDepth(this.directional);
     this._dialog.open(directional, {title: '修改定向'}).subscribe(data => {
       if (data) {
         this._campaignService.batchAddUpdate({

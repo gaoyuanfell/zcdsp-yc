@@ -29,6 +29,7 @@ export class MapComponent implements OnInit, ControlValueAccessor {
 
 
   ngOnInit() {
+    console.info('ok')
     this.init();
   }
 
@@ -105,8 +106,11 @@ export class MapComponent implements OnInit, ControlValueAccessor {
     this.map = new BMap.Map(this.allmap.nativeElement);    // 创建Map实例
     let  point = new BMap.Point(116.404, 39.915);
     this.map.centerAndZoom(point, 15);  // 初始化地图,设置中心点坐标和地图级别  里的11是地图缩放级别，数字越大， 搜索的范围越大，
-    this.map.enableScrollWheelZoom(true);     // 开启鼠标滚轮缩放
-    this.geoc = new BMap.Geocoder();  // 获取标注的地址对象
+
+    this.map.addEventListener("tilesloaded",() => {
+      this.map.enableScrollWheelZoom(true);     // 开启鼠标滚轮缩放
+      this.geoc = new BMap.Geocoder();  // 获取标注的地址对象
+    });
 
     // 建立一个自动完成的对象  搜索
     let ac = new BMap.Autocomplete(

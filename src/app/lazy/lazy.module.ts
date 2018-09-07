@@ -17,11 +17,6 @@ import { Dialog, YC_DIALOG_DATA } from '../../components/dialog/dialog';
       <button class="btn" (click)="open()">open</button>
       <button class="btn" (click)="open2()">open2</button>
       <button class="btn" routerLink="1">lazy</button>
-
-      <input-color-palette></input-color-palette>
-
-      <app-loading></app-loading>
-      
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
