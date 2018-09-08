@@ -293,30 +293,23 @@
     <yc-button-group [(ngModel)]="directionalType" (changeEvent)="directionalTypeChange()" [list]="[{value:'1',label:'智能推荐'},{value:'2',label:'自定义'}]"></yc-button-group>
   </div>
   <div class="extension-form-box">
-    <div class="campaign-form-box">
-      <div class="padding">
-        <div class="form-group flex-center">
-          <label class="form-label">快捷定向：</label>
-          <div class="form-input">
-            <yc-select [placeholder]="'请选择已保存的定向包'" [list]="direction_packages" [props]="{label:'name'}" (selectedEvent)="setOrientation($event)"></yc-select>
-          </div>
-        </div>
+    <div class="form-group flex-center">
+      <label class="form-label">快捷定向：</label>
+      <div class="form-input">
+        <yc-select [width]="350" [placeholder]="'请选择已保存的定向包'" [list]="direction_packages" [props]="{label:'name'}" (selectedEvent)="setOrientation($event)"></yc-select>
       </div>
     </div>
 
     <!--定向-->
-    <yc-directional [(ngModel)]="directional" (ngModelChange)="audienceCount()"></yc-directional>
+    <div style="margin: 0 80px;">
+      <yc-directional [(ngModel)]="directional" (ngModelChange)="audienceCount()"></yc-directional>
 
-    <div class="padding">
-      <div class="form-group flex-center">
-        <label class="form-label"></label>
-        <div class="form-input">
-          <yc-checkbox [(ngModel)]="is_need_package" (changeEvent)="package_name = ''" [label]="'保存以上数据为定向包，下次可直接通过快捷定向选择使用'"></yc-checkbox>
-        </div>
+      <div class="flex-center" style="height: 36px;">
+        <yc-checkbox style="padding: 0 15px;" [(ngModel)]="is_need_package" (changeEvent)="package_name = ''" [label]="'保存以上数据为定向包，下次可直接通过快捷定向选择使用'"></yc-checkbox>
         <input *ngIf="is_need_package" type="text" [(ngModel)]="package_name" class="form-control m-l-1" style="width: 180px;" placeholder="请输入定向包名称">
       </div>
+      
     </div>
-
   </div>
 
   <div class="flex">
