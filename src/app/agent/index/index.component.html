@@ -49,10 +49,10 @@
         </div>
         <div class="ratio">
           <div class="list">周同比<span>%</span>
-            <i [ngClass]="{'red': user?.wow >= 0, 'green':  user?.wow < 0 }"></i>
+            <i [ngClass]="{'red': user?.wow > 0, 'green':  user?.wow < 0 }"></i>
           </div>
           <div class="list">日环比<span>%</span>
-            <i [ngClass]="{'red': user?.dod >= 0, 'green':  user?.dod < 0 }"></i>
+            <i [ngClass]="{'red': user?.dod > 0, 'green':  user?.dod < 0 }"></i>
           </div>
         </div>
         <div class="number clear">
@@ -165,7 +165,7 @@
             </table>
           </yc-table>
         </div>
-      </div>
+      </div>jin'r
     </div>
     <div class="originality" [ngStyle]="{'display':dayTotalListData?.length > 0 ?'block':'none'}">
       <div class="title">
@@ -183,7 +183,7 @@
           <div class="echart" #todayReportChart></div>
           <div class="list">
             <div class="tit">日期筛选<span class="icon-tool-add"></span></div>
-            <div class="all" (click)="_dayTotalClick();_dayTotal = null" [ngClass]="{'active': _dayTotal === null}">15天内创意</div>
+            <div class="all" (click)="_dayTotalClick();_dayTotal = null" [ngClass]="{'active': _dayTotal === null}">{{dayTotalTitle}}</div>
             <ul>
               <li *ngFor="let data of dayTotalListData;let i = index"  (click)="_dayTotalClick(data.date);  _dayTotal = data" [ngClass]="{'active': _dayTotal === data}">
                 {{data.date}}
@@ -281,37 +281,28 @@
           </div>
         </div>
         <div class="main age" style="padding:0;">
-          <div class="item">
-            <!--属性这块的写法-->
-            <div *ngFor="let x of age; let i = index" class="item-parent" [ngStyle]="{'left.px': AgeWidth.offsetWidth * i + (AgeWidth.offsetWidth / 0.1 * 0.03) * i}" #AgeWidth>
-            <!--<div *ngFor="let x of age; let i = index" class="item-parent" [ngStyle]="_getAgeStyle(i)" #AgeWidth>-->
-              <div class="item1"  >
-                <div>{{x.age_proportion / ageTotal * 100 | number: '1.2-2' }}%</div>
-                <div>
-                  <div></div>
-                  <div></div>
-                  <div><img [src]="x.src"></div>
-                </div>
-                <div>{{x.age_part}}</div>
-              </div>
-              <div class="item1">
-                <div [ngStyle]="{'height.px': x.age_proportion / ageTotal * 100}">
-                  <div></div>
-                  <div></div>
-                </div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
+          <table cellspacing="0">
+            <tr>
+              <td *ngFor="let x of age">{{x.age_proportion / ageTotal * 100 | number: '1.2-2' }}%</td>
+            </tr>
+            <tr>
+              <td *ngFor="let x of age">
+                <hr/>
+                <div [ngStyle]="{'height.px': x.age_proportion / ageTotal * 100}"></div>
+              </td>
+            </tr>
+          </table>
 
-          </div>
-          <div class="item">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
+          <table cellspacing="0">
+            <tbody>
+            <tr>
+              <td *ngFor="let x of age"> <img [src]="x.src"> </td>
+            </tr>
+            <tr>
+              <td *ngFor="let x of age"> {{x.age_part}} </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

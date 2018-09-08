@@ -1465,7 +1465,6 @@ export class BaseIndexComponent implements OnInit{
    * @param type
    */
   resizeFun() {
-    console.log('diaoyong')
     let width = window.document.body.offsetWidth
     if (width > 1500 && width < 1920) {
       this.sexCount = 150;
@@ -1484,7 +1483,7 @@ export class BaseIndexComponent implements OnInit{
       } else if (width <= 1500) {
         this.sexCount = 123;
       }
-      this.changeDetectorRef.markForCheck();
+      this.changeDetectorRef.markForCheck();  //这句话不应该放到这里
     })
   }
 
