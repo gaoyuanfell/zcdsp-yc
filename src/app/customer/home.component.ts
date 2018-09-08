@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/model';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router, NavigationStart} from '@angular/router';
 import * as reducerMenu from '../../store/reducer/menu.reducer';
 import * as reducerAction from '../../store/actions/menu.action';
 import {fromEvent, Observable, Subject} from 'rxjs';
@@ -88,6 +88,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.menuList$ = store.pipe(select(reducerMenu.MenuList));
 
     router.events.subscribe(event => {
+      if(event instanceof NavigationStart){
+        _global.containerFullRef.scrollTop = 0;
+      }
       if (event instanceof NavigationEnd) {
         this.store.dispatch(new reducerAction.SelectActiveMenu(event.url));
       }
