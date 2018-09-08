@@ -1,5 +1,6 @@
 import {Component, EventEmitter, forwardRef, Input, OnInit, Output, Renderer2, ViewChild} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {loadScript} from '../../service/util';
 
 
 // 首先注册成为表单控件
@@ -19,6 +20,8 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class MapComponent implements OnInit, ControlValueAccessor {
 
+
+
   constructor(
     private renderer: Renderer2
   ) {
@@ -29,7 +32,10 @@ export class MapComponent implements OnInit, ControlValueAccessor {
 
 
   ngOnInit() {
-    console.info('ok')
+
+
+    //
+    // console.info('ok')
     this.init();
   }
 

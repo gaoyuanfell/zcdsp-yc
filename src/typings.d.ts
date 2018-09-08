@@ -14,6 +14,7 @@ declare var echarts: any;
 declare var domtoimage: any;
 declare var wangEditor: any;
 declare var BMap: any;
+declare var AMap: any;
 
 interface Date {
   calendar(type: number, num: number): Date
