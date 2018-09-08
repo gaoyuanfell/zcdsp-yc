@@ -110,7 +110,7 @@ export class BaseIndexComponent implements OnInit{
       },
       grid: {
         left: 0,
-        right: 10,
+        right: 50,
         bottom: '3%',
         containLabel: true
       },

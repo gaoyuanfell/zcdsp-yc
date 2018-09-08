@@ -182,7 +182,7 @@
         <div style="display: flex;width:100%;">
           <div class="echart" #todayReportChart></div>
           <div class="list">
-            <div class="tit">日期筛选<span class="icon-tool-add"></span></div>
+            <div class="tit">日期筛选</div>
             <div class="all" (click)="_dayTotalClick();_dayTotal = null" [ngClass]="{'active': _dayTotal === null}">{{dayTotalTitle}}</div>
             <ul>
               <li *ngFor="let data of dayTotalListData;let i = index"  (click)="_dayTotalClick(data.date);  _dayTotal = data" [ngClass]="{'active': _dayTotal === data}">
@@ -249,6 +249,31 @@
         </div>
         <div class="main">
           <div class="echart" #todayAllSpendChart></div>
+        </div>
+      </div>
+    </div>
+    <div class="master">
+      <div class="content">
+        <div class="title">
+          <div class="left">
+            APP流量TOP5<i class="icon-tool-help"></i>
+          </div>
+        </div>
+        <div class="main media_flow">
+          <div class="media-echart">
+            <div class="item" *ngFor="let media of media_flow_top5;let index = index">
+              <p>NO.{{index + 1}}</p>
+              <p>{{media.media_name}}</p>
+              <p>{{media.request_num / 10000000 | number:'1.0-0'}}千万</p>
+            </div>
+          </div>
+          <div class="media-left">
+            <div class="item" *ngFor="let media of media_flow_top5;">
+              <span class="spot" [ngStyle]="{'background-color': media.color}"></span>
+              <span>{{media.media_name}}</span>
+              <span>{{media.request_num / 10000000 | number:'1.0-0'}}千万</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -325,31 +350,7 @@
         </div>
       </div>
     </div>
-    <div class="master">
-      <div class="content">
-        <div class="title">
-          <div class="left">
-            媒体流量偏好<i class="icon-tool-help"></i>
-          </div>
-        </div>
-        <div class="main media_flow">
-          <div class="media-echart">
-            <div class="item" *ngFor="let media of media_flow_top5;let index = index">
-              <p>NO.{{index + 1}}</p>
-              <p>{{media.media_name}}</p>
-              <p>{{media.request_num / 10000000 | number:'1.0-0'}}千万</p>
-            </div>
-          </div>
-          <div class="media-left">
-            <div class="item" *ngFor="let media of media_flow_top5;">
-              <span class="spot" [ngStyle]="{'background-color': media.color}"></span>
-              <span>{{media.media_name}}</span>
-              <span>{{media.request_num / 10000000 | number:'1.0-0'}}千万</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
   </div>
   <div class="scatter">
     <div class="title">
