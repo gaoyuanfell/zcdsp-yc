@@ -1303,16 +1303,16 @@ export class BaseIndexComponent implements OnInit{
   }
 
   _showHighlightChart(chart, index) {
-    // if (!chart) return;
-    // chart.dispatchAction({
-    //   type: 'downplay',
-    //   seriesIndex: 0,
-    // });
-    // chart.dispatchAction({
-    //   type: 'highlight',
-    //   seriesIndex: 0,
-    //   dataIndex: index,
-    // });
+    if (!chart) return;
+    chart.dispatchAction({
+      type: 'downplay',
+      seriesIndex: 0,
+    });
+    chart.dispatchAction({
+      type: 'highlight',
+      seriesIndex: 0,
+      dataIndex: index,
+    });
   }
 
 

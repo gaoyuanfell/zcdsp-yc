@@ -399,36 +399,56 @@
           </div>
         </div>
         <div class="main age" style="padding:0;">
-          <div class="item">
+          <!--<div class="item">-->
 
-            <div *ngFor="let x of age; let i = index" class="item-parent" [ngStyle]="{'left.px': AgeWidth.offsetWidth * i + (AgeWidth.offsetWidth / 0.1 * 0.03) * i}" #AgeWidth>
-              <div class="item1"  >
-                <div>{{x.age_proportion / ageTotal * 100 | number: '1.2-2' }}%</div>
-                <div>
-                  <div></div>
-                  <div></div>
-                  <div><img [src]="x.src"></div>
-                </div>
-                <div>{{x.age_part}}</div>
-              </div>
-              <div class="item1">
-                <div [ngStyle]="{'height.px': x.age_proportion / ageTotal * 100}">
-                  <div></div>
-                  <div></div>
-                </div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
+            <!--<div *ngFor="let x of age; let i = index" class="item-parent" [ngStyle]="{'left.px': AgeWidth.offsetWidth * i + (AgeWidth.offsetWidth / 0.1 * 0.03) * i}" #AgeWidth>-->
+              <!--<div class="item1"  >-->
+                <!--<div>{{x.age_proportion / ageTotal * 100 | number: '1.2-2' }}%</div>-->
+                <!--<div>-->
+                  <!--<div></div>-->
+                  <!--<div></div>-->
+                  <!--<div><img [src]="x.src"></div>-->
+                <!--</div>-->
+                <!--<div>{{x.age_part}}</div>-->
+              <!--</div>-->
+              <!--<div class="item1">-->
+                <!--<div [ngStyle]="{'height.px': x.age_proportion / ageTotal * 100}">-->
+                  <!--<div></div>-->
+                  <!--<div></div>-->
+                <!--</div>-->
+                <!--<div></div>-->
+                <!--<div></div>-->
+              <!--</div>-->
+            <!--</div>-->
 
-          </div>
-          <div class="item">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
+          <!--</div>-->
+          <!--<div class="item">-->
+            <!--<div></div>-->
+            <!--<div></div>-->
+            <!--<div></div>-->
+            <!--<div></div>-->
+            <!--<div></div>-->
+          <!--</div>-->
+          <table>
+            <tr>
+              <td *ngFor="let x of age">{{x.age_proportion / ageTotal * 100 | number: '1.2-2' }}%</td>
+            </tr>
+            <tr>
+              <td *ngFor="let x of age" style="height:90px;">
+                <div [ngStyle]="{'height.px': x.age_proportion / ageTotal * 90}" style="background-color: blue;"></div>
+              </td>
+            </tr>
+          </table>
+          <table>
+            <tbody>
+            <tr>
+              <td *ngFor="let x of age"> <img [src]="x.src"> </td>
+            </tr>
+            <tr>
+              <td *ngFor="let x of age"> {{x.age_part}} </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
