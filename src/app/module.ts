@@ -41,6 +41,7 @@ import {CreativeMaterialModule} from '../components/creative-material/creative-m
 import {TooltipModule} from '../components/tooltip/tooltip.module';
 import {MapModule} from '../components/map/map.module';
 import {LoadingModule} from '../components/loading/loading.module';
+import { AutocompleteModule } from '../components/autocomplete/autocomplete.module';
 
 @NgModule({
   imports: [
@@ -81,6 +82,7 @@ import {LoadingModule} from '../components/loading/loading.module';
     TooltipModule,
     MapModule,
     LoadingModule,
+    AutocompleteModule,
   ],
   declarations: [],
   exports: [
@@ -121,6 +123,7 @@ import {LoadingModule} from '../components/loading/loading.module';
     TooltipModule,
     MapModule,
     LoadingModule,
+    AutocompleteModule,
   ],
   providers: [
     {

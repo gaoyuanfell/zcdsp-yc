@@ -527,6 +527,18 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
   bid_min;
   bid_max;
 
+  // ---------------------------- 下一步 ------------------------ //
+  _nextStepNum = 0
+  _nextStep(){
+    this._directionalService.directionalRecommend().subscribe(res => {
+      this.directionalSmart = res.result;
+      this.directional = {...this.directionalSmart};
+      this.directionalType = '1';
+      this._nextStepNum = 1
+      this.changeDetectorRef.markForCheck();
+    });
+  }
+
   ngOnInit() {
     this.bid_min = this._global.bid_min;
     this.bid_max = this._global.bid_max;
@@ -536,6 +548,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     this.authUser = auth.user;
     if (+this.id) {
       this._isEdit = true;
+      this._nextStepNum = 1;
     }
 
     // 关于创意的一系列状态 待提交创意数量(need_check_count)、审核中数量(in_check_count)、审核通过数量(check_success_count)、审核未通过数量(check_failed_count)
@@ -559,20 +572,20 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
       }
       if(res.result.directional){
         this.directional = res.result.directional;
-        this.audienceCount();
+        // this.audienceCount();
       }
       this.changeDetectorRef.markForCheck();
     });
 
-    this._directionalService.directionalRecommend().subscribe(res => {
-      this.directionalSmart = res.result;
-      if(!this._isEdit){
-        this.directional = {...this.directionalSmart};
-        this.directionalType = '1';
-        this.audienceCount();
-        this.changeDetectorRef.markForCheck();
-      }
-    });
+    // this._directionalService.directionalRecommend().subscribe(res => {
+    //   this.directionalSmart = res.result;
+    //   if(!this._isEdit){
+    //     this.directional = {...this.directionalSmart};
+    //     this.directionalType = '1';
+    //     this.audienceCount();
+    //     this.changeDetectorRef.markForCheck();
+    //   }
+    // });
 
     for (let i = 1; i <= 20; i++) {
       this.frequencyList.push({

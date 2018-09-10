@@ -1,0 +1,37 @@
+.autocomplete-option{
+  min-width: 112px;
+  overflow: auto;
+  visibility: hidden;
+  max-height: 256px;
+  position: relative;
+  width: 100%;
+  box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+  .option{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 48px;
+    height: 48px;
+    padding: 0 16px;
+    text-align: left;
+    text-decoration: none;
+    position: relative;
+    cursor: pointer;
+    outline: 0;
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
+    &:hover{
+      background: rgba(0,0,0,.04);
+    }
+    .option-text{
+      display: inline-block;
+      flex-grow: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

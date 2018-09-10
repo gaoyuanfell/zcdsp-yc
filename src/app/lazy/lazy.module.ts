@@ -17,14 +17,18 @@ import * as directionalAction from '../../store/actions/directional.action';
   ],
   template: `
     <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;">
-    <!--<button class="btn" (click)="open()">open</button>
+
+    <!--
+      <button class="btn" (click)="open()">open</button>
       <button class="btn" (click)="open2()">open2</button>
       <button class="btn" routerLink="1">lazy</button>
       <yc-map></yc-map>
-      <div style="width: 100%;height: 600px;" yc-map></div>-->
-
+      <div style="width: 100%;height: 600px;" yc-map></div>
       <yc-directional></yc-directional>
-      
+    -->
+
+    <yc-autocomplete></yc-autocomplete>
+    
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -55,10 +59,9 @@ export class LazyComponent implements OnDestroy, OnInit {
   constructor(private _sidebar: Sidebar,
     private store: Store<AppState>,
     private _dialog: Dialog) {
-
-      this.store.dispatch(new directionalAction.DirectionalInit());
-    this.store.dispatch(new directionalAction.LbsCityInit());
-    this.store.dispatch(new directionalAction.AudiencesActionInit());
+    // this.store.dispatch(new directionalAction.DirectionalInit());
+    // this.store.dispatch(new directionalAction.LbsCityInit());
+    // this.store.dispatch(new directionalAction.AudiencesActionInit());
   }
 
   ngOnInit(): void {

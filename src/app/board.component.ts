@@ -133,7 +133,7 @@ export class BoardComponent implements OnInit,OnDestroy {
       this.leftNum = {
         'left.px': -this.currents * 85
       }
-    }, 3000)
+    }, 2500)
   }
   changeElement(index) {
     this.num = index
