@@ -88,6 +88,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       this.totalCodeList = res.result.total_code;
       this.chartsData = res.result.charts;
       this.stateCount = res.result.creative_state_count;
+      this.userData = res.result.user;
       countSubscribe.next();
     }, () => {
       countSubscribe.next();

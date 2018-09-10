@@ -95,6 +95,9 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       this.dayTotalUp(res)
       this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, this.dayTotalTitle)
       this.changeDayTotalList(this.dayTotalChartData)
+      setTimeout( ()=> {
+        this.todayReportEcharts.resize();
+      },500)
       countSubscribe.next()
     }, () => {
       countSubscribe.next()
