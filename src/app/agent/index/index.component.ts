@@ -49,7 +49,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   hasData(){
     // 上面数据的解析
     setTimeout( () => {
-      this.todayReportChart();
+      // this.todayReportChart();
       this.todayAllSpendChartSmall();
       this.todayAllSpendChartLine();
       this._init();
@@ -90,13 +90,13 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     this._indexService.dayTotal().subscribe(res => {
       this.dayTotalListData = res.result.list.items; // 列表
       this.dayTotalChartData = res.result.chart;
-      this.dayTotalTitle = res.result.chart.x[0] + '~' + res.result.chart.x[res.result.chart.x.length-1];
-      // 对于处理的上面的 曝光总量 点击总量 2个小块块
-      this.dayTotalUp(res)
-      this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, this.dayTotalTitle)
-      this.changeDayTotalList(this.dayTotalChartData)
+      this.dayTotalTitle = res.result.title;
       setTimeout( ()=> {
-        this.todayReportEcharts.resize();
+        this.todayReportChart();
+        // 对于处理的上面的 曝光总量 点击总量 2个小块块
+        this.dayTotalUp(res)
+        this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, this.dayTotalTitle)
+        this.changeDayTotalList(this.dayTotalChartData)
       },500)
       countSubscribe.next()
     }, () => {
@@ -133,7 +133,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   /**
    * 日期列表点击行，小时图表接口  调的接口不同
    */
-  _dayTotal;
+  _dayTotal = null;
   dayTotal_change = 'line';
   _dayTotalClick(date?) {
     if (!date) {

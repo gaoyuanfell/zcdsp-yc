@@ -757,7 +757,7 @@ export class BaseIndexComponent implements OnInit{
 
     let option: any = {
       title: {
-        text: date+'数据趋势',
+        text: date.split(' ')[0]+'  小时数据趋势',
       },
       xAxis: {
         data: data.x
@@ -1456,13 +1456,21 @@ export class BaseIndexComponent implements OnInit{
     )
 
     // 这边因为当只有一天的时候，可能久显示小时了，但是不管是小时还是天，都显示最后一个数字
+    // this.todayReportTop = {
+    //   todayCpm : res.result.chart.y.cpm[res.result.chart.y.cpm.length - 1],
+    //   yesCpm:  res.result.chart.y.cpm[res.result.chart.y.cpm.length - 2],
+    //   todayCpc:  res.result.chart.y.cpc[res.result.chart.y.cpc.length - 1],
+    //   yesCpc:  res.result.chart.y.cpc[res.result.chart.y.cpc.length - 2],
+    //   todayCtr:  res.result.chart.y.ctr[res.result.chart.y.ctr.length - 1],
+    //   yesCtr:  res.result.chart.y.ctr[res.result.chart.y.ctr.length - 2],
+    // }
     this.todayReportTop = {
-      todayCpm : res.result.chart.y.cpm[res.result.chart.y.cpm.length - 1],
-      yesCpm:  res.result.chart.y.cpm[res.result.chart.y.cpm.length - 2],
-      todayCpc:  res.result.chart.y.cpc[res.result.chart.y.cpc.length - 1],
-      yesCpc:  res.result.chart.y.cpc[res.result.chart.y.cpc.length - 2],
-      todayCtr:  res.result.chart.y.ctr[res.result.chart.y.ctr.length - 1],
-      yesCtr:  res.result.chart.y.ctr[res.result.chart.y.ctr.length - 2],
+      todayCpm : res.result.chart.y.cpm[res.result.chart.other.last_index],
+      yesCpm:  res.result.chart.y.cpm[res.result.chart.other.last_index - 1],
+      todayCpc:  res.result.chart.y.cpc[res.result.chart.other.last_index],
+      yesCpc:  res.result.chart.y.cpc[res.result.chart.other.last_index -1 ],
+      todayCtr:  res.result.chart.y.ctr[res.result.chart.other.last_index],
+      yesCtr:  res.result.chart.y.ctr[res.result.chart.other.last_index - 1],
     }
   }
 
