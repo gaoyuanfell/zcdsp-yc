@@ -43,7 +43,7 @@
       </div>
       <div class="right-tool">
         <yc-select [width]="200" [(ngModel)]="query.campaign_id" (selectedEvent)="search()" [placeholder]="'活动'" [list]="campaign_list" [props]="{value:'campaign_id',label:'campaign_name'}" [searchCtrl]="true" [whole]="'全部'"></yc-select>
-        <input-datepicker [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
+        <input-datepicker [(ngModel)]="datepicker" [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
         <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'请输入创意的名称、ID'"></yc-input-search>
         <i title="刷新" class="zcdsp-icon pointer" (click)="refresh()">&#xe91e;</i>
       </div>

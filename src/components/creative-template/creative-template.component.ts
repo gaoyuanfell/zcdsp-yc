@@ -531,6 +531,7 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
     if (this.compileCtx) {
       this.compileCtx.clearRect(0, 0, this.compileCtx.canvas.width, this.compileCtx.canvas.height);
     }
+    this.queryTemplate.template_type = undefined;
   }
 
   canvasToBlob(canvas, mimeType = 'image/png', quality = 1) {
@@ -670,7 +671,10 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
     this.queryTemplate.width = this._templateConfig.width;
     this.queryTemplate.height = this._templateConfig.height;
 
-    this._templateService.initTemplate().subscribe(res => {
+    this._templateService.initTemplate({
+      width:this._templateConfig.width,
+      height: this._templateConfig.height,
+    }).subscribe(res => {
       this.imgType = res.result.img_type_list;
       this.templateType = res.result.template_type_list
     });

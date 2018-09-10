@@ -21,7 +21,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   host: {
     '[class.flex-wrap-center]': 'is_edit'
   },
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   providers: [
     CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR
@@ -167,7 +167,7 @@ export class CreativeBoxComponent implements OnInit, ControlValueAccessor {
     } else if (values) {
       this.setValueFun([values])
     }
-    this.changeDetectorRef.markForCheck()
+    this.changeDetectorRef.markForCheck();
   }
 
   /**
@@ -214,14 +214,24 @@ export class CreativeBoxComponent implements OnInit, ControlValueAccessor {
    * @param values
    */
   private setValueFun(values) {
+    console.info(values)
     values.forEach(value => {
       let element = JSON.parse(JSON.stringify(this.element));
       element.data_list.forEach((dl, dli) => {
         dl.file_list && dl.file_list.forEach((fl, fli) => {
           fl[fl.name] = value.data_list[dli].file_list[fli][fl.name]
+          fl.validate = true;
         });
         dl.text_list && dl.text_list.forEach((tl, tli) => {
           tl[tl.name] = value.data_list[dli].text_list[tli][tl.name]
+          tl.validate = false;
+          if(tl.max_length && tl.min_length){
+            if(tl.max_length >= tl[tl.name].length && tl.min_length <= tl[tl.name].length){
+              tl.validate = true;
+            }
+          }else{
+            tl.validate = true;
+          }
         })
       });
       if (element.logo) {
@@ -336,6 +346,7 @@ export class CreativeBoxComponent implements OnInit, ControlValueAccessor {
   writeValue(obj: any): void {
     if (!obj) return;
     this.setValue(obj);
+    this.changeDetectorRef.markForCheck();
   }
 
   _inputSubject = new Subject<any>()

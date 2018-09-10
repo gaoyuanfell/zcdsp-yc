@@ -25,11 +25,11 @@
       </div>
       <div style="width: 50%;padding-left: 45px;;position: relative;">
 
+        <h3 style="padding: 10px 0;color: #aaa;">选择模板</h3>
+
+        <yc-select style="margin: 10px 0;" [list]="templateType" [props]="{label: 'meaning', value: 'lookup_code'}" [(ngModel)]="queryTemplate.template_type" [placeholder]="'模板分类'" (selectedEvent)="selectTemplateList()"></yc-select>
+
         <ng-template [ngIf]="templateList?.length">
-
-          <h3 style="padding: 10px 0;color: #aaa;">选择模板</h3>
-
-          <yc-select style="margin: 10px 0;" [list]="templateType" [props]="{label: 'meaning', value: 'lookup_code'}" [(ngModel)]="query.template_type" [placeholder]="'模板分类'" (selectedEvent)="selectTemplateList()"></yc-select>
 
           <div class="template-list">
             <div style="overflow: hidden" #overflow yc-scroll-more [direction]="'x'" (loadMore)="loadMoreTemplateList($event)">

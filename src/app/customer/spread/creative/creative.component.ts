@@ -33,6 +33,7 @@ export class CreativeComponent implements OnInit {
   other;
   total_count;
   tableList;
+  datepicker
 
   audit_state_list;
   campaign_list;
@@ -72,6 +73,12 @@ export class CreativeComponent implements OnInit {
       if (!!~list.indexOf(key)) return;
       Reflect.deleteProperty(this.query, key);
     })
+    let [begin_date, end_date] = this.datepicker = [
+      new Date().calendar(3, -7).formatDate('yyyy-MM-dd'),
+      new Date().formatDate('yyyy-MM-dd')
+    ];
+    this.query.begin_date = begin_date;
+    this.query.end_date = end_date;
     this.search()
   }
 

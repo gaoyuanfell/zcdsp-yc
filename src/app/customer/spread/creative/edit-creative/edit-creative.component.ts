@@ -195,20 +195,37 @@ export class EditCreativeComponent implements OnInit {
 
     if (!element) return
 
-    element.forEach(ele => {
+    let validate = true;
+
+    element.every(ele => {
       let body = {};
-      Object.keys(ele).forEach(oke => {
+      Object.keys(ele).every(oke => {
         if (ele[oke] instanceof Array) {
           body[oke] = [];
-          ele[oke].forEach(el => {
+          ele[oke].every(el => {
             body[oke].push({
               [el.name]: el[el.name]
             })
+            validate = el.validate;
+            // 内容校验
+            if (!validate) {
+              if (el.element_type === 'img' || el.element_type === 'video') {
+                this._notification.error('创意', `素材未上传！`);
+              } else {
+                this._notification.error('创意', `内容填写有误！`);
+              }
+            }
+            return validate;
           })
         }
+        return validate
       });
       element_data.elements.data_list.push(body);
+      return validate;
     });
+
+    if (!validate) return;
+
     let logo = this.elements.logo;
     if (logo) {
       element_data.elements.logo = {
