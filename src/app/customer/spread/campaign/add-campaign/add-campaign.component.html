@@ -237,7 +237,7 @@
     <div class="form-group flex">
       <label class="form-label"><span>*</span>活动名称:</label>
       <div class="form-input">
-        <input class="form-control" [(ngModel)]="campaign.campaign_name" #campaign_name="ngModel" type="text" required placeholder="请填写活动名称" [ngClass]="{'has-error':(_valid || campaign_name.dirty || campaign_name.touched) && campaign_name.invalid }">
+        <input class="form-control" [(ngModel)]="campaign.campaign_name" #campaign_name="ngModel" type="text" required placeholder="请填写活动名称" [ngClass]="{'has-error':(_valid || campaign_name.dirty || campaign_name.touched) && campaign_name.invalid }" (ngModelChange)="package_name = campaign.campaign_name + '_定向包'">
         <p class="input-error" *ngIf="(_valid || campaign_name.dirty || campaign_name.touched) && campaign_name.invalid">请输入活动名称</p>
       </div>
     </div>
@@ -312,13 +312,13 @@
       <!--定向-->
       <div style="margin: 0 80px;">
         <yc-directional [(ngModel)]="directional" (ngModelChange)="audienceCount()"></yc-directional>
-        <div class="flex-center" style="height: 36px;">
-          <yc-checkbox [(ngModel)]="is_need_package" (changeEvent)="package_name = ''"  [label]="'保存以上数据为定向包，下次可直接通过快捷定向选择使用'"></yc-checkbox>
-          <input *ngIf="is_need_package" type="text" [(ngModel)]="package_name" class="form-control m-l-1" style="width: 180px;" placeholder="请输入定向包名称">
+        <div class="flex-center" style="height: 36px;" *ngIf="!_isEdit">
+          <yc-checkbox [(ngModel)]="is_need_package" (changeEvent)="is_need_package?(package_name = campaign.campaign_name + '_定向包'):(package_name = '')"  [label]="'保存以上数据为定向包，下次可直接通过快捷定向选择使用'"></yc-checkbox>
+          <input *ngIf="is_need_package" type="text" [(ngModel)]="package_name" class="form-control m-l-1" style="width: 180px;display: none;" placeholder="请输入定向包名称">
         </div>
       </div>
     </div>
-  
+
     <div class="flex">
       <h2 class="extension-title" id="chujia">
         出价
