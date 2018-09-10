@@ -1289,6 +1289,13 @@ export class BaseIndexComponent implements OnInit{
       let manCount = this.manPro * x;
       let womanCount = this.womanPro * x;
       for (let i = 0; i < x; i++) {
+        // if (i < undefinedCount) {    // 未知
+        //   obj = {'value': i, 'type': 'undefined'}
+        // } else if (i >= undefinedCount && i < manCount + undefinedCount) {
+        //   obj = {'value': i, 'type': 'man'}
+        // } else {
+        //   obj = {'value': i, 'type': 'woman'}
+        // }
         if (i < manCount) {    // 未知
           obj = {'value': i, 'type': 'man'}
         } else if (i >= manCount && i < manCount + womanCount) {

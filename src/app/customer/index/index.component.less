@@ -249,6 +249,7 @@
     display: flex;
     .echart, .tool-table{
       width: 80%;
+      //width:600px;
       height: 312px;
       margin-right: 48px;
     }
@@ -310,6 +311,7 @@
         color: #666666;
       }
       ul{
+        //overflow: auto;
         li{
           height: 36px;
           line-height: 36px;
@@ -320,6 +322,12 @@
           span{
             margin: auto 0;
             cursor: pointer;
+            &:nth-child(1){
+              white-space:nowrap;
+              overflow:hidden;
+              text-overflow:ellipsis;
+              width:80%;
+            }
           }
           &.active{
             background: #d7ecff;
@@ -329,6 +337,9 @@
             span{
               color: #2e90ff;
             }
+          }
+          &:hover {
+            cursor:pointer;
           }
         }
       }

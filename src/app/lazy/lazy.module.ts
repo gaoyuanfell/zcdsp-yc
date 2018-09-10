@@ -17,6 +17,7 @@ import * as directionalAction from '../../store/actions/directional.action';
   ],
   template: `
     <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;">
+      <div yc-map style="width:500px;height:500px;margin:100px auto"></div>
 
     <!--
       <button class="btn" (click)="open()">open</button>
@@ -105,7 +106,7 @@ export class LazyComponent2 implements OnDestroy, OnInit {
   styles: [],
   template: `
     <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;">
-      12312312333333333333333333333333333333
+      <div></div>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -132,8 +133,8 @@ export class LazyComponent3 implements OnDestroy, OnInit {
   imports: [
     Module,
     RouterModule.forChild([
-      {path: '', component: LazyComponent, canActivate: [MenuGuard], pathMatch: 'full'},
-      {path: ':id', component: LazyComponent2, canActivate: [MenuGuard], pathMatch: 'full'},
+      {path: '', component: LazyComponent, canActivate: [], pathMatch: 'full'},
+      {path: ':id', component: LazyComponent2, canActivate: [], pathMatch: 'full'},
     ]),
   ],
 })
