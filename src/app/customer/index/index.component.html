@@ -192,7 +192,7 @@
 
         </div>
         <div class="list">
-          <div class="tit">创意名称<span class="icon-tool-add"></span></div>
+          <div class="tit">创意名称<span class="icon-tool-add" [routerLink]="'/ads/spread/creative-add/0'"></span></div>
           <div class="all" (click)="_creativeListClick();_creativeData = null" [ngClass]="{'active': _creativeData === null}">全部在投创意</div>
           <ul>
             <li *ngFor="let c of creativeListData"  [title]="c.creative_name" (click)="_creativeListClick(c.creative_id);_creativeData = c" [ngClass]="{'active': _creativeData === c}">
@@ -270,7 +270,7 @@
 
         </div>
         <div class="list">
-          <div class="tit">活动名称</div>
+          <div class="tit">活动名称<span class="icon-tool-add" [routerLink]="'/ads/spread/campaign-add/0'"></span></div>
           <div class="all" (click)="_campaignListClick();_campaignData = null" [ngClass]="{'active': _campaignData === null}">全部在投活动</div>
           <ul>
             <li *ngFor="let c of campaignListData"  [ngClass]="{'active': _campaignData === c}" (click)="_campaignListClick(c.campaign_id);_campaignData = c">

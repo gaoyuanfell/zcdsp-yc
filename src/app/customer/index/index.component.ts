@@ -66,9 +66,9 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   hasData(){
     // 上面数据的解析
     setTimeout( () => {
-      this.todayCreative();
-      this.todayActivity();
-      this.todayReportChart();
+      // this.todayCreative();
+      // this.todayActivity();
+      // this.todayReportChart();
       this.todayAllSpendChartSmall();
       this.todayAllSpendChartLine();
       this._init();
@@ -98,11 +98,11 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     this._indexService.creativeList().subscribe(res => {
       this.creativeListData = res.result.creatives;
       this.creativeChartData = res.result.charts;
-      this.changeCampaignAndCreativeChart(this.todayCreativeEcharts, this.creativeChartData, this.creativeCode);
-      // 数据处理 为了匹配表格
-      this.changeCampaignAndCreativeList(this.creativeChartData, this.creativeCode, 'creative');
       setTimeout(()=>{
-        this.todayCreativeEcharts.resize();
+        this.todayCreative();
+        this.changeCampaignAndCreativeChart(this.todayCreativeEcharts, this.creativeChartData, this.creativeCode);
+        // 数据处理 为了匹配表格
+        this.changeCampaignAndCreativeList(this.creativeChartData, this.creativeCode, 'creative');
       },500)
       countSubscribe.next();
     }, () => {
@@ -113,10 +113,10 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     this._indexService.campaignList().subscribe(res => {
       this.campaignListData = res.result.campaigns;
       this.campaignChartData = res.result.charts;
-      this.changeCampaignAndCreativeChart(this.todayActivityEcharts, this.campaignChartData, this.campaignCode);
-      this.changeCampaignAndCreativeList(this.campaignChartData, this.campaignCode, 'campaign');
       setTimeout( ()=> {
-        this.todayActivityEcharts.resize();
+        this.todayActivity();
+        this.changeCampaignAndCreativeChart(this.todayActivityEcharts, this.campaignChartData, this.campaignCode);
+        this.changeCampaignAndCreativeList(this.campaignChartData, this.campaignCode, 'campaign');
       },500)
       countSubscribe.next()
     }, () => {
@@ -127,13 +127,13 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     this._indexService.dayTotal().subscribe(res => {
       this.dayTotalListData = res.result.list.items; // 列表
       this.dayTotalChartData = res.result.chart;
-      this.dayTotalTitle = res.result.chart.x[0] + '~' + res.result.chart.x[res.result.chart.x.length-1];
-      // 对于处理的上面的 曝光总量 点击总量 2个小块块
-      this.dayTotalUp(res);
-      this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, this.dayTotalTitle)
-      this.changeDayTotalList(this.dayTotalChartData);
+      this.dayTotalTitle = res.result.title;
       setTimeout( ()=> {
-        this.todayReportEcharts.resize();
+        this.todayReportChart();
+        // 对于处理的上面的 曝光总量 点击总量 2个小块块
+        this.dayTotalUp(res);
+        this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, this.dayTotalTitle)
+        this.changeDayTotalList(this.dayTotalChartData);
       },500)
       countSubscribe.next()
     }, () => {
@@ -151,7 +151,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   /**
    *   创意点击事件
    */
-  _creativeData;
+  _creativeData = null;
   creative_change = 'line'; // 类型切
   _creativeListClick(id?) {
     this._indexService.creativeChart({creative_id: id}).subscribe(res => {
@@ -166,7 +166,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   /**
    *  活动点击事件
    */
-  _campaignData;
+  _campaignData = null;
   campaign_change = 'line'
   _campaignListClick(id?) {
     this._indexService.campaignChart({campaign_id: id}).subscribe(res => {
@@ -180,7 +180,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   /**
    * 日期列表点击行，小时图表接口
    */
-  _dayTotal;
+  _dayTotal = null;
   dayTotal_change = 'line';
   _dayTotalClick(date?) {
     if (!date) {
