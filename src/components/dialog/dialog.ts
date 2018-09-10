@@ -34,7 +34,7 @@ export class Dialog {
     btn2: '确定',
     async: false,
     maxWidth: '80vw',
-    maxHeight: '80vh',
+    maxHeight: '65vh',
     fullScreen: false,
   }
 

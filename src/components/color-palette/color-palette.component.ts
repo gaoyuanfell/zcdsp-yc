@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy,
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -17,6 +17,7 @@ import {DOCUMENT} from '@angular/common';
   templateUrl: './color-palette.component.html',
   styleUrls: ['./color-palette.component.less'],
   preserveWhitespaces: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColorPaletteComponent implements OnInit, OnDestroy {
 
@@ -129,6 +130,7 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
     if(value){
       this.opacity = value.a || 1;
     }
+    this.changeDetectorRef.markForCheck();
   }
 
   get hex() {
@@ -149,7 +151,7 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
       _b = '0' + _b
     }
 
-    let _a = Math.round(a * 255).toString(16)
+    let _a = Math.round((a || 1) * 255).toString(16)
     if (_a.length === 1) {
       _a = '0' + _a
     }
@@ -318,7 +320,7 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
     this.copy(this.hex)
   }
 
-  constructor(@Inject(DOCUMENT) private document: Document) {
+  constructor(@Inject(DOCUMENT) private document: Document,private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnInit() {

@@ -74,7 +74,7 @@
 
     <div class="extension-form-box">
 
-      <div style="padding: 20px 70px">
+      <div style="padding: 0 70px">
         <!--推荐媒体-->
         <!--<div class="select-group">
           <yc-select placeholder="媒体类型"></yc-select>
@@ -134,20 +134,6 @@
 
         <div class="creative-container-box" id="creative-box">
 
-          <div class="creative-logo-box" *ngIf="logoElement">
-            <!--100100的图片-->
-            <div class="creative-logo" yc-file-upload [dataType]="'K'" [accept]="{extensions: logoElement.extensions,maxSize: logoElement.max_file_size, size: logoElement.logo_size}" (eventChange)="logoChange($event)" (eventError)="imgError($event)">
-              <div class="creative-logo-img" [ngClass]="{'active': logoElement[logoElement.name]}" *ngIf="logoElement[logoElement.name]">
-                <img [src]="logoElement[logoElement.name]" alt="logo" #imgLogo>
-              </div>
-              <div class="creative-logo-text">
-                <p>{{logoElement.logo_size}}</p>
-                <p>{{logoElement.placeholder}}</p>
-                <p>{{logoElement.support_file_type}},小于{{logoElement.max_file_size}}KB</p>
-              </div>
-            </div>
-          </div>
-
           <div class="creative-info-box">
             <div class="flex">
               <div class="creative-info-material">
@@ -170,6 +156,20 @@
                   </tbody>
                 </table>
                 <div style="padding: 35px;">
+
+                  <div class="creative-logo-box" *ngIf="logoElement">
+                    <!--100100的图片-->
+                    <div class="creative-logo" yc-file-upload [dataType]="'K'" [accept]="{extensions: logoElement.extensions,maxSize: logoElement.max_file_size, size: logoElement.logo_size}" (eventChange)="logoChange($event)" (eventError)="imgError($event)">
+                      <div class="creative-logo-img" [ngClass]="{'active': logoElement[logoElement.name]}" *ngIf="logoElement[logoElement.name]">
+                        <img [src]="logoElement[logoElement.name]" alt="logo" #imgLogo>
+                      </div>
+                      <div class="creative-logo-text">
+                        <p>{{logoElement.logo_size}}</p>
+                        <p>{{logoElement.placeholder}}</p>
+                        <p>{{logoElement.support_file_type}},小于{{logoElement.max_file_size}}KB</p>
+                      </div>
+                    </div>
+                  </div>
 
                   <yc-creative-box
                     (elementChange)="elementChange()"

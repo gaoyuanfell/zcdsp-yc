@@ -1,18 +1,16 @@
 .autocomplete-option{
   min-width: 112px;
   overflow: auto;
-  visibility: hidden;
   max-height: 256px;
   position: relative;
   width: 100%;
+  background: #fff;
   box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
   .option{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    line-height: 48px;
-    height: 48px;
-    padding: 0 16px;
+    padding: 5px 12px;
     text-align: left;
     text-decoration: none;
     position: relative;
@@ -33,5 +31,25 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    &.selected{
+      background-color: #fafafa;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.65);
+    }
+  }
+}
+
+.autocomplete-panel{
+  input{
+    border-radius: 2px;
+    border: 1px solid #f2f2f2;
+    display: block;
+    width: 100%;
+    height: 36px;
+    text-indent: 5px;
+    color: #495057;
+    background-color: #fefefe;
+    background-clip: padding-box;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
 }
