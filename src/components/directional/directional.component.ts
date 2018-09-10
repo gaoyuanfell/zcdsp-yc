@@ -32,7 +32,8 @@ export function getDirectionalData() {
       area: [],
       lbs: [],
       type: 1,
-      scene_type: 1
+      scene_type: 1,
+      lbs_scene_type: 1,
     },
     dtl_attribute: {
       crowdAttribute: {
@@ -236,14 +237,14 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
 
   get scene_type() {
     if (this.result.dtl_address) {
-      return this.result.dtl_address.scene_type;
+      return this.result.dtl_address.lbs_scene_type;
     }
     return 0;
   }
 
   set scene_type(val) {
     if (this.result.dtl_address) {
-      this.result.dtl_address.scene_type = val;
+      this.result.dtl_address.lbs_scene_type = val;
       this.onChange(this.result);
     }
   }

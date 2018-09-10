@@ -64,6 +64,7 @@ export class InputColorPaletteComponent implements ControlValueAccessor {
 
   writeValue(obj: any): void {
     this.value = obj
+    this.changeDetectorRef.markForCheck()
   }
 
 

@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy,
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
   ElementRef,
@@ -156,6 +156,7 @@ export class TemplatePageComponent implements OnInit {
       this.dragId = id
       this.dragY = y
     })
+    this.changeDetectorRef.markForCheck();
   }
 
   /**
@@ -435,6 +436,7 @@ export class TemplatePageComponent implements OnInit {
     }
     this._templateService.landingPreview(body).subscribe(res => {
       this._previewCodeUrl = this._templateService.landingQrcode({tmp_id: res.result.id, render_url: `${this.templateUrl}/template/preview`, _: Date.now()})
+      this.changeDetectorRef.markForCheck();
     })
   }
 
@@ -594,6 +596,7 @@ export class TemplatePageComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private renderer: Renderer2,
+              private changeDetectorRef: ChangeDetectorRef,
               @Inject(DOCUMENT) private document: Document,
               private _dialog: Dialog,
               private _notification: Notification,

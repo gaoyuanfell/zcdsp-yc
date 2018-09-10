@@ -343,11 +343,10 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
 
     if (this.directional) {
       body.directional = this.directional;
-      body.lbs_scene_type = this.directional.dtl_address.scene_type;
     }
 
     if (this.package_name) {
-      body.package_name = this.package_name;
+      body.directional.package_name = this.package_name;
     }
 
     this._campaignService.save(body).subscribe((res) => {
@@ -376,9 +375,17 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     });
   }
 
+  //******************  落地页 *****************//
+
   templateChange(data) {
-    this.campaign.click_link = `${this.templateUrl}/template/${data.id}`;
+    this.campaign.click_type = '1'
+    this.campaign.template_id = data.id
     this.templatePreviewCode();
+  }
+
+  templateInputChange(){
+    this.campaign.click_type = '2'
+    this._previewCodeUrl = null;
   }
 
   /**
@@ -514,7 +521,13 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     this.id = params.id;
 
     _templateService.landingSelect().subscribe(res => {
-      this.templateList = res.result;
+      this.templateList = res.result.map(item => {
+        return {
+          id:item.id,
+          name:item.name,
+          link: `${this.templateUrl}/template/${item.id}`
+        }
+      });
     });
   }
 

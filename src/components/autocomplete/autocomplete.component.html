@@ -1,29 +1,13 @@
-<div class="autocomplete-panel">
-  <input type="text" [(ngModel)]="_value">
+<div class="autocomplete-panel" [ngStyle]="{'width.px': width}">
+  <input type="text" [(ngModel)]="_value" (focus)="open()" (ngModelChange)="_valueChange()" [placeholder]="placeholder">
 </div>
 
 <ng-template>
-  <ul class="autocomplete-option">
-    <li class="option">
-      <span class="option-text">1</span>
-    </li>
-    <li class="option">
-      <span class="option-text">1</span>
-    </li>
-    <li class="option">
-      <span class="option-text">1</span>
-    </li>
-    <li class="option">
-      <span class="option-text">1</span>
-    </li>
-    <li class="option">
-      <span class="option-text">1</span>
-    </li>
-    <li class="option">
-      <span class="option-text">1</span>
-    </li>
-    <li class="option">
-      <span class="option-text">1</span>
-    </li>
+  <ul class="autocomplete-option" *ngIf="listShow?.length">
+    <ng-template [ngForOf]="list" ngFor let-item>
+      <li class="option" (click)="selected(item)" *ngIf="!item[_props.hide]" [ngClass]="{'selected': _selected === item}">
+        <span class="option-text">{{item[_props.label]}}</span>
+      </li>
+    </ng-template>
   </ul>
 </ng-template>

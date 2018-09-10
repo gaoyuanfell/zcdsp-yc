@@ -46,10 +46,10 @@
 
     <!--落地页-->
     <ng-template [ngIf]="campaign.target_type == '1'">
-      <div class="form-group flex-center">
+      <!--<div class="form-group flex-center">
         <label class="form-label"><span>*</span>落地页:</label>
         <div class="form-input">
-          <!--活动下有创意，并且部分审核中或者部分审核通过，落地页不可编辑-->
+          &lt;!&ndash;活动下有创意，并且部分审核中或者部分审核通过，落地页不可编辑&ndash;&gt;
           <yc-radio-group [disabled]="!can_modify" [(ngModel)]="campaign.click_type" [list]="landingpage_types" [props]="{label: 'name'}" (changeEvent)="_landingChange()"></yc-radio-group>
         </div>
       </div>
@@ -87,7 +87,43 @@
           <i class="question-icon m-l-1 form-label-text" title="广告落地页地址，审核通过后不可修改(注：不支持跳转落地页)如果定向IOS操作系统落地页必须是https"></i>
         </ng-template>
 
+      </div>-->
+
+
+      <div class="form-group flex">
+        <label class="form-label"><span>*</span>落地页:</label>
+        <div class="form-input">
+          <yc-autocomplete #click_link="ngModel"
+                           [(ngModel)]="campaign.click_link"
+                           [width]="360"
+                           [list]="templateList"
+                           [props]="{label: 'name', value: 'link'}"
+                           [placeholder]="'请填写落地页(http://、https://)'"
+                           pattern="^([hH]{1}[tT]{2}[pP]:\/\/|[hH]{1}[tT]{2}[pP][sS]:\/\/)[\d,a-z,A-Z]+[\w,\W]*$"
+                           (selectedEvent)="templateChange($event)"
+                           (inputEvent)="templateInputChange($event)"></yc-autocomplete>
+          <p>没有落地页？请 <a target="_blank" routerLink="/template">制作落地页</a></p>
+          <p class="input-error" *ngIf="(_valid || click_link.dirty || click_link.touched)  && click_link.invalid">请填写落地页的网址</p>
+        </div>
+        <div class="m-l-1">
+
+          <a target="_blank" *ngIf="campaign.click_link && !click_link.invalid && campaign.click_type == '2'" [href]="campaign.click_link"><button class="btn">预览</button></a>
+          <button class="btn" *ngIf="campaign.template_id && campaign.click_type == '1'" (click)="templatePreview()" (mouseenter)="previewBoxShow = true" (mouseleave)="previewBoxShow = false;">预览</button>
+
+          <div class="preview-box flex-center" *ngIf="_previewCodeUrl && previewBoxShow">
+            <div class="qr-code">
+              <img [src]="_previewCodeUrl">
+              <p>手机扫码预览</p>
+            </div>
+            <span class="preview-box-tip"></span>
+          </div>
+
+        </div>
+
+        <i class="question-icon m-l-1 form-label-text" title="广告落地页地址，审核通过后不可修改(注：不支持跳转落地页)如果定向IOS操作系统落地页必须是https"></i>
+
       </div>
+
     </ng-template>
 
     <!--安卓应用下载-->

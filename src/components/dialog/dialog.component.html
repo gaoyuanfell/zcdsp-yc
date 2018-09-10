@@ -3,7 +3,7 @@
     <p>{{config.title}}</p>
     <i (click)="close()" title="Esc快速退出"></i>
   </div>
-  <div class="dialog-content">
+  <div class="dialog-content" [ngStyle]="{'max-height': config.maxHeight, 'max-width': config.maxWidth}">
     {{description}}
     <ng-container #container></ng-container>
   </div>
