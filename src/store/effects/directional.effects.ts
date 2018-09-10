@@ -84,12 +84,7 @@ export class DirectionalEffects {
       })
     );
   };
-
-  // @Effect()
-  // initAudiencesApp$ = (): Observable<Action> => {
-  //
-  // }
-
+  
   constructor(private actions$: Actions,
     private _directionalService: DirectionalService) {
   }

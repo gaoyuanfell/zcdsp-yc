@@ -24,10 +24,15 @@
 .top{
   display: flex;
   margin-bottom: 24px;
+  justify-content: space-between;
   li{
-    width: 436px;
+    &:nth-child(1), &:nth-child(4){
+      width: 26%;
+    }
+    &:nth-child(2), &:nth-child(3){
+      width: 22%;
+    }
     height:208px;
-    margin-right: 25px;
     background: #fff;
     border:1px #e2e6eb solid;
     padding: 24px;
@@ -90,6 +95,9 @@
         float: left;
         white-space: nowrap;
         width: 50%;
+        &:nth-child(2){
+          text-align: right;
+        }
         span {
           margin-left: 6px;
           color: #333;
@@ -339,9 +347,11 @@
 .platform{
   .master{
     float: left;
-    width: 50%;
-    padding-right: 24px;
+    width: 49.3%;
     margin-bottom: 24px;
+    &:nth-child(even){
+      float:right;
+    }
     &:nth-child(2n){
       padding-right: 0;
     }
@@ -358,7 +368,7 @@
       line-height: 50px;
       display: flex;
       justify-content: space-between;
-      border-bottom: 3px #f0f2f5 solid;
+      border-bottom: 2px #f0f2f5 solid;
       .left{
         font-size: 18px;
         color: #333;
@@ -456,28 +466,28 @@
               height: 90px;
               background: #f2b548;
               top: 20px;
-              left: 61%;
+              left: 58%;
             }
             &:nth-child(4) {
               width: 99px;
               height: 99px;
               background: #66c2a2;
               top: 160px;
-              left: 13%;
+              left: 16%;
             }
             &:nth-child(5) {
               width: 99px;
               height: 99px;
               background: #71b8ea;
               top: 150px;
-              left: 50%;
+              left: 49%;
             }
             &:nth-child(2) {
               width: 90px;
               height: 90px;
               background: #8690e6;
               top: 40px;
-              left: 2%;
+              left: 5%;
             }
             p {
               text-align: center;
@@ -498,7 +508,7 @@
           width: 30%;
           height: 193px;
           position:absolute;
-          right:0;
+          right:7%;
           top: 20px;
           .item {
             margin-bottom:15px;
@@ -578,89 +588,50 @@
 
       }
       &.age {
-        text-align: center;
-        padding: 0;
-        position: relative;
-        width:80%;
-        margin: 65px auto;
-        font-size: 12px;
-        > .item {
-          position: absolute;
-          width: 100%;
-          height:250px;
-          margin-left: -30px;
-          //border:1px solid red;
-          &:nth-child(1) {
-            >.item-parent{
-              //margin-left: 100px;  为啥没有效果
-              width: 10%;
-              position: absolute;
-              bottom: 0;
-              > .item1 {
-                position: absolute;
-                bottom:0;
-                width: 100%;
-                //border:1px solid green;
-                &:nth-child(1){
-                  display: inline-block;
-                  vertical-align: middle;
-                  >div{
-                    height:50px;
-                    //border:1px solid yellow;
-                    &:nth-child(2) {
-                      height:150px;
-                      > div {
-                        text-align: center;
-                        height: 50px;
-                        &:nth-child(3){
-                          padding-top: 12px;
-                          background-color: #43a3fb;
-                        }
-                      }
-                    }
-                    &:nth-child(3) {
-                      padding-top: 20px;
-                    }
-                  }
-
-                }
-                &:nth-child(2){
-                  display: inline-block;
-                  vertical-align: middle;
-                  >div{
-                    height:50px;
-                    //border:1px solid black;
-                    &:nth-child(1) {
-                      background-color: #8ec8fd;
-                      > div {
-                        text-align: center;
-                        &:nth-child(3){
-                          background-color: #43a3fb;
-                        }
-                      }
-                    }
-                    &:nth-child(3) {
-                      //padding-top: 20px;
-                    }
-                  }
-
-                }
-              }
-            }
-
-          }
-          &:nth-child(2) {
-            width: 110%;
-            > div {
+        margin-top:45px;
+        table {
+          margin: 10px auto;
+          width:90%;
+          tr {
+            td {
+              text-align:center;
               height:50px;
-              border-top:1px solid #f0f2f5;
-              &:nth-child(1), &:nth-child(5){
-                border: none;
+              width:12.5%;
+            }
+          }
+          &:nth-child(1){
+            tr{
+              td {
+                border-bottom: 1px solid #efefef;
+              }
+              &:nth-child(2){
+                td{
+                  height:100px;
+                  position: relative;
+                  vertical-align: bottom;
+                  div {
+                    background-color: #8ec8fd;
+                    width: 27px;
+                    display: inline-block;
+                    margin-bottom:-6px;
+                  }
+                  hr {
+                    height:1px;
+                    position: absolute;
+                    width:100%;
+                    top:43%;
+                    background-color: #efefef;
+                  }
+                }
               }
             }
+          }
+          &:nth-child(2){
+            margin-top:-14px;
           }
         }
       }
+
     }
   }
 }
@@ -699,6 +670,7 @@
       }
       .people-left {
         margin-top: 30px;
+        margin-left:5%;
         > .item {
           margin-bottom: 16px;
           span:nth-child(1){
@@ -746,6 +718,7 @@
       }
       .area_left {
         margin-top: 30px;
+        margin-left:5%;
         > .item {
           margin-bottom: 16px;
           span:nth-child(1){
@@ -830,7 +803,7 @@
       }
       .state{
         margin-top: 5px;
-        padding-bottom:6px;
+        padding-bottom:16px;
         .list{
           font-size: 15px;
           margin-bottom: 5px;

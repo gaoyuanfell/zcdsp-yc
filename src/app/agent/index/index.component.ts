@@ -66,6 +66,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   user_list: Array<any> = []; // 客户名称下拉框;
   user_state_count: any = {}; // 总计客户这块
   creative_state_count: any = {}; // 在投创意这块
+  dayTotalTitle;
   _init() {
     const countSubscribe = new Subject(); // 计数器
 
@@ -89,9 +90,10 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     this._indexService.dayTotal().subscribe(res => {
       this.dayTotalListData = res.result.list.items; // 列表
       this.dayTotalChartData = res.result.chart;
+      this.dayTotalTitle = res.result.chart.x[0] + '~' + res.result.chart.x[res.result.chart.x.length-1];
       // 对于处理的上面的 曝光总量 点击总量 2个小块块
       this.dayTotalUp(res)
-      this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, '15天内')
+      this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, this.dayTotalTitle)
       this.changeDayTotalList(this.dayTotalChartData)
       countSubscribe.next()
     }, () => {
@@ -134,7 +136,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     if (!date) {
       this._indexService.dayTotal().subscribe(res => {
         this.dayTotalChartData = res.result.chart;
-        this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, '15天内');
+        this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, this.dayTotalTitle);
         this.changeDetectorRef.markForCheck();
       });
     } else {

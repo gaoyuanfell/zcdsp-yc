@@ -47,10 +47,10 @@
         </div>
         <div class="ratio">
           <div class="list">周同比<span>{{userData?.wow * 1 | number: '1.2-2'}}%</span>
-            <i [ngClass]="{'red': userData?.wow >= 0, 'green':  userData?.wow < 0 }"></i>
+            <i [ngClass]="{'red': userData?.wow > 0, 'green':  userData?.wow < 0 }"></i>
           </div>
           <div class="list">日环比<span>{{userData?.dod * 1 | number: '1.2-2'}}%</span>
-            <i [ngClass]="{'red': userData?.dod >= 0, 'green':  userData?.dod < 0 }"></i>
+            <i [ngClass]="{'red': userData?.dod > 0, 'green':  userData?.dod < 0 }"></i>
           </div>
         </div>
         <div class="number clear">
@@ -120,14 +120,14 @@
       <div class="title">
         <div class="left">
           今日在投创意
-          <i class="icon-tool-help">
-            <div class="tips">
-              <p class="tit">今日在投活动说明</p>
-              智橙移动依据用户今日在投活动的实时数据，预测用户
-              今日投放数据的概述情况，以下在投数据略有延迟仅供
-              参考，以次日完成核对的数据为准。
-            </div>
-          </i>
+          <!--<i class="icon-tool-help">-->
+            <!--<div class="tips">-->
+              <!--<p class="tit">今日在投活动说明</p>-->
+              <!--智橙移动依据用户今日在投活动的实时数据，预测用户-->
+              <!--今日投放数据的概述情况，以下在投数据略有延迟仅供-->
+              <!--参考，以次日完成核对的数据为准。-->
+            <!--</div>-->
+          <!--</i>-->
         </div>
         <div class="right">
           <yc-button-group class="tool" [list]="totalCodeList | keys:'value':'label'" [(ngModel)]="creativeCode" (changeEvent)="changeCampaignAndCreativeChart(todayCreativeEcharts,creativeChartData,creativeCode);changeCampaignAndCreativeList(creativeChartData,creativeCode, 'creative')"></yc-button-group>
@@ -270,8 +270,8 @@
 
         </div>
         <div class="list">
-          <div class="tit">日期筛选<span class="icon-tool-add"></span></div>
-          <div class="all" (click)="_campaignListClick();_campaignData = null" [ngClass]="{'active': _campaignData === null}">全部在投创意</div>
+          <div class="tit">活动名称</div>
+          <div class="all" (click)="_campaignListClick();_campaignData = null" [ngClass]="{'active': _campaignData === null}">全部在投活动</div>
           <ul>
             <li *ngFor="let c of campaignListData"  [ngClass]="{'active': _campaignData === c}" (click)="_campaignListClick(c.campaign_id);_campaignData = c">
               {{c.campaign_name}}
@@ -281,6 +281,7 @@
         </div>
       </div>
     </div>
+    <!-- [ngStyle]="{'display':dayTotalListData?.length > 0 ?'block':'none'}" -->
     <div class="originality" [ngStyle]="{'display':dayTotalListData?.length > 0 ?'block':'none'}">
       <div class="title">
         <div class="left">
@@ -296,8 +297,8 @@
         <div style="display: flex;width:100%;">
         <div class="echart" #todayReportChart></div>
         <div class="list">
-          <div class="tit">日期筛选<span class="icon-tool-add"></span></div>
-          <div class="all" (click)="_dayTotalClick();_dayTotal = null" [ngClass]="{'active': _dayTotal === null}">15天内创意</div>
+          <div class="tit">日期筛选</div>
+          <div class="all" (click)="_dayTotalClick();_dayTotal = null" [ngClass]="{'active': _dayTotal === null}">{{dayTotalTitle}}</div>
           <ul>
             <li *ngFor="let data of dayTotalListData;let i = index"  (click)="_dayTotalClick(data.date);  _dayTotal = data" [ngClass]="{'active': _dayTotal === data}">
               {{data.date}}
@@ -374,6 +375,31 @@
       <div class="content">
         <div class="title">
           <div class="left">
+            APP流量TOP5<i class="icon-tool-help"></i>
+          </div>
+        </div>
+        <div class="main media_flow">
+          <div class="media-echart">
+            <div class="item" *ngFor="let media of media_flow_top5;let index = index">
+              <p>NO.{{index + 1}}</p>
+              <p>{{media.media_name}}</p>
+              <p>{{media.request_num / 10000000 | number:'1.0-0'}}千万</p>
+            </div>
+          </div>
+          <div class="media-left">
+            <div class="item" *ngFor="let media of media_flow_top5;">
+              <span class="spot" [ngStyle]="{'background-color': media.color}"></span>
+              <span>{{media.media_name}}</span>
+              <span>{{media.request_num / 10000000 | number:'1.0-0'}}千万</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="master">
+      <div class="content">
+        <div class="title">
+          <div class="left">
             性别分布<i class="icon-tool-help"></i>
           </div>
         </div>
@@ -399,36 +425,30 @@
           </div>
         </div>
         <div class="main age" style="padding:0;">
-          <div class="item">
 
-            <div *ngFor="let x of age; let i = index" class="item-parent" [ngStyle]="{'left.px': AgeWidth.offsetWidth * i + (AgeWidth.offsetWidth / 0.1 * 0.03) * i}" #AgeWidth>
-              <div class="item1"  >
-                <div>{{x.age_proportion / ageTotal * 100 | number: '1.2-2' }}%</div>
-                <div>
-                  <div></div>
-                  <div></div>
-                  <div><img [src]="x.src"></div>
-                </div>
-                <div>{{x.age_part}}</div>
-              </div>
-              <div class="item1">
-                <div [ngStyle]="{'height.px': x.age_proportion / ageTotal * 100}">
-                  <div></div>
-                  <div></div>
-                </div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
+          <table cellspacing="0">
+            <tr>
+              <td *ngFor="let x of age">{{x.age_proportion / ageTotal * 100 | number: '1.2-2' }}%</td>
+            </tr>
+            <tr>
+              <td *ngFor="let x of age">
+                <hr/>
+                <div [ngStyle]="{'height.px': x.age_proportion / ageTotal * 100}"></div>
+              </td>
+            </tr>
+          </table>
 
-          </div>
-          <div class="item">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
+          <table cellspacing="0">
+            <tbody>
+            <tr>
+              <td *ngFor="let x of age"> <img [src]="x.src"> </td>
+            </tr>
+            <tr>
+              <td *ngFor="let x of age"> {{x.age_part}} </td>
+            </tr>
+            </tbody>
+          </table>
+
         </div>
       </div>
     </div>
@@ -448,31 +468,6 @@
                 <span>{{l.request_num / brandTotal * 100 | number:'1.2-2' }}%</span>
               </div>
             </div>
-        </div>
-      </div>
-    </div>
-    <div class="master">
-      <div class="content">
-        <div class="title">
-          <div class="left">
-            媒体流量偏好<i class="icon-tool-help"></i>
-          </div>
-        </div>
-        <div class="main media_flow">
-          <div class="media-echart">
-            <div class="item" *ngFor="let media of media_flow_top5;let index = index">
-              <p>NO.{{index + 1}}</p>
-              <p>{{media.media_name}}</p>
-              <p>{{media.request_num / 10000000 | number:'1.0-0'}}千万</p>
-            </div>
-          </div>
-          <div class="media-left">
-            <div class="item" *ngFor="let media of media_flow_top5;">
-              <span class="spot" [ngStyle]="{'background-color': media.color}"></span>
-              <span>{{media.media_name}}</span>
-              <span>{{media.request_num / 10000000 | number:'1.0-0'}}千万</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>

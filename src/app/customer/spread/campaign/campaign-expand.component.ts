@@ -57,7 +57,7 @@ import {codyDepth, hoursFormat} from '../../../../service/util';
                 </p>
 
                 <ng-template #temp3>
-                  <div class="day-money-home">
+                  <div class="day-money-home" style="width: auto;">
                     <label class="form-label">修改投放日期</label>
                     <div style="" class="form-group flex-center">
                       <div class="form-input">
@@ -120,6 +120,7 @@ import {codyDepth, hoursFormat} from '../../../../service/util';
 
       <ng-template #schedule>
         <yc-radio-group [(ngModel)]="show_time_type" [list]="[{value:0,label:'不限'},{value:1,label:'指定时间段'}]"></yc-radio-group>
+        <hr>
         <yc-time-schedule [grain]="1" [(ngModel)]="show_hour_today" *ngIf="show_time_type === 1"></yc-time-schedule>
       </ng-template>
       <ng-template #directionalRef>

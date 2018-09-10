@@ -1,5 +1,5 @@
 <!--定向省市-->
-<div class="flex-center margin-center">
+<div class="flex-center directional-box">
   <h3 class="directional-info-title">地域定向</h3>
   <div class="directional-info" *ngIf="areasShow">
     <h4>定向省市</h4>
@@ -24,12 +24,7 @@
     </div>
     <div class="triangle"></div>
   </div>
-  <!---->
-  <!--<div class="input-query directional-query" style="margin-bottom: 10px;">
-    <i class="input-query-icon"></i>
-    <input type="text" placeholder="搜索省、市、区、商圈">
-  </div>-->
-  <!---->
+
   <div class="flex">
 
     <ng-template [ngForOf]="areasChildList$ | async" ngFor let-valueList let-indexList="index">
@@ -57,7 +52,7 @@
   </div>
 
   <!--LBS-->
-  <div class="directional-info" style="margin: 50px 0 15px 0;">
+  <div class="directional-info" style="margin: 25px 0 15px 0;">
     <h4>LBS</h4>
     <p>当前已选择（{{(lbsCityViewResult$ | async)?.length || 0}}）</p>
     <button class="btn btn-outline btn-round" (click)="checkLbsCityChange(false)">清除全部</button>
@@ -125,8 +120,8 @@
 </div>
 
 <!--受众定向-->
-<div class="flex margin-center border">
-  <h3 class="directional-info-title" style="margin-right: 0">受众定向</h3>
+<div class="flex-center directional-box">
+  <h3 class="directional-info-title">受众定向</h3>
   <div class="directional-info" *ngIf="audiencesShow">
     <h4>人群</h4>
     <p>当前已选择（{{(audiencesViewResult$ | async)?.length || 0}}）</p>
@@ -152,11 +147,11 @@
     <div class="triangle"></div>
   </div>
 
-  <div style="margin-top: 30px">
+  <div style="margin-top: 15px">
     <ng-template [ngForOf]="audiences$ | async" ngFor let-value>
 
       <div class="flex">
-        <yc-checkbox class="yccheckbox" [label]="value.value.name" [checkState]="value.value.checkState" [(ngModel)]="value.value.checked" (changeEvent)="checkAudiencesChange(value.value)"></yc-checkbox>
+        <yc-checkbox style="font-weight: 700;" class="yccheckbox" [label]="value.value.name" [checkState]="value.value.checkState" [(ngModel)]="value.value.checked" (changeEvent)="checkAudiencesChange(value.value)"></yc-checkbox>
         <div>
           <ng-template [ngForOf]="value.value.children" ngFor let-value2 let-index="index">
             <yc-checkbox class="yccheckbox" [label]="value2.name" [checkState]="value2.checkState" [(ngModel)]="value2.checked" (changeEvent)="checkAudiencesChange(value2)"></yc-checkbox>
@@ -171,7 +166,7 @@
 
 
 <!--受众行为：-->
-<div class="flex-center margin-center">
+<div class="flex-center directional-box">
   <h3 class="directional-info-title">受众行为</h3>
   <div class="directional-info" *ngIf="audiencesActionShow">
     <h4>行为指定</h4>
@@ -185,7 +180,6 @@
 <!--受众行为 expanded-->
 <div class="expanded" [@panel]="audiencesActionShow">
   <!--choice-->
-
   <div class="choice-values-box" [hidden]="!(audiencesActionResult$ | async)?.length">
     <div class="choice-values">
       <ng-template [ngForOf]="audiencesActionResult$ | async" ngFor let-value>
@@ -198,12 +192,6 @@
     <div class="triangle"></div>
   </div>
 
-  <!--query-->
-  <!--<div class="input-query directional-query" style="margin-bottom: 10px;">
-    <i class="input-query-icon"></i>
-    <input type="text" placeholder="输入名称">
-  </div>-->
-  <!--list-->
   <div class="flex">
 
     <ng-template [ngForOf]="audiencesActionList$ | async" ngFor let-valueList let-indexList="index">
@@ -249,12 +237,6 @@
     <div class="triangle"></div>
   </div>
 
-  <!--query-->
-  <!--<div class="input-query directional-query" style="margin-bottom: 10px;">
-    <i class="input-query-icon"></i>
-    <input type="text" placeholder="输入名称">
-  </div>-->
-  <!--list-->
   <div class="flex lbstop">
 
     <ng-template [ngForOf]="audiencesAction2List$ | async" ngFor let-valueList let-indexList="index">
@@ -285,7 +267,7 @@
 </div>
 
 <!--设备定向-->
-<div class="flex-center margin-center">
+<div class="flex-center directional-box">
   <h3 class="directional-info-title">设备定向</h3>
   <div class="directional-info" *ngIf="deviceShow">
     <h4>设备</h4>
@@ -310,12 +292,11 @@
     </div>
     <div class="triangle"></div>
   </div>
-  <div style="margin-top: 30px">
-
+  <div style="margin-top: 15px">
     <ng-template [ngForOf]="device$ | async" ngFor let-value>
 
       <div class="flex">
-        <yc-checkbox class="yccheckbox" [label]="value.value.name" [checkState]="value.value.checkState" [(ngModel)]="value.value.checked" (changeEvent)="checkDeviceChange(value.value)"></yc-checkbox>
+        <yc-checkbox class="yccheckbox" style="font-weight: 700;" [label]="value.value.name" [checkState]="value.value.checkState" [(ngModel)]="value.value.checked" (changeEvent)="checkDeviceChange(value.value)"></yc-checkbox>
         <div>
           <ng-template [ngForOf]="value.value.children" ngFor let-value2 let-index="index">
             <yc-checkbox class="yccheckbox" [label]="value2.name" [checkState]="value2.checkState" [(ngModel)]="value2.checked" (changeEvent)="checkDeviceChange(value2)"></yc-checkbox>
