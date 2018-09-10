@@ -1245,13 +1245,13 @@ export class BaseIndexComponent implements OnInit{
     this.gender = res.result.gender;
     this.gender.forEach((item) => {
       if (item.gender === '男') {
-        item.src = "src/assets/index/man.png";
+        item.src = "assets/index/man.png";
         this.genderMan = item.gender_proportion;
       } else if (item.gender === '女'){
-        item.src = "src/assets/index/woman.png";
+        item.src = "assets/index/woman.png";
         this.genderWoman = item.gender_proportion;
       } else {
-        item.src = "src/assets/index/undefined.png";
+        item.src = "assets/index/undefined.png";
         this.genderUndefined = item.gender_proportion;
       }
       this.genderTotal = this.genderTotal + item.gender_proportion;

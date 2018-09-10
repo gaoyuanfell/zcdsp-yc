@@ -11,6 +11,14 @@ export class AutocompleteComponent implements OnInit {
 
   @ViewChild(TemplateRef) template: TemplateRef<any>;
 
+  open(){
+
+  }
+
+  close(){
+
+  }
+
   constructor() { }
 
   ngOnInit() {
