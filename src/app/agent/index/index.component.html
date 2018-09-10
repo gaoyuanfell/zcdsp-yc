@@ -368,7 +368,7 @@
             <div class="bar-fill" [ngStyle]="{'width.%': l.hobby_proportion / hobbyTotal * 100}"></div>
           </div>
           <span>{{l.hobby_proportion / hobbyTotal * 100 | number: '1.2-2' }}%</span>
-          <span  [ngClass]="{'up': l.flag === 'up'? true :false, 'down': l.flag === 'down' ? true : false}"></span>
+          <span  [ngClass]="{'up': l.flag === 'up', 'down': l.flag === 'down', '': l.flag === 'eq'}"></span>
         </div>
       </div>
     </div>
@@ -390,7 +390,7 @@
             <div class="bar-fill" [ngStyle]="{'width.%': 80 - i*5}"></div>
           </div>
           <span>{{l.territory_proportion * 100 | number: '1.2-2' }}%</span>
-          <span  [ngClass]="{'up': l.flag === 'up', 'down': l.flag === 'down'}"></span>
+          <span  [ngClass]="{'up': l.flag === 'up', 'down': l.flag === 'down', '':l.flag === 'eq'}"></span>
         </div>
       </div>
     </div>
