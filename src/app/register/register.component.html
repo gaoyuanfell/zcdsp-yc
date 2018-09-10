@@ -28,8 +28,8 @@
 
 
         <input type="text" class="password" placeholder="输入密码" [ngClass]="setInvalidClass(infoForm, infoForm.controls['password'])" required [(ngModel)]="user.password" name="password"
-               pattern="((?=.*\d)(?=.*[A-Za-z]))^[A-Za-z\d]{8,18}$" (ngModelChange)="pwd_comfirm()" autocomplete="off">
-        <app-form-tips [target]="infoForm.controls['password']" [formTarget]="infoForm" [tips]="'请输入8~18位字母和数字的组合!'" placeholder="请填写密码"></app-form-tips>
+               pattern="((?=.*\d)(?=.*[A-Za-z])|(?=.*\d)(?=.*\W)|(?=.*[A-Za-z])(?=.*\W))^[A-Za-z\d\W]{8,18}$" (ngModelChange)="pwd_comfirm()" autocomplete="off">
+        <app-form-tips [target]="infoForm.controls['password']" [formTarget]="infoForm" [tips]="'请输入8~18位字母和数字或符号的组合!'" placeholder="请填写密码"></app-form-tips>
 
 
 
@@ -38,7 +38,7 @@
 
 
         <input type="text" class="phone" placeholder="手机号码" [ngClass]="setInvalidClass(infoForm, infoForm.controls['mobile_phone'])"  #mobile_phone='ngModel' required [(ngModel)]="user.mobile_phone" placeholder="请填写联系电话" name="mobile_phone" pattern="^1\d{10}$">
-        <app-form-tips [target]="infoForm.controls['mobile_phone']" [tips]="'请输入以1开头的11位数字号码'" placeholder="请填写联系电话" [formTarget]="infoForm"></app-form-tips>
+        <app-form-tips [target]="infoForm.controls['mobile_phone']" [tips]="'请输入以1开头的11位手机号码'" placeholder="请填写联系电话" [formTarget]="infoForm"></app-form-tips>
 
 
 

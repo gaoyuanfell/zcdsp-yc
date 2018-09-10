@@ -20,8 +20,6 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class MapComponent implements OnInit, ControlValueAccessor {
 
-
-
   constructor(
     private renderer: Renderer2
   ) {
@@ -32,10 +30,6 @@ export class MapComponent implements OnInit, ControlValueAccessor {
 
 
   ngOnInit() {
-
-
-    //
-    // console.info('ok')
     this.init();
   }
 
@@ -62,7 +56,6 @@ export class MapComponent implements OnInit, ControlValueAccessor {
 
   // 搜索框处理
   local;
-
   setPlace() {
     this.map.clearOverlays();
     this.local = new BMap.LocalSearch(this.map, { // 智能搜索

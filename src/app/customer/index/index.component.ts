@@ -88,6 +88,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       this.totalCodeList = res.result.total_code;
       this.chartsData = res.result.charts;
       this.stateCount = res.result.creative_state_count;
+      this.userData = res.result.user;
       countSubscribe.next();
     }, () => {
       countSubscribe.next();
@@ -100,6 +101,9 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       this.changeCampaignAndCreativeChart(this.todayCreativeEcharts, this.creativeChartData, this.creativeCode);
       // 数据处理 为了匹配表格
       this.changeCampaignAndCreativeList(this.creativeChartData, this.creativeCode, 'creative');
+      setTimeout(()=>{
+        this.todayCreativeEcharts.resize();
+      },500)
       countSubscribe.next();
     }, () => {
       countSubscribe.next();
@@ -111,6 +115,9 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       this.campaignChartData = res.result.charts;
       this.changeCampaignAndCreativeChart(this.todayActivityEcharts, this.campaignChartData, this.campaignCode);
       this.changeCampaignAndCreativeList(this.campaignChartData, this.campaignCode, 'campaign');
+      setTimeout( ()=> {
+        this.todayActivityEcharts.resize();
+      },500)
       countSubscribe.next()
     }, () => {
       countSubscribe.next()
@@ -124,7 +131,10 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       // 对于处理的上面的 曝光总量 点击总量 2个小块块
       this.dayTotalUp(res);
       this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, this.dayTotalTitle)
-      this.changeDayTotalList(this.dayTotalChartData)
+      this.changeDayTotalList(this.dayTotalChartData);
+      setTimeout( ()=> {
+        this.todayReportEcharts.resize();
+      },500)
       countSubscribe.next()
     }, () => {
       countSubscribe.next()

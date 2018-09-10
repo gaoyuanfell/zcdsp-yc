@@ -1287,15 +1287,23 @@ export class BaseIndexComponent implements OnInit{
     let obj = {};
     if(this.manPro) {
       let manCount = this.manPro * x;
-      let undefinedCount = this.undefinedPro * x;
+      let womanCount = this.womanPro * x;
       for (let i = 0; i < x; i++) {
-        if (i < undefinedCount) {    // 未知
-          obj = {'value': i, 'type': 'undefined'}
-        } else if (i >= undefinedCount && i < manCount + undefinedCount) {
+        // if (i < undefinedCount) {    // 未知
+        //   obj = {'value': i, 'type': 'undefined'}
+        // } else if (i >= undefinedCount && i < manCount + undefinedCount) {
+        //   obj = {'value': i, 'type': 'man'}
+        // } else {
+        //   obj = {'value': i, 'type': 'woman'}
+        // }
+        if (i < manCount) {    // 未知
           obj = {'value': i, 'type': 'man'}
-        } else {
+        } else if (i >= manCount && i < manCount + womanCount) {
           obj = {'value': i, 'type': 'woman'}
+        } else {
+          obj = {'value': i, 'type': 'undefined'}
         }
+
         arr.push(obj);
       }
     }

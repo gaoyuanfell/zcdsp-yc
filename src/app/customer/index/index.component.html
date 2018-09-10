@@ -195,8 +195,8 @@
           <div class="tit">创意名称<span class="icon-tool-add"></span></div>
           <div class="all" (click)="_creativeListClick();_creativeData = null" [ngClass]="{'active': _creativeData === null}">全部在投创意</div>
           <ul>
-            <li *ngFor="let c of creativeListData" (click)="_creativeListClick(c.creative_id);_creativeData = c" [ngClass]="{'active': _creativeData === c}">
-              {{c.creative_name}}
+            <li *ngFor="let c of creativeListData"  [title]="c.creative_name" (click)="_creativeListClick(c.creative_id);_creativeData = c" [ngClass]="{'active': _creativeData === c}">
+              <span>{{c.creative_name}}</span>
               <span class="edit" [routerLink]="['/ads/spread/creative/edit', c.creative_id]" (click)="$event.stopPropagation()">编辑</span>
             </li>
           </ul>
@@ -274,7 +274,7 @@
           <div class="all" (click)="_campaignListClick();_campaignData = null" [ngClass]="{'active': _campaignData === null}">全部在投活动</div>
           <ul>
             <li *ngFor="let c of campaignListData"  [ngClass]="{'active': _campaignData === c}" (click)="_campaignListClick(c.campaign_id);_campaignData = c">
-              {{c.campaign_name}}
+              <span>{{c.campaign_name}}</span>
               <span class="edit" [routerLink]="['/ads/spread/campaign/edit', c.campaign_id]" (click)="$event.stopPropagation()">编辑</span>
             </li>
           </ul>
@@ -301,7 +301,7 @@
           <div class="all" (click)="_dayTotalClick();_dayTotal = null" [ngClass]="{'active': _dayTotal === null}">{{dayTotalTitle}}</div>
           <ul>
             <li *ngFor="let data of dayTotalListData;let i = index"  (click)="_dayTotalClick(data.date);  _dayTotal = data" [ngClass]="{'active': _dayTotal === data}">
-              {{data.date}}
+              <span>{{data.date}}</span>
               <span class="edit">编辑</span>
             </li>
           </ul>
