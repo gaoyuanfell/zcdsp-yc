@@ -11,7 +11,8 @@
         <div class="popover-title">
           {{_ycTitle}}
         </div>
-        <div class="wire"></div>
+        <!--如果没有标题不显示分割线-->
+        <div *ngIf="_ycTitle" class="wire"></div>
         <ng-container >
           <div *ngIf="flag">
             <div *ngFor="let x of _result">
