@@ -298,7 +298,7 @@
         <div class="echart" #todayReportChart></div>
         <div class="list">
           <div class="tit">日期筛选</div>
-          <div class="all" (click)="_dayTotalClick();_dayTotal = null" [ngClass]="{'active': _dayTotal === null}">{{dayTotalTitle}}</div>
+          <div class="all" (click)="_dayTotalClick();_dayTotal = null" [ngClass]="{'active': _dayTotal === null}">{{dayTotalTitle}}数据趋势</div>
           <ul>
             <li *ngFor="let data of dayTotalListData;let i = index"  (click)="_dayTotalClick(data.date);  _dayTotal = data" [ngClass]="{'active': _dayTotal === data}">
               <span>{{data.date}}</span>
