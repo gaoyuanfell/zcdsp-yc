@@ -51,13 +51,20 @@
     <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
       <div class="query-tool"  #queryRef query >
         <div class="left-tool">
+          <h2 class="table-title">
+            消费
+          </h2>
+          <!--<div class="btn" (click)="exportUrl()">-->
+            <!--导出-->
+            <!--<i class="btn-icon-export"></i>-->
+          <!--</div>-->
+        </div>
+        <div class="right-tool">
+          <input-datepicker [disabledTodayAfter]=true [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
           <div class="btn" (click)="exportUrl()">
             导出
             <i class="btn-icon-export"></i>
           </div>
-        </div>
-        <div class="right-tool">
-          <input-datepicker [disabledTodayAfter]=true [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
         </div>
       </div>
       <table #tableRef table>

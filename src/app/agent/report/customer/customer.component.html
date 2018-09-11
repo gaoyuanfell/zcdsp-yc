@@ -1,29 +1,44 @@
 <div class="container-list">
 
+  <div class="query-tool">
+    <div class="left-tool">
+      <h2 class="table-title">
+        客户报表
+      </h2>
+    </div>
+
+    <div class="right-tool">
+      <div class="btn" (click)="exportUrl()">
+        导出
+        <i class="btn-icon-export"></i>
+      </div>
+      <input-datepicker [disabledTodayAfter]=true [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
+      <yc-select [width]="240" [searchCtrl]="true" [(ngModel)]="query.user_id" [list]="user_list" [props]="{value:'user_id',label:'user_name'}" (selectedEvent)="search()" [placeholder]="'请选择客户'" [whole]="'全部'"></yc-select>
+    </div>
+  </div>
 
   <div class="table-content">
     <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
 
-      <div class="query-tool" #queryRef query>
-        <div class="left-tool">
-          <div class="btn" (click)="exportUrl()">
-            导出
-            <i class="btn-icon-export"></i>
-          </div>
-        </div>
-        <div class="right-tool">
-          <input-datepicker [disabledTodayAfter]=true [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
-          <yc-select [width]="240" [searchCtrl]="true" [(ngModel)]="query.user_id" [list]="user_list" [props]="{value:'user_id',label:'user_name'}" (selectedEvent)="search()" [placeholder]="'请选择客户'" [whole]="'全部'"></yc-select>
-        </div>
-      </div>
+      <!--<div class="query-tool" #queryRef query>-->
+        <!--<div class="left-tool">-->
+          <!--<div class="btn" (click)="exportUrl()">-->
+            <!--导出-->
+            <!--<i class="btn-icon-export"></i>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="right-tool">-->
+          <!--<input-datepicker [disabledTodayAfter]=true [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>-->
+          <!--<yc-select [width]="240" [searchCtrl]="true" [(ngModel)]="query.user_id" [list]="user_list" [props]="{value:'user_id',label:'user_name'}" (selectedEvent)="search()" [placeholder]="'请选择客户'" [whole]="'全部'"></yc-select>-->
+        <!--</div>-->
+      <!--</div>-->
 
       <table #tableRef table>
         <thead>
         <tr>
-          <th class="text-center">ID</th>
-          <th>账户</th>
+          <th class="text-center">客户ID</th>
+          <th>客户账号</th>
           <th>客户名称</th>
-
           <th class="text-right" [showSort]="true" [sortKey]="'pv'" ><span title="广告被展现给受众的次数">曝光量</span></th>
           <th class="text-right" [showSort]="true" [sortKey]="'click'"><span title="排除恶意点击后，广告被受众点击的次数">点击量</span></th>
           <th class="text-right" [showSort]="true" [sortKey]="'ctr'"><span title="广告被点击的比率(点击量/曝光量*100%)">点击率</span></th>

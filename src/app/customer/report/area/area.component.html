@@ -1,22 +1,40 @@
 <div class="container-list">
 
+  <div class="query-tool">
+    <div class="left-tool">
+      <h2 class="table-title">
+        地域报表
+      </h2>
+    </div>
+
+    <div class="right-tool">
+      <div class="btn" (click)="exportUrl()">
+        导出
+        <i class="btn-icon-export"></i>
+      </div>
+      <input-datepicker [disabledTodayAfter]=true [query]="query" [appendField]="['begin_date']" [width]="150" (search)="search()"></input-datepicker>
+      <yc-select [searchCtrl]="true" [whole]="'全部'" [width]="200" [(ngModel)]="query.campaign_id" [list]="listArray" [props]="{value:'campaign_id',label:'campaign_name'}" [placeholder]="'全部活动'" (selectedEvent)="search()"></yc-select>
+      <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'输入地域搜索'"></yc-input-search>
+    </div>
+  </div>
+
 
 
   <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
 
-    <div class="query-tool" #queryRef query>
-      <div class="left-tool">
-        <div class="btn" (click)="exportUrl()">
-          导出
-          <i class="btn-icon-export"></i>
-        </div>
-      </div>
-      <div class="right-tool">
-        <input-datepicker [disabledTodayAfter]=true [query]="query" [appendField]="['begin_date']" (search)="search()"></input-datepicker>
-        <yc-select [searchCtrl]="true" [whole]="'全部'" [width]="240" [(ngModel)]="query.campaign_id" [list]="listArray" [props]="{value:'campaign_id',label:'campaign_name'}" [placeholder]="'全部活动'" (selectedEvent)="search()"></yc-select>
-        <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'输入地域搜索'"></yc-input-search>
-      </div>
-    </div>
+    <!--<div class="query-tool" #queryRef query>-->
+      <!--<div class="left-tool">-->
+        <!--<div class="btn" (click)="exportUrl()">-->
+          <!--导出-->
+          <!--<i class="btn-icon-export"></i>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="right-tool">-->
+        <!--<input-datepicker [disabledTodayAfter]=true [query]="query" [appendField]="['begin_date']" (search)="search()"></input-datepicker>-->
+        <!--<yc-select [searchCtrl]="true" [whole]="'全部'" [width]="240" [(ngModel)]="query.campaign_id" [list]="listArray" [props]="{value:'campaign_id',label:'campaign_name'}" [placeholder]="'全部活动'" (selectedEvent)="search()"></yc-select>-->
+        <!--<yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'输入地域搜索'"></yc-input-search>-->
+      <!--</div>-->
+    <!--</div>-->
 
     <table #tableRef table>
       <thead>
@@ -44,7 +62,7 @@
       </ng-template>
       <ng-template [ngIf]="tableList?.length > 0">
         <tr #tr>
-          <td class="text-left">全部集合</td>
+          <td class="text-left">全部总计</td>
           <td class="text-right">{{ listTitle?.pv * 1| number}}</td>
           <td class="text-right">{{listTitle?.click * 1| number}}</td>
           <td class="text-right">{{ listTitle?.ctr * 100 | number: '1.2-2' }}</td>

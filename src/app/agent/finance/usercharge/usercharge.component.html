@@ -44,13 +44,16 @@
     <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
       <div class="query-tool" #queryRef query>
         <div class="left-tool">
+          <h2 class="table-title">
+            客户流水
+          </h2>
+        </div>
+        <div class="right-tool">
+          <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'输入客户名称搜索'"></yc-input-search>
           <div class="btn" (click)="exportUrl()">
             导出
             <i class="btn-icon-export"></i>
           </div>
-        </div>
-        <div class="right-tool">
-          <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'输入客户名称搜索'"></yc-input-search>
         </div>
       </div>
       <table #tableRef table>
