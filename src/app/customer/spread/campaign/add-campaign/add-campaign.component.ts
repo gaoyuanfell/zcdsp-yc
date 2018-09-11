@@ -330,7 +330,6 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     }
   }
 
-
   save(type) {
     if (this.valid()) return;
     let body: any = {
@@ -342,6 +341,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     body.show_hours = show_hours;
 
     if (this.directional) {
+      body.lbs_scene_type = this.directional.dtl_address.lbs_scene_type
       body.directional = this.directional;
     }
 
