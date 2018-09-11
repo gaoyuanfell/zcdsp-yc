@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {AppState} from '../store/model';
 import {ScrollService} from "../service/scroll.service";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-board',
@@ -17,8 +18,9 @@ export class BoardComponent implements OnInit,OnDestroy {
   @ViewChild('scheme') scheme: ElementRef;
 
   constructor(private renderer: Renderer2,
+              private title: Title,
               private _scrollService: ScrollService,) {
-    console.log('你咋进来的？')
+    this.title.setTitle(`智橙移动`);
   }
 
   destroy = false;

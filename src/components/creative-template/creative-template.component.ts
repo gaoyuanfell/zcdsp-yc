@@ -1,10 +1,10 @@
-import {Component, ElementRef, Inject, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {DOCUMENT} from '@angular/common';
-import {DomSanitizer} from '@angular/platform-browser';
-import {ScrollService} from '../back-top/scroll.service';
-import {Dialog} from '../dialog/dialog';
-import {fromEvent} from 'rxjs';
-import {TemplateService} from '../../service/template.service';
+import { Component, ElementRef, Inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ScrollService } from '../back-top/scroll.service';
+import { Dialog } from '../dialog/dialog';
+import { fromEvent } from 'rxjs';
+import { TemplateService } from '../../service/template.service';
 
 @Component({
   selector: 'yc-creative-template',
@@ -275,12 +275,9 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
     let naturalHeight = this.img.naturalHeight;
     let cWidth = this.ctx.canvas.width;
     let cHeight = this.ctx.canvas.height;
-    this.scale = 1;
-    if (naturalWidth > cWidth || naturalHeight > cHeight) {
-      this.scale = cWidth / naturalWidth;
-      if (naturalHeight * this.scale < cHeight) {
-        this.scale = cHeight / naturalHeight
-      }
+    this.scale = cWidth / naturalWidth;
+    if (naturalHeight * this.scale < cHeight) {
+      this.scale = cHeight / naturalHeight
     }
     this.minScale = this.scale
   }
@@ -566,14 +563,11 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
     });
 
     let quality = 1;
-    // let blob = await this.canvasToBlob(this.compileCanvas, this._templateConfig.mimeType || 'image/png', quality);
-    let blob = await this.canvasToBlob(this.compileCanvas, 'image/jpeg', quality);
+    let blob = await this.canvasToBlob(this.compileCanvas, this._templateConfig.mimeType || 'image/png', quality);
 
     while (blob.size > this._templateConfig.size) {
-      console.info(blob.size)
       quality = quality - 0.05;
-      if(quality < 0) break;
-      // blob = await this.canvasToBlob(this.compileCanvas, this._templateConfig.mimeType || 'image/png', quality);
+      if (quality < 0) break;
       blob = await this.canvasToBlob(this.compileCanvas, 'image/jpeg', quality);
     }
 
@@ -599,7 +593,7 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
    * 加载更多模板
    * @param next
    */
-  loadMoreTemplateList({next}) {
+  loadMoreTemplateList({ next }) {
     ++this.queryTemplate.page_index
     this._templateService.getTemplate(this.queryTemplate).subscribe(res => {
       if (res.result.template_list instanceof Array && res.result.template_list.length) {
@@ -632,7 +626,7 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
     })
   }
 
-  loadMoreTemplateMaterial({next}) {
+  loadMoreTemplateMaterial({ next }) {
     ++this.query.page_index
     this._templateService.initTemplateMaterial(this.query).subscribe(res => {
       if (res.result instanceof Array) {
@@ -654,10 +648,10 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
   }
 
   constructor(private domSanitizer: DomSanitizer,
-              private _scrollService: ScrollService,
-              private _templateService: TemplateService,
-              private _dialog: Dialog,
-              @Inject(DOCUMENT) private document: Document) {
+    private _scrollService: ScrollService,
+    private _templateService: TemplateService,
+    private _dialog: Dialog,
+    @Inject(DOCUMENT) private document: Document) {
     this.imgTypeChange();
   }
 
@@ -676,7 +670,7 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
     this.queryTemplate.height = this._templateConfig.height;
 
     this._templateService.initTemplate({
-      width:this._templateConfig.width,
+      width: this._templateConfig.width,
       height: this._templateConfig.height,
     }).subscribe(res => {
       this.imgType = res.result.img_type_list;
@@ -693,7 +687,7 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
   }
 
   operating(overflowRef, clientWidth) {
-    this._scrollService.scrollTo(overflowRef, {top: 0, left: overflowRef.scrollLeft + clientWidth});
+    this._scrollService.scrollTo(overflowRef, { top: 0, left: overflowRef.scrollLeft + clientWidth });
   }
 
 }
