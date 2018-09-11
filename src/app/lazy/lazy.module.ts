@@ -29,9 +29,32 @@ import { TableComponent } from '../../components/table/table.component';
     `
   ],
   template: `
-    <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;">
+    <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;padding: 30px;">
+
+      <div class="table-wrap" #tableWrapRef>
+        <table role="grid">
+          <thead>
+          <tr>
+            <th>1</th>
+            <th>2</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of list">
+            <td>1</td>
+            <td>2</td>
+          </tr>
+          </tbody>
+          <tfoot>
+          <tr>
+            <td style="bottom: 0px;position: sticky;z-index: 1;">11</td>
+            <td style="bottom: 0px;position: sticky;z-index: 1;">22</td>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
       
-      <div class="table-container">
+      <!--<div class="table-container">
 
         <div class="query-tool">
           <div class="left-tool">
@@ -48,30 +71,7 @@ import { TableComponent } from '../../components/table/table.component';
           </div>
         </div>
 
-        <div class="table-wrap" #tableWrapRef>
-          <table>
-            <thead>
-            <tr>
-              <th>1</th>
-              <th>2</th>
-              <th>3</th>
-              <th>4</th>
-              <th>5</th>
-              <th>6</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let item of list">
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td>5</td>
-              <td>6</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
+        
 
         <div class="overflow" #overflowRef><div style="height: 10px;"></div></div>
         
@@ -82,7 +82,7 @@ import { TableComponent } from '../../components/table/table.component';
           <span>1</span>
           <span>1</span>
         </div>
-      </div>
+      </div>-->
       
       
     </div>

@@ -16,20 +16,20 @@ import {FormsModule} from '@angular/forms';
     FormsModule,
   ],
   declarations: [
-    TableComponent,
-    TbodyComponent,
-    TdComponent,
-    ThComponent,
-    TheadComponent,
-    TrComponent,
+    // TableComponent,
+    // TbodyComponent,
+    // TdComponent,
+    // ThComponent,
+    // TheadComponent,
+    // TrComponent,
   ],
   exports: [
-    TableComponent,
-    TbodyComponent,
-    TdComponent,
-    ThComponent,
-    TheadComponent,
-    TrComponent,
+    // TableComponent,
+    // TbodyComponent,
+    // TdComponent,
+    // ThComponent,
+    // TheadComponent,
+    // TrComponent,
   ]
 })
 export class TableModule {
