@@ -210,7 +210,7 @@ export class CampaignComponent implements OnInit {
     console.info(this.table)
     let list = this.table.selectData.map(d => d.campaign_id);
     if (!list.length) {
-      this._notification.warning('批量修改！', '至少选择一项');
+      this._notification.warning('批量修改！', '请至少选择一条活动');
       return;
     }
     let campaign_ids = list.join(',');

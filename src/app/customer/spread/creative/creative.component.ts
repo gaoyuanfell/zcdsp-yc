@@ -166,7 +166,7 @@ export class CreativeComponent implements OnInit {
   batchUpdate(type) {
     let list = this.table.selectData.map(d => d.creative_id);
     if (!list.length) {
-      this._notification.warning('批量修改！', '至少选择一项');
+      this._notification.warning('批量修改！', '请至少选择一条创意');
       return;
     }
     let creative_ids = list.join(',');
