@@ -104,7 +104,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     });
 
     countSubscribe.pipe(
-      bufferCount(4)
+      bufferCount(2)
     ).subscribe(() => {
       this.changeDetectorRef.markForCheck();
     })

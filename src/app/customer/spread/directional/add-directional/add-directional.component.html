@@ -14,7 +14,7 @@
 
   <div class="extension-form-box">
     <div class="form-group flex">
-      <label class="form-label"><span>*</span>定向名称</label>
+      <label class="form-label"><span>*</span>定向包名称</label>
       <div class="form-input">
         <input class="form-control" [(ngModel)]="package_name" type="text" placeholder="请填写活动名称"
                #campaign_name="ngModel" type="text" required [ngClass]="{'has-error':(_valid || campaign_name.dirty || campaign_name.touched) && campaign_name.invalid }">
