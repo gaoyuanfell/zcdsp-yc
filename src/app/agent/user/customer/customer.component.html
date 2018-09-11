@@ -4,13 +4,13 @@
       <div class="title">
         <div class="img"><img src="assets/img/user/customer-total.png" alt=""></div>
         <div class="right">
-          <p>客户总计</p>
-          <h1>20</h1>
+          <p>客户统计</p>
+          <h1>xxxxx</h1>
         </div>
       </div>
       <div class="right_bottom">
         <div *ngFor="let x of audit_status_list">
-          {{x.meaning}}<span>{{x.entry_sequence}}</span>
+          {{x.meaning}}<span>  {{x.entry_sequence}}</span>
         </div>
       </div>
     </li>
@@ -56,9 +56,9 @@
       <table #tableRef table>
         <thead>
         <tr>
+          <th class="text-center">客户ID</th>
+          <th>客户账号</th>
           <th>客户名称</th>
-          <th>账户</th>
-          <th class="text-center">ID</th>
           <th class="text-right" [showSort]="true" [sortKey]="'balance'">余额</th>
           <th>审核状态</th>
           <th class="text-center" [showSort]="true" [sortKey]="'zc_audit_date'">审核日期</th>
@@ -69,9 +69,9 @@
         <tbody>
         <ng-template [ngForOf]="ycTable.data" ngFor let-data>
           <tr #tr class="text-center">
-            <td (click)="tr.trigger()">{{data.nick_name}}</td>
-            <td>{{data.user_name}}</td>
             <td class="text-center">{{data.user_id}}</td>
+            <td>{{data.user_name}}</td>
+            <td (click)="tr.trigger()">{{data.nick_name}}</td>
             <td class="text-right">{{ data.balance | currencyFormat}}</td>
             <td>{{ data.zc_audit_status_meaning}}</td>
             <td class="text-center">{{ data.zc_audit_date | date: 'yyyy-MM-dd HH:mm:ss'}}</td>

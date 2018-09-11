@@ -88,6 +88,9 @@
             },
             "production": {
               "browserTarget": "zcdsp-yc:build:production"
+            },
+            "test": {
+              "browserTarget": "zcdsp-yc:build:test"
             }
           }
         },

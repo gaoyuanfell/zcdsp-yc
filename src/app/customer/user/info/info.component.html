@@ -124,10 +124,10 @@
           <thead>
             <tr>
               <th>图片</th>
-              <th>资质分类</th>
-              <th>资质名称</th>
-              <th>编号或登记号</th>
-              <th>有效期</th>
+              <th style="text-align: left;">资质分类</th>
+              <th style="text-align: left;">资质名称</th>
+              <th style="text-align: left;">编号或登记号</th>
+              <th style="text-align: left;">有效期</th>
             </tr>
           </thead>
           <tbody>
@@ -155,24 +155,24 @@
                 <i preview-img *ngIf="x.url" [list]="[x.url]" class="search-icon"></i>
               </div>
             </td>
-            <td>
+            <td style="text-align: left; padding-left: 18px;">
              {{x.item_type_name}}
             </td>
-            <td>
+            <td style="text-align: left; padding-left: 18px;">
               <div *ngIf="!_audit_status">
                 <input class="form-control" type="text" required [(ngModel)]="x.quatification_name" placeholder="请输入名称" [name]="x.item_type_id + 'quatification_name'" id="{{x.item_type_id + 'quatification_name'}}" [ngClass]="setInvalidClass(infoForm, infoForm.controls[x.item_type_id + 'quatification_name'])">
                 <app-form-tips [target]="infoForm.controls[x.item_type_id + 'quatification_name']" [formTarget]="infoForm" placeholder="请输入名称"></app-form-tips>
               </div>
               <div *ngIf="_audit_status">{{x.quatification_name}}</div>
             </td>
-            <td class="number">
+            <td style="text-align: left; padding-left: 18px;" class="number">
               <div *ngIf="!_audit_status">
                 <input class="form-control td-four" type="text" required [(ngModel)]="x.quatification_number" placeholder="请输入编号" [name]="x.item_type_id + 'quatification_number'" id="{{x.item_type_id + 'quatification_number'}}" [ngClass]="setInvalidClass(infoForm, infoForm.controls[x.item_type_id + 'quatification_number'])">
                 <app-form-tips [target]="infoForm.controls[x.item_type_id + 'quatification_number']" [formTarget]="infoForm" placeholder="请输入编号"></app-form-tips>
               </div>
               <div *ngIf="_audit_status">{{x.quatification_number}}</div>
             </td>
-            <td>
+            <td style="text-align: left; padding-left: 18px;">
               <div *ngIf="!_audit_status">
                 <input-datepicker [isRange]="true" [query]="x" [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time'}}" placeholder="请填写时间" id="{{ (x.id || x.item_type_id) + 'time'}}" [ngClass]="{'has-error': !x.begin_date && infoForm.submitted}"></input-datepicker>
                 <span *ngIf="!x.begin_date && infoForm.submitted">请填写时间</span>
@@ -191,10 +191,10 @@
           <thead>
             <tr>
             <th>图片</th>
-            <th>资质分类</th>
-            <th>资质名称</th>
-            <th>编号或登记号</th>
-            <th>有效期</th>
+            <th style="text-align: left;">资质分类</th>
+            <th style="text-align: left;">资质名称</th>
+            <th style="text-align: left;">编号或登记号</th>
+            <th style="text-align: left;">有效期</th>
             <th></th>
           </tr>
           </thead>
@@ -219,22 +219,22 @@
                 <i preview-img *ngIf="x.url" [list]="[x.url]" class="search-icon"></i>
               </div>
             </td>
-            <td>
+            <td style="text-align: left; padding-left: 18px;">
               <yc-select [searchCtrl]="true" name="{{(x.id || x.item_type_id) + 'item_type_id'}}" [(ngModel)]="x.item_type_id" (ngModelChange)='changeSelect($event, x)' [width]="130" placeholder="请选择行业分类" [list]="optional_ad_category_list" [props]="{value:'item_type_id',label:'item_type_name', disabled: 'disabled'}"></yc-select>
               <!--<yc-select [searchCtrl]="true" name="{{(x.id || x.item_type_id) + 'item_type_id'}}" id="{{(x.id || x.item_type_id) + 'item_type_id'}}"  required [(ngModel)]="x.item_type_id" (ngModelChange)='changeSelect($event, x)' [width]="130" placeholder="请选择行业分类" [list]="optional_ad_category_list" [props]="{value:'item_type_id',label:'item_type_name', disabled: 'disabled'}" [ngClass]="setInvalidClass(infoForm, infoForm.controls[(x.id || x.item_type_id) + 'item_type_id'])"></yc-select>-->
               <!--<app-form-tips [target]="infoForm.controls[(x.id || x.item_type_id) + 'item_type_id']" [formTarget]="infoForm" placeholder="请选择行业分类"></app-form-tips>-->
             </td>
-            <td>
+            <td style="text-align: left; padding-left: 18px;">
               <!--<input class="form-control" type="text" required [(ngModel)]="x.quatification_name" placeholder="请输入名称" name="{{ (x.id || x.item_type_id) + 'quatification_name'}}" id="{{(x.id || x.item_type_id) + 'quatification_name'}}" [ngClass]="setInvalidClass(infoForm, infoForm.controls[(x.id || x.item_type_id) + 'quatification_name'])">-->
               <!--<app-form-tips [target]="infoForm.controls[(x.id || x.item_type_id) + 'quatification_name']" placeholder="请输入名称" [formTarget]="infoForm"></app-form-tips>-->
               <input class="form-control" type="text"  [(ngModel)]="x.quatification_name" placeholder="请输入名称" name="{{ (x.id || x.item_type_id) + 'quatification_name'}}">
             </td>
-            <td>
+            <td style="text-align: left; padding-left: 18px;">
               <!--<input class="form-control td-four" type="text" required [(ngModel)]="x.quatification_number" placeholder="请输入编号" name="{{(x.id || x.item_type_id) + 'quatification_number'}}" id="{{(x.id || x.item_type_id) + 'quatification_number'}}" [ngClass]="setInvalidClass(infoForm, infoForm.controls[(x.id || x.item_type_id) + 'quatification_number'])">-->
               <!--<app-form-tips [target]="infoForm.controls[(x.id || x.item_type_id) + 'quatification_number']" placeholder="请输入编号" [formTarget]="infoForm"></app-form-tips>-->
               <input class="form-control td-four" type="text"  [(ngModel)]="x.quatification_number" placeholder="请输入编号" name="{{(x.id || x.item_type_id) + 'quatification_number'}}">
             </td>
-            <td>
+            <td style="text-align: left; padding-left: 18px;">
               <!--<input-datepicker [isRange]="true" [query]="x"  [required] [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time1'}}" [ngClass]="{'has-error': !x.begin_date && infoForm.submitted}"></input-datepicker>-->
               <!--<span *ngIf="!x.begin_date && infoForm.submitted">请填写时间</span>-->
               <input-datepicker [isRange]="true" [query]="x"   [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time1'}}"></input-datepicker>
@@ -265,44 +265,44 @@
       </h2>
       <div class="extension-form-box">
         <div class="table-top">
-          <span></span><span>支持尺寸</span><span><span *ngFor="let x of user_logo_size_list;let index = index">{{x}}&nbsp;/&nbsp;</span>
-            <br/>支持jpg， 大小不要超过30KB</span>
+          <span></span><span>支持尺寸：</span><span><span *ngFor="let x of user_logo_size_list;let index = index">{{x}}&nbsp;/&nbsp;</span>
+          支持jpg， 大小不要超过30KB</span>
         </div>
         <table *ngIf="user_logo_list.length > 0" class="tableLog">
           <thead>
           <tr>
             <th>商标</th>
-            <th>商标尺寸</th>
-            <th>品牌名称</th>
+            <th style="text-align: left; ">商标尺寸</th>
+            <th style="text-align: left; ">品牌名称</th>
             <th></th>
           </tr>
           </thead>
           <tbody>
             <tr *ngFor="let x of user_logo_list;let index = index">
-            <td>
-              <div class="td-one">
-                <div class="ele-img" yc-file-upload (eventChange)="upload($event,x,x.name,'logo')"
-                     [dataType]="'K'"
-                     [accept]="{extensions: extensions1.extensions,maxSize: extensions1.maxSize,size: user_logo_size_list}"
-                     (eventError)="_imgError($event)">
-                  <div *ngIf="!x[x.name] && !x.logo_src">点击上传</div>
-                  <img *ngIf="x[x.name] ||  x.logo_src" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.logo_src)" alt="">
+              <td>
+                <div class="td-one">
+                  <div class="ele-img" yc-file-upload (eventChange)="upload($event,x,x.name,'logo')"
+                       [dataType]="'K'"
+                       [accept]="{extensions: extensions1.extensions,maxSize: extensions1.maxSize,size: user_logo_size_list}"
+                       (eventError)="_imgError($event)">
+                    <div *ngIf="!x[x.name] && !x.logo_src">点击上传</div>
+                    <img *ngIf="x[x.name] ||  x.logo_src" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.logo_src)" alt="">
+                  </div>
                 </div>
-              </div>
-            </td>
-            <td>
-              <span>{{x.logo_height ?  x.logo_height + '*' + x.logo_width: '' }}</span>
-            </td>
-            <td>
-              <input class="form-control" type="text"  [(ngModel)]="x.brand_name" placeholder="请输入名称" name="{{(x.id || x.item_id) + 'brand_name'}}">
-              <!--<input class="form-control" type="text" required [(ngModel)]="x.brand_name" placeholder="请输入名称" name="{{(x.id || x.item_id) + 'brand_name'}}" id="{{(x.id || x.item_id) + 'brand_name'}}" [ngClass]="setInvalidClass(infoForm, infoForm.controls[((x.id || x.item_id)) + 'brand_name'])">-->
-              <!--<app-form-tips [target]="infoForm.controls[((x.id || x.item_id)) + 'brand_name']" [formTarget]="infoForm" placeholder="请输入名称"></app-form-tips>-->
-            </td>
-            <td class="text-right">
-              <div style="width:45px;">
-                <a data-link (click)="_remove(user_logo_list, index, 'logo')">删除</a>
-              </div>
-            </td>
+              </td>
+              <td style="text-align: left; padding-left: 18px;">
+                <span>{{x.logo_height ?  x.logo_height + '*' + x.logo_width: '' }}</span>
+              </td>
+              <td style="text-align: left; padding-left: 18px;">
+                <input class="form-control" type="text"  [(ngModel)]="x.brand_name" placeholder="请输入名称" name="{{(x.id || x.item_id) + 'brand_name'}}">
+                <!--<input class="form-control" type="text" required [(ngModel)]="x.brand_name" placeholder="请输入名称" name="{{(x.id || x.item_id) + 'brand_name'}}" id="{{(x.id || x.item_id) + 'brand_name'}}" [ngClass]="setInvalidClass(infoForm, infoForm.controls[((x.id || x.item_id)) + 'brand_name'])">-->
+                <!--<app-form-tips [target]="infoForm.controls[((x.id || x.item_id)) + 'brand_name']" [formTarget]="infoForm" placeholder="请输入名称"></app-form-tips>-->
+              </td>
+              <td class="text-right">
+                <div style="width:45px;">
+                  <a data-link (click)="_remove(user_logo_list, index, 'logo')">删除</a>
+                </div>
+              </td>
           </tr>
           </tbody>
         </table>

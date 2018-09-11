@@ -1,33 +1,5 @@
 <div class="container">
-  <div class="leadingWord" *ngIf="_new_user_flag && new_user">
-    <div style="display:flex;">
-      <ng-template [ngIf]="user_status === 'not_qualification' ">
-        <p class="no-login-introduction">您还没提交公司资质信息，上传完整资料为广告投放做好准备吧！</p>
-        <div class="btn btn-small" routerLink="/ads/user/info">
-          上传资质
-        </div>
-      </ng-template>
 
-      <ng-template [ngIf]="user_status === 'not_checked_audited' ">
-        <p class="no-login-introduction">账户审核中，请耐心等待!</p>
-      </ng-template>
-
-      <ng-template [ngIf]="user_status === 'not_recharge' ">
-        <p class="no-login-introduction">您的账户余额为0元，有足够的余额才能投放哦！</p>
-        <div class="btn btn-small" (click)="recharge()">
-          充值流程
-        </div>
-      </ng-template>
-
-      <ng-template [ngIf]="user_status === 'not_campaign' ">
-        <p class="no-login-introduction">马上创建活动，开始投放吧！</p>
-        <div class="btn btn-small" routerLink="/ads/spread/campaign-add/0">
-          自助投放
-        </div>
-      </ng-template>
-    </div>
-    <span (click)="_new_user_flag = false">X</span>
-  </div>
   <div class="leadingWord" *ngIf="_new_user_flag && !new_user && user_status === 'balance_consume'">
       <ng-template [ngIf]=" user_status === 'balance_consume' ">
         <p class="no-login-introduction">您的账户暂未充值，为保证广告正常投放，请尽快充值！</p>
@@ -64,7 +36,7 @@
         <div class="title">
           <div class="img"><img src="assets/img/indexbaog.png" alt=""></div>
           <div class="right">
-            <p>曝光总量</p>
+            <p>总曝光量</p>
             <h1>{{chartsData?.pv | numberFormat}}</h1>
           </div>
         </div>
@@ -78,7 +50,7 @@
         <div class="title">
           <div class="img"><img src="assets/img/indexdianj.png" alt=""></div>
           <div class="right">
-            <p>点击总量</p>
+            <p>总点击量</p>
             <h1>{{chartsData?.click | numberFormat}}</h1>
           </div>
         </div>

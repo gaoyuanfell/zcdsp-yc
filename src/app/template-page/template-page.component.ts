@@ -170,6 +170,7 @@ export class TemplatePageComponent implements OnInit {
       this.componentBoxList.splice(index, 1);
       if (instance === this.componentInstance) this.componentInstance = null;
       instance = null;
+      this.changeDetectorRef.markForCheck();
     }
   }
 
@@ -190,6 +191,7 @@ export class TemplatePageComponent implements OnInit {
       delete res.result.filePath;
       let url = `${filePath}?${qs.stringify(res.result)}`;
       this.componentInstance.templateInstance.setImg(url);
+      this.changeDetectorRef.markForCheck();
     })
   }
 
@@ -208,6 +210,7 @@ export class TemplatePageComponent implements OnInit {
       }).subscribe(res => {
         if (res.result.is_all_uploaded) {
           this.componentInstance.templateInstance.configure.value = res.result.file_path;
+          this.changeDetectorRef.markForCheck();
         }
       })
     })
