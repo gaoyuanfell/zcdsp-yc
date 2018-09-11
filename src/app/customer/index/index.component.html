@@ -2,7 +2,7 @@
 
   <div class="leadingWord" *ngIf="_new_user_flag && !new_user && user_status === 'balance_consume'">
       <ng-template [ngIf]=" user_status === 'balance_consume' ">
-        <p class="no-login-introduction">您的账户暂未充值，为保证广告正常投放，请尽快充值！</p>
+        <p class="no-login-introduction">您的账户余额不足昨日消耗，为保证广告正常投放，请尽快充值！</p>
       </ng-template>
     <span (click)="_new_user_flag = false">X</span>
   </div>
@@ -26,9 +26,9 @@
           </div>
         </div>
         <div class="number clear">
-          <div class="list">账户余额<span>{{userData?.balance | currencyFormat}}</span><i class="icon-tool-tip"></i></div>
+          <div class="list">账户余额<span>{{userData?.balance | currencyFormat}}</span><i class="icon-tool-tip" (click)="recharge()" title="点击查看充值流程"></i></div>
           <div class="list">每日预算<span>{{userData?.max_day_money | currencyFormat}}</span>
-            <i yc-popover [template]="template" #p="ycPopover" class="icon-tool-edit" (openEvent)=" _dayMoney = userData?.max_day_money || 0"></i>
+            <i title="修改账户日预算" yc-popover [template]="template" #p="ycPopover" class="icon-tool-edit" (openEvent)=" _dayMoney = userData?.max_day_money || 0"></i>
           </div>
         </div>
       </li>
@@ -91,15 +91,7 @@
     <div class="originality" [ngStyle]="{'display':creativeListData?.length > 0 ?'block':'none'}">
       <div class="title">
         <div class="left">
-          今日在投创意
-          <!--<i class="icon-tool-help">-->
-            <!--<div class="tips">-->
-              <!--<p class="tit">今日在投活动说明</p>-->
-              <!--智橙移动依据用户今日在投活动的实时数据，预测用户-->
-              <!--今日投放数据的概述情况，以下在投数据略有延迟仅供-->
-              <!--参考，以次日完成核对的数据为准。-->
-            <!--</div>-->
-          <!--</i>-->
+          今日在投创意<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'今天有花费或曝光量或点击量的创意（数据有3~5分钟延迟）'"></i>
         </div>
         <div class="right">
           <yc-button-group class="tool" [list]="totalCodeList | keys:'value':'label'" [(ngModel)]="creativeCode" (changeEvent)="changeCampaignAndCreativeChart(todayCreativeEcharts,creativeChartData,creativeCode);changeCampaignAndCreativeList(creativeChartData,creativeCode, 'creative')"></yc-button-group>
@@ -178,7 +170,7 @@
     <div class="originality" [ngStyle]="{'display':campaignListData?.length > 0 ?'block':'none'}">
       <div class="title">
         <div class="left">
-          今日在投活动<i class="icon-tool-help"></i>
+          今日在投活动<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'今天有消耗或曝光量或点击量的活动（数据有3~5分钟延迟）'"></i>
         </div>
         <div class="right">
           <yc-button-group class="tool" [list]="totalCodeList | keys:'value':'label'" [(ngModel)]="campaignCode" (changeEvent)="changeCampaignAndCreativeChart(todayActivityEcharts,campaignChartData,campaignCode);changeCampaignAndCreativeList(campaignChartData,campaignCode, 'campaign')"></yc-button-group>
@@ -257,7 +249,7 @@
     <div class="originality" [ngStyle]="{'display':dayTotalListData?.length > 0 ?'block':'none'}">
       <div class="title">
         <div class="left">
-          近期数据趋势<i class="icon-tool-help"></i>
+          近期数据趋势<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'近15天内的投放数据'"></i>
         </div>
         <div class="right">
           <yc-button-group class="tool" [list]="totalCodeList | keys:'value':'label'" [(ngModel)]="dayTotalCode" (changeEvent)="changeDayTotalChart(todayReportEcharts,dayTotalChartData,dayTotalCode,_dayTotal === null ? dayTotalTitle : _dayTotal?.date)"   *ngIf="dayTotal_change==='table'? false : true"></yc-button-group>
@@ -314,7 +306,7 @@
       <div class="content">
         <div class="title">
           <div class="left">
-            平台实时流量<i class="icon-tool-help"></i>
+            平台实时流量<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'智橙移动平台对接的所有可用于投放的媒体流量，通过图表可查看今天和昨天小时流量数据趋势。'"></i>
           </div>
         </div>
         <div class="main">
@@ -326,7 +318,7 @@
       <div class="content">
         <div class="title">
           <div class="left">
-            平台实时效果<i class="icon-tool-help"></i>
+            平台实时效果<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'智橙移动平台整体投放效果，通过图表可查看今天和昨天小时投放效果。'"></i>
           </div>
           <div class="right">
             <yc-button-group class="tool" (changeEvent)="changeCampaignAndCreativeChart(todayAllSpendEcharts, ad_total_echarts, todayAllSpend);" [(ngModel)]="todayAllSpend" [list]="[{value:'ctr',label:'点击率'},{value:'cpc',label:'点击成本'},{value:'cpm',label:'曝光成本'}]"></yc-button-group>
@@ -346,7 +338,7 @@
       <div class="content">
         <div class="title">
           <div class="left">
-            APP流量TOP5<i class="icon-tool-help"></i>
+            APP流量TOP5<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'智橙移动平台对接流量最多的前5个APP信息及对应流量。'"></i>
           </div>
         </div>
         <div class="main media_flow">
@@ -371,7 +363,7 @@
       <div class="content">
         <div class="title">
           <div class="left">
-            性别分布<i class="icon-tool-help"></i>
+            性别分布APP流量TOP5<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'智橙移动平台广告受众的性别占比情况。'"></i>
           </div>
         </div>
         <div class="main gender">
@@ -392,7 +384,7 @@
       <div class="content">
         <div class="title">
           <div class="left">
-            年龄分布<i class="icon-tool-help"></i>
+            年龄分布<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'智橙移动平台广告受众的年龄占比情况。'"></i>
           </div>
         </div>
         <div class="main age" style="padding:0;">
@@ -427,7 +419,7 @@
       <div class="content">
         <div class="title">
           <div class="left">
-            移动设备偏好<i class="icon-tool-help"></i>
+            移动设备偏好<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'智橙移动平台广告受众使用的设备品牌占比情况。'"></i>
           </div>
         </div>
         <div class="main brand">
@@ -446,7 +438,7 @@
   <div class="scatter">
     <div class="title">
       <div class="left">
-        人群特征指数<i class="icon-tool-help"></i>
+        人群特征指数<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'智橙移动平台广告受众兴趣偏好占比情况。'"></i>
       </div>
     </div>
     <div class="main people_data">
@@ -467,7 +459,7 @@
   <div class="scatter">
     <div class="title">
       <div class="left">
-        地域流量分布<i class="icon-tool-help"></i>
+        地域流量分布<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'智橙移动平台广告受众所在的地域分布情况。'"></i>
       </div>
     </div>
     <div class="main area_data">

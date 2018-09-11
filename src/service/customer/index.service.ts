@@ -45,7 +45,7 @@ export class IndexService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   hourChart(body = {}) {
-    return this.get('/us/home/day/hourChart', body)
+    return this.get('/ads/home/day/hourChart', body);
   }
   /**
    * 首页今日在投创意投放列表数据接口
