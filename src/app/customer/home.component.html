@@ -24,7 +24,6 @@
     </p>
   </div>
 </div>
-
 <div class="main">
   <div class="nav-main" [ngStyle]="{'width.px':fixed?200:60}" [ngClass]="{'hover': hover}" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
     <div class="nav-main-overflow" [ngStyle]="{'width.px':fixed?210:60}" [ngClass]="{'hover': hover}" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
@@ -32,7 +31,6 @@
         <ng-template [ngForOf]="menuList$ | async" ngFor let-menu>
           <li>
             <div class="nav-item flex-center" (click)="navigate(menu)" [ngClass]="{'yes-child': menu.child?.length, 'active': menu.active}">
-              <!--[routerLink]="menu.route" routerLinkActive="active"-->
               <i class="nav-icon zcdsp-icon" [innerHTML]="menu.icon"></i>
               <span class="nav-name">{{menu.name}}</span>
             </div>

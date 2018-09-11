@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/model';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, NavigationStart, Router} from '@angular/router';
 import * as reducerMenu from '../../store/reducer/menu.reducer';
 import * as reducerAction from '../../store/actions/menu.action';
 import {fromEvent, Observable, Subject} from 'rxjs';
@@ -56,12 +56,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this._publicService.quit().subscribe(res => {
       this._global.token = null;
       this.userToolBox = false;
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
     });
   }
 
   ngOnInit(): void {
-    this._global.overflowSubject = new Subject<{[key: string]: any}>();
+    this._global.overflowSubject = new Subject<{ [key: string]: any }>();
     this._global.containerFullRef = this.containerFullRef.nativeElement;
     this._scroll = fromEvent(this._global.containerFullRef, 'scroll').subscribe((event: Event | any) => {
       this._global.overflowSubject.next({top: event.target.scrollTop, left: event.target.scrollLeft});
@@ -80,12 +80,12 @@ export class HomeComponent implements OnInit, OnDestroy {
               private _global: Global,
               private _publicService: PublicService,
               private _loading: Loading) {
-    this.store.dispatch(new directionalAction.DirectionalInit());
-    this.store.dispatch(new directionalAction.LbsCityInit());
-    this.store.dispatch(new directionalAction.AudiencesActionInit());
     this.menuList$ = store.pipe(select(reducerMenu.MenuList));
 
     router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        _global.containerFullRef.scrollTop = 0;
+      }
       if (event instanceof NavigationEnd) {
         this.store.dispatch(new reducerAction.SelectActiveMenu(event.url));
       }
@@ -97,12 +97,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   navigate(menu) {
-    console.log(menu)
     if (!menu.child) {
       menu.active = true;
       this.router.navigate([menu.route]);
-    }else{
-      menu.active = !menu.active
+    } else {
+      menu.active = !menu.active;
     }
   }
 }
