@@ -2,7 +2,7 @@
 
   <div class="leadingWord" *ngIf="_new_user_flag && !new_user && user_status === 'balance_consume'">
       <ng-template [ngIf]=" user_status === 'balance_consume' ">
-        <p class="no-login-introduction">您的账户暂未充值，为保证广告正常投放，请尽快充值！</p>
+        <p class="no-login-introduction">您的账户余额不足昨日消耗，为保证广告正常投放，请尽快充值！</p>
       </ng-template>
     <span (click)="_new_user_flag = false">X</span>
   </div>
