@@ -1394,28 +1394,6 @@ textarea.form-control {
 }
 
 .table-wrap{
-  height: 270px;
-  overflow: auto;
-  //>.wrapShow {
-  //  padding-top:20px;
-  //  min-height: 350px;
-  //  text-align: center;
-  //  div, img {
-  //    margin: 10px auto;
-  //  }
-  //  div{
-  //    &:nth-child(1){
-  //      color: #666666;
-  //      font-weight: bold;
-  //      font-size:20px;
-  //    }
-  //    &:nth-child(2){
-  //      color: #999999;
-  //      font-weight: bold;
-  //      font-size:16px;
-  //    }
-  //  }
-  //}
   table {
     margin-top: 0;
     padding: 0;
@@ -1426,6 +1404,16 @@ textarea.form-control {
     background: #fff;
     border-collapse: separate;
     border-spacing: 0;
+    thead,tbody,tfoot{
+      tr td:not(.none){
+        &:first-child{
+          border-left: 1px solid #e2e6eb;
+        }
+        &:last-child{
+          border-right: 1px solid #e2e6eb;
+        }
+      }
+    }
     thead {
       tr {
         background: #fdfdfd;
@@ -1444,10 +1432,38 @@ textarea.form-control {
         font-weight: 700;
       }
     }
-    tbody,tfoot {
+    tbody{
+      tr:last-child{
+        td{
+          border-bottom: 1px solid #e2e6eb;
+        }
+      }
+    }
+    tfoot {
       tr {
         &:hover{
-          background: #eef6ff;
+          td:not(.none){
+            background: #eef6ff;
+          }
+        }
+      }
+      td:not(.none) {
+        border-bottom: 1px solid #e2e6eb;
+        height: 36px;
+        word-wrap: break-word;
+        word-break: break-all;
+        padding: 0 15px;
+        background: #fff;
+        z-index: 15;
+        text-align: left;
+        color: #999999;
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
+    tbody{
+      tr {
+        &:hover{
           td{
             background: #eef6ff;
           }
@@ -1472,12 +1488,11 @@ textarea.form-control {
 
 .paging{
   text-align: right;
-  background-color: #f9fafb;
   position: absolute;
   z-index: 30;
   bottom: 0;
-  margin-bottom: 15px;
-  width: 100%;
+  left: 0;
+  right: 0;
   > span{
     border: 1px solid #e2e6eb;
     background-color: #ffffff;
@@ -1498,9 +1513,7 @@ textarea.form-control {
   z-index: 30;
   height: 10px;
   overflow-x: scroll;
-  overflow-y: hidden;
   position: absolute;
-  bottom: 0;
-  margin-bottom: 60px;
-  width: 100%;
+  right: 0;
+  left: 0;
 }
