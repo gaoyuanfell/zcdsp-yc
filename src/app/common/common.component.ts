@@ -759,7 +759,7 @@ export class BaseIndexComponent implements OnInit{
     // if(reg.test(val)){alert("包含汉字！"); }
     let option: any = {
       title: {
-        text: date + '数据趋势',
+        text: date + '  数据趋势',
       },
       xAxis: {
         data: data.x

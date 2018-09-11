@@ -172,7 +172,7 @@
           近期数据趋势<i class="icon-tool-help"></i>
         </div>
         <div class="right">
-          <yc-button-group class="tool" [list]="totalCodeList | keys:'value':'label'" [(ngModel)]="dayTotalCode" (changeEvent)="changeDayTotalChart(todayReportEcharts,dayTotalChartData,dayTotalCode)"   *ngIf="dayTotal_change==='table'? false : true"></yc-button-group>
+          <yc-button-group class="tool" [list]="totalCodeList | keys:'value':'label'" [(ngModel)]="dayTotalCode" (changeEvent)="changeDayTotalChart(todayReportEcharts,dayTotalChartData,dayTotalCode, _dayTotal === null ? dayTotalTitle : _dayTotal?.date)"   *ngIf="dayTotal_change==='table'? false : true"></yc-button-group>
           <span class="icon-tool" [ngClass]="{'icon-tool-img-line2':dayTotal_change === 'line', 'icon-tool-img-line': dayTotal_change !== 'line'}" (click)="dayTotal_change = 'line'"></span>
           <span class="icon-tool" [ngClass]="{'icon-tool-img-table2':dayTotal_change === 'table', 'icon-tool-img-table': dayTotal_change !== 'table'}" (click)="dayTotal_change = 'table'"></span>
         </div>
@@ -182,10 +182,10 @@
           <div class="echart" #todayReportChart></div>
           <div class="list">
             <div class="tit">日期筛选</div>
-            <div class="all" (click)="_dayTotalClick();_dayTotal = null" [ngClass]="{'active': _dayTotal === null}">{{dayTotalTitle}}数据趋势</div>
+            <div class="all" (click)="_dayTotalClick();_dayTotal = null" [ngClass]="{'active': _dayTotal === null}">{{dayTotalTitle}}</div>
             <ul>
               <li *ngFor="let data of dayTotalListData;let i = index"  (click)="_dayTotalClick(data.date);  _dayTotal = data" [ngClass]="{'active': _dayTotal === data}">
-                {{data.date}}
+                <span>{{data.date}}</span>
               </li>
             </ul>
           </div>

@@ -570,11 +570,15 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
 
   get totalPage(): number {
     let totalPage = 0;
-    if (this.total % this.query[this._props.page_size]) {
+    console.log('RRRRRRRRRRRRRRRRRRRRRRRR')
+    console.log(this.total)
+    console.log(this.query[this._props.page_size])
+    if (this.total % this.query[this._props.page_size]) {  //
       totalPage = Math.floor(this.total / this.query[this._props.page_size]) + 1;
     } else {
       totalPage = this.total / this.query[this._props.page_size];
     }
+    console.log(totalPage)
     return totalPage || 0;
   }
 
@@ -584,8 +588,13 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
   }
 
   @Input() set total(value: number) {
+    console.log(value)
     this._total = value;
+    console.log(this.pageNum)
+    console.log(this.totalPage)
+    console.log(this.query[this._props.page_index])
     this.pageList = this.getPageList(this.pageNum, this.totalPage, this.query[this._props.page_index]);
+    console.log( this.pageList )
   }
 
   @Input() pageText: string = '...';
@@ -647,6 +656,7 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
   }
 
   go(number) {
+    console.log(number)
     this.query[this._props.page_index] = number;
     this.pageList = this.getPageList(this.pageNum, this.totalPage, this.query[this._props.page_index]);
     this.changeEvent.next(this._query);
