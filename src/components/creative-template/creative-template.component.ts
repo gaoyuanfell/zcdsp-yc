@@ -566,11 +566,15 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
     });
 
     let quality = 1;
-    let blob = await this.canvasToBlob(this.compileCanvas, this._templateConfig.mimeType || 'image/png', quality);
+    // let blob = await this.canvasToBlob(this.compileCanvas, this._templateConfig.mimeType || 'image/png', quality);
+    let blob = await this.canvasToBlob(this.compileCanvas, 'image/jpeg', quality);
 
     while (blob.size > this._templateConfig.size) {
-      quality -= 0.2;
-      blob = await this.canvasToBlob(this.compileCanvas, this._templateConfig.mimeType || 'image/png', quality);
+      console.info(blob.size)
+      quality = quality - 0.05;
+      if(quality < 0) break;
+      // blob = await this.canvasToBlob(this.compileCanvas, this._templateConfig.mimeType || 'image/png', quality);
+      blob = await this.canvasToBlob(this.compileCanvas, 'image/jpeg', quality);
     }
 
     this._dialog.closeSubject.next(blob);
