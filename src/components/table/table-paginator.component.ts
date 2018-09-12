@@ -37,7 +37,7 @@ export interface Props {
       <span class="down" (click)="next(1)" data-type="3" data-number="1" title="下一页">
         下一页
       </span>
-      <span class="last" (click)="go(pageList?.length)">
+      <span class="last" (click)="go(totalPage)">
         尾页
       </span>
     </div>

@@ -53,70 +53,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   ],
   template: `
     <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;" #overflow>
-
-      <yc-table [containerOverflow]="overflow" style="display: block;width: 2000px;">
-        <div #queryRef query class="query-tool">
-          <div class="left-tool">
-            <div class="btn" routerLink="/ads/spread/campaign-add/0">
-              新建活动
-              <i class="btn-icon-add"></i>
-            </div>
-            <div class="btn">
-              复制活动
-              <i class="btn-icon-copy"></i>
-            </div>
-            <div class="btn">
-              导出
-              <i class="btn-icon-export"></i>
-            </div>
-            <div class="btn btn-outline">
-              批量修改
-              <i class="icon-btn-menu m-l-1"></i>
-            </div>
-          </div>
-
-          <div class="right-tool">
-            <input-datepicker [isRange]="true"></input-datepicker>
-            <yc-input-search [placeholder]="'请输入活动的名称、ID'"></yc-input-search>
-            <i title="刷新" class="zcdsp-icon pointer">&#xe91e;</i>
-          </div>
-        </div>
-        <table #tableRef table>
-          <thead>
-          <tr sticky>
-            <th stickyStart>姓名1</th>
-            <th>电话2</th>
-            <th>地址3</th>
-            <th>爱好4</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let item of list">
-            <td stickyStart>姓名</td>
-            <td>电话</td>
-            <td>地址</td>
-            <td>爱好</td>
-          </tr>
-          </tbody>
-          <tfoot>
-          <tr sticky>
-            <td stickyStart>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-          </tr>
-          <tr sticky>
-            <td stickyStart>5</td>
-            <td>6</td>
-            <td>7</td>
-            <td>8</td>
-          </tr>
-          </tfoot>
-        </table>
-      </yc-table>
-
       
-
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
