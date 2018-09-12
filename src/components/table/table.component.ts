@@ -22,6 +22,7 @@ import {TbodyComponent} from './tbody.component';
 import {Subject} from 'rxjs';
 import {TfootComponent} from './tfoot.component';
 import {TableOverflowComponent} from './table-overflow.component';
+import {TablePaginatorComponent} from './table-paginator.component';
 
 export interface PageData {
   number?: number
@@ -59,6 +60,7 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
   private _tableWrapRef: ElementRef;
   private _tableContainerRef: ElementRef;
   private _overflowRef: TableOverflowComponent;
+  private _paginatorRef: TablePaginatorComponent;
 
   get queryRef(): ElementRef {
     return this._queryRef;
@@ -101,6 +103,14 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
     return this._overflowRef;
   }
 
+  @ContentChild('paginatorRef') set paginatorRef(val: TablePaginatorComponent){
+    this._paginatorRef = val
+  }
+
+  get paginatorRef():TablePaginatorComponent {
+    return this._paginatorRef;
+  }
+
 
   constructor(private renderer: Renderer2,
               private _global: Global,
@@ -130,21 +140,10 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
       });
     }
 
-    // if (this.tfootList.length) {
-    //   let stickyTfootList = this.tfootList[0].trList.filter(tr => tr.sticky).reverse();
-    //   let bottom = 0;
-    //   stickyTfootList.forEach(tr => {
-    //     tr.tdList.forEach(td => {
-    //       td.sticky = true;
-    //       this.renderer.setStyle(td.ref.nativeElement, 'bottom', `${bottom}px`);
-    //       this.renderer.setStyle(td.ref.nativeElement, 'position', 'sticky');
-    //       this.renderer.setStyle(td.ref.nativeElement, 'z-index', 22);
-    //     });
-    //     bottom += tr.ref.nativeElement.clientHeight;
-    //   });
-    // }
-
   }
+
+  overflowHeight = 0
+  paginatorHeight = 0
 
   ngOnInit() {
     this.checkAllObservable.subscribe((data) => {
@@ -213,6 +212,18 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
         }
       }
     });
+
+    ////
+    if(this.overflowRef) {
+      this.overflowHeight = this.overflowRef.ref.nativeElement.getBoundingClientRect().height
+    }
+    if(this.paginatorRef) {
+      this.paginatorHeight = this.paginatorRef.ref.nativeElement.getBoundingClientRect().height
+    }
+
+    this._global.overflowSubject.subscribe(({top}) => {
+      this.asd();
+    })
   }
 
   // ------------------ 数据 ------------------ //
@@ -264,11 +275,37 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
       checkState: 0
     });
     this.selectData = [];
+
+    if(!value) return
+
     setTimeout(()=> {
-      let _tableRef = <HTMLElement>this.tableRef.nativeElement;
-      console.info(_tableRef.clientWidth)
-      this.overflowRef.width = _tableRef.clientWidth
+      if(this.overflowRef){
+        let _tableRef = <HTMLElement>this.tableRef.nativeElement;
+        this.overflowRef.width = _tableRef.clientWidth
+      }
+      this.asd()
     })
+  }
+
+  asd(){
+    let bcrt1 = this._global.containerFullRef.getBoundingClientRect();
+    let bcrt2 = this.tableWrapRef.nativeElement.getBoundingClientRect();
+    let bottom = bcrt2.bottom - bcrt1.bottom + this.paginatorHeight + this.overflowHeight;
+    if(bottom < 0) bottom = 0;
+    if(this.tfootList.length){
+      this.tfootList[0].trList.forEach(tr => {
+        tr.tdList.forEach(td => {
+          td.ref.nativeElement.style.bottom = `${bottom}px`
+        })
+      })
+    }
+
+    if(this.overflowRef){
+      this.overflowRef.bottom = `${bottom}`;
+    }
+    if(this.paginatorRef){
+      this.paginatorRef.bottom = `${bottom}`;
+    }
   }
 
   checkAllObservable = new Subject<any>();

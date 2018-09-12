@@ -52,7 +52,7 @@
 
     <table #tableRef table>
       <thead>
-      <tr>
+      <tr sticky>
         <th width="50" [showCheckbox]="true"></th>
         <th></th>
         <th>创意ID</th>
@@ -160,7 +160,7 @@
 
       </tbody>
       <tfoot>
-      <tr [hidden]="!ycTable.data?.length">
+      <tr sticky [hidden]="!ycTable.data?.length">
         <td colspan="3">本页合计</td>
         <td>-</td>
         <td>-</td>
@@ -177,25 +177,12 @@
         <td class="text-right">{{ other?.cpm * 1000 | currencyFormat}}</td>
         <td class="text-right">{{ other?.admoney | currencyFormat }}</td>
       </tr>
-      <!--<tr sticky class="none">
-        <td class="none" colspan="100%" style="background: #f9fafb;">
-          <yc-table-overflow></yc-table-overflow>
-        </td>
-      </tr>
-      <tr sticky class="none">
-        <td class="none" colspan="100%" style="background: #f9fafb;">
-          <yc-table-paginator [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
-        </td>
-      </tr>-->
       </tfoot>
     </table>
-
-    <yc-table-overflow #overflowRef overflow style="background: #f9fafb;"></yc-table-overflow>
-
-    <div #paginatorRef paginator style="background: #f9fafb;">
-      <yc-table-paginator [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
+    <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
+    <div paginator style="background: #f9fafb;">
+      <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
     </div>
-
   </yc-table>
 </div>
 

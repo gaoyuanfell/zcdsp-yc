@@ -4,7 +4,7 @@ import {Subject} from 'rxjs';
 @Component({
   selector: 'yc-table-overflow',
   template: `
-    <div class="overflow" #overflow>
+    <div class="overflow" #overflow [ngStyle]="{'bottom.px': bottom}">
       <div class="overflow-tool" [ngStyle]="{'width.px':width}"></div>
     </div>
   `,
@@ -13,6 +13,7 @@ import {Subject} from 'rxjs';
       :host {
         height: 20px;
         display: block;
+        background-color: inherit;
       }
 
       .overflow {
@@ -22,6 +23,8 @@ import {Subject} from 'rxjs';
         overflow-x: auto;
         width: 100%;
         overflow-y: hidden;
+        position: relative;
+        background-color: inherit;
       }
 
       .overflow-tool {
@@ -44,11 +47,22 @@ export class TableOverflowComponent implements OnInit {
     this.changeDetectorRef.markForCheck();
   }
 
+  private _bottom
+
+  get bottom() {
+    return this._bottom;
+  }
+
+  set bottom(value) {
+    this._bottom = value;
+    this.changeDetectorRef.markForCheck();
+  }
+
   @ViewChild('overflow') overflow
 
   overflowSubject = new Subject();
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, private ref: ElementRef, private renderer:Renderer2) {
+  constructor(private changeDetectorRef: ChangeDetectorRef, public ref: ElementRef, private renderer:Renderer2) {
 
   }
 

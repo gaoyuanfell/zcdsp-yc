@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output} from '@angular/core';
 
 export interface PageData {
   number?: number
@@ -16,7 +16,7 @@ export interface Props {
 @Component({
   selector: 'yc-table-paginator',
   template: `
-    <div class="paging" #pagingRef [hidden]="!(pageList?.length)">
+    <div class="paging" #pagingRef [hidden]="!(pageList?.length)" [ngStyle]="{'bottom.px': bottom}">
       <span class="first" (click)="go(1)">
         首页
       </span>
@@ -45,14 +45,17 @@ export interface Props {
   styles: [
       `
       :host {
-        height: 50px;
+        height: 70px;
         display: block;
+        background-color: inherit;
       }
 
       .paging {
         text-align: right;
         z-index: 30;
         padding: 20px 0;
+        position: relative;
+        background-color: inherit;
       }
 
       .paging > span {
@@ -76,6 +79,22 @@ export interface Props {
   preserveWhitespaces: true,
 })
 export class TablePaginatorComponent {
+
+  private _bottom
+
+  get bottom() {
+    return this._bottom;
+  }
+
+  set bottom(value) {
+    this._bottom = value;
+    this.changeDetectorRef.markForCheck();
+  }
+
+  constructor(public ref: ElementRef,private changeDetectorRef:ChangeDetectorRef){
+
+  }
+
 
   private _query: any = {};
   private _total;

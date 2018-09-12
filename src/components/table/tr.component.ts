@@ -19,6 +19,7 @@ import {collapseState} from '../../app/animations/collapseState';
 import {TableComponent} from './table.component';
 import {TfootComponent} from './tfoot.component';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import {Global} from '../../service/global';
 
 @Component({
   selector: 'tr',
@@ -106,16 +107,21 @@ export class TrComponent implements AfterViewInit{
   ngAfterViewInit(): void {
     if(!this.tableComponent) return;
     if (this.theadComponent) {
-      // this.thList.filter(th => this.sticky).forEach(th => {
-      //   th.sticky = true;
-      //   let top = `0px`;
-      //   if(this.tableComponent.queryRef){
-      //     top = `${this.tableComponent.queryRef.nativeElement.clientHeight}px`;
-      //   }
-      //   this.renderer.setStyle(th.ref.nativeElement, 'top', top);
-      //   this.renderer.setStyle(th.ref.nativeElement, 'position', 'sticky');
-      //   this.renderer.setStyle(th.ref.nativeElement, 'z-index', 20);
-      // })
+
+      let bcrt1 = this._global.containerFullRef.getBoundingClientRect();
+      let bcrt2 = this.tableComponent.tableWrapRef.nativeElement.getBoundingClientRect();
+      let offsetTop = bcrt2.top - bcrt1.top;
+      this.sticky && this._global.overflowSubject.subscribe(({top}) => {
+        this.thList.forEach(th => {
+          if (offsetTop < top) {
+            th.ref.nativeElement.style.top = `${top - offsetTop}px`;
+          } else {
+            th.ref.nativeElement.style.top = `0px`;
+          }
+        })
+      })
+
+
       //
       // let left = 0;
       // this.thList.filter(th => th.stickyStart).forEach(th => {
@@ -148,6 +154,7 @@ export class TrComponent implements AfterViewInit{
               @Host() @Optional() private tfootComponent: TfootComponent,
               @Host() @Optional() private tableComponent: TableComponent,
               @Optional() public ref: ElementRef,
+              private _global: Global,
               private renderer:Renderer2,
               private changeDetectorRef: ChangeDetectorRef) {
     if (theadComponent) {
