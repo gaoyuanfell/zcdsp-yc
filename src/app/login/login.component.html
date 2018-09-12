@@ -16,7 +16,7 @@
         <p class="error" *ngIf="(username.dirty || username.touched || _valid) && username.invalid"><img src="assets/img/index/tips.png" alt="">请输入账号</p>
 
 
-        <input type="text" class="password" placeholder="请输入密码" [(ngModel)]="passWord" [ngClass]="{ 'has-error': (password.dirty || password.touched || _valid) && password.invalid, 'has-success': password.valid}" required #password="ngModel" name="passWord" autocomplete="off">
+        <input type="password" class="password" placeholder="请输入密码" [(ngModel)]="passWord" [ngClass]="{ 'has-error': (password.dirty || password.touched || _valid) && password.invalid, 'has-success': password.valid}" required #password="ngModel" name="passWord" autocomplete="off">
         <p class="error" *ngIf=" (password.dirty || password.touched || _valid) && password.invalid"><img src="assets/img/index/tips.png" alt="">请输入密码</p>
 
 
@@ -81,13 +81,13 @@
 
         <!--是否显示密码框-->
         <div>
-          <input type="text" class="password" placeholder="输入密码" required [(ngModel)]="password" name="password"
+          <input type="password" class="password" placeholder="输入密码" required [(ngModel)]="password" name="password"
                  pattern="((?=.*\d)(?=.*[A-Za-z]))^[A-Za-z\d]{8,18}$" (ngModelChange)="pwd_comfirm()" autocomplete="off" [ngClass]="setInvalidClass(infoForm2, infoForm2.controls['password'])">
           <app-form-tips [target]="infoForm2.controls['password']" [formTarget]="infoForm2" [tips]="'请输入8~18位字母和数字的组合!'" placeholder="请填写密码"></app-form-tips>
 
 
 
-          <input type="text" class="password" placeholder="请再次输入密码"  required [(ngModel)]="old_pwd" (ngModelChange)="pwd_comfirm()"  name="old_pwd" autocomplete="off"
+          <input type="password" class="password" placeholder="请再次输入密码"  required [(ngModel)]="old_pwd" (ngModelChange)="pwd_comfirm()"  name="old_pwd" autocomplete="off"
                  [ngClass]="setInvalidClass(infoForm2, infoForm2.controls['old_pwd'])">
           <p class="error" *ngIf="flag"><img src="assets/img/index/tips.png" alt="">密码不一致</p>
 
@@ -98,7 +98,7 @@
     </div>
   </div>
   <p class="footer">
-    Copyright (C) 2015~2018<a href="#">zcdsp.com</a>All Rights Reserved. 沪ICP备09044414号
+    Copyright (C) 2015~2020<a href="/">zcmobi.com</a>All Rights Reserved. 沪ICP备09044414号
   </p>
 </div>
   </div>
