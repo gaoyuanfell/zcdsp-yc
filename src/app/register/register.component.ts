@@ -99,7 +99,7 @@ export class RegisterComponent implements OnInit {
   // 账户校验
   userNameVaild() {
     if(this.user.user_name){
-      this._publicService.existUser({userName: this.user.user_name}).subscribe( res => {
+      this._publicService.existUser({user_name: this.user.user_name}).subscribe( res => {
         this.exist_flag = res.result;  // false说明账户不存在
       })
     }

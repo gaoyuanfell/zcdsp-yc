@@ -23,6 +23,7 @@ export class CustomerComponent implements OnInit {
   listTitle;
 
   audit_status_list: Array<any> = []; // 审核状态
+  audit_total = 0;
   userData: any = {};
   query: any = {
     page_index: 1,
@@ -67,6 +68,9 @@ export class CustomerComponent implements OnInit {
   init() {
     this._agentUserService.listInit().subscribe(res => {
       this.audit_status_list = res.result.audit_status_list;
+      this.audit_total = this.audit_status_list.reduce((total, item) => {
+            return total +  Number(item.entry_sequence)
+      }, 0)
       this.userData = res.result.user;
     })
   }
