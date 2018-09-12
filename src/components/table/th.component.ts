@@ -8,15 +8,17 @@ import {
   OnChanges,
   OnInit,
   Optional,
-  SimpleChanges
+  SimpleChanges, ViewEncapsulation
 } from '@angular/core';
 import {TableComponent} from './table.component';
 import {TrComponent} from './tr.component';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 @Component({
   selector: 'th',
   preserveWhitespaces: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
   template: `
     <yc-checkbox *ngIf="showCheckbox" [(ngModel)]="_checked" [checkState]="_checkState" (changeEvent)="_change($event)"></yc-checkbox>
     <ng-content></ng-content>
@@ -89,6 +91,36 @@ export class ThComponent implements OnChanges, OnInit {
       })
       this.status = status;   // 赋值的时候 调用set
     }
+  }
+
+  @Input() private _sticky
+
+  get sticky() {
+    return this._sticky;
+  }
+
+  @Input() set sticky(value) {
+    this._sticky = coerceBooleanProperty(value);
+  }
+
+  private _stickyStart
+
+  get stickyStart() {
+    return this._stickyStart;
+  }
+
+  @Input() set stickyStart(value) {
+    this._stickyStart = coerceBooleanProperty(value);
+  }
+
+  private _stickyEnd
+
+  get stickyEnd() {
+    return this._stickyEnd;
+  }
+
+  @Input() set stickyEnd(value) {
+    this._stickyEnd = coerceBooleanProperty(value);
   }
 
   constructor(@Host() @Optional() private trComponent: TrComponent,

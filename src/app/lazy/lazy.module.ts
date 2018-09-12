@@ -17,9 +17,9 @@ import {Dialog, YC_DIALOG_DATA} from '../../components/dialog/dialog';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/model';
 import * as directionalAction from '../../store/actions/directional.action';
-import { AutoCookie } from '../../decorator/decorator';
-import { CreativeService } from '../../service/customer/creative.service';
-import { TableComponent } from '../../components/table/table.component';
+import {AutoCookie} from '../../decorator/decorator';
+import {CreativeService} from '../../service/customer/creative.service';
+import {TableComponent} from '../../components/table/table.component';
 import {CdkTableModule} from '@angular/cdk/table';
 
 
@@ -44,130 +44,87 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 
-
 @Component({
   selector: 'app-lazy-view',
   styles: [
       `
-      
+
     `
   ],
   template: `
-    <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;">
+    <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;" #overflow>
 
-      <!--<div class="table-wrap" #tableWrapRef>
-        <table role="grid">
+      <yc-table [containerOverflow]="overflow" style="display: block;width: 2000px;">
+        <div #queryRef query class="query-tool">
+          <div class="left-tool">
+            <div class="btn" routerLink="/ads/spread/campaign-add/0">
+              新建活动
+              <i class="btn-icon-add"></i>
+            </div>
+            <div class="btn">
+              复制活动
+              <i class="btn-icon-copy"></i>
+            </div>
+            <div class="btn">
+              导出
+              <i class="btn-icon-export"></i>
+            </div>
+            <div class="btn btn-outline">
+              批量修改
+              <i class="icon-btn-menu m-l-1"></i>
+            </div>
+          </div>
+
+          <div class="right-tool">
+            <input-datepicker [isRange]="true"></input-datepicker>
+            <yc-input-search [placeholder]="'请输入活动的名称、ID'"></yc-input-search>
+            <i title="刷新" class="zcdsp-icon pointer">&#xe91e;</i>
+          </div>
+        </div>
+        <table #tableRef table>
           <thead>
-          <tr>
-            <th>1</th>
-            <th>2</th>
+          <tr sticky>
+            <th stickyStart>姓名1</th>
+            <th>电话2</th>
+            <th>地址3</th>
+            <th>爱好4</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let item of list">
-            <td>1</td>
-            <td>2</td>
+            <td stickyStart>姓名</td>
+            <td>电话</td>
+            <td>地址</td>
+            <td>爱好</td>
           </tr>
           </tbody>
           <tfoot>
-          <tr>
-            <td style="bottom: 108px;position: sticky;z-index: 1;">11</td>
-            <td style="bottom: 108px;position: sticky;z-index: 1;">22</td>
+          <tr sticky>
+            <td stickyStart>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
           </tr>
-          <tr>
-            <td style="bottom: 72px;position: sticky;z-index: 1;">33</td>
-            <td style="bottom: 72px;position: sticky;z-index: 1;">44</td>
-          </tr>
-          <tr>
-            <td class="none" style="bottom: 36px;position: sticky;z-index: 1;padding: 20px 0;background-color: #ffffff;" colspan="100%">
-              <div class="overflow" #overflowRef><div style="height: 10px;"></div></div>
-            </td>
-          </tr>
-          <tr>
-            <td class="none" style="bottom: 0px;position: sticky;z-index: 1;height: 36px;padding-bottom: 20px;background-color: #ffffff;" colspan="100%">
-              <div class="paging">
-                <span>1</span>
-                <span>1</span>
-                <span>1</span>
-                <span>1</span>
-                <span>1</span>
-              </div>
-            </td>
+          <tr sticky>
+            <td stickyStart>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
           </tr>
           </tfoot>
         </table>
-      </div>-->
+      </yc-table>
 
-      <div class="table-wrap">
-        <table cdk-table [dataSource]="dataSource">
-          <!-- User name Definition -->
-          <ng-container cdkColumnDef="position">
-            <th cdk-header-cell *cdkHeaderCellDef>  position </th>
-            <td cdk-cell *cdkCellDef="let row"> {{row.position}} </td>
-          </ng-container>
-
-          <!-- Age Definition -->
-          <ng-container cdkColumnDef="name">
-            <th cdk-header-cell *cdkHeaderCellDef> name </th>
-            <td cdk-cell *cdkCellDef="let row"> {{row.name}} </td>
-          </ng-container>
-
-          <!-- Title Definition -->
-          <ng-container cdkColumnDef="weight">
-            <th cdk-header-cell *cdkHeaderCellDef> weight </th>
-            <td cdk-cell *cdkCellDef="let row"> {{row.weight}} </td>
-          </ng-container>
-
-          <!-- Title Definition -->
-          <ng-container cdkColumnDef="symbol">
-            <th cdk-header-cell *cdkHeaderCellDef> symbol </th>
-            <td cdk-cell *cdkCellDef="let row"> {{row.symbol}} </td>
-          </ng-container>
-
-          <!-- Header and Row Declarations -->
-          <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-          <tr cdk-row *cdkRowDef="let row; columns: displayedColumns"></tr>
-        </table>
-      </div>
       
-      
-      <!--<div class="table-container">
 
-        <div class="query-tool">
-          <div class="left-tool">
-            <h2 class="table-title">
-              定向包
-            </h2>
-          </div>
-          <div class="right-tool">
-            <div class="btn" routerLink="0">
-              新建定向包
-              <i class="btn-icon-add"></i>
-            </div>
-            <yc-input-search [placeholder]="'请输入定向包名称、ID'"></yc-input-search>
-          </div>
-        </div>
-
-        
-
-        <div class="overflow" #overflowRef><div style="height: 10px;"></div></div>
-        
-        <div class="paging">
-          <span>1</span>
-          <span>1</span>
-          <span>1</span>
-          <span>1</span>
-          <span>1</span>
-        </div>
-      </div>-->
-      
-      
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: true,
 })
 export class LazyComponent implements OnDestroy, OnInit {
+
+  list = Array.from({length: 50});
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
@@ -194,7 +151,7 @@ export class LazyComponent implements OnDestroy, OnInit {
   selector: 'app-lazy-view2',
   styles: [],
   template: `
-    
+
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: true,
@@ -203,7 +160,7 @@ export class LazyComponent2 implements OnDestroy, OnInit {
 
 
   constructor(private _creativeService: CreativeService,
-    private changeDetectorRef: ChangeDetectorRef,) {
+              private changeDetectorRef: ChangeDetectorRef,) {
   }
 
   ngOnInit(): void {

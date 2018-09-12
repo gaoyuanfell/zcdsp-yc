@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ElementRef, Host, Optional} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, Host, Optional, ViewEncapsulation} from '@angular/core';
 import {TableComponent} from './table.component';
 import {TrComponent} from './tr.component';
 
@@ -6,6 +6,7 @@ import {TrComponent} from './tr.component';
   selector: 'thead',
   preserveWhitespaces: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
   template: `
     <ng-content></ng-content>
   `,

@@ -2,14 +2,12 @@
   width: 100%;
   height:100%;
   border-radius: 2px;
-  border: 1px solid #e2e6eb;
   border-bottom: none;
   background-color: #ffffff;
   position: relative;
-  padding-bottom: 10px;
   > .query-tool{
     padding: 0 10px;
-    border-bottom: 2px solid #f0f2f5;
+    border: 1px solid #e2e6eb;
     width: 100%;
     background-color: #fff;
     z-index: 30;
@@ -29,7 +27,7 @@
     background: #fff;
     border-collapse: separate;
     border-spacing: 0;
-    thead,tbody,tfoot{
+    tbody,tfoot{
       tr td:not(.none){
         &:first-child{
           border-left: 1px solid #e2e6eb;
@@ -43,6 +41,14 @@
       tr {
         background: #fdfdfd;
         height: 36px;
+        th:not(.none){
+          &:first-child{
+            border-left: 1px solid #e2e6eb;
+          }
+          &:last-child{
+            border-right: 1px solid #e2e6eb;
+          }
+        }
       }
       th {
         z-index: 16;
@@ -55,6 +61,7 @@
         color: #616366;
         font-size: 14px;
         font-weight: 700;
+        border-top: 1px solid #e2e6eb;
       }
     }
     tbody{
@@ -70,6 +77,11 @@
           td:not(.none){
             background: #eef6ff;
           }
+        }
+      }
+      tr:first-child{
+        td:not(.none){
+          border-top: 1px solid #e2e6eb;
         }
       }
       td:not(.none) {
@@ -111,34 +123,8 @@
   }
 }
 
-.paging{
-  text-align: right;
-  position: absolute;
-  z-index: 30;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  > span{
-    border: 1px solid #e2e6eb;
-    background-color: #ffffff;
-    font-size: 14px;
-    font-weight: 400;
-    color: #333333;
-    padding: 4px 14px;
-    display: inline-block;
-    margin-right: 1px;
-    cursor: pointer;
-    &.active{
-      background-color: #efefef;
-    }
-  }
-}
-
-.overflow{
-  z-index: 30;
-  height: 10px;
-  overflow-x: scroll;
-  position: absolute;
-  right: 0;
-  left: 0;
+.wrapShow{
+  border: 1px solid #e2e6eb;
+  text-align: center;
+  padding: 50px;
 }

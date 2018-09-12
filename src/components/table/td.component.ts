@@ -8,15 +8,17 @@ import {
   Input,
   OnChanges, OnDestroy, OnInit,
   Optional,
-  SimpleChanges
+  SimpleChanges, ViewEncapsulation
 } from '@angular/core';
 import {TableComponent} from './table.component';
 import {TrComponent} from './tr.component';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 @Component({
   selector: 'td',
   preserveWhitespaces: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
   template: `
     <yc-checkbox *ngIf="showCheckbox" [(ngModel)]="checked" [checkState]="_checkState" (changeEvent)="_change()"></yc-checkbox>
     <span [ngStyle]="{'width.px': width}" class="nowrap"><ng-content></ng-content></span>
@@ -44,6 +46,36 @@ export class TdComponent implements OnChanges{
       data: this.showCheckbox,
       checked: this._checked
     });
+  }
+
+  private _sticky
+
+  get sticky() {
+    return this._sticky;
+  }
+
+  @Input() set sticky(value) {
+    this._sticky = coerceBooleanProperty(value);
+  }
+
+  private _stickyStart
+
+  get stickyStart() {
+    return this._stickyStart;
+  }
+
+  @Input() set stickyStart(value) {
+    this._stickyStart = coerceBooleanProperty(value);
+  }
+
+  private _stickyEnd
+
+  get stickyEnd() {
+    return this._stickyEnd;
+  }
+
+  @Input() set stickyEnd(value) {
+    this._stickyEnd = coerceBooleanProperty(value);
   }
 
   constructor(@Host() @Optional() private trComponent: TrComponent,

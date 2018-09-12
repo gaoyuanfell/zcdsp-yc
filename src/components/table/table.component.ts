@@ -1,5 +1,5 @@
 import {
-  AfterContentInit,
+  AfterContentInit, AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -20,6 +20,7 @@ import {Global} from '../../service/global';
 import {TheadComponent} from './thead.component';
 import {TbodyComponent} from './tbody.component';
 import {Subject} from 'rxjs';
+import {TfootComponent} from './tfoot.component';
 
 export interface PageData {
   number?: number
@@ -45,17 +46,17 @@ export interface Props {
 })
 export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy {
 
+  @Input() total
+  @Input() fixed
+
   tbodyList: Array<TbodyComponent> = [];
   theadList: Array<TheadComponent> = [];
+  tfootList: Array<TfootComponent> = [];
 
   private _queryRef: ElementRef;
   private _tableRef: ElementRef;
-  private _overflowRef: ElementRef;
   private _tableWrapRef: ElementRef;
   private _tableContainerRef: ElementRef;
-  private _pagingRef: ElementRef;
-
-  @Input() fixed = false; // 是否固定 搜索和分页
 
   get queryRef(): ElementRef {
     return this._queryRef;
@@ -81,96 +82,6 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
     this._tableWrapRef = value;
   }
 
-  get overflowRef(): ElementRef {
-    return this._overflowRef;
-  }
-
-  @ViewChild('overflowRef') set overflowRef(value: ElementRef) {
-    this._overflowRef = value;
-    if (value) {
-
-      this.renderer.listen(value.nativeElement, 'scroll', (event: Event | any) => {
-        this.tableWrapRef.nativeElement.scrollLeft = event.target.scrollLeft;
-
-        let _tableRef = <HTMLElement>this.tableRef.nativeElement;
-        let _tableContainerRef = <HTMLElement>this.tableContainerRef.nativeElement;
-        let tableBcrt = _tableContainerRef.getBoundingClientRect();
-
-        this.theadList.forEach(thead => {
-          thead.trList.forEach(tr => {
-            let array = tr.thList.map(th => th.ref.nativeElement).filter(th => th.getAttribute('fixed'));
-            array.forEach((th, index, array) => {
-              let fixed = th.getAttribute('fixed');
-
-              switch (fixed) {
-                case 'left': {
-                  let left = event.target.scrollLeft;
-                  th.style.left = `${left}px`;
-
-                  th.classList.add('col_fixed');
-                  if (index === array.length - 1) {
-                    if (event.target.scrollLeft === 0) {
-                      th.classList.remove('col_fixed_left_border');
-                    } else {
-                      th.classList.add('col_fixed_left_border');
-                    }
-                  }
-                  break;
-                }
-                case 'right': {
-                  let left = _tableRef.clientWidth - tableBcrt.width - event.target.scrollLeft + 2;
-                  th.style.left = `${-left}px`;
-
-                  th.classList.add('col_fixed');
-                  if (index === 0) {
-                    th.classList.add('col_fixed_right_border');
-                  }
-                  break;
-                }
-              }
-            });
-          });
-        });
-
-        this.tbodyList.forEach(tbody => {
-          tbody.trList.forEach(tr => {
-            let array = tr.tdList.map(td => td.ref.nativeElement).filter(td => td.getAttribute('fixed'));
-            array.forEach((td, index, array) => {
-              let fixed = td.getAttribute('fixed');
-              switch (fixed) {
-                case 'left': {
-                  let left = event.target.scrollLeft;
-                  td.style.left = `${left}px`;
-
-                  td.classList.add('col_fixed');
-                  if (index === array.length - 1) {
-                    if (event.target.scrollLeft === 0) {
-                      td.classList.remove('col_fixed_left_border');
-                    } else {
-                      td.classList.add('col_fixed_left_border');
-                    }
-                  }
-                  break;
-                }
-                case 'right': {
-                  let left = _tableRef.clientWidth - tableBcrt.width - event.target.scrollLeft + 2;
-                  td.style.left = `${-left}px`;
-
-                  td.classList.add('col_fixed');
-                  if (index === 0) {
-                    td.classList.add('col_fixed_right_border');
-                  }
-                  break;
-                }
-              }
-            });
-          });
-        });
-
-      });
-    }
-  }
-
   get tableContainerRef(): ElementRef {
     return this._tableContainerRef;
   }
@@ -179,200 +90,47 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
     this._tableContainerRef = value;
   }
 
-  get pagingRef(): ElementRef {
-    return this._pagingRef;
-  }
-
-  @ViewChild('pagingRef') set pagingRef(value: ElementRef) {
-    this._pagingRef = value;
-  }
+  @Input() containerOverflow:HTMLElement
 
   constructor(private renderer: Renderer2,
               private _global: Global,
               private changeDetectorRef: ChangeDetectorRef) {
   }
 
-  blankHeight;
-
-  fixedQueryRef(){
-    let cfBcrt = this._global.containerFullRef.getBoundingClientRect();
-    let navHeight = cfBcrt.top;
-    // 设置搜索工具条位置
-    this._global.overflowSubject.subscribe(data => {
-      cfBcrt = this._global.containerFullRef.getBoundingClientRect();
-      navHeight = cfBcrt.top;
-      let _top = data.top;
-      if (this.queryRef) {
-        let _queryRef = <HTMLElement>this.queryRef.nativeElement;
-        if (_top >= navHeight) {
-          _queryRef.style.top = `${_top - navHeight}px`;
-        } else {
-          _queryRef.style.top = `0px`;
-        }
-      }
-    });
-  }
-
-  fixedOverflowRef(){
-    let cfBcrt = this._global.containerFullRef.getBoundingClientRect();
-    let _tableContainerRef = <HTMLElement>this.tableContainerRef.nativeElement;
-    let tableBcrt = _tableContainerRef.getBoundingClientRect();
-    let navHeight = cfBcrt.top;
-
-    let _overflowRef = <HTMLElement>this.overflowRef.nativeElement;
-    let _pagingHeight = 0;
-    let maxBottom = tableBcrt.height - (cfBcrt.height - this.blankHeight);
-    let _pagingRef;
-    if (this.pagingRef) {
-      _pagingRef = <HTMLElement>this.pagingRef.nativeElement;
-      _pagingHeight = _pagingRef.clientHeight;
-      _pagingRef.style.bottom = `${maxBottom > 0 ? maxBottom + _pagingHeight : 0}px`;
-    }
-    _overflowRef.style.bottom = `${maxBottom > 0 ? maxBottom + _pagingHeight : 0}px`;
-
-    this._global.overflowSubject.subscribe(data => {
-      cfBcrt = this._global.containerFullRef.getBoundingClientRect();
-      tableBcrt = _tableContainerRef.getBoundingClientRect();
-      navHeight = cfBcrt.top;
-      maxBottom = tableBcrt.height - (cfBcrt.height - this.blankHeight);
-      let bottom = maxBottom - data.top;
-      if (bottom < -_pagingHeight) {
-        bottom = -_pagingHeight;
-      }
-      if (_pagingRef) {
-        _pagingHeight = _pagingRef.clientHeight;
-        _pagingRef.style.bottom = `${bottom + _pagingHeight}px`;
-      }
-      _overflowRef.style.bottom = `${bottom + _pagingHeight}px`;
-    });
-
-    this.renderer.listen('window', 'resize', () => {
-      // 设置分页滚动条位置
-      tableBcrt = _tableContainerRef.getBoundingClientRect();
-      cfBcrt = this._global.containerFullRef.getBoundingClientRect();
-      let maxBottom = tableBcrt.height - (cfBcrt.height - this.blankHeight);
-      _overflowRef.style.bottom = `${maxBottom > 0 ? maxBottom + _pagingHeight : 0}px`;
-      _pagingRef.style.bottom = `${maxBottom > 0 ? maxBottom + _pagingHeight : 0}px`;
-    })
-
-  }
 
   ngAfterContentInit(): void {
-    let _tableRef = <HTMLElement>this.tableRef.nativeElement;
-    let _tableContainerRef = <HTMLElement>this.tableContainerRef.nativeElement;
-    let tableBcrt = _tableContainerRef.getBoundingClientRect();
-    let cfBcrt = this._global.containerFullRef.getBoundingClientRect();
-    this.blankHeight = tableBcrt.top - cfBcrt.top; // 只能计算一次
-    let navHeight = cfBcrt.top;
-
+    let _queryRef:HTMLElement;
     if (this.queryRef) {
-      _tableContainerRef.style.paddingTop = `${this.queryRef.nativeElement.clientHeight}px`; // 设置搜索工具
-    }
-    if (this.overflowRef) {
-      this.overflowRef.nativeElement.children[0].style.width = `${_tableRef.clientWidth}px`; // 设置滚动条
-    }
-
-    if(this.fixed){
-      this.fixedQueryRef();
-
-      this.fixedOverflowRef();
-
-      // 设置表单头的位置
-      this._global.overflowSubject.subscribe(data => {
-        this.theadList.forEach(thead => {
-          thead.trList.forEach(tr => {
-            tr.thList.forEach(th => {
-              let _th = <HTMLDivElement>th.ref.nativeElement;
-              if (data.top >= navHeight) {
-                _th.style.top = `${data.top - navHeight}px`;
-              } else {
-                _th.style.top = `0px`;
-              }
-            });
-          });
-        });
-      });
-    }
-
-    this.theadList.forEach(thead => {
-      thead.trList.forEach(tr => {
-        let array = tr.thList.map(th => th.ref.nativeElement).filter(th => th.getAttribute('fixed'));
-        array.forEach((th, index, array) => {
-          let fixed = th.getAttribute('fixed');
-
-          switch (fixed) {
-            case 'left': {
-              th.classList.add('col_fixed');
-              break;
-            }
-            case 'right': {
-              th.style.left = `${-(_tableRef.clientWidth - tableBcrt.width + 2)}px`;
-              break;
-            }
+      _queryRef = <HTMLElement>this.queryRef.nativeElement;
+      (<HTMLElement>this.tableWrapRef.nativeElement).style.paddingTop = `${_queryRef.clientHeight}px`;
+      if(this.containerOverflow){
+        let bcrt1 = this.containerOverflow.getBoundingClientRect()
+        let bcrt2 = this.tableContainerRef.nativeElement.getBoundingClientRect()
+        let offsetTop = bcrt2.top - bcrt1.top;
+        this.renderer.listen(this.containerOverflow, 'scroll', (event)=> {
+          if(offsetTop < event.target.scrollTop){
+            _queryRef.style.top = `${event.target.scrollTop - offsetTop}px`
+          }else{
+            _queryRef.style.top = `0px`;
           }
-        });
-      });
-    });
+        })
+      }
+    }
 
-    this.tbodyList.forEach(tbody => {
-      tbody.trList.forEach(tr => {
-        let array = tr.tdList.map(td => td.ref.nativeElement).filter(td => td.getAttribute('fixed'));
-        array.forEach((td, index, array) => {
-          let fixed = td.getAttribute('fixed');
-          switch (fixed) {
-            case 'left': {
-              td.classList.add('col_fixed');
-              break;
-            }
-            case 'right': {
-              td.style.left = `${-(_tableRef.clientWidth - tableBcrt.width + 2)}px`;
-              break;
-            }
-          }
-        });
-      });
-    });
+    if(this.tfootList.length) {
+      let stickyTfootList = this.tfootList[0].trList.filter(tr => tr.sticky).reverse();
+      let bottom = 0
+      stickyTfootList.forEach(tr => {
+        tr.tdList.forEach(td => {
+          td.sticky = true;
+          this.renderer.setStyle(td.ref.nativeElement, 'bottom', `${bottom}px`);
+          this.renderer.setStyle(td.ref.nativeElement, 'position', 'sticky');
+          this.renderer.setStyle(td.ref.nativeElement, 'z-index', 22);
+        })
+        bottom += tr.ref.nativeElement.clientHeight
+      })
+    }
 
-    this.renderer.listen('window', 'resize', () => {
-      // 设置固定项的位置
-      this.theadList.forEach(thead => {
-        thead.trList.forEach(tr => {
-          let array = tr.thList.map(th => th.ref.nativeElement).filter(th => th.getAttribute('fixed'));
-          array.forEach((th, index, array) => {
-            let fixed = th.getAttribute('fixed');
-
-            switch (fixed) {
-              case 'left': {
-                th.classList.add('col_fixed');
-                break;
-              }
-              case 'right': {
-                th.style.left = `${-(_tableRef.clientWidth - tableBcrt.width + 2)}px`;
-                break;
-              }
-            }
-          });
-        });
-      });
-      this.tbodyList.forEach(tbody => {
-        tbody.trList.forEach(tr => {
-          let array = tr.tdList.map(td => td.ref.nativeElement).filter(td => td.getAttribute('fixed'));
-          array.forEach((td, index, array) => {
-            let fixed = td.getAttribute('fixed');
-            switch (fixed) {
-              case 'left': {
-                td.classList.add('col_fixed');
-                break;
-              }
-              case 'right': {
-                td.style.left = `${-(_tableRef.clientWidth - tableBcrt.width + 2)}px`;
-                break;
-              }
-            }
-          });
-        });
-      });
-    });
   }
 
   ngOnInit() {
@@ -442,41 +200,11 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
         }
       }
     });
-
-    this.changeExpandObservable.subscribe(() => {
-      let _tableRef = <HTMLElement>this.tableRef.nativeElement;
-      this.overflowRef.nativeElement.children[0].style.width = `${_tableRef.clientWidth}px`; // 设置滚动条
-
-      let _tableContainerRef = <HTMLElement>this.tableContainerRef.nativeElement;
-      let tableBcrt = _tableContainerRef.getBoundingClientRect();
-      let cfBcrt = this._global.containerFullRef.getBoundingClientRect();
-      let _overflowRef = <HTMLElement>this.overflowRef.nativeElement;
-
-      cfBcrt = this._global.containerFullRef.getBoundingClientRect();
-      tableBcrt = _tableContainerRef.getBoundingClientRect();
-      let navHeight = cfBcrt.top;
-      let maxBottom = tableBcrt.height - (cfBcrt.height - this.blankHeight);
-      let bottom = maxBottom - this._global.containerFullRef.scrollTop;
-      let _pagingHeight = 0;
-      let _pagingRef;
-      if (this.pagingRef) {
-        _pagingRef = <HTMLElement>this.pagingRef.nativeElement;
-        _pagingHeight = _pagingRef.clientHeight;
-      }
-      if (bottom < -_pagingHeight) {
-        bottom = -_pagingHeight;
-      }
-      if (_pagingRef) {
-        _pagingRef.style.bottom = `${bottom + _pagingHeight}px`;
-      }
-      _overflowRef.style.bottom = `${bottom + _pagingHeight}px`;
-    });
   }
 
   // ------------------ 数据 ------------------ //
 
   selectData = [];
-  pageList;
 
   _props: Props = {
     page_size: 'page_size',
@@ -507,11 +235,10 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
     return this._query;
   }
 
-  private _data: Array<any>;
-  private _total: number;
-  @Input() pagination = true;
   @Output() selectChange = new EventEmitter<any>();
   @Output() changeEvent = new EventEmitter<any>();
+
+  private _data: Array<any> = [];
 
   get data(): Array<any> {
     return this._data;
@@ -524,36 +251,6 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
       checkState: 0
     });
     this.selectData = [];
-    if(this.fixed){
-      setTimeout(() => {
-        let _tableRef = <HTMLElement>this.tableRef.nativeElement;
-        this.overflowRef.nativeElement.children[0].style.width = `${_tableRef.clientWidth}px`; // 设置滚动条
-
-        let _tableContainerRef = <HTMLElement>this.tableContainerRef.nativeElement;
-        let tableBcrt = _tableContainerRef.getBoundingClientRect();
-        let cfBcrt = this._global.containerFullRef.getBoundingClientRect();
-        let _overflowRef = <HTMLElement>this.overflowRef.nativeElement;
-
-        cfBcrt = this._global.containerFullRef.getBoundingClientRect();
-        tableBcrt = _tableContainerRef.getBoundingClientRect();
-        let navHeight = cfBcrt.top;
-        let maxBottom = tableBcrt.height - (cfBcrt.height - this.blankHeight);
-        let bottom = maxBottom - this._global.containerFullRef.scrollTop;
-        let _pagingHeight = 0;
-        let _pagingRef;
-        if (this.pagingRef) {
-          _pagingRef = <HTMLElement>this.pagingRef.nativeElement;
-          _pagingHeight = _pagingRef.clientHeight;
-        }
-        if (bottom < -_pagingHeight) {
-          bottom = -_pagingHeight;
-        }
-        if (_pagingRef) {
-          _pagingRef.style.bottom = `${bottom + _pagingHeight}px`;
-        }
-        _overflowRef.style.bottom = `${bottom + _pagingHeight}px`;
-      });
-    }
   }
 
   checkAllObservable = new Subject<any>();
@@ -561,120 +258,6 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
   changeTdStateObservable = new Subject<any>();
   changeSortObservable = new Subject<any>();
   changeExpandObservable = new Subject<any>();
-
-  // ------------------ 分页 ------------------ //
-
-  get total(): number {
-    return this._total;
-  }
-
-  get totalPage(): number {
-    let totalPage = 0;
-    console.log('RRRRRRRRRRRRRRRRRRRRRRRR')
-    console.log(this.total)
-    console.log(this.query[this._props.page_size])
-    if (this.total % this.query[this._props.page_size]) {  //
-      totalPage = Math.floor(this.total / this.query[this._props.page_size]) + 1;
-    } else {
-      totalPage = this.total / this.query[this._props.page_size];
-    }
-    console.log(totalPage)
-    return totalPage || 0;
-  }
-
-  get pageIndex() {
-    if (!this._query) return 0;
-    return this._query[this._props.page_index];
-  }
-
-  @Input() set total(value: number) {
-    console.log(value)
-    this._total = value;
-    console.log(this.pageNum)
-    console.log(this.totalPage)
-    console.log(this.query[this._props.page_index])
-    this.pageList = this.getPageList(this.pageNum, this.totalPage, this.query[this._props.page_index]);
-    console.log( this.pageList )
-  }
-
-  @Input() pageText: string = '...';
-  @Input() pageNum: number = 3;
-
-  getPageList(n: number, tp: number, p: number) {
-    n = +n;
-    tp = +tp;
-    p = +p;
-    if (p > tp) {
-      p = 1;
-    }
-    let arr: PageData[] = [];
-    let s = n * 2 + 5;
-    if (tp >= s) {
-      let _n = n;
-      let _p = p;
-      if (p - n - 2 < 1) {
-        while (_p) {
-          arr.unshift({number: _p, type: 1});
-          --_p;
-        }
-        _p = p;
-        while (++_p <= n * 2 + 3) {
-          arr.push({number: _p, type: 1});
-        }
-        arr.push({text: this.pageText, type: 0}, {number: tp, type: 1});
-      } else if (p + n + 2 > tp) {
-        while (_p <= tp) {
-          arr.push({number: _p, type: 1});
-          ++_p;
-        }
-        _p = p;
-        while (--_p > tp - n * 2 - 3) {
-          arr.unshift({number: _p, type: 1});
-        }
-        arr.unshift({number: 1, type: 1}, {text: this.pageText, type: 0});
-      } else {
-        while (_n) {
-          arr.push({number: p - _n, type: 1});
-          --_n;
-        }
-        arr.push({number: p, type: 1});
-        _n = n;
-        let i = 1;
-        while (i <= _n) {
-          arr.push({number: p + i, type: 1});
-          ++i;
-        }
-        arr.unshift({number: 1, type: 1}, {text: this.pageText, type: 0});
-        arr.push({text: this.pageText, type: 0}, {number: tp, type: 1});
-      }
-    } else {
-      while (tp) {
-        arr.unshift({number: tp--, type: 1});
-      }
-    }
-    return arr;
-  }
-
-  go(number) {
-    console.log(number)
-    this.query[this._props.page_index] = number;
-    this.pageList = this.getPageList(this.pageNum, this.totalPage, this.query[this._props.page_index]);
-    this.changeEvent.next(this._query);
-  }
-
-  prev(number) {
-    if (this.query[this._props.page_index] <= 1) return;
-    this.query[this._props.page_index] += number;
-    this.pageList = this.getPageList(this.pageNum, this.totalPage, this.query[this._props.page_index]);
-    this.changeEvent.next(this._query);
-  }
-
-  next(number) {
-    if (this.totalPage <= this.query[this._props.page_index]) return;
-    this.query[this._props.page_index] += number;
-    this.pageList = this.getPageList(this.pageNum, this.totalPage, this.query[this._props.page_index]);
-    this.changeEvent.next(this._query);
-  }
 
   // ------------------------------------ //
 

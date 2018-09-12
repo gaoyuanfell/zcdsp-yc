@@ -16,7 +16,7 @@
   </div>
 
 
-  <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" [fixed]="true" (changeEvent)="list()">
+  <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" (changeEvent)="list()"> <!--[total]="total_count" [fixed]="true" -->
     <!--<div class="query-tool" #queryRef query>-->
       <!--<div class="left-tool">-->
         <!--<h2 class="table-title">-->

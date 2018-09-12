@@ -8,6 +8,9 @@ import {TheadComponent} from './thead.component';
 import {TrComponent} from './tr.component';
 import {CheckboxModule} from '../checkbox/checkbox.module';
 import {FormsModule} from '@angular/forms';
+import {TfootComponent} from './tfoot.component';
+import {TablePaginatorComponent} from './table-paginator.component';
+import {TableOverflowComponent} from './table-overflow.component';
 
 @NgModule({
   imports: [
@@ -21,7 +24,10 @@ import {FormsModule} from '@angular/forms';
     TdComponent,
     ThComponent,
     TheadComponent,
+    TfootComponent,
     TrComponent,
+    TablePaginatorComponent,
+    TableOverflowComponent,
   ],
   exports: [
     TableComponent,
@@ -29,7 +35,10 @@ import {FormsModule} from '@angular/forms';
     TdComponent,
     ThComponent,
     TheadComponent,
+    TfootComponent,
     TrComponent,
+    TablePaginatorComponent,
+    TableOverflowComponent,
   ]
 })
 export class TableModule {
