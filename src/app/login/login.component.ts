@@ -1,6 +1,6 @@
 import {Component, OnInit, Renderer2, TemplateRef, ViewChild} from '@angular/core';
 import {PublicService} from '../../service/public.service';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import SparkMD5 from 'spark-md5';
 import {Dialog} from '../../components/dialog/dialog';
 import {Base64} from 'js-base64';
@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private _publicService: PublicService,
     private router: Router,
+    private route: ActivatedRoute,
     private _dialog: Dialog,
     private render: Renderer2,
     private title: Title,
@@ -31,6 +32,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.title.setTitle(`智橙移动`);
     this.verifyCode();
+    this.route.queryParams.subscribe( res => {
+      this.userName = res.user_name ? res.user_name : '';
+    })
   }
 
   userName;
@@ -141,9 +145,11 @@ export class LoginComponent implements OnInit {
     this.forgetCodeUrl = this._publicService.verifyCode(obj);
   }
 
-  setInvalidClass(form, formControl) {
+  setInvalidClass(form, formControl, type) {
+    console.log(type)
+    console.log(this.error)
     let cl;
-    if (formControl && formControl.invalid && (formControl.dirty || formControl.touched || form.submitted)) {
+    if ( (formControl && formControl.invalid && (formControl.dirty || formControl.touched || form.submitted)) || (type === this.error) ) {
       cl = 'has-error';
     }
     if (formControl && formControl.valid) {
@@ -162,12 +168,12 @@ export class LoginComponent implements OnInit {
     };
     this._publicService.checkVerifycode(obj).subscribe(res => {
       if (res.success === 200) {
+        console.log(this.user_name)
         this.pwd_show = true;
       }
     }, error => {
       this.error = error.errorList[0]._code;
       this.errorText = error.errorList[0]._description;
-      // this._code = error.errorList[0]._code === 'code' ?  error.errorList[0]._description : undefined;
       this.pwd_show = false;
     });
   }

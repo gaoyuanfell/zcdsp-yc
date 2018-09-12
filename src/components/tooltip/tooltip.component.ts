@@ -13,8 +13,6 @@ export class TooltipComponent implements OnInit {
   @Input() widthExp;
   @Input()
   set result(value) {
-    console.log(value)
-    console.log('#################################################')
     this._result = value;
     this.flag = this._result instanceof Array;
   };
@@ -32,8 +30,7 @@ export class TooltipComponent implements OnInit {
   flag = false;
   @Input() placement: 'topLeft' | 'top' | 'topRight' | 'leftTop' | 'left' | 'leftBottom' | 'rightTop' | 'right' | 'rightBottom' | 'bottomLeft' | 'bottom' | 'bottomRight';
   ngOnInit() {
-    console.log('要执行到这里才会有用')
-    console.log(this.result)
+
   }
   get getClass() {
     if (!this.placement) return {};

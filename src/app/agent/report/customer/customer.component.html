@@ -53,21 +53,24 @@
             </td>
           </tr>
         </ng-template>
-        <ng-template [ngIf]="tableList?.length > 0">
-          <tr #tr>
-            <td class="text-left">全部总计</td>
-            <td class="text-left"></td>
-            <td class="text-left"></td>
-            <td class="text-right">{{ listTitle?.pv * 1| number}}</td>
-            <td class="text-right">{{listTitle?.click * 1| number}}</td>
-            <td class="text-right">{{ listTitle?.ctr * 100 | number: '1.2-2' }}</td>
-            <td class="text-right">{{listTitle?.cpc * 1 | currencyFormat}}</td>
-            <td class="text-right">{{listTitle?.cpm * 1000| currencyFormat}}</td>
-            <td class="text-right">{{listTitle?.admoney * 1| currencyFormat}}</td>
-            <td></td>
-          </tr>
-        </ng-template>
         </tbody>
+        <tfoot [hidden]="!ycTable?.data?.length">
+        <tr sticky>
+          <td>本页合计</td>
+          <td>-</td>
+          <td>{{listTitle?.pv | number}}</td>
+          <td>{{listTitle?.click | number}}</td>
+          <td>{{ listTitle?.ctr * 100 | number: '1.2-2' }}%</td>
+          <td>{{ listTitle?.cpc | currencyFormat}}</td>
+          <td>{{ listTitle?.cpm * 1000 | currencyFormat}}</td>
+          <td>{{ listTitle?.admoney | currencyFormat }}</td>
+        </tr>
+        <tr sticky class="none">
+          <td class="none" colspan="100%" style="background: #f9fafb;">
+            <yc-table-paginator [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
+          </td>
+        </tr>
+        </tfoot>
       </table>
     </yc-table>
   </div>

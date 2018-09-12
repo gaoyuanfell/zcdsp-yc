@@ -125,29 +125,12 @@ export class TooltipDirective implements OnInit, OnDestroy {
   // @HostBinding(':hover') isHover = true;
   @HostListener('mouseenter', ['$event'])
   open() {
-    console.log('yidong')
-      if (typeof this.ycContent === 'string') {
-        this.result = this.ycContent;
-        this.init();
-      } else {
-        if (!this.result) {  // 这边就请求一次数据  鼠标移上去请求数据会有一层遮罩层，遮罩层消失的时候数据也就回来了 所以不管你移动几次，指执行一次
-          this.ycContent.subscribe( res => {
-            // console.log('数据应该后到吧')
-            this.result = res.result;
-            this.changeDetectorRef.markForCheck();
-            setTimeout(() => {
-              console.log('鼠标一出去后我再执行')
-              this.init();
-            }, 500)  // 因为有一个鼠标移出去事件，会把附着上去的东西detach掉，这个要比鼠标移除事件先执行，后执行的话，会把attach的马上detach，你就什么也看不到了
-
-          })
-        }
-      }
+      this.result = this.ycContent;
+      this.init();
   }
 
   @HostListener('mouseleave', ['$event'])
    close(event) {
-    console.log('一出去')
     // console.log('鼠标移出事件应该先执行')     // 按理来说应该是这样子的，但是mouseleav 不太好掌控，有时数据来先执行
     // 移出去的时候 判断是否移动到覆盖物的位置
     // 如果是的话 檢查是否有attach東西上去，如果有，就執行detach()  不是销毁哦
@@ -223,65 +206,23 @@ export class TooltipDirective implements OnInit, OnDestroy {
 }
 
 
-// export class TooltipDirective implements OnInit, OnDestroy {
-//   constructor(
-//     private _overlay: Overlay,
-//     private elementRef: ElementRef,   // 宿主元素
-//     private _viewContainer: ViewContainerRef,
-//     private _resolve: ComponentFactoryResolver, //  参数可有可无
-//     private render: Renderer2,
-//     private _global: Global,
-//     @Optional() public tooltipComponent: TooltipComponent
-//   ) {
-//     // 获取组件工厂
-//     // resolveComponentFactory() 方法接受一个组件并返回如何创建组件的 ComponentFactory 实例。
-//     this.factory = this._resolve.resolveComponentFactory(TooltipComponent);
+// open() {
+//   console.log('yidong')
+//   if (typeof this.ycContent === 'string') {
+//     this.result = this.ycContent;
+//     this.init();
+//   } else {
+//     if (!this.result) {  // 这边就请求一次数据  鼠标移上去请求数据会有一层遮罩层，遮罩层消失的时候数据也就回来了 所以不管你移动几次，指执行一次
+//       this.ycContent.subscribe( res => {
+//         // console.log('数据应该后到吧')
+//         this.result = res.result;
+//         this.changeDetectorRef.markForCheck();
+//         setTimeout(() => {
+//           console.log('鼠标一出去后我再执行')
+//           this.init();
+//         }, 500)  // 因为有一个鼠标移出去事件，会把附着上去的东西detach掉，这个要比鼠标移除事件先执行，后执行的话，会把attach的马上detach，你就什么也看不到了
+//
+//       })
+//     }
 //   }
-//   tooltipPortal: ComponentPortal<TooltipComponent>;
-//   componentRef: ComponentRef<TooltipComponent>;
-//   popupRef: OverlayRef;
-//   public tooltipTag: ComponentRef<TooltipComponent>;
-//   public factory: ComponentFactory<TooltipComponent>;
-//   @Input('ycContent')  ycContent  // 拿到属性title  ycContent后面的声明必写
-//   _opened = false;
-//   @HostListener('click', ['$event'])
-//   open() {
-//      if (this._opened)  return;
-//      this._opened = true;
-//     console.log(this.elementRef);
-//     // 删除之前的视图
-//     this._viewContainer.clear();
-//     console.log(this.factory)
-//     // 我们调用容器的 createComponent() 方法，该方法内部将调用 ComponentFactory 实例的 create() 方法创建对应的组件，并将组件添加到我们的容器。
-//     this.tooltipTag = this._viewContainer.createComponent(this.factory);
-//     // console.log(this.tooltipTag.location.nativeElement)
-//
-//     // 现在我们已经能获取新组件的引用，即可以我们可以设置组件的输入类型：
-//     this.tooltipTag.instance.ycContent = this.ycContent;
-//     // 同样我们也可以订阅组件的输出属性，具体如下：
-//     // this.tooltipTag.instance.output.subscribe(event => console.log(event));
-//
-//   }
-//   // @HostListener('mouseleave', ['$event'])
-//   // close() {
-//   //   console.log('离开')
-//   //   this._opened = false;
-//   //   this.tooltipTag.destroy();
-//   // }
-//
-//   ngOnDestroy() {
-//     // 销毁组件
-//     this.tooltipTag.destroy();
-//   }
-//
-//   ngOnInit(): void {
-//     console.log(this.elementRef)
-//     console.log(this.tooltipComponent) // null
-//     // if (!this.tooltipComponent) {
-//     //   this.tooltipComponent = this._viewContainer.createComponent(this.factory).instance;
-//     //   console.log(this.tooltipComponent)  // 生成了这个component啦 instance
-//     // }
-//
-//   }
-//
 // }

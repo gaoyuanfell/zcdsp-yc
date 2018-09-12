@@ -78,18 +78,7 @@
       </div>
     </div>
     <yc-checkbox label="是否动态词" [(ngModel)]="elements.is_dynamic_words" [values]="[1,0]" (ngModelChange)="_inputSubject.next()"></yc-checkbox>
-    <!--<a class="popover-text"  yc-tooltip [ycTitle]="flag">(查看动态词)</a>-->
-    <a  yc-tooltip [ycContent]="danamitic()" [ycTitle]="'今日创意'" >(查看动态词)</a>
-    <!--<a  yc-tooltip [ycContent]="'当我们在dom上注册事件后，往往要通过回调函数处理事件，'" [ycTitle]="'今日创意'" >(查看动态词)</a>-->
-
-
-    <!--<a class="popover-text" yc-popover [template]="template" #popover="ycPopover" [placement]="'rightTop'" (click)="danamitic(popover)">(点击查看动态词)</a>-->
-    <!--<ng-template #template>-->
-      <!--<div *ngFor="let x of tableList" style="width: 640px">-->
-        <!--默认词: <span>{{x.default_word}}</span><br/>-->
-        <!--说明: <span>{{x.description}}</span>-->
-      <!--</div>-->
-   <!--</ng-template>-->
+    <i class="icon-tool-help" yc-tooltip [ycContent]="word"  style="margin-left:5px;vertical-align: middle"></i>
     <i class="creative-close" *ngIf="elementList?.length > 1" (click)="_removeCreative(index)"></i>
   </div>
 </ng-template>
