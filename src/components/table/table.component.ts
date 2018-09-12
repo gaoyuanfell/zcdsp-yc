@@ -103,18 +103,16 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
     if (this.queryRef) {
       _queryRef = <HTMLElement>this.queryRef.nativeElement;
       (<HTMLElement>this.tableWrapRef.nativeElement).style.paddingTop = `${_queryRef.clientHeight}px`;
-      if(this.containerOverflow){
-        let bcrt1 = this.containerOverflow.getBoundingClientRect()
-        let bcrt2 = this.tableContainerRef.nativeElement.getBoundingClientRect()
-        let offsetTop = bcrt2.top - bcrt1.top;
-        this.renderer.listen(this.containerOverflow, 'scroll', (event)=> {
-          if(offsetTop < event.target.scrollTop){
-            _queryRef.style.top = `${event.target.scrollTop - offsetTop}px`
-          }else{
-            _queryRef.style.top = `0px`;
-          }
-        })
-      }
+      let bcrt1 = this._global.containerFullRef.getBoundingClientRect();
+      let bcrt2 = this.tableContainerRef.nativeElement.getBoundingClientRect();
+      let offsetTop = bcrt2.top - bcrt1.top;
+      this._global.overflowSubject.subscribe(({top}) => {
+        if(offsetTop < top){
+          _queryRef.style.top = `${top - offsetTop}px`
+        }else{
+          _queryRef.style.top = `0px`;
+        }
+      })
     }
 
     if(this.tfootList.length) {
