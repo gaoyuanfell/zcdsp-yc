@@ -1,22 +1,30 @@
-import {ChangeDetectionStrategy, Component, Host, Input, OnInit, Optional, ViewEncapsulation} from '@angular/core';
-import {TableComponent} from './table.component';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'yc-table-overflow',
   template: `
-    <div class="overflow" #overflowRef><div class="overflow-tool" [ngStyle]="{'width.px':_width}"></div></div>
+    <div class="overflow" #overflow>
+      <div class="overflow-tool" [ngStyle]="{'width.px':width}"></div>
+    </div>
   `,
-  styles:[
-    `
-      .overflow{
+  styles: [
+      `
+      :host {
+        height: 20px;
+        display: block;
+      }
+
+      .overflow {
+        padding: 10px 0;
         z-index: 30;
         height: 10px;
-        overflow-x: scroll;
-        position: absolute;
-        right: 0;
-        left: 0;
+        overflow-x: auto;
+        width: 100%;
+        overflow-y: hidden;
       }
-      .overflow-tool{
+
+      .overflow-tool {
         height: 10px;
       }
     `
@@ -24,14 +32,33 @@ import {TableComponent} from './table.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: true,
 })
-export class TableOverflowComponent implements OnInit{
-  _width
-  constructor(@Host() @Optional() private tableComponent: TableComponent){
+export class TableOverflowComponent implements OnInit {
+  private _width;
+
+  get width() {
+    return this._width;
+  }
+
+  set width(value) {
+    this._width = value;
+    this.changeDetectorRef.markForCheck();
+  }
+
+  @ViewChild('overflow') overflow
+
+  overflowSubject = new Subject();
+
+  constructor(private changeDetectorRef: ChangeDetectorRef, private ref: ElementRef, private renderer:Renderer2) {
 
   }
 
   ngOnInit(): void {
-    this._width = this.tableComponent.tableWrapRef.nativeElement.clientWidth
+    this.renderer.listen(this.overflow.nativeElement ,'scroll', (event)=> {
+      this.overflowSubject.next({
+        top: event.target.scrollTop,
+        left: event.target.scrollLeft,
+      })
+    })
   }
 
 

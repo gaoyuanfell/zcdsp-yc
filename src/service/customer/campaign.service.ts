@@ -63,6 +63,15 @@ export class CampaignService extends ConfigService {
   }
 
   /**
+   * directional 修改
+   * @param {{}} body
+   * @returns {Observable<Result<any>>}
+   */
+  directionalEdit(body = {}){
+    return this.postJson(`/ads/spread/campaign/directional/edit`, body)
+  }
+
+  /**
    * 批量修改活动投放速度接口
    * @param {{}} body
    * @returns {Observable<Result<any>>}
