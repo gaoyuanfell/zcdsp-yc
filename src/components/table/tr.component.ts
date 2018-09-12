@@ -106,38 +106,38 @@ export class TrComponent implements AfterViewInit{
   ngAfterViewInit(): void {
     if(!this.tableComponent) return;
     if (this.theadComponent) {
-      this.thList.forEach(th => {
-        th.sticky = true;
-        let top = `0px`;
-        if(this.tableComponent.queryRef){
-          top = `${this.tableComponent.queryRef.nativeElement.clientHeight}px`;
-        }
-        this.renderer.setStyle(th.ref.nativeElement, 'top', top);
-        this.renderer.setStyle(th.ref.nativeElement, 'position', 'sticky');
-        this.renderer.setStyle(th.ref.nativeElement, 'z-index', 20);
-      })
-
-      let left = 0;
-      this.thList.filter(th => th.stickyStart).forEach(th => {
-        this.renderer.setStyle(th.ref.nativeElement, 'left', `${left}px`);
-        this.renderer.setStyle(th.ref.nativeElement, 'position', 'sticky');
-        this.renderer.setStyle(th.ref.nativeElement, 'z-index', 21);
-        left += th.ref.nativeElement.offsetWidth
-      })
+      // this.thList.filter(th => this.sticky).forEach(th => {
+      //   th.sticky = true;
+      //   let top = `0px`;
+      //   if(this.tableComponent.queryRef){
+      //     top = `${this.tableComponent.queryRef.nativeElement.clientHeight}px`;
+      //   }
+      //   this.renderer.setStyle(th.ref.nativeElement, 'top', top);
+      //   this.renderer.setStyle(th.ref.nativeElement, 'position', 'sticky');
+      //   this.renderer.setStyle(th.ref.nativeElement, 'z-index', 20);
+      // })
+      //
+      // let left = 0;
+      // this.thList.filter(th => th.stickyStart).forEach(th => {
+      //   this.renderer.setStyle(th.ref.nativeElement, 'left', `${left}px`);
+      //   this.renderer.setStyle(th.ref.nativeElement, 'position', 'sticky');
+      //   this.renderer.setStyle(th.ref.nativeElement, 'z-index', 21);
+      //   left += th.ref.nativeElement.offsetWidth
+      // })
     }
 
     if (this.tbodyComponent) {
-      let left = 0;
-      this.tdList.filter(td => td.stickyStart).forEach(td => {
-        this.renderer.setStyle(td.ref.nativeElement, 'left', `${left}px`);
-        this.renderer.setStyle(td.ref.nativeElement, 'position', 'sticky');
-        this.renderer.setStyle(td.ref.nativeElement, 'z-index', 19);
-        left += td.ref.nativeElement.offsetWidth
-      })
+      // let left = 0;
+      // this.tdList.filter(td => td.stickyStart).forEach(td => {
+      //   this.renderer.setStyle(td.ref.nativeElement, 'left', `${left}px`);
+      //   this.renderer.setStyle(td.ref.nativeElement, 'position', 'sticky');
+      //   this.renderer.setStyle(td.ref.nativeElement, 'z-index', 19);
+      //   left += td.ref.nativeElement.offsetWidth
+      // })
     }
 
     if (this.tfootComponent) {
-      console.info(this.tdList)
+
     }
   }
 

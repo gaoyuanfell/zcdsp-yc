@@ -1,6 +1,9 @@
 <div class="table-container" #tableContainerRef>
+
   <ng-content select="[query]"></ng-content>
+
   <div class="table-wrap" #tableWrapRef>
+
     <ng-content select="[table]"></ng-content>
 
     <div *ngIf="data?.length === 0" class="wrapShow">
@@ -8,5 +11,15 @@
       <div>暂无数据</div>
     </div>
 
+    <div *ngIf="!data" class="wrapShow">
+      <div>等待</div>
+    </div>
+
   </div>
+
+  <ng-content select="[overflow]"></ng-content>
+
+  <ng-content select="[paginator]"></ng-content>
+
 </div>
+

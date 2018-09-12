@@ -18,7 +18,7 @@
     </div>
   </div>
 
-  <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" (changeEvent)="list()" [containerOverflow]="containerFullRef"> <!--[total]="total_count" [fixed]="true" -->
+  <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" (changeEvent)="list()"> <!--[total]="total_count" [fixed]="true" -->
     <div #queryRef query class="query-tool">
       <div class="left-tool">
         <div class="btn" routerLink="/ads/spread/campaign-add/0">
@@ -48,10 +48,10 @@
     </div>
     <table #tableRef table>
       <thead>
-      <tr>
-        <th stickyStart width="50" [showCheckbox]="true"></th>
-        <th stickyStart></th>
-        <th stickyStart>活动ID</th>
+      <tr sticky>
+        <th width="50" [showCheckbox]="true"></th>
+        <th></th>
+        <th>活动ID</th>
         <th style="text-align: left">活动名称</th>
         <th></th>
         <th class="text-right">每日预算</th>
@@ -70,11 +70,11 @@
       <tbody>
       <ng-template [ngForOf]="ycTable.data" ngFor let-data let-index="index">
         <tr [expand]="trExpand" #tr>
-          <td stickyStart [showCheckbox]="data"></td>
-          <td stickyStart (click)="tr.trigger()" class="pointer">
+          <td [showCheckbox]="data"></td>
+          <td (click)="tr.trigger()" class="pointer">
             <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}"></i>
           </td>
-          <td stickyStart [title]="data.campaign_id">{{data.campaign_id}}</td>
+          <td [title]="data.campaign_id">{{data.campaign_id}}</td>
           <td [width]="120" [title]="data.campaign_name">
             <a data-link [routerLink]="['/ads/spread/creative']" [queryParams]="{campaign_id: data.campaign_id}">{{data.campaign_name}}</a>
           </td>
@@ -190,14 +190,18 @@
         <td>{{ other?.cpm * 1000 | currencyFormat}}</td>
         <td>{{ other?.admoney | currencyFormat }}</td>
       </tr>
-      <tr sticky class="none">
-        <td class="none" colspan="100%" style="background: #f9fafb;">
-          <yc-table-paginator [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
-        </td>
-      </tr>
       </tfoot>
     </table>
+
+    <yc-table-overflow #overflowRef overflow style="background: #f9fafb;"></yc-table-overflow>
+
+    <div #paginatorRef paginator style="background: #f9fafb;">
+      <yc-table-paginator [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
+    </div>
+
   </yc-table>
+
+
 
 </div>
 

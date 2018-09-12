@@ -1,5 +1,5 @@
 import {
-  AfterContentInit, AfterViewInit,
+  AfterContentInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -21,6 +21,7 @@ import {TheadComponent} from './thead.component';
 import {TbodyComponent} from './tbody.component';
 import {Subject} from 'rxjs';
 import {TfootComponent} from './tfoot.component';
+import {TableOverflowComponent} from './table-overflow.component';
 
 export interface PageData {
   number?: number
@@ -46,8 +47,8 @@ export interface Props {
 })
 export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy {
 
-  @Input() total
-  @Input() fixed
+  @Input() total;
+  @Input() fixed;
 
   tbodyList: Array<TbodyComponent> = [];
   theadList: Array<TheadComponent> = [];
@@ -57,6 +58,7 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
   private _tableRef: ElementRef;
   private _tableWrapRef: ElementRef;
   private _tableContainerRef: ElementRef;
+  private _overflowRef: TableOverflowComponent;
 
   get queryRef(): ElementRef {
     return this._queryRef;
@@ -90,7 +92,15 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
     this._tableContainerRef = value;
   }
 
-  @Input() containerOverflow:HTMLElement
+  @ContentChild('overflowRef') set overflowRef(val: TableOverflowComponent) {
+    console.info(val)
+    this._overflowRef = val;
+  }
+
+  get overflowRef():TableOverflowComponent {
+    return this._overflowRef;
+  }
+
 
   constructor(private renderer: Renderer2,
               private _global: Global,
@@ -99,7 +109,12 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
 
 
   ngAfterContentInit(): void {
-    let _queryRef:HTMLElement;
+
+    this.overflowRef.overflowSubject.subscribe(({left}) => {
+      this.tableWrapRef.nativeElement.scrollLeft = left;
+    })
+
+    let _queryRef: HTMLElement;
     if (this.queryRef) {
       _queryRef = <HTMLElement>this.queryRef.nativeElement;
       (<HTMLElement>this.tableWrapRef.nativeElement).style.paddingTop = `${_queryRef.clientHeight}px`;
@@ -107,36 +122,36 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
       let bcrt2 = this.tableContainerRef.nativeElement.getBoundingClientRect();
       let offsetTop = bcrt2.top - bcrt1.top;
       this._global.overflowSubject.subscribe(({top}) => {
-        if(offsetTop < top){
-          _queryRef.style.top = `${top - offsetTop}px`
-        }else{
+        if (offsetTop < top) {
+          _queryRef.style.top = `${top - offsetTop}px`;
+        } else {
           _queryRef.style.top = `0px`;
         }
-      })
+      });
     }
 
-    if(this.tfootList.length) {
-      let stickyTfootList = this.tfootList[0].trList.filter(tr => tr.sticky).reverse();
-      let bottom = 0
-      stickyTfootList.forEach(tr => {
-        tr.tdList.forEach(td => {
-          td.sticky = true;
-          this.renderer.setStyle(td.ref.nativeElement, 'bottom', `${bottom}px`);
-          this.renderer.setStyle(td.ref.nativeElement, 'position', 'sticky');
-          this.renderer.setStyle(td.ref.nativeElement, 'z-index', 22);
-        })
-        bottom += tr.ref.nativeElement.clientHeight
-      })
-    }
+    // if (this.tfootList.length) {
+    //   let stickyTfootList = this.tfootList[0].trList.filter(tr => tr.sticky).reverse();
+    //   let bottom = 0;
+    //   stickyTfootList.forEach(tr => {
+    //     tr.tdList.forEach(td => {
+    //       td.sticky = true;
+    //       this.renderer.setStyle(td.ref.nativeElement, 'bottom', `${bottom}px`);
+    //       this.renderer.setStyle(td.ref.nativeElement, 'position', 'sticky');
+    //       this.renderer.setStyle(td.ref.nativeElement, 'z-index', 22);
+    //     });
+    //     bottom += tr.ref.nativeElement.clientHeight;
+    //   });
+    // }
 
   }
 
   ngOnInit() {
     this.checkAllObservable.subscribe((data) => {
-      if(data){
-        this.selectData.push(...this.data)
-      }else{
-        this.selectData.length = 0
+      if (data) {
+        this.selectData.push(...this.data);
+      } else {
+        this.selectData.length = 0;
       }
       this.tbodyList.forEach(tbody => {
         tbody.trList.forEach(tr => {
@@ -219,10 +234,10 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
     }
   };
 
-  private _query:any={};
+  private _query: any = {};
 
   @Input() set query(query) {
-    if(query) {
+    if (query) {
       this._query = query;
       if (!this._query[this._props.page_index]) this._query[this._props.page_index] = 1;
       if (!this._query[this._props.page_size]) this._query[this._props.page_size] = 10;
@@ -249,6 +264,11 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
       checkState: 0
     });
     this.selectData = [];
+    setTimeout(()=> {
+      let _tableRef = <HTMLElement>this.tableRef.nativeElement;
+      console.info(_tableRef.clientWidth)
+      this.overflowRef.width = _tableRef.clientWidth
+    })
   }
 
   checkAllObservable = new Subject<any>();

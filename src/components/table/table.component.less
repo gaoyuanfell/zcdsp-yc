@@ -17,6 +17,10 @@
 }
 
 .table-wrap{
+  width: 100%;
+  overflow: hidden;
+  border-left: 1px solid #e2e6eb;
+  border-right: 1px solid #e2e6eb;
   table {
     margin-top: 0;
     padding: 0;
@@ -29,12 +33,12 @@
     border-spacing: 0;
     tbody,tfoot{
       tr td:not(.none){
-        &:first-child{
-          border-left: 1px solid #e2e6eb;
-        }
-        &:last-child{
-          border-right: 1px solid #e2e6eb;
-        }
+        //&:first-child{
+        //  border-left: 1px solid #e2e6eb;
+        //}
+        //&:last-child{
+        //  border-right: 1px solid #e2e6eb;
+        //}
       }
     }
     thead {
@@ -42,12 +46,12 @@
         background: #fdfdfd;
         height: 36px;
         th:not(.none){
-          &:first-child{
-            border-left: 1px solid #e2e6eb;
-          }
-          &:last-child{
-            border-right: 1px solid #e2e6eb;
-          }
+          //&:first-child{
+          //  border-left: 1px solid #e2e6eb;
+          //}
+          //&:last-child{
+          //  border-right: 1px solid #e2e6eb;
+          //}
         }
       }
       th {
@@ -118,6 +122,11 @@
         color: #999999;
         font-size: 14px;
         font-weight: 400;
+        span.nowrap {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
       }
     }
   }
@@ -125,6 +134,51 @@
 
 .wrapShow{
   border: 1px solid #e2e6eb;
+  border-left: none;
+  border-right: none;
   text-align: center;
   padding: 50px;
+}
+
+// 排序
+
+.ant-table-column-sorter {
+  position: relative;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  text-align: center;
+  font-weight: 400;
+  color: rgba(0, 0, 0, .45);
+  cursor: pointer;
+  .ant-table-column-sorter-up {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-width: 0 5px 5px;
+    border-style: solid;
+    border-color: transparent transparent #979899; /*透明 透明  灰*/
+    &.active {
+      border-color: transparent transparent #2e90ff; /*灰 透明 透明 */
+    }
+    //&:hover{
+    //  border-color: transparent transparent #8fd6ff ;/*灰 透明 透明 */
+    //}
+  }
+  .ant-table-column-sorter-down {
+    position: absolute;
+    top: 8px;
+    width: 0;
+    height: 0;
+    border-width: 5px 5px 0;
+    border-style: solid;
+    border-color: #979899 transparent transparent; /*灰 透明 透明 */
+    &.active {
+      border-color: #2e90ff transparent transparent; /*灰 透明 透明 */
+    }
+    //&:hover{
+    //  border-color:#8fd6ff transparent transparent;/*灰 透明 透明 */
+    //}
+  }
 }

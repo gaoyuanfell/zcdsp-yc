@@ -170,9 +170,9 @@ export class CampaignExpandComponent implements OnInit {
     this.directional$ = codyDepth(this.directional);
     this._dialog.open(directional, {title: '修改定向'}).subscribe(data => {
       if (data) {
-        this._campaignService.batchAddUpdate({
-          campaign_ids: [this.id],
-          ...this.directional
+        this._campaignService.directionalEdit({
+          campaign_id: this.id,
+          ...this.directional$
         }).subscribe(res => {
           this.init();
         })

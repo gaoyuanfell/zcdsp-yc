@@ -45,18 +45,14 @@ export interface Props {
   styles: [
       `
       :host {
-        height: 70px;
+        height: 50px;
         display: block;
       }
 
       .paging {
         text-align: right;
-        position: absolute;
         z-index: 30;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin-bottom: 20px;
+        padding: 20px 0;
       }
 
       .paging > span {
@@ -69,7 +65,6 @@ export interface Props {
         display: inline-block;
         margin-right: 1px;
         cursor: pointer;
-
       }
 
       .paging > span.active {
