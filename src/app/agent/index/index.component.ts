@@ -159,4 +159,19 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   }
 
 
+  sublogin(user_id, type = '') {
+    // 浏览器出现拦截 先在异步外面打开页面
+    const tem = window.open(); // 先打开页面
+    this._publicService.sublogin({user_id: user_id}).subscribe(res => {
+        if (res.success === 200) {
+          tem.location.href = type ? this._publicService.goAct({token: res.result}) : this._publicService.goHome({token: res.result})
+        }
+      },
+      () => {
+        tem.close()
+      }
+    )
+  }
+
+
 }

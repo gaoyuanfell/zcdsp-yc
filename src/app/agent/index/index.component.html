@@ -48,10 +48,10 @@
           </div>
         </div>
         <div class="ratio">
-          <div class="list">周同比<span>%</span>
+          <div class="list">周同比<span>{{user?.wow * 1 | number: '1.2-2'}}%</span>
             <i [ngClass]="{'red': user?.wow > 0, 'green':  user?.wow < 0 }"></i>
           </div>
-          <div class="list">日环比<span>%</span>
+          <div class="list">日环比<span>{{user?.dod * 1 | number: '1.2-2'}}%</span>
             <i [ngClass]="{'red': user?.dod > 0, 'green':  user?.dod < 0 }"></i>
           </div>
         </div>
@@ -150,10 +150,14 @@
                 <td class="text-left">{{data.wait_count | number }}</td>
                 <td class="text-left">{{data.wait_count | number }}</td>
                 <td class="text-left">{{data.balance |currencyFormat }}</td>
-                <td class="text-center">
-                  <a data-link (click)="sublogin(data.user_id)">登入投放</a>
-                  <!--<a data-link (click)="sublogin(data.user_id, 'type')">投放</a>-->
+                <td>
+                  <a data-link (click)="sublogin(data.user_id)">登入</a>
+                  <a data-link (click)="sublogin(data.user_id, 'type')">投放</a>
                 </td>
+                <!--<td class="text-center">-->
+                  <!--<a data-link (click)="sublogin(data.user_id)">登入投放</a>-->
+                  <!--&lt;!&ndash;<a data-link (click)="sublogin(data.user_id, 'type')">投放</a>&ndash;&gt;-->
+                <!--</td>-->
               </tr>
               <tr #trExpand>
                 <td colspan="1000" *ngIf="trExpand.show">
@@ -169,7 +173,7 @@
     <div class="originality" [ngStyle]="{'display':dayTotalListData?.length > 0 ?'block':'none'}">
       <div class="title">
         <div class="left">
-          近期数据趋势<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'近15天内的客户投放数据'"></i>
+          近期数据趋势<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="(_dayTotal === null ? dayTotalTitle : _dayTotal?.date)+ '的投放数据'"></i>
         </div>
         <div class="right">
           <yc-button-group class="tool" [list]="totalCodeList | keys:'value':'label'" [(ngModel)]="dayTotalCode" (changeEvent)="changeDayTotalChart(todayReportEcharts,dayTotalChartData,dayTotalCode, _dayTotal === null ? dayTotalTitle : _dayTotal?.date)"   *ngIf="dayTotal_change==='table'? false : true"></yc-button-group>

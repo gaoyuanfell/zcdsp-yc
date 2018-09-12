@@ -31,7 +31,7 @@ import {IndexService} from '../../../service/agent/index.service';
       }
       .tool {
         position:absolute;
-        right:10px;
+        right:0px;
         top:-10px;
       }
     `
@@ -157,7 +157,7 @@ export class IndexExpandComponent implements OnInit {
         legend: {   // 失效了
           itemWidth: 48, // 图例的宽度
           data: ['今日数据', '昨日数据'],
-          right: 350,  // 位置
+          right: 520,  // 位置
           textStyle: {
             color: '#ccc'
           }

@@ -1,9 +1,40 @@
 <div class="container">
 
+  <!--用户注册提示-->
   <div class="leadingWord" *ngIf="_new_user_flag && !new_user && user_status === 'balance_consume'">
-      <ng-template [ngIf]=" user_status === 'balance_consume' ">
-        <p class="no-login-introduction">您的账户余额不足昨日消耗，为保证广告正常投放，请尽快充值！</p>
+    <ng-template [ngIf]=" user_status === 'balance_consume' ">
+      <p class="no-login-introduction">您的账户余额不足昨日消耗，为保证广告正常投放，请尽快充值！</p>
+    </ng-template>
+    <span (click)="_new_user_flag = false">X</span>
+  </div>
+  <!--新用户注册提示-->
+  <div class="leadingWord" *ngIf="_new_user_flag && new_user">
+    <div style="display:flex;">
+      <ng-template [ngIf]="user_status === 'not_qualification' ">
+        <p class="no-login-introduction">您还没提交公司资质信息，上传完整资料为广告投放做好准备吧！</p>
+        <div class="btn btn-small" routerLink="/ads/user/info">
+          上传资质
+        </div>
       </ng-template>
+
+      <ng-template [ngIf]="user_status === 'not_checked_audited' ">
+        <p class="no-login-introduction">账户审核中，请耐心等待!</p>
+      </ng-template>
+
+      <ng-template [ngIf]="user_status === 'not_recharge' ">
+        <p class="no-login-introduction">您的账户余额为0元，有足够的余额才能投放哦！</p>
+        <div class="btn btn-small" (click)="recharge()">
+          充值流程
+        </div>
+      </ng-template>
+
+      <ng-template [ngIf]="user_status === 'not_campaign' ">
+        <p class="no-login-introduction">马上创建活动，开始投放吧！</p>
+        <div class="btn btn-small" routerLink="/ads/spread/campaign-add/0">
+          自助投放
+        </div>
+      </ng-template>
+    </div>
     <span (click)="_new_user_flag = false">X</span>
   </div>
 
@@ -249,7 +280,7 @@
     <div class="originality" [ngStyle]="{'display':dayTotalListData?.length > 0 ?'block':'none'}">
       <div class="title">
         <div class="left">
-          近期数据趋势<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'近15天内的投放数据'"></i>
+          近期数据趋势<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="(_dayTotal === null ? dayTotalTitle : _dayTotal?.date)+ '的投放数据'"></i>
         </div>
         <div class="right">
           <yc-button-group class="tool" [list]="totalCodeList | keys:'value':'label'" [(ngModel)]="dayTotalCode" (changeEvent)="changeDayTotalChart(todayReportEcharts,dayTotalChartData,dayTotalCode,_dayTotal === null ? dayTotalTitle : _dayTotal?.date)"   *ngIf="dayTotal_change==='table'? false : true"></yc-button-group>
@@ -478,9 +509,6 @@
       </div>
     </div>
   </div>
-
-
-
 
 
 </div>

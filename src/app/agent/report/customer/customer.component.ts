@@ -55,6 +55,7 @@ export class CustomerComponent implements OnInit {
   init() {
     this._reportService.childInit().subscribe(res => {
       this.user_list = res.result.user_list;
+      this.user_list.forEach( item => item.all_name = item.user_name + item.nick_name)
     })
   }
 
