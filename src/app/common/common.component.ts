@@ -357,13 +357,17 @@ export class BaseIndexComponent implements OnInit{
         series: [
           {
             name: '今日数据',
-            type: 'line',
+            // type: 'line',
+            type: 'bar',
+            barWidth : 5,
             color: ['#2e90ff'],
             symbol: 'none'
           },
           {
             name: '昨日数据',
-            type: 'line',
+            // type: 'line',
+            type: 'bar',
+            barWidth : 5,
             color: ['#31c38f'],
             symbol: 'none'
           },
@@ -559,13 +563,17 @@ export class BaseIndexComponent implements OnInit{
         series: [
           {
             name: '今日数据',
-            type: 'line',
+            // type: 'line',
+            type: 'bar',
+            barWidth : 5,
             color: ['#2e90ff'],
             symbol: 'none'
           },
           {
             name: '昨日数据',
-            type: 'line',
+            // type: 'line',
+            type: 'bar',
+            barWidth : 5,
             color: ['#31c38f'],
             symbol: 'none'
           },
@@ -610,10 +618,10 @@ export class BaseIndexComponent implements OnInit{
         color: ['#31c38f'],
         grid: { // 整体位置
           top: '0',
-          left: '-30',
+          left: '0',
           right: '0',
           bottom: '0',
-          containLabel: true
+          containLabel:false
         },
         xAxis: {
           type: 'category',
@@ -626,7 +634,7 @@ export class BaseIndexComponent implements OnInit{
               color: '#31c38f',
               width: 2,
               type: 'solid'
-          },
+            },
           },
           axisLabel: {
             show:false
@@ -645,14 +653,15 @@ export class BaseIndexComponent implements OnInit{
           },
         },
         series: [{
-          barWidth: '30%',
+          type: 'bar',
+          barWidth: 10,
           itemStyle: {
             normal: {
               // barBorderRadius:[10, 10, 0, 0]
             }
           },
           data: [],
-          type: 'bar'
+
         }]
       }
     );
@@ -953,10 +962,10 @@ export class BaseIndexComponent implements OnInit{
       {
         grid: {
           top: '0',
-          left: '-30',
+          left: '0',
           right: '0',
           bottom: '0',
-          containLabel: true
+          containLabel: false
         },
         color: ['#975fe4'],
         tooltip: {
