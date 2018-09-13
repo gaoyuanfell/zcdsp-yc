@@ -544,10 +544,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
   // ---------------------------- 下一步 ------------------------ //
   _nextStepNum = 0
   _nextStep(){
-
-
-    console.info(this.campaign)
-
+    if (this.valid()) return
     this._directionalService.directionalRecommend().subscribe(res => {
       this.directionalSmart = res.result;
       this.directional = {...this.directionalSmart};

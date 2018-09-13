@@ -1,5 +1,5 @@
 <div class="autocomplete-panel" [ngStyle]="{'width.px': width}">
-  <input type="text" [(ngModel)]="_value" (focus)="open()" (ngModelChange)="_valueChange()" [placeholder]="placeholder">
+  <input type="text" [(ngModel)]="_value" (focus)="open()" (ngModelChange)="_valueChange()" [placeholder]="placeholder" [required]="required">
 </div>
 
 <ng-template>
