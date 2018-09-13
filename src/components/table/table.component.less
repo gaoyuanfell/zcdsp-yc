@@ -31,30 +31,12 @@
     background: #fff;
     border-collapse: separate;
     border-spacing: 0;
-    tbody,tfoot{
-      tr td:not(.none){
-        //&:first-child{
-        //  border-left: 1px solid #e2e6eb;
-        //}
-        //&:last-child{
-        //  border-right: 1px solid #e2e6eb;
-        //}
-      }
-    }
     thead {
       tr {
         background: #fdfdfd;
         height: 36px;
-        th:not(.none){
-          //&:first-child{
-          //  border-left: 1px solid #e2e6eb;
-          //}
-          //&:last-child{
-          //  border-right: 1px solid #e2e6eb;
-          //}
-        }
       }
-      th {
+      th:not(.none) {
         z-index: 16;
         white-space: nowrap;
         padding: 0 15px;
@@ -107,12 +89,12 @@
     tbody{
       tr {
         &:hover{
-          td{
+          td:not(.none){
             background: #eef6ff;
           }
         }
       }
-      td {
+      td:not(.none) {
         border-top: 1px solid #e2e6eb;
         height: 36px;
         word-wrap: break-word;
