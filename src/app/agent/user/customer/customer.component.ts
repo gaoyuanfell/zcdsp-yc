@@ -64,10 +64,11 @@ export class CustomerComponent implements OnInit {
       this.total_count = res.result.total_count;
     })
   }
-
+  user_state_count;
   init() {
     this._agentUserService.listInit().subscribe(res => {
-      this.audit_status_list = res.result.user_state_count;
+      this.audit_status_list = res.result.audit_status_list;
+      this.user_state_count = res.result.user_state_count;
       // this.audit_total = this.audit_status_list.reduce((total, item) => {
       //       return total +  Number(item.entry_sequence)
       // }, 0)

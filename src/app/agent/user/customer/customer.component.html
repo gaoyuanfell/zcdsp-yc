@@ -5,14 +5,14 @@
         <div class="img"><img src="assets/img/user/customer-total.png" alt=""></div>
         <div class="right">
           <p>客户统计</p>
-          <h1>{{audit_status_list?.total_count}}</h1>
+          <h1>{{user_state_count?.total_count}}</h1>
         </div>
       </div>
       <div class="right_bottom">
-        <div>通过<span>{{audit_status_list?.audited  | number}}</span></div>
-        <div>未通过<span>{{audit_status_list?.audit_failed  | number}}</span></div>
-        <div>审核中<span>{{audit_status_list?.penging_audit  | number}}</span></div>
-        <div>冻结<span>{{audit_status_list?.freeze  | number}}</span></div>
+        <div>通过<span>{{user_state_count?.audited  | number}}</span></div>
+        <div>未通过<span>{{user_state_count?.audit_failed  | number}}</span></div>
+        <div>审核中<span>{{user_state_count?.penging_audit  | number}}</span></div>
+        <div>冻结<span>{{user_state_count?.freeze  | number}}</span></div>
       </div>
     </li>
     <li>
@@ -37,25 +37,28 @@
 
 
   <div class="table-content">
-    <div class="query-tool">
-      <div class="left-tool">
-        <h2 class="table-title">
-          客户管理
-        </h2>
-      </div>
-      <div class="right-tool">
-        <div class="btn" (click)="addCustomer()" *ngIf="isPermit('ZCMOBI_US_CUSTOMER_ADD')">
-          新增客户
-        </div>
-        <div class="btn" (click)="exportUrl()">
-          导出
-          <i class="btn-icon-export"></i>
-        </div>
-        <yc-checkbox-group [(ngModel)]="zc_audit_status" [list]="audit_status_list" (changeEvent)="auditStatusChange()" [props]="{value:'lookup_code',label:'meaning'}"></yc-checkbox-group>
-        <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'请输入客户名称、账号、ID'"></yc-input-search>
-      </div>
-    </div>
+
     <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
+
+      <div class="query-tool"  #queryRef query>
+        <div class="left-tool">
+          <h2 class="table-title">
+            客户管理
+          </h2>
+        </div>
+        <div class="right-tool">
+          <div class="btn" (click)="addCustomer()" *ngIf="isPermit('ZCMOBI_US_CUSTOMER_ADD')">
+            新增客户
+          </div>
+          <div class="btn" (click)="exportUrl()">
+            导出
+            <i class="btn-icon-export"></i>
+          </div>
+          <yc-checkbox-group [(ngModel)]="zc_audit_status" [list]="audit_status_list" (changeEvent)="auditStatusChange()" [props]="{value:'lookup_code',label:'meaning'}"></yc-checkbox-group>
+          <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'请输入客户名称、账号、ID'"></yc-input-search>
+        </div>
+      </div>
+
       <table #tableRef table>
         <thead>
         <tr sticky>
