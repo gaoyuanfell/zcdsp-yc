@@ -104,16 +104,17 @@
         <div class="form-group flex-center">
           <label class="form-label"><span>*</span>APP包类型:</label>
           <div class="form-input">
-            <yc-radio-group [disabled]="!can_modify" [(ngModel)]="campaign.app_package_type" [list]="[{value:'1',label:'主线包'},{value:'2',label:'渠道包'}]" (changeEvent)="_appPackageTypeChange()"></yc-radio-group>
+            <yc-radio-group [disabled]="!can_modify" [(ngModel)]="campaign.app_package_type" [list]="[{value:'1',label:'主线包',desc:'需要提供APP在应用宝上架的APPID'},{value:'2',label:'渠道包',desc:'需提供APP再应用宝上架的APPID和渠道包名称'}]" (changeEvent)="_appPackageTypeChange()"></yc-radio-group>
           </div>
         </div>
         <div class="form-group flex">
           <label class="form-label"><span>*</span>APPID:</label>
-          <div class="form-input">
+          <div class="form-input  flex-center">
             <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_bundle_id" #app_bundle_id="ngModel"
               type="text" placeholder="请输入APPID">
             <p class="input-error" *ngIf="(_valid || app_bundle_id.dirty) && !campaign.app_bundle_id">请输入APPID</p>
           </div>
+          <p class="m-l-1 form-label-text"> <i class="icon-tool-help" yc-tooltip  [ycContent]="'请输入在应用宝上架的APPID'" style="margin-left:5px;"></i> </p>
         </div>
       </ng-template>
 
@@ -139,6 +140,7 @@
           <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_package_name" #app_package_name="ngModel" type="text" placeholder="请选择输入APP包名">
           <p class="input-error" *ngIf="(_valid || app_package_name.dirty) && !campaign.app_package_name">请选择输入APP包名</p>
         </div>
+        <p class="m-l-1 form-label-text"> <i class="icon-tool-help" yc-tooltip  [ycContent]="'请输入在应用宝上架的APP渠道包名称'" style="margin-left:5px;"></i> </p>
       </div>
       <div class="form-group flex">
         <label class="form-label"><span>*</span>APP名称:</label>
