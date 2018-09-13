@@ -145,11 +145,9 @@ export class LoginComponent implements OnInit {
     this.forgetCodeUrl = this._publicService.verifyCode(obj);
   }
 
-  setInvalidClass(form, formControl, type) {
-    console.log(type)
-    console.log(this.error)
+  setInvalidClass(form, formControl) {
     let cl;
-    if ( (formControl && formControl.invalid && (formControl.dirty || formControl.touched || form.submitted)) || (type === this.error) ) {
+    if ( formControl && formControl.invalid && (formControl.dirty || formControl.touched || form.submitted) ) {
       cl = 'has-error';
     }
     if (formControl && formControl.valid) {
@@ -168,7 +166,6 @@ export class LoginComponent implements OnInit {
     };
     this._publicService.checkVerifycode(obj).subscribe(res => {
       if (res.success === 200) {
-        console.log(this.user_name)
         this.pwd_show = true;
       }
     }, error => {
@@ -227,7 +224,6 @@ export class LoginComponent implements OnInit {
         password: SparkMD5.hash(this.passWord),
         veritycode: this.vertCode
       }).subscribe(res => {
-        console.log(res);
         if (res.success === 200) {
           this.router.navigate(['/home']);
         } else {
