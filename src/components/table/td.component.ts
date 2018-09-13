@@ -7,7 +7,7 @@ import {
   Host,
   Input,
   OnChanges, OnDestroy, OnInit,
-  Optional,
+  Optional, Renderer2,
   SimpleChanges, ViewEncapsulation
 } from '@angular/core';
 import {TableComponent} from './table.component';
@@ -78,8 +78,22 @@ export class TdComponent implements OnChanges{
     this._stickyEnd = coerceBooleanProperty(value);
   }
 
+  set Left(val){
+    this.renderer.setStyle(this.ref.nativeElement, 'left', `${val}px`)
+    this.renderer.setStyle(this.ref.nativeElement, 'z-index', 16)
+  }
+
+  set BorderRight(val: boolean){
+    if(val){
+      this.renderer.setStyle(this.ref.nativeElement, 'border-right', `1px solid #e2e6eb`)
+    }else {
+      this.renderer.setStyle(this.ref.nativeElement, 'border-right', `none`)
+    }
+  }
+
   constructor(@Host() @Optional() private trComponent: TrComponent,
               @Optional() public ref: ElementRef,
+              private renderer: Renderer2,
               @Host() @Optional() private tableComponent: TableComponent,
               private changeDetectorRef: ChangeDetectorRef) {
     if(trComponent){

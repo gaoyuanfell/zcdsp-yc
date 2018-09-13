@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     private title: Title,
     private $store: Store<AppState>,
   ) {
-    this.$store.dispatch(new MenuAction.AssignMenu(undefined));
+    this.$store.dispatch(new MenuAction.AssignMenu([]));
   }
 
   ngOnInit() {

@@ -8,7 +8,7 @@ import {
   OnChanges,
   OnInit,
   Optional,
-  SimpleChanges, ViewEncapsulation
+  SimpleChanges, ViewEncapsulation, Renderer2
 } from '@angular/core';
 import {TableComponent} from './table.component';
 import {TrComponent} from './tr.component';
@@ -71,6 +71,19 @@ export class ThComponent implements OnChanges, OnInit {
     this.changeDetectorRef.markForCheck();  // 手动改变渲染 每个都有status set get方法
   }
 
+  set Left(val){
+    this.renderer.setStyle(this.ref.nativeElement, 'left', `${val}px`)
+    this.renderer.setStyle(this.ref.nativeElement, 'z-index', 17)
+  }
+
+  set BorderRight(val: boolean){
+    if(val){
+      this.renderer.setStyle(this.ref.nativeElement, 'border-right', `1px solid #e2e6eb`)
+    }else {
+      this.renderer.setStyle(this.ref.nativeElement, 'border-right', `none`)
+    }
+  }
+
   // @HostBinding()和@HostListener()[处理变量]在自定义指令时非常有用。@HostBinding()可以为指令的宿主元素添加类、样式、属性等，而@HostListener()可以监听宿主元素上的事件。
   // HostBinding[常量绑定]
   // 一般找dom 天机class  用[ngClass]
@@ -125,6 +138,7 @@ export class ThComponent implements OnChanges, OnInit {
 
   constructor(@Host() @Optional() private trComponent: TrComponent,
               @Optional() public ref: ElementRef,
+              private renderer:Renderer2,
               @Host() @Optional() private tableComponent: TableComponent,
               private changeDetectorRef: ChangeDetectorRef) {
     if(trComponent){
