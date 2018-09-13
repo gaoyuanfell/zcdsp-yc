@@ -16,6 +16,7 @@ import {TemplatePortal} from '@angular/cdk/portal';
 import {FlexibleConnectedPositionStrategy, Overlay, OverlayConfig, OverlayRef, PositionStrategy} from '@angular/cdk/overlay';
 import {Directionality} from '@angular/cdk/bidi';
 import {AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator} from '@angular/forms';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 export interface Props {
   value?: string;
@@ -78,6 +79,15 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor, Vali
   @Input() width = 300;
   @Input() placeholder = '';
   @Input() pattern;
+  private _required;
+
+  get required() {
+    return this._required;
+  }
+
+  @Input() set required(value) {
+    this._required = coerceBooleanProperty(value);
+  }
 
   private _list;
 

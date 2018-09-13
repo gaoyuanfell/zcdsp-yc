@@ -157,7 +157,8 @@ export class TooltipDirective implements OnInit, OnDestroy {
           .flexibleConnectedTo(this.elementRef)    // 要与某个物件连接的策略
           .withFlexibleDimensions(false)
           .withViewportMargin(8)
-          // .withDefaultOffsetY(-6)
+          .withDefaultOffsetY(4)
+          .withDefaultOffsetX(-30)
           .withPush(false)
           .withPositions([   // bottomLeft
             // ...positions

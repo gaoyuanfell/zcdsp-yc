@@ -51,10 +51,11 @@
         <div class="form-input">
           <yc-autocomplete #click_link="ngModel"
                            [(ngModel)]="campaign.click_link"
-                           [width]="460"
+                           [width]="520"
                            [list]="templateList"
                            [props]="{label: 'name', value: 'link'}"
-                           [placeholder]="'请填写落地页(http://、https://)'"
+                           [placeholder]="'请填写落地页(http://)'"
+                           required
                            pattern="^([hH]{1}[tT]{2}[pP]:\/\/|[hH]{1}[tT]{2}[pP][sS]:\/\/)[\d,a-z,A-Z]+[\w,\W]*$"
                            (selectedEvent)="templateChange($event)"
                            (inputEvent)="templateInputChange($event)"></yc-autocomplete>
@@ -65,7 +66,6 @@
 
           <a target="_blank" *ngIf="campaign.click_link && !click_link.invalid && campaign.click_type == '2'" [href]="campaign.click_link"><button class="btn">预览</button></a>
           <button class="btn" *ngIf="campaign.template_id && campaign.click_type == '1'" (click)="templatePreview()" (mouseenter)="previewBoxShow = true" (mouseleave)="previewBoxShow = false;">预览</button>
-
           <div class="preview-box flex-center" *ngIf="_previewCodeUrl && previewBoxShow">
             <div class="qr-code">
               <img [src]="_previewCodeUrl">
@@ -86,10 +86,10 @@
     <ng-template [ngIf]="campaign.target_type == '2'">
       <div class="form-group flex">
         <label class="form-label"><span>*</span>下载地址:</label>
-        <div class="form-input">
-          <textarea [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.download_link" #download_link="ngModel"
-            placeholder="http://、https://" (ngModelChange)="campaign.click_link = campaign.download_link" pattern="^([hH]{1}[tT]{2}[pP]:\/\/|[hH]{1}[tT]{2}[pP][sS]:\/\/)[\d,a-z,A-Z]+[\w,\W]*$"
-            required [ngClass]="{'has-error':(_valid || download_link.dirty || download_link.touched) && download_link.invalid }"></textarea>
+        <div class="form-input" style="width: 520px">
+          <input type="text" [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.download_link" #download_link="ngModel"
+            placeholder="请填写落地页(http://)" (ngModelChange)="campaign.click_link = campaign.download_link" pattern="^([hH]{1}[tT]{2}[pP]:\/\/|[hH]{1}[tT]{2}[pP][sS]:\/\/)[\d,a-z,A-Z]+[\w,\W]*$"
+            required [ngClass]="{'has-error':(_valid || download_link.dirty || download_link.touched) && download_link.invalid }"/>
           <p class="input-error" *ngIf="(_valid || download_link.dirty || download_link.touched) && download_link.invalid">请输入下载地址</p>
         </div>
       </div>
@@ -174,9 +174,10 @@
     <ng-template [ngIf]="campaign.target_type == '3'">
       <div class="form-group flex">
         <label class="form-label"><span>*</span>下载地址:</label>
-        <div class="form-input">
-          <textarea [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.download_link" #download_link="ngModel" placeholder="http://、https://" (ngModelChange)="campaign.click_link = campaign.download_link"></textarea>
-          <p class="input-error" *ngIf="(_valid || download_link.dirty) && !campaign.download_link">请输入下载地址</p>
+        <div class="form-input" style="width: 520px">
+          <input type="text" [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.download_link" #download_link="ngModel" placeholder="请填写落地页(http://)" (ngModelChange)="campaign.click_link = campaign.download_link" pattern="^([hH]{1}[tT]{2}[pP]:\/\/|[hH]{1}[tT]{2}[pP][sS]:\/\/)[\d,a-z,A-Z]+[\w,\W]*$"
+                 required [ngClass]="{'has-error':(_valid || download_link.dirty || download_link.touched) && download_link.invalid }"/>
+          <p class="input-error" *ngIf="(_valid || download_link.dirty || download_link.touched) && download_link.invalid">请输入下载地址</p>
         </div>
       </div>
       <div class="form-group flex">

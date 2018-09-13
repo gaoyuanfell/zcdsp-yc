@@ -148,6 +148,9 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
   paginatorHeight = 0
 
   ngOnInit() {
+    window.onresize = () => {
+      this.position();
+    }
     this.checkAllObservable.subscribe((data) => {
       if (data) {
         this.selectData.push(...this.data);
