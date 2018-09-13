@@ -61,14 +61,17 @@ export class TrComponent implements AfterViewInit{
 
   trigger() {
     if (!this.expand) return;
+    let scrollTop = this._global.containerFullRef.scrollTop
     this.expand.active = !this.expand.active;
     this.expand.state = this.expand.active ? 'active' : 'inactive';
     if (this.expand.active) {
       this.expand.show = true;
+      this._global.containerFullRef.scrollTop = scrollTop + 1
       this.changeDetectorRef.markForCheck();
     } else {
       setTimeout(() => {
         this.expand.show = false;
+        this._global.containerFullRef.scrollTop = scrollTop + 1
         this.changeDetectorRef.markForCheck();
       }, 150);
     }
