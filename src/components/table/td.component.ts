@@ -83,6 +83,11 @@ export class TdComponent implements OnChanges{
     this.renderer.setStyle(this.ref.nativeElement, 'z-index', 16)
   }
 
+  set LeftTFoot(val){
+    this.renderer.setStyle(this.ref.nativeElement, 'left', `${val}px`)
+    this.renderer.setStyle(this.ref.nativeElement, 'z-index', 18)
+  }
+
   set BorderRight(val: boolean){
     if(val){
       this.renderer.setStyle(this.ref.nativeElement, 'border-right', `1px solid #e2e6eb`)

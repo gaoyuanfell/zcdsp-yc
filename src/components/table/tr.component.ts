@@ -132,7 +132,7 @@ export class TrComponent implements AfterViewInit{
           })
         })
       }
-      this.tableComponent.overflowRef.overflowSubject.subscribe(({left}) => {
+      this.tableComponent.overflowRef && this.tableComponent.overflowRef.overflowSubject.subscribe(({left}) => {
         this.thList.filter(th => th.stickyStart).forEach((th,index,item) => {
           th.Left = left;
           if(index === item.length - 1){
@@ -143,7 +143,7 @@ export class TrComponent implements AfterViewInit{
     }
 
     if (this.tbodyComponent) {
-      this.tableComponent.overflowRef.overflowSubject.subscribe(({left}) => {
+      this.tableComponent.overflowRef && this.tableComponent.overflowRef.overflowSubject.subscribe(({left}) => {
         this.tdList.filter(td => td.stickyStart).forEach((td,index,item) => {
           td.Left = left;
           if(index === item.length - 1){
@@ -154,7 +154,14 @@ export class TrComponent implements AfterViewInit{
     }
 
     if (this.tfootComponent) {
-
+      this.tableComponent.overflowRef && this.tableComponent.overflowRef.overflowSubject.subscribe(({left}) => {
+        this.tdList.filter(td => td.stickyStart).forEach((td,index,item) => {
+          td.LeftTFoot = left;
+          if(index === item.length - 1){
+            td.BorderRight = left != 0
+          }
+        })
+      })
     }
   }
 
