@@ -82,7 +82,7 @@
 
     <table #tableRef table>
       <thead>
-      <tr class="text-center">
+      <tr sticky class="text-center">
         <th class="text-center" [showSort]="true" [sortKey]="'creation_date'">时间</th>
         <th class="text-center">类型</th>
         <th class="text-right" [showSort]="true" [sortKey]="'money'">金额</th>
@@ -106,14 +106,11 @@
         </tr>
       </ng-template>
       </tbody>
-      <tfoot [hidden]="!ycTable?.data?.length">
-      <tr sticky class="none">
-        <td class="none" colspan="100%" style="background: #f9fafb;">
-          <yc-table-paginator [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
-        </td>
-      </tr>
-      </tfoot>
     </table>
+    <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
+    <div paginator style="background: #f9fafb;">
+      <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
+    </div>
   </yc-table>
 </div>
 

@@ -134,6 +134,7 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
       let bcrt2 = this.tableContainerRef.nativeElement.getBoundingClientRect();
       let offsetTop = bcrt2.top - bcrt1.top;
       this._global.overflowSubject.subscribe(({top}) => {
+        console.info(top);
         if (offsetTop < top) {
           _queryRef.style.top = `${top - offsetTop}px`;
         } else {

@@ -110,8 +110,8 @@
           </td>-->
         </tr>
 
-        <tr #trExpand>
-          <td colspan="100%" *ngIf="trExpand.show">
+        <tr #trExpand class="none">
+          <td colspan="100%" class="none" *ngIf="trExpand.show">
             <yc-campaign-expand (change)="search()" [id]="data.campaign_id" [authList]="authList"></yc-campaign-expand>
           </td>
         </tr>

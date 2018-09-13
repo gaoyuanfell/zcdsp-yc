@@ -84,7 +84,7 @@ export class TrComponent implements AfterViewInit{
     this._sticky = coerceBooleanProperty(value);
   }
 
-  private _stickyStart
+  private _stickyStart;
 
   get stickyStart() {
     return this._stickyStart;
@@ -94,7 +94,7 @@ export class TrComponent implements AfterViewInit{
     this._stickyStart = coerceBooleanProperty(value);
   }
 
-  private _stickyEnd
+  private _stickyEnd;
 
   get stickyEnd() {
     return this._stickyEnd;
@@ -107,7 +107,6 @@ export class TrComponent implements AfterViewInit{
   ngAfterViewInit(): void {
     if(!this.tableComponent) return;
     if (this.theadComponent) {
-
       let bcrt1 = this._global.containerFullRef.getBoundingClientRect();
       let bcrt2 = this.tableComponent.tableWrapRef.nativeElement.getBoundingClientRect();
       let offsetTop = bcrt2.top - bcrt1.top;
@@ -120,26 +119,10 @@ export class TrComponent implements AfterViewInit{
           }
         })
       })
-
-
-      //
-      // let left = 0;
-      // this.thList.filter(th => th.stickyStart).forEach(th => {
-      //   this.renderer.setStyle(th.ref.nativeElement, 'left', `${left}px`);
-      //   this.renderer.setStyle(th.ref.nativeElement, 'position', 'sticky');
-      //   this.renderer.setStyle(th.ref.nativeElement, 'z-index', 21);
-      //   left += th.ref.nativeElement.offsetWidth
-      // })
     }
 
     if (this.tbodyComponent) {
-      // let left = 0;
-      // this.tdList.filter(td => td.stickyStart).forEach(td => {
-      //   this.renderer.setStyle(td.ref.nativeElement, 'left', `${left}px`);
-      //   this.renderer.setStyle(td.ref.nativeElement, 'position', 'sticky');
-      //   this.renderer.setStyle(td.ref.nativeElement, 'z-index', 19);
-      //   left += td.ref.nativeElement.offsetWidth
-      // })
+
     }
 
     if (this.tfootComponent) {
