@@ -13,6 +13,8 @@ const routes: Routes = [
   {path: 'register', loadChildren: './register/register.module#RegisterModule'},
   {path: 'landing', loadChildren: './landing-page/landing-page.module#LandingPageModule'},
   {path: 'template', loadChildren: './template-page/template-page.module#TemplatePageModule'},
+  {path: 'help', loadChildren: './help/help.module#HelpModule'},
+
   {
     path: 'home',
     canActivate: [TokenGuard, MenuGuard],
