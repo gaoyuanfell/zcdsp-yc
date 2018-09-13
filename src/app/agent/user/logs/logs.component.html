@@ -43,7 +43,7 @@
 
     <table #tableRef table>
       <thead>
-      <tr>
+      <tr sticky>
         <th>内容</th>
         <th>操作IP</th>
         <th>被操作账户</th>
@@ -60,14 +60,12 @@
         </tr>
       </ng-template>
       </tbody>
-      <tfoot [hidden]="!ycTable?.data?.length">
-      <tr sticky class="none">
-        <td class="none" colspan="100%" style="background: #f9fafb;">
-          <yc-table-paginator [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
-        </td>
-      </tr>
-      </tfoot>
+
     </table>
+    <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
+    <div paginator style="background: #f9fafb;">
+      <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
+    </div>
   </yc-table>
 </div>
 </div>
