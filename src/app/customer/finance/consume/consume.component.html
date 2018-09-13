@@ -80,8 +80,8 @@
             </td>
             <td class="text-center">{{data['consume_money'] | currencyFormat}}</td>
           </tr>
-          <tr #trExpand>
-            <td colspan="1000" *ngIf="trExpand.show">
+          <tr #trExpand class="none">
+            <td colspan="1000" *ngIf="trExpand.show" class="none">
               <yc-consume-expand [date]="data['current_date']"></yc-consume-expand>
             </td>
           </tr>

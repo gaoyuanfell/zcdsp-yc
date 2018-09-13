@@ -23,7 +23,7 @@
     <table #tableRef table>
     <thead>
     <tr sticky>
-      <th class="text-right"></th>
+      <!--<th class="text-right"></th>-->
       <th class="text-center">统计时间</th>
       <th class="text-right" [showSort]="true" [sortKey]="'pv'" ><span title="广告被展现给受众的次数">曝光量</span></th>
       <th class="text-right" [showSort]="true" [sortKey]="'click'"><span title="排除恶意点击后，广告被受众点击的次数">点击量</span></th>
@@ -36,10 +36,13 @@
     <tbody>
     <ng-template [ngForOf]="ycTable.data" ngFor let-data>
       <tr [expand]="trExpand" #tr>
-        <td class="text-right">
+        <!--<td class="text-right">-->
+          <!--<i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>-->
+        <!--</td>-->
+        <td class="text-center">
           <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>
+          {{data.date}}
         </td>
-        <td class="text-center">{{data.date}}</td>
         <td class="text-right">{{data.pv | number}}</td>
         <td class="text-right">{{data.click | number}}</td>
         <td class="text-right">{{ data.ctr * 100 | number: '1.2-2' }}%</td>
@@ -48,8 +51,8 @@
         <td class="text-right">{{ data.admoney | currencyFormat }}</td>
         <!--CurrencyPipe  默认保留2位-->
       </tr>
-      <tr #trExpand>
-        <td colspan="1000" *ngIf="trExpand.show">
+      <tr #trExpand class="none">
+        <td colspan="1000" *ngIf="trExpand.show" class="none">
           <yc-report-expand [type]="'datetime-report'" [begin_date]="data.date" [id]="''" [btnShow]='true' [campainActive]="query.campaign_id" [searchText]="query.search_text"></yc-report-expand>
         </td>
       </tr>
@@ -57,14 +60,13 @@
     </tbody>
       <tfoot [hidden]="!ycTable?.data?.length">
       <tr sticky>
-        <td colspan="1">全部合计</td>
-        <td>-</td>
-        <td>{{listTitle?.pv | number}}</td>
-        <td>{{listTitle?.click | number}}</td>
-        <td>{{ listTitle?.ctr * 100 | number: '1.2-2' }}%</td>
-        <td>{{ listTitle?.cpc | currencyFormat}}</td>
-        <td>{{ listTitle?.cpm * 1000 | currencyFormat}}</td>
-        <td>{{ listTitle?.admoney | currencyFormat }}</td>
+        <td class="text-center">本页合计</td>
+        <td  class="text-right">{{listTitle?.pv | number}}</td>
+        <td class="text-right">{{listTitle?.click | number}}</td>
+        <td class="text-right">{{ listTitle?.ctr * 100 | number: '1.2-2' }}%</td>
+        <td class="text-right">{{ listTitle?.cpc | currencyFormat}}</td>
+        <td class="text-right">{{ listTitle?.cpm * 1000 | currencyFormat}}</td>
+        <td class="text-right">{{ listTitle?.admoney | currencyFormat }}</td>
       </tr>
       </tfoot>
     </table>

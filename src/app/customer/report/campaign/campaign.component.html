@@ -25,7 +25,6 @@
       <thead>
       <tr sticky>
         <!--<th [showCheckbox]="true"></th>-->
-        <th></th>
         <th class="text-center">活动ID</th>
         <th>活动名称</th>
         <th class="text-right" [showSort]="true" [sortKey]="'pv'" ><span title="广告被展现给受众的次数">曝光量</span></th>
@@ -39,11 +38,10 @@
       <tbody>
       <ng-template [ngForOf]="ycTable.data" ngFor let-data>
         <tr [expand]="trExpand" #tr>
-          <td>
+          <td class="text-center">
             <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>
+            {{data.campaign_id}}
           </td>
-          <td class="text-center">{{data.campaign_id}}</td>
-          <!--<td [showCheckbox]="data"></td>-->
           <td [width]="200" title="{{data.campaign_name}}">
             {{data.campaign_name}}
           </td>
@@ -54,8 +52,8 @@
           <td class="text-right">{{ data.cpm * 1000 | currencyFormat}}</td>
           <td class="text-right">{{ data.admoney | currencyFormat }}</td>
         </tr>
-        <tr #trExpand>
-          <td colspan="1000" *ngIf="trExpand.show">
+        <tr #trExpand class="none">
+          <td colspan="1000" *ngIf="trExpand.show" class="none">
             <yc-report-expand [type]="'campaign-report'" [begin_date]="query.begin_date" [end_date]="query.end_date" [id]="data.campaign_id"></yc-report-expand>
           </td>
         </tr>
@@ -63,15 +61,14 @@
       </tbody>
       <tfoot [hidden]="!ycTable?.data?.length">
       <tr sticky>
-        <td>全部合计</td>
+        <td class="text-center">本页合计</td>
         <td>-</td>
-        <td>-</td>
-        <td>{{listTitle?.pv | number}}</td>
-        <td>{{listTitle?.click | number}}</td>
-        <td>{{ listTitle?.ctr * 100 | number: '1.2-2' }}%</td>
-        <td>{{ listTitle?.cpc | currencyFormat}}</td>
-        <td>{{ listTitle?.cpm * 1000 | currencyFormat}}</td>
-        <td>{{ listTitle?.admoney | currencyFormat }}</td>
+        <td  class="text-right">{{listTitle?.pv | number}}</td>
+        <td  class="text-right">{{listTitle?.click | number}}</td>
+        <td  class="text-right">{{ listTitle?.ctr * 100 | number: '1.2-2' }}%</td>
+        <td  class="text-right">{{ listTitle?.cpc | currencyFormat}}</td>
+        <td  class="text-right">{{ listTitle?.cpm * 1000 | currencyFormat}}</td>
+        <td  class="text-right">{{ listTitle?.admoney | currencyFormat }}</td>
       </tr>
       </tfoot>
     </table>

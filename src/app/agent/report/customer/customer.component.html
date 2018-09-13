@@ -48,8 +48,10 @@
             <td class="text-right">{{ data.cpm * 1000 | currencyFormat}}</td>
             <td class="text-right">{{ data.admoney | currencyFormat }}</td>
             <td class="text-center">
-              <button class="btn-into-img" (click)="sublogin(data.user_id)"></button>
-              <button class="btn-add-img" (click)="sublogin(data.user_id, 'type')"></button>
+              <a data-link (click)="sublogin(data.user_id)" style="margin-right:5px;">进入账户</a>
+              <a data-link (click)="sublogin(data.user_id, 'type')">新增活动</a>
+              <!--<button class="btn-into-img" (click)="sublogin(data.user_id)"></button>-->
+              <!--<button class="btn-add-img" (click)="sublogin(data.user_id, 'type')"></button>-->
             </td>
           </tr>
         </ng-template>
@@ -58,12 +60,13 @@
         <tr sticky>
           <td>全部合计</td>
           <td>-</td>
-          <td>{{listTitle?.pv | number}}</td>
-          <td>{{listTitle?.click | number}}</td>
-          <td>{{ listTitle?.ctr * 100 | number: '1.2-2' }}%</td>
-          <td>{{ listTitle?.cpc | currencyFormat}}</td>
-          <td>{{ listTitle?.cpm * 1000 | currencyFormat}}</td>
-          <td>{{ listTitle?.admoney | currencyFormat }}</td>
+          <td>-</td>
+          <td class="text-right">{{listTitle?.pv | number}}</td>
+          <td class="text-right">{{listTitle?.click | number}}</td>
+          <td class="text-right">{{ listTitle?.ctr * 100 | number: '1.2-2' }}%</td>
+          <td class="text-right">{{ listTitle?.cpc | currencyFormat}}</td>
+          <td class="text-right">{{ listTitle?.cpm * 1000 | currencyFormat}}</td>
+          <td class="text-right">{{ listTitle?.admoney | currencyFormat }}</td>
         </tr>
         </tfoot>
       </table>

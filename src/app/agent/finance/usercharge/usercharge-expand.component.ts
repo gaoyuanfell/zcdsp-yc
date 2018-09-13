@@ -56,7 +56,7 @@ import {FinanceService} from '../../../../service/agent/finance.service';
   styles: [
     `      
       .parent {
-        
+        background-color: rgba(48, 148, 255, 0.08);
       }
     `
   ]

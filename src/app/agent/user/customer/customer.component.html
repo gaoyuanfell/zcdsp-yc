@@ -80,8 +80,8 @@
             <td class="text-center">{{ data.zc_audit_date | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
             <td class="text-center">{{ data.creation_date | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
             <td class="text-center">
-              <button  class="btn btn-link" (click)="editCustomer(data.user_id)" [disabled]="!isPermit('ZCMOBI_US_CUSTOMER_EDIT')">修改</button>
-              <button  class="btn btn-link" (click)="sublogin(data.user_id)">进入账户</button>
+              <button  class="btn btn-a" (click)="editCustomer(data.user_id)" [disabled]="!isPermit('ZCMOBI_US_CUSTOMER_EDIT')">修改</button>
+              <button  class="btn btn-a" (click)="sublogin(data.user_id)">进入账户</button>
             </td>
           </tr>
         </ng-template>
