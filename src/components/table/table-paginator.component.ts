@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output} from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 export interface PageData {
   number?: number
@@ -17,7 +18,7 @@ export interface Props {
   selector: 'yc-table-paginator',
   template: `
     <div class="paging" #pagingRef [hidden]="!(pageList?.length)" [ngStyle]="{'bottom.px': bottom}">
-      <span class="first" (click)="go(1)">
+      <span class="first" (click)="go(1)" *ngIf="showFirstLastButtons">
         首页
       </span>
       <span class="up" (click)="prev(-1)" data-type="1" data-number="-1" title="上一页">
@@ -37,7 +38,7 @@ export interface Props {
       <span class="down" (click)="next(1)" data-type="3" data-number="1" title="下一页">
         下一页
       </span>
-      <span class="last" (click)="go(totalPage)">
+      <span class="last" (click)="go(totalPage)" *ngIf="showFirstLastButtons">
         尾页
       </span>
     </div>
@@ -108,9 +109,18 @@ export class TablePaginatorComponent {
     sort_direction: 'sort_direction',
   };
 
+  private _showFirstLastButtons = true;
   @Input() pageText: string = '...';
-  @Input() pageNum: number = 3;
+  @Input() pageNum: number = 1;
   @Output() changeEvent = new EventEmitter<any>();
+
+  get showFirstLastButtons() {
+    return this._showFirstLastButtons;
+  }
+
+  @Input() set showFirstLastButtons(value) {
+    this._showFirstLastButtons = coerceBooleanProperty(value);
+  }
 
   @Input() set query(query) {
     this._query = query;

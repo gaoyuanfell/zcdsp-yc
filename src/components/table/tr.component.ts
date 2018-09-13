@@ -62,16 +62,24 @@ export class TrComponent implements AfterViewInit{
   trigger() {
     if (!this.expand) return;
     let scrollTop = this._global.containerFullRef.scrollTop
+    let number = -1;
+    if(scrollTop === 0){
+      number = 1
+    }
     this.expand.active = !this.expand.active;
     this.expand.state = this.expand.active ? 'active' : 'inactive';
     if (this.expand.active) {
       this.expand.show = true;
-      this._global.containerFullRef.scrollTop = scrollTop + 1
+      setTimeout(() => {
+        this._global.containerFullRef.scrollTop = scrollTop + number
+      })
       this.changeDetectorRef.markForCheck();
     } else {
       setTimeout(() => {
         this.expand.show = false;
-        this._global.containerFullRef.scrollTop = scrollTop + 1
+        setTimeout(() => {
+          this._global.containerFullRef.scrollTop = scrollTop + number
+        })
         this.changeDetectorRef.markForCheck();
       }, 150);
     }
@@ -113,19 +121,36 @@ export class TrComponent implements AfterViewInit{
       let bcrt1 = this._global.containerFullRef.getBoundingClientRect();
       let bcrt2 = this.tableComponent.tableWrapRef.nativeElement.getBoundingClientRect();
       let offsetTop = bcrt2.top - bcrt1.top;
-      this.sticky && this._global.overflowSubject.subscribe(({top}) => {
-        this.thList.forEach(th => {
-          if (offsetTop < top) {
-            th.ref.nativeElement.style.top = `${top - offsetTop}px`;
-          } else {
-            th.ref.nativeElement.style.top = `0px`;
+      if(this.sticky){
+        this._global.overflowSubject.subscribe(({top}) => {
+          this.thList.forEach(th => {
+            if (offsetTop < top) {
+              th.ref.nativeElement.style.top = `${top - offsetTop}px`;
+            } else {
+              th.ref.nativeElement.style.top = `0px`;
+            }
+          })
+        })
+      }
+      this.tableComponent.overflowRef.overflowSubject.subscribe(({left}) => {
+        this.thList.filter(th => th.stickyStart).forEach((th,index,item) => {
+          th.Left = left;
+          if(index === item.length - 1){
+            th.BorderRight = left != 0
           }
         })
       })
     }
 
     if (this.tbodyComponent) {
-
+      this.tableComponent.overflowRef.overflowSubject.subscribe(({left}) => {
+        this.tdList.filter(td => td.stickyStart).forEach((td,index,item) => {
+          td.Left = left;
+          if(index === item.length - 1){
+            td.BorderRight = left != 0
+          }
+        })
+      })
     }
 
     if (this.tfootComponent) {

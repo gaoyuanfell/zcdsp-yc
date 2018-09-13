@@ -301,7 +301,6 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
         })
       })
     }
-
     if(this.overflowRef){
       this.overflowRef.bottom = `${bottom}`;
     }

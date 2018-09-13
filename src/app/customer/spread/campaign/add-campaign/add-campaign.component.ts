@@ -202,6 +202,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     this._campaignService.parseIos({appid: this.campaign.app_bundle_id}).subscribe(
       res => {
         this.setAppInfo(res.result);
+        this.changeDetectorRef.markForCheck();
       },
       () => {
         this.setAppInfo({});
@@ -543,6 +544,10 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
   // ---------------------------- 下一步 ------------------------ //
   _nextStepNum = 0
   _nextStep(){
+
+
+    console.info(this.campaign)
+
     this._directionalService.directionalRecommend().subscribe(res => {
       this.directionalSmart = res.result;
       this.directional = {...this.directionalSmart};
