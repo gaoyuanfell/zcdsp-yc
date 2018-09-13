@@ -52,8 +52,8 @@
           <td class="text-right">{{ data.cpm * 1000 | currencyFormat}}</td>
           <td class="text-right">{{ data.admoney | currencyFormat }}</td>
         </tr>
-        <tr #trExpand>
-          <td colspan="1000" *ngIf="trExpand.show">
+        <tr #trExpand class="none">
+          <td colspan="1000" *ngIf="trExpand.show" class="none">
             <yc-report-expand [type]="'campaign-report'" [begin_date]="query.begin_date" [end_date]="query.end_date" [id]="data.campaign_id"></yc-report-expand>
           </td>
         </tr>

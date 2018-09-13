@@ -80,7 +80,7 @@
           <!--<td (click)="tr.trigger()" class="pointer">-->
             <!--<i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}"></i>-->
           <!--</td>-->
-          <td> <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}"></i>{{data.creative_id}}</td>
+          <td> <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>{{data.creative_id}}</td>
           <td class="text-left" [width]="200" title="{{data.creative_name}}">
             <a data-link (click)="_showCreative(data)">{{data.creative_name}}</a>
           </td>

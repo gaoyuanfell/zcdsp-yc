@@ -75,7 +75,7 @@
             <!--<i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}"></i>-->
           <!--</td>-->
           <td [title]="data.campaign_id">
-            <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}"></i>
+            <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>
             {{data.campaign_id}}</td>
           <td [width]="120" [title]="data.campaign_name">
             <a data-link [routerLink]="['/ads/spread/creative']" [queryParams]="{campaign_id: data.campaign_id}">{{data.campaign_name}}</a>

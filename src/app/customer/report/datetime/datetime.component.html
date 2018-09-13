@@ -51,8 +51,8 @@
         <td class="text-right">{{ data.admoney | currencyFormat }}</td>
         <!--CurrencyPipe  默认保留2位-->
       </tr>
-      <tr #trExpand>
-        <td colspan="1000" *ngIf="trExpand.show">
+      <tr #trExpand class="none">
+        <td colspan="1000" *ngIf="trExpand.show" class="none">
           <yc-report-expand [type]="'datetime-report'" [begin_date]="data.date" [id]="''" [btnShow]='true' [campainActive]="query.campaign_id" [searchText]="query.search_text"></yc-report-expand>
         </td>
       </tr>

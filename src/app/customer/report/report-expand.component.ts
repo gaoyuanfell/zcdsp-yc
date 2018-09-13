@@ -19,6 +19,7 @@ import {ReportService} from '../../../service/customer/report.service';
   styles: [
     `
       .chart-box {
+        background-color: rgba(48, 148, 255, 0.08);
         padding: 30px;
         border-radius: 2px;
         position: relative;
