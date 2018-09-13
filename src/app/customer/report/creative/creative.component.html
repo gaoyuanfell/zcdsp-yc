@@ -23,7 +23,6 @@
     <table #tableRef table>
       <thead>
       <tr sticky>
-        <th></th>
         <th class="text-center">创意ID</th>
         <th [width]="250" class="text-center">创意名称</th>
         <th class="text-right" [showSort]="true" [sortKey]="'pv'" ><span title="广告被展现给受众的次数">曝光量</span></th>
@@ -37,8 +36,8 @@
       <tbody>
       <ng-template [ngForOf]="ycTable.data" ngFor let-data>
         <tr [expand]="trExpand" #tr>
-          <td> <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i></td>
-          <td class="text-center">{{data.creative_id}}</td>
+          <td class="text-center">
+            <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>{{data.creative_id}}</td>
           <td [width]="250" title="{{data.creative_name}}">
             {{data.creative_name}}
           </td>
@@ -58,15 +57,14 @@
       </tbody>
       <tfoot [hidden]="!ycTable?.data?.length">
       <tr sticky>
-        <td>本页合计</td>
+        <td class="text-center">本页合计</td>
         <td>-</td>
-        <td>-</td>
-        <td>{{listTitle?.pv | number}}</td>
-        <td>{{listTitle?.click | number}}</td>
-        <td>{{ listTitle?.ctr * 100 | number: '1.2-2' }}%</td>
-        <td>{{ listTitle?.cpc | currencyFormat}}</td>
-        <td>{{ listTitle?.cpm * 1000 | currencyFormat}}</td>
-        <td>{{ listTitle?.admoney | currencyFormat }}</td>
+        <td class="text-right">{{listTitle?.pv | number}}</td>
+        <td class="text-right">{{listTitle?.click | number}}</td>
+        <td class="text-right">{{ listTitle?.ctr * 100 | number: '1.2-2' }}%</td>
+        <td class="text-right">{{ listTitle?.cpc | currencyFormat}}</td>
+        <td class="text-right">{{ listTitle?.cpm * 1000 | currencyFormat}}</td>
+        <td class="text-right">{{ listTitle?.admoney | currencyFormat }}</td>
       </tr>
       </tfoot>
     </table>

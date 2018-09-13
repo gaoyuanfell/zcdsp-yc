@@ -258,7 +258,7 @@ export class ReportExpandComponent implements OnInit {
         },
         grid: {
           left: 0,
-          right: 10,
+          right: '6%',
           bottom: '3%',
           containLabel: true
         },

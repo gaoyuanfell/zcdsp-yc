@@ -81,8 +81,8 @@
             <td class="text-right">{{data['consume_money'] | currencyFormat}}</td>
             <td class="text-right">{{data['balance'] | currencyFormat}}</td>
             <td class="text-center">
-              <button  class="btn btn-link" (click)="transfer(data['user_id'], data['user_name'], 5)" *ngIf="data.user_id" [disabled]="!data.user_id">转入</button>
-              <button  class="btn btn-link" (click)="transfer(data['user_id'], data['user_name'], 6)" *ngIf="data.user_id" [disabled]="!data.user_id">转出</button>
+              <button  class="btn btn-a" (click)="transfer(data['user_id'], data['user_name'], 5)" *ngIf="data.user_id" [disabled]="!data.user_id">转入</button>
+              <button  class="btn btn-a" (click)="transfer(data['user_id'], data['user_name'], 6)" *ngIf="data.user_id" [disabled]="!data.user_id">转出</button>
               <!--<a data-link style="margin-right:5px" (click)="transfer(data['user_id'], data['user_name'], 5)" *ngIf="data.user_id ? true : false">转入</a>-->
               <!--<a data-link (click)="transfer(data['user_id'], data['user_name'], 6)" *ngIf="data.user_id ? true : false">转出</a>-->
             </td>

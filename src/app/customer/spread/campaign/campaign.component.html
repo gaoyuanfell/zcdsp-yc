@@ -50,7 +50,7 @@
       <thead>
       <tr sticky>
         <th width="50" [showCheckbox]="true"></th>
-        <th></th>
+        <!--<th></th>-->
         <th>活动ID</th>
         <th style="text-align: left">活动名称</th>
         <th></th>
@@ -71,10 +71,12 @@
       <ng-template [ngForOf]="ycTable.data" ngFor let-data let-index="index">
         <tr [expand]="trExpand" #tr>
           <td [showCheckbox]="data"></td>
-          <td (click)="tr.trigger()" class="pointer">
+          <!--<td (click)="tr.trigger()" class="pointer">-->
+            <!--<i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}"></i>-->
+          <!--</td>-->
+          <td [title]="data.campaign_id">
             <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}"></i>
-          </td>
-          <td [title]="data.campaign_id">{{data.campaign_id}}</td>
+            {{data.campaign_id}}</td>
           <td [width]="120" [title]="data.campaign_name">
             <a data-link [routerLink]="['/ads/spread/creative']" [queryParams]="{campaign_id: data.campaign_id}">{{data.campaign_name}}</a>
           </td>
@@ -182,13 +184,12 @@
         <td>-</td>
         <td>-</td>
         <td>-</td>
-        <td>-</td>
-        <td>{{other?.pv | number}}</td>
-        <td>{{other?.click | number}}</td>
-        <td>{{ other?.ctr * 100 | number: '1.2-2' }}%</td>
-        <td>{{ other?.cpc | currencyFormat}}</td>
-        <td>{{ other?.cpm * 1000 | currencyFormat}}</td>
-        <td>{{ other?.admoney | currencyFormat }}</td>
+        <td class="text-right">{{other?.pv | number}}</td>
+        <td class="text-right">{{other?.click | number}}</td>
+        <td class="text-right">{{ other?.ctr * 100 | number: '1.2-2' }}%</td>
+        <td class="text-right">{{ other?.cpc | currencyFormat}}</td>
+        <td class="text-right">{{ other?.cpm * 1000 | currencyFormat}}</td>
+        <td class="text-right">{{ other?.admoney | currencyFormat }}</td>
       </tr>
       </tfoot>
     </table>

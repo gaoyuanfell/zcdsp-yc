@@ -133,10 +133,10 @@
             <thead>
             <tr>
               <th>客户名称</th>
-              <th class="text-left" title="审核通过的创意个数">审核通过</th>
-              <th class="text-left" title="审核未通过的创意个数">审核未通过</th>
-              <th class="text-left" title="审核中的创意个数">审核中</th>
-              <th class="text-left" title="待提交的创意个数">待提交</th>
+              <th class="text-right" title="审核通过的创意个数">审核通过</th>
+              <th class="text-right" title="审核未通过的创意个数">审核未通过</th>
+              <th class="text-right" title="审核中的创意个数">审核中</th>
+              <th class="text-right" title="待提交的创意个数">待提交</th>
               <th class="text-right" title="客户账户投放剩余金额">余额</th>
               <th class="text-center">操作</th>
             </tr>
@@ -144,15 +144,18 @@
             <tbody>
             <ng-template [ngForOf]="ycTable.data" ngFor let-data let-index="index">
               <tr [expand]="trExpand" #tr>
-                <td (click)="tr.trigger()">{{data.nick_name}}</td>
-                <td class="text-left">{{data.pass_count | number }}</td>
-                <td class="text-left">{{data.notpass_count | number }}</td>
-                <td class="text-left">{{data.wait_count | number }}</td>
-                <td class="text-left">{{data.wait_count | number }}</td>
-                <td class="text-left">{{data.balance |currencyFormat }}</td>
                 <td>
-                  <a data-link (click)="sublogin(data.user_id)">登入</a>
-                  <a data-link (click)="sublogin(data.user_id, 'type')">投放</a>
+                  <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>
+                  {{data.nick_name}}
+                </td>
+                <td class="text-right">{{data.pass_count | number }}</td>
+                <td class="text-right">{{data.notpass_count | number }}</td>
+                <td class="text-right">{{data.wait_count | number }}</td>
+                <td class="text-right">{{data.wait_count | number }}</td>
+                <td class="text-right">{{data.balance |currencyFormat }}</td>
+                <td class="text-center">
+                  <a data-link (click)="sublogin(data.user_id)">进入账户</a>
+                  <a data-link (click)="sublogin(data.user_id, 'type')">新增活动</a>
                 </td>
                 <!--<td class="text-center">-->
                   <!--<a data-link (click)="sublogin(data.user_id)">登入投放</a>-->

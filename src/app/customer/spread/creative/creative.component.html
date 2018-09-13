@@ -54,7 +54,7 @@
       <thead>
       <tr sticky>
         <th width="50" [showCheckbox]="true"></th>
-        <th></th>
+        <!--<th></th>-->
         <th>创意ID</th>
         <th class="text-left" width="200">创意名称</th>
         <th></th>
@@ -77,10 +77,10 @@
       <ng-template [ngForOf]="ycTable.data" ngFor let-data let-index="index">
         <tr [expand]="trExpand" #tr>
           <td [showCheckbox]="data"></td>
-          <td (click)="tr.trigger()" class="pointer">
-            <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}"></i>
-          </td>
-          <td>{{data.creative_id}}</td>
+          <!--<td (click)="tr.trigger()" class="pointer">-->
+            <!--<i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}"></i>-->
+          <!--</td>-->
+          <td> <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}"></i>{{data.creative_id}}</td>
           <td class="text-left" [width]="200" title="{{data.creative_name}}">
             <a data-link (click)="_showCreative(data)">{{data.creative_name}}</a>
           </td>
@@ -162,7 +162,6 @@
       <tfoot>
       <tr sticky [hidden]="!ycTable.data?.length">
         <td colspan="3">本页合计</td>
-        <td>-</td>
         <td>-</td>
         <td>-</td>
         <td>-</td>
