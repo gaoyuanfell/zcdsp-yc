@@ -44,7 +44,13 @@ import {FinanceService} from '../../../../service/agent/finance.service';
           </ng-template>
           </tbody>
         </table>
+        
+        <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
+        <div paginator style="background: #f9fafb;">
+          <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
+        </div>
       </yc-table>
+      
     </div>
   `,
   styles: [
