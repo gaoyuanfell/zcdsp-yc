@@ -1,0 +1,398 @@
+<header class="header flex-center-between">
+  <div class="flex-center-between">
+    <img class="logo" src="assets/img/logo.png" alt="logo">
+    <div class="menu"></div>
+  </div>
+  <div class="flex-center-between user-info">
+    <div class="user-block active">
+      <img class="user-head" src="assets/img/user-head.png" alt="user-head">
+      <p class="user-name">
+        {{auth?.user.user_name}}
+      </p>
+    </div>
+  </div>
+</header>
+
+<div class="container-full">
+  <div class="container clear">
+    <div class="help_left">
+      <div class="menu">
+        <div class="title"><img src="assets/help/liaoj.png" alt="">了解智橙</div>
+        <ul>
+          <li [ngClass]="{'active':num == 0}" (click)="changeElement(0)">智橙简介</li>
+          <li [ngClass]="{'active':num == 1}" (click)="changeElement(1)">视频简介</li>
+          <li [ngClass]="{'active':num == 2}" (click)="changeElement(2)">用户操作</li>
+        </ul>
+      </div>
+      <div class="menu">
+        <div class="title"><img src="assets/help/zhangh.png" alt="">账号开通</div>
+        <ul>
+          <li [ngClass]="{'active':num == 3}" (click)="changeElement(3)">开户</li>
+          <li [ngClass]="{'active':num == 4}" (click)="changeElement(4)">资质需求</li>
+          <li [ngClass]="{'active':num == 5}" (click)="changeElement(5)">审核规则</li>
+        </ul>
+      </div>
+      <div class="menu">
+        <div class="title"><img src="assets/help/guanl.png" alt="">账户管理</div>
+        <ul>
+          <li [ngClass]="{'active':num == 6}" (click)="changeElement(6)">充值</li>
+          <li [ngClass]="{'active':num == 7}" (click)="changeElement(7)">发票</li>
+          <li [ngClass]="{'active':num == 8}" (click)="changeElement(8)">退款</li>
+        </ul>
+      </div>
+      <div class="menu">
+        <div class="title"><img src="assets/help/touf.png" alt="">广告投放</div>
+        <ul>
+          <li [ngClass]="{'active':num == 9}" (click)="changeElement(9)">平台功能</li>
+          <li [ngClass]="{'active':num == 10}" (click)="changeElement(10)">投放流程</li>
+          <li [ngClass]="{'active':num == 11}" (click)="changeElement(11)">辅助工具</li>
+          <li [ngClass]="{'active':num == 12}" (click)="changeElement(12)">创意审核</li>
+        </ul>
+      </div>
+      <div class="menu">
+        <div class="title"><img src="assets/help/genz.png" alt="">效果跟踪</div>
+        <ul>
+          <li [ngClass]="{'active':num == 13}" (click)="changeElement(13)">数据概要</li>
+          <li [ngClass]="{'active':num == 14}" (click)="changeElement(14)">查看数据</li>
+
+        </ul>
+      </div>
+      <div class="menu">
+        <div class="title"><img src="assets/help/went.png" alt="">常见问题</div>
+        <ul>
+          <li [ngClass]="{'active':num == 15}" (click)="changeElement(15)">问题答疑</li>
+        </ul>
+      </div>
+    </div>
+    <div class="help_right" [ngSwitch]="num">
+      <div *ngSwitchCase="0">
+        <h2 class="title">智橙简介</h2>
+        <div class="problem">
+          <div class="subject">一、智橙移动平台对接了哪些资源？</div>
+          <p>智橙移动平台支持包括今日头条、腾讯、360、迅雷、墨迹天气、搜狐、百度视频、小知、哔哩哔哩等50余家媒体资源的投放，覆盖资讯类、视频类、小说类、工具类、社交类等各种类型流量，为了更好的服务广告主，平台会持续对接更多更优质的媒体。</p>
+        </div>
+        <div class="problem">
+          <div class="subject">二、强大的技术和运维支持</div>
+          <p>目前智橙移动已经服务了近千家广告主，从功能需求到优化建议，平台在每个细节上都力争做到最好的体验，最稳定的性能，同时为了更好的提升广告主的投放效果，大量的运维优化师会实时查看投放创意，及时有效的提出优化意见及建议。</p>
+        </div>
+        <div class="problem">
+          <div class="subject">三、精准的推荐算法</div>
+          <p>对多种创意组合形式的投放，DMP会在投放中实时分析创意效果，效果好的创意会获取较多的流量资源，以帮助广告主区分创意效果，实时优化创意，同时精确的定向能够使广告真正传递给潜在客群，以获得更好的转化效果。</p>
+        </div>
+        <div class="problem">
+          <div class="subject">四、严苛的品质把关</div>
+          <p>品牌形象和产品形象是企业最宝贵的无形资产，为了更好的传递企业形象和价值观，智橙会严格筛选媒体流量的品质，在投放中结合技术分析，尽最大努力将对的内容展现在合适的场景，触达到对的用户群体中。</p>
+        </div>
+      </div>
+      <div *ngSwitchCase="1">
+        <h2 class="title">视频简介</h2>
+        <div class="problem">
+          <div class="subject">一、开户</div>
+          <p></p>
+        </div>
+        <div class="problem">
+          <div class="subject">二、账户介绍</div>
+          <p></p>
+        </div>
+        <div class="problem">
+          <div class="subject">三、广告投放</div>
+          <p></p>
+        </div>
+      </div>
+      <div *ngSwitchCase="2">
+        <h2 class="title">用户操作</h2>
+        <div class="problem">
+          <div class="subject">一、用户使用说明</div>
+          <p></p>
+        </div>
+        <div class="problem">
+          <div class="subject">二、代理用户使用说明</div>
+          <p></p>
+        </div>
+      </div>
+      <div *ngSwitchCase="3">
+        <h2 class="title">开户</h2>
+        <div class="problem">
+          <div class="subject">一、自助开户</div>
+          <p></p>
+        </div>
+        <div class="problem">
+          <div class="subject">二、预约开户（功能同“问题咨询”）</div>
+          <p></p>
+        </div>
+        <div class="problem">
+          <div class="subject">三、找客服帮助开户</div>
+          <p>电话客服：400-670-9927</p>
+          <p>QQ客服：4006709927（点击调起QQ客服）</p>
+        </div>
+      </div>
+      <div *ngSwitchCase="4">
+        <h2 class="title">资质需求</h2>
+        <table border="1" cellpadding="0" cellspacing="0" class="table">
+          <tr>
+            <td>资质名称</td>
+            <td>要求</td>
+          </tr>
+          <tr>
+            <td>营业执照</td>
+            <td>企业有效营业执照、经营范围需与推广业务对应。</td>
+          </tr>
+          <tr>
+            <td>身份证</td>
+            <td>企业法人身份证正反面</td>
+          </tr>
+          <tr>
+            <td>ICP备案</td>
+            <td>经营性网站提供电信增值业务经营许可证<br>非经营性网站提供工业和信息化部网站的ICP备案截屏</td>
+          </tr>
+        </table>
+      </div>
+      <div *ngSwitchCase="5">
+        <h2 class="title">审核规则</h2>
+        <div class="problem">
+          <!--<div class="subject">一、审核规则</div>-->
+          <p>1、	内容填写完整且正确</p>
+          <p>2、	企业营业执照是否有效，注册所填公司名称与营业执照是否一致；</p>
+          <p>3、网站地址和网站名称是否与ICP备案所列一致；</p>
+          <p style="margin-top: 10px;">满足以上条件且能正常与联系人取得联系，智橙会在1~3个工作日内完成审核，审核通过后会有工作人员与您取得联系。</p>
+        </div>
+      </div>
+      <div *ngSwitchCase="6">
+        <h2 class="title">充值</h2>
+        <div class="problem">
+          <div class="subject">一、充值流程</div>
+          <p><img src="assets/help/1.jpg" alt=""></p>
+        </div>
+        <div class="problem">
+          <div class="subject">二、额度</div>
+          <p>第一次充值金额5000元起	，后续每次充值金额1000元起。</p>
+        </div>
+        <div class="problem">
+          <div class="subject">三、到账时间</div>
+          <p>充值成功后，一般一个工作日内会充到账户中，您可在“财务-流水”中查看是否到账，如遇问题请联系智橙工作人员或客服。</p>
+          <p>QQ（在线时间工作日9:00~17:30）</p>
+          <p>电话：400-670-9927（受理时间工作日9:00~17:30）</p>
+        </div>
+      </div>
+      <div *ngSwitchCase="7">
+        <h2 class="title">发票</h2>
+        <div class="problem">
+          <!--<div class="subject">一、开票</div>-->
+          <p>1、联系业务说明需要开具发票的类型，目前支持开具增值税专用发票和增值税普通发票这两种票；</p>
+          <p>2、	确认需要开具发票的金额，您可以选择按实际已消耗金额开票，或者按照充值金额开票（已开票金额不支持退款）。</p>
+          <p>3、	以上信息确定后，智橙会操作开票，一般3个工作日内会完成寄票。</p>
+          <p><img src="assets/help/2.jpg" alt=""></p>
+        </div>
+      </div>
+      <div *ngSwitchCase="8">
+        <h2 class="title">退款</h2>
+        <div class="problem">
+          <div class="subject">一、退款</div>
+          <p>智橙暂不支持线上申请退款，若您需要申请退款请提前联系您的业务人员或客服，在收到您的退款申请后，智橙会核对退款金额，金额无误的情况下操作退款，但因公司审批流程及财务要求，一般会在月底操作当月退款需求，操作退款后，具体到账时间根据收款银行处理时效而定，一般2~7个工作日到账。</p>
+        </div>
+        <div class="problem">
+          <div class="subject">二、流程</div>
+          <p>智橙暂不支持线上申请退款，若您需要申请退款请提前联系您的业务人员或客服，在收到您的退款申请后，智橙会核对退款金额，金额无误的情况下操作退款，但因公司审批流程及财务要求，一般会在月底操作当月退款需求，操作退款后，具体到账时间根据收款银行处理时效而定，一般2~7个工作日到账。</p>
+          <p><img src="assets/help/3.jpg" alt=""></p>
+          <p>期间若遇到问题可联系业务或客服</p>
+          <p>QQ（在线时间工作日9:00~17:30）</p>
+          <p>电话客服：400-670-9927（受理时间工作日9:00~17:30）</p>
+        </div>
+      </div>
+      <div *ngSwitchCase="9">
+        <h2 class="title">平台功能</h2>
+      </div>
+      <div *ngSwitchCase="10">
+        <h2 class="title">投放流程</h2>
+        <div class="problem">
+          <div class="subject">一、新建广告流程</div>
+          <p><img src="assets/help/4.jpg" alt=""></p>
+          <p>智橙暂不支持线上申请退款，若您需要申请退款请提前联系您的业务人员或客服，在收到您的退款申请后，智橙会核对退款金额，金额无误的情况下操作退款，但因公司审批流程及财务要求，一般会在月底操作当月退款需求，操作退款后，具体到账时间根据收款银行处理时效而定，一般2~7个工作日到账。</p>
+        </div>
+        <div class="problem">
+          <div class="subject">二、创建新活动</div>
+          <p>活动相当于一个项目组，有相同投放目的广告可以放在同一活动中，便于管理。您可以通过导航栏“推广-新建活动”进入新建活动页面。</p>
+          <p><img src="assets/help/5.jpg" alt=""></p>
+        </div>
+        <div class="problem">
+          <div class="subject">三、基本信息</div>
+          <p>活动名称：可填入汉字、数字、字符等内容，用于标注活动</p>
+          <p>每日预算：用于限制该活动每天花费的金额，需填入不小于100元的金额（支持小数点后2位）。</p>
+          <p>投放速度：匀速表示，将预算平均到一天各时段进行投放；快速表示，尽快购买流量将预算花完。</p>
+          <p>投放频次：该活动下创意每天展示给同一用户的次数，建议3~5次为佳。</p>
+          <p> 投放日期：该活动中创意的投放周期。</p>
+          <p>投放小时：不限，表示显示不限制投放时间；点击“选择时间段”，可以根据需求控制该活动中的创意在一天的哪些时间段参与竞价投放。</p>
+          <p><img src="assets/help/6.jpg" alt=""></p>
+          <p>普通链接：点击广告后，页面跳转到H5页面，用于引导广告受众参加活动或者下载应用。</p>
+          <p>填写落地页：填入需要推广的地址</p>
+          <p>使用模板：点击后进入落地页制作页面，选择模板并在模板中上传图片及文案，提交后系统自动生成一个落地页，可用于推广。</p>
+          <p><img src="assets/help/7.jpg" alt=""></p>
+          <p>安卓应用下载：支持在安卓系统上下载APP应用</p>
+          <p>苹果应用下载：支持在ios系统上下载APP应用</p>
+          <p>下载地址：填写可以下载APP的地址，通常是以HTTP或HTTPS开.apk结尾的URL地址。</p>
+          <p>应用市场：应用宝下载，在腾讯系投放的时候需选择此项；直接下载，非腾讯系投放选此项。</p>
+          <p>APP包类型：选择应用宝下载后，需要选择主线包和渠道包。主线包，表示应用宝中的主包；渠道包，为了区分投放效果，腾讯系支持分包，例如QQ空间和微信朋友圈可以下载不同的包。</p>
+          <p><img src="assets/help/8.jpg" alt=""></p>
+          <p>Apk上传：点击上传APP包后，系统会自动解析包的基本信息，并将解析后的结果填入APP包名、APP名称、APP版本、APP大小相应的位置。</p>
+          <p><img src="assets/help/9.jpg" alt=""></p>
+        </div>
+        <div class="problem">
+          <div class="subject">四、定向设置</div>
+          <p>支持地域定向、受众定向、受众行为、设备定向4个维度的定向，若四个维度都设置定向，则投放覆盖用户取4种定向的交集，即下图中红色线条覆盖的部分</p>
+          <p>快捷定向：可以从下拉框中选择保存过的定向包作为该活动的定向直接使用。</p>
+          <p><img src="assets/help/10.jpg" alt=""></p>
+          <p>地域定向：用于指定该广告投放的地区。不限，表示不限制投放地区；点击“自定义”，可以根据省、一二线城市、LBS设定定向内容，三者智能选其一。</p>
+          <p><img src="assets/help/11.jpg" alt=""></p>
+          <p>受众定向：用于指定该活动投放用户的属性。不限，表示不限制用户属性；点击“自定义”可以根据投放需求选择用户的年龄、性别、学历信息。</p>
+          <p><img src="assets/help/12.jpg" alt=""></p>
+          <p>受众行为：用于指定该活动投放给有哪些兴趣的用户。行为分类，用于指定用户兴趣；行为指定，用于限定安装过某APP的用户为该活动的投放对象；行为过滤，用于限定没有安装过某APP的用户为该活动的投放对象。</p>
+          <p><img src="assets/help/13.jpg" alt=""></p>
+          <p>设备定向：将广告投放给使用指定设备或设备具有指定属性的用户，包括设备品牌、浏览器、设备类型、操作系统、联网方式、运营商。</p>
+          <p><img src="assets/help/14.jpg" alt=""></p>
+        </div>
+        <div class="problem">
+          <div class="subject">五、出价</div>
+          <p>出价高的广告更有竞争力，通过竞价可以获得更多流量。</p>
+        </div>
+        <div class="problem">
+          <div class="subject">五、提交</div>
+          <p>点击“提交并新建创意”，保存活动并可以直接为该活动新建创意；点击“提交”，保存活动，页面跳转到“活动”列表页。（活动保持成功后，操作栏处于关闭状态，需手动置为开启，活动下的创意才能正常进入投放流程。）</p>
+        </div>
+      </div>
+      <div *ngSwitchCase="11">
+        <h2 class="title">辅助工具</h2>
+      </div>
+      <div *ngSwitchCase="12">
+        <h2 class="title">创意审核</h2>
+        <div class="problem">
+          <div class="subject">一、新建创意</div>
+          <p><img src="assets/help/15.jpg" alt=""></p>
+        </div>
+        <div class="problem">
+          <div class="subject">二、选择活动</div>
+          <p>创意依赖于活动而创建，必须先选择活动，才能激活可投媒体信息。</p>
+        </div>
+        <div class="problem">
+          <div class="subject">三、投放媒体</div>
+          <pre>
+        推荐媒体：DMP结合智橙历史投放效果，计算出CTR较高、CPC较低的媒体广告样式推荐出来，供投放参考。
+        编辑：选择后，可以查看所有可投媒体样式，可以根据需要投放。
+        全部（媒体）：表示所有媒体，M、S、W表示媒体名称的首字母，便于快速找到媒体；搜索框中可以输入关键字，搜索媒体。
+        全部（样式）：表示选中媒体的全部样式，1、 7表示样式尺寸的首个数字，例如100*200则会被归类到1 中。
+</pre>
+          <p><img src="assets/help/16.jpg" alt=""></p>
+          <p>上传素材：</p>
+          <p>(1)选中媒体和媒体样式后，可以点击“上传文件”上传符合要求的文件，在下面的文本框中输入广告标题和描述。</p>
+          <p><img src="assets/help/17.jpg" alt=""></p>
+          <p>(2)上传广告图片并填写文案后样式如下，点击图片可以更换新的图片，点击“+”可以添加一组创意（最多可添加5组）</p>
+          <p><img src="assets/help/18.jpg" alt=""></p>
+        </div>
+        <div class="problem">
+          <div class="subject">四、出价</div>
+          <p>上传创意后填写大于0小于1000且小数点后不大于2位小数的数字作为出价，该价格用于竞价，价格越高，获得的曝光量就会越多。</p>
+          <p><img src="assets/help/19.jpg" alt=""></p>
+        </div>
+        <div class="problem">
+          <div class="subject">五、定向设置</div>
+          <p>创意会继承所选活动的定向信息，若需调整点击编辑修改即可。</p>
+        </div>
+        <div class="problem">
+          <div class="subject">六、提交</div>
+          <p>点击提交后创意会保存到“创意”列表中，新建的创意默认操作栏为关闭，审核状态为待提交。</p>
+        </div>
+        <div class="problem">
+          <div class="subject">七、提交审核</div>
+          <pre>
+      选中创意点击“批量修改”中的“提交审核”创意即进入审核中。
+      审核通过：审核通过后，若操作栏为开启且创意在投放中期内，即可开始投放。
+      审核未通过：创意素材或广告文案违反广告法，或带敏感词可能导致无法审核通过，需要根据要求修改素材，再重新提交审核。
+</pre>
+          <p><img src="assets/help/20.jpg" alt=""></p>
+        </div>
+        <div class="problem">
+          <div class="subject">八、审核规范</div>
+        </div>
+        <div class="problem">
+          <div class="subject">(一)、广告不得有下列情形</div>
+          <pre>
+      1、使用或者变相使用中华人民共和国的国旗、国歌、国徽，军旗、军歌、军徽。
+      2、使用或者变相使用国家机关、国家机关工作人员的名义或者形象。
+      3、不得利用党和国家领导人的形象（含各种卡通虚拟形象），包括现任、离任或者已故党和国家领导人的形象作商业促销宣传。
+      4、损害国家的尊严或者利益，泄露国家秘密。
+      5、妨碍社会安定，损害社会公共利益。
+      6、危害人身、财产安全，泄露个人隐私。
+      7、妨碍社会公共秩序或者违背社会良好风尚。
+      8、含有淫秽、色情、赌博、迷信、恐怖、暴力的内容。
+      9、含有民族、种族、宗教、性别歧视的内容。
+      10、妨碍环境、自然资源或者文化遗产保护。
+      11、法律、行政法规规定禁止的其他情形。
+</pre>
+        </div>
+        <div class="problem">
+          <div class="subject">(二)、广告不得含有虚假或者引人误解的内容，不得欺骗、误导消费者</div>
+          <p>1、广告应当具有可识别性，能够使消费者辨明其为广告。</p>
+          <p>2、不得以新闻报道形式变相发布广告。通过大众传播媒介发布的广告应当显著标明“广告”，与其他非广告信息相区别，不得使消费者产生误解。</p>
+          <p>3、广告主应当对广告的真实性负责。不得对商品的性能、功能、产地、用途、质量、成分、价格、生产者、有效期限、允诺等，或者对服务的内容、提供者、形式、质量、价格、允诺等做虚假宣传。</p>
+        </div>
+        <div class="problem">
+          <div class="subject">(三)、不得使用“国家级”、“最高级”、“最佳”等绝对化用语</div>
+          <p>广告中禁止使用“国家级”、“最高级”、“最佳”、“顶级”、“第一品牌”、“极品”、“至尊”、“最受欢迎”、“极致”等绝对化用语;广告中以“最……之一”的形式表述的，视作为表示程度的最高级形容词，禁止在广告中使用。
+            但是，符合以下特定条件的客观表述可以使用：</p>
+          <p>1、客观事实表述，但应出具合法证据。
+            “XX大赛第一名”等属于此类。如广告主参加权威比赛或者是权威机构出具的分析报告显示其获奖排名等，比如设计公司在参加某项国际大赛中获得第一名。如果“国家级”称号系通过法律或行政法规授权获得的（无法律法规授权的非权威机构评奖，不符合此列），应当允许使用其规范名称。广告主应当出具获奖证明、评选结果等相关证明文件。</p>
+          <p>2、时空顺序表述，但应出具合法证据。
+            “首款、首秀、首发、最早、独家、唯一”等表述属于此类。比如游戏公司A首次推出手游B，可以表述为“A首款手游”或“A第一款手机游戏”。如广告主A获得某游戏的独家授权，在广告宣传中使用“A独家发布”、“A平台首发”。广告主应当出具授权书、著作权登记证书等相关证明文件。</p>
+          <p>3、明示为自我比较的程度分级。
+            自己的产品中客观存在不同分级品质的产品，用于区分这些等级的用语。
+            例如：最大户型、最小尺码、顶配车型、X公司用户量最多的手游等。</p>
+          <p>4、在某行业领域由相关标准认定的分级，或者已被公众广泛接受的分级。
+            例如：安吉白茶国家标准中，把产品分为“精品、特级、一级、二级“共四个质量等级，针对特定“精品级”安吉白茶广告称为“最高等级”或“最高级”，通常不属于禁止使用的绝对化用语。广告主需要提供相关分级依据及等级检验证明，且不得将多个等级一并宣传为最高级。</p>
+          <p>5、明示商家的经营理念和追求目标的，且客观上没有造成误导可能性的。
+            “顾客第一、力求完美品质”等用于属于此类。此类表述必须不得让消费者以为广告主的产品、服务是“第一”“完美”等，即不得使消费者误将广告主的经营理念或追求目标与产品、服务品质挂钩。</p>
+        </div>
+        <div class="problem">
+          <div class="subject">(四)、数据资料引用的规范</div>
+          <p>广告中引用内容，视作广告内容的组成部分。因此，引用内容的表述也须遵守广告法相关规定，对引证内容表述的审核与一般广告内容审核标准一致。广告使用数据、统计资料、调查结果、文摘、引用语等引证内容的，应当真实、准确，并表明出处。引证内容有适用范围和有效期限的，应当明确表示。</p>
+          <p>引证材料禁止规定：</p>
+          <p>1.引证材料不得涉及最高级表述、国家级表述等违反广告法相关规定的内容。</p>
+          <p>2.引证材料不得涉及明显虚假宣传内容。</p>
+          <p>3.引证材料应与原始出处内容相符合，不得虚构、调换、夸大引证材料，不得存在断章取义、隐瞒事实、曲解原意、引发受众误解等情况。</p>
+          <p>4.禁止使用消费者评价、受益者形象等单个自然人、用户的相关评述作为引证材料。</p>
+        </div>
+      </div>
+      <div *ngSwitchCase="13">
+        <h2 class="title">数据概要</h2>
+      </div>
+      <div *ngSwitchCase="14">
+        <h2 class="title">查看数据</h2>
+      </div>
+      <div *ngSwitchCase="15">
+        <h2 class="title">问题答疑</h2>
+        <div class="problem">
+          <div class="subject">一、为什么设置每日预算上限，实际投放的时候会有超过预算的情况?</div>
+          <p>由于数据同步有时间差，最终消耗金额会比实际预算金额高10%左右，智橙移动平台会严格控制每日耗在您设置上限预算的110%内，请充分预估并合理设置好每日预算金额和出价。</p>
+        </div>
+        <div class="problem">
+          <div class="subject">二、新建活动的时候设置了匀速，但还是提前走完了是什么原因?</div>
+          <p>活动预算过少、或者每日预算过少的情况下，虽然设置匀速投放，也会导致过早消耗完毕。</p>
+        </div>
+        <div class="problem">
+          <div class="subject">三、为什么广告的展现量那么少?</div>
+          <p>1)定向设置的过于严格，导致可以投放的用户太少，建议修改定向，圈定更多可投放用户；</p>
+          <p>2)出价太低，竞价失败，建议逐渐加价，实时查看流量增长情况；</p>
+          <p>3)项目预算或日最高预算过低，建议提高预算；</p>
+          <p>4)投放时段范围太小，无法放量投放，建议扩大投放小时；</p>
+          <p>5)如果您排除了以上原因，流量依然很少，请咨询您的投放优化师。</p>
+        </div>
+        <div class="problem">
+          <div class="subject">四、活动中的投放链接和APP信息可以修改吗?</div>
+          <p>新建活动的时候根据选择的投放目的需要上传投放链接或者APP信息，这部分信息一旦新建创意后就不可以修改了。</p>
+        </div>
+        <div class="problem">
+          <div class="subject">五、创意投放的广告文案和素材可以修改吗？</div>
+          <p>可以修改，但文案和素材发生修改，投放中的创意会暂停投放，创意需要重新提交审核。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

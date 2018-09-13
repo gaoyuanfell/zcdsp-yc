@@ -117,7 +117,7 @@
       </div>
     </a>
     <div class="input">
-      <input type="text" class="verifica forgetCode" autocomplete="off" [(ngModel)]="forgetCode" (focus)="errorFocus('img_code')"  placeholder="请输入右侧验证码"  #forget_code="ngModel"  [ngClass]="{ 'has-error': ((forget_code.dirty || forget_code.touched || _valid) && forget_code.invalid) || (error==='img_code') }" required   #forget_code="ngModel" name="forgetCode">
+      <input type="text" class="verifica forgetCode" autocomplete="off" [(ngModel)]="forgetCode" (focus)="errorFocus('img_code')"  placeholder="请输入验证码"  #forget_code="ngModel"  [ngClass]="{ 'has-error': ((forget_code.dirty || forget_code.touched || _valid) && forget_code.invalid) || (error==='img_code') }" required   #forget_code="ngModel" name="forgetCode">
     </div>
     <p class="error" style="margin-top: 10px;margin-left:19px;" *ngIf="((forget_code.dirty || forget_code.touched || _valid) && forget_code.invalid)"><img src="assets/img/index/tips.png" alt="">请输入验证码</p>
     <p class="error" style="margin-top: 10px;margin-left:19px;" *ngIf="error === 'img_code'"><img src="assets/img/index/tips.png" alt="">{{errorText}}</p>

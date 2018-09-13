@@ -1,0 +1,251 @@
+:host{
+  display: block;
+  height: 100%;
+  overflow: auto;
+}
+body{
+  background: #f9fafb;
+}
+.clear:after {
+  content: "";
+  display: block;
+  height: 0;
+  overflow: hidden;
+  clear: both;
+  visibility: hidden;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 60px;
+}
+pre{
+  font-family:Helvetica;
+  font-size: 14px;
+  color: #666666;
+  line-height: 1.7;
+  overflow: hidden;
+}
+.help_left{
+  float: left;
+  width: 220px;
+  height:816px;
+  border:1px #f3f5f8 solid;
+  padding: 25px 0;
+  margin-right: 20px;
+  background: #fff;
+  .menu{
+    margin-bottom: 29px;
+    .title{
+      padding-left: 16px;
+      height:20px;
+      line-height: 20px;
+      font-size: 16px;
+      color: #666666;
+      margin-bottom: 8px;
+      font-weight: bold;
+      img{
+        margin-right: 16px;
+        vertical-align: middle;
+      }
+    }
+    ul{
+      padding-left: 50px;
+      font-size: 14px;
+      color: #666666;
+      li{
+        padding: 5px 0;
+        cursor: pointer;
+        &.active{
+          color: #2e90ff;
+        }
+      }
+    }
+  }
+}
+.help_right{
+  float: left;
+  width: 960px;
+  border:1px #f3f5f8 solid;
+  //height:816px;
+  background: #fff;
+  //overflow: auto;
+  .title{
+    font-size: 20px;
+    color: #666666;
+    padding: 21px 46px;
+    border-bottom:1px #f3f5f8 solid;
+  }
+  .problem{
+    padding: 30px 46px;
+    font-size: 14px;
+    color: #666666;
+    .subject{
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    p{
+      text-indent: 2em;
+      line-height: 1.7;
+    }
+    img{
+      width: 90%;
+      margin: 10px auto 0 auto;
+    }
+  }
+  .table{
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 20px;
+    td{
+      padding: 10px;
+    }
+  }
+}
+
+
+///////////////////////////
+
+.header {
+  height: 65px;
+  width: 100%;
+  background-color: #363c48;
+  padding: 0 80px;
+  position: relative;
+  min-width: 1200px;
+
+  .logo {
+    width: 140px;
+    height: 30px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .menu {
+    text-align: center;
+    width: 140*5px;
+    display: flex;
+    font-size: 16px;
+    font-weight: 400;
+    color: #ffffff;
+    margin-left: 80px;
+    .item {
+      width: 140px;
+      height: 65px;
+      line-height: 65px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      outline: none;
+      opacity: 0.4;
+      color: #fff;
+      text-decoration: none;
+      &.active, &.show {
+        background-color: #282b30;
+        opacity: 1;
+        .menu-tip {
+          display: block;
+        }
+      }
+      .menu-tip {
+        display: none;
+        width: 24px;
+        height: 24px;
+        background-color: #ffffff;
+        transform: rotate(-45deg);
+        position: absolute;
+        bottom: -22px;
+        left: 140/2-sqrt(2*24*24)/2px;
+      }
+    }
+  }
+  .user-info {
+    height: 100%;
+    justify-content: space-around;
+    .user-block {
+      outline: none;
+      position: relative;
+      height: 100%;
+      align-items: center;
+      display: flex;
+      justify-content: space-around;
+      opacity: 0.4;
+      .user-head {
+        width: 39px;
+        height: 39px;
+        border: 1px solid transparent;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+      .user-name {
+        outline: none;
+        cursor: pointer;
+        padding-left: 12px;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 400;
+        text-align: right;
+      }
+      .user-name-icon {
+        cursor: pointer;
+        display: inline-block;
+        margin-left: 15px;
+        width: 9px;
+        height: 10px;
+        background: url("../../assets/img/user-menu-down.png");
+      }
+      &.active, &.show {
+        opacity: 1;
+        background-color: #363c48;
+        .menu-tip {
+          display: block;
+        }
+      }
+      .menu-tip {
+        display: none;
+        width: 24px;
+        height: 24px;
+        background-color: #ffffff;
+        transform: rotate(-45deg);
+        position: absolute;
+        bottom: -22px;
+        left: 120px;
+      }
+    }
+    .logout {
+      cursor: pointer;
+      width: 40px;
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+}
+
+.container-full {
+  background-color: #f9fafb;
+  position: absolute;
+  z-index: 1;
+  top: 65px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow: auto;
+  min-width: 1210px;
+}
+
+@media only screen and (max-width: 1390px) {
+  .header {
+    min-width: 1220px;
+    padding: 0 10px;
+  }
+
+  .logo {
+    margin: 0 auto;
+  }
+
+  .user-info {
+    margin: 0;
+  }
+}
