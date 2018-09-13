@@ -120,9 +120,11 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
 
   ngAfterContentInit(): void {
 
-    this.overflowRef.overflowSubject.subscribe(({left}) => {
-      this.tableWrapRef.nativeElement.scrollLeft = left;
-    })
+    if(this.overflowRef){
+      this.overflowRef.overflowSubject.subscribe(({left}) => {
+        this.tableWrapRef.nativeElement.scrollLeft = left;
+      })
+    }
 
     let _queryRef: HTMLElement;
     if (this.queryRef) {
@@ -222,7 +224,7 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
     }
 
     this._global.overflowSubject.subscribe(({top}) => {
-      this.asd();
+      this.position();
     })
   }
 
@@ -283,11 +285,11 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
         let _tableRef = <HTMLElement>this.tableRef.nativeElement;
         this.overflowRef.width = _tableRef.clientWidth
       }
-      this.asd()
+      this.position()
     })
   }
 
-  asd(){
+  position(){
     let bcrt1 = this._global.containerFullRef.getBoundingClientRect();
     let bcrt2 = this.tableWrapRef.nativeElement.getBoundingClientRect();
     let bottom = bcrt2.bottom - bcrt1.bottom + this.paginatorHeight + this.overflowHeight;

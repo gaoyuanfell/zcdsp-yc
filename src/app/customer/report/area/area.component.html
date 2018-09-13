@@ -25,7 +25,7 @@
 
     <table #tableRef table>
       <thead>
-      <tr>
+      <tr sticky>
         <th class="text-left">来源地域</th>
         <th class="text-right" [showSort]="true" [sortKey]="'pv'" ><span title="广告被展现给受众的次数">曝光量</span></th>
         <th class="text-right" [showSort]="true" [sortKey]="'click'"><span title="排除恶意点击后，广告被受众点击的次数">点击量</span></th>
@@ -58,13 +58,12 @@
         <td>{{ listTitle?.cpm * 1000 | currencyFormat}}</td>
         <td>{{ listTitle?.admoney | currencyFormat }}</td>
       </tr>
-      <tr sticky class="none">
-        <td class="none" colspan="100%" style="background: #f9fafb;">
-          <yc-table-paginator [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
-        </td>
-      </tr>
       </tfoot>
     </table>
+    <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
+    <div paginator style="background: #f9fafb;">
+      <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
+    </div>
   </yc-table>
 
 </div>

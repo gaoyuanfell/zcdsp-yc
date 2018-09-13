@@ -37,7 +37,7 @@
 
     <table #tableRef table>
       <thead>
-        <tr>
+        <tr sticky>
           <th class="text-center">编号</th>
           <th>定向包名称</th>
           <th class="text-center" [showSort]="true" [sortKey]="'creation_date'">创建日期</th>
@@ -58,10 +58,13 @@
             </td>
           </tr>
         </ng-template>
-
       </tbody>
     </table>
 
+    <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
+    <div paginator style="background: #f9fafb;">
+      <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
+    </div>
 
   </yc-table>
 
