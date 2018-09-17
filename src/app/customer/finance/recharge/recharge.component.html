@@ -84,7 +84,7 @@
     <table #tableRef table>
       <thead>
       <tr sticky class="text-center">
-        <th class="text-center" [showSort]="true" [sortKey]="'creation_date'">时间</th>
+        <th class="text-center" [showSort]="true" [sortKey]="'creation_date'" [width]="200">时间</th>
         <th class="text-center">类型</th>
         <th class="text-right" [showSort]="true" [sortKey]="'money'">金额</th>
         <th class="text-center" *ngIf=" userData?.user_type=== 1 ||  userData?.user_type=== 3">目标账号</th>

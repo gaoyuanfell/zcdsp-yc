@@ -27,7 +27,7 @@ export class CustomerComponent implements OnInit {
   userData: any = {};
   query: any = {
     page_index: 1,
-    page_size: 10
+    page_size: 20
   };
 
   authList;

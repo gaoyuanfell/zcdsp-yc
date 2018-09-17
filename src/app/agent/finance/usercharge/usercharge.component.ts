@@ -42,7 +42,7 @@ export class UserchargeComponent implements OnInit, OnDestroy {
   authUser;
   query: any = {
     page_index: 1,
-    page_size: 10
+    page_size: 20
   }
   @ViewChild('transferIn_template', {read: TemplateRef}) transferIn_template_ref: TemplateRef<any>;
   @ViewChild('transForm') transFormRef;

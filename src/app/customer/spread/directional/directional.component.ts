@@ -14,7 +14,7 @@ export class DirectionalComponent implements OnInit {
   @AutoCookie({
     defaultValue: {
       page_index: 1,
-      page_size: 10
+      page_size: 20
     },
     keepValue: {},
     cookieKey: 'Directional2Component'
