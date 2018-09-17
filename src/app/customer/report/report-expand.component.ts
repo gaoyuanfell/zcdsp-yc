@@ -310,8 +310,8 @@ export class ReportExpandComponent implements OnInit {
             name: '数据趋势',
             type: 'line',
             color: ['#2e90ff'],
-            symbol: 'none'
-
+            symbol: 'emptyCircle',
+            symbolSize: 2,//拐点大小
           }
         ]
       }

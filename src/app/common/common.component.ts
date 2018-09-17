@@ -161,8 +161,8 @@ export class BaseIndexComponent implements OnInit{
           name: '数据趋势',
           type: 'line',
           color: ['#2e90ff'],
-          symbol: 'none'
-
+          symbol:'emptyCircle',
+          symbolSize: 2,//拐点大小
         }
       ]
     }
@@ -654,7 +654,7 @@ export class BaseIndexComponent implements OnInit{
         },
         series: [{
           type: 'bar',
-          barWidth: 10,
+          barWidth: 6,
           itemStyle: {
             normal: {
               // barBorderRadius:[10, 10, 0, 0]
@@ -1023,7 +1023,7 @@ export class BaseIndexComponent implements OnInit{
           type: 'value'
         },
         series: [{
-          symbol:'circle',
+          symbol:'emptyCircle',
           symbolSize: 2,//拐点大小
           data: [],
           type: 'line',

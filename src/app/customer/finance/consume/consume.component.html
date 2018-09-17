@@ -92,7 +92,7 @@
         <tfoot [hidden]="!(ycTable?.data?.length > 1) ">
         <tr sticky>
           <td class="text-center">全部合计</td>
-          <td class="text-center">{{listTitle?.consume_money}}</td>
+          <td class="text-center">{{listTitle?.consume_money | currencyFormat}}</td>
         </tr>
         </tfoot>
       </table>

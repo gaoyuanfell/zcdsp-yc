@@ -304,13 +304,15 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
           name: '今日数据',
           type: 'line',
           color: ['#2e90ff'],
-          symbol: 'none'
+          symbol:'emptyCircle',
+          symbolSize: 2,//拐点大小
         },
         {
           name: '昨日数据',
           type: 'line',
           color: ['#31c38f'],
-          symbol: 'none'
+          symbol:'emptyCircle',
+          symbolSize: 2,//拐点大小
         },
       ]
     });
@@ -415,16 +417,18 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       },
       series: [
         {
+          symbol:'emptyCircle',
+          symbolSize: 2,//拐点大小
           name: '今日数据',
           type: 'line',
           color: ['#2e90ff'],
-          symbol: 'none'
         },
         {
           name: '昨日数据',
           type: 'line',
           color: ['#31c38f'],
-          symbol: 'none'
+          symbol:'emptyCircle',
+          symbolSize: 2,//拐点大小
         },
       ]
     });
