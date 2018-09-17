@@ -279,21 +279,23 @@
         <div class="contact huibg" id="contact">
           <div class="content">
             <h1 class="head"><img src="assets/img/index/lxtit.png" alt=""></h1>
-            <p class="tip">请专业投放顾问来电为您介绍<br>免费咨询，留下您的联系方式，我们的广告顾问将尽快与您取得联系</p>
-            <div class="us clear">
-              <div class="left">
-                <input type="text" class="fill-input company" placeholder="公司名称(必填)" [(ngModel)]="user.company" [ngClass]="{'has-success':user.company}">
-                <div class="form">
-                  <input type="text" class="fill-input name" placeholder="姓名(必填)" [(ngModel)]="user.name" [ngClass]="{'has-success':user.name}">
-                  <input type="text" class="fill-input iphone" placeholder="手机号码(必填)" [(ngModel)]="user.phone" [ngClass]="{'has-success':user.phone}">
-                  <button type="button" class="make" (click)="make()">预约顾问咨询</button>
+            <div style="padding-left:64px;">
+              <p class="tip">请专业投放顾问来电为您介绍<br>免费咨询，留下您的联系方式，我们的广告顾问将尽快与您取得联系</p>
+              <div class="us clear">
+                <div class="left">
+                  <input type="text" class="fill-input company" placeholder="公司名称(必填)" [(ngModel)]="user.company" [ngClass]="{'has-success':user.company}">
+                  <div class="form">
+                    <input type="text" class="fill-input name" placeholder="姓名(必填)" [(ngModel)]="user.name" [ngClass]="{'has-success':user.name}">
+                    <input type="text" class="fill-input iphone" placeholder="手机号码(必填)" [(ngModel)]="user.phone" [ngClass]="{'has-success':user.phone}">
+                    <button type="button" class="make" (click)="make()">预约顾问咨询</button>
+                  </div>
                 </div>
-              </div>
-              <div class="right">
-                <p>免费热线：</p>
-                <h1>400-670-9927</h1>
-                <p class="time">工作时间：9:00-18:00（工作日）</p>
-                <button type="button" class="open">自助开通广告账户</button>
+                <div class="right">
+                  <p>免费热线：</p>
+                  <h1>400-670-9927</h1>
+                  <p class="time">工作时间：9:00-18:00（工作日）</p>
+                  <button type="button" class="open">自助开通广告账户</button>
+                </div>
               </div>
             </div>
           </div>
