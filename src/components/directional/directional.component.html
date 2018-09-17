@@ -247,7 +247,7 @@
         </div>
 
         <ul class="linkage-list">
-          <ng-template [ngForOf]="valueList" ngFor let-value let-index="index">
+          <ng-template [ngForOf]="valueList" ngFor let-value let-index="index" [ngForTrackBy]="trackByFn">
             <li [ngClass]="{'active': valueList[index].children === (audiencesAction2List$ | async)[indexList + 1] && valueList[index].children?.length}">
               <div class="flex-center" (click)="setAudiencesActionNextChild2({value:value,index:indexList})">
                 <div class="linkage-item">

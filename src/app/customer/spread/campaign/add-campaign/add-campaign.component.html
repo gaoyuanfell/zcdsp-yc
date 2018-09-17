@@ -109,7 +109,7 @@
         </div>
         <div class="form-group flex">
           <label class="form-label"><span>*</span>APPID:</label>
-          <div class="form-input  flex-center">
+          <div class="form-input">
             <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_bundle_id" #app_bundle_id="ngModel"
                    type="text" placeholder="请输入APPID">
             <p class="input-error" *ngIf="(_valid || app_bundle_id.dirty) && !campaign.app_bundle_id">请输入APPID</p>
