@@ -111,8 +111,8 @@
           </td>-->
         </tr>
 
-        <tr #trExpand>
-          <td colspan="100%" *ngIf="trExpand.show">
+        <tr #trExpand class="none">
+          <td colspan="100%" class="none" *ngIf="trExpand.show">
             <yc-creative-expand (change)="list()" [id]="data.creative_id" [authList]="authList"></yc-creative-expand>
           </td>
         </tr>

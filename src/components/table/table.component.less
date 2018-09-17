@@ -51,13 +51,13 @@
         border-top: 1px solid #e2e6eb;
       }
     }
-    tbody{
-      tr:last-child{
-        td{
-          border-bottom: 1px solid #e2e6eb;
-        }
-      }
-    }
+    //tbody{
+    //  tr:last-child{
+    //    td{
+    //      border-bottom: 1px solid #e2e6eb;
+    //    }
+    //  }
+    //}
     tfoot {
       tr {
         &:hover{
@@ -69,6 +69,11 @@
       tr:first-child{
         td:not(.none){
           border-top: 1px solid #e2e6eb;
+        }
+      }
+      tr:last-child{
+        td:not(.none){
+          border-bottom: none;
         }
       }
       td:not(.none) {

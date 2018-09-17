@@ -23,7 +23,7 @@
     <a class="btn btn-link" style="padding: 0 40px;" href="javascript:history.back()">返回</a>
     <button *ngIf="!_nextStepNum" class="btn btn-outline btn-round" (click)="_nextStep()">下一步</button>
     <ng-template [ngIf]="_nextStepNum">
-    <button class="btn btn-outline btn-round m-r-1" (click)="save(2)" *ngIf="jurisdiction?.ZCMOBI_ADS_SPREAD_CAMPAIGN_EDIT_DIRECTION_SAVE && !_isEdit">提交并新建创意</button>
+      <button class="btn btn-outline btn-round m-r-1" (click)="save(2)" *ngIf="jurisdiction?.ZCMOBI_ADS_SPREAD_CAMPAIGN_EDIT_DIRECTION_SAVE && !_isEdit">提交并新建创意</button>
       <button class="btn btn-round" style="padding: 0 40px;" (click)="save(1)" *ngIf="jurisdiction?.ZCMOBI_ADS_SPREAD_CAMPAIGN_EDIT_SAVE">提交</button>
     </ng-template>
   </div>
@@ -64,7 +64,9 @@
         </div>
         <div class="m-l-1">
 
-          <a target="_blank" *ngIf="campaign.click_link && !click_link.invalid && campaign.click_type == '2'" [href]="campaign.click_link"><button class="btn">预览</button></a>
+          <a target="_blank" *ngIf="campaign.click_link && !click_link.invalid && campaign.click_type == '2'" [href]="campaign.click_link">
+            <button class="btn">预览</button>
+          </a>
           <button class="btn" *ngIf="campaign.template_id && campaign.click_type == '1'" (click)="templatePreview()" (mouseenter)="previewBoxShow = true" (mouseleave)="previewBoxShow = false;">预览</button>
           <div class="preview-box flex-center" *ngIf="_previewCodeUrl && previewBoxShow">
             <div class="qr-code">
@@ -75,9 +77,7 @@
           </div>
 
         </div>
-
         <i class="question-icon m-l-1 form-label-text" title="广告落地页地址，审核通过后不可修改(注：不支持跳转落地页)如果定向IOS操作系统落地页必须是https"></i>
-
       </div>
 
     </ng-template>
@@ -88,8 +88,8 @@
         <label class="form-label"><span>*</span>下载地址:</label>
         <div class="form-input" style="width: 520px">
           <input type="text" [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.download_link" #download_link="ngModel"
-            placeholder="请填写落地页(http://)" (ngModelChange)="campaign.click_link = campaign.download_link" pattern="^([hH]{1}[tT]{2}[pP]:\/\/|[hH]{1}[tT]{2}[pP][sS]:\/\/)[\d,a-z,A-Z]+[\w,\W]*$"
-            required [ngClass]="{'has-error':(_valid || download_link.dirty || download_link.touched) && download_link.invalid }"/>
+                 placeholder="请填写落地页(http://)" (ngModelChange)="campaign.click_link = campaign.download_link" pattern="^([hH]{1}[tT]{2}[pP]:\/\/|[hH]{1}[tT]{2}[pP][sS]:\/\/)[\d,a-z,A-Z]+[\w,\W]*$"
+                 required [ngClass]="{'has-error':(_valid || download_link.dirty || download_link.touched) && download_link.invalid }"/>
           <p class="input-error" *ngIf="(_valid || download_link.dirty || download_link.touched) && download_link.invalid">请输入下载地址</p>
         </div>
       </div>
@@ -111,10 +111,10 @@
           <label class="form-label"><span>*</span>APPID:</label>
           <div class="form-input  flex-center">
             <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_bundle_id" #app_bundle_id="ngModel"
-              type="text" placeholder="请输入APPID">
+                   type="text" placeholder="请输入APPID">
             <p class="input-error" *ngIf="(_valid || app_bundle_id.dirty) && !campaign.app_bundle_id">请输入APPID</p>
           </div>
-          <p class="m-l-1 form-label-text"> <i class="icon-tool-help" yc-tooltip  [ycContent]="'请输入在应用宝上架的APPID'" style="margin-left:5px;"></i> </p>
+          <p class="m-l-1 form-label-text"><i class="icon-tool-help" yc-tooltip [ycContent]="'请输入在应用宝上架的APPID'" style="margin-left:5px;"></i></p>
         </div>
       </ng-template>
 
@@ -130,7 +130,8 @@
         <label class="form-label"><span>*</span>apk上传:</label>
         <div class="form-input flex-center">
           <div [disabled]="!can_modify" yc-file-upload class="btn btn-outline" [slice]="true" [auto]="false"
-            [sliceSize]="10" (eventChange)="uploadParseApk($event)">点击上传</div>
+               [sliceSize]="10" (eventChange)="uploadParseApk($event)">点击上传
+          </div>
           <p class="m-l-1" *ngIf="can_modify">点击上传文件包，自动获取或手动填写以下信息，无法解析？ <a href="https://f2.adpush.cn/platform/1482116942716.zip">点击下载工具。</a></p>
         </div>
       </div>
@@ -140,7 +141,7 @@
           <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_package_name" #app_package_name="ngModel" type="text" placeholder="请选择输入APP包名">
           <p class="input-error" *ngIf="(_valid || app_package_name.dirty) && !campaign.app_package_name">请选择输入APP包名</p>
         </div>
-        <p class="m-l-1 form-label-text"> <i class="icon-tool-help" yc-tooltip  [ycContent]="'请输入在应用宝上架的APP渠道包名称'" style="margin-left:5px;"></i> </p>
+        <p class="m-l-1 form-label-text"><i class="icon-tool-help" yc-tooltip [ycContent]="'请输入在应用宝上架的APP渠道包名称'" style="margin-left:5px;"></i></p>
       </div>
       <div class="form-group flex">
         <label class="form-label"><span>*</span>APP名称:</label>
@@ -182,8 +183,7 @@
           <p class="input-error" *ngIf="(_valid || download_link.dirty || download_link.touched) && download_link.invalid">请输入下载地址</p>
         </div>
 
-+-+
-      +-074</div>
+      </div>
       <div class="form-group flex">
         <label class="form-label"><span>*</span>APPID:</label>
         <div class="form-input">
@@ -312,7 +312,7 @@
       <div style="margin: 0 80px;">
         <yc-directional [(ngModel)]="directional" (ngModelChange)="audienceCount()"></yc-directional>
         <div class="flex-center" style="height: 36px;" *ngIf="!_isEdit">
-          <yc-checkbox [(ngModel)]="is_need_package" (changeEvent)="is_need_package?(package_name = campaign.campaign_name + '_定向包'):(package_name = '')"  [label]="'保存以上数据为定向包，下次可直接通过快捷定向选择使用'"></yc-checkbox>
+          <yc-checkbox [(ngModel)]="is_need_package" (changeEvent)="is_need_package?(package_name = campaign.campaign_name + '_定向包'):(package_name = '')" [label]="'保存以上数据为定向包，下次可直接通过快捷定向选择使用'"></yc-checkbox>
           <input *ngIf="is_need_package" type="text" [(ngModel)]="package_name" class="form-control m-l-1" style="width: 180px;display: none;" placeholder="请输入定向包名称">
         </div>
       </div>
@@ -324,7 +324,7 @@
       </h2>
       <div class="flex" style="margin-top: 30px;margin-left: 45px;">
         <div class="form-input">
-          <input class="form-control" type="text" [(ngModel)]="campaign.ad_price" #ad_price="ngModel" [placeholder]="'请填写出价'" required pattern="(^[0-9]\d*\.?\d{0,2}$)" [ngClass]="{'has-error': (_valid || ad_price.dirty || ad_price.touched) && (ad_price.invalid || campaign.ad_price > bid_max || campaign.ad_price < bid_min)}">
+          <input class="form-control" type="text" [(ngModel)]="campaign.ad_price" #ad_price="ngModel" [placeholder]="'请填写出价'" required pattern="(^[0-9]\d*\.?\d{0,2}$)" [ngClass]="{'has-error': (_valid2 || ad_price.dirty || ad_price.touched) && (ad_price.invalid || campaign.ad_price > bid_max || campaign.ad_price < bid_min)}">
           <p class="input-error" *ngIf="(_valid2 || ad_price.dirty || ad_price.touched) &&  ad_price.invalid">
             请填写正确的金额</p>
           <p class="input-error" *ngIf="ad_price.valid && (campaign.ad_price > bid_max || campaign.ad_price < bid_min)">
