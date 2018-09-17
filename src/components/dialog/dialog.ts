@@ -66,7 +66,7 @@ export class Dialog {
       scrollStrategy: this._overlay.scrollStrategies.block(),
       panelClass: config.fullScreen ? 'dialog-full-content-portal' : 'dialog-content-portal',
       backdropClass: 'cdk-overlay-dark-backdrop',
-      hasBackdrop: true,
+      hasBackdrop: !config.fullScreen,
       maxWidth: config.maxWidth,
       maxHeight: config.maxHeight
     });

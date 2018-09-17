@@ -22,7 +22,6 @@ const initState: DirectionalState = {
 export function directionalReducer(state: DirectionalState = initState, action: DirectionalActionUnion) {
   switch (action.type) {
     case DirectionalActionTypes.DIRECTIONAL_ASSIGN: {
-      console.info(action.payload);
       state.areas = action.payload.areas;
       state.audiences = action.payload.audiences;
       state.device = action.payload.device;
@@ -197,16 +196,12 @@ export function directionalReducer(state: DirectionalState = initState, action: 
 
     case DirectionalActionTypes.AUDIENCES_ACTION_NEXT_CHILD: {
       let {value, index} = action.payload;
-      console.time('1');
       nextAudiencesActionChild(value, index);
-      console.timeEnd('1');
       return {...state};
     }
     case DirectionalActionTypes.AUDIENCES_ACTION_NEXT_CHILD2: {
       let {value, index} = action.payload;
-      console.time('1');
       nextAudiencesActionChild2(value, index);
-      console.timeEnd('1');
       return {...state};
     }
     case DirectionalActionTypes.CHECK_AUDIENCES_ACTION_CHANGE: {
@@ -255,14 +250,12 @@ export function directionalReducer(state: DirectionalState = initState, action: 
     ////// --------------------APP--------------------///////////
     case DirectionalActionTypes.AUDIENCES_APP_ASSIGN: {
       state.audiencesApp = action.payload;
-      state.audiencesAppList = [state.audiencesApp.children]
+      state.audiencesAppList = [state.audiencesApp.children];
       nextAudiencesAppChild();
-
       if (state.result2) {
         setResult2();
         state.result2 = undefined;
       }
-
       return {...state};
     }
     case DirectionalActionTypes.QUERY_AUDIENCES_APP_BY_NAME: {
