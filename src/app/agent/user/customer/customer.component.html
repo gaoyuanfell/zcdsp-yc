@@ -9,10 +9,10 @@
         </div>
       </div>
       <div class="right_bottom">
-        <div>通过<span>{{user_state_count?.audited  | number}}</span></div>
-        <div>未通过<span>{{user_state_count?.audit_failed  | number}}</span></div>
-        <div>审核中<span>{{user_state_count?.penging_audit  | number}}</span></div>
-        <div>冻结<span>{{user_state_count?.freeze  | number}}</span></div>
+        <div>通过  <span>{{user_state_count?.audited  | number}}</span></div>
+        <div>失败  <span>{{user_state_count?.audit_failed  | number}}</span></div>
+        <div>待审  <span>{{user_state_count?.penging_audit  | number}}</span></div>
+        <div>冻结  <span>{{user_state_count?.freeze  | number}}</span></div>
       </div>
     </li>
     <li>
@@ -45,6 +45,7 @@
           <h2 class="table-title">
             客户管理
           </h2>
+          <yc-checkbox-group [(ngModel)]="zc_audit_status" [list]="audit_status_list" (changeEvent)="auditStatusChange()" [props]="{value:'lookup_code',label:'meaning'}"></yc-checkbox-group>
         </div>
         <div class="right-tool">
           <div class="btn" (click)="addCustomer()" *ngIf="isPermit('ZCMOBI_US_CUSTOMER_ADD')">
@@ -54,7 +55,7 @@
             导出
             <i class="btn-icon-export"></i>
           </div>
-          <yc-checkbox-group [(ngModel)]="zc_audit_status" [list]="audit_status_list" (changeEvent)="auditStatusChange()" [props]="{value:'lookup_code',label:'meaning'}"></yc-checkbox-group>
+
           <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'请输入客户名称、账号、ID'"></yc-input-search>
         </div>
       </div>
