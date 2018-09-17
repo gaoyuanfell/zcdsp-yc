@@ -107,6 +107,16 @@
         </tr>
       </ng-template>
       </tbody>
+      <tfoot [hidden]="!(ycTable?.data?.length > 1) ">
+      <tr sticky>
+        <td class="text-center">全部合计</td>
+        <td class="text-center">-</td>
+        <td class="text-right">{{listTitle?.money}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tfoot>
     </table>
     <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
     <div paginator style="background: #f9fafb;">

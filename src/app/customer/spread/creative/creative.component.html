@@ -156,7 +156,7 @@
 
       </tbody>
       <tfoot>
-      <tr sticky [hidden]="!ycTable.data?.length">
+      <tr sticky [hidden]="!(ycTable?.data?.length > 1) ">
         <td stickyStart colspan="2">全部合计</td>
         <td>-</td>
         <td>-</td>

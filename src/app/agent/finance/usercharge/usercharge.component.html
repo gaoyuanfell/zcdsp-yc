@@ -96,6 +96,17 @@
           </tr>
         </ng-template>
         </tbody>
+        <tfoot [hidden]="!(ycTable?.data?.length > 1) ">
+        <tr sticky>
+          <td class="text-left">全部合计</td>
+          <td class="text-left">-</td>
+          <td class="text-right">{{listTitle['in_money'] | currencyFormat}}</td>
+          <td class="text-right">{{listTitle['out_money'] | currencyFormat}}</td>
+          <td class="text-right">{{listTitle['consume_money'] | currencyFormat}}</td>
+          <td class="text-right">{{listTitle['balance'] | currencyFormat}}</td>
+          <td class="text-center">-</td>
+        </tr>
+        </tfoot>
 
       </table>
 

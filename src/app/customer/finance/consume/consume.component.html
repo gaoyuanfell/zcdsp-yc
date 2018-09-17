@@ -69,8 +69,8 @@
         <thead>
         <tr sticky class="text-center">
           <!--<th [showCheckbox]="true"></th>-->
-          <th class="text-center" [showSort]="true" [sortKey]="'creation_date'">时间</th>
-          <th class="text-center" [showSort]="true" [sortKey]="'consume_money'">金额</th>
+          <th class="text-center" [showSort]="true"  [sortKey]="'creation_date'">时间</th>
+          <th class="text-center" [showSort]="true"   [sortKey]="'consume_money'">金额</th>
         </tr>
         </thead>
         <tbody>
@@ -89,6 +89,12 @@
           </tr>
         </ng-template>
         </tbody>
+        <tfoot [hidden]="!(ycTable?.data?.length > 1) ">
+        <tr sticky>
+          <td class="text-center">全部合计</td>
+          <td class="text-center">{{listTitle?.consume_money}}</td>
+        </tr>
+        </tfoot>
       </table>
 
       <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
