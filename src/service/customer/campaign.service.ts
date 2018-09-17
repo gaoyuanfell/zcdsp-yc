@@ -165,7 +165,7 @@ export class CampaignService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   parseIos(body = {}) {
-    return this.get(`/ws-api/v4/common/ios/parse`, body)
+    return this.get2(`/ws-api/v4/common/ios/parse`, body)
   }
 
   /**

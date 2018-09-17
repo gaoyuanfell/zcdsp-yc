@@ -18,7 +18,9 @@
   <p></p>
   <div class="user-info flex-center-between">
     <i class="header-search-icon"></i>
-    <i class="header-help-icon"></i>
+    <a routerLink="/help" target="_blank" [queryParamsHandling]="'merge'">
+      <i class="header-help-icon"></i>
+    </a>
     <i class="header-phone-icon">
       <div class="phone-tool-box">
         400-626-9606
@@ -45,7 +47,7 @@
             <ul class="nav-list nav-child" [ngStyle]="{'height.px': menu.child?.length * 60 * (menu.active?1:0)}">
               <ng-template [ngForOf]="menu.child" ngFor let-child let-cIndex="index">
                 <li>
-                  <div class="nav-item flex-center" [routerLink]="child.route" routerLinkActive="active">
+                  <div class="nav-item flex-center" [routerLink]="child.route" [queryParamsHandling]="'merge'" routerLinkActive="active">
                     <i class="nav-icon zcdsp-icon" [innerHTML]="child.icon"></i>
                     <span class="nav-name">{{child.name}}</span>
                     <div class="line" *ngIf="cIndex != menu.child.length - 1"></div>

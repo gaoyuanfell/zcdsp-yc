@@ -63,6 +63,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
 
   _isEdit;
   _valid;
+  _valid2;
 
   campaignTimes;
 
@@ -193,6 +194,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     this.campaign.app_package_name = result.package_name;
     this.campaign.app_version = result.version;
     this.campaign.app_upload_url = result.upload_url;
+    this.changeDetectorRef.markForCheck();
   }
 
   _appIdSubject = new Subject<any>();
@@ -202,7 +204,6 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     this._campaignService.parseIos({appid: this.campaign.app_bundle_id}).subscribe(
       res => {
         this.setAppInfo(res.result);
-        this.changeDetectorRef.markForCheck();
       },
       () => {
         this.setAppInfo({});
@@ -321,18 +322,14 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
         return true;
       }
     }
-
-    if (this._isNumber(this.campaign.ad_price) || !this.campaign.ad_price || this.campaign.ad_price > this.bid_max || this.campaign.ad_price < this.bid_min) {
-      // let chujiaRef = this.document.getElementById('chujia')
-      // if (chujiaRef) {
-      //   this._scrollService.scrollTo(this.containerFullRef, {top: chujiaRef.offsetTop});
-      // }
-      return true;
-    }
   }
 
   save(type) {
     if (this.valid()) return;
+    this._valid2 = true;
+    if (this._isNumber(this.campaign.ad_price) || !this.campaign.ad_price || this.campaign.ad_price > this.bid_max || this.campaign.ad_price < this.bid_min) {
+      return true;
+    }
     let body: any = {
       campaign: {...this.campaign}
     };
