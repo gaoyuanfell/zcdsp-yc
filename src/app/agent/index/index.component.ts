@@ -117,7 +117,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   childListTotal_count;
   query: any = {
     page_index: 1,
-    page_size: 10,
+    page_size: 20,
   };
   search() {
     this.query.page_index = 1;

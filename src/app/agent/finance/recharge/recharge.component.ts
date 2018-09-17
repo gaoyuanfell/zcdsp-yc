@@ -37,7 +37,7 @@ export class RechargeComponent implements OnInit {
 
   query: any = {
     page_index: 1,
-    page_size: 10,
+    page_size: 20,
     begin_date: new Date().calendar(2, -1).formatDate('yyyy-MM-dd'),
     end_date: new Date().formatDate('yyyy-MM-dd'),
   };
