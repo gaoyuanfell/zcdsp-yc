@@ -106,14 +106,14 @@
         </div>
         <div class="state clear">
           <div class="list" title="审核通过的客户个数">通过<span>{{user_state_count?.audited  | number}}</span></div>
-          <div class="list" title="审核未通过的客户个数">未通过<span>{{user_state_count?.audit_failed  | number }}</span></div>
-          <div class="list" title="审核中的客户个数">审核中<span>{{user_state_count?.penging_audit | number}}</span></div>
+          <div class="list" title="审核未通过的客户个数">失败<span>{{user_state_count?.audit_failed  | number }}</span></div>
+          <div class="list" title="审核中的客户个数">待审<span>{{user_state_count?.penging_audit | number}}</span></div>
           <div class="list" title="冻结的客户个数">冻结<span>{{user_state_count?.freeze | number }}</span></div>
         </div>
         <div class="state-rate">
           <div class="list" title="审核通过的客户占比">通过<span>{{user_state_count?.audited / user_state_count?.total_count | number: '1.2-2'}}%</span></div>
-          <div class="list" title="审核未通过的客户占比">未通过<span>{{user_state_count?.audit_failed  / user_state_count?.total_count | number: '1.2-2' }}%</span></div>
-          <div class="list" title="审核中的客户占比">审核中<span>{{user_state_count?.penging_audit / user_state_count?.total_count | number: '1.2-2'}}%</span></div>
+          <div class="list" title="审核未通过的客户占比">失败<span>{{user_state_count?.audit_failed  / user_state_count?.total_count | number: '1.2-2' }}%</span></div>
+          <div class="list" title="审核中的客户占比">待审<span>{{user_state_count?.penging_audit / user_state_count?.total_count | number: '1.2-2'}}%</span></div>
           <div class="list" title="冻结的客户个占比">冻结<span>{{user_state_count?.freeze / user_state_count?.total_count | number: '1.2-2' }}%</span></div>
         </div>
       </li>
