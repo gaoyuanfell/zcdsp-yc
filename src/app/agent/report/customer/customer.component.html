@@ -54,7 +54,7 @@
           </tr>
         </ng-template>
         </tbody>
-        <tfoot [hidden]="!ycTable?.data?.length">
+        <tfoot [hidden]="!(ycTable?.data?.length > 1) ">
         <tr sticky>
           <td>全部合计</td>
           <td>-</td>

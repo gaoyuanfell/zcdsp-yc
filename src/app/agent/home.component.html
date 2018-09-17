@@ -1,10 +1,10 @@
 <div class="user-tool-box" [@fadeIn] *ngIf="userToolBox">
   <div class="flex item">
-    <i></i>
+    <i class="logout-icon"></i>
     <p>账户安全</p>
   </div>
   <div class="flex item" (click)="logout($event)">
-    <i></i>
+    <i class="logout-icon"></i>
     <p>退出登录</p>
   </div>
 </div>
@@ -16,8 +16,15 @@
   <p></p>
   <div class="user-info flex-center-between">
     <i class="header-search-icon"></i>
-    <i class="header-help-icon"></i>
-    <i class="header-phone-icon"></i>
+    <a routerLink="/help" target="_blank" [queryParamsHandling]="'merge'">
+      <i class="header-help-icon"></i>
+    </a>
+    <i class="header-phone-icon">
+      <div class="phone-tool-box">
+        400-626-9606
+        <div class="item"></div>
+      </div>
+    </i>
     <img class="user-head" src="assets/img/default-user-head.png" alt="">
     <p style="line-height: 66px;cursor: pointer;outline: none;" (click)="userToolBox = !userToolBox" [ngStyle]="{'color': userToolBox ? '#fff': '#ccc' }">
       {{auth?.user.user_name}}

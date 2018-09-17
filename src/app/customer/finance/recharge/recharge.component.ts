@@ -64,11 +64,12 @@ export class RechargeComponent implements OnInit {
     this.query.page_index = 1;
     this.list();
   }
-
+  listTitle;
   list() {
     this._financeService.rechargeList(this.query).subscribe(res => {
       this.tableList = res.result.items;
       this.total_count = res.result.total_count;
+      this.listTitle = res.result.other;
     })
   }
 
