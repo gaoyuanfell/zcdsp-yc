@@ -15,8 +15,10 @@
   </div>
   <p></p>
   <div class="user-info flex-center-between">
-    <i class="header-search-icon"></i>
-    <i class="header-help-icon"></i>
+    <!--<i class="header-search-icon"></i>-->
+    <a routerLink="/help" target="_blank">
+      <i class="header-help-icon"></i>
+    </a>
     <i class="header-phone-icon"></i>
     <img class="user-head" src="assets/img/default-user-head.png" alt="">
     <p style="line-height: 66px;cursor: pointer;outline: none;" (click)="userToolBox = !userToolBox" [ngStyle]="{'color': userToolBox ? '#fff': '#ccc' }">

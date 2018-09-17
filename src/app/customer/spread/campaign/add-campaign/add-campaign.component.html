@@ -189,7 +189,7 @@
           <p class="input-error" *ngIf="(_valid || app_bundle_id.dirty) && !campaign.app_bundle_id">请输入APPID</p>
         </div>
         <!--1053012308-->
-        <a *ngIf="campaign.app_bundle_id" href="javascript:void 0" class="m-l-1" (click)="parseIos()">再次获取APP信息</a>
+        <a *ngIf="campaign.app_bundle_id" href="javascript:void 0" class="input-text" (click)="parseIos()">再次获取APP信息</a>
       </div>
       <div class="form-group flex">
         <label class="form-label"><span>*</span>APP名称:</label>
@@ -211,7 +211,7 @@
           <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_size" #app_size="ngModel" type="text" placeholder="请输入APP大小">
           <p class="input-error" *ngIf="(_valid || app_size.dirty) && (_isNumber2(campaign.app_size) || !campaign.app_size)">请输入有效数字</p>
         </div>
-        <p class="m-l-1">MB</p>
+        <p class="input-text">MB</p>
       </div>
       <div class="form-group flex">
         <label class="form-label">APP描述</label>
@@ -321,7 +321,7 @@
       <div class="flex" style="margin-top: 30px;margin-left: 45px;">
         <div class="form-input">
           <input class="form-control" type="text" [(ngModel)]="campaign.ad_price" #ad_price="ngModel" [placeholder]="'请填写出价'" required pattern="(^[0-9]\d*\.?\d{0,2}$)" [ngClass]="{'has-error': (_valid || ad_price.dirty || ad_price.touched) && (ad_price.invalid || campaign.ad_price > bid_max || campaign.ad_price < bid_min)}">
-          <p class="input-error" *ngIf="(_valid || ad_price.dirty || ad_price.touched) &&  ad_price.invalid">
+          <p class="input-error" *ngIf="(_valid2 || ad_price.dirty || ad_price.touched) &&  ad_price.invalid">
             请填写正确的金额</p>
           <p class="input-error" *ngIf="ad_price.valid && (campaign.ad_price > bid_max || campaign.ad_price < bid_min)">
             出价范围[{{bid_min}},{{bid_max}}]</p>
