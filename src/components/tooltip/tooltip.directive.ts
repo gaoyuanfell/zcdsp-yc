@@ -120,10 +120,12 @@ export class TooltipDirective implements OnInit, OnDestroy {
   result;  // 存储的content
   @Input('ycTitle') ycTitle;   // title名称
   @Input('widthExp') widthExp = 400;   // width
+  @Input('colorExp') colorExp = '#fff';   // width
   @Input('ycContent') ycContent;  //  内容或者是一个订阅
   @Input() placement: 'topLeft' | 'top' | 'topRight' | 'leftTop' | 'left' | 'leftBottom' | 'rightTop' | 'right' | 'rightBottom' | 'bottomLeft' | 'bottom' | 'bottomRight' = 'bottomLeft';
   // @HostBinding(':hover') isHover = true;
   @HostListener('mouseenter', ['$event'])
+
   open() {
       this.result = this.ycContent;
       this.init();
@@ -158,7 +160,7 @@ export class TooltipDirective implements OnInit, OnDestroy {
           .withFlexibleDimensions(false)
           .withViewportMargin(8)
           .withDefaultOffsetY(4)
-          .withDefaultOffsetX(-30)
+          .withDefaultOffsetX(-26)
           .withPush(false)
           .withPositions([   // bottomLeft
             // ...positions
@@ -179,6 +181,7 @@ export class TooltipDirective implements OnInit, OnDestroy {
       this.componentRef.instance.ycTitle = this.ycTitle;
       this.componentRef.instance.result = this.result;
       this.componentRef.instance.widthExp = this.widthExp;
+      this.componentRef.instance.colorExp = this.colorExp;
       this.changeDetectorRef.markForCheck();  // 这句话不加的话，tooltip页面渲染不出来(ngOninit 根本打印不出来)
     }
     // 给覆盖物添加事件

@@ -52,6 +52,37 @@
     width: 20px;
     height: 20px;
     background: url("../../assets/img/header-phone-icon.png") no-repeat center;
+    &:hover {
+      .phone-tool-box {
+        display: block;
+      }
+    }
+    .phone-tool-box {
+      text-align: center;
+      line-height: 40px;
+      display: none;
+      //opacity: 0;
+      width: 170px;
+      height: 40px;
+      position: absolute;
+      box-shadow: 0 2px 5px rgba(26, 38, 72, 0.08);
+      background-color: #031220;
+      top: 74px;
+      right: 101px;
+      z-index: 999;
+      border-radius: 3px;
+      color: #fff;
+      >.item {
+        width:0;
+        height:0;
+        border-width:0 7px 7px;
+        border-style:solid;
+        border-color:transparent transparent #031220;/*透明 透明  灰*/
+        margin:40px auto;
+        position:relative;
+        bottom:86px;
+      }
+    }
   }
 
 }
@@ -177,7 +208,7 @@
 
 .user-tool-box {
   width: 170px;
-  height: 70px;
+  height: 64px;
   position: absolute;
   box-shadow: 0 2px 5px rgba(26, 38, 72, 0.08);
   background-color: #031220;
@@ -187,6 +218,7 @@
   z-index: 999;
   border-radius: 3px;
   .item {
+    align-items: center;
     height: 32px;
     line-height: 32px;
     padding-left: 45px;
@@ -197,6 +229,10 @@
     cursor: pointer;
     &:last-child {
       border-top: 2px solid #fff;
+    }
+    > i {
+      position:absolute;
+      left:33px;
     }
   }
 }

@@ -11,6 +11,7 @@ export class TooltipComponent implements OnInit {
   _result;
   _ycTitle;
   @Input() widthExp;
+  @Input() colorExp;
   @Input()
   set result(value) {
     this._result = value;
