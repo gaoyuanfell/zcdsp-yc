@@ -247,7 +247,8 @@
         <p class="input-error" *ngIf="(_valid || day_budget.dirty || day_budget.touched) && (_isNumber(campaign.day_budget) || !campaign.day_budget)">请输入正确的金额</p>
         <p class="input-error" *ngIf="(_valid || day_budget.dirty || day_budget.touched) && campaign.day_budget && campaign.day_budget < 100">请输入大于100的有效数字</p>
       </div>
-      <p class="m-l-1 form-label-text">每日的花费上限</p>
+      <!--<p class="m-l-1 form-label-text">每日的花费上限</p>-->
+      <i class="zcdsp-icon input-text" yc-tooltip [ycContent]="'每日的花费上限'">&#xe622;</i>
     </div>
 
     <div class="form-group flex-center">
@@ -260,16 +261,17 @@
     <div class="form-group flex-center">
       <label class="form-label"><span>*</span>投放频次:</label>
       <div class="form-input">
-        <yc-select [width]="360" placeholder="请选择频次" [(ngModel)]="campaign.frequency" [list]="frequencyList"></yc-select>
+        <yc-select [width]="380" placeholder="请选择频次" [(ngModel)]="campaign.frequency" [list]="frequencyList"></yc-select>
       </div>
-      <p class="m-l-1 form-label-text">每个广告项目在每天对每个用户展示的次数，建议3~5次。</p>
+      <!--<p class="m-l-1 form-label-text">每个广告项目在每天对每个用户展示的次数，建议3~5次。</p>-->
+      <i class="zcdsp-icon input-text" yc-tooltip [ycContent]="'每个广告项目在每天对每个用户展示的次数，建议3~5次。'">&#xe622;</i>
     </div>
 
     <div class="form-group flex-center">
       <label class="form-label"><span>*</span>投放日期:</label>
       <div class="form-input">
         <!--<i class="input-icon icon-input-datepicker"></i>-->
-        <input-datepicker [width]="360" [(ngModel)]="campaignTimes" [isShortcutKey]="false" [disabledTodayBefore]="true" [query]="campaign" [appendField]="['begin_date', 'end_date']" [isRange]="true" placeholder="请选择投放日期"
+        <input-datepicker [width]="380" [(ngModel)]="campaignTimes" [isShortcutKey]="false" [disabledTodayBefore]="true" [query]="campaign" [appendField]="['begin_date', 'end_date']" [isRange]="true" placeholder="请选择投放日期"
                           [ngClass]="{'has-error': _valid && !campaign.begin_date}"></input-datepicker>
         <p class="input-error" *ngIf="_valid && !campaign.begin_date">请输入投放日期</p>
       </div>
