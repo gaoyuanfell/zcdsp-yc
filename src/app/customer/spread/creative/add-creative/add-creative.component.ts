@@ -13,7 +13,6 @@ import {AppState} from '../../../../../store/model';
 import {Store} from '@ngrx/store';
 import * as directionalAction from '../../../../../store/actions/directional.action';
 import {recursionChild} from '../../../../../service/util';
-// import * as qrious from 'qrious/dist/qrious.js';
 
 @Component({
   selector: 'app-add-creative',
@@ -594,6 +593,8 @@ export class AddCreativeComponent implements OnInit {
   dtlApp;
   dtlAppType = 1;
 
+  qRiousImgUrl
+
   /////////////// 快速导航栏
 
   get containerFullRef() {
@@ -645,6 +646,12 @@ export class AddCreativeComponent implements OnInit {
 
         // 获取覆盖人数
         this.audienceCount();
+
+        let qr = new QRious({
+          value: this.campaign.click_link
+        });
+        this.qRiousImgUrl = qr.toDataURL('image/jpeg');
+
         this.changeDetectorRef.markForCheck();
       },
       (error) => {
@@ -659,7 +666,6 @@ export class AddCreativeComponent implements OnInit {
   bid_max;
 
   ngOnInit() {
-    // console.info(qrious.default)
     this.bid_min = this._global.bid_min;
     this.bid_max = this._global.bid_max;
     this.campaign_id = this.route.snapshot.queryParams.campaign_id;
