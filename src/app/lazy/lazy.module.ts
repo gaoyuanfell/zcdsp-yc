@@ -17,6 +17,32 @@ import {Dialog, YC_DIALOG_DATA} from '../../components/dialog/dialog';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/model';
 import * as directionalAction from '../../store/actions/directional.action';
+import {AutoCookie} from '../../decorator/decorator';
+import {CreativeService} from '../../service/customer/creative.service';
+import {TableComponent} from '../../components/table/table.component';
+import {CdkTableModule} from '@angular/cdk/table';
+
+
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
+  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
+  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
+  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
+  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
+  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
+  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
+  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
+  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+];
+
 
 @Component({
   selector: 'app-lazy-view',
@@ -26,22 +52,8 @@ import * as directionalAction from '../../store/actions/directional.action';
     `
   ],
   template: `
-    <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;">
-      <div yc-map style="width:500px;height:500px;margin:100px auto"></div>
-
-      <!--
-        <button class="btn" (click)="open()">open</button>
-        <button class="btn" (click)="open2()">open2</button>
-        <button class="btn" routerLink="1">lazy</button>
-        <yc-map></yc-map>
-        <div style="width: 100%;height: 600px;" yc-map></div>
-        <yc-directional></yc-directional>
-      -->
-
-      <yc-autocomplete [(ngModel)]="autocomplete"
-                       [list]="[{label:111, value:11},{label:222, value:22},{label:333, value:33},{label:444, value:44}]"></yc-autocomplete>
-    
-      <p>{{autocomplete}}</p>
+    <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;" #overflow>
+      
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -49,27 +61,10 @@ import * as directionalAction from '../../store/actions/directional.action';
 })
 export class LazyComponent implements OnDestroy, OnInit {
 
-  autocomplete = 11;
+  list = Array.from({length: 50});
 
-  @ViewChild('template', {read: TemplateRef}) template: TemplateRef<any>;
-
-  open() {
-    this._sidebar.open(LazyComponent3, {data: 1}).subscribe(da => {
-      console.info();
-    });
-  }
-
-  open2() {
-    this._dialog.open(LazyComponent2, {data: 1}).subscribe(da => {
-      console.info();
-    });
-  }
-
-  result;
-
-  concatFUn() {
-
-  }
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  dataSource = ELEMENT_DATA;
 
   constructor(private _sidebar: Sidebar,
               private store: Store<AppState>,
@@ -93,21 +88,20 @@ export class LazyComponent implements OnDestroy, OnInit {
   selector: 'app-lazy-view2',
   styles: [],
   template: `
-    <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;">
-      123123123
-    </div>
+
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: true,
 })
 export class LazyComponent2 implements OnDestroy, OnInit {
 
-  constructor(@Inject(YC_DIALOG_DATA) public data: any) {
-    console.info(data);
+
+  constructor(private _creativeService: CreativeService,
+              private changeDetectorRef: ChangeDetectorRef,) {
   }
 
   ngOnInit(): void {
-    console.info('ok');
+
   }
 
   ngOnDestroy(): void {
@@ -146,6 +140,7 @@ export class LazyComponent3 implements OnDestroy, OnInit {
   entryComponents: [LazyComponent3],
   imports: [
     Module,
+    CdkTableModule,
     RouterModule.forChild([
       {path: '', component: LazyComponent, canActivate: [], pathMatch: 'full'},
       {path: ':id', component: LazyComponent2, canActivate: [], pathMatch: 'full'},

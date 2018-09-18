@@ -306,7 +306,7 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 999999;
   pointer-events: auto;
   -webkit-tap-highlight-color: transparent;
   transition: opacity .4s cubic-bezier(.25, .8, .25, 1);
@@ -318,7 +318,7 @@ body {
 
 .cdk-overlay-connected-position-bounding-box {
   position: absolute;
-  z-index: 1000;
+  z-index: 999999;
   display: flex;
   flex-direction: column;
   min-width: 1px;
@@ -329,7 +329,7 @@ body {
   position: absolute;
   pointer-events: auto;
   box-sizing: border-box;
-  z-index: 1000;
+  z-index: 999998;
   display: flex;
   max-width: 100%;
   max-height: 100%;
@@ -342,13 +342,13 @@ body {
   height: 100%;
   width: 100%;
   position: fixed;
-  z-index: 1000;
+  z-index: 1000000;
 }
 
 .cdk-global-overlay-wrapper {
   display: flex;
   position: absolute;
-  z-index: 1000;
+  z-index: 999999;
   pointer-events: none;
   top: 0;
   left: 0;
@@ -866,7 +866,13 @@ body {
     background-color: transparent;
     border: none;
     color: #2e90ff;
-    font-weight: 700;
+    //font-weight: 700;
+  }
+  &.btn-a {
+    padding:0 6px;
+    background-color: transparent;
+    border: none;
+    color: #2e90ff;
   }
   &.btn-big {
     font-size: 16px;
@@ -924,7 +930,7 @@ body {
 
 .input-text {
   line-height: 36px;
-  padding-left: 20px;
+  margin-left: 15px;
 }
 
 .form-control {
@@ -1354,11 +1360,18 @@ textarea.form-control {
   background: url("assets/img/customer/img/time-icon.png") no-repeat;
 }
 .text-center {
-  text-align: center;
+  text-align: center !important;
 }
 .text-left {
-  text-align: left;
+  text-align: left !important;
 }
 .text-right {
-  text-align: right;
+  text-align: right !important;
+}
+
+.logout-icon {
+  display: inline-block;
+  width: 12px;
+  height: 14px;
+  background: url("assets/icon/logout.png") no-repeat center;
 }

@@ -117,7 +117,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   childListTotal_count;
   query: any = {
     page_index: 1,
-    page_size: 10,
+    page_size: 20,
   };
   search() {
     this.query.page_index = 1;
@@ -156,6 +156,21 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   recharge() {
     this._dialog.open(this.templateRecharge, {title: '充值流程', flag: false}).subscribe(data => {
     });
+  }
+
+
+  sublogin(user_id, type = '') {
+    // 浏览器出现拦截 先在异步外面打开页面
+    const tem = window.open(); // 先打开页面
+    this._publicService.sublogin({user_id: user_id}).subscribe(res => {
+        if (res.success === 200) {
+          tem.location.href = type ? this._publicService.goAct({token: res.result}) : this._publicService.goHome({token: res.result})
+        }
+      },
+      () => {
+        tem.close()
+      }
+    )
   }
 
 

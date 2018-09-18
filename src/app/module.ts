@@ -27,10 +27,9 @@ import {SwitchInputModule} from '../components/switch-input/switch-input.module'
 import {SelectModule} from '../components/select/select.module';
 import {RichEditorModule} from '../components/rich-editor/rich-editor.module';
 import {DirectionalModule} from '../components/directional/directional.module';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TableModule} from '../components/table/table.module';
 import {PopoverModule} from '../components/popover/popover.module';
-import {FormTipsModule} from '../components/form-tips/form-tips.module'
+import {FormTipsModule} from '../components/form-tips/form-tips.module';
 import {FixedModule} from '../components/fixed/fixed.module';
 import {SidebarModule} from '../components/sidebar/sidebar.module';
 import {AnchorModule} from '../components/anchor/anchor.module';
@@ -41,7 +40,7 @@ import {CreativeMaterialModule} from '../components/creative-material/creative-m
 import {TooltipModule} from '../components/tooltip/tooltip.module';
 import {MapModule} from '../components/map/map.module';
 import {LoadingModule} from '../components/loading/loading.module';
-import { AutocompleteModule } from '../components/autocomplete/autocomplete.module';
+import {AutocompleteModule} from '../components/autocomplete/autocomplete.module';
 
 @NgModule({
   imports: [

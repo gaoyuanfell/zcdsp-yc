@@ -63,6 +63,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
 
   _isEdit;
   _valid;
+  _valid2;
 
   campaignTimes;
 
@@ -193,6 +194,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     this.campaign.app_package_name = result.package_name;
     this.campaign.app_version = result.version;
     this.campaign.app_upload_url = result.upload_url;
+    this.changeDetectorRef.markForCheck();
   }
 
   _appIdSubject = new Subject<any>();
@@ -320,19 +322,14 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
         return true;
       }
     }
-
-    if (this._isNumber(this.campaign.ad_price) || !this.campaign.ad_price || this.campaign.ad_price > this.bid_max || this.campaign.ad_price < this.bid_min) {
-      // let chujiaRef = this.document.getElementById('chujia')
-      // if (chujiaRef) {
-      //   this._scrollService.scrollTo(this.containerFullRef, {top: chujiaRef.offsetTop});
-      // }
-      return true;
-    }
   }
-
 
   save(type) {
     if (this.valid()) return;
+    this._valid2 = true;
+    if (this._isNumber(this.campaign.ad_price) || !this.campaign.ad_price || this.campaign.ad_price > this.bid_max || this.campaign.ad_price < this.bid_min) {
+      return true;
+    }
     let body: any = {
       campaign: {...this.campaign}
     };
@@ -343,6 +340,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
 
     if (this.directional) {
       body.directional = this.directional;
+      body.directional.lbs_scene_type = this.directional.dtl_address.lbs_scene_type;
     }
 
     if (this.package_name) {
@@ -378,13 +376,13 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
   //******************  落地页 *****************//
 
   templateChange(data) {
-    this.campaign.click_type = '1'
-    this.campaign.template_id = data.id
+    this.campaign.click_type = '1';
+    this.campaign.template_id = data.id;
     this.templatePreviewCode();
   }
 
-  templateInputChange(){
-    this.campaign.click_type = '2'
+  templateInputChange() {
+    this.campaign.click_type = '2';
     this._previewCodeUrl = null;
   }
 
@@ -418,6 +416,14 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
       let w = window.open();
       w.location.href = `${this.templateUrl}/template/preview/${this.template_temp_id}`;
     }
+  }
+
+  get token() {
+    let token = this._global.token;
+    if (token) return {
+      token: this._global.token
+    };
+    return {};
   }
 
   // 侧边导航栏设置
@@ -523,10 +529,10 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     _templateService.landingSelect().subscribe(res => {
       this.templateList = res.result.map(item => {
         return {
-          id:item.id,
-          name:item.name,
+          id: item.id,
+          name: item.name,
           link: `${this.templateUrl}/template/${item.id}`
-        }
+        };
       });
     });
   }
@@ -541,13 +547,15 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
   bid_max;
 
   // ---------------------------- 下一步 ------------------------ //
-  _nextStepNum = 0
-  _nextStep(){
+  _nextStepNum = 0;
+
+  _nextStep() {
+    if (this.valid()) return;
     this._directionalService.directionalRecommend().subscribe(res => {
       this.directionalSmart = res.result;
       this.directional = {...this.directionalSmart};
       this.directionalType = '1';
-      this._nextStepNum = 1
+      this._nextStepNum = 1;
       this.changeDetectorRef.markForCheck();
     });
   }
@@ -583,7 +591,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
         this.campaign.show_hours = res.result.show_hours;
         this.campaignTimes = [this.campaign.begin_date, this.campaign.end_date];
       }
-      if(res.result.directional){
+      if (res.result.directional) {
         this.directional = res.result.directional;
         // this.audienceCount();
       }

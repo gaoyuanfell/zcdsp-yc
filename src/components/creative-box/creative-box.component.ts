@@ -352,6 +352,7 @@ export class CreativeBoxComponent implements OnInit, ControlValueAccessor {
   _inputSubject = new Subject<any>()
 
   ngOnInit() {
+    this.danamitic();
     this._inputSubject.pipe(
       debounceTime(500)
     ).subscribe(() => {
@@ -367,16 +368,12 @@ export class CreativeBoxComponent implements OnInit, ControlValueAccessor {
   total_count;
 
 
-  danamitic() {
-    return this._creativeService.dynamicWords(this.query);
 
-    // this._creativeService.dynamicWords(this.query).subscribe(res => {
-    //   this.tableList = res.result;
-    //   console.log(this.tableList)
-    //   popover.open();
-    //   this.changeDetectorRef.markForCheck()
-    //   // this.total_count = res.total_count;
-    // })
+  word;
+  danamitic() {
+    this._creativeService.dynamicWords(this.query).subscribe( res => {
+      this.word = res.result;
+    })
   }
 
 }

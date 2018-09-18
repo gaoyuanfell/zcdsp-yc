@@ -18,7 +18,7 @@
     </div>
   </div>
 
-  <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" [fixed]="true" (changeEvent)="list()">
+  <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" (changeEvent)="list()"> <!--[total]="total_count" [fixed]="true" -->
     <div #queryRef query class="query-tool">
       <div class="left-tool">
         <div class="btn" routerLink="/ads/spread/campaign-add/0">
@@ -35,7 +35,7 @@
         </div>
         <div class="btn btn-outline" [yc-drop-menu]="batchUpdateMenu" (selectedEvent)="batchUpdate($event.value)">
           批量修改
-          <i class="icon-btn-menu m-l-1"></i>
+          <i class="zcdsp-icon m-l-1" style="font-size: 14px;">&#xe8e5;</i>
         </div>
       </div>
 
@@ -48,11 +48,10 @@
     </div>
     <table #tableRef table>
       <thead>
-      <tr>
-        <th fixed="left" width="50" [showCheckbox]="true"></th>
-        <th></th>
-        <th fixed="left">活动ID</th>
-        <th style="text-align: left">活动名称</th>
+      <tr sticky>
+        <th stickyStart width="50" [showCheckbox]="true"></th>
+        <th stickyStart  class="text-center">活动ID</th>
+        <th stickyStart class="text-left">活动名称</th>
         <th></th>
         <th class="text-right">每日预算</th>
         <th class="text-right">出价</th>
@@ -70,12 +69,11 @@
       <tbody>
       <ng-template [ngForOf]="ycTable.data" ngFor let-data let-index="index">
         <tr [expand]="trExpand" #tr>
-          <td fixed="left" [showCheckbox]="data"></td>
-          <td (click)="tr.trigger()" class="pointer">
-            <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}"></i>
-          </td>
-          <td fixed="left" [title]="data.campaign_id">{{data.campaign_id}}</td>
-          <td [width]="120" [title]="data.campaign_name">
+          <td stickyStart [showCheckbox]="data"></td>
+          <td stickyStart [title]="data.campaign_id">
+            <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>
+            {{data.campaign_id}}</td>
+          <td stickyStart [width]="120" [title]="data.campaign_name">
             <a data-link [routerLink]="['/ads/spread/creative']" [queryParams]="{campaign_id: data.campaign_id}">{{data.campaign_name}}</a>
           </td>
           <td>
@@ -110,8 +108,8 @@
           </td>-->
         </tr>
 
-        <tr #trExpand>
-          <td colspan="100%" *ngIf="trExpand.show">
+        <tr #trExpand class="none">
+          <td colspan="100%" class="none" *ngIf="trExpand.show">
             <yc-campaign-expand (change)="search()" [id]="data.campaign_id" [authList]="authList"></yc-campaign-expand>
           </td>
         </tr>
@@ -172,24 +170,33 @@
         </ng-template>
 
       </ng-template>
-      <tr *ngIf="ycTable.data?.length">
-        <td colspan="3">本页合计</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>{{other?.pv | number}}</td>
-        <td>{{other?.click | number}}</td>
-        <td>{{ other?.ctr * 100 | number: '1.2-2' }}%</td>
-        <td>{{ other?.cpc | currencyFormat}}</td>
-        <td>{{ other?.cpm * 1000 | currencyFormat}}</td>
-        <td>{{ other?.admoney | currencyFormat }}</td>
-      </tr>
+
       </tbody>
+      <tfoot [hidden]="!(ycTable?.data?.length > 1) ">
+      <tr sticky>
+        <td colspan="3">全部合计</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td class="text-right">{{other?.pv | number}}</td>
+        <td class="text-right">{{other?.click | number}}</td>
+        <td class="text-right">{{ other?.ctr * 100 | number: '1.2-2' }}%</td>
+        <td class="text-right">{{ other?.cpc | currencyFormat}}</td>
+        <td class="text-right">{{ other?.cpm * 1000 | currencyFormat}}</td>
+        <td class="text-right">{{ other?.admoney | currencyFormat }}</td>
+      </tr>
+      </tfoot>
     </table>
+
+    <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
+    <div paginator style="background: #f9fafb;">
+      <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
+    </div>
+
   </yc-table>
+
 
 </div>
 

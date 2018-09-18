@@ -26,7 +26,7 @@ export class CustomerComponent implements OnInit {
   authUser;
   query: any = {
     page_index: 1,
-    page_size: 10,
+    page_size: 20,
     begin_date: new Date().calendar(2, -1).formatDate('yyyy-MM-dd'),
     end_date: new Date().formatDate('yyyy-MM-dd'),
   };
@@ -55,6 +55,7 @@ export class CustomerComponent implements OnInit {
   init() {
     this._reportService.childInit().subscribe(res => {
       this.user_list = res.result.user_list;
+      this.user_list.forEach( item => item.all_name = item.user_name + item.nick_name)
     })
   }
 

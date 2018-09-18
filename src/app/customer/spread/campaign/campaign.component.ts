@@ -35,7 +35,7 @@ export class CampaignComponent implements OnInit {
       page_size: 20
     },
     keepValue: {
-      begin_date: new Date().calendar(2, -1).formatDate('yyyy-MM-dd'),
+      begin_date: new Date().formatDate('yyyy-MM-dd'),
       end_date: new Date().formatDate('yyyy-MM-dd')
     }
   })
@@ -80,13 +80,17 @@ export class CampaignComponent implements OnInit {
     })
 
     let [begin_date, end_date] = this.datepicker = [
-      new Date().calendar(2, -1).formatDate('yyyy-MM-dd'),
+      new Date().formatDate('yyyy-MM-dd'),
       new Date().formatDate('yyyy-MM-dd')
     ];
     this.query.begin_date = begin_date;
     this.query.end_date = end_date;
 
     this.search()
+  }
+
+  get containerFullRef(){
+    return this._global.containerFullRef
   }
 
   ////*******************************///

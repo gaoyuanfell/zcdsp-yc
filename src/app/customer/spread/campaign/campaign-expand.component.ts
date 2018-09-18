@@ -32,6 +32,21 @@ import {codyDepth, hoursFormat} from '../../../../service/util';
 
         <div class="expand-content-bottom">
           <div class="expand-info">
+            
+            <div class="item" *ngIf="click_link">
+              <span class="info-key">落地页</span>
+              <div class="info-value">
+                <a target="_blank" [href]="click_link">{{click_link}}</a>
+              </div>
+            </div>
+
+            <div class="item" *ngIf="download_link">
+              <span class="info-key">下载地址</span>
+              <div class="info-value">
+                <a target="_blank" [href]="download_link">{{download_link}}</a>
+              </div>
+            </div>
+            
             <div class="item">
               <span class="info-key">投放小时</span>
               <div class="info-value">
@@ -151,6 +166,8 @@ export class CampaignExpandComponent implements OnInit {
   new_campaign_name;
 
   campaign_name;
+  click_link;
+  download_link;
   show_hour_today = [];
   show_hour_today_format
 
@@ -170,9 +187,9 @@ export class CampaignExpandComponent implements OnInit {
     this.directional$ = codyDepth(this.directional);
     this._dialog.open(directional, {title: '修改定向'}).subscribe(data => {
       if (data) {
-        this._campaignService.batchAddUpdate({
-          campaign_ids: [this.id],
-          ...this.directional
+        this._campaignService.directionalEdit({
+          campaign_id: this.id,
+          ...this.directional$
         }).subscribe(res => {
           this.init();
         })
@@ -333,6 +350,8 @@ export class CampaignExpandComponent implements OnInit {
     this._campaignService.campaignDetail({campaign_id: this.id}).subscribe(res => {
       this.creatives = res.result.creatives;
       this.campaign_name = res.result.campaign.campaign_name;
+      this.click_link = res.result.campaign.click_link;
+      this.download_link = res.result.campaign.download_link;
       //  show_hours是全周的, show_hours_today是当天的
 
       // 弹出的表格是显示全周的 投放小时显示的当天的 type = 1:是表格

@@ -25,7 +25,7 @@ export class CreativeComponent implements OnInit {
       page_size: 20
     },
     keepValue: {
-      begin_date: new Date().calendar(3, -7).formatDate('yyyy-MM-dd'),
+      begin_date: new Date().formatDate('yyyy-MM-dd'),
       end_date: new Date().formatDate('yyyy-MM-dd'),
     },
   })
@@ -74,7 +74,7 @@ export class CreativeComponent implements OnInit {
       Reflect.deleteProperty(this.query, key);
     })
     let [begin_date, end_date] = this.datepicker = [
-      new Date().calendar(3, -7).formatDate('yyyy-MM-dd'),
+      new Date().formatDate('yyyy-MM-dd'),
       new Date().formatDate('yyyy-MM-dd')
     ];
     this.query.begin_date = begin_date;

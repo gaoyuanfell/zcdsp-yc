@@ -49,7 +49,7 @@ export class RechargeComponent implements OnInit {
 
   query: any = {
     page_index: 1,
-    page_size: 10,
+    page_size: 20,
     begin_date: new Date().calendar(2, -1).formatDate('yyyy-MM-dd'),
     end_date: new Date().formatDate('yyyy-MM-dd'),
   };
@@ -64,11 +64,12 @@ export class RechargeComponent implements OnInit {
     this.query.page_index = 1;
     this.list();
   }
-
+  listTitle;
   list() {
     this._financeService.rechargeList(this.query).subscribe(res => {
       this.tableList = res.result.items;
       this.total_count = res.result.total_count;
+      this.listTitle = res.result.other;
     })
   }
 

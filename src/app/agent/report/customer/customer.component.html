@@ -1,41 +1,26 @@
 <div class="container-list">
 
-  <div class="query-tool">
-    <div class="left-tool">
-      <h2 class="table-title">
-        客户报表
-      </h2>
-    </div>
-
-    <div class="right-tool">
-      <div class="btn" (click)="exportUrl()">
-        导出
-        <i class="btn-icon-export"></i>
-      </div>
-      <input-datepicker [disabledTodayAfter]=true [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
-      <yc-select [width]="240" [searchCtrl]="true" [(ngModel)]="query.user_id" [list]="user_list" [props]="{value:'user_id',label:'user_name'}" (selectedEvent)="search()" [placeholder]="'请选择客户'" [whole]="'全部'"></yc-select>
-    </div>
-  </div>
-
   <div class="table-content">
+    <div class="query-tool">
+      <div class="left-tool">
+        <h2 class="table-title">
+          客户报表
+        </h2>
+      </div>
+
+      <div class="right-tool">
+        <div class="btn" (click)="exportUrl()">
+          导出
+          <i class="btn-icon-export"></i>
+        </div>
+        <input-datepicker [disabledTodayAfter]=true [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
+        <yc-select [width]="240" [searchCtrl]="true" [(ngModel)]="query.user_id" [list]="user_list" [props]="{value:'user_id',label:'all_name'}" (selectedEvent)="search()" [placeholder]="'请选择客户'" [whole]="'全部'"></yc-select>
+      </div>
+    </div>
     <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
-
-      <!--<div class="query-tool" #queryRef query>-->
-        <!--<div class="left-tool">-->
-          <!--<div class="btn" (click)="exportUrl()">-->
-            <!--导出-->
-            <!--<i class="btn-icon-export"></i>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="right-tool">-->
-          <!--<input-datepicker [disabledTodayAfter]=true [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>-->
-          <!--<yc-select [width]="240" [searchCtrl]="true" [(ngModel)]="query.user_id" [list]="user_list" [props]="{value:'user_id',label:'user_name'}" (selectedEvent)="search()" [placeholder]="'请选择客户'" [whole]="'全部'"></yc-select>-->
-        <!--</div>-->
-      <!--</div>-->
-
       <table #tableRef table>
         <thead>
-        <tr>
+        <tr sticky>
           <th class="text-center">客户ID</th>
           <th>客户账号</th>
           <th>客户名称</th>
@@ -61,27 +46,34 @@
             <td class="text-right">{{ data.cpm * 1000 | currencyFormat}}</td>
             <td class="text-right">{{ data.admoney | currencyFormat }}</td>
             <td class="text-center">
-              <button class="btn-into-img" (click)="sublogin(data.user_id)"></button>
-              <button class="btn-add-img" (click)="sublogin(data.user_id, 'type')"></button>
+              <a data-link (click)="sublogin(data.user_id)" style="margin-right:5px;">进入账户</a>
+              <a data-link (click)="sublogin(data.user_id, 'type')">新增活动</a>
+              <!--<button class="btn-into-img" (click)="sublogin(data.user_id)"></button>-->
+              <!--<button class="btn-add-img" (click)="sublogin(data.user_id, 'type')"></button>-->
             </td>
           </tr>
         </ng-template>
-        <ng-template [ngIf]="tableList?.length > 0">
-          <tr #tr>
-            <td class="text-left">全部总计</td>
-            <td class="text-left"></td>
-            <td class="text-left"></td>
-            <td class="text-right">{{ listTitle?.pv * 1| number}}</td>
-            <td class="text-right">{{listTitle?.click * 1| number}}</td>
-            <td class="text-right">{{ listTitle?.ctr * 100 | number: '1.2-2' }}</td>
-            <td class="text-right">{{listTitle?.cpc * 1 | currencyFormat}}</td>
-            <td class="text-right">{{listTitle?.cpm * 1000| currencyFormat}}</td>
-            <td class="text-right">{{listTitle?.admoney * 1| currencyFormat}}</td>
-            <td></td>
-          </tr>
-        </ng-template>
         </tbody>
+        <tfoot [hidden]="!(ycTable?.data?.length > 1) ">
+        <tr sticky>
+          <td>全部合计</td>
+          <td>-</td>
+          <td>-</td>
+          <td class="text-right">{{listTitle?.pv | number}}</td>
+          <td class="text-right">{{listTitle?.click | number}}</td>
+          <td class="text-right">{{ listTitle?.ctr * 100 | number: '1.2-2' }}%</td>
+          <td class="text-right">{{ listTitle?.cpc | currencyFormat}}</td>
+          <td class="text-right">{{ listTitle?.cpm * 1000 | currencyFormat}}</td>
+          <td class="text-right">{{ listTitle?.admoney | currencyFormat }}</td>
+          <td></td>
+        </tr>
+        </tfoot>
       </table>
+      <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
+      <div paginator style="background: #f9fafb;">
+        <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
+      </div>
+
     </yc-table>
   </div>
 </div>

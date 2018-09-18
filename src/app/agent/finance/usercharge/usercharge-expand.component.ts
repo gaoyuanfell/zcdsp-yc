@@ -44,13 +44,20 @@ import {FinanceService} from '../../../../service/agent/finance.service';
           </ng-template>
           </tbody>
         </table>
+        
+        <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
+        <div paginator style="background: #f9fafb;">
+          <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
+        </div>
       </yc-table>
+      
     </div>
   `,
   styles: [
     `      
       .parent {
-        
+        padding: 30px;
+        background-color: rgba(48, 148, 255, 0.08);
       }
     `
   ]
@@ -91,7 +98,7 @@ export class UserchargeExpandComponent implements OnInit, AfterViewInit {
   }
   query: any = {
     page_index: 1,
-    page_size: 10,
+    page_size: 20,
     begin_date: new Date().calendar(3, -6).formatDate('yyyy-MM-dd'),
     end_date: new Date().formatDate('yyyy-MM-dd'),
   }

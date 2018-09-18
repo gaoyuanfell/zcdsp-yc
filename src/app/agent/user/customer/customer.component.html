@@ -5,13 +5,14 @@
         <div class="img"><img src="assets/img/user/customer-total.png" alt=""></div>
         <div class="right">
           <p>客户统计</p>
-          <h1>xxxxx</h1>
+          <h1>{{user_state_count?.total_count}}</h1>
         </div>
       </div>
       <div class="right_bottom">
-        <div *ngFor="let x of audit_status_list">
-          {{x.meaning}}<span>  {{x.entry_sequence}}</span>
-        </div>
+        <div>通过  <span>{{user_state_count?.audited  | number}}</span></div>
+        <div>失败  <span>{{user_state_count?.audit_failed  | number}}</span></div>
+        <div>待审  <span>{{user_state_count?.penging_audit  | number}}</span></div>
+        <div>冻结  <span>{{user_state_count?.freeze  | number}}</span></div>
       </div>
     </li>
     <li>
@@ -36,9 +37,17 @@
 
 
   <div class="table-content">
+
     <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
-      <div class="query-tool" #queryRef query>
+
+      <div class="query-tool"  #queryRef query>
         <div class="left-tool">
+          <h2 class="table-title">
+            客户管理
+          </h2>
+          <yc-checkbox-group [(ngModel)]="zc_audit_status" [list]="audit_status_list" (changeEvent)="auditStatusChange()" [props]="{value:'lookup_code',label:'meaning'}"></yc-checkbox-group>
+        </div>
+        <div class="right-tool">
           <div class="btn" (click)="addCustomer()" *ngIf="isPermit('ZCMOBI_US_CUSTOMER_ADD')">
             新增客户
           </div>
@@ -46,16 +55,14 @@
             导出
             <i class="btn-icon-export"></i>
           </div>
-        </div>
-        <div class="right-tool">
-          <yc-checkbox-group [(ngModel)]="zc_audit_status" [list]="audit_status_list" (changeEvent)="auditStatusChange()" [props]="{value:'lookup_code',label:'meaning'}"></yc-checkbox-group>
+
           <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'请输入客户名称、账号、ID'"></yc-input-search>
         </div>
       </div>
 
       <table #tableRef table>
         <thead>
-        <tr>
+        <tr sticky>
           <th class="text-center">客户ID</th>
           <th>客户账号</th>
           <th>客户名称</th>
@@ -77,18 +84,18 @@
             <td class="text-center">{{ data.zc_audit_date | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
             <td class="text-center">{{ data.creation_date | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
             <td class="text-center">
-
-
-              <!--<button class="btn-pencil-icon" (click)="editCustomer(data.user_id)" [disabled]="!isPermit('ZCMOBI_US_CUSTOMER_EDIT')"></button>-->
-              <!--<button class="btn-into-img" (click)="sublogin(data.user_id)"></button>-->
-
-              <button  class="btn btn-link" (click)="editCustomer(data.user_id)" [disabled]="!isPermit('ZCMOBI_US_CUSTOMER_EDIT')">修改</button>
-              <button  class="btn btn-link" (click)="sublogin(data.user_id)">进入账户</button>
+              <button  class="btn btn-a" (click)="editCustomer(data.user_id)" [disabled]="!isPermit('ZCMOBI_US_CUSTOMER_EDIT')">修改</button>
+              <button  class="btn btn-a" (click)="sublogin(data.user_id)">进入账户</button>
             </td>
           </tr>
         </ng-template>
         </tbody>
+
       </table>
+      <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
+      <div paginator style="background: #f9fafb;">
+        <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
+      </div>
     </yc-table>
   </div>
 </div>

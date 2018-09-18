@@ -1,16 +1,12 @@
-import {Component, ElementRef, OnInit, Renderer2, ViewChild, OnDestroy,} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Store} from '@ngrx/store';
-import {AppState} from '../store/model';
-import {ScrollService} from "../service/scroll.service";
-import { Title } from '@angular/platform-browser';
+import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild,} from '@angular/core';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.less']
 })
-export class BoardComponent implements OnInit,OnDestroy {
+export class BoardComponent implements OnInit, OnDestroy {
   @ViewChild('container') containerFullRef: ElementRef;
   @ViewChild('picList') picList: ElementRef;
   @ViewChild('caseMainLeft') caseMainLeft: ElementRef;
@@ -18,14 +14,12 @@ export class BoardComponent implements OnInit,OnDestroy {
   @ViewChild('scheme') scheme: ElementRef;
 
   constructor(private renderer: Renderer2,
-              private title: Title,
-              private _scrollService: ScrollService,) {
-    this.title.setTitle(`智橙移动`);
+              private title: Title,) {
   }
 
   destroy = false;
 
-  hash = 'home'
+  hash = 'home';
   leftTo;
   height;
   topTo;
@@ -33,118 +27,123 @@ export class BoardComponent implements OnInit,OnDestroy {
   background: any = {
     background: 'rgba(255,255,255,0.7)',
     'top.px': 0
-  }
+  };
   setIntervalNum;
   setInterval1;
   setInterval2;
   setinter;
-  currentPic = 0
-  currents = 0
-  num = 0
-  user: any = {}
+  currentPic = 0;
+  currents = 0;
+  num = 0;
+  user: any = {};
   flags = false;
+
   ngOnInit(): void {
-    this.scrolls()
-    this.scrolls1()
-    this.scrolls2()
-    this.schemeImg()
+    this.title.setTitle(`智橙移动`);
+
+    this.scrolls();
+    this.scrolls1();
+    this.scrolls2();
+    this.schemeImg();
     this.renderer.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
 
-      this.background['top.px'] = event.target.scrollTop
+      this.background['top.px'] = event.target.scrollTop;
 
-      this.background['background'] = `rgba(255,255,255,${(event.target.scrollTop / 180) * 0.3 + 0.7})`
-    })
+      this.background['background'] = `rgba(255,255,255,${(event.target.scrollTop / 180) * 0.3 + 0.7})`;
+    });
     this.renderer.listen(this.picList.nativeElement, 'mouseenter', () => {
-      clearInterval(this.setIntervalNum)
-    })
+      clearInterval(this.setIntervalNum);
+    });
     this.renderer.listen(this.picList.nativeElement, 'mouseleave', () => {
-      this.scrolls()
-    })
+      this.scrolls();
+    });
     this.renderer.listen(this.caseMainLeft.nativeElement, 'mouseenter', () => {
-      clearInterval(this.setInterval1)
-      clearInterval(this.setInterval2)
-    })
+      clearInterval(this.setInterval1);
+      clearInterval(this.setInterval2);
+    });
     this.renderer.listen(this.caseMainLeft.nativeElement, 'mouseleave', () => {
-      this.scrolls1()
-      this.scrolls2()
-    })
+      this.scrolls1();
+      this.scrolls2();
+    });
     this.renderer.listen(this.caseMainRight.nativeElement, 'mouseenter', () => {
-      clearInterval(this.setInterval1)
-      clearInterval(this.setInterval2)
-    })
+      clearInterval(this.setInterval1);
+      clearInterval(this.setInterval2);
+    });
     this.renderer.listen(this.caseMainRight.nativeElement, 'mouseleave', () => {
-      this.scrolls1()
-      this.scrolls2()
-    })
+      this.scrolls1();
+      this.scrolls2();
+    });
     this.renderer.listen(this.scheme.nativeElement, 'mouseenter', () => {
-      clearInterval(this.setinter)
-    })
+      clearInterval(this.setinter);
+    });
     this.renderer.listen(this.scheme.nativeElement, 'mouseleave', () => {
-      this.schemeImg()
-    })
+      this.schemeImg();
+    });
   }
 
   scrolls() {
     this.setIntervalNum = setInterval(() => {
-      if(this.destroy) return;
-      this.currentPic++
+      if (this.destroy) return;
+      this.currentPic++;
       if (this.currentPic > 1) {
-        this.currentPic = 0
+        this.currentPic = 0;
       }
       if (this.currentPic < 1) {
-        this.currentPic = 0
+        this.currentPic = 0;
       }
       this.leftTo = {
         'left.px': -this.currentPic * 1352
-      }
-    }, 3000)
+      };
+    }, 3000);
   }
 
   scrolls1() {
     this.setInterval1 = setInterval(() => {
-      if(this.destroy) return;
-      this.currentPic++
+      if (this.destroy) return;
+      this.currentPic++;
       if (this.currentPic > document.querySelector('.imgbox .list').children.length - 1) {
-        this.currentPic = 0
+        this.currentPic = 0;
       }
       this.height = {
         'top.px': -this.currentPic * 472
-      }
-    }, 3000)
+      };
+    }, 3000);
   }
 
   scrolls2() {
     this.setInterval2 = setInterval(() => {
-      if(this.destroy) return;
-      this.currentPic++
+      if (this.destroy) return;
+      this.currentPic++;
       if (this.currentPic > document.querySelector('.text-list .list').children.length - 1) {
-        this.currentPic = 0
+        this.currentPic = 0;
       }
       this.topTo = {
         'top.px': -this.currentPic * 298
-      }
-    }, 3000)
+      };
+    }, 3000);
   }
+
   schemeImg() {
     this.setinter = setInterval(() => {
-      if(this.destroy) return;
-      this.currents++
+      if (this.destroy) return;
+      this.currents++;
       if (this.currents > document.querySelector('.listimg').children.length - 1) {
-        this.currents = 0
+        this.currents = 0;
       }
       this.leftNum = {
         'left.px': -this.currents * 85
-      }
-    }, 2500)
+      };
+    }, 2500);
   }
+
   changeElement(index) {
-    this.num = index
+    this.num = index;
   }
 
   scrollTop(name) {
-    this.hash = name
-    this.containerFullRef.nativeElement.scrollTop = document.getElementById(name).offsetTop - 80
-    console.info(name)
+    this.hash = name;
+    this.containerFullRef.nativeElement.scrollTop = document.getElementById(name).offsetTop - 80;
+    console.info(name);
     if (name === 'home') {
       (<HTMLDivElement>this.containerFullRef.nativeElement).scrollTop = 0;
       // this.containerFullRef.nativeElement.scrollTo({top: 0})
@@ -153,24 +152,24 @@ export class BoardComponent implements OnInit,OnDestroy {
   }
 
   current(index) {
-    this.currentPic = index
+    this.currentPic = index;
     this.leftTo = {
       'left.px': -(index * 1352)
-    }
+    };
   }
 
   make() {
     if (!this.user.company || !this.user.name || !this.user.phone) {
-      alert('不能为空（必填）')
+      alert('不能为空（必填）');
     } else {
-      this.flags = !this.flags
+      this.flags = !this.flags;
     }
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.destroy = true;
-    clearInterval(this.setInterval1)
-    clearInterval(this.setInterval2)
-    clearInterval(this.setIntervalNum)
+    clearInterval(this.setInterval1);
+    clearInterval(this.setInterval2);
+    clearInterval(this.setIntervalNum);
   }
 }

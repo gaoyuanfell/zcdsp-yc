@@ -20,28 +20,10 @@
 
 
   <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
-
-    <!--<div class="query-tool" #queryRef query>-->
-      <!--<div class="left-tool">-->
-        <!--<h2 class="table-title">-->
-          <!--时间报表-->
-        <!--</h2>-->
-        <!--<yc-select [(ngModel)]="query.campaign_id" [whole]="'全部'" [list]="listArray" [searchCtrl]="true" [width]="200" [props]="{value:'campaign_id',label:'campaign_name'}" [placeholder]="'全部活动'" (selectedEvent)="search()"></yc-select>-->
-      <!--</div>-->
-      <!--<div class="right-tool">-->
-        <!--<input-datepicker [disabledTodayAfter]=true [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>-->
-        <!--<yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'请输入创意名称或ID搜索'"></yc-input-search>-->
-        <!--<div class="btn" (click)="exportUrl()">-->
-          <!--导出-->
-          <!--<i class="btn-icon-export"></i>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-
     <table #tableRef table>
     <thead>
-    <tr>
-      <th class="text-right"></th>
+    <tr sticky>
+      <!--<th class="text-right"></th>-->
       <th class="text-center">统计时间</th>
       <th class="text-right" [showSort]="true" [sortKey]="'pv'" ><span title="广告被展现给受众的次数">曝光量</span></th>
       <th class="text-right" [showSort]="true" [sortKey]="'click'"><span title="排除恶意点击后，广告被受众点击的次数">点击量</span></th>
@@ -54,10 +36,13 @@
     <tbody>
     <ng-template [ngForOf]="ycTable.data" ngFor let-data>
       <tr [expand]="trExpand" #tr>
-        <td class="text-right">
+        <!--<td class="text-right">-->
+          <!--<i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>-->
+        <!--</td>-->
+        <td class="text-center">
           <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>
+          {{data.date}}
         </td>
-        <td class="text-center">{{data.date}}</td>
         <td class="text-right">{{data.pv | number}}</td>
         <td class="text-right">{{data.click | number}}</td>
         <td class="text-right">{{ data.ctr * 100 | number: '1.2-2' }}%</td>
@@ -66,27 +51,31 @@
         <td class="text-right">{{ data.admoney | currencyFormat }}</td>
         <!--CurrencyPipe  默认保留2位-->
       </tr>
-      <tr #trExpand>
-        <td colspan="1000" *ngIf="trExpand.show">
+      <tr #trExpand class="none">
+        <td colspan="1000" *ngIf="trExpand.show" class="none">
           <yc-report-expand [type]="'datetime-report'" [begin_date]="data.date" [id]="''" [btnShow]='true' [campainActive]="query.campaign_id" [searchText]="query.search_text"></yc-report-expand>
         </td>
       </tr>
     </ng-template>
-    <ng-template [ngIf]="tableList?.length > 0">
-      <!--tableList?.length > 0-->
-      <tr #tr>
-        <td class="text-left">全部总计</td>
-        <td class="text-left"></td>
-        <td class="text-right">{{ listTitle?.pv * 1| number}}</td>
-        <td class="text-right">{{listTitle?.click * 1| number}}</td>
-        <td class="text-right">{{ listTitle?.ctr * 100 | number: '1.2-2' }}</td>
-        <td class="text-right">{{listTitle?.cpc * 1 | currencyFormat}}</td>
-        <td class="text-right">{{listTitle?.cpm * 1000| currencyFormat}}</td>
-        <td class="text-right">{{listTitle?.admoney * 1| currencyFormat}}</td>
-      </tr>
-    </ng-template>
     </tbody>
+      <tfoot [hidden]="!(ycTable?.data?.length > 1) ">
+      <tr sticky>
+        <td class="text-center">全部合计</td>
+        <td  class="text-right">{{listTitle?.pv | number}}</td>
+        <td class="text-right">{{listTitle?.click | number}}</td>
+        <td class="text-right">{{ listTitle?.ctr * 100 | number: '1.2-2' }}%</td>
+        <td class="text-right">{{ listTitle?.cpc | currencyFormat}}</td>
+        <td class="text-right">{{ listTitle?.cpm * 1000 | currencyFormat}}</td>
+        <td class="text-right">{{ listTitle?.admoney | currencyFormat }}</td>
+      </tr>
+      </tfoot>
     </table>
+
+    <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
+    <div paginator style="background: #f9fafb;">
+      <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
+    </div>
+
   </yc-table>
 
 </div>

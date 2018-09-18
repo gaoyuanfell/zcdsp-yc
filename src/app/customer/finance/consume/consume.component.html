@@ -49,15 +49,12 @@
 
   <div class="table-content">
     <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
-      <div class="query-tool"  #queryRef query >
+
+      <div class="query-tool" #queryRef query>
         <div class="left-tool">
           <h2 class="table-title">
             消费
           </h2>
-          <!--<div class="btn" (click)="exportUrl()">-->
-            <!--导出-->
-            <!--<i class="btn-icon-export"></i>-->
-          <!--</div>-->
         </div>
         <div class="right-tool">
           <input-datepicker [disabledTodayAfter]=true [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
@@ -67,12 +64,13 @@
           </div>
         </div>
       </div>
+
       <table #tableRef table>
         <thead>
-        <tr class="text-center">
+        <tr sticky class="text-center">
           <!--<th [showCheckbox]="true"></th>-->
-          <th class="text-center" [showSort]="true" [sortKey]="'creation_date'">时间</th>
-          <th class="text-center" [showSort]="true" [sortKey]="'consume_money'">金额</th>
+          <th class="text-center" [showSort]="true"  [sortKey]="'creation_date'">时间</th>
+          <th class="text-center" [showSort]="true"   [sortKey]="'consume_money'">金额</th>
         </tr>
         </thead>
         <tbody>
@@ -84,14 +82,26 @@
             </td>
             <td class="text-center">{{data['consume_money'] | currencyFormat}}</td>
           </tr>
-          <tr #trExpand>
-            <td colspan="1000" *ngIf="trExpand.show">
+          <tr #trExpand class="none">
+            <td colspan="1000" *ngIf="trExpand.show" class="none">
               <yc-consume-expand [date]="data['current_date']"></yc-consume-expand>
             </td>
           </tr>
         </ng-template>
         </tbody>
+        <tfoot [hidden]="!(ycTable?.data?.length > 1) ">
+        <tr sticky>
+          <td class="text-center">全部合计</td>
+          <td class="text-center">{{listTitle?.consume_money | currencyFormat}}</td>
+        </tr>
+        </tfoot>
       </table>
+
+      <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
+      <div paginator style="background: #f9fafb;">
+        <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
+      </div>
+
     </yc-table>
 
   </div>

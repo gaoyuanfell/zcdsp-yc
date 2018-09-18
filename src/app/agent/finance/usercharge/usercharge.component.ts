@@ -42,7 +42,7 @@ export class UserchargeComponent implements OnInit, OnDestroy {
   authUser;
   query: any = {
     page_index: 1,
-    page_size: 10
+    page_size: 20
   }
   @ViewChild('transferIn_template', {read: TemplateRef}) transferIn_template_ref: TemplateRef<any>;
   @ViewChild('transForm') transFormRef;
@@ -59,11 +59,12 @@ export class UserchargeComponent implements OnInit, OnDestroy {
     this.query.page_index = 1;
     this.list();
   }
-
+  listTitle;
   list() {
     this._financeService.consumeList(this.query).subscribe(res => {
       this.tableList = res.result.items;
       this.total_count = res.result.total_count;
+      this.listTitle = res.result.other;
     })
   }
 

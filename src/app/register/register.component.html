@@ -27,13 +27,13 @@
 
 
 
-        <input type="text" class="password" placeholder="输入密码" [ngClass]="setInvalidClass(infoForm, infoForm.controls['password'])" required [(ngModel)]="user.password" name="password"
+        <input type="password" class="password" placeholder="输入密码" [ngClass]="setInvalidClass(infoForm, infoForm.controls['password'])" required [(ngModel)]="user.password" name="password"
                pattern="((?=.*\d)(?=.*[A-Za-z])|(?=.*\d)(?=.*\W)|(?=.*[A-Za-z])(?=.*\W))^[A-Za-z\d\W]{8,18}$" (ngModelChange)="pwd_comfirm()" autocomplete="off">
         <app-form-tips [target]="infoForm.controls['password']" [formTarget]="infoForm" [tips]="'请输入8~18位字母和数字或符号的组合!'" placeholder="请填写密码"></app-form-tips>
 
 
 
-        <input type="text" class="password" placeholder="请再次输入密码"   required [(ngModel)]="user.old_pwd" (ngModelChange)="pwd_comfirm()"  name="old_pwd" autocomplete="off" [ngClass]="{'has-error':flag && !user.old_pwd, 'has-success': !flag && user.old_pwd}">
+        <input type="password" class="password" placeholder="请再次输入密码"   required [(ngModel)]="user.old_pwd" (ngModelChange)="pwd_comfirm()"  name="old_pwd" autocomplete="off" [ngClass]="{'has-error':flag && !user.old_pwd, 'has-success': !flag && user.old_pwd}">
         <p class="error" *ngIf="flag"><img src="assets/img/index/tips.png" alt="">密码不一致</p>
 
 
@@ -53,14 +53,14 @@
 
         <app-form-tips [target]="infoForm.controls['verify_code']" [tips]="'请输入手机验证码'" placeholder="请输入手机验证码" [formTarget]="infoForm"></app-form-tips>
         <div style="margin-top:10px;">
-          <yc-checkbox [(ngModel)]="service_data"  [label]="'我已阅读并同意服务协议'" name="service_data"></yc-checkbox>
+          <yc-checkbox [(ngModel)]="service_data"  [label]="'我已阅读并同意'" name="service_data"></yc-checkbox><a style="color:#0d98f3" href="assets/js/用户服务协议.pdf" target="_blank">'服务协议'</a>
         </div>
         <button type="submit" class="login" [disabled]="!service_data || infoForm.invalid || flag || exist_flag || error">注册</button>
       </form>
     </div>
   </div>
   <p class="footer">
-    Copyright (C) 2015~2018<a href="#">zcdsp.com</a>All Rights Reserved. 沪ICP备09044414号
+    Copyright (C) 2015~2020<a href="/">zcmobi.com</a>All Rights Reserved. 沪ICP备09044414号
   </p>
 </div>
   </div>

@@ -7,11 +7,12 @@
   <div class="popover-content">
     <div class="popover-arrow"></div>
     <div class="popover-inner">
-      <div class="popover-inner-content" [ngStyle]="{'min-width.px': widthExp}">
+      <div class="popover-inner-content" [ngStyle]="{'background-color': colorExp}"> <!--'min-width.px': widthExp,-->
         <div class="popover-title">
           {{_ycTitle}}
         </div>
-        <div class="wire"></div>
+        <!--如果没有标题不显示分割线-->
+        <div *ngIf="_ycTitle" class="wire"></div>
         <ng-container >
           <div *ngIf="flag">
             <div *ngFor="let x of _result">

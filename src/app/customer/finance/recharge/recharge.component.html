@@ -47,7 +47,7 @@
     </li>
     <li>
       <div class="title">
-        <div class="img"><img src="src/assets/img/user/t_money.png" alt=""></div>
+        <div class="img"><img src="assets/img/user/t_money.png" alt=""></div>
         <div class="right">
           <p>累计退款</p>
           <h1>{{userData?.t_money | currencyFormat}}</h1>
@@ -64,10 +64,11 @@
  <div class="table-content">
   <!-- 如果 user_type =1 || ==3 的时候，全部列正常显示（时间，类型，金额，目标账号，备注） 否则值显示  时间，类型，金额-->
   <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
+
     <div class="query-tool" #queryRef query>
       <div class="left-tool">
         <h2 class="table-title">
-        流水
+          流水
         </h2>
       </div>
       <div class="right-tool">
@@ -82,8 +83,8 @@
 
     <table #tableRef table>
       <thead>
-      <tr class="text-center">
-        <th class="text-center" [showSort]="true" [sortKey]="'creation_date'">时间</th>
+      <tr sticky class="text-center">
+        <th class="text-center" [showSort]="true" [sortKey]="'creation_date'" [width]="200">时间</th>
         <th class="text-center">类型</th>
         <th class="text-right" [showSort]="true" [sortKey]="'money'">金额</th>
         <th class="text-center" *ngIf=" userData?.user_type=== 1 ||  userData?.user_type=== 3">目标账号</th>
@@ -106,7 +107,21 @@
         </tr>
       </ng-template>
       </tbody>
+      <tfoot [hidden]="!(ycTable?.data?.length > 1) ">
+      <tr sticky>
+        <td class="text-center">全部合计</td>
+        <td class="text-center">-</td>
+        <td class="text-right">{{listTitle?.money | currencyFormat}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tfoot>
     </table>
+    <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
+    <div paginator style="background: #f9fafb;">
+      <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
+    </div>
   </yc-table>
 </div>
 

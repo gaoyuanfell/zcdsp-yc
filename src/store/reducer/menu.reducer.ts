@@ -35,7 +35,7 @@ export function menuReducer(state: MenuState = initState, action: MenuActionUnio
         }
         return true;
       })
-      return state;
+      return {...state};
     }
     default: {
       return state;

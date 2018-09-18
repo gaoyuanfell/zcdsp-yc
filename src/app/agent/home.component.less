@@ -15,6 +15,8 @@
   background: @theme-color;
   width: 100%;
   padding: 0 20px;
+  position: fixed;
+  z-index: 1000000;
   .logo {
     width: 150px;
     height: 32px;
@@ -25,7 +27,7 @@
   }
   .user-info {
     margin-left: auto;
-    > i {
+    i {
       margin-right: 20px;
       cursor: pointer;
     }
@@ -40,6 +42,7 @@
     background: url("../../assets/img/header-search-icon.png") no-repeat center;
   }
   .header-help-icon {
+    margin-top:3px;
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -50,6 +53,37 @@
     width: 20px;
     height: 20px;
     background: url("../../assets/img/header-phone-icon.png") no-repeat center;
+    &:hover {
+      .phone-tool-box {
+        display: block;
+      }
+    }
+    .phone-tool-box {
+      text-align: center;
+      line-height: 40px;
+      display: none;
+      //opacity: 0;
+      width: 170px;
+      height: 40px;
+      position: absolute;
+      box-shadow: 0 2px 5px rgba(26, 38, 72, 0.08);
+      background-color: #031220;
+      top: 74px;
+      right: 101px;
+      z-index: 999;
+      border-radius: 3px;
+      color: #fff;
+      >.item {
+        width:0;
+        height:0;
+        border-width:0 7px 7px;
+        border-style:solid;
+        border-color:transparent transparent #031220;/*透明 透明  灰*/
+        margin:40px auto;
+        position:relative;
+        bottom:86px;
+      }
+    }
   }
 
 }
@@ -60,7 +94,7 @@
   top: 0;
   bottom: 0;
   margin-top: @header-height;
-  .nav-main-overflow{
+  .nav-main-overflow {
     width: @nav-main-width;
     position: absolute;
     top: 0;
@@ -79,12 +113,12 @@
   }
   .nav-main {
     width: @nav-main-width;
-    position: absolute;
-    top: 0;
+    position: fixed;
+    z-index: 1000000;
+    top: @header-height;
     bottom: 0;
     background-color: @theme-color;
     transition: width 0.25s ease;
-    z-index: 2;
     overflow: hidden;
     padding-top: 25px;
     user-select: none;
@@ -92,6 +126,9 @@
       width: @nav-main-width-hover !important;
       overflow-y: auto;
       overflow-x: hidden;
+      .line {
+        width: auto !important;
+      }
     }
     .nav-list {
       width: 200px;
@@ -101,6 +138,7 @@
         padding-left: 16px;
         cursor: pointer;
         outline: none;
+        position: relative;
         .nav-icon {
           display: inline-block;
           width: 24px;
@@ -125,8 +163,8 @@
             color: #ffffff;
           }
         }
-        .nav-child .nav-item{
-          &.active{
+        .nav-child .nav-item {
+          &.active {
             > .nav-name {
               color: #ffffff;
             }
@@ -135,6 +173,17 @@
             }
           }
         }
+        .line {
+          transition: width 0.25s ease;
+          width: 25px;
+          position: absolute;
+          bottom: 0;
+          height: 2px;
+          right: 0;
+          left: 0;
+          margin: 0 15px;
+          background-color: rgba(167, 167, 167, 0.21);
+        }
       }
       .nav-list .nav-name {
         padding-left: 30px;
@@ -142,6 +191,8 @@
     }
     .nav-child {
       transition: height 0.25s ease;
+      background-color: #000915;
+      box-shadow: inset 0px 0 20px 3px #2f3944;
     }
   }
 
@@ -156,9 +207,10 @@
     z-index: 1;
   }
 }
-.user-tool-box{
+
+.user-tool-box {
   width: 170px;
-  height: 70px;
+  height: 64px;
   position: absolute;
   box-shadow: 0 2px 5px rgba(26, 38, 72, 0.08);
   background-color: #031220;
@@ -167,7 +219,8 @@
   right: 20px;
   z-index: 999;
   border-radius: 3px;
-  .item{
+  .item {
+    align-items: center;
     height: 32px;
     line-height: 32px;
     padding-left: 45px;
@@ -176,8 +229,12 @@
     font-size: 14px;
     font-weight: 400;
     cursor: pointer;
-    &:last-child{
+    &:last-child {
       border-top: 2px solid #fff;
+    }
+    > i {
+      position:absolute;
+      left:25px;
     }
   }
 }

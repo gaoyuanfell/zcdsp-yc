@@ -107,7 +107,7 @@ export class PublicService extends ConfigService {
    */
 
   existUser(body = {}) {
-    return this.get(`/us/user/exist/user_name` , body)
+    return this.get(`/jurisdiction/exist/user` , body)
   }
 
   /**

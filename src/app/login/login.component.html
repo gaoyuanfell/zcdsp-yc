@@ -16,7 +16,7 @@
         <p class="error" *ngIf="(username.dirty || username.touched || _valid) && username.invalid"><img src="assets/img/index/tips.png" alt="">请输入账号</p>
 
 
-        <input type="text" class="password" placeholder="请输入密码" [(ngModel)]="passWord" [ngClass]="{ 'has-error': (password.dirty || password.touched || _valid) && password.invalid, 'has-success': password.valid}" required #password="ngModel" name="passWord" autocomplete="off">
+        <input type="password" class="password" placeholder="请输入密码" [(ngModel)]="passWord" [ngClass]="{ 'has-error': (password.dirty || password.touched || _valid) && password.invalid, 'has-success': password.valid}" required #password="ngModel" name="passWord" autocomplete="off">
         <p class="error" *ngIf=" (password.dirty || password.touched || _valid) && password.invalid"><img src="assets/img/index/tips.png" alt="">请输入密码</p>
 
 
@@ -39,7 +39,7 @@
 
       <form class="from" #infoForm1="ngForm" (ngSubmit)="save1()" *ngIf="!pwd_show">
 
-        <input class="form-control" type="text" class="name" [(ngModel)]="user_name" placeholder="请填写账号" name="user_name" required (focus)="errorFocus('user_name')" [ngClass]="setInvalidClass(infoForm1, infoForm1.controls['user_name'])">
+        <input class="form-control" type="text" class="name" [(ngModel)]="user_name" placeholder="请填写账号" name="user_name" required (focus)="errorFocus('user_name')" [ngClass]="setInvalidClass(infoForm1, infoForm1.controls['user_name'])" [ngStyle]="{'border-color': error==='user_name'? 'red': '#0d98f3'}">
         <app-form-tips [target]="infoForm1.controls['user_name']"  placeholder="请输入账号" [formTarget]="infoForm1"></app-form-tips>
         <p class="error"  *ngIf="error === 'user_name'"><img src="assets/img/index/tips.png" alt="">{{errorText}}</p>
 
@@ -56,12 +56,12 @@
             <span></span>
             <i>邮箱验证</i>
           </label>
-          <p class="error"  *ngIf="error === 'type'"><img src="assets/img/index/tips.png" alt="">{{errorText}}</p>
+          <p class="error"  *ngIf="error === 'type'" style="margin-top:5px;"><img src="assets/img/index/tips.png" alt="">{{errorText}}</p>
         </div>
 
 
         <div class="verification clear">
-          <input type="text" class="verifica" class="verifica" (focus)="errorFocus('code')" autocomplete="off" [(ngModel)]="pwd_code" placeholder="请输入验证码" name="pwd_code" required [ngClass]="setInvalidClass(infoForm1, infoForm1.controls['pwd_code'])">
+          <input type="text" class="verifica" class="verifica" (focus)="errorFocus('code')" autocomplete="off" [(ngModel)]="pwd_code" placeholder="请输入验证码" name="pwd_code" required [ngClass]="setInvalidClass(infoForm1, infoForm1.controls['pwd_code'])" [ngStyle]="{'border-color': error==='code'? 'red': '#0d98f3'}">
           <button type="button" class="send" (click)="verifyPwd()" [disabled]="flagCode || !user_name">{{codeText}}
             <span class="countdown" *ngIf="flagCode">{{countdown}}</span></button>
         </div>
@@ -77,17 +77,17 @@
       <form class="from" #infoForm2="ngForm" (ngSubmit)="save2()" *ngIf="pwd_show">
 
         <!-- 这一块的用户名就是确定值啦-->
-        <input class="pUser name" [(ngModel)]="user_name" readonly>
+        <input class="pUser name" [(ngModel)]="user_name" readonly name="1111">
 
         <!--是否显示密码框-->
         <div>
-          <input type="text" class="password" placeholder="输入密码" required [(ngModel)]="password" name="password"
+          <input type="password" class="password" placeholder="输入密码" required [(ngModel)]="password" name="password"
                  pattern="((?=.*\d)(?=.*[A-Za-z]))^[A-Za-z\d]{8,18}$" (ngModelChange)="pwd_comfirm()" autocomplete="off" [ngClass]="setInvalidClass(infoForm2, infoForm2.controls['password'])">
           <app-form-tips [target]="infoForm2.controls['password']" [formTarget]="infoForm2" [tips]="'请输入8~18位字母和数字的组合!'" placeholder="请填写密码"></app-form-tips>
 
 
 
-          <input type="text" class="password" placeholder="请再次输入密码"  required [(ngModel)]="old_pwd" (ngModelChange)="pwd_comfirm()"  name="old_pwd" autocomplete="off"
+          <input type="password" class="password" placeholder="请再次输入密码"  required [(ngModel)]="old_pwd" (ngModelChange)="pwd_comfirm()"  name="old_pwd" autocomplete="off"
                  [ngClass]="setInvalidClass(infoForm2, infoForm2.controls['old_pwd'])">
           <p class="error" *ngIf="flag"><img src="assets/img/index/tips.png" alt="">密码不一致</p>
 
@@ -98,7 +98,7 @@
     </div>
   </div>
   <p class="footer">
-    Copyright (C) 2015~2018<a href="#">zcdsp.com</a>All Rights Reserved. 沪ICP备09044414号
+    Copyright (C) 2015~2020<a href="/">zcmobi.com</a>All Rights Reserved. 沪ICP备09044414号
   </p>
 </div>
   </div>
@@ -117,9 +117,9 @@
       </div>
     </a>
     <div class="input">
-      <input type="text" class="verifica forgetCode" autocomplete="off" [(ngModel)]="forgetCode" (focus)="errorFocus('img_code')"  placeholder="请输入右侧验证码"  #forget_code="ngModel"  [ngClass]="{ userOn: (forget_code.dirty || forget_code.touched || _valid) && forget_code.invalid}" required   #forget_code="ngModel" name="forgetCode">
+      <input type="text" class="verifica forgetCode" autocomplete="off" [(ngModel)]="forgetCode" (focus)="errorFocus('img_code')"  placeholder="请输入验证码"  #forget_code="ngModel"  [ngClass]="{ 'has-error': ((forget_code.dirty || forget_code.touched || _valid) && forget_code.invalid) || (error==='img_code') }" required   #forget_code="ngModel" name="forgetCode">
     </div>
-    <p class="error" style="margin-top: 10px;margin-left:19px;" *ngIf="(forget_code.dirty || forget_code.touched || _valid) && forget_code.invalid"><img src="assets/img/index/tips.png" alt="">请输入验证码</p>
+    <p class="error" style="margin-top: 10px;margin-left:19px;" *ngIf="((forget_code.dirty || forget_code.touched || _valid) && forget_code.invalid)"><img src="assets/img/index/tips.png" alt="">请输入验证码</p>
     <p class="error" style="margin-top: 10px;margin-left:19px;" *ngIf="error === 'img_code'"><img src="assets/img/index/tips.png" alt="">{{errorText}}</p>
   </div>
 </ng-template>

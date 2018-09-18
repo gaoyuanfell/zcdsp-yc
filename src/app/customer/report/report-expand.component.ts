@@ -19,6 +19,7 @@ import {ReportService} from '../../../service/customer/report.service';
   styles: [
     `
       .chart-box {
+        background-color: rgba(48, 148, 255, 0.08);
         padding: 30px;
         border-radius: 2px;
         position: relative;
@@ -258,7 +259,7 @@ export class ReportExpandComponent implements OnInit {
         },
         grid: {
           left: 0,
-          right: 10,
+          right: '6%',
           bottom: '3%',
           containLabel: true
         },
@@ -309,8 +310,8 @@ export class ReportExpandComponent implements OnInit {
             name: '数据趋势',
             type: 'line',
             color: ['#2e90ff'],
-            symbol: 'none'
-
+            symbol: 'emptyCircle',
+            symbolSize: 2,//拐点大小
           }
         ]
       }

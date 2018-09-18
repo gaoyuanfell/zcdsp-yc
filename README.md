@@ -105,4 +105,7 @@ option = {
     ]
 };
 
-zikehu@ycmedia.cn 1234qwer
+v4dailiceshi@ycmedia.cn 1234qwer   代理
+bctest/bctest 直客
+
+v4test.zcmobi.com

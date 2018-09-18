@@ -41,7 +41,7 @@ export class ConsumeComponent implements OnInit {
   money; // 修改的预算金额
   query: any = {
     page_index: 1,
-    page_size: 10,
+    page_size: 20,
     begin_date: new Date().calendar(2, -1).formatDate('yyyy-MM-dd'),
     end_date: new Date().formatDate('yyyy-MM-dd'),
   };
@@ -63,11 +63,13 @@ export class ConsumeComponent implements OnInit {
     this.query.page_index = 1;
     this.list();
   }
-
+  listTitle;
   list() {
     this._financeService.consumeList(this.query).subscribe(res => {
       this.tableList = res.result.items;
       this.total_count = res.result.total_count;
+      this.listTitle = res.result.other;
+
     })
   }
 

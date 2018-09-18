@@ -63,6 +63,15 @@ export class CampaignService extends ConfigService {
   }
 
   /**
+   * directional 修改
+   * @param {{}} body
+   * @returns {Observable<Result<any>>}
+   */
+  directionalEdit(body = {}){
+    return this.postJson(`/ads/spread/campaign/directional/edit`, body)
+  }
+
+  /**
    * 批量修改活动投放速度接口
    * @param {{}} body
    * @returns {Observable<Result<any>>}
@@ -156,7 +165,7 @@ export class CampaignService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   parseIos(body = {}) {
-    return this.get(`/ads/spread/campaign/add_edit/parse_ios`, body)
+    return this.get2(`/ws-api/v4/common/ios/parse`, body)
   }
 
   /**

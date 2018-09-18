@@ -42,6 +42,7 @@
   <div class="table-content">
 
     <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
+
       <div class="query-tool" #queryRef query>
         <div class="left-tool">
           <h2 class="table-title">
@@ -56,8 +57,9 @@
           </div>
         </div>
       </div>
+
       <table #tableRef table>
-        <thead>
+        <thead sticky>
         <tr>
           <th>客户名称</th>
           <th>账号</th>
@@ -81,31 +83,37 @@
             <td class="text-right">{{data['consume_money'] | currencyFormat}}</td>
             <td class="text-right">{{data['balance'] | currencyFormat}}</td>
             <td class="text-center">
-              <button  class="btn btn-link" (click)="transfer(data['user_id'], data['user_name'], 5)" [disabled]="!data.user_id">转入</button>
-              <button  class="btn btn-link" (click)="transfer(data['user_id'], data['user_name'], 6)" [disabled]="!data.user_id">转出</button>
+              <button  class="btn btn-a" (click)="transfer(data['user_id'], data['user_name'], 5)" *ngIf="data.user_id" [disabled]="!data.user_id">转入</button>
+              <button  class="btn btn-a" (click)="transfer(data['user_id'], data['user_name'], 6)" *ngIf="data.user_id" [disabled]="!data.user_id">转出</button>
               <!--<a data-link style="margin-right:5px" (click)="transfer(data['user_id'], data['user_name'], 5)" *ngIf="data.user_id ? true : false">转入</a>-->
               <!--<a data-link (click)="transfer(data['user_id'], data['user_name'], 6)" *ngIf="data.user_id ? true : false">转出</a>-->
             </td>
           </tr>
-          <tr #trExpand>
-            <td colspan="1000" *ngIf="trExpand.show">
+          <tr #trExpand class="none">
+            <td colspan="1000" *ngIf="trExpand.show" class="none">
               <yc-consume-expand [user_id]="data['user_id']"></yc-consume-expand>
             </td>
           </tr>
         </ng-template>
-        <!--<ng-template [ngIf]="tableList?.length > 0">-->
-          <!--<tr #tr>-->
-            <!--<td>全部合计</td>-->
-            <!--<td></td>-->
-            <!--<td class="text-right">{{userData?.in_money | currencyFormat}}</td>-->
-            <!--<td class="text-right">{{userData?.out_money | currencyFormat}}</td>-->
-            <!--<td class="text-right">{{userData?.consume_money | currencyFormat}}</td>-->
-            <!--<td class="text-right">{{userData?.c_balance | currencyFormat}}</td>-->
-            <!--<td></td>-->
-          <!--</tr>-->
-        <!--</ng-template>-->
         </tbody>
+        <tfoot [hidden]="!(ycTable?.data?.length > 1) ">
+        <tr sticky>
+          <td class="text-left">全部合计</td>
+          <td class="text-left">-</td>
+          <td class="text-right">{{listTitle['in_money'] | currencyFormat}}</td>
+          <td class="text-right">{{listTitle['out_money'] | currencyFormat}}</td>
+          <td class="text-right">{{listTitle['consume_money'] | currencyFormat}}</td>
+          <td class="text-right">{{listTitle['balance'] | currencyFormat}}</td>
+          <td class="text-center">-</td>
+        </tr>
+        </tfoot>
+
       </table>
+
+      <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
+      <div paginator style="background: #f9fafb;">
+        <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
+      </div>
     </yc-table>
   </div>
 </div>
