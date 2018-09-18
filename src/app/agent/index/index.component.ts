@@ -74,6 +74,9 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     this._indexService.homeInit().subscribe((res) => {
       this.user = res.result.user;
       this.user_list = res.result.user_list;
+      this.user_list.forEach(item => {
+        item.nick_user = item.nick_name + item.user_name
+      })
       this.totalCodeList = res.result.total_code;
       this.creative_state_count = res.result.creative_state_count;
       this.charts = res.result.charts;
@@ -84,7 +87,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     })
 
     // 客户列表
-    this.customerList();
+    this.customerList('all');
 
     // 近期数据趋势 首页中上方的4个小格子中的曝光总量 点击总量也是根据数据趋势来的
     this._indexService.dayTotal().subscribe(res => {
@@ -123,11 +126,16 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     this.query.page_index = 1;
     this.customerList();
   }
-  customerList() {
-    this._indexService.childList(this.query).subscribe((res) => {
-      this.childList = res.result.items;
-      this.childListTotal_count = res.result.total_count;
-    })
+  childTotal;
+  customerList(all?) {
+      this._indexService.childList(this.query).subscribe((res) => {
+        this.changeDetectorRef.markForCheck();
+        if (all) {
+          this.childTotal = res.result.items;
+        }
+        this.childList = res.result.items;
+        this.childListTotal_count = res.result.total_count;
+      })
   }
 
   /**

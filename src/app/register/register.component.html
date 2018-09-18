@@ -53,7 +53,7 @@
 
         <app-form-tips [target]="infoForm.controls['verify_code']" [tips]="'请输入手机验证码'" placeholder="请输入手机验证码" [formTarget]="infoForm"></app-form-tips>
         <div style="margin-top:10px;">
-          <yc-checkbox [(ngModel)]="service_data"  [label]="'我已阅读并同意'" name="service_data"></yc-checkbox><a style="color:#0d98f3" href="assets/js/用户服务协议.pdf" target="_blank">'服务协议'</a>
+          <yc-checkbox [(ngModel)]="service_data"  [label]="'我已阅读并同意'" name="service_data"></yc-checkbox><a style="color:#0d98f3" href="http://f2.zcdsp.com/zcmobi/%E7%94%A8%E6%88%B7%E6%9C%8D%E5%8A%A1%E5%8D%8F%E8%AE%AE.pdf" target="_blank">'服务协议'</a>
         </div>
         <button type="submit" class="login" [disabled]="!service_data || infoForm.invalid || flag || exist_flag || error">注册</button>
       </form>
