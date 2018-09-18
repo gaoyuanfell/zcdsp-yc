@@ -149,7 +149,11 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
 
   ngOnInit() {
     window.onresize = () => {
-      this.position();
+      if(this.overflowRef){
+        let _tableRef = <HTMLElement>this.tableRef.nativeElement;
+        this.overflowRef.width = _tableRef.clientWidth
+      }
+      this.position()
     }
     this.checkAllObservable.subscribe((data) => {
       if (data) {

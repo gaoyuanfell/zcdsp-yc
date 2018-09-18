@@ -220,7 +220,7 @@
               </div>
             </td>
             <td style="text-align: left; padding-left: 18px;">
-              <yc-select [searchCtrl]="true" name="{{(x.id || x.item_type_id) + 'item_type_id'}}" [(ngModel)]="x.item_type_id" (ngModelChange)='changeSelect($event, x)' [width]="130" placeholder="请选择行业分类" [list]="optional_ad_category_list" [props]="{value:'item_type_id',label:'item_type_name', disabled: 'disabled'}"></yc-select>
+              <yc-select [searchCtrl]="true" name="{{(x.id || x.item_type_id) + 'item_type_id'}}" [(ngModel)]="x.item_type_id" (ngModelChange)='changeSelect($event, x)' [width]="200" placeholder="请选择分类" [list]="optional_ad_category_list" [props]="{value:'item_type_id',label:'item_type_name', disabled: 'disabled'}"></yc-select>
               <!--<yc-select [searchCtrl]="true" name="{{(x.id || x.item_type_id) + 'item_type_id'}}" id="{{(x.id || x.item_type_id) + 'item_type_id'}}"  required [(ngModel)]="x.item_type_id" (ngModelChange)='changeSelect($event, x)' [width]="130" placeholder="请选择行业分类" [list]="optional_ad_category_list" [props]="{value:'item_type_id',label:'item_type_name', disabled: 'disabled'}" [ngClass]="setInvalidClass(infoForm, infoForm.controls[(x.id || x.item_type_id) + 'item_type_id'])"></yc-select>-->
               <!--<app-form-tips [target]="infoForm.controls[(x.id || x.item_type_id) + 'item_type_id']" [formTarget]="infoForm" placeholder="请选择行业分类"></app-form-tips>-->
             </td>

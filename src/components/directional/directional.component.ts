@@ -271,56 +271,101 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     this.deviceResult$$.unsubscribe();
   }
 
+  areasResult = []
+  lbsCityResult = []
+  areasShowChange(){
+    this.resultData.dtl_address.area = this.areasShow?this.areasResult:[]
+    this.resultData.dtl_address.lbs = this.areasShow?this.lbsCityResult:[]
+    this.resultSubject.next(this.resultData);
+  }
+
+  audiencesActionResult = []
+  audiencesAction2Result = []
+  audiencesActionShowChange(){
+    if(this.audiencesShow){
+      this.resultData.dtl_behavior.appCategory = this.audiencesActionResult.filter(aa => isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
+      this.resultData.dtl_behavior.appAttribute = this.audiencesActionResult.filter(aa => !isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
+      this.resultData.dtl_behavior.filterAppCategory = this.audiencesAction2Result.filter(aa => isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
+      this.resultData.dtl_behavior.filterAppAttribute = this.audiencesAction2Result.filter(aa => !isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
+    }else{
+      this.resultData.dtl_behavior.appCategory = []
+      this.resultData.dtl_behavior.appAttribute = []
+      this.resultData.dtl_behavior.filterAppCategory = [];
+      this.resultData.dtl_behavior.filterAppAttribute = [];
+    }
+    this.resultSubject.next(this.resultData);
+  }
+
+  audiencesResult = {}
+  audiencesShowChange(){
+    this.resultData.dtl_attribute.crowdAttribute = this.audiencesShow?this.audiencesResult:{}
+    this.resultSubject.next(this.resultData);
+  }
+
+
+  deviceResult = {}
+  deviceShowChange(){
+    this.resultData.dtl_devices = this.deviceShow?this.deviceResult:{}
+  }
+
+  resultSubject
+  resultData
+
   /**
    * 订阅获取值
    */
   getResultInit() {
-    let resultSubject = new Subject();
-    resultSubject.pipe(debounceTime(200)).subscribe(data => {
+    this.resultSubject = new Subject();
+    this.resultSubject.pipe(debounceTime(200)).subscribe(data => {
       this.assignDefaultData(data, getDirectionalData());
       this.onChange(data);
     });
 
-    let result = getDirectionalData();
+    this.resultData = getDirectionalData();
 
     this.areasResult$$ = this.areasResult$.subscribe(data => {
+      this.areasResult = data;
       if (!data) return;
       if (data instanceof Array && data.length) this.areasShow = true;
-      result.dtl_address.area = data.map(ar => ({id: ar.id, name: ar.name}));
-      resultSubject.next(result);
+      this.resultData.dtl_address.area = data.map(ar => ({id: ar.id, name: ar.name}));
+      this.resultSubject.next(this.resultData);
     });
 
     this.lbsCityResult$$ = this.lbsCityResult$.subscribe(data => {
+      this.lbsCityResult = data;
       if (!data) return;
       if (data instanceof Array && data.length) this.areasShow = true;
-      result.dtl_address.lbs = data.map(ar => ({id: ar.id, name: ar.name, coords: ar.location_items, type_id: ar.type_id}));
-      resultSubject.next(result);
+      this.resultData.dtl_address.lbs = data.map(ar => ({id: ar.id, name: ar.name, coords: ar.location_items, type_id: ar.type_id}));
+      this.resultSubject.next(this.resultData);
     });
 
     this.LbsCityMapResult$$ = this.LbsCityMapResult$.subscribe(data => {
       if (!data) return;
       if (data instanceof Array && data.length) this.areasShow = true;
-      result.dtl_address.lbs = data.map(ar => ({id: ar.id, name: ar.name, coords: ar.location_items, type_id: ar.type_id}));
-      resultSubject.next(result);
+      this.resultData.dtl_address.lbs = data.map(ar => ({id: ar.id, name: ar.name, coords: ar.location_items, type_id: ar.type_id}));
+      this.resultSubject.next(this.resultData);
     });
 
     this.audiencesActionResult$$ = this.audiencesActionResult$.subscribe(data => {
+      this.audiencesActionResult = data;
       if (!data) return;
       if (data instanceof Array && data.length) this.audiencesActionShow = true;
-      result.dtl_behavior.appCategory = data.filter(aa => isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
-      result.dtl_behavior.appAttribute = data.filter(aa => !isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
-      resultSubject.next(result);
+      this.resultData.dtl_behavior.appCategory = data.filter(aa => isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
+      this.resultData.dtl_behavior.appAttribute = data.filter(aa => !isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
+      this.resultSubject.next(this.resultData);
     });
 
     this.audiencesAction2Result$$ = this.audiencesAction2Result$.subscribe(data => {
+      this.audiencesAction2Result = data;
       if (!data) return;
       if (data instanceof Array && data.length) this.audiencesActionShow = true;
-      result.dtl_behavior.filterAppCategory = data.filter(aa => isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
-      result.dtl_behavior.filterAppAttribute = data.filter(aa => !isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
-      resultSubject.next(result);
+      this.resultData.dtl_behavior.filterAppCategory = data.filter(aa => isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
+      this.resultData.dtl_behavior.filterAppAttribute = data.filter(aa => !isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
+      this.resultSubject.next(this.resultData);
     });
 
     this.audiencesResult$$ = this.audiencesResult$.subscribe((data: any) => {
+      this.audiencesResult = data;
       if (!data) return;
       Object.keys(data).every(key => {
         if (data[key] instanceof Array && data[key].length) {
@@ -329,11 +374,12 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
         }
         return true;
       });
-      result.dtl_attribute.crowdAttribute = data;
-      resultSubject.next(result);
+      this.resultData.dtl_attribute.crowdAttribute = data;
+      this.resultSubject.next(this.resultData);
     });
 
     this.deviceResult$$ = this.deviceResult$.subscribe((data: any) => {
+      this.deviceResult = data
       if (!data) return;
       Object.keys(data).every(key => {
         if (data[key] instanceof Array && data[key].length) {
@@ -343,8 +389,8 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
         }
         return true;
       });
-      result.dtl_devices = data;
-      resultSubject.next(result);
+      this.resultData.dtl_devices = data;
+      this.resultSubject.next(this.resultData);
     });
   }
 
