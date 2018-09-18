@@ -53,7 +53,9 @@ const ELEMENT_DATA: PeriodicElement[] = [
   ],
   template: `
     <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;" #overflow>
-      
+      <div style="width: 100%;height: 600px;" yc-map>
+        
+      </div>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
