@@ -10,16 +10,12 @@ declare module '*.json' {
   export default value;
 }
 
-declare module '*.js' {
-  const value: any;
-  export default value;
-}
-
 declare var echarts: any;
 declare var domtoimage: any;
 declare var wangEditor: any;
 declare var BMap: any;
 declare var AMap: any;
+declare var QRious: any;
 
 interface Date {
   calendar(type: number, num: number): Date

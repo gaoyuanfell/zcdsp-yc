@@ -57,7 +57,7 @@
         <p class="create-text">
           <span>二维码</span>
           <span>
-            <a [href]="campaign.click_link" target="_blank">{{campaign.click_link}} </a>
+            <img [src]="qRiousImgUrl" *ngIf="qRiousImgUrl">
           </span>
         </p>
       </div>

@@ -399,11 +399,18 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     this.template_temp_id = null;
     this._templateService.landingPreview({id: this.campaign.template_id}).subscribe(res => {
       this.template_temp_id = res.result.id;
-      this._previewCodeUrl = this._templateService.landingQrcode({
-        tmp_id: this.template_temp_id,
-        render_url: `${this.templateUrl}/template/preview`,
-        _: Date.now()
+
+      let qr = new QRious({
+        value: `${this.templateUrl}/template/preview/${res.result.id}`
       });
+      this._previewCodeUrl = qr.toDataURL('image/jpeg');
+
+      // this._previewCodeUrl = this._templateService.landingQrcode({
+      //   tmp_id: this.template_temp_id,
+      //   render_url: `${this.templateUrl}/template/preview`,
+      //   _: Date.now()
+      // });
+
       this.changeDetectorRef.markForCheck();
     });
   }
