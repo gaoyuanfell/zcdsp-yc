@@ -59,7 +59,7 @@
                            pattern="^([hH]{1}[tT]{2}[pP]:\/\/|[hH]{1}[tT]{2}[pP][sS]:\/\/)[\d,a-z,A-Z]+[\w,\W]*$"
                            (selectedEvent)="templateChange($event)"
                            (inputEvent)="templateInputChange($event)"></yc-autocomplete>
-          <p>没有落地页？请 <a target="_blank" routerLink="/template">制作落地页</a></p>
+          <p>没有落地页？请 <a target="_blank" routerLink="/template" [queryParamsHandling]="'merge'" [queryParams]="token">制作落地页</a></p>
           <p class="input-error" *ngIf="(_valid || click_link.dirty || click_link.touched)  && click_link.invalid">请填写落地页的网址</p>
         </div>
         <div class="m-l-1">

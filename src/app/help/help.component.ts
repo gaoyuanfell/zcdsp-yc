@@ -12,10 +12,10 @@ export class HelpComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,) {
 
-    this.auth = route.snapshot.data.auth
+    // this.auth = route.snapshot.data.auth
   }
 
-  auth
+  // auth
 
   ngOnInit(): void {
 

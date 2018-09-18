@@ -107,4 +107,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       menu.active = !menu.active;
     }
   }
+
+  get token() {
+    let token = this._global.token;
+    if (token) return {
+      token: this._global.token
+    };
+    return {};
+  }
+
 }

@@ -9,7 +9,6 @@ const routes: Routes = [
   {
     path: '',
     component: HelpComponent,
-    resolve: {auth: CurrentResolverService},
     children: routeList,
   },
 ];

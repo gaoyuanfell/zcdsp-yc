@@ -340,7 +340,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
 
     if (this.directional) {
       body.directional = this.directional;
-      body.directional.lbs_scene_type = this.directional.dtl_address.lbs_scene_type
+      body.directional.lbs_scene_type = this.directional.dtl_address.lbs_scene_type;
     }
 
     if (this.package_name) {
@@ -376,13 +376,13 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
   //******************  落地页 *****************//
 
   templateChange(data) {
-    this.campaign.click_type = '1'
-    this.campaign.template_id = data.id
+    this.campaign.click_type = '1';
+    this.campaign.template_id = data.id;
     this.templatePreviewCode();
   }
 
-  templateInputChange(){
-    this.campaign.click_type = '2'
+  templateInputChange() {
+    this.campaign.click_type = '2';
     this._previewCodeUrl = null;
   }
 
@@ -416,6 +416,14 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
       let w = window.open();
       w.location.href = `${this.templateUrl}/template/preview/${this.template_temp_id}`;
     }
+  }
+
+  get token() {
+    let token = this._global.token;
+    if (token) return {
+      token: this._global.token
+    };
+    return {};
   }
 
   // 侧边导航栏设置
@@ -521,10 +529,10 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     _templateService.landingSelect().subscribe(res => {
       this.templateList = res.result.map(item => {
         return {
-          id:item.id,
-          name:item.name,
+          id: item.id,
+          name: item.name,
           link: `${this.templateUrl}/template/${item.id}`
-        }
+        };
       });
     });
   }
@@ -539,14 +547,15 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
   bid_max;
 
   // ---------------------------- 下一步 ------------------------ //
-  _nextStepNum = 0
-  _nextStep(){
-    if (this.valid()) return
+  _nextStepNum = 0;
+
+  _nextStep() {
+    if (this.valid()) return;
     this._directionalService.directionalRecommend().subscribe(res => {
       this.directionalSmart = res.result;
       this.directional = {...this.directionalSmart};
       this.directionalType = '1';
-      this._nextStepNum = 1
+      this._nextStepNum = 1;
       this.changeDetectorRef.markForCheck();
     });
   }
@@ -582,7 +591,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
         this.campaign.show_hours = res.result.show_hours;
         this.campaignTimes = [this.campaign.begin_date, this.campaign.end_date];
       }
-      if(res.result.directional){
+      if (res.result.directional) {
         this.directional = res.result.directional;
         // this.audienceCount();
       }
