@@ -55,104 +55,28 @@ export class IndexExpandComponent implements OnInit {
     this._chartDataRef = value;
     setTimeout(() => {
       this.chart();
+      this.init()
     }, 0)
   }
 
   @Input() set id(id) {
     this._id = id;
-    this._indexService.childListChart({user_id: id}).subscribe(res => {
-      this.chartData = res.result
-      this.changeCampaignAndCreativeChart(this.chartDataEcharts, res.result, this.chartCode)
-    })
   };
 
   get id() {
     return this._id;
   }
 
+  init() {
+    this._indexService.childListChart({user_id: this._id}).subscribe(res => {
+      this.chartData = res.result;
+      this.changeCampaignAndCreativeChart(this.chartDataEcharts, res.result, this.chartCode)
+    })
+  }
+
   chart() {
     const chartDataRef = this.chartDataEcharts = echarts.init(this._chartDataRef.nativeElement);
     chartDataRef.setOption(
-    //   {
-    //   title: {
-    //     text: '投放数据',
-    //     textStyle: {
-    //       fontWeight: 700,
-    //       fontSize: 18,
-    //       fontFamily: '',
-    //       color: '#616366',
-    //       align: 'left'
-    //     },
-    //     padding: 0
-    //   },
-    //   color: ['#2e90ff', '#ffa542'],
-    //   legend: {
-    //     data: ['今日', '昨日'],
-    //     itemWidth: 38,
-    //     textStyle: {
-    //       color: '#979899'
-    //     }
-    //   },
-    //   tooltip: {
-    //     trigger: 'axis'
-    //   },
-    //   grid: {
-    //     top: 60,
-    //     left: 0,
-    //     right: 10,
-    //     bottom: '3%',
-    //     containLabel: true
-    //   },
-    //   xAxis: {
-    //     type: 'category',
-    //     boundaryGap: false,
-    //     axisLine: {
-    //       show: false,
-    //       lineStyle: {
-    //         color: '#979899'
-    //       }
-    //     },
-    //     axisTick: {
-    //       show: false,
-    //     },
-    //     splitLine: {
-    //       lineStyle: {
-    //         color: '#e7ecf3'
-    //       }
-    //     }
-    //   },
-    //   yAxis: {
-    //     type: 'value',
-    //     axisLine: {
-    //       show: false,
-    //       lineStyle: {
-    //         color: '#979899'
-    //       }
-    //     },
-    //     axisTick: {
-    //       show: false,
-    //     },
-    //     splitLine: {
-    //       lineStyle: {
-    //         color: '#e7ecf3'
-    //       }
-    //     },
-    //     axisLabel: {
-    //       formatter: '{value} 次'
-    //     }
-    //   },
-    //   series: [
-    //     {
-    //       name: '今日',
-    //       type: 'line',
-    //     },
-    //     {
-    //       name: '昨日',
-    //       type: 'line',
-    //     }
-    //   ]
-    // }
-
       {
         legend: {   // 失效了
           itemWidth: 48, // 图例的宽度
@@ -255,7 +179,6 @@ export class IndexExpandComponent implements OnInit {
           },
         ]
       }
-
     );
     window.addEventListener('resize', () => {
       chartDataRef.resize();

@@ -104,7 +104,7 @@ export class LoginComponent implements OnInit {
 
 
     this._dialog.open(this.code_template_ref, {title: '', flag: true, async: true}).subscribe((data: any) => {
-      if (data && this.forget_code_ref.valid && !this.error) {
+      if (data && this.forget_code_ref.valid && this.error !=='img_code') {
         let obj = {
           type: this.type,
           user_name: this.user_name,
