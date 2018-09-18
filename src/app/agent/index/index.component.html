@@ -47,11 +47,12 @@
             <h1>{{user?.c_consume | currencyFormat}}</h1>
           </div>
         </div>
+
         <div class="ratio">
-          <div class="list">周同比<span>{{user?.wow * 1 | number: '1.2-2'}}%</span>
+          <div class="list">周同比<span>{{ (user?.wow * 1 > 0 ? user?.wow * 1 : - (user?.wow * 1)) | number: '1.2-2'}}%</span>
             <i [ngClass]="{'red': user?.wow > 0, 'green':  user?.wow < 0 }"></i>
           </div>
-          <div class="list">日环比<span>{{user?.dod * 1 | number: '1.2-2'}}%</span>
+          <div class="list">日环比<span>{{(user?.dod * 1 > 0 ? user?.dod * 1 : -(user?.dod * 1))| number: '1.2-2'}}%</span>
             <i [ngClass]="{'red': user?.dod > 0, 'green':  user?.dod < 0 }"></i>
           </div>
         </div>
@@ -118,13 +119,13 @@
         </div>
       </li>
     </ul>
-    <div class="originality" [ngStyle]="{'display':childList?.length > 0 ?'block':'none'}">
+    <div class="originality" [ngStyle]="{'display':childTotal?.length > 0 ?'block':'none'}">
       <div class="title">
         <div class="left">
           今日在投客户<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'今天有花费或曝光量或点击量的客户（数据有3~5分钟延迟）'"></i>
         </div>
         <div class="right-tool">
-          <yc-select class="customer-select" [width]="300" [searchCtrl]="true" placeholder="客户名称" [list]="user_list" [(ngModel)]="query.user_id" [props]="{'value':'user_id', 'label':'nick_name'}" (selectedEvent)="search()"></yc-select>
+          <yc-select class="customer-select" [width]="300" [searchCtrl]="true" placeholder="客户名称" [list]="user_list" [(ngModel)]="query.user_id" [props]="{'value':'user_id', 'label':'nick_user'}" (selectedEvent)="search()"></yc-select>
         </div>
       </div>
       <div class="main">
@@ -133,6 +134,7 @@
             <thead>
             <tr>
               <th>客户名称</th>
+              <th>账户</th>
               <th class="text-right" title="审核通过的创意个数">审核通过</th>
               <th class="text-right" title="审核未通过的创意个数">审核未通过</th>
               <th class="text-right" title="审核中的创意个数">审核中</th>
@@ -148,6 +150,7 @@
                   <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>
                   {{data.nick_name}}
                 </td>
+                <td class="text-left">{{data.user_name}}</td>
                 <td class="text-right">{{data.pass_count | number }}</td>
                 <td class="text-right">{{data.notpass_count | number }}</td>
                 <td class="text-right">{{data.wait_count | number }}</td>
@@ -356,27 +359,27 @@
     </div>
 
   </div>
-  <div class="scatter">
-    <div class="title">
-      <div class="left">
-        人群特征指数<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'智橙移动平台广告受众兴趣偏好占比情况。'"></i>
-      </div>
-    </div>
-    <div class="main people_data">
-      <div class="echart" #hobbyDataChart></div>
-      <div class="echart people-left">
-        <div class="item flex" *ngFor="let l of hobby; let i = index">
-          <span>{{l.app_category_name}}</span>
-          <div class="bar-box">
-            <div class="bar-black"></div>
-            <div class="bar-fill" [ngStyle]="{'width.%': l.hobby_proportion / hobbyTotal * 100}"></div>
-          </div>
-          <span>{{l.hobby_proportion / hobbyTotal * 100 | number: '1.2-2' }}%</span>
-          <span  [ngClass]="{'up': l.flag === 'up', 'down': l.flag === 'down', '': l.flag === 'eq'}"></span>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!--<div class="scatter">-->
+    <!--<div class="title">-->
+      <!--<div class="left">-->
+        <!--人群特征指数<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'智橙移动平台广告受众兴趣偏好占比情况。'"></i>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="main people_data">-->
+      <!--<div class="echart" #hobbyDataChart></div>-->
+      <!--<div class="echart people-left">-->
+        <!--<div class="item flex" *ngFor="let l of hobby; let i = index">-->
+          <!--<span>{{l.app_category_name}}</span>-->
+          <!--<div class="bar-box">-->
+            <!--<div class="bar-black"></div>-->
+            <!--<div class="bar-fill" [ngStyle]="{'width.%': l.hobby_proportion / hobbyTotal * 100}"></div>-->
+          <!--</div>-->
+          <!--<span>{{l.hobby_proportion / hobbyTotal * 100 | number: '1.2-2' }}%</span>-->
+          <!--<span  [ngClass]="{'up': l.flag === 'up', 'down': l.flag === 'down', '': l.flag === 'eq'}"></span>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
   <div class="scatter">
     <div class="title">
       <div class="left">

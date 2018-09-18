@@ -49,10 +49,10 @@
           </div>
         </div>
         <div class="ratio">
-          <div class="list">周同比<span>{{userData?.wow * 1 | number: '1.2-2'}}%</span>
+          <div class="list">周同比<span>{{ (userData?.wow * 1 > 0 ? userData?.wow * 1 : - (userData?.wow * 1)) | number: '1.2-2'}}%</span>
             <i [ngClass]="{'red': userData?.wow > 0, 'green':  userData?.wow < 0 }"></i>
           </div>
-          <div class="list">日环比<span>{{userData?.dod * 1 | number: '1.2-2'}}%</span>
+          <div class="list">日环比<span>{{(userData?.dod * 1 > 0 ? userData?.dod * 1 : -(userData?.dod * 1))| number: '1.2-2'}}%</span>
             <i [ngClass]="{'red': userData?.dod > 0, 'green':  userData?.dod < 0 }"></i>
           </div>
         </div>
@@ -466,27 +466,27 @@
       </div>
     </div>
   </div>
-  <div class="scatter">
-    <div class="title">
-      <div class="left">
-        人群特征指数<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'智橙移动平台广告受众兴趣偏好占比情况。'"></i>
-      </div>
-    </div>
-    <div class="main people_data">
-      <div class="echart" #hobbyDataChart></div>
-      <div class="echart people-left">
-        <div class="item flex" *ngFor="let l of hobby; let i = index">
-          <span>{{l.app_category_name}}</span>
-          <div class="bar-box">
-            <div class="bar-black"></div>
-            <div class="bar-fill" [ngStyle]="{'width.%': l.hobby_proportion / hobbyTotal * 100}"></div>
-          </div>
-          <span>{{l.hobby_proportion / hobbyTotal * 100 | number: '1.2-2' }}%</span>
-          <span  [ngClass]="{'up': l.flag === 'up'? true :false, 'down': l.flag === 'down' ? true : false}"></span>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!--<div class="scatter">-->
+    <!--<div class="title">-->
+      <!--<div class="left">-->
+        <!--人群特征指数<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'智橙移动平台广告受众兴趣偏好占比情况。'"></i>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="main people_data">-->
+      <!--<div class="echart" #hobbyDataChart></div>-->
+      <!--<div class="echart people-left">-->
+        <!--<div class="item flex" *ngFor="let l of hobby; let i = index">-->
+          <!--<span>{{l.app_category_name}}</span>-->
+          <!--<div class="bar-box">-->
+            <!--<div class="bar-black"></div>-->
+            <!--<div class="bar-fill" [ngStyle]="{'width.%': l.hobby_proportion / hobbyTotal * 100}"></div>-->
+          <!--</div>-->
+          <!--<span>{{l.hobby_proportion / hobbyTotal * 100 | number: '1.2-2' }}%</span>-->
+          <!--<span  [ngClass]="{'up': l.flag === 'up'? true :false, 'down': l.flag === 'down' ? true : false}"></span>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
   <div class="scatter">
     <div class="title">
       <div class="left">

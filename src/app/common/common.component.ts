@@ -19,8 +19,8 @@ export class BaseIndexComponent implements OnInit{
   todayAllSpend = 'cpm';
   @ViewChild('socialDataChart') socialDataChartRef: ElementRef;
   socialDataEcharts;
-  @ViewChild('hobbyDataChart') hobbyDataChartRef: ElementRef;
-  hobbyDataEcharts;
+  // @ViewChild('hobbyDataChart') hobbyDataChartRef: ElementRef;
+  // hobbyDataEcharts;
   @ViewChild('chinaDataChart') chinaDataChartRef: ElementRef;
   chinaDataEcharts;
   @ViewChild('AgeWidth') AgeWidth: ElementRef;
@@ -56,7 +56,7 @@ export class BaseIndexComponent implements OnInit{
       this.todayAllDataChart();
       this.todayAllSpendChart();
       this.socialDataChart();
-      this.hobbyDataChart();
+      // this.hobbyDataChart();
       this.chinaDataChart();
       this.initData();
     }, 500)
@@ -885,70 +885,70 @@ export class BaseIndexComponent implements OnInit{
    * @param data
    * @param type
    */
-  hobbyDataChart() {
-    const hobbyData = this.hobbyDataEcharts = echarts.init(this.hobbyDataChartRef.nativeElement);
-    hobbyData.setOption(
-      {
-        radar: [
-          {
-            indicator: [
-              {text: '品牌', max: 100},
-              {text: '内容', max: 100},
-              {text: '可用性', max: 100},
-              {text: '功能', max: 100},
-              {text: '功能', max: 100},
-              {text: '功能', max: 100},
-              {text: '功能', max: 100},
-            ],
-            center: ['50%','50%'],
-            radius: '80%',
-            splitLine: {
-              lineStyle: {
-                color: [
-                  'lightgray'
-                ]
-              }
-            },
-            splitArea: { // 是否显示网格背景
-              show: false
-            },
-            axisLine: {
-              show: false,  //
-            }
-          }
-        ],
-        series: [
-          {
-            type: 'radar',
-            tooltip: {
-              trigger: 'item'
-            },
-            symbolSize: 13,  // 拐点大小
-            itemStyle: {
-              normal: {
-                color : "#2e90ff",  // 拐点颜色
-                areaStyle: {
-                  color: '#43a3fb'  // 选中部分的背景色
-                },
-                lineStyle: {
-                  color:"#2e90ff" // 图表中各个图区域的边框线颜色
-                },
-              }
-            },
-            data: [
-              {
-                value: [60,73,85,40,40,40,40],
-                name: '某软件'
-              }
-            ]
-          }
-        ]
-      }
-  );
-    window.addEventListener('resize', () => {
-      hobbyData.resize();
-    });
-  }
+  // hobbyDataChart() {
+  //   const hobbyData = this.hobbyDataEcharts = echarts.init(this.hobbyDataChartRef.nativeElement);
+  //   hobbyData.setOption(
+  //     {
+  //       radar: [
+  //         {
+  //           indicator: [
+  //             {text: '品牌', max: 100},
+  //             {text: '内容', max: 100},
+  //             {text: '可用性', max: 100},
+  //             {text: '功能', max: 100},
+  //             {text: '功能', max: 100},
+  //             {text: '功能', max: 100},
+  //             {text: '功能', max: 100},
+  //           ],
+  //           center: ['50%','50%'],
+  //           radius: '80%',
+  //           splitLine: {
+  //             lineStyle: {
+  //               color: [
+  //                 'lightgray'
+  //               ]
+  //             }
+  //           },
+  //           splitArea: { // 是否显示网格背景
+  //             show: false
+  //           },
+  //           axisLine: {
+  //             show: false,  //
+  //           }
+  //         }
+  //       ],
+  //       series: [
+  //         {
+  //           type: 'radar',
+  //           tooltip: {
+  //             trigger: 'item'
+  //           },
+  //           symbolSize: 13,  // 拐点大小
+  //           itemStyle: {
+  //             normal: {
+  //               color : "#2e90ff",  // 拐点颜色
+  //               areaStyle: {
+  //                 color: '#43a3fb'  // 选中部分的背景色
+  //               },
+  //               lineStyle: {
+  //                 color:"#2e90ff" // 图表中各个图区域的边框线颜色
+  //               },
+  //             }
+  //           },
+  //           data: [
+  //             {
+  //               value: [60,73,85,40,40,40,40],
+  //               name: '某软件'
+  //             }
+  //           ]
+  //         }
+  //       ]
+  //     }
+  // );
+  //   window.addEventListener('resize', () => {
+  //     hobbyData.resize();
+  //   });
+  // }
 
   /**
    * 首页点击总量
@@ -1138,7 +1138,7 @@ export class BaseIndexComponent implements OnInit{
       this.media_flow_top5 = res.result.media_flow_top5;
       this.media_flow_top5.forEach ( (item, index) => item.color = this.media_flow_top5_color[index] )
       // 兴趣爱好
-      this.hobbyDataDetail(res);
+      // this.hobbyDataDetail(res);
       // 地域流量top10
       this.top_area_data = res.result.top_area_data;
       // 地域流量分布图数据
@@ -1183,38 +1183,38 @@ export class BaseIndexComponent implements OnInit{
    *  人群特征指数
    * */
 
-  hobbyDataDetail(res) {
-    this.hobby = res.result.hobby;
-    let indicator = [];
-    let hobbyMaxList = this.hobby.map(item => {
-      return item.hobby_proportion;
-    })
-    this.hobby.forEach(item => {
-      this.hobbyTotal = this.hobbyTotal + item.hobby_proportion;
-      indicator.push ( {
-        text: item.app_category_name,
-        max: Math.max(...hobbyMaxList)
-      })
-    })
-    this.hobbyDataEcharts.setOption(
-      {
-        radar: [
-          {
-            indicator: indicator
-          }
-        ],
-        series: [
-          {
-            data: [
-              {
-                value: hobbyMaxList,
-              }
-            ]
-          }
-        ]
-      }
-    );
-  }
+  // hobbyDataDetail(res) {
+  //   this.hobby = res.result.hobby;
+  //   let indicator = [];
+  //   let hobbyMaxList = this.hobby.map(item => {
+  //     return item.hobby_proportion;
+  //   })
+  //   this.hobby.forEach(item => {
+  //     this.hobbyTotal = this.hobbyTotal + item.hobby_proportion;
+  //     indicator.push ( {
+  //       text: item.app_category_name,
+  //       max: Math.max(...hobbyMaxList)
+  //     })
+  //   })
+  //   this.hobbyDataEcharts.setOption(
+  //     {
+  //       radar: [
+  //         {
+  //           indicator: indicator
+  //         }
+  //       ],
+  //       series: [
+  //         {
+  //           data: [
+  //             {
+  //               value: hobbyMaxList,
+  //             }
+  //           ]
+  //         }
+  //       ]
+  //     }
+  //   );
+  // }
   /**
    *  地域流量分布
    * */
