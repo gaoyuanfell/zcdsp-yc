@@ -67,8 +67,8 @@
         <tr sticky>
           <!--<th [showCheckbox]="true"></th>-->
           <th class="text-center" [showSort]="true" [sortKey]="'creation_date'" [width]="200">时间</th>
-          <th class="text-center">类型</th>
-          <th class="text-right" [showSort]="true" [sortKey]="'money'">金额</th>
+          <th class="text-center" [width]="200">类型</th>
+          <th class="text-right" [showSort]="true" [sortKey]="'money'" [width]="200">金额</th>
           <th class="text-center">目标账户</th>
           <th class="text-center">目标公司</th>
 
@@ -91,7 +91,6 @@
           <td class="text-center">全部合计</td>
           <td class="text-center">-</td>
           <td class="text-right">{{listTitle?.money | currencyFormat}}</td>
-          <td></td>
           <td></td>
           <td></td>
         </tr>
