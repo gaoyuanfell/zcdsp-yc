@@ -13,6 +13,7 @@ import {AppState} from '../../../../../store/model';
 import {Store} from '@ngrx/store';
 import * as directionalAction from '../../../../../store/actions/directional.action';
 import {recursionChild} from '../../../../../service/util';
+// import * as qrious from 'qrious/dist/qrious.js';
 
 @Component({
   selector: 'app-add-creative',
@@ -629,7 +630,6 @@ export class AddCreativeComponent implements OnInit {
         });
         this.campaign = res.result.campaign;
         this.show_hours = res.result.show_hours;
-        // this.direction = res.result.direction;
         this.media_list = res.result.media_list;
         this.rec_media_list = res.result.rec_media_list;
         this.first_char_list = res.result.first_char_list;
@@ -659,6 +659,7 @@ export class AddCreativeComponent implements OnInit {
   bid_max;
 
   ngOnInit() {
+    // console.info(qrious.default)
     this.bid_min = this._global.bid_min;
     this.bid_max = this._global.bid_max;
     this.campaign_id = this.route.snapshot.queryParams.campaign_id;
@@ -667,6 +668,11 @@ export class AddCreativeComponent implements OnInit {
     }
     this._creativeService.campaignList().subscribe(res => {
       this.campaignList = res.result;
+      if(this.campaignList instanceof Array && this.campaignList.length){
+        let data = this.campaignList[0]
+        this.campaign_id = data.campaign_id
+        this.campaignChange(data)
+      }
       this.changeDetectorRef.markForCheck();
     });
   }

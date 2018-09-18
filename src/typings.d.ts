@@ -10,6 +10,11 @@ declare module '*.json' {
   export default value;
 }
 
+declare module '*.js' {
+  const value: any;
+  export default value;
+}
+
 declare var echarts: any;
 declare var domtoimage: any;
 declare var wangEditor: any;
