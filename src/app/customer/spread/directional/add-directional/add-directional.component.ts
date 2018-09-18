@@ -23,8 +23,8 @@ export class AddDirectionalComponent implements OnInit {
   save() {
     this._valid = true;
     if (!this.package_name) return;
-
-    let body = { ...this.directional, ...{package_name: this.package_name}}
+    this.directional.lbs_scene_type = this.directional.dtl_address.lbs_scene_type;
+    let body = { ...this.directional, ...{package_name: this.package_name}};
 
     if (+this.id) {
       body.package_id = this.id;

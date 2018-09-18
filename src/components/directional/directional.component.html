@@ -7,7 +7,7 @@
     <button class="btn btn-outline btn-round" (click)="checkAreasChange(false)">清除全部</button>
   </div>
   <div class="directional-operation">
-    <yc-switch-input [(ngModel)]="areasShow"></yc-switch-input>
+    <yc-switch-input [(ngModel)]="areasShow" (ngModelChange)="areasShowChange()"></yc-switch-input>
   </div>
 </div>
 <!--定向省市 expanded-->
@@ -128,10 +128,9 @@
     <button class="btn btn-outline btn-round" (click)="removeAllAudiences()">清除全部</button>
   </div>
   <div class="directional-operation">
-    <yc-switch-input [(ngModel)]="audiencesShow"></yc-switch-input>
+    <yc-switch-input [(ngModel)]="audiencesShow" (ngModelChange)="audiencesShowChange()"></yc-switch-input>
   </div>
 </div>
-
 <!--受众定向 expanded-->
 <div class="expanded" [@panel]="audiencesShow">
   <!--choice-->
@@ -164,7 +163,6 @@
 
 </div>
 
-
 <!--受众行为：-->
 <div class="flex-center directional-box">
   <h3 class="directional-info-title">受众行为</h3>
@@ -174,7 +172,7 @@
     <button class="btn btn-outline btn-round" (click)="checkAudiencesActionChange(false)">清除全部</button>
   </div>
   <div class="directional-operation">
-    <yc-switch-input [(ngModel)]="audiencesActionShow"></yc-switch-input>
+    <yc-switch-input [(ngModel)]="audiencesActionShow" (ngModelChange)="audiencesActionShowChange()"></yc-switch-input>
   </div>
 </div>
 <!--受众行为 expanded-->
@@ -275,7 +273,7 @@
     <button class="btn btn-outline btn-round" (click)="removeAllDevice()">清除全部</button>
   </div>
   <div class="directional-operation">
-    <yc-switch-input [(ngModel)]="deviceShow"></yc-switch-input>
+    <yc-switch-input [(ngModel)]="deviceShow" (ngModelChange)="deviceShowChange()"></yc-switch-input>
   </div>
 </div>
 <!--设备定向 expanded-->
