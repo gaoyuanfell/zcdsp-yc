@@ -24,7 +24,7 @@ export class BaseIndexComponent implements OnInit{
   @ViewChild('chinaDataChart') chinaDataChartRef: ElementRef;
   chinaDataEcharts;
   @ViewChild('AgeWidth') AgeWidth: ElementRef;
-  color = ['#ff7f24', '#1fcf88', '#f14c5d', '#3c61ff', '#F5CDFF', '#8c5cff', '#ffba48', '#FF86A1', '#d6ca00', '#FF0C35', '#33bcfb', '#047962'];
+  color = ['#50aafb', '#41c8ed', '#38c687', '#47c638', '#e8c940', '#e88240', '#e85340', '#d73aaa', '#953ad7', '#acafb2', '#33bcfb', '#047962'];
 
   constructor(
     protected changeDetectorRef: ChangeDetectorRef,
@@ -1083,7 +1083,7 @@ export class BaseIndexComponent implements OnInit{
   brand;
   brandTotal;
   media_flow_top5;
-  media_flow_top5_color = ['#2e90ff', '#ffaf57', '#ffaf57', '#35d494', '#35d494']
+  media_flow_top5_color = ['#2e90ff', '#8690e6', '#ffaf57', '#35d494', '#71b8ea']
   hobby;
   hobbyTotal = 0;
   top_area_data;
