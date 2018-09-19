@@ -431,7 +431,8 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
           symbolSize: 2,//拐点大小
         },
       ]
-    });
+    }
+    );
     window.addEventListener('resize', () => {
       todayActivityRef.resize();
     });
