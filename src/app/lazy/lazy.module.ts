@@ -53,7 +53,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   ],
   template: `
     <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;" #overflow>
-<<<<<<< HEAD
+
       <!--<div style="width: 100%;height: 600px;" yc-map>
         
       </div>-->
@@ -136,11 +136,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
         1
       </app-lazy-view3>
 
-=======
 
-      <div style="width: 100%;height: 600px;" yc-map>
-      </div>
->>>>>>> d71b1aa4215f5725db582ebb507f25ab1e2aaceb
+
+      <!--<div style="width: 100%;height: 600px;" yc-map>-->
+      <!--</div>-->
+
     </div>
     
     

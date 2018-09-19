@@ -199,7 +199,7 @@ export class LoginComponent implements OnInit {
 
   flag: boolean = false; // 密码不一致的报错关键字
   pwd_comfirm() {
-    this.flag = this.form.password === this.form.old_pwd ? false : true;
+    this.flag = this.forget.password === this.forget.old_pwd ? false : true;
   }
 
   login(inform) {
