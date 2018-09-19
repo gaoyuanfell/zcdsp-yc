@@ -282,7 +282,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   audiencesActionResult = []
   audiencesAction2Result = []
   audiencesActionShowChange(){
-    if(this.audiencesShow){
+    if(this.audiencesActionShow){
       this.resultData.dtl_behavior.appCategory = this.audiencesActionResult.filter(aa => isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
       this.resultData.dtl_behavior.appAttribute = this.audiencesActionResult.filter(aa => !isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
       this.resultData.dtl_behavior.filterAppCategory = this.audiencesAction2Result.filter(aa => isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));

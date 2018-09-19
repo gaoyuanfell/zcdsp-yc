@@ -7,7 +7,7 @@ import {
   ViewChild,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Inject
+  Inject, Input
 } from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {Module} from '../module';
@@ -53,9 +53,88 @@ const ELEMENT_DATA: PeriodicElement[] = [
   ],
   template: `
     <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;" #overflow>
-      <div style="width: 100%;height: 600px;" yc-map>
+      <!--<div style="width: 100%;height: 600px;" yc-map>
         
-      </div>
+      </div>-->
+
+      <button class="btn" (click)="start()">start</button>
+      <button class="btn" (click)="end()">end</button>
+      <ul style="overflow: auto;max-height: 300px;">
+        <!--<li *ngFor="let i of list; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list1; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list2; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list3; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list4; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list5; let index=index">{{index}}</li>-->
+        
+        <!--<ng-template [ngForOf]="list6" ngFor let-l>-->
+          <!--<ng-template [ngForOf]="l" ngFor let-i let-index="index">-->
+            <!--<li>{{index}}</li>-->
+          <!--</ng-template>-->
+        <!--</ng-template>-->
+
+
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
+        
+      </ul>
+
+      <app-lazy-view3 [list]="list">
+        1
+      </app-lazy-view3>
+
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -63,7 +142,37 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class LazyComponent implements OnDestroy, OnInit {
 
-  list = Array.from({length: 50});
+  start() {
+    this.list = Array.from({length: 5000});
+    this.list1 = Array.from({length: 10000});
+    this.list2 = Array.from({length: 10000});
+    this.list3 = Array.from({length: 10000});
+    this.list4 = Array.from({length: 10000});
+    this.list5 = Array.from({length: 10000});
+    this.list6 = Array.from({length: 50}).map(() => Array.from({length: 1000}));
+
+    this.list7 = Array.from({length: 1000});
+  }
+
+  end(){
+    this.list = null
+    this.list1 = null
+    this.list2 = null
+    this.list3 = null
+    this.list4 = null
+    this.list5 = null
+    this.list6 = null
+    this.list7 = null
+  }
+
+  list;
+  list1;
+  list2;
+  list3;
+  list4;
+  list5;
+  list6;
+  list7;
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
@@ -115,18 +224,21 @@ export class LazyComponent2 implements OnDestroy, OnInit {
   selector: 'app-lazy-view3',
   styles: [],
   template: `
-    <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;">
-      <div></div>
-    </div>
+    <ng-template [ngForOf]="list" ngFor let-item>
+      <div>a</div>
+      <ng-content></ng-content>
+    </ng-template>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: true,
 })
 export class LazyComponent3 implements OnDestroy, OnInit {
 
-  constructor(@Inject(YC_SIDEBAR_DATA) public data: any) {
-    console.info(data);
+  constructor() {
+
   }
+
+  @Input() list
 
   ngOnInit(): void {
     console.info('ok');
