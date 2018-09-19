@@ -32,7 +32,8 @@ export class LoginComponent implements OnInit {
   form: any = {};
   forget: any = {};
   flag_change() {
-    this.flags=!this.flags
+    this.flags=!this.flags;
+    this.pwd_show = false;
     this.form = {};
     this.forget = {};
   }

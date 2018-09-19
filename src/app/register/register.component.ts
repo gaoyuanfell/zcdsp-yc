@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {Base64} from 'js-base64';
 import {PublicService} from '../../service/public.service';
 import {Router} from '@angular/router';
 import {Notification} from '../../components/notification/notification';
 import SparkMD5 from 'spark-md5'
+import {Dialog} from '../../components/dialog/dialog';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -15,6 +16,7 @@ export class RegisterComponent implements OnInit {
     private _publicService: PublicService,
     private router: Router,
     private _notification: Notification,
+    protected _dialog: Dialog,
   ) { }
   user: any = {};
   _valid = false;
@@ -103,6 +105,12 @@ export class RegisterComponent implements OnInit {
         this.exist_flag = res.result;  // false说明账户不存在
       })
     }
+  }
+
+  @ViewChild('templateRegister', {read: TemplateRef}) templateRegister: TemplateRef<any>;
+  register() {
+    this._dialog.open(this.templateRegister, {title: '注册协议', flag: false}).subscribe(data => {
+    });
   }
 
 }
