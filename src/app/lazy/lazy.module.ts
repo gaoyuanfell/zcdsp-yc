@@ -53,6 +53,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   ],
   template: `
     <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;" #overflow>
+<<<<<<< HEAD
       <!--<div style="width: 100%;height: 600px;" yc-map>
         
       </div>-->
@@ -135,7 +136,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         1
       </app-lazy-view3>
 
+=======
+
+      <div style="width: 100%;height: 600px;" yc-map>
+      </div>
+>>>>>>> d71b1aa4215f5725db582ebb507f25ab1e2aaceb
     </div>
+    
+    
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: true,
@@ -186,6 +194,23 @@ export class LazyComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
+
+    let one = document.getElementById('one')
+    let myChart = echarts.init(one);
+    let option = {
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [{
+        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        type: 'line'
+      }]
+    };
+    myChart.setOption(option);
 
   }
 
