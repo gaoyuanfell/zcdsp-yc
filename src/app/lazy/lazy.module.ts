@@ -53,8 +53,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
   ],
   template: `
     <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;" #overflow>
-      <div style="height:300px;width:80%;border:1px solid red" id="one">
 
+      <div style="width: 100%;height: 600px;" yc-map>
       </div>
     </div>
     

@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MapComponent } from './map.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MapComponent} from './map.component';
 import {MapDirective} from './map.directive';
 import {OverlayModule} from '@angular/cdk/overlay';
 
@@ -10,7 +10,8 @@ import {OverlayModule} from '@angular/cdk/overlay';
     CommonModule,
     OverlayModule,
   ],
-  declarations: [MapComponent,MapDirective],
-  exports: [ MapComponent,MapDirective ]
+  declarations: [MapComponent, MapDirective],
+  exports: [MapComponent, MapDirective]
 })
-export class MapModule { }
+export class MapModule {
+}

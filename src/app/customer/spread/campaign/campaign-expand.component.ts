@@ -33,17 +33,17 @@ import {codyDepth, hoursFormat} from '../../../../service/util';
         <div class="expand-content-bottom">
           <div class="expand-info">
             
-            <div class="item" *ngIf="click_link">
+            <div class="item" *ngIf="click_link && !download_link">
               <span class="info-key">落地页</span>
               <div class="info-value">
-                <a target="_blank" [href]="click_link">{{click_link}}</a>
+                <p><a target="_blank" [href]="click_link">{{click_link}}</a></p>
               </div>
             </div>
 
             <div class="item" *ngIf="download_link">
               <span class="info-key">下载地址</span>
               <div class="info-value">
-                <a target="_blank" [href]="download_link">{{download_link}}</a>
+                <p><a target="_blank" [href]="download_link">{{download_link}}</a></p>
               </div>
             </div>
             
