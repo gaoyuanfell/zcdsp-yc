@@ -196,7 +196,9 @@ export function directionalReducer(state: DirectionalState = initState, action: 
 
     case DirectionalActionTypes.AUDIENCES_ACTION_NEXT_CHILD: {
       let {value, index} = action.payload;
+      console.time('1')
       nextAudiencesActionChild(value, index);
+      console.timeEnd('1')
       return {...state};
     }
     case DirectionalActionTypes.AUDIENCES_ACTION_NEXT_CHILD2: {
