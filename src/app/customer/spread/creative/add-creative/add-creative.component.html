@@ -72,7 +72,7 @@
         投放媒体
       </h2>
       <div>
-        <yc-button-group [(ngModel)]="rec_media_type" [list]="[{value:'1',label:'热投媒体'},{value:'2',label:'更多媒体'}]" (ngModelChange)="recMediaChange()"></yc-button-group>
+        <yc-button-group [(ngModel)]="rec_media_type" [list]="[{value:'1',label:'热投样式'},{value:'2',label:'更多媒体'}]" (ngModelChange)="recMediaChange()"></yc-button-group>
       </div>
     </div>
 
@@ -190,7 +190,7 @@
                   <h3 style="text-align: center" *ngIf="!selectMediaSize?.creative_show_img">暂无投放参考示意图</h3>
                   <img [src]="selectMediaSize?.creative_show_img"> <!--src="assets/img/photo-img-test.png"-->
                 </div>
-                <p class="m-t-1">----投放参考示意图----</p>
+                <p class="m-t-1">----投放场景示意图----</p>
               </div>
             </div>
 

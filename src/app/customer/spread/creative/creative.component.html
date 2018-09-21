@@ -15,7 +15,7 @@
       <yc-select [(ngModel)]="query.media_id" (selectedEvent)="search()" [placeholder]="'媒体'" [list]="media_list" [props]="{value:'media_id',label:'media_name'}" [searchCtrl]="true" [whole]="'全部'"></yc-select>
       <yc-select [(ngModel)]="query.display_type" (selectedEvent)="search()" [placeholder]="'展现形式'" [list]="display_type_list" [props]="{value:'value',label:'name'}" [searchCtrl]="true" [whole]="'全部'"></yc-select>
       <yc-select [(ngModel)]="query.show_state" (selectedEvent)="search()" [placeholder]="'操作'" [list]="show_state_list" [props]="{value:'value',label:'name'}" [whole]="'全部'"></yc-select>
-      <yc-select [(ngModel)]="query.current_state" (selectedEvent)="search()" [placeholder]="'投放状态'" [list]="current_state_list" [props]="{value:'value',label:'name'}" [whole]="'全部'"></yc-select>
+      <yc-select [(ngModel)]="query.current_state" (selectedEvent)="search()" [placeholder]="'状态'" [list]="current_state_list" [props]="{value:'value',label:'name'}" [whole]="'全部'"></yc-select>
       <yc-select [(ngModel)]="query.zc_audit_status" (selectedEvent)="search()" [placeholder]="'审核状态'" [list]="audit_state_list" [props]="{value:'value',label:'name'}" [whole]="'全部'"></yc-select>
 
     </div>
@@ -31,6 +31,10 @@
         </div>
         <div class="btn" (click)="batchUpdate('creative_copy')">
           复制创意
+          <i class="btn-icon-copy"></i>
+        </div>
+        <div class="btn" (click)="batchUpdate('submit_audit')">
+          提交审核
           <i class="btn-icon-copy"></i>
         </div>
         <div class="btn" (click)="exportUrl()">
@@ -93,10 +97,9 @@
             <yc-switch-input [size]="'small'" [values]="['1','2']" [(ngModel)]="data.show_state" #switchRef="switchInput" (eventChange)="updateOneShowState(data, switchRef)"></yc-switch-input>
           </td>
           <td [title]="data.current_state_name">
-          <span [ngStyle]="{color:data.current_state == 1?'':'#ff5757'}">
-            {{data.show_state_meaning}}
-            <!--{{data.current_state | ycCurrentState}}-->
-          </span>
+            <span [ngClass]="{'green': data.show_state == 1 ,'red': data.show_state == 3, 'yellow': data.show_state == 2}">
+              {{data.show_state_meaning}}
+            </span>
           </td>
           <td>{{data.zc_audit_status_name}}</td>
           <td class="text-right">{{data.pv | number}}</td>

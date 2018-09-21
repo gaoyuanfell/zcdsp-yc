@@ -14,7 +14,7 @@
 
     <div class="right-tool">
       <yc-select [(ngModel)]="query.show_state" [list]="show_state_list" [props]="{value:'value',label:'name'}" [placeholder]="'操作'" [whole]="'全部'" (selectedEvent)="search()"></yc-select>
-      <yc-select [(ngModel)]="query.current_state" [list]="current_state_list" [props]="{value:'value',label:'name'}" [placeholder]="'投放状态'" [whole]="'全部'" (selectedEvent)="search()"></yc-select>
+      <yc-select [(ngModel)]="query.current_state" [list]="current_state_list" [props]="{value:'value',label:'name'}" [placeholder]="'状态'" [whole]="'全部'" (selectedEvent)="search()"></yc-select>
     </div>
   </div>
 
@@ -56,7 +56,7 @@
         <th class="text-right">每日预算</th>
         <th class="text-right">出价</th>
         <th>操作</th>
-        <th>投放状态</th>
+        <th>状态</th>
         <th class="text-right" [showSort]="true" [sortKey]="'pv'" title="广告被展现给受众的次数">曝光量</th>
         <th class="text-right" [showSort]="true" [sortKey]="'click'" title="排除恶意点击后，广告被受众点击的次数">点击量</th>
         <th class="text-right" [showSort]="true" [sortKey]="'ctr'" title="广告被点击的比率(点击量/曝光量*100%)">点击率</th>
@@ -92,7 +92,7 @@
             <yc-switch-input [values]="['1','2']" [size]="'small'" [(ngModel)]="data.show_state" #switchRef="switchInput" (eventChange)="updateOneShowState(data,switchRef)"></yc-switch-input>
           </td>
           <td [title]="data.current_state_origin_meaning">
-          <span [ngStyle]="{color:data.current_state == 1?'':'#ff5757'}">
+          <span [ngClass]="{'green': data.current_state == 1 ,'red': data.current_state == 3, 'yellow': data.current_state == 2}">
             {{data.current_state_meaning}}
           </span>
           </td>

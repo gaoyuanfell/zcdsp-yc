@@ -507,7 +507,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
         break;
       }
       case '2': {
-        this.directional = null;
+        this.directional = {};
         break;
       }
     }

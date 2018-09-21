@@ -143,8 +143,8 @@
           </div>
           <div class="ele-box-text" *ngIf="!preview">
             <p>{{ele.file_size}}</p>
-            <p>{{ele.support_file_type}},{{ele.time_length}}s,小于{{ele.max_file_size}}KB（{{ele.max_file_size / 1024 | number:'1.2-2'}}M）</p>
             <p>{{ele.placeholder}}</p>
+            <p>{{ele.support_file_type}}，小于{{ele.max_file_size}}KB</p>
             <p>
               <a class="fast-drawing m-r-1" data-link *ngIf="ele.is_support_tpl" data-link (click)="openTemplate($event,ele,data_index,file_index)">快速制图</a>
               <a class="fast-drawing m-r-1" data-link *ngIf="ele.is_support_history" data-link (click)="materialLibrary($event,ele,data_index,file_index)">创意库</a>
@@ -163,8 +163,8 @@
           </div>
           <div class="ele-box-text" *ngIf="!preview">
             <p>{{ele.file_size}}</p>
-            <p>{{ele.support_file_type}},{{ele.time_length}}s,小于{{ele.max_file_size}}KB（{{ele.max_file_size / 1024 | number:'1.2-2'}}M）</p>
             <p>{{ele.placeholder}}</p>
+            <p>{{ele.support_file_type}}，{{ele.time_length}}s，小于{{ele.max_file_size}}KB</p>
             <p>
               <a class="fast-drawing m-r-1" data-link *ngIf="ele.is_support_tpl" data-link (click)="openTemplate($event,ele,data_index,file_index)">快速制图</a>
               <a class="fast-drawing m-r-1" data-link *ngIf="ele.is_support_history" data-link (click)="materialLibrary($event,ele,data_index,file_index)">创意库</a>
