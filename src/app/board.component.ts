@@ -39,7 +39,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   flags = false;
 
   ngOnInit(): void {
-    this.title.setTitle(`智橙移动`);
+    this.title.setTitle(`智橙移动 领先的信息流广告投放平台`);
 
     this.scrolls();
     this.scrolls1();
