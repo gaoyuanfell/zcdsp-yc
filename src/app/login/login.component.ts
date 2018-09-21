@@ -216,17 +216,9 @@ export class LoginComponent implements OnInit {
         } else {
           this.router.navigate(['/']);
         }
+      },() => {
+        this.verifyCode();
       });
     }
   }
-}
-
-@Component({
-  selector: 'app-login2',
-  template: ``,
-})
-export class Login2Component implements OnInit {
-  ngOnInit(): void {
-  }
-
 }
