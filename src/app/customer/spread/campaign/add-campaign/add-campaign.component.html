@@ -298,7 +298,7 @@
       <h2 class="extension-title" id="dingxiangshezhi">
         定向设置
       </h2>
-      <yc-button-group *ngIf="!_isEdit" [(ngModel)]="directionalType" (changeEvent)="directionalTypeChange()" [list]="[{value:'1',label:'智能推荐'},{value:'2',label:'自定义'}]"></yc-button-group>
+      <yc-button-group *ngIf="!_isEdit" [(ngModel)]="directionalType" (changeEvent)="directionalTypeChange();directionalType == '2' && ycDirectional.close()" [list]="[{value:'1',label:'智能推荐'},{value:'2',label:'自定义'}]"></yc-button-group>
     </div>
     <div class="extension-form-box">
       <div class="form-group flex-center">
@@ -310,7 +310,7 @@
 
       <!--定向-->
       <div style="margin: 0 80px;">
-        <yc-directional [(ngModel)]="directional" (ngModelChange)="audienceCount()"></yc-directional>
+        <yc-directional [(ngModel)]="directional" #ycDirectional="ycDirectional" (ngModelChange)="audienceCount()"></yc-directional>
         <div class="flex-center" style="height: 36px;" *ngIf="!_isEdit">
           <yc-checkbox [(ngModel)]="is_need_package" (changeEvent)="is_need_package?(package_name = campaign.campaign_name + '_定向包'):(package_name = '')" [label]="'保存以上数据为定向包，下次可直接通过快捷定向选择使用'"></yc-checkbox>
           <input *ngIf="is_need_package" type="text" [(ngModel)]="package_name" class="form-control m-l-1" style="width: 180px;display: none;" placeholder="请输入定向包名称">

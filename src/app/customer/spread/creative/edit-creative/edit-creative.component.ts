@@ -82,7 +82,9 @@ export class EditCreativeComponent implements OnInit {
   init(creative_id) {
     this._creativeService.updateInit({creative_id: creative_id}).subscribe(
       res => {
-        this.template_size_list = res.result.template_size_list || []
+        this.template_size_list = res.result.template_size_list.map(ts => {
+          return `${ts.width}X${ts.height}`;
+        }) || []
         this.is_need_app = res.result.is_need_app
 
         this.creative = res.result.creative;

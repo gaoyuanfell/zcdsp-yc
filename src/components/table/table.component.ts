@@ -153,6 +153,15 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
         let _tableRef = <HTMLElement>this.tableRef.nativeElement;
         this.overflowRef.width = _tableRef.clientWidth
       }
+
+      if (this.queryRef) {
+        let _queryRef = <HTMLElement>this.queryRef.nativeElement;
+        (<HTMLElement>this.tableWrapRef.nativeElement).style.paddingTop = `${_queryRef.clientHeight}px`;
+        let bcrt1 = this._global.containerFullRef.getBoundingClientRect();
+        let bcrt2 = this.tableContainerRef.nativeElement.getBoundingClientRect();
+        let offsetTop = bcrt2.top - bcrt1.top;
+      }
+
       this.position()
     }
     this.checkAllObservable.subscribe((data) => {

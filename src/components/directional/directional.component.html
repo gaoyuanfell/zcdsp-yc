@@ -4,6 +4,7 @@
   <div class="directional-info" *ngIf="areasShow">
     <h4>定向省市</h4>
     <p>当前已选择（{{(areasResult$ | async)?.length || 0}}）</p>
+    <button class="btn btn-outline btn-round" (click)="checkAreasChange(true)">选择全部</button>
     <button class="btn btn-outline btn-round" (click)="checkAreasChange(false)">清除全部</button>
   </div>
   <div class="directional-operation">
@@ -55,6 +56,7 @@
   <div class="directional-info" style="margin: 25px 0 15px 0;">
     <h4>LBS</h4>
     <p>当前已选择（{{(lbsCityViewResult$ | async)?.length || 0}}）</p>
+    <button class="btn btn-outline btn-round" (click)="checkLbsCityChange(true)">选择全部</button>
     <button class="btn btn-outline btn-round" (click)="checkLbsCityChange(false)">清除全部</button>
   </div>
   <!---->

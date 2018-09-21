@@ -9,7 +9,7 @@ export class ScrollMoreDirective implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   @Input() direction: 'x' | 'y' = 'y';
@@ -30,15 +30,18 @@ export class ScrollMoreDirective implements OnInit {
       client = 'clientWidth';
       scroll = 'scrollLeft';
     }
-    let h = Array.from<HTMLDivElement>(event.target.childNodes).map(cn => cn[client]).reduce((a, b) => a + b)
+
+
+
+    let h = Array.from<HTMLDivElement>(event.target.childNodes).map(cn => cn[client] || 0).reduce((a, b) => a + b)
+
     if (h - event.target[client] - event.target[scroll] <= this.offset) {
       if (this.status !== 0) return;
+      this.status = 1;
       this.loadMore.emit({
         next: this.recovery.bind(this)
       });
-      this.status = 1;
     }
-
   }
 
 }

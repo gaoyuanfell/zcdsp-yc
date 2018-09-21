@@ -22,39 +22,18 @@ import {CreativeService} from '../../service/customer/creative.service';
 import {TableComponent} from '../../components/table/table.component';
 import {CdkTableModule} from '@angular/cdk/table';
 
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
-
-
 @Component({
   selector: 'app-lazy-view',
   styles: [
       `
-
+      
     `
   ],
   template: `
     <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;" #overflow>
       请输入<input type="text" id="searchMap">
       <div style="width: 100%;height: 600px;" yc-map [searchMap]="'searchMap'" (pushCoordinate)="pushCoordinate($event)" [marker]='arrList' (removeCoordinate)="removeCoordinate($event)" [echo]="echo">
+
 
       </div>
       
@@ -135,23 +114,16 @@ const ELEMENT_DATA: PeriodicElement[] = [
         
       </ul>
 
-      <app-lazy-view3 [list]="list">
-        1
-      </app-lazy-view3>
+      
 
-
-
-      <!--<div style="width: 100%;height: 600px;" yc-map>-->
-      <!--</div>-->
 
     </div>
-    
-    
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: true,
 })
 export class LazyComponent implements OnDestroy, OnInit {
+
 
   echo;
   arrList = [
@@ -221,35 +193,17 @@ export class LazyComponent implements OnDestroy, OnInit {
   list7;
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+
+
 
   constructor(private _sidebar: Sidebar,
               protected changeDetectorRef: ChangeDetectorRef,
               private store: Store<AppState>,
               private _dialog: Dialog) {
-    // this.store.dispatch(new directionalAction.DirectionalInit());
-    // this.store.dispatch(new directionalAction.LbsCityInit());
-    // this.store.dispatch(new directionalAction.AudiencesActionInit());
   }
 
   ngOnInit(): void {
 
-    // let one = document.getElementById('one')
-    // let myChart = echarts.init(one);
-    // let option = {
-    //   xAxis: {
-    //     type: 'category',
-    //     data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    //   },
-    //   yAxis: {
-    //     type: 'value'
-    //   },
-    //   series: [{
-    //     data: [820, 932, 901, 934, 1290, 1330, 1320],
-    //     type: 'line'
-    //   }]
-    // };
-    // myChart.setOption(option);
 
   }
 
@@ -263,7 +217,9 @@ export class LazyComponent implements OnDestroy, OnInit {
   selector: 'app-lazy-view2',
   styles: [],
   template: `
+    <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;" #overflow>
 
+    </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: true,
@@ -284,38 +240,9 @@ export class LazyComponent2 implements OnDestroy, OnInit {
   }
 }
 
-@Component({
-  selector: 'app-lazy-view3',
-  styles: [],
-  template: `
-    <ng-template [ngForOf]="list" ngFor let-item>
-      <div>a</div>
-      <ng-content></ng-content>
-    </ng-template>
-  `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: true,
-})
-export class LazyComponent3 implements OnDestroy, OnInit {
-
-  constructor() {
-
-  }
-
-  @Input() list
-
-  ngOnInit(): void {
-    console.info('ok');
-  }
-
-  ngOnDestroy(): void {
-
-  }
-}
 
 @NgModule({
-  declarations: [LazyComponent, LazyComponent2, LazyComponent3],
-  entryComponents: [LazyComponent3],
+  declarations: [LazyComponent, LazyComponent2],
   imports: [
     Module,
     CdkTableModule,

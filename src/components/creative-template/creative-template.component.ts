@@ -579,6 +579,7 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
    * 模板类型改变
    */
   selectTemplateList() {
+    this.queryTemplate.page_index = 1;
     this._templateService.getTemplate(this.queryTemplate).subscribe(res => {
       if (res.result.template_list instanceof Array) {
         this.templateList = res.result.template_list;
@@ -629,8 +630,9 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
   loadMoreTemplateMaterial({ next }) {
     ++this.query.page_index
     this._templateService.initTemplateMaterial(this.query).subscribe(res => {
-      if (res.result instanceof Array) {
-        this.imgList.push(...res.result)
+      let list = res.result;
+      if (list instanceof Array && list.length) {
+        this.imgList.push(...list)
         next()
       }
     })

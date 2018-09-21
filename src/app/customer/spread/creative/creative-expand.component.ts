@@ -74,7 +74,7 @@ import {hoursFormat} from '../../../../service/util';
               </div>
             </div>
             <div class="item">
-              <span class="info-key">定向</span>
+              <span class="info-key">投放应用</span>
               <div class="info-value overflow-box">
                 <!--<i class="icon-img-edit" (click)="_editDirectional(directional)"></i>-->
                 <ng-template [ngIf]="_orientationValue?.length">
