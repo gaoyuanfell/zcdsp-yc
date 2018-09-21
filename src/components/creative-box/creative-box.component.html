@@ -6,7 +6,7 @@
   <yc-creative-material [config]="materialConfig"></yc-creative-material>
 </ng-template>
 
-<ng-template [ngIf]="!preview">
+<!--<ng-template [ngIf]="!preview">
   <div class="creative-box" *ngFor="let elements of elementList;let index = index" [ngStyle]="{'width.px':maxWidth}">
     <input *ngIf="is_edit" class="form-control creative-name" style="box-sizing: content-box;" type="text"
            [(ngModel)]="elements.creative_name"
@@ -80,7 +80,7 @@
       </div>
     </div>
     <yc-checkbox label="是否动态词" [(ngModel)]="elements.is_dynamic_words" [values]="[1,0]" (ngModelChange)="_inputSubject.next()"></yc-checkbox>
-    <i class="icon-tool-help" yc-tooltip [ycContent]="word"  style="margin-left:5px;vertical-align: middle"></i>
+    <i class="icon-tool-help" yc-tooltip [ycContent]="word" style="margin-left:5px;vertical-align: middle"></i>
     <i class="creative-close" *ngIf="elementList?.length > 1" (click)="_removeCreative(index)"></i>
   </div>
 </ng-template>
@@ -118,9 +118,91 @@
       </div>
     </div>
   </div>
-</ng-template>
+</ng-template>-->
 
-<div *ngIf="is_edit && editCreative" (click)="addCreative()" class="flex-wrap-center add-creative-btn">
+
+<div class="creative-box" *ngFor="let elements of elementList;let index = index">
+  <div class="ele-title" *ngIf="!preview">
+    <input type="text" [(ngModel)]="elements.creative_name" (ngModelChange)="_inputSubject.next()" placeholder="请输入创意名称">
+  </div>
+  <div class="element-box flex" [ngStyle]="{'width.px': maxWidth2}">
+
+    <div class="flex-wrap" [ngStyle]="{'flex-direction': element.file_list.length == 1?'column':''}" *ngFor="let element of elements.data_list;let data_index = index;let data_count = count">
+
+      <ng-container *ngFor="let ele of element.file_list;let file_index = index; let file_count = count">
+        <div class="ele-box" *ngIf="ele.element_type === 'img'"
+             yc-file-upload
+             [disabled]="preview"
+             [dataType]="'K'"
+             [multiple]="!ele[ele.name] && file_count === 1 && data_count === 1"
+             [accept]="{extensions: ele.extensions,maxSize: ele.max_file_size, size: ele.file_size}"
+             (eventChange)="_upload($event,ele,data_index,file_index,index)"
+             (eventError)="_imgError($event)">
+          <div class="ele-box-img" [ngClass]="{'active': ele[ele.name]}">
+            <img *ngIf="ele[ele.name]" [src]="ele[ele.name]">
+          </div>
+          <div class="ele-box-text" *ngIf="!preview">
+            <p>{{ele.file_size}}</p>
+            <p>{{ele.support_file_type}},{{ele.time_length}}s,小于{{ele.max_file_size}}KB（{{ele.max_file_size / 1024 | number:'1.2-2'}}M）</p>
+            <p>{{ele.placeholder}}</p>
+            <p>
+              <a class="fast-drawing m-r-1" data-link *ngIf="ele.is_support_tpl" data-link (click)="openTemplate($event,ele,data_index,file_index)">快速制图</a>
+              <a class="fast-drawing m-r-1" data-link *ngIf="ele.is_support_history" data-link (click)="materialLibrary($event,ele,data_index,file_index)">创意库</a>
+            </p>
+          </div>
+        </div>
+        <div class="ele-box" *ngIf="ele.element_type === 'video'"
+             yc-file-upload
+             [disabled]="preview"
+             [dataType]="'K'"
+             [accept]="{extensions: ele.extensions,maxSize: ele.max_file_size, size: ele.file_size, duration: ele.time_length}"
+             (eventChange)="_upload($event,ele,data_index,file_index,index)"
+             (eventError)="_imgError($event)">
+          <div class="ele-box-video" [ngClass]="{'active': ele[ele.name]}">
+            <video *ngIf="ele[ele.name]" [src]="ele[ele.name]" autoplay loop></video>
+          </div>
+          <div class="ele-box-text" *ngIf="!preview">
+            <p>{{ele.file_size}}</p>
+            <p>{{ele.support_file_type}},{{ele.time_length}}s,小于{{ele.max_file_size}}KB（{{ele.max_file_size / 1024 | number:'1.2-2'}}M）</p>
+            <p>{{ele.placeholder}}</p>
+            <p>
+              <a class="fast-drawing m-r-1" data-link *ngIf="ele.is_support_tpl" data-link (click)="openTemplate($event,ele,data_index,file_index)">快速制图</a>
+              <a class="fast-drawing m-r-1" data-link *ngIf="ele.is_support_history" data-link (click)="materialLibrary($event,ele,data_index,file_index)">创意库</a>
+            </p>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngFor="let ele of element.text_list">
+        <div class="ele-text">
+
+          <input type="text" [placeholder]="ele.placeholder" [readonly]="preview" [(ngModel)]="ele[ele.name]" (ngModelChange)="_validateText(ele);_inputSubject.next()">
+          <span *ngIf="!preview" class="text-length" [ngClass]="{'text-length-error': !ele.validate}">
+            {{(ele[ele.name]?.length || 0)}}/
+            <i *ngIf="ele.max_length">({{ele.min_length}}~{{ele.max_length}})</i>
+            <i *ngIf="!ele.max_length">不限</i>
+          </span>
+
+        </div>
+      </ng-container>
+
+    </div>
+
+  </div>
+
+  <ng-template [ngIf]="!preview">
+    <yc-checkbox label="是否动态词" [(ngModel)]="elements.is_dynamic_words" [values]="[1,0]" (ngModelChange)="_inputSubject.next()"></yc-checkbox>
+    <i class="icon-tool-help" yc-tooltip [ycContent]="word" style="margin-left:5px;vertical-align: middle"></i>
+  </ng-template>
+
+  <i class="close" *ngIf="elementList?.length > 1" (click)="_removeCreative(index)">
+    <svg viewBox="0 0 1024 1024" width="18" height="18">
+      <path d="M512.001 15.678C237.414 15.678 14.82 238.273 14.82 512.86S237.414 1010.04 512 1010.04s497.18-222.593 497.18-497.18S786.589 15.678 512.002 15.678z m213.211 645.937c17.798 17.803 17.798 46.657 0 64.456-17.798 17.797-46.658 17.797-64.456 0L512.001 577.315 363.241 726.07c-17.799 17.797-46.652 17.797-64.45 0-17.804-17.799-17.804-46.653 0-64.456L447.545 512.86 298.79 364.104c-17.803-17.798-17.803-46.657 0-64.455 17.799-17.798 46.652-17.798 64.45 0l148.761 148.755 148.755-148.755c17.798-17.798 46.658-17.798 64.456 0 17.798 17.798 17.798 46.657 0 64.455L576.456 512.86l148.756 148.755z m0 0"></path>
+    </svg>
+  </i>
+</div>
+
+<div *ngIf="is_edit && editCreative && elementList.length < 5" (click)="addCreative()" class="flex-wrap-center add-creative-btn">
   <div class="add-creative-image">
     <!-- <img src="assets/customer/img/creative-add.png" alt=""> -->
   </div>

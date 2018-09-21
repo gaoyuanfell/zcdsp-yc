@@ -147,6 +147,16 @@ export class CreativeBoxComponent implements OnInit, ControlValueAccessor {
     return width * data_list.length + data_list.length * 2 - data_list.length + 1
   }
 
+  get maxWidth2() {
+    let width = 200;
+    let data_list = this.element.data_list;
+    if (!(this.element && data_list instanceof Array)) return 0;
+    if (data_list.length === 1 && data_list[0].file_list) {
+      return data_list[0].file_list.length * width
+    }
+    return width * data_list.length
+  }
+
   _validateText(ele) {
     if (ele.min_length == 0 && ele.max_length == 0) {
       ele.validate = true;
@@ -245,12 +255,33 @@ export class CreativeBoxComponent implements OnInit, ControlValueAccessor {
    * 创意上传
    * @param files
    * @param body
-   * @param file_index
-   * @param data_index
+   * @param file_index 每组中的下标
+   * @param data_index 组下标
+   * @param index
    */
-  _upload(files, body, data_index, file_index) {
+  _upload(files:FileList, body, data_index, file_index, index) {
+    if(files.length === 1){
+      this.uploadSave(files[0], data_index, file_index, body)
+    }else{
+      for (let i = 0,len = files.length; i < len; i++){
+        this.uploadSave(files.item(i), data_index, file_index)
+      }
+    }
+  }
+
+
+  /**
+   *
+   * @param file
+   * @param data_index
+   * @param file_index
+   * @param index
+   * @param body
+   */
+  uploadSave(file, data_index, file_index, body?){
+
     this._creativeService.creativeUpload({
-      file: files[0],
+      file: file,
       media_material_id: this.selectMediaSize.media_material_id,
       file_index: file_index,
       data_index: data_index
@@ -258,10 +289,22 @@ export class CreativeBoxComponent implements OnInit, ControlValueAccessor {
       let data = res.result;
       let filePath = data.filePath;
       delete data.filePath;
-      body[body.name] = `${filePath}?${qs.stringify(data)}`;
-      body.validate = true;
+      if(body){
+        body[body.name] = `${filePath}?${qs.stringify(data)}`;
+        body.validate = true;
+      }else{
+        let body = this.elementList.map(element => element.data_list[0].file_list[0]).find(fl => !fl[fl.name])
+        if(this.elementList.length < 5 && !body){
+          this.addCreative();
+          body = this.elementList.map(element => element.data_list[0].file_list[0]).find(fl => !fl[fl.name])
+        }
+        if(!body) return;
+        body[body.name] = `${filePath}?${qs.stringify(data)}`;
+        body.validate = true;
+      }
       this.changeDetectorRef.markForCheck()
     })
+
   }
 
   _imgError(error) {

@@ -48,169 +48,209 @@ const ELEMENT_DATA: PeriodicElement[] = [
   selector: 'app-lazy-view',
   styles: [
       `
+      .creative-box {
+        padding: 9px;
+        position: relative;
+      }
 
+      .element-box {
+
+      }
+
+      .element-box:hover .close {
+        display: block;
+      }
+
+      .ele-box {
+        border: 1px solid #e7ecf3;
+        background-color: #ffffff;
+        width: 200px;
+        height: 180px;
+      }
+
+      .close {
+        position: absolute;
+        right: 0;
+        top: 0;
+        display: none;
+      }
+
+      .close svg {
+        fill: #d2d2d2;
+      }
+
+      .ele-title {
+        height: 35px;
+        border: 1px solid #e7ecf3;
+        width: 100%;
+        border-bottom: none;
+      }
+
+      .ele-title input {
+        width: 100%;
+        height: 100%;
+        line-height: 1;
+        padding: 0 10px;
+      }
+
+      .ele-text {
+        height: 35px;
+        border: 1px solid #e7ecf3;
+        position: relative;
+        width: 100%;
+      }
+
+      .ele-text input {
+        width: 100%;
+        height: 100%;
+        line-height: 1;
+        padding-right: 45px;
+        padding-left: 10px;
+      }
+
+      .ele-text span {
+        color: #999999;
+        font-size: 12px;
+        font-weight: 400;
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translate(0, -50%);
+      }
+      
+      p{
+        text-align: center;
+      }
+
+      p:nth-child(1) {
+        margin-top: 40px;
+        color: #333333;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 2.5;
+      }
+
+      p:nth-child(2), p:nth-child(3) {
+        color: #999999;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1.5;
+      }
+      
+      p:nth-child(4){
+        padding-top: 20px;
+      }
+
+      .ele-box + .ele-box {
+        border-left: none;
+      }
+
+      .ele-box + .ele-text {
+        border-top: none;
+      }
+
+      .ele-text + .ele-text {
+        border-top: none;
+      }
     `
   ],
   template: `
-    <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;" #overflow>
-<<<<<<< HEAD
-      <!--<div style="width: 100%;height: 600px;" yc-map>
-        
-      </div>-->
+    <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;">
 
-      <button class="btn" (click)="start()">start</button>
-      <button class="btn" (click)="end()">end</button>
-      <ul style="overflow: auto;max-height: 300px;">
-        <!--<li *ngFor="let i of list; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list1; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list2; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list3; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list4; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list5; let index=index">{{index}}</li>-->
-        
-        <!--<ng-template [ngForOf]="list6" ngFor let-l>-->
-          <!--<ng-template [ngForOf]="l" ngFor let-i let-index="index">-->
-            <!--<li>{{index}}</li>-->
-          <!--</ng-template>-->
-        <!--</ng-template>-->
+      <div class="flex" style="margin: 20px;">
+
+        <div class="creative-box">
+          <div class="ele-title">
+            <input type="text">
+          </div>
+          <div class="element-box flex" style="width: 600px;">
+            <div class="flex-wrap">
+              <div class="ele-box">
+                <div>
+                  <p>120X50</p>
+                  <p>点击或拖拽上传</p>
+                  <p>JPG/PNG，小于100kb</p>
+                  <p>
+                    <a class="fast-drawing m-r-1" data-link>快速制图</a>
+                    <a class="fast-drawing m-r-1" data-link>创意库</a>
+                  </p>
+                </div>
+              </div>
+
+              <div class="ele-text">
+                <input type="text">
+                <span>0 / 20</span>
+              </div>
+
+              <div class="ele-text">
+                <input type="text">
+                <span>0 / 20</span>
+              </div>
+
+            </div>
+            <div class="flex-wrap">
+              <div class="ele-box">
+                <div>
+                  <p>120X50</p>
+                  <p>点击或拖拽上传</p>
+                  <p>JPG/PNG，小于100kb</p>
+                  <p>
+                    <a class="fast-drawing m-r-1" data-link>快速制图</a>
+                    <a class="fast-drawing m-r-1" data-link>创意库</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="flex-wrap">
+              <div class="ele-box">
+                <div>
+                  <p>120X50</p>
+                  <p>点击或拖拽上传</p>
+                  <p>JPG/PNG，小于100kb</p>
+                  <p>
+                    <a class="fast-drawing m-r-1" data-link>快速制图</a>
+                    <a class="fast-drawing m-r-1" data-link>创意库</a>
+                  </p>
+                </div>
+              </div>
+
+              <div class="ele-text">
+                <input type="text">
+                <span>0 / 20</span>
+              </div>
+
+              <div class="ele-text">
+                <input type="text">
+                <span>0 / 20</span>
+              </div>
+
+            </div>
+          </div>
+          <i class="close">
+            <svg viewBox="0 0 1024 1024" width="18" height="18">
+              <path d="M512.001 15.678C237.414 15.678 14.82 238.273 14.82 512.86S237.414 1010.04 512 1010.04s497.18-222.593 497.18-497.18S786.589 15.678 512.002 15.678z m213.211 645.937c17.798 17.803 17.798 46.657 0 64.456-17.798 17.797-46.658 17.797-64.456 0L512.001 577.315 363.241 726.07c-17.799 17.797-46.652 17.797-64.45 0-17.804-17.799-17.804-46.653 0-64.456L447.545 512.86 298.79 364.104c-17.803-17.798-17.803-46.657 0-64.455 17.799-17.798 46.652-17.798 64.45 0l148.761 148.755 148.755-148.755c17.798-17.798 46.658-17.798 64.456 0 17.798 17.798 17.798 46.657 0 64.455L576.456 512.86l148.756 148.755z m0 0"></path>
+            </svg>
+          </i>
+        </div>
 
 
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        <!--<li *ngFor="let i of list7; let index=index">{{index}}</li>-->
-        
-      </ul>
-
-      <app-lazy-view3 [list]="list">
-        1
-      </app-lazy-view3>
-
-=======
-
-      <div style="width: 100%;height: 600px;" yc-map>
       </div>
->>>>>>> d71b1aa4215f5725db582ebb507f25ab1e2aaceb
+
+
     </div>
-    
-    
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: true,
 })
 export class LazyComponent implements OnDestroy, OnInit {
 
-  start() {
-    this.list = Array.from({length: 5000});
-    this.list1 = Array.from({length: 10000});
-    this.list2 = Array.from({length: 10000});
-    this.list3 = Array.from({length: 10000});
-    this.list4 = Array.from({length: 10000});
-    this.list5 = Array.from({length: 10000});
-    this.list6 = Array.from({length: 50}).map(() => Array.from({length: 1000}));
-
-    this.list7 = Array.from({length: 1000});
-  }
-
-  end(){
-    this.list = null
-    this.list1 = null
-    this.list2 = null
-    this.list3 = null
-    this.list4 = null
-    this.list5 = null
-    this.list6 = null
-    this.list7 = null
-  }
-
-  list;
-  list1;
-  list2;
-  list3;
-  list4;
-  list5;
-  list6;
-  list7;
-
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
-
   constructor(private _sidebar: Sidebar,
               private store: Store<AppState>,
               private _dialog: Dialog) {
-    // this.store.dispatch(new directionalAction.DirectionalInit());
-    // this.store.dispatch(new directionalAction.LbsCityInit());
-    // this.store.dispatch(new directionalAction.AudiencesActionInit());
   }
 
   ngOnInit(): void {
-
-    let one = document.getElementById('one')
-    let myChart = echarts.init(one);
-    let option = {
-      xAxis: {
-        type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [{
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
-        type: 'line'
-      }]
-    };
-    myChart.setOption(option);
 
   }
 
@@ -263,7 +303,7 @@ export class LazyComponent3 implements OnDestroy, OnInit {
 
   }
 
-  @Input() list
+  @Input() list;
 
   ngOnInit(): void {
     console.info('ok');
