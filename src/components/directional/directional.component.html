@@ -171,6 +171,7 @@
   <div class="directional-info" *ngIf="audiencesActionShow">
     <h4>行为指定</h4>
     <p>当前已选择（{{(audiencesActionResult$ | async)?.length || 0}}）</p>
+    <button class="btn btn-outline btn-round" (click)="checkAudiencesActionChange(true)">选择全部</button>
     <button class="btn btn-outline btn-round" (click)="checkAudiencesActionChange(false)">清除全部</button>
   </div>
   <div class="directional-operation">
@@ -222,6 +223,7 @@
   <div class="directional-info" style="margin-top: 30px;">
     <h4>行为过滤</h4>
     <p>当前已选择（{{(audiencesAction2Result$ | async)?.length || 0}}）</p>
+    <button class="btn btn-outline btn-round" (click)="checkAudiencesActionChange2(true)">选择全部</button>
     <button class="btn btn-outline btn-round" (click)="checkAudiencesActionChange2(false)">清除全部</button>
   </div>
   <!--choice-->
