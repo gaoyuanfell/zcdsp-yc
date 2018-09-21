@@ -129,21 +129,22 @@ export class LazyComponent implements OnDestroy, OnInit {
   arrList = [
     {coords:{
       'longitude': '120.995425', 'latitude': '31.175912', 'radius': '1159'
-    },name:'江苏省苏州市昆山市淀山湖镇富园路',id: 23 },
+    },name:'江苏省苏州市昆山市淀山湖镇富园路',id: 23, id_random: `80${Math.round(Math.random() * 1000000)}`},
     // {coords:{'longitude': '121.410159', 'latitude': '31.462168', 'radius': '2159'},name:'上海市宝山区月浦镇盛石路298号', id: `80${Math.round(Math.random() * 1000000)}`},
-    {coords:{'longitude': '120.94736', 'latitude': '31.287467', 'radius': '3159'},name:'江苏省苏州市昆山市张浦镇茶风街106号张浦镇人民政府', id: 25}
+    {coords:{'longitude': '120.94736', 'latitude': '31.287467', 'radius': '3159'},name:'江苏省苏州市昆山市张浦镇茶风街106号张浦镇人民政府', id: 25, id_random: `80${Math.round(Math.random() * 1000000)}`}
   ]
   toChild(x) {
     this.echo  = x;
   }
 
   pushCoordinate(event) {
+    console.log(event)
     let flag = this.arrList.some ( (item, index) => {
-      if ( item.id === event.id) {
+      if ( item.id_random === event.id_random) {
         this.arrList[index] = event
         // item = event;  // 说明存在，覆盖
       }
-      return item.id === event.id;
+      return item.id_random === event.id_random;
     })
 
     if (!flag) { // 说明不存在 重新添加
@@ -152,9 +153,10 @@ export class LazyComponent implements OnDestroy, OnInit {
     console.log(this.arrList)
     this.changeDetectorRef.markForCheck();
   }
+
   removeCoordinate(event) {
     this.arrList.filter((item,index) => {
-      if(event.id === item.id) {
+      if(event.id_random === item.id_random) {
         this.arrList.splice(index,1)
       }
     })

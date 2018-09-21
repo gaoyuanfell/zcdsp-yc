@@ -86,6 +86,7 @@ export class MapDirective implements OnInit {
               latitude: lat,
             },
             id: marker.getId(),
+            id_random: marker.id_random
           });
           this.map.remove(marker);
           if( this.infoWindow) {
@@ -107,9 +108,11 @@ export class MapDirective implements OnInit {
             },
             type_id: 0,
             id: marker.getId(),  // 每一个点都是有id的
+            id_random: `80${Math.round(Math.random() * 1000000)}`,
             name: result.regeocode.formattedAddress
           }
           this.pushCoordinate.emit(obj);
+          marker.id_random = obj.id_random;
         });
         let marker = this.addMarker(event.lnglat);  // 添加标注事件
         let radius = 30;  // {}  不能出现常量
@@ -117,7 +120,7 @@ export class MapDirective implements OnInit {
       });
 
       // 初始化已经存在的地址
-      this.marker.map(m => ({lat: m.coords.latitude, lng: m.coords.longitude, radius: m.coords.radius}) ).forEach(m => {
+      this.marker.map(m => ({lat: m.coords.latitude, lng: m.coords.longitude, radius: m.coords.radius, id_random: m.id_random}) ).forEach(m => {
         this.markerClickEvent(this.contextMenu, m);
       });
       this.init();
@@ -137,16 +140,12 @@ export class MapDirective implements OnInit {
 
   infoWindow;
   markerClickEvent(contextMenu, lnglat, marker?) {
-    let {lng, lat, radius} = lnglat;
+    let {lng, lat, radius, id_random} = lnglat;
     if (!marker) {
       marker = this.addMarker({lng, lat});
-      // 初始化已经存在的点
-      console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
-      console.log(marker)
-      console.log(marker.getId())
+      marker.id_random = id_random;
     }
-    this.markerCache.push(marker); // 有所有的标注
-
+    this.markerCache.push(marker); // 有所有的标
 
     marker.on('rightclick', (event) => {  // 给每一个marker绑定右键事件
       this.marker_only = this.markerCache.filter(item => event.target.getId() === item.getId());  // 找到这个全局的点
@@ -155,11 +154,10 @@ export class MapDirective implements OnInit {
     });
 
 
+// 这些初始化或者增加标注点的时候 都是绑好的
 
     marker.on('click', (event) => {  // 点击marker出现详情弹框
       let {lng, lat} = marker.getPosition();
-      console.log('不一样的marker')
-      console.log(marker)
       this.addressByLnglat([lng, lat]).then((result: any) => {
 
         this.infoWindow = new AMap.InfoWindow({   // 唯一出现一个
@@ -167,22 +165,16 @@ export class MapDirective implements OnInit {
           offset: new AMap.Pixel(0, -15),
           position: marker.getPosition()  // 标注点的位置是唯一的，但是你点击标注点产生的位置不是唯一的，因为这个标注是有
         });
-        this.infoWindow.open(this.map);
-
-        this.infoWindow.on('open', () => {   // 这边貌似只能这样拉   先关再开 但是这个事件不起效果
+        this.infoWindow.on('open', () => {   // 事件 先注册  再调用这个方法  顺序呀
           console.log('窗口打开')
         })
-
-        // this.infoWindow.on('change', () => {   // 这边貌似只能这样拉   先关再开
-        //   console.log('属性该百年')
-        // })
+        this.infoWindow.open(this.map);
 
         // 关闭详情窗口的时候触发
-        this.infoWindow.on('close', () => {   // 这边貌似只能这样拉   先关再开
-           // 后执行的
+        this.infoWindow.on('close', () => {
+          // console.log(marker)  闭包
           console.log('窗口关闭')
-          console.log(marker)
-          marker.else_circle.hide();   // 继承的方法？  自动绑定的是上一个marker 虽然说是点击事件先执行
+          marker.else_circle.hide();
           marker.else_circleEditor.close(); // 编辑半径
         })
         // 点击详情的时候 展示圆
@@ -229,6 +221,9 @@ export class MapDirective implements OnInit {
       }
     })
     editor._circleEditor.on('move', ({type, target, lnglat}) => {
+      console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+      console.log(target)
+      console.log(marker)
       marker.setPosition(lnglat)
       this.infoWindow.setPosition(lnglat)
       this.addressByLnglat([lnglat.lng, lnglat.lat]).then((result: any) => {  // 移动圆心会触发这个事件
@@ -241,6 +236,7 @@ export class MapDirective implements OnInit {
           },
           type_id: 0,
           id: marker.getId(),
+          id_random: marker.id_random,
           name: result.regeocode.formattedAddress,
         });
       });
@@ -256,6 +252,7 @@ export class MapDirective implements OnInit {
           },
           type_id: 0,
           id: marker.getId(),
+          id_random: marker.id_random,
           name: result.regeocode.formattedAddress,
         });
       });
@@ -294,7 +291,7 @@ export class MapDirective implements OnInit {
 
 
  // else 开头的是我自己给对象添加的属性
-
+  // 操作下来  标注自带的id是会变的
 
   // let geocoder = new AMap.Geocoder();
   // geocoder.getAddress([lng, lat], (status, result) => {
