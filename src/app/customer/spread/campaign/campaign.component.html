@@ -91,10 +91,10 @@
           <td>
             <yc-switch-input [values]="['1','2']" [size]="'small'" [(ngModel)]="data.show_state" #switchRef="switchInput" (eventChange)="updateOneShowState(data,switchRef)"></yc-switch-input>
           </td>
-          <td [title]="data.current_state_origin_meaning">
-          <span [ngClass]="{'green': data.current_state == 1 ,'red': data.current_state == 3, 'yellow': data.current_state == 2}">
-            {{data.current_state_meaning}}
-          </span>
+          <td [title]="data.current_state_meaning">
+            <span [ngClass]="{'green': data.current_state_origin == 1 ,'red': data.current_state_origin == 3, 'yellow': data.current_state_origin == 2}">
+              {{data.current_state_origin_meaning}}
+            </span>
           </td>
           <td class="text-right">{{data.pv | number}}</td>
           <td class="text-right">{{data.click | number}}</td>
