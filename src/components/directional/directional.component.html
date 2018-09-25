@@ -70,7 +70,8 @@
       </ng-template>
       <ng-template [ngForOf]="(LbsCityMapResult$ | async)" ngFor let-value>
           <span class="label-value">
-            {{value.name}}
+            <span (click)="toChild(value)">{{value.name}}</span>
+             <!--<span (click)="toChild(value)">{{value.name}}</span>-->
             <i (click)="lbsCityMapRemove(value)">&times;</i>
           </span>
       </ng-template>
@@ -79,16 +80,20 @@
   </div>
 
   <div class="input-query directional-query" style="margin-bottom: 10px;">
-    <i class="input-query-icon"></i>
-    <input type="text" placeholder="搜索省、市、区、商圈">
-    <span style="cursor: pointer;" *ngIf="lbsCityType" (click)="lbsCityType = !lbsCityType">从列表选择</span>
-    <span style="cursor: pointer;" *ngIf="!lbsCityType" (click)="lbsCityType = !lbsCityType">从地图选择</span>
+    <span *ngIf="lbsCityType">
+      <i class="input-query-icon"></i>
+    <input type="text" placeholder="搜索省、市、区、商圈" id="searchMap" autocomplete="off">
+    </span>
+    <span style="cursor: pointer;float:right" *ngIf="lbsCityType" (click)="lbsCityType = !lbsCityType">从列表选择</span>
+    <span style="cursor: pointer;float:right" *ngIf="!lbsCityType" (click)="lbsCityType = !lbsCityType">从地图选择</span>
   </div>
 
   <!-- 地图选择 -->
   <ng-template [ngIf]="lbsCityType">
     <div style="position: relative;margin-bottom: 20px;">
-      <yc-map (pushCoordinate)="pushCoordinate($event)" (removeCoordinate)="removeCoordinate($event)"></yc-map>
+      <!--请输入<input type="text" id="searchMap">-->
+      <!--如果你用ycMap的话，ngIf 需要再ts文件中 set到这个#map哦-->
+      <div style="width: 100%;height: 600px;" yc-map #map="ycMap" [searchMap]="'searchMap'" (registerDel)="del = $event" (registerEcho)="echoFunction($event)" (pushCoordinate)="pushCoordinate($event)" (removeCoordinate)="removeCoordinate($event)"  [markerList]="LbsCityMapResult$"></div>
     </div>
   </ng-template>
 
