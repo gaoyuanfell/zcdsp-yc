@@ -68,7 +68,7 @@
           <div class="img"><img src="assets/img/indexbaog.png" alt=""></div>
           <div class="right">
             <p>总曝光量</p>
-            <h1>{{chartsData?.pv | numberFormat}}</h1> <!-- | numberFormat-->
+            <h1 [title]="chartsData?.pv">{{chartsData?.pv | numberFormat:'1.2-2'}}</h1> <!-- | numberFormat-->
           </div>
         </div>
         <div class="echart" #todayAllSpendChartSmall></div>
@@ -82,7 +82,7 @@
           <div class="img"><img src="assets/img/indexdianj.png" alt=""></div>
           <div class="right">
             <p>总点击量</p>
-            <h1>{{chartsData?.click | numberFormat}}</h1> <!-- | numberFormat-->
+            <h1 [title]="chartsData?.click">{{chartsData?.click | numberFormat:'1.2-2'}}</h1> <!-- | numberFormat-->
           </div>
         </div>
         <div class="echart" #todayAllSpendChartLine>

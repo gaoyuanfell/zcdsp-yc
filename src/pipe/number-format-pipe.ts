@@ -20,35 +20,35 @@ export class NumberFormatPipe implements PipeTransform {
       case 5: {
       }
       case 6: {
-        suffix = b[1] + a[0];
-        value = value / 10000;
-        break;
+        // suffix = b[1] + a[0];
+        // value = value / 10000;
+        // break;
       }
       case 7: {
-        suffix = b[2] + a[0];
-        value = value / 1000000;
-        break;
+        // suffix = b[2] + a[0];
+        // value = value / 1000000;
+        // break;
       }
       case 8: {
-        suffix = b[3] + a[0];
-        value = value / 10000000;
+        suffix = a[0];
+        value = value / 10000;
         break;
       }
       case 9: {
       }
       case 10: {
-        suffix = b[1] + a[1];
-        value = value / 100000000;
-        break;
+        // suffix = b[1] + a[1];
+        // value = value / 100000000;
+        // break;
       }
       case 11: {
-        suffix = b[2] + a[1];
-        value = value / 10000000000;
-        break;
+        // suffix = b[2] + a[1];
+        // value = value / 10000000000;
+        // break;
       }
       case 12: {
-        suffix = b[3] + a[1];
-        value = value / 100000000000;
+        suffix = a[1];
+        value = value / 100000000;
         break;
       }
       case 13: {
@@ -69,6 +69,6 @@ export class NumberFormatPipe implements PipeTransform {
         break;
       }
     }
-    return new DecimalPipe(this._locale).transform(value) + suffix;
+    return new DecimalPipe(this._locale).transform(value, ...args) + suffix;
   }
 }

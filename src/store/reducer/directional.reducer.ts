@@ -513,6 +513,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
 
   function setResult2() {
     if(!state.audiencesApp) return;
+    if(!(state.result2 instanceof Array)) return;
     let audiencesApp = state.result2.map(a => a.id);
     recursionFilter(audiencesApp, state.audiencesApp.children, 'id');
     state.audiencesAppResult = recursionResult2(state.audiencesApp.children)

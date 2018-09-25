@@ -119,35 +119,35 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
   }
 
   _targetTypeChange() {
-    delete this.campaign.click_link;
-    delete this.campaign.download_link;
-    this.campaign.app_store_id = '1';
-    this.campaign.app_package_type = '1';
-    delete this.campaign.app_bundle_id;
-
-    delete this.campaign.app_package_name;
-    delete this.campaign.app_channel_package_name;
-
-    delete this.campaign.app_name;
-    delete this.campaign.app_description;
-    delete this.campaign.app_size;
-    delete this.campaign.app_version;
+    // delete this.campaign.click_link;
+    // delete this.campaign.download_link;
+    // this.campaign.app_store_id = '1';
+    // this.campaign.app_package_type = '1';
+    // delete this.campaign.app_bundle_id;
+    //
+    // delete this.campaign.app_package_name;
+    // delete this.campaign.app_channel_package_name;
+    //
+    // delete this.campaign.app_name;
+    // delete this.campaign.app_description;
+    // delete this.campaign.app_size;
+    // delete this.campaign.app_version;
   }
 
   _landingChange() {
-    delete this.campaign.click_link;
-    delete this.campaign.template_id;
-    this._previewCodeUrl = null;
+    // delete this.campaign.click_link;
+    // delete this.campaign.template_id;
+    // this._previewCodeUrl = null;
   }
 
   _appStoreIdChange() {
-    this.campaign.app_package_type = '1';
-    delete this.campaign.app_bundle_id;
-    delete this.campaign.app_channel_package_name;
+    // this.campaign.app_package_type = '1';
+    // delete this.campaign.app_bundle_id;
+    // delete this.campaign.app_channel_package_name;
   }
 
   _appPackageTypeChange() {
-    delete this.campaign.app_channel_package_name;
+    // delete this.campaign.app_channel_package_name;
   }
 
   /**
@@ -178,8 +178,6 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
           } else {
             this.setAppInfo({});
           }
-        } else {
-          this._notification.error(res.result.msg, '');
         }
       });
     });
@@ -326,6 +324,28 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
 
   save(type) {
     if (this.valid()) return;
+    if (this.campaign.target_type == '1') {
+      delete this.campaign.download_link;
+      delete this.campaign.app_store_id;
+      delete this.campaign.app_package_type;
+      delete this.campaign.app_channel_package_name;
+      delete this.campaign.app_package_name;
+
+      delete this.campaign.app_bundle_id;
+      delete this.campaign.app_name;
+      delete this.campaign.app_version;
+      delete this.campaign.app_size;
+      delete this.campaign.app_description;
+    }
+
+    if (this.campaign.target_type == '3') {
+      delete this.campaign.download_link;
+      delete this.campaign.app_store_id;
+      delete this.campaign.app_package_type;
+      delete this.campaign.app_channel_package_name;
+      delete this.campaign.app_package_name;
+    }
+
     this._valid2 = true;
     if (this._isNumber(this.campaign.ad_price) || !this.campaign.ad_price || this.campaign.ad_price > this.bid_max || this.campaign.ad_price < this.bid_min) {
       return true;
@@ -564,7 +584,22 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
       this.directionalType = '1';
       this._nextStepNum = 1;
       this.changeDetectorRef.markForCheck();
+      setTimeout(() => {
+        this._scrollService.setScrollTopByElement(this.containerFullRef, this.document.getElementById('dingxiangshezhi'));
+      });
     });
+  }
+
+  /**
+   * 返回上一步
+   * @private
+   */
+  _prevStep(){
+    this.directionalSmart = undefined
+    this.directional = undefined
+    this.directionalType = undefined
+    this._nextStepNum = 0
+    this._scrollService.scrollTo(this.containerFullRef, {top:0})
   }
 
   ngOnInit() {

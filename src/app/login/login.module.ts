@@ -11,7 +11,7 @@ import { Module } from '../module';
     Module,
 
   ],
-  declarations: [LoginComponent],
+  declarations: [LoginComponent]
 })
 export class LoginModule {
 

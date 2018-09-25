@@ -7,7 +7,7 @@ import {
   ViewChild,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Inject, Input
+  Inject, Input, NgZone
 } from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {Module} from '../module';
@@ -218,7 +218,13 @@ export class LazyComponent implements OnDestroy, OnInit {
   styles: [],
   template: `
     <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;" #overflow>
+      <h2>Demo: NgZone</h2>
 
+      <p>Progress: {{progress}}%</p>
+      <p *ngIf="progress >= 100">Done processing {{label}} of Angular zone!</p>
+
+      <button (click)="processWithinAngularZone()">Process within Angular zone</button>
+      <button (click)="processOutsideOfAngularZone()">Process outside of Angular zone</button>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -226,9 +232,41 @@ export class LazyComponent implements OnDestroy, OnInit {
 })
 export class LazyComponent2 implements OnDestroy, OnInit {
 
+  progress: number = 0;
+  label: string;
 
-  constructor(private _creativeService: CreativeService,
-              private changeDetectorRef: ChangeDetectorRef,) {
+  constructor(private _ngZone: NgZone, private changeDetectorRef:ChangeDetectorRef) {}
+
+  // Loop inside the Angular zone
+  // so the UI DOES refresh after each setTimeout cycle
+  processWithinAngularZone() {
+    this.label = 'inside';
+    this.progress = 0;
+    this._increaseProgress(() => console.log('Inside Done!'));
+  }
+
+  // Loop outside of the Angular zone
+  // so the UI DOES NOT refresh after each setTimeout cycle
+  processOutsideOfAngularZone() {
+    this.label = 'outside';
+    this.progress = 0;
+    this._ngZone.runOutsideAngular(() => {
+      this._increaseProgress(() => {
+        // reenter the Angular zone and display done
+        this._ngZone.run(() => { console.log('Outside Done!'); });
+      });
+    });
+  }
+
+  _increaseProgress(doneCallback: () => void) {
+    this.progress += 1;
+    console.log(`Current progress: ${this.progress}%`);
+    this.changeDetectorRef.markForCheck()
+    if (this.progress < 100) {
+      window.setTimeout(() => this._increaseProgress(doneCallback), 10);
+    } else {
+      doneCallback();
+    }
   }
 
   ngOnInit(): void {

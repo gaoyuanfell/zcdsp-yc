@@ -367,6 +367,9 @@ export class AddCreativeComponent implements OnInit {
    */
   changeMediaSize(mediaSize) {
     if (mediaSize === this.selectMediaSize) return;
+
+    this.dtlApp = {} // 改变媒体 清除app定向
+
     this.removeElementList();
     this.showAppAudiences(mediaSize);
 

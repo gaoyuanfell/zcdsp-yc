@@ -24,7 +24,6 @@ export class Loading {
         scrollStrategy: this.overlay.scrollStrategies.block(),
       });
       this.popup = this.overlay.create(overlayConfig);
-      // this.popup.hostElement.parentElement.style.zIndex = '999999'
     }
   }
 
@@ -46,9 +45,10 @@ export class Loading {
   }
 
   close() {
-    this.popup.detach();
     this.cache.shift();
     if (this.cache.length === 0) {
+      this.popup.detach();
+      console.info('close')
       this._container.close();
     }
   }
