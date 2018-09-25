@@ -69,6 +69,6 @@ export class NumberFormatPipe implements PipeTransform {
         break;
       }
     }
-    return new DecimalPipe(this._locale).transform(value) + suffix;
+    return new DecimalPipe(this._locale).transform(value, ...args) + suffix;
   }
 }

@@ -178,8 +178,6 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
           } else {
             this.setAppInfo({});
           }
-        } else {
-          this._notification.error(res.result.msg, '');
         }
       });
     });

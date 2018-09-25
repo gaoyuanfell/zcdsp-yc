@@ -237,7 +237,7 @@ export class LazyComponent2 implements OnDestroy, OnInit {
   progress: number = 0;
   label: string;
 
-  constructor(private _ngZone: NgZone) {}
+  constructor(private _ngZone: NgZone, private changeDetectorRef:ChangeDetectorRef) {}
 
   // Loop inside the Angular zone
   // so the UI DOES refresh after each setTimeout cycle
@@ -263,7 +263,7 @@ export class LazyComponent2 implements OnDestroy, OnInit {
   _increaseProgress(doneCallback: () => void) {
     this.progress += 1;
     console.log(`Current progress: ${this.progress}%`);
-
+    this.changeDetectorRef.markForCheck()
     if (this.progress < 100) {
       window.setTimeout(() => this._increaseProgress(doneCallback), 10);
     } else {
