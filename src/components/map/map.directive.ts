@@ -125,24 +125,7 @@ export class MapDirective implements OnInit {
       // 添加标注的时候画圈圈  添加标注的时候默认是半径30
       this.map.on('click', (event) => {
         let {lng, lat} = event.lnglat;
-        this.addressByLnglat([lng, lat]).then((result: any) => {
-          let obj ={
-            coords: {
-              longitude: lng,
-              latitude: lat,
-              radius: 30,
-            },
-            type_id: 0,
-            id: marker.getId(),  // 每一个点都是有id的
-            id_random: `80${Math.round(Math.random() * 1000000)}`,
-            name: result.regeocode.formattedAddress
-          }
-          this.pushCoordinate.emit(obj);  // $event
-          marker.id_random = obj.id_random;
-        });
-        let marker = this.addMarker(event.lnglat);  // 添加标注事件
-        let radius = 30;  // {}  不能出现常量
-        this.markerClickEvent(this.contextMenu, {lng, lat, radius}, marker);
+        this.addMarkerClick({lng, lat})
       });
 
       // 初始化已经存在的地址
@@ -161,12 +144,34 @@ export class MapDirective implements OnInit {
     });
   }
 
-  addMarker(lnglat) {
-    let {lng, lat} = lnglat;
+  addMarker({lng, lat}) {
+    // let {lng, lat} = lnglat;
     return new AMap.Marker({
       map: this.map,
       position: [lng, lat]
     });
+  }
+
+  addMarkerClick({lng, lat}) {
+
+    this.addressByLnglat([lng, lat]).then((result: any) => {
+      let obj ={
+        coords: {
+          longitude: lng,
+          latitude: lat,
+          radius: 30,
+        },
+        type_id: 0,
+        id: marker.getId(),  // 每一个点都是有id的
+        id_random: `80${Math.round(Math.random() * 1000000)}`,
+        name: result.regeocode.formattedAddress
+      }
+      this.pushCoordinate.emit(obj);  // $event
+      marker.id_random = obj.id_random;
+    });
+    let marker = this.addMarker({lng, lat});  // 添加标注事件
+    let radius = 30;  // {}  不能出现常量
+    this.markerClickEvent(this.contextMenu, {lng, lat, radius}, marker);
   }
 
 
@@ -316,10 +321,14 @@ export class MapDirective implements OnInit {
    let placeSearch = new AMap.PlaceSearch({
      map: this.map
    });  //构造地点查询类
-   AMap.event.addListener(auto, "select", select);//注册监听，当选中某条记录时会触发
-   function select(e) {
-     placeSearch.setCity(e.poi.adcode);
-     placeSearch.search(e.poi.name);  //关键字查询查询
+   AMap.event.addListener(auto, "select", (event)=> {
+     console.log(event)
+     let {lng, lat} = event.poi.location;
+     this.addMarkerClick({lng, lat})
+     this. map.setFitView();
+   })  //注册监听，当选中某条记录时会触发
+   function select(event) {
+
    }
  }
 
