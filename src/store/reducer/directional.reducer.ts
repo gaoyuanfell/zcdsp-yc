@@ -179,16 +179,30 @@ export function directionalReducer(state: DirectionalState = initState, action: 
       return {...state};
     }
     case DirectionalActionTypes.LBS_CITY_MAP_PUSH: {
-      state.lbsCityMapResult.push(action.payload);
-      return {...state};
+      let flag = state.lbsCityMapResult.some ( (item, index) => {
+        if ( item.id_random === action.payload.id_random) {
+          state.lbsCityMapResult[index] = action.payload
+        }
+        return item.id_random === action.payload.id_random;
+      })
+      if (!flag) { // 说明不存在 重新添加
+        state.lbsCityMapResult.push(action.payload)
+      }
+      // state.lbsCityMapResult.push(action.payload);
+      return {...state}; // 返回一个新状态
     }
     case DirectionalActionTypes.LBS_CITY_MAP_REMOVE: {
       if (!action.payload) return;
       let {longitude, latitude} = action.payload.coords;
-      let index = state.lbsCityMapResult.findIndex(lbs => lbs.coords.longitude === longitude && lbs.coords.latitude === latitude);
-      if (!!~index) {
-        state.lbsCityMapResult.splice(index, 1);
-      }
+      // let index = state.lbsCityMapResult.findIndex(lbs => lbs.coords.longitude === longitude && lbs.coords.latitude === latitude);
+      // if (!!~index) {
+      //   state.lbsCityMapResult.splice(index, 1);
+      // }
+      state.lbsCityMapResult.filter((item,index) => {
+        if(action.payload.id_random === item.id_random) {
+          state.lbsCityMapResult.splice(index,1)
+        }
+      })
       return {...state};
     }
 
@@ -589,6 +603,11 @@ export const LbsCityMapResult = createSelector(
 export const LbsCityViewResult = createSelector(
   getDirectionalState,
   (state: DirectionalState) => state.lbsCityViewResult
+);
+
+export const lbsCityMapView = createSelector(
+  getDirectionalState,
+  (state: DirectionalState) => state.lbsCityMapView
 );
 
 //---------------- AudiencesAction

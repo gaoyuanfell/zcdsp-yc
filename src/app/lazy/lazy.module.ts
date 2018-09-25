@@ -138,7 +138,6 @@ export class LazyComponent implements OnDestroy, OnInit {
   }
 
   pushCoordinate(event) {
-    console.log(event)
     let flag = this.arrList.some ( (item, index) => {
       if ( item.id_random === event.id_random) {
         this.arrList[index] = event
@@ -150,7 +149,6 @@ export class LazyComponent implements OnDestroy, OnInit {
     if (!flag) { // 说明不存在 重新添加
       this.arrList.push(event)
     }
-    console.log(this.arrList)
     this.changeDetectorRef.markForCheck();
   }
 

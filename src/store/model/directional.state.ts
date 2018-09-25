@@ -30,6 +30,7 @@ export interface DirectionalState {
   lbsCityResult?: Array<any>
   lbsCityMapResult?: Array<any>
   lbsCityViewResult?: Array<any>
+  lbsCityMapView?: Array<any>
 
   audiencesAction?: Directional
   audiencesActionList?:Array<Array<any>>
@@ -64,3 +65,6 @@ export interface AudiencesActionState {
   audiencesAction2List?:Array<Array<any>>
   audiencesAction2Result?: Array<any>
 }
+
+
+// store 存储数据  数据初始化

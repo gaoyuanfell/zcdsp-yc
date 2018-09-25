@@ -137,7 +137,9 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     this.store.dispatch(new directionalAction.QueryLbsCityByName({target, value}));
   }
 
+  del = (value) =>{}; // 删除的元素  初始化
   lbsCityMapRemove(data) {
+    this.del(data)
     this.store.dispatch(new directionalAction.LbsCityMapRemove(data));
   }
 
@@ -201,8 +203,11 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     this.lbsCityList$ = store.pipe(select(directionalReducer.LbsCityList));
     this.lbsCityResult$ = store.pipe(select(directionalReducer.LbsCityResult));
     this.LbsCityMapResult$ = store.pipe(select(directionalReducer.LbsCityMapResult));
+    this.LbsCityMapResult$.subscribe( data => {
+    })
     this.lbsCityViewResult$ = store.pipe(select(directionalReducer.LbsCityViewResult));
-
+    this.lbsCityViewResult$.subscribe( data => {
+    })
     this.audiences$ = store.pipe(select(directionalReducer.Audiences));
     this.audiencesResult$ = store.pipe(select(directionalReducer.AudiencesResult));
     this.audiencesViewResult$ = store.pipe(select(directionalReducer.AudiencesViewResult));
@@ -435,9 +440,23 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   // 地图
 
   lbsCityType;
-
+  echo = (value) => {};   // 回显字段
+  toChild(value) {  // 回显事件
+    console.log(value)
+    this.echo(value);
+  }
+  echoFunction( $event) {
+    console.log('通过注册把方法暴露出来')
+    console.log($event)
+    this.echo = $event;
+  }
+  arrList = [];
   pushCoordinate(event) {
-    this.store.dispatch(new directionalAction.LbsCityMapPush(event));
+   // new directionalAction.LbsCityMapPush(event) action
+    this.store.dispatch(new directionalAction.LbsCityMapPush(event));  //  触发 reducer根据type找到对应要处理的操作  携带数据的动作
+    this.LbsCityMapResult$.subscribe( data => {
+      console.log(data)
+    })
     this.changeDetectorRef.markForCheck();
   }
 
@@ -485,4 +504,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
       }
     });
   }
+
+
+
 }

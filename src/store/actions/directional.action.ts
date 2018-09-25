@@ -14,7 +14,7 @@ export enum DirectionalActionTypes {
   CHECK_LBS_CITY_CHANGE = '[DIRECTIONAL] CHECK_LBS_CITY_CHANGE',
   QUERY_LBS_CITY_BY_NAME = '[DIRECTIONAL] QUERY_LBS_CITY_BY_NAME',
 
-  LBS_CITY_MAP_PUSH = '[DIRECTIONAL] LBS_CITY_MAP_PUSH',
+  LBS_CITY_MAP_PUSH = '[DIRECTIONAL] LBS_CITY_MAP_PUSH',  // 定义好了
   LBS_CITY_MAP_REMOVE = '[DIRECTIONAL] LBS_CITY_MAP_REMOVE',
 
   CHECK_AUDIENCES_CHANGE = '[DIRECTIONAL] CHECK_AUDIENCES_CHANGE',
@@ -96,7 +96,7 @@ export class AudiencesActionAssign2 implements Action {
 export class LbsCityMapPush implements Action {
   readonly type = DirectionalActionTypes.LBS_CITY_MAP_PUSH;
 
-  constructor(public payload: any) {
+  constructor(public payload: any) {   // $event
   }
 }
 
@@ -296,6 +296,7 @@ export class DirectionalSetResult2 implements Action{
   }
 }
 
+// 这边为啥类型不一样
 export type DirectionalActionUnion
   = DirectionalAssign
   | DirectionalInit
