@@ -32,7 +32,7 @@ import {CdkTableModule} from '@angular/cdk/table';
   template: `
     <div style="width: 100%;height: 100%;overflow: auto;background-color: #ffffff;" #overflow>
       请输入<input type="text" id="searchMap">
-      <div style="width: 100%;height: 600px;" yc-map [searchMap]="'searchMap'" (pushCoordinate)="pushCoordinate($event)" [marker]='arrList' (removeCoordinate)="removeCoordinate($event)" [echo]="echo">
+      <div style="width: 100%;height: 600px;" yc-map [searchMap]="'searchMap'" (pushCoordinate)="pushCoordinate($event)" [markerList]='arrList' (removeCoordinate)="removeCoordinate($event)">
 
 
       </div>
