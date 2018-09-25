@@ -125,6 +125,7 @@
           <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_channel_package_name" #app_channel_package_name="ngModel" type="text" placeholder="请输入APP渠道包名">
           <p class="input-error" *ngIf="(_valid || app_channel_package_name.dirty) && !campaign.app_channel_package_name">请输入APP渠道包名</p>
         </div>
+        <p class="m-l-1 form-label-text"><i class="icon-tool-help" yc-tooltip [ycContent]="'请输入在应用宝上架的APP渠道包名称'" style="margin-left:5px;"></i></p>
       </div>
       <!--app_upload_url-->
       <div class="form-group flex-center">
@@ -142,7 +143,6 @@
           <input [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_package_name" #app_package_name="ngModel" type="text" placeholder="请选择输入APP包名">
           <p class="input-error" *ngIf="(_valid || app_package_name.dirty) && !campaign.app_package_name">请选择输入APP包名</p>
         </div>
-        <p class="m-l-1 form-label-text"><i class="icon-tool-help" yc-tooltip [ycContent]="'请输入在应用宝上架的APP渠道包名称'" style="margin-left:5px;"></i></p>
       </div>
       <div class="form-group flex">
         <label class="form-label"><span>*</span>APP名称:</label>

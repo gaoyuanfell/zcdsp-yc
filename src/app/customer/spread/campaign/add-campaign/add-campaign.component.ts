@@ -141,7 +141,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
   }
 
   _appStoreIdChange() {
-    // this.campaign.app_package_type = '1';
+    this.campaign.app_package_type = '1';
     // delete this.campaign.app_bundle_id;
     // delete this.campaign.app_channel_package_name;
   }
