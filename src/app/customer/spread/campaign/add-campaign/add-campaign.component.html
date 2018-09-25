@@ -89,7 +89,7 @@
         <label class="form-label"><span>*</span>下载地址:</label>
         <div class="form-input" style="width: 520px">
           <input type="text" [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.download_link" #download_link="ngModel"
-                 placeholder="请填写落地页(http://)" (ngModelChange)="campaign.click_link = campaign.download_link" pattern="^([hH]{1}[tT]{2}[pP]:\/\/|[hH]{1}[tT]{2}[pP][sS]:\/\/)[\d,a-z,A-Z]+[\w,\W]*$"
+                 placeholder="请填写下载地址（http://）" (ngModelChange)="campaign.click_link = campaign.download_link" pattern="^([hH]{1}[tT]{2}[pP]:\/\/|[hH]{1}[tT]{2}[pP][sS]:\/\/)[\d,a-z,A-Z]+[\w,\W]*$"
                  required [ngClass]="{'has-error':(_valid || download_link.dirty || download_link.touched) && download_link.invalid }"/>
           <p class="input-error" *ngIf="(_valid || download_link.dirty || download_link.touched) && download_link.invalid">请输入下载地址</p>
         </div>
@@ -179,7 +179,7 @@
       <div class="form-group flex">
         <label class="form-label"><span>*</span>下载地址:</label>
         <div class="form-input" style="width: 520px">
-          <input type="text" [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.download_link" #download_link="ngModel" placeholder="请填写落地页(http://)" (ngModelChange)="campaign.click_link = campaign.download_link" pattern="^([hH]{1}[tT]{2}[pP]:\/\/|[hH]{1}[tT]{2}[pP][sS]:\/\/)[\d,a-z,A-Z]+[\w,\W]*$"
+          <input type="text" [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.download_link" #download_link="ngModel" placeholder="请填写下载地址（http://）" (ngModelChange)="campaign.click_link = campaign.download_link" pattern="^([hH]{1}[tT]{2}[pP]:\/\/|[hH]{1}[tT]{2}[pP][sS]:\/\/)[\d,a-z,A-Z]+[\w,\W]*$"
                  required [ngClass]="{'has-error':(_valid || download_link.dirty || download_link.touched) && download_link.invalid }"/>
           <p class="input-error" *ngIf="(_valid || download_link.dirty || download_link.touched) && download_link.invalid">请输入下载地址</p>
         </div>
