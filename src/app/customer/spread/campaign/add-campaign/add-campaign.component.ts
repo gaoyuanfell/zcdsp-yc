@@ -564,6 +564,9 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
       this.directionalType = '1';
       this._nextStepNum = 1;
       this.changeDetectorRef.markForCheck();
+      setTimeout(()=> {
+        this._scrollService.setScrollTopByElement(this.containerFullRef, this.document.getElementById('dingxiangshezhi'))
+      })
     });
   }
 

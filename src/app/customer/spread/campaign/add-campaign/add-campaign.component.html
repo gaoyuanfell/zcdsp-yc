@@ -234,7 +234,7 @@
     <div class="form-group flex">
       <label class="form-label"><span>*</span>活动名称:</label>
       <div class="form-input">
-        <input class="form-control" [(ngModel)]="campaign.campaign_name" #campaign_name="ngModel" type="text" required placeholder="请填写活动名称" [ngClass]="{'has-error':(_valid || campaign_name.dirty || campaign_name.touched) && campaign_name.invalid }">
+        <input class="form-control" [(ngModel)]="campaign.campaign_name" #campaign_name="ngModel" type="text" required placeholder="请填写活动名称" [ngClass]="{'has-error':(_valid || campaign_name.dirty || campaign_name.touched) && campaign_name.invalid }" (ngModelChange)="is_need_package && (package_name = campaign.campaign_name + '_定向包')">
         <p class="input-error" *ngIf="(_valid || campaign_name.dirty || campaign_name.touched) && campaign_name.invalid">请输入活动名称</p>
       </div>
     </div>
