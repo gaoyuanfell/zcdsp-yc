@@ -68,6 +68,8 @@ export class DirectionalAppComponent implements OnInit, ControlValueAccessor, On
   }
 
   ngOnInit(): void {
+    console.info('init')
+    this.store.dispatch(new directionalAction.DirectionalRecovery2());
     this.audiencesAppResult$.subscribe(result => {
       this.onChange(result.map(r => ({id: r.id, name: r.name})));
     })

@@ -20,7 +20,8 @@
         可覆盖<span>{{(_audienceCount || 0) | number}}</span>人
       </ng-template>
     </p>
-    <a class="btn btn-link" style="padding: 0 40px;" href="javascript:history.back()">返回</a>
+    <a *ngIf="_nextStepNum == 0" class="btn btn-link" style="padding: 0 40px;" href="javascript:history.back()">返回</a>
+    <a *ngIf="_nextStepNum == 1" class="btn btn-link" style="padding: 0 40px;" (click)="_prevStep()">返回</a>
     <button *ngIf="!_nextStepNum" class="btn btn-outline btn-round" (click)="_nextStep()">下一步</button>
     <ng-template [ngIf]="_nextStepNum">
       <button class="btn btn-outline btn-round m-r-1" (click)="save(2)" *ngIf="jurisdiction?.ZCMOBI_ADS_SPREAD_CAMPAIGN_EDIT_DIRECTION_SAVE && !_isEdit">提交并新建创意</button>
