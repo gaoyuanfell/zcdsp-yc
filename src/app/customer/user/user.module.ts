@@ -7,6 +7,7 @@ import {RemindComponent} from './remind/remind.component';
 import {InfoComponent} from './info/info.component';
 import {RemindPipe} from './remind/remind.pipe';
 import {FormsModule} from '@angular/forms';
+import { SafeCenterComponent } from './safe-center/safe-center.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {FormsModule} from '@angular/forms';
     LogsComponent,
     InfoComponent,
     RemindComponent,
-    RemindPipe
+    RemindPipe,
+    SafeCenterComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

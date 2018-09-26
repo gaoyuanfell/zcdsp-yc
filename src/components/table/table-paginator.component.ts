@@ -46,12 +46,12 @@ export interface Props {
   styles: [
       `
       :host {
-        height: 70px;
         display: block;
         background-color: inherit;
       }
 
       .paging {
+        height: 70px;
         text-align: right;
         z-index: 30;
         padding: 20px 0;
