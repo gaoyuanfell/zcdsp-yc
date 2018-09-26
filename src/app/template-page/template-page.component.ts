@@ -465,6 +465,7 @@ export class TemplatePageComponent implements OnInit {
     body.is_system = this.system;
     this._templateService.landingAdd(body).subscribe(res => {
       this._notification.success('落地页模板', '提交成功')
+      localStorage.setItem(`${Date.now()}`, 'templateList')
     })
   }
 

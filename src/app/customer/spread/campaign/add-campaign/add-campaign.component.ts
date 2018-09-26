@@ -564,6 +564,8 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     });
   }
 
+
+
   isPermit(type) {
     return this.jurisdiction[type];
   }
@@ -603,6 +605,20 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    window.addEventListener('storage',  (e) => {
+      console.info(e)
+      this._templateService.landingSelect().subscribe(res => {
+        this.templateList = res.result.map(item => {
+          return {
+            id: item.id,
+            name: item.name,
+            link: `${this.templateUrl}/template/${item.id}`
+          };
+        });
+      });
+    });
+
     this.bid_min = this._global.bid_min;
     this.bid_max = this._global.bid_max;
 
