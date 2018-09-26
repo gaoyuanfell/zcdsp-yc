@@ -68,6 +68,7 @@
             <i (click)="value.checked = false;checkLbsCityChange(value)">&times;</i>
           </span>
       </ng-template>
+      <span>|</span>
       <ng-template [ngForOf]="(LbsCityMapResult$ | async)" ngFor let-value>
           <span class="label-value">
             <span (click)="toChild(value)">{{value.name}}</span>

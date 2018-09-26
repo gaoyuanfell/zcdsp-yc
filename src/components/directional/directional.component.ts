@@ -454,9 +454,9 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   pushCoordinate(event) {
    // new directionalAction.LbsCityMapPush(event) action
     this.store.dispatch(new directionalAction.LbsCityMapPush(event));  //  触发 reducer根据type找到对应要处理的操作  携带数据的动作
-    this.LbsCityMapResult$.subscribe( data => {
-      console.log(data)
-    })
+    // this.LbsCityMapResult$.subscribe( data => {
+    //   console.log(data)
+    // })
     this.changeDetectorRef.markForCheck();
   }
 

@@ -312,6 +312,7 @@ export class MapDirective implements OnInit {
     });
   }
 
+
   // 搜索框
  init() {
    let autoOptions = {
@@ -323,13 +324,15 @@ export class MapDirective implements OnInit {
    });  //构造地点查询类
    AMap.event.addListener(auto, "select", (event)=> {
      console.log(event)
-     let {lng, lat} = event.poi.location;
-     this.addMarkerClick({lng, lat})
-     this. map.setFitView();
-   })  //注册监听，当选中某条记录时会触发
-   function select(event) {
+     // placeSearch.setCity(event.poi.adcode);
+     // placeSearch.search(event.poi.name);  //关键字查询查询
+     if (event.poi.location) {   // 找具体的点
+       let {lng, lat} = event.poi.location;
+       this.addMarkerClick({lng, lat})
+       this.map.setFitView();
+     }
 
-   }
+   })  //注册监听，当选中某条记录时会触发
  }
 
 
