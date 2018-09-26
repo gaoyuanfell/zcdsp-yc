@@ -25,7 +25,7 @@
         <div class="item"></div>
       </div>
     </i>
-    <img class="user-head" src="assets/img/default-user-head.png" alt="">
+    <img class="user-head" src="{{auth?.user.head_url}}" alt="">
     <p style="line-height: 66px;cursor: pointer;outline: none;" (click)="userToolBox = !userToolBox" [ngStyle]="{'color': userToolBox ? '#fff': '#ccc' }">
       {{auth?.user.user_name}}
     </p>

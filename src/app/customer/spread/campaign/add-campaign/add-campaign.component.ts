@@ -228,19 +228,22 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
   valid() {
     this._valid = true;
     if (!this.campaign.campaign_name) {
+      this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('huodongshezhi'))
       // this._scrollService.scrollTo(this.containerFullRef, {top: 0});
       return true;
     }
     if (this._isNumber(this.campaign.day_budget) || !this.campaign.day_budget) {
-      // this._scrollService.scrollTo(this.containerFullRef, {top: 0});
+      this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('huodongshezhi'))
       return true;
     }
     if (+this.campaign.day_budget < 100) {
+      this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('huodongshezhi'))
       // this._scrollService.scrollTo(this.containerFullRef, {top: 0});
       this._notification.warning('提示', '预算不能小于100元');
       return true;
     }
     if (!this.campaign.begin_date) {
+      this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('huodongshezhi'))
       // this._scrollService.scrollTo(this.containerFullRef, {top: 0});
       return true;
     }
@@ -248,6 +251,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
       let flag = this.campaign.show_hours.some(item => !!item);
       if (!flag) {  // 当用户选择时间段没有选择某一格的时候，提示用户
         this._notification.error('提示', '投放小时不能为空！');
+        this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('huodongshezhi'))
         // this._scrollService.scrollTo(this.containerFullRef, {top: 0});
         return true;
       }
@@ -255,6 +259,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     if (this.campaign.target_type == '1') {
       if (this.campaign.click_type == '2') {
         if (!this.campaign.click_link) {
+          this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('tuiguangmubiao'))
           // this._scrollService.scrollTo(this.containerFullRef, {top: 430});
           return true;
         }
@@ -262,60 +267,85 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     }
     if (this.campaign.target_type == '2') {
       if (!this.campaign.download_link) {
+        this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('tuiguangmubiao'))
+
         // this._scrollService.scrollTo(this.containerFullRef, {top: 430});
         return true;
       }
       if (this.campaign.app_store_id == '1') {
         if (!this.campaign.app_bundle_id) {
+          this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('tuiguangmubiao'))
+
           // this._scrollService.scrollTo(this.containerFullRef, {top: 430});
           return true;
         }
         if (this.campaign.app_package_type == '2') {
           if (!this.campaign.app_channel_package_name) {
+            this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('tuiguangmubiao'))
+
             // this._scrollService.scrollTo(this.containerFullRef, {top: 430});
             return true;
           }
         }
       }
       if (!this.campaign.app_package_name) {
+        this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('tuiguangmubiao'))
+
         // this._scrollService.scrollTo(this.containerFullRef, {top: 430});
         return true;
       }
       if (!this.campaign.app_name) {
+        this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('tuiguangmubiao'))
+
         // this._scrollService.scrollTo(this.containerFullRef, {top: 430});
         return true;
       }
       if (!this.campaign.app_version) {
+        this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('tuiguangmubiao'))
+
         // this._scrollService.scrollTo(this.containerFullRef, {top: 430});
         return true;
       }
       if (this._isNumber2(this.campaign.app_size) || !this.campaign.app_size) {
+        this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('tuiguangmubiao'))
+
         // this._scrollService.scrollTo(this.containerFullRef, {top: 430});
         return true;
       }
     }
     if (this.campaign.target_type == '3') {
       if (!this.campaign.download_link) {
+        this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('tuiguangmubiao'))
         // this._scrollService.scrollTo(this.containerFullRef, {top: 430});
         return true;
       }
       if (!this.campaign.app_bundle_id) {
+        this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('tuiguangmubiao'))
+
         // this._scrollService.scrollTo(this.containerFullRef, {top: 430});
         return true;
       }
       if (!this.campaign.app_package_name) {
+        this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('tuiguangmubiao'))
+
         // this._scrollService.scrollTo(this.containerFullRef, {top: 430});
         return true;
       }
       if (!this.campaign.app_name) {
+        this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('tuiguangmubiao'))
+
         // this._scrollService.scrollTo(this.containerFullRef, {top: 430});
         return true;
       }
       if (!this.campaign.app_version) {
+        this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('tuiguangmubiao'))
+
         // this._scrollService.scrollTo(this.containerFullRef, {top: 430});
         return true;
       }
       if (!this.campaign.app_size) {
+        this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('tuiguangmubiao'))
+
         // this._scrollService.scrollTo(this.containerFullRef, {top: 430});
         return true;
       }
@@ -564,6 +594,8 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     });
   }
 
+
+
   isPermit(type) {
     return this.jurisdiction[type];
   }
@@ -603,6 +635,20 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    window.addEventListener('storage',  (e) => {
+      console.info(e)
+      this._templateService.landingSelect().subscribe(res => {
+        this.templateList = res.result.map(item => {
+          return {
+            id: item.id,
+            name: item.name,
+            link: `${this.templateUrl}/template/${item.id}`
+          };
+        });
+      });
+    });
+
     this.bid_min = this._global.bid_min;
     this.bid_max = this._global.bid_max;
 

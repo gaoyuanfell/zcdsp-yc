@@ -10,8 +10,19 @@ export class MapDirective implements OnInit {
   key = 'cca72e3e21736febbf596a86e25c63a5';
   map;
   contextMenu;
+  constructor(private ref: ElementRef) {}
+  markerCache = [];  // 全部的标注  高德地图没有找到所有地图的方法
+  arr = [];
+  marker_only;  // 唯一删除
+  marker = [];
   @Input('searchMap')  searchMap;
-  // 删除
+  @Output('pushCoordinate') pushCoordinate = new EventEmitter<any>();
+  @Output('removeCoordinate') removeCoordinate = new EventEmitter<any>();
+  @Output('registerEcho') registerEcho = new EventEmitter<any>();
+  @Output('registerDel') registerDel = new EventEmitter<any>();
+
+
+  // 外界删除，地图上消失这个标注
   del(value){
     if (value) {
       let marker = this.markerCache.filter( (item, index) => {
@@ -44,7 +55,6 @@ export class MapDirective implements OnInit {
      })
       if (marker && marker.length > 0) {
         let {lng, lat} = marker[0].getPosition();
-
         this.addressByLnglat([lng, lat]).then((result: any) => {
 
           this.infoWindow = new AMap.InfoWindow({
@@ -67,22 +77,9 @@ export class MapDirective implements OnInit {
     }
   }
 
-  @Output('pushCoordinate') pushCoordinate = new EventEmitter<any>();
-  @Output('removeCoordinate') removeCoordinate = new EventEmitter<any>();
-  @Output('registerEcho') registerEcho = new EventEmitter<any>();
-  @Output('registerDel') registerDel = new EventEmitter<any>();
-
-  constructor(private ref: ElementRef,
-              private renderer: Renderer2) {}
-  markerCache = [];  // 全部的标注  高德地图没有找到所有地图的方法
-  arr = [];
-  marker_only;  // 唯一删除
-  marker = [];
 
   @Input('markerList') set markerList(value) {
-    console.info(value)
      value.subscribe( data => {
-       console.info(data)
       this.marker = data;
     })
     // this.marker = value;
@@ -92,9 +89,6 @@ export class MapDirective implements OnInit {
     console.log('切换之间')
     loadScript(`//webapi.amap.com/maps?v=1.4.8&key=${this.key}&plugin=AMap.Autocomplete,AMap.PlaceSearch,AMap.PolyEditor,AMap.CircleEditor`).then(() => {
       AMap.plugin('AMap.Geocoder');
-      // let first_show = [this.marker[0].coords.longitude, this.marker[0].coords.latitude ];
-      // console.log(first_show)
-      // 初始化地图
       this.map = new AMap.Map(this.ref.nativeElement, {
         resizeEnable: true,
         center: [121.340121,31.196178],  // 中心点是要改变的
@@ -134,7 +128,6 @@ export class MapDirective implements OnInit {
       });
 
       // 初始化已经存在的地址
-      console.log(this.marker)
       if ( this.marker && this.marker.length > 0) {
         this.marker.map(m => ({lat: m.coords.latitude, lng: m.coords.longitude, radius: m.coords.radius, id_random: m.id_random}) ).forEach(m => {
           this.markerClickEvent(this.contextMenu, m);
@@ -142,7 +135,7 @@ export class MapDirective implements OnInit {
       }
 
       // 不管地图存在否 这个方法都可以  不用反断是否有值
-      this.registerDel.emit(this.del.bind(this));  // 把这个方法发射出去了
+      this.registerDel.emit(this.del.bind(this));
       this.registerEcho.emit(this.echo.bind(this));  // 把这个方法发射出去了
 
       this.init();
@@ -150,7 +143,6 @@ export class MapDirective implements OnInit {
   }
 
   addMarker({lng, lat}) {
-    // let {lng, lat} = lnglat;
     return new AMap.Marker({
       map: this.map,
       position: [lng, lat]
@@ -216,8 +208,6 @@ export class MapDirective implements OnInit {
 
         // 关闭详情窗口的时候触发
         this.infoWindow.on('close', () => {
-          // console.log(marker)  闭包
-          console.log('窗口关闭')
           marker.else_circle.hide();
           marker.else_circleEditor.close(); // 编辑半径
         })
@@ -235,16 +225,17 @@ export class MapDirective implements OnInit {
 
   // 编辑圆   不能唯一  因为你点开详情窗口 圆展开，但是你没有关闭他，你去点击另一个标注， 那你关闭的就是你点击的另一个标注的窗口哦，这个时候全局就会有问题了
   editCircle({lng,lat,radius}, marker) {
+
     let editor:any = {};
     editor._circle=( ()=> {
       let circle = new AMap.Circle({
-        center: [lng, lat],// 圆心位置
-        radius: radius, //半径
+        center: [lng, lat],
+        radius: radius,
         strokeColor: "#F33", //线颜色
         strokeOpacity: 1, //线透明度
         strokeWeight: 3, //线粗细度
-        fillColor: "#ee2200", //
-        fillOpacity: 0.35//填充透明度
+        fillColor: "#ee2200",
+        fillOpacity: 0.35 //填充透明度
       });
       marker.else_circle = circle; // 给marker添加属性  绑定这个属性
       this.markerCache.filter ( (item) => {
@@ -253,10 +244,9 @@ export class MapDirective implements OnInit {
         }
       })
       circle.setMap(this.map);
-      circle.hide();  // 原型继承  我咋没看见有这个方法
+      circle.hide();  // 原型继承
       return circle;
     })();
-    // this.map.setFitView(); // 重新绘制
     editor._circleEditor= new AMap.CircleEditor(this.map, editor._circle);
     marker.else_circleEditor =  editor._circleEditor;
     this.markerCache.filter ( (item, index) => {
@@ -328,17 +318,28 @@ export class MapDirective implements OnInit {
      map: this.map
    });  //构造地点查询类
    AMap.event.addListener(auto, "select", (event)=> {
-     console.log(event)
-     // placeSearch.setCity(event.poi.adcode);
-     // placeSearch.search(event.poi.name);  //关键字查询查询
      if (event.poi.location) {   // 找具体的点
        let {lng, lat} = event.poi.location;
        this.addMarkerClick({lng, lat})
        this.map.setFitView();
      }
-
    })  //注册监听，当选中某条记录时会触发
  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  // else 开头的是我自己给对象添加的属性
