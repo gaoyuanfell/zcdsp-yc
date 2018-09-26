@@ -45,8 +45,8 @@ import {FinanceService} from '../../../../service/agent/finance.service';
           </tbody>
         </table>
         
-        <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
-        <div paginator style="background: #f9fafb;">
+        <yc-table-overflow #overflowRef style="background: #eff7ff;"></yc-table-overflow>
+        <div paginator style="background: #f9fafb;"  [hidden]="!total_count">
           <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
         </div>
       </yc-table>
