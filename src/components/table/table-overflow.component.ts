@@ -19,7 +19,7 @@ import {Subject} from 'rxjs';
       .overflow {
         border-top: 1px solid #e2e6eb;
         padding: 10px 0;
-        z-index: 30;
+        z-index: 15;
         height: 10px;
         overflow-x: auto;
         width: 100%;
