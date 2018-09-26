@@ -73,7 +73,6 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
       b: b,
       a: this.opacity,
     };
-    console.info(this.color)
     this.changeEvent.emit(this.color)
   }
 
@@ -136,17 +135,17 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
   get hex() {
     let {r, g, b, a} = this.value;
 
-    let _r = r.toString(16)
+    let _r = (+r).toString(16)
     if (_r.length === 1) {
       _r = '0' + _r
     }
 
-    let _g = g.toString(16)
+    let _g = (+g).toString(16)
     if (_g.length === 1) {
       _g = '0' + _g
     }
 
-    let _b = b.toString(16)
+    let _b = (+b).toString(16)
     if (_b.length === 1) {
       _b = '0' + _b
     }
@@ -179,7 +178,7 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
 
   opacityChange() {
     this.value.a = this.opacity
-    this.getRgbaByXY(this.layerX, this.layerY)
+    this.changeEvent.emit(this.color)
   }
 
   /**
@@ -320,6 +319,15 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
     this.copy(this.hex)
   }
 
+  changeColor(){
+    let {r, g, b, a} = this.value;
+    console.info(r)
+    console.info(g)
+    console.info(b)
+    console.info(a)
+    this.changeEvent.emit(`rgba(${r},${g},${b},${a})`)
+  }
+
   constructor(@Inject(DOCUMENT) private document: Document,private changeDetectorRef: ChangeDetectorRef) {
   }
 
@@ -327,7 +335,7 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
     this.drawPalette();
     this.drawBar();
     if (!this.value) {
-      this.value = {r: 255, g: 255, b: 255, a: 0}
+      this.value = {r: 255, g: 255, b: 255, a: 0};
       this.opacity = this.value.a;
     }
   }

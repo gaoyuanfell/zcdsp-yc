@@ -225,12 +225,18 @@ export class LazyComponent implements OnDestroy, OnInit {
 
       <button (click)="processWithinAngularZone()">Process within Angular zone</button>
       <button (click)="processOutsideOfAngularZone()">Process outside of Angular zone</button>
+
+      <p>{{color}}</p>
+      <input-color-palette [(ngModel)]="color"></input-color-palette>
+      
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: true,
 })
 export class LazyComponent2 implements OnDestroy, OnInit {
+
+  color
 
   progress: number = 0;
   label: string;

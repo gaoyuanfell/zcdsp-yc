@@ -12,18 +12,19 @@
     <div>
       <canvas width="200" height="20" #canvasBar></canvas>
       <div>
-        <input style="width: 200px;" type="range" min="0" max="1" step="0.01" [(ngModel)]="opacity" (ngModelChange)="opacityChange()">
+        <input style="width: 200px;" type="range" min="0" max="1" step="0.01" [(ngModel)]="opacity" (input)="opacityChange()">
       </div>
     </div>
 
   </div>
 
   <div class="palette-value">
+    <p>{{value | json}}</p>
     <div class="flex-center-between">
-      <input type="text" [(ngModel)]="value.r" style="width: 40px;height: 25px;border: 1px solid #ccc;margin: 0 5px;color: #aaa;text-align: center;">
-      <input type="text" [(ngModel)]="value.g" style="width: 40px;height: 25px;border: 1px solid #ccc;margin: 0 5px;color: #aaa;text-align: center;">
-      <input type="text" [(ngModel)]="value.b" style="width: 40px;height: 25px;border: 1px solid #ccc;margin: 0 5px;color: #aaa;text-align: center;">
-      <input type="text" [(ngModel)]="value.a" style="width: 40px;height: 25px;border: 1px solid #ccc;margin: 0 5px;color: #aaa;text-align: center;">
+      <input type="text" (input)="changeColor()" [(ngModel)]="value.r" style="width: 40px;height: 25px;border: 1px solid #ccc;margin: 0 5px;color: #aaa;text-align: center;">
+      <input type="text" (input)="changeColor()" [(ngModel)]="value.g" style="width: 40px;height: 25px;border: 1px solid #ccc;margin: 0 5px;color: #aaa;text-align: center;">
+      <input type="text" (input)="changeColor()" [(ngModel)]="value.b" style="width: 40px;height: 25px;border: 1px solid #ccc;margin: 0 5px;color: #aaa;text-align: center;">
+      <input type="text" (input)="changeColor()" [(ngModel)]="value.a" style="width: 40px;height: 25px;border: 1px solid #ccc;margin: 0 5px;color: #aaa;text-align: center;">
     </div>
     <div class="flex-center-between">
       <span style="width: 40px;height: 25px;margin: 0 5px;text-align: center;line-height: 25px;color: #aaa;">R</span>
