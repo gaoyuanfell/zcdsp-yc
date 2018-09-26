@@ -203,11 +203,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     this.lbsCityList$ = store.pipe(select(directionalReducer.LbsCityList));
     this.lbsCityResult$ = store.pipe(select(directionalReducer.LbsCityResult));
     this.LbsCityMapResult$ = store.pipe(select(directionalReducer.LbsCityMapResult));
-    this.LbsCityMapResult$.subscribe( data => {
-    })
     this.lbsCityViewResult$ = store.pipe(select(directionalReducer.LbsCityViewResult));
-    this.lbsCityViewResult$.subscribe( data => {
-    })
     this.audiences$ = store.pipe(select(directionalReducer.Audiences));
     this.audiencesResult$ = store.pipe(select(directionalReducer.AudiencesResult));
     this.audiencesViewResult$ = store.pipe(select(directionalReducer.AudiencesViewResult));
@@ -278,6 +274,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
 
   areasResult = [];
   lbsCityResult = [];
+  lbsCityMapResult = [];
 
   areasShowChange() {
     this.resultData.dtl_address.area = this.areasShow ? this.areasResult : [];
@@ -333,7 +330,9 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   resultData;
 
   get areasHaveResult() {
-    return (this.areasResult instanceof Array && this.areasResult.length) || (this.lbsCityResult instanceof Array && this.lbsCityResult.length);
+    return (this.areasResult instanceof Array && this.areasResult.length)
+      || (this.lbsCityResult instanceof Array && this.lbsCityResult.length)
+      || (this.lbsCityMapResult instanceof Array && this.lbsCityMapResult.length);
   }
 
   /**
@@ -366,13 +365,25 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
       this.resultSubject.next(this.resultData);
     });
 
-    // this.LbsCityMapResult$$ = this.LbsCityMapResult$.subscribe(data => {
-    //   if (!data) return;
-    //   this.areasShow = false;
-    //   if (data instanceof Array && data.length) this.areasShow = true;
-    //   this.resultData.dtl_address.lbs = data.map(ar => ({id: ar.id, name: ar.name, coords: ar.location_items, type_id: ar.type_id}));
-    //   this.resultSubject.next(this.resultData);
-    // });
+    this.LbsCityMapResult$$ = this.LbsCityMapResult$.subscribe(data => {
+      console.info(data)
+      this.lbsCityMapResult = data;
+      if (!data) return;
+      if (this.areasHaveResult) this.areasShow = true;
+
+      this.resultData.dtl_address.lbs = this.resultData.dtl_address.lbs.filter(lbs => lbs.type_id)
+
+      console.info(this.resultData.dtl_address.lbs)
+
+      let lbs = data.map(ar => ({id: ar.id_random, name: ar.name, coords: JSON.stringify(ar.coords), type_id: ar.type_id}));
+      lbs.forEach(l => {
+        if(!this.resultData.dtl_address.lbs.find(lbs => lbs.id == l.id)){
+          this.resultData.dtl_address.lbs.push(l)
+        }
+      })
+
+      this.resultSubject.next(this.resultData);
+    });
 
     this.audiencesActionResult$$ = this.audiencesActionResult$.subscribe(data => {
       this.audiencesActionResult = data;
@@ -452,6 +463,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   }
   arrList = [];
   pushCoordinate(event) {
+    console.info(event);
    // new directionalAction.LbsCityMapPush(event) action
     this.store.dispatch(new directionalAction.LbsCityMapPush(event));  //  触发 reducer根据type找到对应要处理的操作  携带数据的动作
     // this.LbsCityMapResult$.subscribe( data => {
