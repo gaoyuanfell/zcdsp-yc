@@ -6,6 +6,7 @@ import {LogsComponent} from './logs/logs.component';
 import {UserComponent} from './user.component';
 import {InfoComponent} from './info/info.component';
 import {RemindComponent} from './remind/remind.component';
+import {SafeCenterComponent} from './safe-center/safe-center.component';
 
 const routeList: Routes = [
   {
@@ -23,6 +24,12 @@ const routeList: Routes = [
   {
     path: 'remind',
     component: RemindComponent,
+    resolve: {auth: CurrentResolverService},
+    data: {current: 'ZCMOBI_ADS_USER_REMIND'},
+  },
+  {
+    path: 'safe',
+    component: SafeCenterComponent,
     resolve: {auth: CurrentResolverService},
     data: {current: 'ZCMOBI_ADS_USER_REMIND'},
   },
