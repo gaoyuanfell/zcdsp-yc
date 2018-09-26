@@ -44,11 +44,26 @@ export class DatetimeComponent implements OnInit {
   }
 
   list() {
-    this._reportService.dateList(this.query).subscribe(res => {
-      this.tableList = res.result.items;
-      this.total_count = res.result.total_count;
-      this.listTitle = res.result.other;
-    })
+
+    if (   new Date(this.query.end_date).getTime() - new Date(this.query.begin_date).getTime() > 0  ) {  // 不是一天
+      this._reportService.dateList(this.query).subscribe(res => {
+        this.tableList = res.result.items;
+        this.total_count = res.result.total_count;
+        this.listTitle = res.result.other;
+      })
+    } else {
+      let obj = {
+        campaign_id: this.query.campaign_id,
+        search_text: this.query.search_text,
+        date: this.query.begin_date,
+      };
+      this._reportService.dateChart(obj).subscribe(res => {
+        this.tableList = res.result.items;
+        this.total_count = res.result.total_count;
+        this.listTitle = res.result.other;
+      })
+    }
+
   }
 
   init() {

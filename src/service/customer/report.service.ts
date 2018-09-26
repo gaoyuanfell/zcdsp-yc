@@ -26,6 +26,9 @@ export class ReportService extends ConfigService {
   dateList(query) {
     return this.get(`/ads/report/date/list`, query)
   }
+  dateChart(query) {
+    return this.get(`/ads/report/date/hourList`, query)
+  }
 
   areaList(query) {
     return this.get(`/ads/report/area/list`, query)
