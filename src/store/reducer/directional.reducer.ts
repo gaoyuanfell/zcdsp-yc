@@ -199,7 +199,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
       //   state.lbsCityMapResult.splice(index, 1);
       // }
       state.lbsCityMapResult.filter((item,index) => {
-        if(action.payload.id_random === item.id_random) {
+        if(action.payload.id_random == item.id_random) {
           state.lbsCityMapResult.splice(index,1)
         }
       })
@@ -492,6 +492,14 @@ export function directionalReducer(state: DirectionalState = initState, action: 
       type_id: ar.type_id
     }));
 
+    state.lbsCityMapResult = state.result.dtl_address.lbs.filter(lbs => lbs.type_id == 0).map(lbs => ({
+      id: lbs.id,
+      id_random: lbs.id,
+      name: lbs.name,
+      coords: JSON.parse(lbs.coords),
+      type_id: lbs.type_id
+    }))
+
     // audiencesAction audiencesAction2
     let appAttribute = state.result.dtl_behavior.appAttribute.map(a => a.id);
     let appCategory = state.result.dtl_behavior.appCategory.map(a => a.id);
@@ -597,7 +605,7 @@ export const LbsCityResult = createSelector(
 
 export const LbsCityMapResult = createSelector(
   getDirectionalState,
-  (state: DirectionalState) => state.lbsCityMapResult
+  (state: DirectionalState) => [...state.lbsCityMapResult]
 );
 
 export const LbsCityViewResult = createSelector(

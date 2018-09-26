@@ -78,11 +78,16 @@ export class MapDirective implements OnInit {
   arr = [];
   marker_only;  // 唯一删除
   marker = [];
-  @Input() set markerList(value) {
+
+  @Input('markerList') set markerList(value) {
+    console.info(value)
      value.subscribe( data => {
+       console.info(data)
       this.marker = data;
     })
+    // this.marker = value;
   }
+
   ngOnInit(): void {
     console.log('切换之间')
     loadScript(`//webapi.amap.com/maps?v=1.4.8&key=${this.key}&plugin=AMap.Autocomplete,AMap.PlaceSearch,AMap.PolyEditor,AMap.CircleEditor`).then(() => {
