@@ -64,7 +64,7 @@ export class DirectionalService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   directionalRecommend(body = {}){
-    return this.get(`/common/directional/recommend`, body)
+    return this.postJson(`/common/directional/recommend`, body)
   }
 
   /**

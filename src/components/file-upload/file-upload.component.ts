@@ -102,6 +102,93 @@ export class FileUploadComponent implements OnDestroy {
     this.subject = new Subject<any>();
     this.cacheFiles = [];
 
+    if (this.accept) {
+      console.log(this.accept)
+      let blob = file.files[0];
+      console.log(blob)
+      /////
+      if (this.accept.maxSize) {
+        let _size = blob.size > this.accept.maxSize * this.getByte();
+        if (_size) {
+          this.eventError.emit({
+            type: 1,
+            message: '文件过大！'
+          });
+          this.fileRef.nativeElement.value = null;
+          return
+        }
+      }
+      //////
+      console.log(this.accept.extensions)
+      if (this.accept.extensions) {
+        console.log(this.accept.extensions)
+        console.log('jinlai')
+        let suffix = blob.name.substr(blob.name.lastIndexOf('.') + 1);
+        let _suffix = !!~this.accept.extensions.indexOf(suffix);
+        if (!_suffix) {
+          this.eventError.emit({
+            type: 2,
+            message: '文件格式不对！'  // 未识别文件扩展名
+          });
+          this.fileRef.nativeElement.value = null;
+          return
+        }
+      }
+      //
+      if (this.accept.mimeTypes) {
+        let _mime = new RegExp(this.accept.mimeTypes).test(blob.type);
+        if (!_mime) {
+          this.eventError.emit({
+            type: 3,
+            message: '文件格式不对！'  // 未识别的文件类型
+          });
+          this.fileRef.nativeElement.value = null;
+          return
+        }
+      }
+      ///////
+      if (this.accept.size) {
+        if (blob.type.indexOf('image') != -1) {
+          let {width, height} = await this.image(blob);
+          let _wh = width + 'X' + height;
+          // let _wh = this.accept.size[0] == width && this.accept.size[1] == height;
+          if (this.accept.size.indexOf(_wh) === -1) {
+            this.eventError.emit({
+              type: 4,
+              message: '图片尺寸不匹配！'
+            });
+            this.fileRef.nativeElement.value = null;
+            return
+          }
+        }
+
+        if (blob.type.indexOf('video') != -1) {
+          let {width, height, duration} = await this.video(blob);
+          let _wh = this.accept.size[0] == width && this.accept.size[1] == height;
+
+          let _duration = this.accept.duration >= Math.floor(duration)
+
+          if (!_duration) {
+            this.eventError.emit({
+              type: 5,
+              message: `视频时长不匹配！当前${Math.floor(duration)}s`
+            });
+            this.fileRef.nativeElement.value = null;
+            return
+          }
+
+          if (!_wh) {
+            this.eventError.emit({
+              type: 6,
+              message: '视频尺寸不匹配！'
+            });
+            this.fileRef.nativeElement.value = null;
+            return
+          }
+        }
+      }
+    }
+
     if (this.slice) {
       if (this.multiple) {
         for (let i = 0; i < file.files.length; i++) {
@@ -138,94 +225,7 @@ export class FileUploadComponent implements OnDestroy {
         this.eventChange.emit(file.files);
       } else {
         console.log('上传单个文件')
-        if (this.accept) {
-          console.log(this.accept)
-          let blob = file.files[0];
-          console.log(blob)
-          /////
-          if (this.accept.maxSize) {
-            let _size = blob.size > this.accept.maxSize * this.getByte();
-            if (_size) {
-              this.eventError.emit({
-                type: 1,
-                message: '文件过大！'
-              });
-              this.fileRef.nativeElement.value = null;
-              return
-            }
-          }
-          //////
-          console.log(this.accept.extensions)
-          if (this.accept.extensions) {
-            console.log(this.accept.extensions)
-            console.log('jinlai')
-            let suffix = blob.name.substr(blob.name.lastIndexOf('.') + 1);
-            let _suffix = !!~this.accept.extensions.indexOf(suffix);
-            if (!_suffix) {
-              this.eventError.emit({
-                type: 2,
-                message: '文件格式不对！'  // 未识别文件扩展名
-              });
-              this.fileRef.nativeElement.value = null;
-              return
-            }
-          }
-          //
-          if (this.accept.mimeTypes) {
-            let _mime = new RegExp(this.accept.mimeTypes).test(blob.type);
-            if (!_mime) {
-              this.eventError.emit({
-                type: 3,
-                message: '文件格式不对！'  // 未识别的文件类型
-              });
-              this.fileRef.nativeElement.value = null;
-              return
-            }
-          }
-          ///////
-          if (this.accept.size) {
-            if (blob.type.indexOf('image') != -1) {
-              let {width, height} = await this.image(blob);
-              let _wh = width + 'X' + height;
-              // let _wh = this.accept.size[0] == width && this.accept.size[1] == height;
-              if (this.accept.size.indexOf(_wh) === -1) {
-                this.eventError.emit({
-                  type: 4,
-                  message: '图片尺寸不匹配！'
-                });
-                this.fileRef.nativeElement.value = null;
-                return
-              }
-            }
 
-            if (blob.type.indexOf('video') != -1) {
-              let {width, height, duration} = await this.video(blob);
-              let _wh = this.accept.size[0] == width && this.accept.size[1] == height;
-
-              let _duration = this.accept.duration >= Math.floor(duration)
-
-              if (!_duration) {
-                this.eventError.emit({
-                  type: 5,
-                  message: `视频时长不匹配！当前${Math.floor(duration)}s`
-                });
-                this.fileRef.nativeElement.value = null;
-                return
-              }
-
-              if (!_wh) {
-                this.eventError.emit({
-                  type: 6,
-                  message: '视频尺寸不匹配！'
-                });
-                this.fileRef.nativeElement.value = null;
-                return
-              }
-
-            }
-
-          }
-        }
         this.eventChange.emit(file.files);
         this.fileRef.nativeElement.value = null;
       }

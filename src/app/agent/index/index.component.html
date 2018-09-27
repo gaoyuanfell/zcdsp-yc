@@ -66,7 +66,7 @@
           <div class="img"><img src="assets/img/indexbaog.png" alt=""></div>
           <div class="right">
             <p>总曝光量</p>
-            <h1>{{charts?.pv | numberFormat }}</h1>
+            <h1 [title]="charts?.pv | number:'1.2-2' || 0">{{charts?.pv | numberFormat:'1.2-2' }}</h1>
           </div>
         </div>
         <div class="echart" #todayAllSpendChartSmall>
@@ -82,7 +82,7 @@
           <div class="img"><img src="assets/img/indexdianj.png" alt=""></div>
           <div class="right">
             <p>总点击量</p>
-            <h1>{{charts?.click | numberFormat }}</h1>
+            <h1 [title]="charts?.pv | number:'1.2-2' || 0">{{charts?.click | numberFormat:'1.2-2' }}</h1>
           </div>
         </div>
         <div class="echart" #todayAllSpendChartLine>
@@ -272,14 +272,14 @@
             <div class="item" *ngFor="let media of media_flow_top5;let index = index">
               <p>NO.{{index + 1}}</p>
               <p>{{media.media_name}}</p>
-              <p>{{media.request_num / 10000000 | number:'1.0-0'}}千万</p>
+              <p [title]="media.request_num | number:'1.2-2' || 0">{{media.request_num | numberFormat:'1.2-2'}}</p>
             </div>
           </div>
           <div class="media-left">
             <div class="item" *ngFor="let media of media_flow_top5;">
               <span class="spot" [ngStyle]="{'background-color': media.color}"></span>
               <span>{{media.media_name}}</span>
-              <span>{{media.request_num / 10000000 | number:'1.0-0'}}千万</span>
+              <span [title]="media.request_num | number:'1.2-2' || 0">{{media.request_num | numberFormat:'1.2-2'}}</span>
             </div>
           </div>
         </div>

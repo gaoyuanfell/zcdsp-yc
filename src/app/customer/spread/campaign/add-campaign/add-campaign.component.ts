@@ -132,6 +132,12 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     // delete this.campaign.app_description;
     // delete this.campaign.app_size;
     // delete this.campaign.app_version;
+
+    this._valid = false;
+    if(this.directionalType === '1' && this._nextStepNum == 1){
+      this._nextStepNum = 0;
+    }
+
   }
 
   _landingChange() {
@@ -612,7 +618,16 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
 
   _nextStep() {
     if (this.valid()) return;
-    this._directionalService.directionalRecommend().subscribe(res => {
+
+    let body: any = {
+      campaign: {...this.campaign}
+    };
+
+    let show_hours = body.campaign.show_hours;
+    delete body.campaign.show_hours;
+    body.show_hours = show_hours;
+
+    this._directionalService.directionalRecommend(body).subscribe(res => {
       this.directionalSmart = res.result;
       this.directional = {...this.directionalSmart};
       this.directionalType = '1';

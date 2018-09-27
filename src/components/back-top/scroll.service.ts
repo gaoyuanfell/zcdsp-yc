@@ -36,6 +36,18 @@ export class ScrollService {
     }
   }
 
+  /**
+   *
+   * @param {Element | Window} el
+   * @param {HTMLElement} element
+   */
+  setScrollTopByElement(el: Element | Window, element: HTMLElement): void {
+    this.scrollTo(el, {
+      left: element.offsetLeft,
+      top: element.offsetTop
+    })
+  }
+
   /** 获取 `el` 相对于视窗距离 */
   getOffset(el: Element): { top: number, left: number } {
     const ret = {
