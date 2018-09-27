@@ -133,7 +133,7 @@
       <div class="form-group flex-center">
         <label class="form-label"><span>*</span>apk上传:</label>
         <div class="form-input flex-center">
-          <div [disabled]="!can_modify" yc-file-upload [accept]="{extensions: ['apk']}" class="btn btn-outline" [slice]="true" [auto]="false"
+          <div [disabled]="!can_modify" yc-file-upload (eventError)="apkEventError($event)" [accept]="{extensions: ['apk']}" class="btn btn-outline" [slice]="true" [auto]="false"
                [sliceSize]="10" (eventChange)="uploadParseApk($event)">点击上传
           </div>
           <p class="m-l-1" *ngIf="can_modify">点击上传文件包，自动获取或手动填写以下信息，无法解析？ <a href="https://f2.adpush.cn/platform/1482116942716.zip">点击下载工具。</a></p>

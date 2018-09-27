@@ -189,6 +189,10 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     });
   }
 
+  apkEventError(result){
+    this._notification.warning('警告', result.message)
+  }
+
   setAppInfo(result) {
     this.campaign.app_name = result.app_name;
     this.campaign.app_description = result.description;
