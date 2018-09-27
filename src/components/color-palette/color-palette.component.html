@@ -19,7 +19,6 @@
   </div>
 
   <div class="palette-value">
-    <p>{{value | json}}</p>
     <div class="flex-center-between">
       <input type="text" (input)="changeColor()" [(ngModel)]="value.r" style="width: 40px;height: 25px;border: 1px solid #ccc;margin: 0 5px;color: #aaa;text-align: center;">
       <input type="text" (input)="changeColor()" [(ngModel)]="value.g" style="width: 40px;height: 25px;border: 1px solid #ccc;margin: 0 5px;color: #aaa;text-align: center;">

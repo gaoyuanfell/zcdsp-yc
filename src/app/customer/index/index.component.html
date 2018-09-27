@@ -377,14 +377,14 @@
             <div class="item" *ngFor="let media of media_flow_top5;let index = index">
               <p>NO.{{index + 1}}</p>
               <p>{{media.media_name}}</p>
-              <p>{{media.request_num / 10000000 | number:'1.0-0'}}千万</p>
+              <p [title]="media.request_num">{{media.request_num | numberFormat:'1.2-2'}}</p>
             </div>
           </div>
           <div class="media-left">
             <div class="item" *ngFor="let media of media_flow_top5;">
               <span class="spot" [ngStyle]="{'background-color': media.color}"></span>
               <span>{{media.media_name}}</span>
-              <span>{{media.request_num / 10000000 | number:'1.0-0'}}千万</span>
+              <span [title]="media.request_num">{{media.request_num | numberFormat:'1.2-2'}}</span>
             </div>
           </div>
         </div>

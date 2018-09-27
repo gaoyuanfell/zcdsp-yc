@@ -18,11 +18,11 @@ export class SafeCenterComponent implements OnInit {
 
   }
 
-  verifyCode() {
+  verifyCode(a) {
 
   }
 
-  setInvalidClass() {
+  setInvalidClass(a,b) {
 
   }
 

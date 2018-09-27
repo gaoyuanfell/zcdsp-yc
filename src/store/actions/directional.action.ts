@@ -16,6 +16,7 @@ export enum DirectionalActionTypes {
 
   LBS_CITY_MAP_PUSH = '[DIRECTIONAL] LBS_CITY_MAP_PUSH',  // 定义好了
   LBS_CITY_MAP_REMOVE = '[DIRECTIONAL] LBS_CITY_MAP_REMOVE',
+  LBS_CITY_MAP_REMOVE_ALL = '[DIRECTIONAL] LBS_CITY_MAP_REMOVE_ALL',
 
   CHECK_AUDIENCES_CHANGE = '[DIRECTIONAL] CHECK_AUDIENCES_CHANGE',
   REMOVE_ALL_AUDIENCES = '[DIRECTIONAL] REMOVE_ALL_AUDIENCES',
@@ -100,12 +101,17 @@ export class LbsCityMapPush implements Action {
   }
 }
 
-// LBS 地图数据添加 LBS_CITY_MAP_PUSH
+// LBS 地图数据移除
 export class LbsCityMapRemove implements Action {
   readonly type = DirectionalActionTypes.LBS_CITY_MAP_REMOVE;
 
   constructor(public payload: any) {
   }
+}
+
+// 移除所有地图数据
+export class LbsCityMapRemoveAll implements Action {
+  readonly type = DirectionalActionTypes.LBS_CITY_MAP_REMOVE_ALL;
 }
 
 // --------------------Areas----------------------- //
@@ -303,6 +309,7 @@ export type DirectionalActionUnion
   | LbsCityAssign
   | LbsCityMapPush
   | LbsCityMapRemove
+  | LbsCityMapRemoveAll
   | LbsCityInit
   | AudiencesActionAssign
   | AudiencesActionAssign2

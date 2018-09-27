@@ -198,14 +198,17 @@ export function directionalReducer(state: DirectionalState = initState, action: 
       // if (!!~index) {
       //   state.lbsCityMapResult.splice(index, 1);
       // }
-      state.lbsCityMapResult.filter((item,index) => {
+      state.lbsCityMapResult.forEach((item,index) => {
         if(action.payload.id_random == item.id_random) {
           state.lbsCityMapResult.splice(index,1)
         }
       })
       return {...state};
     }
-
+    case DirectionalActionTypes.LBS_CITY_MAP_REMOVE_ALL:{
+      state.lbsCityMapResult = []
+      return {...state};
+    }
     /////// ----------- audiencesAction ----------- /////////
 
     case DirectionalActionTypes.AUDIENCES_ACTION_NEXT_CHILD: {
