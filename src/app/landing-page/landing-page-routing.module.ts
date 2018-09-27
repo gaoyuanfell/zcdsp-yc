@@ -10,8 +10,6 @@ const routes: Routes = [
   {
     path: '',
     component: LandingPageComponent,
-    canActivate: [TokenGuard],
-    resolve: {auth: CurrentResolverService},
     children: routeList,
   },
 ];

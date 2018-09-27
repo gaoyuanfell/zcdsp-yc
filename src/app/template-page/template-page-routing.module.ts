@@ -18,8 +18,6 @@ const routes: Routes = [
   {
     path: 'system',
     component: TemplatePageComponent,
-    canActivate: [TokenGuard],
-    resolve: {auth: CurrentResolverService},
     children: routeList,
     data: {system: 'Y'}
   },
