@@ -55,7 +55,6 @@ export class RechargeComponent implements OnInit {
   };
 
   search() {
-    console.log('jajaj')
     if (this.recharge_type) {
       this.query.recharge_type = this.recharge_type.join(',');
     } else {

@@ -212,7 +212,7 @@ export class MapDirective implements OnInit {
           position: marker.getPosition()  // 标注点的位置是唯一的，但是你点击标注点产生的位置不是唯一的，因为这个标注是有
         });
         this.infoWindow.on('open', () => {   // 事件 先注册  再调用这个方法  顺序呀
-          console.log('窗口打开');
+
         });
         this.infoWindow.open(this.map);
 
@@ -337,7 +337,6 @@ export class MapDirective implements OnInit {
       input: this.searchMap
     };
     let auto = new AMap.Autocomplete(autoOptions);
-    console.info(auto);
     let placeSearch = new AMap.PlaceSearch({
       map: this.map
     });
@@ -349,8 +348,6 @@ export class MapDirective implements OnInit {
     // })
 
     AMap.event.addListener(auto, 'select', (event) => {
-      console.log(event);
-      console.log(placeSearch);
       if (event.poi.location) {
         let {lng, lat} = event.poi.location;
         this.addMarkerClick({lng, lat});

@@ -371,14 +371,11 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     });
 
     this.LbsCityMapResult$$ = this.LbsCityMapResult$.subscribe(data => {
-      console.info(data)
       this.lbsCityMapResult = data;
       if (!data) return;
       if (this.areasHaveResult) this.areasShow = true;
 
       this.resultData.dtl_address.lbs = this.resultData.dtl_address.lbs.filter(lbs => lbs.type_id)
-
-      console.info(this.resultData.dtl_address.lbs)
 
       let lbs = data.map(ar => ({id: ar.id_random, name: ar.name, coords: JSON.stringify(ar.coords), type_id: ar.type_id}));
       lbs.forEach(l => {
@@ -458,12 +455,9 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   lbsCityType;
   echo = (value) => {};   // 回显字段
   toChild(value) {  // 回显事件
-    console.log(value)
     this.echo(value);
   }
   echoFunction( $event) {
-    console.log('通过注册把方法暴露出来')
-    console.log($event)
     this.echo = $event;
   }
   arrList = [];

@@ -189,7 +189,6 @@ export class CreativeComponent implements OnInit {
           show_hours: [],
         };
         this._dialog.open(this.update_show_hours_ref, { title: '修改投放小时', async: true }).subscribe(data => {
-          console.log(data);
           if (data) {
             let flag = this.update_show_hours_data.show_hours.some(item => !!item);
             if (!flag) {
@@ -306,7 +305,6 @@ export class CreativeComponent implements OnInit {
     this.batchUpdateMenu = obj['jurisdiction_list']['ZCMOBI_ADS_SPREAD_CREATIVE_BATCH'] ? obj['jurisdiction_list']['ZCMOBI_ADS_SPREAD_CREATIVE_BATCH']['child'].map(item => {
       return { value: item.route, label: item.name };
     }) : [];
-    console.log(this.batchUpdateMenu);
     let queryParams = this.route.snapshot.queryParams;
     if (queryParams.campaign_id) {
       this.query.campaign_id = queryParams.campaign_id;
@@ -389,8 +387,6 @@ export class CreativeDetailComponent implements OnInit, OnDestroy {
   @ViewChild('chartData') chartDataRef: ElementRef
 
   constructor(@Inject(YC_SIDEBAR_DATA) private data: any, private changeDetectorRef: ChangeDetectorRef,private _creativeService: CreativeService) {
-    console.info(data)
-
     this.elements = data.creative.material_elements;
     this.elements.is_dynamic_words = data.creative.is_dynamic_words;
     this.elements.creative_name = data.creative.creative_name;
@@ -422,7 +418,6 @@ export class CreativeDetailComponent implements OnInit, OnDestroy {
   endData;
 
   startListChange() {
-    console.info(this.startData);
     this.endList = Array.from({length: 24}).map((a, b) => {
       let data = {label: b, value: b, disabled: false};
       if (this.startData > b) {
@@ -435,7 +430,6 @@ export class CreativeDetailComponent implements OnInit, OnDestroy {
   save(){
 
     let elements = this.elementList[0];
-    console.log(this.elementList)
     if (!elements) return
 
     let element_data: any = {
@@ -487,8 +481,6 @@ export class CreativeDetailComponent implements OnInit, OnDestroy {
       this.edit = false;
       this.changeDetectorRef.markForCheck();
     })
-
-    console.info(body);
   }
 
   changeDayTotalList(chartDatas){

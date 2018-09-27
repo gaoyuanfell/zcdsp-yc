@@ -143,7 +143,6 @@ export class BoardComponent implements OnInit, OnDestroy {
   scrollTop(name) {
     this.hash = name;
     this.containerFullRef.nativeElement.scrollTop = document.getElementById(name).offsetTop - 80;
-    console.info(name);
     if (name === 'home') {
       (<HTMLDivElement>this.containerFullRef.nativeElement).scrollTop = 0;
       // this.containerFullRef.nativeElement.scrollTo({top: 0})

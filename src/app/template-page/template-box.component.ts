@@ -127,7 +127,6 @@ export class TemplateBoxComponent implements OnInit {
 
   @HostListener('dragstart', ['$event'])
   dragstart(event) {
-    console.info(event.target.id)
     this.dragIdEvent.emit({
       id: event.target.id,
       y: event.y

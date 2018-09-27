@@ -15,12 +15,10 @@ export class EchartsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // ngOnchange
   @Input() set setOptionKey(value) {
-    console.log('孩子set setOptionKey')
     this._setOptionKey = value;
   }
 
   ngOnInit() {
-    console.log('孩子ngOnInit')
     this.chart();
     this.chartInstance.setOption(
       this._setOptionKey
@@ -36,7 +34,6 @@ export class EchartsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    console.log('孩子ngAfterViewInit')
     // this.chart();
     // this.chartInstance.setOption(
     //   this._setOptionKey
@@ -44,7 +41,6 @@ export class EchartsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('孩子ngOnDestroy')
   }
 
   chart() {

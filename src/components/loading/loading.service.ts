@@ -48,7 +48,6 @@ export class Loading {
     this.cache.shift();
     if (this.cache.length === 0) {
       this.popup.detach();
-      console.info('close')
       this._container.close();
     }
   }

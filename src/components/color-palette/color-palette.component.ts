@@ -321,10 +321,6 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
 
   changeColor(){
     let {r, g, b, a} = this.value;
-    console.info(r)
-    console.info(g)
-    console.info(b)
-    console.info(a)
     this.changeEvent.emit(`rgba(${r},${g},${b},${a})`)
   }
 

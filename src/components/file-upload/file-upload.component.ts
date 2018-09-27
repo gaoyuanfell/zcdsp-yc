@@ -97,15 +97,11 @@ export class FileUploadComponent implements OnDestroy {
   }
 
   async change(file) {
-    console.log('上传文件拉')
-    console.log(file)
     this.subject = new Subject<any>();
     this.cacheFiles = [];
 
     if (this.accept) {
-      console.log(this.accept)
       let blob = file.files[0];
-      console.log(blob)
       /////
       if (this.accept.maxSize) {
         let _size = blob.size > this.accept.maxSize * this.getByte();
@@ -119,10 +115,7 @@ export class FileUploadComponent implements OnDestroy {
         }
       }
       //////
-      console.log(this.accept.extensions)
       if (this.accept.extensions) {
-        console.log(this.accept.extensions)
-        console.log('jinlai')
         let suffix = blob.name.substr(blob.name.lastIndexOf('.') + 1);
         let _suffix = !!~this.accept.extensions.indexOf(suffix);
         if (!_suffix) {
@@ -224,8 +217,6 @@ export class FileUploadComponent implements OnDestroy {
       if (this.multiple) {
         this.eventChange.emit(file.files);
       } else {
-        console.log('上传单个文件')
-
         this.eventChange.emit(file.files);
         this.fileRef.nativeElement.value = null;
       }

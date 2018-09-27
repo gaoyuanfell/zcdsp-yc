@@ -167,7 +167,6 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor, Vali
       if (!!~item[this._props.label].indexOf(this._value)) item[this._props.hide] = false;
     });
     let length = this.list.filter(item => !item.hide).length
-    console.info(length)
     if(length){
       this.open()
 

@@ -421,7 +421,6 @@ export class AddCreativeComponent implements OnInit {
     this._directionalService.directionalNeedAudiences({
       media_material_id: media_material_id
     }).subscribe(res => {
-      console.info(res.result);
       recursionChild({children: res.result}).then(result => {
         this.store.dispatch(new directionalAction.AudiencesAppAssign(result));
         this.changeDetectorRef.markForCheck();

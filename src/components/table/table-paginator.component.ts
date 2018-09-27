@@ -155,7 +155,6 @@ export class TablePaginatorComponent {
   }
 
   go(number) {
-    console.log(number);
     this.query[this._props.page_index] = number;
     this.pageList = this.getPageList(this.pageNum, this.totalPage, this.query[this._props.page_index]);
     this.changeEvent.next(this._query);

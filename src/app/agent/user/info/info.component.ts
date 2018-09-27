@@ -96,7 +96,6 @@ export class InfoComponent implements OnInit {
         })
         this.logo_tem = URL.createObjectURL(files_copy);
       } else {
-        console.log('hahha ')
         this._agentUserService.imgQualification(obj).subscribe(res => {
           body['url'] = res.result.filePath;
         })

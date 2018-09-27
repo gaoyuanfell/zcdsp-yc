@@ -84,8 +84,6 @@ export class ColorPaletteDirective implements ControlValueAccessor {
       this.componentRef = this.popup.attach(this.portal);
       this.componentRef.instance.changeEvent.subscribe(data => {
         this.value = data
-
-        console.info(data)
         this.changeEvent.emit(data)
         this.onChange(data);
       })

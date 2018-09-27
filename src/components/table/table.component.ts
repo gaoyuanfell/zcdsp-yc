@@ -95,7 +95,6 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
   }
 
   @ContentChild('overflowRef') set overflowRef(val: TableOverflowComponent) {
-    console.info(val)
     this._overflowRef = val;
   }
 

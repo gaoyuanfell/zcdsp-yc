@@ -68,7 +68,6 @@ export class RemindComponent implements OnInit {
   // 总开关关闭：下面的不能打开
 
   changeCheckbox() {
-    console.log(this.is_all)
     this.tableList.forEach((item) => {
       item.is_active = this.is_all;
     })

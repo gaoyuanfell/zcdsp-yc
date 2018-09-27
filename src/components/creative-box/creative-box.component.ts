@@ -224,7 +224,6 @@ export class CreativeBoxComponent implements OnInit, ControlValueAccessor {
    * @param values
    */
   private setValueFun(values) {
-    console.info(values)
     values.forEach(value => {
       let element = JSON.parse(JSON.stringify(this.element));
       element.data_list.forEach((dl, dli) => {

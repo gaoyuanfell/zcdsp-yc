@@ -93,7 +93,6 @@ export class TemplatePageComponent implements OnInit {
       }
       case 'button': {
         let componentRef = componentBoxRef.instance.createComponent<ButtonComponent>(ButtonComponent)
-        console.info(configure)
         if (configure) {
           componentRef.instance.configure = configure
         } else {

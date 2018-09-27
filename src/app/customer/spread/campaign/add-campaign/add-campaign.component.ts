@@ -632,9 +632,13 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     body.show_hours = show_hours;
 
     this._directionalService.directionalRecommend(body).subscribe(res => {
-      this.directionalSmart = res.result;
-      this.directional = {...this.directionalSmart};
-      this.directionalType = '1';
+      if(res.result){
+        this.directionalSmart = res.result;
+        this.directional = {...this.directionalSmart};
+        this.directionalType = '1';
+      }else{
+        this.directionalType = '2';
+      }
       this._nextStepNum = 1;
       this.changeDetectorRef.markForCheck();
       setTimeout(() => {

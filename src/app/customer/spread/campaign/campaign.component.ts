@@ -211,7 +211,6 @@ export class CampaignComponent implements OnInit {
   _valid;
   admoneyTotal; // 所选活动总共的花费
   batchUpdate(type) {
-    console.info(this.table)
     let list = this.table.selectData.map(d => d.campaign_id);
     if (!list.length) {
       this._notification.warning('批量修改！', '请至少选择一条活动');
@@ -514,7 +513,6 @@ export class CampaignDetailComponent implements OnInit, OnDestroy {
   endData;
 
   startListChange() {
-    console.info(this.startData);
     this.endList = Array.from({length: 24}).map((a, b) => {
       let data = {label: b, value: b, disabled: false};
       if (this.startData > b) {

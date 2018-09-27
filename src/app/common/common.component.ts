@@ -34,7 +34,7 @@ export class BaseIndexComponent implements OnInit{
   ) { }
 
   ngOnInit() {
-   console.log('这边的ngOnInit打印不出来')
+
   }
   _new_user_flag = true;   // 点击关闭后，弹框消失，但是不能改变new_user这个值呀！
   get new_user() {
@@ -737,7 +737,6 @@ export class BaseIndexComponent implements OnInit{
    * @param type
    */
   changeDayTotalChart(echartsInstance, data, type, date) {  // echarts 表单数组
-    console.log(data)
     let suffix;
     let d = data.y[type];
     let max;
@@ -1382,8 +1381,6 @@ export class BaseIndexComponent implements OnInit{
        }
      )
    })
-    console.log(list)
-
     obj = {
       'first': list.slice(0,8),
       'second': list.slice(8,16),
