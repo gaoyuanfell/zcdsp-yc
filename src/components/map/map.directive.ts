@@ -18,7 +18,8 @@ export class MapDirective implements OnInit {
   arr = [];
   marker_only;  // 唯一删除
   marker = [];
-  @Input('searchMap') searchMap;
+  infoWindow;
+  @Input('searchMap')  searchMap;
   @Output('pushCoordinate') pushCoordinate = new EventEmitter<any>();
   @Output('removeCoordinate') removeCoordinate = new EventEmitter<any>();
   @Output('registerEcho') registerEcho = new EventEmitter<any>();
@@ -78,14 +79,12 @@ export class MapDirective implements OnInit {
             position: marker[0].getPosition()
           });
           this.infoWindow.open(this.map);
-          // // 关闭详情窗口的时候触发
-          this.infoWindow.on('close', () => {   // 这边貌似只能这样拉
-            // 后执行的
-            marker[0].else_circle.hide();   // 继承的方法？
-            marker[0].else_circleEditor.close(); // 编辑半径
-          });
+          this.infoWindow.on('close', () => {
+            marker[0].else_circle.hide();
+            marker[0].else_circleEditor.close();
+          })
           marker[0].else_circle.show();
-          marker[0].else_circleEditor.open(); // 编辑半径
+          marker[0].else_circleEditor.open();
 
         });
       }
@@ -96,23 +95,26 @@ export class MapDirective implements OnInit {
   @Input('markerList') set markerList(value) {
     value.subscribe(data => {
       this.marker = data;
-    });
-    // this.marker = value;
+    })
   }
 
   ngOnInit(): void {
-    console.log('切换之间');
     loadScript(`//webapi.amap.com/maps?v=1.4.8&key=${this.key}&plugin=AMap.Autocomplete,AMap.PlaceSearch,AMap.PolyEditor,AMap.CircleEditor`).then(() => {
       AMap.plugin('AMap.Geocoder');
+
+
       this.map = new AMap.Map(this.ref.nativeElement, {
         resizeEnable: true,
-        center: [121.340121, 31.196178],  // 中心点是要改变的
+        center: [121.340121,31.196178],
         zoom: 11
       });
-      console.info(this.map)
+
+
       // 创建右键菜单
       this.contextMenu = new AMap.ContextMenu();
-      this.contextMenu.addItem('删除标记', (e) => { // 右键删除
+
+      // 右键删除
+      this.contextMenu.addItem('删除标记', (e) => {
         let marker = this.marker_only[0];
         this.markerCache.filter((item, index) => {
           if (item.getId() === marker.getId()) {
@@ -121,7 +123,7 @@ export class MapDirective implements OnInit {
         });
         if (marker) {
           let {lng, lat} = marker.getPosition();
-          this.removeCoordinate.emit({   // 实时校验
+          this.removeCoordinate.emit({
             coords: {
               longitude: lng,
               latitude: lat,
@@ -137,7 +139,7 @@ export class MapDirective implements OnInit {
       }, 0);
 
 
-      // 添加标注的时候画圈圈  添加标注的时候默认是半径30
+      // 添加标注
       this.map.on('click', (event) => {
         let {lng, lat} = event.lnglat;
         this.addMarkerClick({lng, lat});
@@ -155,7 +157,7 @@ export class MapDirective implements OnInit {
         });
       }
 
-      // 不管地图存在否 这个方法都可以  不用反断是否有值
+      // 不管地图存在否 这个方法都可以
       this.registerDel.emit(this.del.bind(this));
       this.registerEcho.emit(this.echo.bind(this));  // 把这个方法发射出去了
       this.registerRemoveMapResult.emit(this.removeMapResult.bind(this));
@@ -189,14 +191,12 @@ export class MapDirective implements OnInit {
       marker.id_random = obj.id_random;
     });
     let marker = this.addMarker({lng, lat});  // 添加标注事件
-    let radius = 30;  // {}  不能出现常量
-    this.markerClickEvent(this.contextMenu, {lng, lat, radius}, marker);
+    let radius = 30;
+    this.markerClickEvent(this.contextMenu, ({lng, lat, radius}), marker);
   }
 
 
   // 全局围绕marker
-
-  infoWindow;
 
   markerClickEvent(contextMenu, lnglat, marker?) {
     let {lng, lat, radius, id_random} = lnglat;
@@ -313,8 +313,8 @@ export class MapDirective implements OnInit {
           name: result.regeocode.formattedAddress,
         });
       });
+    })
 
-    });
   }
 
 
@@ -323,7 +323,7 @@ export class MapDirective implements OnInit {
       let geocoder = new AMap.Geocoder();
       geocoder.getAddress(lnglat, (status, result) => {
         if (status === 'complete' && result.info === 'OK') {
-          resolve(result);  // 状态回来 不可改变
+          resolve(result);
         }
       });
     });
@@ -331,22 +331,22 @@ export class MapDirective implements OnInit {
 
 
   // 搜索框
-  init() {
-    let autoOptions = {
-      input: this.searchMap
-    };
-    let auto = new AMap.Autocomplete(autoOptions);
-    let placeSearch = new AMap.PlaceSearch({
-      map: this.map
-    });  //构造地点查询类
-    AMap.event.addListener(auto, 'select', (event) => {
-      if (event.poi.location) {   // 找具体的点
-        let {lng, lat} = event.poi.location;
-        this.addMarkerClick({lng, lat});
-        this.map.setFitView();
-      }
-    });  //注册监听，当选中某条记录时会触发
-  }
+ init() {
+   let autoOptions = {
+     input: this.searchMap
+   };
+   let auto = new AMap.Autocomplete(autoOptions);
+   let placeSearch = new AMap.PlaceSearch({
+     map: this.map
+   });  //构造地点查询类
+   AMap.event.addListener(auto, "select", (event)=> {
+     if (event.poi.location) {
+       let {lng, lat} = event.poi.location;
+       this.addMarkerClick({lng, lat})
+       this.map.setFitView();
+     }
+   })  //注册监听，当选中某条记录时会触发
+ }
 
 
   // else 开头的是我自己给对象添加的属性
