@@ -132,6 +132,12 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     // delete this.campaign.app_description;
     // delete this.campaign.app_size;
     // delete this.campaign.app_version;
+
+    this._valid = false;
+    if(this.directionalType === '1' && this._nextStepNum == 1){
+      this._nextStepNum = 0;
+    }
+
   }
 
   _landingChange() {
