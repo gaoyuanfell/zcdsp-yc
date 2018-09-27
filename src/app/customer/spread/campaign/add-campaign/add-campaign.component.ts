@@ -634,10 +634,9 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     this._scrollService.scrollTo(this.containerFullRef, {top:0})
   }
 
-  ngOnInit() {
 
-    window.addEventListener('storage',  (e) => {
-      console.info(e)
+  storageEvent(event){
+    if (event.newValue === 'templateList') {
       this._templateService.landingSelect().subscribe(res => {
         this.templateList = res.result.map(item => {
           return {
@@ -647,7 +646,12 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
           };
         });
       });
-    });
+    }
+  }
+
+  ngOnInit() {
+
+    window.addEventListener('storage',  this.storageEvent);
 
     this.bid_min = this._global.bid_min;
     this.bid_max = this._global.bid_max;
@@ -716,6 +720,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._appIdSubject.unsubscribe();
+    window.removeEventListener('storage',this.storageEvent)
   }
 
   flag = true;
