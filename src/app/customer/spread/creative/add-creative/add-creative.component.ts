@@ -583,7 +583,8 @@ export class AddCreativeComponent implements OnInit {
           this.elementList.length = 0;
           this.addCreative();
           this.changeDetectorRef.markForCheck();
-          this._scrollService.scrollTo(this._global.containerFullRef, {top: this.toufangmeiti.nativeElement.offsetTop - this.toufangmeiti.nativeElement.clientHeight});
+          this._scrollService.setScrollTopByElement(this._global.containerFullRef, this.document.getElementById('toufangmeiti'))
+          // this._scrollService.scrollTo(this._global.containerFullRef, {top: this.toufangmeiti.nativeElement.offsetTop - this.toufangmeiti.nativeElement.clientHeight});
         } else {
           this.router.navigate(['/ads/spread/creative']);
         }
