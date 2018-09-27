@@ -130,8 +130,10 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
 
   removeMapResult = () =>{};
   checkLbsCityChange(value) {
-    this.removeMapResult()
-    this.store.dispatch(new directionalAction.LbsCityMapRemoveAll());
+    if (!value) {
+      this.removeMapResult();
+      this.store.dispatch(new directionalAction.LbsCityMapRemoveAll());
+    }
     this.store.dispatch(new directionalAction.CheckLbsCityChange(value));
   }
 

@@ -278,6 +278,10 @@ export class MapDirective implements OnInit {
 
   }
 
+  circleFun() {
+    let editor: any = {};
+  }
+
   /**
    * 增加标注后 发射到父亲
    * */
