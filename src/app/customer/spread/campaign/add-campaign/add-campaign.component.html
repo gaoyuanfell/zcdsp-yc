@@ -273,7 +273,7 @@
     <div class="form-group flex-center">
       <label class="form-label"><span>*</span>投放频次:</label>
       <div class="form-input">
-        <yc-select [width]="380" placeholder="请选择频次" [(ngModel)]="campaign.frequency" [list]="frequencyList"></yc-select>
+        <yc-select [width]="380" [allowClear]="true" placeholder="请选择频次" [(ngModel)]="campaign.frequency" [list]="frequencyList"></yc-select>
       </div>
       <!--<p class="m-l-1 form-label-text">每个广告项目在每天对每个用户展示的次数，建议3~5次。</p>-->
       <i class="zcdsp-icon input-text" yc-tooltip [ycContent]="'每个广告项目在每天对每个用户展示的次数，建议3~5次。'">&#xe622;</i>
