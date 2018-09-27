@@ -257,6 +257,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
       // this._scrollService.scrollTo(this.containerFullRef, {top: 0});
       return true;
     }
+
     if (this.campaign.show_time_type === '1') {
       let flag = this.campaign.show_hours.some(item => !!item);
       if (!flag) {  // 当用户选择时间段没有选择某一格的时候，提示用户
@@ -388,7 +389,8 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
 
     this._valid2 = true;
     if (this._isNumber(this.campaign.ad_price) || !this.campaign.ad_price || this.campaign.ad_price > this.bid_max || this.campaign.ad_price < this.bid_min) {
-      return true;
+        this._scrollService.setScrollTopByElement( this.containerFullRef, document.getElementById('chujia'))
+        return true;
     }
     let body: any = {
       campaign: {...this.campaign}
