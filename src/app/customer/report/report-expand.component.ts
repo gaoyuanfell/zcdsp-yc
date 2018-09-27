@@ -26,7 +26,6 @@ import {ReportService} from '../../../service/customer/report.service';
       }
 
       .chart-box > .tool {
-        z-index: 200;
         top: 20px;
         right: 10px;
         position:absolute;

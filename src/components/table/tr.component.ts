@@ -61,6 +61,12 @@ export class TrComponent implements AfterViewInit{
 
   trigger() {
     if (!this.expand) return;
+    this.tbodyComponent.trList.filter(tr => !tr.expand && tr.active).forEach(tr => {
+      if(this.expand === tr) return
+      tr.active = false;
+      tr.state = tr.active ? 'active' : 'inactive';
+      tr.show = false
+    })
     let scrollTop = this._global.containerFullRef.scrollTop
     let number = -1;
     if(scrollTop === 0){
