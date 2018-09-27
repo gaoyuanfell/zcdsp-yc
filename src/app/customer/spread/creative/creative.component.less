@@ -13,3 +13,17 @@
     height: 100%;
   }
 }
+
+.icon-img-edit{
+  opacity: 0;
+  transition: all 100ms ease;
+  &.active{
+    opacity: 1;
+  }
+}
+
+td:hover{
+  .icon-img-edit{
+    opacity: 1;
+  }
+}

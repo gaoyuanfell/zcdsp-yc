@@ -12,13 +12,17 @@
           <li><a href="javascript:;" [ngClass]="{'active': hash === 'case'}" (click)="scrollTop('case')">成功案例</a></li>
           <li><a href="javascript:;" [ngClass]="{'active': hash === 'media'}" (click)="scrollTop('media')">媒体资源</a></li>
           <li><a href="javascript:;" [ngClass]="{'active': hash === 'contact'}" (click)="scrollTop('contact')">联系我们</a></li>
+          <li><a routerLink="/help" target="_blank">帮助中心</a></li>
         </ul>
         <div class="right">
           <div class="btn-login clear">
             <a href="login.html" [routerLink]="['/login']" class="kong">登录</a>
             <a href="register.html" [routerLink]="['/register']" class="shi">立即注册</a>
           </div>
-          <span class="help"><i class="btn-help"></i>帮助中心</span>
+          <!--<span class="help"><i class="btn-help"></i>帮助中心</span>-->
+          <span class="help">
+            <a href="http://v3.zcmobi.com" target="_blank">登录智橙3.0 </a>
+          </span>
         </div>
       </div>
     </div>

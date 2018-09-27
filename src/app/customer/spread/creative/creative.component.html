@@ -60,7 +60,7 @@
         <th stickyStart width="50" [showCheckbox]="true"></th>
         <th stickyStart  class="text-center">创意ID</th>
         <th class="text-left" width="200">创意名称</th>
-        <th></th>
+        <!--<th></th>-->
         <th class="text-left">活动名称</th>
         <th class="text-left">媒体</th>
         <th class="text-right">出价</th>
@@ -83,15 +83,16 @@
           <td stickyStart> <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>{{data.creative_id}}</td>
           <td class="text-left" [width]="200" title="{{data.creative_name}}">
             <a data-link (click)="_showCreative(data)">{{data.creative_name}}</a>
+            <i class="icon-img-edit" yc-popover [ngClass]="{'active': popoverCreativeName.opened}" [template]="creativeName" #popoverCreativeName="ycPopover" (openEvent)="creative_name = data.creative_name"></i>
           </td>
-          <td>
+          <!--<td>
             <i class="icon-img-edit" yc-popover [template]="creativeName" #popoverCreativeName="ycPopover" (openEvent)="creative_name = data.creative_name"></i>
-          </td>
+          </td>-->
           <td class="text-left" (width)="100" title="{{data.campaign_name}}">{{data.campaign_name}}</td>
           <td class="text-left" (width)="100" title="{{data.media_name}}">{{data.media_name}}</td>
           <td class="text-right">
             {{data.ad_price | currencyFormat}}
-            <i class="icon-img-edit" yc-popover [template]="adPrice" #popoverAdPrice="ycPopover" (openEvent)="ad_price = data.ad_price"></i>
+            <i class="icon-img-edit" yc-popover [ngClass]="{'active': popoverAdPrice.opened}" [template]="adPrice" #popoverAdPrice="ycPopover" (openEvent)="ad_price = data.ad_price"></i>
           </td>
           <td>
             <yc-switch-input [size]="'small'" [values]="['1','2']" [(ngModel)]="data.show_state" #switchRef="switchInput" (eventChange)="updateOneShowState(data, switchRef)"></yc-switch-input>
@@ -162,7 +163,7 @@
       <tr sticky [hidden]="!(ycTable?.data?.length > 1) ">
         <td stickyStart colspan="2">全部合计</td>
         <td>-</td>
-        <td>-</td>
+        <!--<td>-</td>-->
         <td>-</td>
         <td>-</td>
         <td>-</td>

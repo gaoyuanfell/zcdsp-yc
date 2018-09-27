@@ -52,7 +52,7 @@
         <th stickyStart width="50" [showCheckbox]="true"></th>
         <th stickyStart  class="text-center">活动ID</th>
         <th stickyStart class="text-left">活动名称</th>
-        <th></th>
+        <!--<th></th>-->
         <th class="text-right">每日预算</th>
         <th class="text-right">出价</th>
         <th>操作</th>
@@ -75,18 +75,19 @@
             {{data.campaign_id}}</td>
           <td stickyStart [width]="120" [title]="data.campaign_name">
             <a data-link [routerLink]="['/ads/spread/creative']" [queryParams]="{campaign_id: data.campaign_id}">{{data.campaign_name}}</a>
+            <i class="icon-img-edit" [ngClass]="{'active': popover.opened}" style="margin-right: 3px" yc-popover [template]="campaignName" #popover="ycPopover" (openEvent)="campaign_name = data.campaign_name"></i>
           </td>
-          <td>
+          <!--<td>
             <i class="icon-img-edit" style="margin-right: 3px" yc-popover [template]="campaignName" #popover="ycPopover" (openEvent)="campaign_name = data.campaign_name"></i>
-          </td>
+          </td>-->
           <td class="text-right">
             {{data.day_budget | currencyFormat}}
-            <i style="width: 1px;margin: 0;" yc-popover [template]="dayBudget" #popoverDayBudget="ycPopover" (openEvent)="day_budget = data.day_budget;"></i>
-            <i class="icon-img-edit" (click)="popoverOpen(popoverDayBudget, data)"></i>
+            <i class="icon-img-edit" [ngClass]="{'active': popoverDayBudget.opened}" (click)="popoverOpen(popoverDayBudget, data)"></i>
+            <i style="width: 1px;height: 14px;margin: 0;display: inline-block;" yc-popover [template]="dayBudget" #popoverDayBudget="ycPopover" (openEvent)="day_budget = data.day_budget;"></i>
           </td>
           <td class="text-right">
             {{data.ad_price | currencyFormat}}
-            <i style="width: 20px;margin: 0;" class="icon-img-edit" yc-popover [template]="adPrice" #popoverAdPrice="ycPopover" (openEvent)="ad_price = data.ad_price"></i>
+            <i style="width: 20px;margin: 0;" class="icon-img-edit" [ngClass]="{'active': popoverAdPrice.opened}" yc-popover [template]="adPrice" #popoverAdPrice="ycPopover" (openEvent)="ad_price = data.ad_price"></i>
           </td>
           <td>
             <yc-switch-input [values]="['1','2']" [size]="'small'" [(ngModel)]="data.show_state" #switchRef="switchInput" (eventChange)="updateOneShowState(data,switchRef)"></yc-switch-input>
@@ -176,7 +177,7 @@
       <tr sticky>
         <td colspan="3" stickyStart>全部合计</td>
         <td>-</td>
-        <td>-</td>
+        <!--<td>-</td>-->
         <td>-</td>
         <td>-</td>
         <td>-</td>
