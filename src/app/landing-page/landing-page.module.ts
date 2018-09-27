@@ -11,10 +11,8 @@ import {LandingPageRoutingModule} from './landing-page-routing.module';
   declarations: [
     LandingPageComponent,
   ],
-  entryComponents: [
-  ],
-  providers: [
-  ],
+  entryComponents: [],
+  providers: [],
 })
 export class LandingPageModule {
 }

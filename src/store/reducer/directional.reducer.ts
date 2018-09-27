@@ -179,14 +179,14 @@ export function directionalReducer(state: DirectionalState = initState, action: 
       return {...state};
     }
     case DirectionalActionTypes.LBS_CITY_MAP_PUSH: {
-      let flag = state.lbsCityMapResult.some ( (item, index) => {
-        if ( item.id_random === action.payload.id_random) {
-          state.lbsCityMapResult[index] = action.payload
+      let flag = state.lbsCityMapResult.some((item, index) => {
+        if (item.id_random === action.payload.id_random) {
+          state.lbsCityMapResult[index] = action.payload;
         }
         return item.id_random === action.payload.id_random;
-      })
+      });
       if (!flag) { // 说明不存在 重新添加
-        state.lbsCityMapResult.push(action.payload)
+        state.lbsCityMapResult.push(action.payload);
       }
       // state.lbsCityMapResult.push(action.payload);
       return {...state}; // 返回一个新状态
@@ -198,24 +198,24 @@ export function directionalReducer(state: DirectionalState = initState, action: 
       // if (!!~index) {
       //   state.lbsCityMapResult.splice(index, 1);
       // }
-      state.lbsCityMapResult.forEach((item,index) => {
-        if(action.payload.id_random == item.id_random) {
-          state.lbsCityMapResult.splice(index,1)
+      state.lbsCityMapResult.forEach((item, index) => {
+        if (action.payload.id_random == item.id_random) {
+          state.lbsCityMapResult.splice(index, 1);
         }
-      })
+      });
       return {...state};
     }
-    case DirectionalActionTypes.LBS_CITY_MAP_REMOVE_ALL:{
-      state.lbsCityMapResult = []
+    case DirectionalActionTypes.LBS_CITY_MAP_REMOVE_ALL: {
+      state.lbsCityMapResult = [];
       return {...state};
     }
     /////// ----------- audiencesAction ----------- /////////
 
     case DirectionalActionTypes.AUDIENCES_ACTION_NEXT_CHILD: {
       let {value, index} = action.payload;
-      console.time('1')
+      console.time('1');
       nextAudiencesActionChild(value, index);
-      console.timeEnd('1')
+      console.timeEnd('1');
       return {...state};
     }
     case DirectionalActionTypes.AUDIENCES_ACTION_NEXT_CHILD2: {
@@ -359,7 +359,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
       return {...state};
     }
 
-    case DirectionalActionTypes.DIRECTIONAL_RECOVERY2:{
+    case DirectionalActionTypes.DIRECTIONAL_RECOVERY2: {
       if (!state.audiencesApp) return state;
       state.audiencesApp.checked = false;
       state.audiencesApp.checkState = 0;
@@ -368,7 +368,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
       state.audiencesAppResult = [];
       return {...state};
     }
-    case DirectionalActionTypes.DIRECTIONAL_SET_RESULT2:{
+    case DirectionalActionTypes.DIRECTIONAL_SET_RESULT2: {
       state.result2 = action.payload;
       setResult2();
       return {...state};
@@ -431,7 +431,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
     // area
     state.areas.checked = false;
     state.areas.checkState = 0;
-    recursionChildCheck(state.areas)
+    recursionChildCheck(state.areas);
     recursionFilter(area, state.areas.children, 'id');
     state.areasResult = recursionResult(state.areas.children); // .map(ar => ({id: ar.id, name: ar.name}));
 
@@ -439,7 +439,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
     state.audiences.forEach(au => {
       au.value.checked = false;
       au.value.checkState = 0;
-      recursionChildCheck(au.value)
+      recursionChildCheck(au.value);
       recursionFilter(state.result.dtl_attribute.crowdAttribute[au.key], au.value.children, 'value');
     });
     let array = [];
@@ -462,7 +462,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
     state.device.forEach(au => {
       au.value.checked = false;
       au.value.checkState = 0;
-      recursionChildCheck(au.value)
+      recursionChildCheck(au.value);
       recursionFilter(state.result.dtl_devices[au.key], au.value.children, 'value');
     });
     let array2 = [];
@@ -485,7 +485,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
     let lbsCity = state.result.dtl_address.lbs.map(a => a.id);
     state.lbsCity.checked = false;
     state.lbsCity.checkState = 0;
-    recursionChildCheck(state.lbsCity)
+    recursionChildCheck(state.lbsCity);
     recursionFilter2(lbsCity, state.lbsCity.children, 'id');
     state.lbsCityViewResult = recursionResult(state.lbsCity.children);
     state.lbsCityResult = recursionResult2(state.lbsCity.children).map(ar => ({
@@ -501,7 +501,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
       name: lbs.name,
       coords: JSON.parse(lbs.coords),
       type_id: lbs.type_id
-    }))
+    }));
 
     // audiencesAction audiencesAction2
     let appAttribute = state.result.dtl_behavior.appAttribute.map(a => a.id);
@@ -511,23 +511,23 @@ export function directionalReducer(state: DirectionalState = initState, action: 
 
     state.audiencesAction.checked = false;
     state.audiencesAction.checkState = 0;
-    recursionChildCheck(state.audiencesAction)
+    recursionChildCheck(state.audiencesAction);
     recursionFilter(appAttribute.concat(appCategory), state.audiencesAction.children, 'id');
     state.audiencesActionResult = recursionResult(state.audiencesAction.children);
 
     state.audiencesAction2.checked = false;
     state.audiencesAction2.checkState = 0;
-    recursionChildCheck(state.audiencesAction2)
+    recursionChildCheck(state.audiencesAction2);
     recursionFilter(filterAppAttribute.concat(filterAppCategory), state.audiencesAction2.children, 'id');
     state.audiencesAction2Result = recursionResult(state.audiencesAction2.children);
   }
 
   function setResult2() {
-    if(!state.audiencesApp) return;
-    if(!(state.result2 instanceof Array)) return;
+    if (!state.audiencesApp) return;
+    if (!(state.result2 instanceof Array)) return;
     let audiencesApp = state.result2.map(a => a.id);
     recursionFilter(audiencesApp, state.audiencesApp.children, 'id');
-    state.audiencesAppResult = recursionResult2(state.audiencesApp.children)
+    state.audiencesAppResult = recursionResult2(state.audiencesApp.children);
   }
 }
 

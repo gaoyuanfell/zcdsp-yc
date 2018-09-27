@@ -9,7 +9,7 @@ import {Subject} from 'rxjs';
     </div>
   `,
   styles: [
-      `
+    `
       :host {
         height: 20px;
         display: block;
@@ -48,7 +48,7 @@ export class TableOverflowComponent implements OnInit {
     this.changeDetectorRef.markForCheck();
   }
 
-  private _bottom
+  private _bottom;
 
   get bottom() {
     return this._bottom;
@@ -59,21 +59,21 @@ export class TableOverflowComponent implements OnInit {
     this.changeDetectorRef.markForCheck();
   }
 
-  @ViewChild('overflow') overflow
+  @ViewChild('overflow') overflow;
 
   overflowSubject = new Subject();
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, public ref: ElementRef, private renderer:Renderer2) {
+  constructor(private changeDetectorRef: ChangeDetectorRef, public ref: ElementRef, private renderer: Renderer2) {
 
   }
 
   ngOnInit(): void {
-    this.renderer.listen(this.overflow.nativeElement ,'scroll', (event)=> {
+    this.renderer.listen(this.overflow.nativeElement, 'scroll', (event) => {
       this.overflowSubject.next({
         top: event.target.scrollTop,
         left: event.target.scrollLeft,
-      })
-    })
+      });
+    });
   }
 
 

@@ -1,5 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {Dialog} from '../../components/dialog/dialog';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
@@ -21,8 +20,9 @@ export class HelpComponent implements OnInit {
 
   }
 
-  num = 0
-  changeElement(index){
-    this.num = index
+  num = 0;
+
+  changeElement(index) {
+    this.num = index;
   }
 }

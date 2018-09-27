@@ -21,15 +21,15 @@ export class CampaignService extends ConfigService {
   campaignUrl(body = {}) {
     Reflect.deleteProperty(body, 'page_index');
     Reflect.deleteProperty(body, 'page_size');
-    return this.getUrl(`/ads/spread/campaign/list/export`, body)
+    return this.getUrl(`/ads/spread/campaign/list/export`, body);
   }
 
   init(body = {}) {
-    return this.get(`/ads/spread/campaign/init`, body)
+    return this.get(`/ads/spread/campaign/init`, body);
   }
 
   list(body = {}) {
-    return this.get(`/ads/spread/campaign/list`, body)
+    return this.get(`/ads/spread/campaign/list`, body);
   }
 
   /**
@@ -38,7 +38,7 @@ export class CampaignService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   batchCopy(body = {}) {
-    return this.postJson(`/ads/spread/campaign/batch_copy`, body)
+    return this.postJson(`/ads/spread/campaign/batch_copy`, body);
   }
 
   /**
@@ -47,7 +47,7 @@ export class CampaignService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   batchUpdateHours(body = {}) {
-    return this.postJson(`/ads/spread/campaign/batch_update_show_hours`, body)
+    return this.postJson(`/ads/spread/campaign/batch_update_show_hours`, body);
   }
 
   /**
@@ -55,11 +55,11 @@ export class CampaignService extends ConfigService {
    * @param {{}} body
    */
   batchUpdateBeginEndDate(body = {}) {
-    return this.postForm(`/ads/spread/campaign/batch_update_begin_end_date`, body)
+    return this.postForm(`/ads/spread/campaign/batch_update_begin_end_date`, body);
   }
 
   batchAddUpdate(body = {}) {
-    return this.postJson(`/common/orientation/campaign/batch_add_update`, body)
+    return this.postJson(`/common/orientation/campaign/batch_add_update`, body);
   }
 
   /**
@@ -67,8 +67,8 @@ export class CampaignService extends ConfigService {
    * @param {{}} body
    * @returns {Observable<Result<any>>}
    */
-  directionalEdit(body = {}){
-    return this.postJson(`/ads/spread/campaign/directional/edit`, body)
+  directionalEdit(body = {}) {
+    return this.postJson(`/ads/spread/campaign/directional/edit`, body);
   }
 
   /**
@@ -77,7 +77,7 @@ export class CampaignService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   batchUpdateSpeed(body = {}) {
-    return this.postForm(`/ads/spread/campaign/batch_update_speed`, body)
+    return this.postForm(`/ads/spread/campaign/batch_update_speed`, body);
   }
 
   /**
@@ -85,7 +85,7 @@ export class CampaignService extends ConfigService {
    * @param {{}} body
    */
   batchDelete(body = {}) {
-    return this.postForm(`/ads/spread/campaign/batch_delete`, body)
+    return this.postForm(`/ads/spread/campaign/batch_delete`, body);
   }
 
   /**
@@ -94,7 +94,7 @@ export class CampaignService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   batchUpdatePrice(body = {}) {
-    return this.postForm(`/ads/spread/campaign/batch_update_price`, body)
+    return this.postForm(`/ads/spread/campaign/batch_update_price`, body);
   }
 
   /**
@@ -103,7 +103,7 @@ export class CampaignService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   batchUpdateState(body = {}) {
-    return this.postForm(`/ads/spread/campaign/batch_update_show_state`, body)
+    return this.postForm(`/ads/spread/campaign/batch_update_show_state`, body);
   }
 
   /**
@@ -111,7 +111,7 @@ export class CampaignService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   batchUpdateBudget(body = {}) {
-    return this.postForm(`/ads/spread/campaign/batch_update_budget`, body)
+    return this.postForm(`/ads/spread/campaign/batch_update_budget`, body);
   }
 
   /**
@@ -120,7 +120,7 @@ export class CampaignService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   updateName(body = {}) {
-    return this.postJson(`/ads/spread/campaign/update_name`, body)
+    return this.postJson(`/ads/spread/campaign/update_name`, body);
   }
 
   /**
@@ -129,7 +129,7 @@ export class CampaignService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   campaignDetail(body = {}) {
-    return this.get(`/ads/spread/campaign/campaign_detail`, body)
+    return this.get(`/ads/spread/campaign/campaign_detail`, body);
   }
 
   /**
@@ -138,7 +138,7 @@ export class CampaignService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   charData(body = {}) {
-    return this.get(`/ads/spread/campaign/adpush_char_data`, body)
+    return this.get(`/ads/spread/campaign/adpush_char_data`, body);
   }
 
   ///////////////  add   ////////////////
@@ -148,7 +148,7 @@ export class CampaignService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   addEditInit(body = {}) {
-    return this.get(`/ads/spread/campaign/add_edit/init`, body)
+    return this.get(`/ads/spread/campaign/add_edit/init`, body);
   }
 
   /**
@@ -156,7 +156,7 @@ export class CampaignService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   save(body = {}) {
-    return this.postJson(`/ads/spread/campaign/add_edit/execute`, body)
+    return this.postJson(`/ads/spread/campaign/add_edit/execute`, body);
   }
 
   /**
@@ -165,7 +165,7 @@ export class CampaignService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   parseIos(body = {}) {
-    return this.get2(`/ws-api/v4/apk/ios/parse`, body)
+    return this.get2(`/ws-api/v4/apk/ios/parse`, body);
   }
 
   /**
@@ -173,7 +173,7 @@ export class CampaignService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   apkExisted(body = {}) {
-    return this.get2(`/ws-api/v4/apk/is_apk_existed`, body)
+    return this.get2(`/ws-api/v4/apk/is_apk_existed`, body);
   }
 
   /**
@@ -182,14 +182,14 @@ export class CampaignService extends ConfigService {
    * @returns {Observable<Result<any>>}  /ws-api/v4/apk/upload
    */
   uploadParseApk(body = {}) {
-    return this.postFormData(`/ws-api/v4/apk/upload_apk`, body)
+    return this.postFormData(`/ws-api/v4/apk/upload_apk`, body);
   }
 
   /** campaign_ids
    * 每一个活动的今日消耗
    */
   get_day_consume(body = {}) {
-    return this.get(`/ads/spread/campaign/get_day_consume`, body)
+    return this.get(`/ads/spread/campaign/get_day_consume`, body);
   }
 
 
@@ -198,8 +198,8 @@ export class CampaignService extends ConfigService {
    * @param {{}} body
    * @returns {Observable<Result<any>>}
    */
-  campaignDetailUpdate(body = {}){
-    return this.postJson(`/ads/spread/campaign/campaign_detail/edit`, body)
+  campaignDetailUpdate(body = {}) {
+    return this.postJson(`/ads/spread/campaign/campaign_detail/edit`, body);
   }
 
 }

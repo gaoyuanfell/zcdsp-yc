@@ -3,8 +3,9 @@ import {Base64} from 'js-base64';
 import {PublicService} from '../../service/public.service';
 import {Router} from '@angular/router';
 import {Notification} from '../../components/notification/notification';
-import SparkMD5 from 'spark-md5'
+import SparkMD5 from 'spark-md5';
 import {Dialog} from '../../components/dialog/dialog';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -17,11 +18,14 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private _notification: Notification,
     protected _dialog: Dialog,
-  ) { }
+  ) {
+  }
+
   user: any = {};
   _valid = false;
   service_data;
   flag: boolean = false;
+
   pwd_comfirm() {
     this.flag = this.user.password === this.user.old_pwd ? false : true;
   }
@@ -29,19 +33,20 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  countdown =  60;
-  flagCode =  false;
-  codeText =   '获取验证码';
+  countdown = 60;
+  flagCode = false;
+  codeText = '获取验证码';
+
   codeTest() {
-    if (localStorage.getItem('countdown') && +localStorage.getItem('countdown') <=  60 && +localStorage.getItem('countdown') > 0) {
+    if (localStorage.getItem('countdown') && +localStorage.getItem('countdown') <= 60 && +localStorage.getItem('countdown') > 0) {
       this.countdown = +localStorage.getItem('countdown');
-      this.countdown --;
+      this.countdown--;
       this.flagCode = true;
       this.codeText = '重新发送';
       localStorage.setItem('countdown', this.countdown + '');
-      setTimeout( () => {
+      setTimeout(() => {
         this.codeTest();
-      }, 1000)
+      }, 1000);
     } else {  // 不存在 || === 60
       this.countdown = 60;
       this.flagCode = false;
@@ -50,6 +55,7 @@ export class RegisterComponent implements OnInit {
     }
 
   }
+
   verifyCode(mobile_phone) {
     if (mobile_phone.invalid) {
       this._notification.warning('请输入正确的手机号', '');
@@ -57,30 +63,34 @@ export class RegisterComponent implements OnInit {
     }
     localStorage.setItem('countdown', this.countdown + '');
     this.codeTest();
-    this._publicService.RegisterVerifyCode({mobile_number: this.user.mobile_phone}).subscribe( res => {})
+    this._publicService.RegisterVerifyCode({mobile_number: this.user.mobile_phone}).subscribe(res => {
+    });
   }
+
   error; // error信息
   errorText;
+
   save() {
     this.user.new_pwd = SparkMD5.hash(this.user.password);
     this.user.base64_pwd = Base64.encode(this.user.password);
     const obj = this.user;
-    this._publicService.register(obj).subscribe( res => {
+    this._publicService.register(obj).subscribe(res => {
       if (res.success) {
         // this._notification.warning('注册成功', '请登录');
         this.router.navigate(['/login'], {
           queryParams: {
             'user_name': this.user.user_name
           }
-        })
+        });
       }
     }, error => {
       this.error = error.errorList[0]._code;
       this.errorText = error.errorList[0]._description;
-    })
+    });
   }
+
   errorFocus(errorName) {
-    if (errorName ===  this.error) {
+    if (errorName === this.error) {
       this.error = undefined;
       this.errorText = undefined;
     }
@@ -98,16 +108,18 @@ export class RegisterComponent implements OnInit {
   }
 
   exist_flag;
+
   // 账户校验
   userNameVaild() {
-    if(this.user.user_name){
-      this._publicService.existUser({user_name: this.user.user_name}).subscribe( res => {
+    if (this.user.user_name) {
+      this._publicService.existUser({user_name: this.user.user_name}).subscribe(res => {
         this.exist_flag = res.result;  // false说明账户不存在
-      })
+      });
     }
   }
 
   @ViewChild('templateRegister', {read: TemplateRef}) templateRegister: TemplateRef<any>;
+
   register() {
     this._dialog.open(this.templateRegister, {title: '注册协议', flag: false}).subscribe(data => {
     });

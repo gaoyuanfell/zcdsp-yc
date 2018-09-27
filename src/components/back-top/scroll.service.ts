@@ -29,10 +29,10 @@ export class ScrollService {
   /** 设置 `el` 滚动条位置 */
   setScrollTop(el: Element | Window, options: ScrollToOptions = {left: 0, top: 0}): void {
     if (el === window) {
-      this.doc.body.scrollTo(options)
-      this.doc.documentElement.scrollTo(options)
+      this.doc.body.scrollTo(options);
+      this.doc.documentElement.scrollTo(options);
     } else {
-      (el as Element).scrollTo(options)
+      (el as Element).scrollTo(options);
     }
   }
 
@@ -45,7 +45,7 @@ export class ScrollService {
     this.scrollTo(el, {
       left: element.offsetLeft,
       top: element.offsetTop
-    })
+    });
   }
 
   /** 获取 `el` 相对于视窗距离 */
@@ -111,10 +111,10 @@ export class ScrollService {
         reqAnimFrame(frameFunc);
       } else {
         if (callback) callback();
-        subject.next()
+        subject.next();
       }
     };
     reqAnimFrame(frameFunc);
-    return <any>subject
+    return <any>subject;
   }
 }

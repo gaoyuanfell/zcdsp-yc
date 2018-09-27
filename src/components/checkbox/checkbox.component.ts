@@ -1,4 +1,15 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Output, SimpleChanges} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -61,7 +72,7 @@ export class CheckboxComponent implements ControlValueAccessor, OnChanges, OnDes
   onChange = (value: any) => {
   };
 
-  click(event){
+  click(event) {
     event.stopPropagation();
   }
 
@@ -70,9 +81,9 @@ export class CheckboxComponent implements ControlValueAccessor, OnChanges, OnDes
     let value = this.checked;
     if (this.values instanceof Array && this.values.length == 2) {
       if (this.checked) {
-        value = this.values[0]
+        value = this.values[0];
       } else {
-        value = this.values[1]
+        value = this.values[1];
       }
     }
     this.onChange(value);

@@ -1,10 +1,10 @@
-import { Component, ElementRef, Inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ScrollService } from '../back-top/scroll.service';
-import { Dialog } from '../dialog/dialog';
-import { fromEvent } from 'rxjs';
-import { TemplateService } from '../../service/template.service';
+import {Component, ElementRef, Inject, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {DOCUMENT} from '@angular/common';
+import {DomSanitizer} from '@angular/platform-browser';
+import {ScrollService} from '../back-top/scroll.service';
+import {Dialog} from '../dialog/dialog';
+import {fromEvent} from 'rxjs';
+import {TemplateService} from '../../service/template.service';
 
 @Component({
   selector: 'yc-creative-template',
@@ -44,39 +44,39 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
   position = {
     x: 0,
     y: 0,
-  }
+  };
   moveStatus;
 
   get elementTextFilter() {
     if (this.elementList instanceof Array) {
-      let list = []
+      let list = [];
       this.elementList.every(ele => {
         if (ele.type === 'text') {
-          list.push(ele)
+          list.push(ele);
         }
         return true;
-      })
-      return list
+      });
+      return list;
     }
     return null;
   }
 
   get elementFileFilter() {
     if (this.elementList instanceof Array) {
-      let list = []
+      let list = [];
       this.elementList.every(ele => {
         if (ele.type === 'file') {
-          list.push(ele)
+          list.push(ele);
         }
         return true;
-      })
-      return list
+      });
+      return list;
     }
     return null;
   }
 
   scale = 1; // 放大倍数
-  positionScale = 1  // 画布倍率
+  positionScale = 1;  // 画布倍率
   minScale = 0.1;
 
   // canvas config
@@ -98,7 +98,7 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
 
     if (this._templateConfig) {
       if (this._templateConfig.extensions instanceof Array && this._templateConfig.extensions.length) {
-        this._templateConfig.mimeType = this.contentType[this._templateConfig.extensions[0]]
+        this._templateConfig.mimeType = this.contentType[this._templateConfig.extensions[0]];
       }
       this.canvasList = [];
 
@@ -109,17 +109,17 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
 
       if (height > 400) {
         width = 400 * width / height;
-        height = 400
+        height = 400;
       }
 
       if (height < 200) {
         width = 200 * width / height;
-        height = 200
+        height = 200;
       }
 
       if (width > maxWidth) {
         height = maxWidth * height / width;
-        width = maxWidth
+        width = maxWidth;
       }
 
       this.positionScale = width / this._templateConfig.width;
@@ -136,7 +136,7 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
       this.drawingCtx = this.drawingCanvas.getContext('2d');
       this.canvasList.push(this.drawingCanvas);
 
-      this.initEvent()
+      this.initEvent();
     }
   }
 
@@ -165,7 +165,7 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
       if (!this.moveStatus) return;
 
       if (this.img.naturalWidth * this.scale <= this.drawingCanvas.width && this.img.naturalHeight * this.scale <= this.drawingCanvas.height) {
-        return
+        return;
       }
 
       event.stopPropagation();
@@ -179,31 +179,31 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
       let _w = (this.img.naturalWidth * this.scale - this.drawingCanvas.width) / 2 / this.scale;
       if (Math.abs(this.position.x) > Math.abs(_w)) {
         if (vx < 0) {
-          _w = -_w
+          _w = -_w;
         }
-        this.position.x = _w
+        this.position.x = _w;
       }
 
       let _h = (this.img.naturalHeight * this.scale - this.drawingCanvas.height) / 2 / this.scale;
       if (Math.abs(this.position.y) > Math.abs(_h)) {
         if (vy < 0) {
-          _h = -_h
+          _h = -_h;
         }
-        this.position.y = _h
+        this.position.y = _h;
       }
 
-      this.drawBackgroundImg()
-    })
+      this.drawBackgroundImg();
+    });
 
     this._mouseupEvent = fromEvent(eventRef, 'mouseup').subscribe((event: MouseEvent) => {
       this.moveStatus = false;
       eventRef.style.cursor = 'default';
-    })
+    });
 
     this._mouseoutEvent = fromEvent(eventRef, 'mouseout').subscribe((event: MouseEvent) => {
       this.moveStatus = false;
       eventRef.style.cursor = 'default';
-    })
+    });
   }
 
   // 图片实例
@@ -237,18 +237,18 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
     this.drawBackgroundImg();
 
     if (this.templateList instanceof Array && this.templateList.length) {
-      this.selectTemplate(this.templateList[0])
+      this.selectTemplate(this.templateList[0]);
     }
   }
 
   // 选择模板
-  _elementList
+  _elementList;
 
   selectTemplate(temp) {
     if (temp.elements === this._elementList) return;
-    this._elementList = temp.elements
-    this.elementList = JSON.parse(JSON.stringify(temp.elements))
-    this.drawTextAndImg().catch(error => console.error(error))
+    this._elementList = temp.elements;
+    this.elementList = JSON.parse(JSON.stringify(temp.elements));
+    this.drawTextAndImg().catch(error => console.error(error));
   }
 
   /**
@@ -261,10 +261,10 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
       let img = new Image();
       img.crossOrigin = 'Anonymous';
       img.onload = () => {
-        resolve(img)
+        resolve(img);
       };
-      img.src = url
-    })
+      img.src = url;
+    });
   }
 
   /**
@@ -277,9 +277,9 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
     let cHeight = this.ctx.canvas.height;
     this.scale = cWidth / naturalWidth;
     if (naturalHeight * this.scale < cHeight) {
-      this.scale = cHeight / naturalHeight
+      this.scale = cHeight / naturalHeight;
     }
-    this.minScale = this.scale
+    this.minScale = this.scale;
   }
 
   /**
@@ -301,7 +301,7 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
     let dy = cHeight / 2 - height / 2;
 
     // this.ctx.drawImage(this.img, dx, dy, width, height)
-    this.ctx.drawImage(this.img, -this.position.x, -this.position.y, naturalWidth, naturalHeight, dx, dy, width, height)
+    this.ctx.drawImage(this.img, -this.position.x, -this.position.y, naturalWidth, naturalHeight, dx, dy, width, height);
   }
 
   getPosition(position, width, height, targetW, targetH) {
@@ -310,25 +310,25 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
         return {
           x: (targetW - width) / 2,
           y: (targetH - height) / 2
-        }
+        };
       }
       case 'topLeft': {
         return {
           x: 0,
           y: 0
-        }
+        };
       }
       case 'topRight': {
         return {
           x: targetW - width,
           y: 0
-        }
+        };
       }
       default: {
         return {
           x: 0,
           y: 0
-        }
+        };
       }
     }
   }
@@ -374,19 +374,19 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
               ty = top;
             } else if (this.isRealNumber(top) && this.isRealNumber(right)) {
               tx = this.drawingCanvas.width - width - right;
-              ty = top
+              ty = top;
             } else if (this.isRealNumber(bottom) && this.isRealNumber(left)) {
               tx = left;
-              ty = this.drawingCanvas.height - bottom
+              ty = this.drawingCanvas.height - bottom;
             } else if (this.isRealNumber(bottom) && this.isRealNumber(right)) {
               tx = this.drawingCanvas.width - width - right;
-              ty = this.drawingCanvas.height - bottom
+              ty = this.drawingCanvas.height - bottom;
             }
 
             this.drawingCtx.drawImage(img, tx, ty, width, height);
           }
 
-          break
+          break;
         }
         case 'image': {
 
@@ -397,18 +397,18 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
             ty = top;
           } else if (this.isRealNumber(top) && this.isRealNumber(right)) {
             tx = this.drawingCanvas.width - width - right;
-            ty = top
+            ty = top;
           } else if (this.isRealNumber(bottom) && this.isRealNumber(left)) {
             tx = left;
-            ty = this.drawingCanvas.height - bottom
+            ty = this.drawingCanvas.height - bottom;
           } else if (this.isRealNumber(bottom) && this.isRealNumber(right)) {
             tx = this.drawingCanvas.width - width - right;
-            ty = this.drawingCanvas.height - bottom
+            ty = this.drawingCanvas.height - bottom;
           }
 
           this.drawingCtx.drawImage(img, tx, ty, width, height);
 
-          break
+          break;
         }
         case 'text': {
           this.drawingCtx.save();
@@ -422,20 +422,20 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
           } else if (this.isRealNumber(top) && this.isRealNumber(right)) {
             let measureText = this.drawingCtx.measureText(ele.value);
             tx = this.drawingCanvas.width - measureText.width - right;
-            ty = top + fontSize / 2
+            ty = top + fontSize / 2;
           } else if (this.isRealNumber(bottom) && this.isRealNumber(left)) {
             tx = left;
-            ty = this.drawingCanvas.height - bottom - fontSize / 2
+            ty = this.drawingCanvas.height - bottom - fontSize / 2;
           } else if (this.isRealNumber(bottom) && this.isRealNumber(right)) {
             let measureText = this.drawingCtx.measureText(ele.value);
             tx = this.drawingCanvas.width - measureText.width - right;
-            ty = this.drawingCanvas.height - bottom - fontSize / 2
+            ty = this.drawingCanvas.height - bottom - fontSize / 2;
           }
 
           this.drawingCtx.fillText(ele.value, tx, ty);
           this.drawingCtx.restore();
 
-          break
+          break;
         }
         case 'canvas': {
           if (this.isRealNumber(top) && this.isRealNumber(left)) {
@@ -443,13 +443,13 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
             ty = top;
           } else if (this.isRealNumber(top) && this.isRealNumber(right)) {
             tx = this.drawingCanvas.width - width - right;
-            ty = top
+            ty = top;
           } else if (this.isRealNumber(bottom) && this.isRealNumber(left)) {
             tx = left;
-            ty = this.drawingCanvas.height - bottom
+            ty = this.drawingCanvas.height - bottom;
           } else if (this.isRealNumber(bottom) && this.isRealNumber(right)) {
             tx = this.drawingCanvas.width - width - right;
-            ty = this.drawingCanvas.height - bottom
+            ty = this.drawingCanvas.height - bottom;
           }
 
           let borderRadius = ele.borderRadius || 0;
@@ -476,7 +476,7 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
           this.drawingCtx.closePath();
 
           this.drawingCtx.restore();
-          break
+          break;
         }
       }
     }
@@ -499,7 +499,7 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
    * 文字改变将重新绘制素材canvas
    */
   textAndImgChange() {
-    this.drawTextAndImg().catch(error => console.error(error))
+    this.drawTextAndImg().catch(error => console.error(error));
   }
 
   /**
@@ -516,13 +516,13 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
   closeTemplate() {
     this._templateStyle = {
       display: 'none'
-    }
+    };
     this.img = null;
     this.elementList = null;
     this.position = {
       x: 0,
       y: 0,
-    }
+    };
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     this.drawingCtx.clearRect(0, 0, this.drawingCtx.canvas.width, this.drawingCtx.canvas.height);
     if (this.compileCtx) {
@@ -534,19 +534,19 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
   canvasToBlob(canvas, mimeType = 'image/png', quality = 1) {
     return new Promise<Blob>((resolve, reject) => {
       canvas.toBlob((blob) => {
-        resolve(blob)
-      }, mimeType, quality)
-    })
+        resolve(blob);
+      }, mimeType, quality);
+    });
   }
 
   /**
    * 合并canvas 生成图片流
    */
-  _compileLoading = false
+  _compileLoading = false;
 
   _compileCanvasToImg() {
-    this._compileLoading = true
-    this.compileCanvasToImg().then(() => this._compileLoading = false).catch(error => console.error(error))
+    this._compileLoading = true;
+    this.compileCanvasToImg().then(() => this._compileLoading = false).catch(error => console.error(error));
   }
 
   async compileCanvasToImg() {
@@ -584,36 +584,36 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
       if (res.result.template_list instanceof Array) {
         this.templateList = res.result.template_list;
         if (this.templateList instanceof Array && this.templateList.length) {
-          this.selectTemplate(this.templateList[0])
+          this.selectTemplate(this.templateList[0]);
         }
       }
-    })
+    });
   }
 
   /**
    * 加载更多模板
    * @param next
    */
-  loadMoreTemplateList({ next }) {
-    ++this.queryTemplate.page_index
+  loadMoreTemplateList({next}) {
+    ++this.queryTemplate.page_index;
     this._templateService.getTemplate(this.queryTemplate).subscribe(res => {
       if (res.result.template_list instanceof Array && res.result.template_list.length) {
-        this.templateList.push(...res.result.template_list)
-        next()
+        this.templateList.push(...res.result.template_list);
+        next();
       }
-    })
+    });
   }
 
   /**
    * 素材类型改变 编辑模板不能
    */
   imgTypeChange() {
-    this.imgList = []
-    this.query.page_index = 1
-    this.query.page_size = 60
-    this.initTemplateMaterial()
-    this.query.page_index = 3
-    this.query.page_size = 20
+    this.imgList = [];
+    this.query.page_index = 1;
+    this.query.page_size = 60;
+    this.initTemplateMaterial();
+    this.query.page_index = 3;
+    this.query.page_size = 20;
   }
 
   /**
@@ -622,20 +622,20 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
   initTemplateMaterial() {
     this._templateService.initTemplateMaterial(this.query).subscribe(res => {
       if (res.result instanceof Array) {
-        this.imgList.push(...res.result)
+        this.imgList.push(...res.result);
       }
-    })
+    });
   }
 
-  loadMoreTemplateMaterial({ next }) {
-    ++this.query.page_index
+  loadMoreTemplateMaterial({next}) {
+    ++this.query.page_index;
     this._templateService.initTemplateMaterial(this.query).subscribe(res => {
       let list = res.result;
       if (list instanceof Array && list.length) {
-        this.imgList.push(...list)
-        next()
+        this.imgList.push(...list);
+        next();
       }
-    })
+    });
   }
 
   /**
@@ -644,28 +644,28 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
   getTemplate() {
     this._templateService.getTemplate(this.queryTemplate).subscribe(res => {
       if (res.result.template_list instanceof Array) {
-        this.templateList.push(...res.result.template_list)
+        this.templateList.push(...res.result.template_list);
       }
-    })
+    });
   }
 
   constructor(private domSanitizer: DomSanitizer,
-    private _scrollService: ScrollService,
-    private _templateService: TemplateService,
-    private _dialog: Dialog,
-    @Inject(DOCUMENT) private document: Document) {
+              private _scrollService: ScrollService,
+              private _templateService: TemplateService,
+              private _dialog: Dialog,
+              @Inject(DOCUMENT) private document: Document) {
     this.imgTypeChange();
   }
 
   query: any = {
     page_index: 1,
     page_size: 60,
-  }
+  };
 
   queryTemplate: any = {
     page_index: 1,
     page_size: 10,
-  }
+  };
 
   ngOnInit() {
     this.queryTemplate.width = this._templateConfig.width;
@@ -676,7 +676,7 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
       height: this._templateConfig.height,
     }).subscribe(res => {
       this.imgType = res.result.img_type_list;
-      this.templateType = res.result.template_type_list
+      this.templateType = res.result.template_type_list;
     });
     this.getTemplate();
   }
@@ -689,7 +689,7 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
   }
 
   operating(overflowRef, clientWidth) {
-    this._scrollService.scrollTo(overflowRef, { top: 0, left: overflowRef.scrollLeft + clientWidth });
+    this._scrollService.scrollTo(overflowRef, {top: 0, left: overflowRef.scrollLeft + clientWidth});
   }
 
 }

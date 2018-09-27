@@ -33,7 +33,7 @@ export class CreativeComponent implements OnInit {
 
   ngOnInit() {
     const obj = this.route.snapshot.data['auth'];
-    this.authList = obj['jurisdiction_list']
+    this.authList = obj['jurisdiction_list'];
     this.authUser = obj['user'];
     this.init();
     this.list();
@@ -49,7 +49,7 @@ export class CreativeComponent implements OnInit {
       this.tableList = res.result.items;
       this.total_count = res.result.total_count;
       this.listTitle = res.result.other;
-    })
+    });
   }
 
   init() {
@@ -57,8 +57,8 @@ export class CreativeComponent implements OnInit {
       this.listArray = res.result.campaigns;
       this.listArray.forEach(item => {
         item.name = item.campaign_name + item.show_state_meaning;
-      })
-    })
+      });
+    });
   }
 
   exportUrl() {

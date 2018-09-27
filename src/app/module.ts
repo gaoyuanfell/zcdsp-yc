@@ -41,7 +41,7 @@ import {TooltipModule} from '../components/tooltip/tooltip.module';
 import {MapModule} from '../components/map/map.module';
 import {LoadingModule} from '../components/loading/loading.module';
 import {AutocompleteModule} from '../components/autocomplete/autocomplete.module';
-import {EchartsModule} from '../components/echarts/echarts.module'
+import {EchartsModule} from '../components/echarts/echarts.module';
 
 @NgModule({
   imports: [

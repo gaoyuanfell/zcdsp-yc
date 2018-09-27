@@ -11,4 +11,4 @@ export const collapseState = trigger('collapseState', [
   })),
   transition('inactive => active', animate('150ms ease-in')),
   transition('active => inactive', animate('150ms ease-out'))
-])
+]);

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Configure} from './interface';
 
@@ -8,7 +8,7 @@ import {Configure} from './interface';
     <div class="text-style" [ngStyle]="configure?.style" [innerHTML]="html(configure.value)"></div>
   `,
   styles: [
-      `
+    `
       .text-style {
         margin: 0;
         padding: 0;
@@ -47,7 +47,7 @@ export class TextComponent implements OnInit {
   }
 
   html(val) {
-    return this._domSanitizer.bypassSecurityTrustHtml(val || '')
+    return this._domSanitizer.bypassSecurityTrustHtml(val || '');
   }
 
   constructor(private _domSanitizer: DomSanitizer) {

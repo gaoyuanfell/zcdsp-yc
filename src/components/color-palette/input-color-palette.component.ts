@@ -15,7 +15,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     </div>
   `,
   styles: [
-      `
+    `
       .input-color-palette-box {
         border: 1px solid #ccc;
         padding: 3px;
@@ -41,14 +41,14 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 export class InputColorPaletteComponent implements ControlValueAccessor {
 
   changeEvent(data) {
-    this.value = data
-    this.onChange(data)
-    this.changeDetectorRef.markForCheck()
+    this.value = data;
+    this.onChange(data);
+    this.changeDetectorRef.markForCheck();
   }
 
-  value
+  value;
 
-  constructor(private changeDetectorRef:ChangeDetectorRef) {
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
 
   }
 
@@ -63,8 +63,8 @@ export class InputColorPaletteComponent implements ControlValueAccessor {
   }
 
   writeValue(obj: any): void {
-    this.value = obj
-    this.changeDetectorRef.markForCheck()
+    this.value = obj;
+    this.changeDetectorRef.markForCheck();
   }
 
 

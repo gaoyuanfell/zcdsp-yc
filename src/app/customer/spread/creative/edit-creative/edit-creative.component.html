@@ -30,7 +30,7 @@
       <label class="form-label" #chujia><span>*</span>出价</label>
       <div class="form-input">
         <input class="form-control" type="text" [(ngModel)]="creative.ad_price" #ad_price="ngModel" [placeholder]="'请填写出价'"
-          required pattern="(^[0-9]\d*\.?\d{0,2}$)" [ngClass]="{'has-error': (_valid || ad_price.dirty || ad_price.touched) && (ad_price.invalid || creative.ad_price > bid_max || creative.ad_price < bid_min)}">
+               required pattern="(^[0-9]\d*\.?\d{0,2}$)" [ngClass]="{'has-error': (_valid || ad_price.dirty || ad_price.touched) && (ad_price.invalid || creative.ad_price > bid_max || creative.ad_price < bid_min)}">
         <p class="input-error" *ngIf="(_valid || ad_price.dirty || ad_price.touched) &&  ad_price.invalid">请填写正确的金额</p>
         <p class="input-error" *ngIf="ad_price.valid && ( creative.ad_price > bid_max || creative.ad_price < bid_min)">出价范围[{{bid_min}},
           {{bid_max}}]</p>
@@ -59,7 +59,7 @@
         <div class="creative-logo-box" *ngIf="elements?.logo">
 
           <div class="creative-logo" yc-file-upload [dataType]="'K'" [accept]="{extensions: elements?.logo.extensions,maxSize: elements?.logo.max_file_size, size: elements?.logo.logo_size}"
-            (eventChange)="logoChange($event)" (eventError)="imgError($event)">
+               (eventChange)="logoChange($event)" (eventError)="imgError($event)">
             <div class="creative-logo-img" [ngClass]="{'active': elements?.logo[elements?.logo.name]}" *ngIf="elements?.logo[elements?.logo.name]">
               <img [src]="elements?.logo[elements?.logo.name]" alt="logo">
             </div>
@@ -73,7 +73,7 @@
         </div>
 
         <yc-creative-box *ngIf="elements" [editCreative]="false" [(elementList)]="elementList" #creativeBox="creativeBox"
-          [elements]="elements" [selectMediaSize]="selectMediaSize"></yc-creative-box>
+                         [elements]="elements" [selectMediaSize]="selectMediaSize"></yc-creative-box>
 
       </div>
     </div>

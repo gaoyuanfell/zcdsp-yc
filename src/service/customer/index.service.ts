@@ -1,7 +1,7 @@
 import {ConfigService} from '../config-service';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Global} from "../global";
+import {Global} from '../global';
 
 @Injectable(
   {
@@ -39,6 +39,7 @@ export class IndexService extends ConfigService {
   campaignChart(body = {}) {
     return this.get(`/ads/home/campaign/chart`, body);
   }
+
   /**
    *  数据趋势
    * @param {{}} body
@@ -47,6 +48,7 @@ export class IndexService extends ConfigService {
   hourChart(body = {}) {
     return this.get('/ads/home/day/hourChart', body);
   }
+
   /**
    * 首页今日在投创意投放列表数据接口
    * @param {{}} body

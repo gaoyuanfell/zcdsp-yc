@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild, ElementRef, Renderer2, TemplateRef} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, TemplateRef, ViewChild} from '@angular/core';
 import {Subject} from 'rxjs';
 import {IndexService} from '../../../service/customer/index.service';
 import {BaseIndexComponent} from '../../common/common.component';
@@ -14,14 +14,14 @@ import {bufferCount} from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,  // 数据手动刷新
   preserveWhitespaces: true,
 })
-export class IndexComponent extends BaseIndexComponent  implements OnInit {  // BaseIndexComponent直接一个类
+export class IndexComponent extends BaseIndexComponent implements OnInit {  // BaseIndexComponent直接一个类
   // 今日在投创意
   @ViewChild('todayCreative') todayCreativeRef: ElementRef;
   todayCreativeEcharts;
   creativeListData;
   creativeChartData;
 
- // 今日在投活動
+  // 今日在投活動
   @ViewChild('todayActivity') todayActivityRef: ElementRef;
   todayActivityEcharts;
   campaignListData;
@@ -48,24 +48,27 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   ) {
     super(changeDetectorRef, _publicService, render, route);  // 父亲也有constructor
   }
+
   ngOnInit(): void {
 
     if (this.new_user) {
       this._indexService.init().subscribe(res => {
         this.userData = res.result.user;
       });
-      this.notData()  // 当true 不显示首页上面数据 直接显示引导语和相同部分
+      this.notData();  // 当true 不显示首页上面数据 直接显示引导语和相同部分
     } else {
-      this.hasData()  // 当false 显示首页上方数据和相同部分
+      this.hasData();  // 当false 显示首页上方数据和相同部分
     }
     this.resizeFun();
   }
+
   notData() {
     this._showData();
   }
-  hasData(){
+
+  hasData() {
     // 上面数据的解析
-    setTimeout( () => {
+    setTimeout(() => {
       // this.todayCreative();
       // this.todayActivity();
       // this.todayReportChart();
@@ -73,13 +76,14 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       this.todayAllSpendChartLine();
       this._init();
       this._showData();
-    },500); // 当你的echarts的宽高是百分比的时候，会出现显示不完全，延时即可
+    }, 500); // 当你的echarts的宽高是百分比的时候，会出现显示不完全，延时即可
   }
 
 
   totalCodeList;
   stateCount;
   dayTotalTitle;
+
   _init() {
     const countSubscribe = new Subject(); // 计数器
 
@@ -98,12 +102,12 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     this._indexService.creativeList().subscribe(res => {
       this.creativeListData = res.result.creatives;
       this.creativeChartData = res.result.charts;
-      setTimeout(()=>{
+      setTimeout(() => {
         this.todayCreative();
         this.changeCampaignAndCreativeChart(this.todayCreativeEcharts, this.creativeChartData, this.creativeCode);
         // 数据处理 为了匹配表格
         this.changeCampaignAndCreativeList(this.creativeChartData, this.creativeCode, 'creative');
-      },500)
+      }, 500);
       countSubscribe.next();
     }, () => {
       countSubscribe.next();
@@ -113,14 +117,14 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     this._indexService.campaignList().subscribe(res => {
       this.campaignListData = res.result.campaigns;
       this.campaignChartData = res.result.charts;
-      setTimeout( ()=> {
+      setTimeout(() => {
         this.todayActivity();
         this.changeCampaignAndCreativeChart(this.todayActivityEcharts, this.campaignChartData, this.campaignCode);
         this.changeCampaignAndCreativeList(this.campaignChartData, this.campaignCode, 'campaign');
-      },500)
-      countSubscribe.next()
+      }, 500);
+      countSubscribe.next();
     }, () => {
-      countSubscribe.next()
+      countSubscribe.next();
     });
 
     // 近期数据趋势 首页中上方的4个小格子中的曝光总量 点击总量也是根据数据趋势来的
@@ -128,23 +132,23 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       this.dayTotalListData = res.result.list.items; // 列表
       this.dayTotalChartData = res.result.chart;
       this.dayTotalTitle = res.result.title;
-      setTimeout( ()=> {
+      setTimeout(() => {
         this.todayReportChart();
         // 对于处理的上面的 曝光总量 点击总量 2个小块块
         this.dayTotalUp(res);
-        this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, this.dayTotalTitle)
+        this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, this.dayTotalTitle);
         this.changeDayTotalList(this.dayTotalChartData);
-      },500)
-      countSubscribe.next()
+      }, 500);
+      countSubscribe.next();
     }, () => {
-      countSubscribe.next()
+      countSubscribe.next();
     });
 
     countSubscribe.pipe(
       bufferCount(4)
     ).subscribe(() => {
       this.changeDetectorRef.markForCheck();
-    })
+    });
   }
 
 
@@ -167,7 +171,8 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
    *  活动点击事件
    */
   _campaignData = null;
-  campaign_change = 'line'
+  campaign_change = 'line';
+
   _campaignListClick(id?) {
     this._indexService.campaignChart({campaign_id: id}).subscribe(res => {
       this.campaignChartData = res.result;
@@ -182,6 +187,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
    */
   _dayTotal = null;
   dayTotal_change = 'line';
+
   _dayTotalClick(date?) {
     if (!date) {
       this._indexService.dayTotal().subscribe(res => {
@@ -194,7 +200,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
         this.dayTotalChartData = res.result;
         this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, date);
         this.changeDetectorRef.markForCheck();
-      })
+      });
     }
 
   }
@@ -206,116 +212,116 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     const todayCreativeRef = this.todayCreativeEcharts = echarts.init(this.todayCreativeRef.nativeElement);
     todayCreativeRef.setOption(
       {
-      legend: {   // 失效了
-        // orient: 'horizontal', // 'vertical'
-        // x: 'center', // 'center' | 'left' | {number},
-        // y: 'top', // 'center' | 'bottom' | {number}
-        itemWidth: 48, // 图例的宽度
-        data: ['今日数据', '昨日数据'],
-        // align: 'right',
-        right: 0,  // 位置
-        textStyle: {
-          color: '#ccc'
-        }
-      },
-      tooltip: {
-        trigger: 'axis',
-        backgroundColor: '#fff',
-        borderWidth: 1,
-        borderColor: '#ccc',
-        padding: [10, 8],
-        textStyle: {
-          color: 'black',
-          fontSize: 10,
-          fontFamily: '微软雅黑 Regular'
+        legend: {   // 失效了
+          // orient: 'horizontal', // 'vertical'
+          // x: 'center', // 'center' | 'left' | {number},
+          // y: 'top', // 'center' | 'bottom' | {number}
+          itemWidth: 48, // 图例的宽度
+          data: ['今日数据', '昨日数据'],
+          // align: 'right',
+          right: 0,  // 位置
+          textStyle: {
+            color: '#ccc'
+          }
         },
-        formatter: function (params, ticket, callback) {
-          let str = '';
-          str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
-          if (params.length > 1) {
-            params.forEach( item => {
-              // 模板字符串
-              str = str + `
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: '#fff',
+          borderWidth: 1,
+          borderColor: '#ccc',
+          padding: [10, 8],
+          textStyle: {
+            color: 'black',
+            fontSize: 10,
+            fontFamily: '微软雅黑 Regular'
+          },
+          formatter: function (params, ticket, callback) {
+            let str = '';
+            str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
+            if (params.length > 1) {
+              params.forEach(item => {
+                // 模板字符串
+                str = str + `
                 <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${item.color}"></div>
                 ${item.seriesName}<span style="margin-right:20px"></span>${item.data}<div style="margin-top:5px"></div>
               `;
-              /*str = str + '<div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: "' + params.color + ' ></div>' +
-                item.seriesName + '<span style="margin-right:20px"></span>' + item.data + '<div style="margin-top:5px"></div>';*/
-            });
-          } else {
-            str = str +  `
+                /*str = str + '<div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: "' + params.color + ' ></div>' +
+                  item.seriesName + '<span style="margin-right:20px"></span>' + item.data + '<div style="margin-top:5px"></div>';*/
+              });
+            } else {
+              str = str + `
               <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${params[0].color}"></div>
               ${params[0].seriesName}<span style="margin-right:20px"></span>${params[0].data}
-              `
-          }
-          return str;
-        }
-      },
-      grid: {  // 图表的
-        left: 0,
-        right: 10,
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: {
-        type: 'category',
-        boundaryGap: false,  // x轴铺满
-        axisLine: {
-          show: false,
-          lineStyle: {
-            color: '#979899'
+              `;
+            }
+            return str;
           }
         },
-        axisTick: { //  x,y轴显示线条
-          show: false,
+        grid: {  // 图表的
+          left: 0,
+          right: 10,
+          bottom: '3%',
+          containLabel: true
         },
-        splitLine:{
-          lineStyle:{
-            color:['#f7f8fa'],
-            width: 2,
-            type: 'dashed'
-          }
-        }
-      },
-      yAxis: {
-        type: 'value',
-        axisLine: {
-          show: false,
-          lineStyle: {
-            color: '#979899'
-          }
-        },
-        axisTick: { // x,y轴显示线条 线是否大于有颜色的线条
-          show: false,
-        },
-        splitLine:{
-          lineStyle:{
-            color:['#f7f8fa'],
-            width: 2,
-            type: 'dashed'
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,  // x轴铺满
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: '#979899'
+            }
+          },
+          axisTick: { //  x,y轴显示线条
+            show: false,
+          },
+          splitLine: {
+            lineStyle: {
+              color: ['#f7f8fa'],
+              width: 2,
+              type: 'dashed'
+            }
           }
         },
-        axisLabel: {
-          formatter: '{value} 次'
-        }
-      },
-      series: [
-        {
-          name: '今日数据',
-          type: 'line',
-          color: ['#2e90ff'],
-          symbol:'emptyCircle',
-          symbolSize: 2,//拐点大小
+        yAxis: {
+          type: 'value',
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: '#979899'
+            }
+          },
+          axisTick: { // x,y轴显示线条 线是否大于有颜色的线条
+            show: false,
+          },
+          splitLine: {
+            lineStyle: {
+              color: ['#f7f8fa'],
+              width: 2,
+              type: 'dashed'
+            }
+          },
+          axisLabel: {
+            formatter: '{value} 次'
+          }
         },
-        {
-          name: '昨日数据',
-          type: 'line',
-          color: ['#31c38f'],
-          symbol:'emptyCircle',
-          symbolSize: 2,//拐点大小
-        },
-      ]
-    });
+        series: [
+          {
+            name: '今日数据',
+            type: 'line',
+            color: ['#2e90ff'],
+            symbol: 'emptyCircle',
+            symbolSize: 2,//拐点大小
+          },
+          {
+            name: '昨日数据',
+            type: 'line',
+            color: ['#31c38f'],
+            symbol: 'emptyCircle',
+            symbolSize: 2,//拐点大小
+          },
+        ]
+      });
     // 解决浏览器伸缩造成的echarts不重复渲染
     window.addEventListener('resize', () => {
       todayCreativeRef.resize();
@@ -329,109 +335,109 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     const todayActivityRef = this.todayActivityEcharts = echarts.init(this.todayActivityRef.nativeElement);
     todayActivityRef.setOption(
       {
-      legend: {   // 失效了
-        itemWidth: 48, // 图例的宽度
-        data: ['今日数据', '昨日数据'],
-        right: 0,  // 位置
-        textStyle: {
-          color: '#ccc'
-        }
-      },
-      tooltip: {
-        trigger: 'axis',
-        backgroundColor: '#fff',
-        borderWidth: 1,
-        borderColor: '#ccc',
-        padding: [10, 8],
-        textStyle: {
-          color: 'black',
-          fontSize: 10,
-          fontFamily: '微软雅黑 Regular'
+        legend: {   // 失效了
+          itemWidth: 48, // 图例的宽度
+          data: ['今日数据', '昨日数据'],
+          right: 0,  // 位置
+          textStyle: {
+            color: '#ccc'
+          }
         },
-        formatter: function (params) {
-          let str = '';
-          str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
-          if (params.length > 1) {
-            params.forEach( item => {
-              str = str + `
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: '#fff',
+          borderWidth: 1,
+          borderColor: '#ccc',
+          padding: [10, 8],
+          textStyle: {
+            color: 'black',
+            fontSize: 10,
+            fontFamily: '微软雅黑 Regular'
+          },
+          formatter: function (params) {
+            let str = '';
+            str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
+            if (params.length > 1) {
+              params.forEach(item => {
+                str = str + `
                 <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${item.color}"></div>
                 ${item.seriesName}<span style="margin-right:20px"></span>${item.data}<div style="margin-top:5px"></div>
               `;
-            });
-          } else {
-            str = str +  `
+              });
+            } else {
+              str = str + `
               <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${params[0].color}"></div>
               ${params[0].seriesName}<span style="margin-right:20px"></span>${params[0].data}
-              `
-          }
-          return str;
-        }
-      },
-      grid: {
-        left: 0,
-        right: 10,
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        axisLine: {
-          show: false,
-          lineStyle: {
-            color: '#979899'
+              `;
+            }
+            return str;
           }
         },
-        axisTick: {
-          show: false,
+        grid: {
+          left: 0,
+          right: 10,
+          bottom: '3%',
+          containLabel: true
         },
-        splitLine: {
-          lineStyle:{
-            color:['#f7f8fa'],
-            width: 2,
-            type: 'dashed'
-          }
-        }
-      },
-      yAxis: {
-        type: 'value',
-        axisLine: {
-          show: false,
-          lineStyle: {
-            color: '#979899'
-          }
-        },
-        axisTick: {
-          show: false,
-        },
-        splitLine: {
-          lineStyle:{
-            color:['#f7f8fa'],
-            width: 2,
-            type: 'dashed'
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: '#979899'
+            }
+          },
+          axisTick: {
+            show: false,
+          },
+          splitLine: {
+            lineStyle: {
+              color: ['#f7f8fa'],
+              width: 2,
+              type: 'dashed'
+            }
           }
         },
-        axisLabel: {
-          formatter: '{value} 次'
-        }
-      },
-      series: [
-        {
-          symbol:'emptyCircle',
-          symbolSize: 2,//拐点大小
-          name: '今日数据',
-          type: 'line',
-          color: ['#2e90ff'],
+        yAxis: {
+          type: 'value',
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: '#979899'
+            }
+          },
+          axisTick: {
+            show: false,
+          },
+          splitLine: {
+            lineStyle: {
+              color: ['#f7f8fa'],
+              width: 2,
+              type: 'dashed'
+            }
+          },
+          axisLabel: {
+            formatter: '{value} 次'
+          }
         },
-        {
-          name: '昨日数据',
-          type: 'line',
-          color: ['#31c38f'],
-          symbol:'emptyCircle',
-          symbolSize: 2,//拐点大小
-        },
-      ]
-    }
+        series: [
+          {
+            symbol: 'emptyCircle',
+            symbolSize: 2,//拐点大小
+            name: '今日数据',
+            type: 'line',
+            color: ['#2e90ff'],
+          },
+          {
+            name: '昨日数据',
+            type: 'line',
+            color: ['#31c38f'],
+            symbol: 'emptyCircle',
+            symbolSize: 2,//拐点大小
+          },
+        ]
+      }
     );
     window.addEventListener('resize', () => {
       todayActivityRef.resize();
@@ -439,20 +445,21 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   }
 
   @ViewChild('templateRecharge', {read: TemplateRef}) templateRecharge: TemplateRef<any>;
+
   recharge() {
-    this._dialog.open(this.templateRecharge, {title: '充值流程', flag: false})
+    this._dialog.open(this.templateRecharge, {title: '充值流程', flag: false});
   }
+
   _dayMoney;
+
   _editBudget() {
     this._indexService.dayMoneyUpdate({money: this._dayMoney}).subscribe(res => {
       this._indexService.init().subscribe(res => {
         this.userData = res.result.user;
         this.changeDetectorRef.markForCheck();
-      })
-    })
+      });
+    });
   }
-
-
 
 
 }

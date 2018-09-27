@@ -71,16 +71,16 @@ export class ThComponent implements OnChanges, OnInit {
     this.changeDetectorRef.markForCheck();  // 手动改变渲染 每个都有status set get方法
   }
 
-  set Left(val){
-    this.renderer.setStyle(this.ref.nativeElement, 'left', `${val}px`)
-    this.renderer.setStyle(this.ref.nativeElement, 'z-index', 17)
+  set Left(val) {
+    this.renderer.setStyle(this.ref.nativeElement, 'left', `${val}px`);
+    this.renderer.setStyle(this.ref.nativeElement, 'z-index', 17);
   }
 
-  set BorderRight(val: boolean){
-    if(val){
-      this.renderer.setStyle(this.ref.nativeElement, 'border-right', `1px solid #e2e6eb`)
-    }else {
-      this.renderer.setStyle(this.ref.nativeElement, 'border-right', `none`)
+  set BorderRight(val: boolean) {
+    if (val) {
+      this.renderer.setStyle(this.ref.nativeElement, 'border-right', `1px solid #e2e6eb`);
+    } else {
+      this.renderer.setStyle(this.ref.nativeElement, 'border-right', `none`);
     }
   }
 
@@ -99,14 +99,14 @@ export class ThComponent implements OnChanges, OnInit {
         status = '1';
       }
       this.tableComponent.changeSortObservable.next({
-        sort_expression:this.sortKey,
+        sort_expression: this.sortKey,
         sort_direction: status
-      })
+      });
       this.status = status;   // 赋值的时候 调用set
     }
   }
 
-  @Input() private _sticky
+  @Input() private _sticky;
 
   get sticky() {
     return this._sticky;
@@ -116,7 +116,7 @@ export class ThComponent implements OnChanges, OnInit {
     this._sticky = coerceBooleanProperty(value);
   }
 
-  private _stickyStart
+  private _stickyStart;
 
   get stickyStart() {
     return this._stickyStart;
@@ -126,7 +126,7 @@ export class ThComponent implements OnChanges, OnInit {
     this._stickyStart = coerceBooleanProperty(value);
   }
 
-  private _stickyEnd
+  private _stickyEnd;
 
   get stickyEnd() {
     return this._stickyEnd;
@@ -138,10 +138,10 @@ export class ThComponent implements OnChanges, OnInit {
 
   constructor(@Host() @Optional() private trComponent: TrComponent,
               @Optional() public ref: ElementRef,
-              private renderer:Renderer2,
+              private renderer: Renderer2,
               @Host() @Optional() private tableComponent: TableComponent,
               private changeDetectorRef: ChangeDetectorRef) {
-    if(trComponent){
+    if (trComponent) {
       trComponent.thList.push(this);
     }
   }

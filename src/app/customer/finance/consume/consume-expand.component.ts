@@ -49,25 +49,25 @@ export class ConsumeExpandComponent implements OnInit, AfterViewInit {
   init() {
     const obj = {
       date: this.date
-    }
+    };
     this._financeService.consumeChart(obj).subscribe(res => {
       this.x = res.result.x;
       this.y = res.result.y;
       this.getData();
-    })
+    });
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.chartData();
-      this.init()
-    }, 100)
+      this.init();
+    }, 100);
   }
 
   getData() {
     // 后端没有这个字段 或者是null  undefined
     // var a = 0; a.toFixed(2) === '0.00';   0.toFixed(2):error  内部转化  +item变量
-    this.y = this.y.map( item => ( +item  || 0).toFixed(2))
+    this.y = this.y.map(item => (+item || 0).toFixed(2));
     this.chartDataRefThis.setOption({
       xAxis: {
         data: this.x,
@@ -78,7 +78,7 @@ export class ConsumeExpandComponent implements OnInit, AfterViewInit {
           data: this.y,
         }
       ]
-    })
+    });
   }
 
   chartData() {

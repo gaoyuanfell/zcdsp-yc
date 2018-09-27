@@ -32,7 +32,7 @@ export class Notification {
       const overlayConfig = new OverlayConfig({
         panelClass: 'popover-content-notification',
       });
-      this.overlayRef = this.overlay.create(overlayConfig)
+      this.overlayRef = this.overlay.create(overlayConfig);
       this._container = this.overlayRef.attach(new ComponentPortal(NotificationContainerComponent)).instance;
     }
     let subject = new Subject();

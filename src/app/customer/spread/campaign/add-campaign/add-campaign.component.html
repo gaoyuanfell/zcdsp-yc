@@ -17,7 +17,7 @@
   <div class="submit-box flex-center">
     <p class="cover-people">
       <ng-template [ngIf]="_nextStepNum">
-        可覆盖<span>{{(_audienceCount || 0) | number}}</span>人
+        可覆盖<span>{{(_audienceCount || 0)}}</span>人
       </ng-template>
     </p>
     <a *ngIf="_nextStepNum == 0" class="btn btn-link" style="padding: 0 40px;" href="javascript:history.back()">返回</a>
@@ -111,9 +111,9 @@
         <div class="form-group flex">
           <label class="form-label"><span>*</span>APPID:</label>
           <div class="form-input">
-            <input  required [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_bundle_id" #app_bundle_id="ngModel"
+            <input required [disabled]="!can_modify" class="form-control" [(ngModel)]="campaign.app_bundle_id" #app_bundle_id="ngModel"
                    type="text" placeholder="请输入APPID"
-                    [ngClass]="{'has-error': (_valid || app_bundle_id.dirty || app_bundle_id.touched) && !campaign.app_bundle_id }">
+                   [ngClass]="{'has-error': (_valid || app_bundle_id.dirty || app_bundle_id.touched) && !campaign.app_bundle_id }">
             <p class="input-error" *ngIf="(_valid || app_bundle_id.dirty || app_bundle_id.touched) && !campaign.app_bundle_id">请输入APPID</p>
           </div>
           <p class="m-l-1 form-label-text"><i class="icon-tool-help" yc-tooltip [ycContent]="'请输入在应用宝上架的APPID'" style="margin-left:5px;"></i></p>
@@ -123,7 +123,7 @@
       <div class="form-group flex-center" *ngIf="campaign.app_package_type == '2'">
         <label class="form-label"><span>*</span>APP渠道包名</label>
         <div class="form-input">
-          <input [disabled]="!can_modify" class="form-control" required  [(ngModel)]="campaign.app_channel_package_name" #app_channel_package_name="ngModel"
+          <input [disabled]="!can_modify" class="form-control" required [(ngModel)]="campaign.app_channel_package_name" #app_channel_package_name="ngModel"
                  type="text" placeholder="请输入APP渠道包名" [ngClass]="{'has-error': (_valid || app_channel_package_name.dirty) && !campaign.app_channel_package_name }">
           <p class="input-error" *ngIf="(_valid || app_channel_package_name.dirty) && !campaign.app_channel_package_name">请输入APP渠道包名</p>
         </div>
@@ -142,7 +142,7 @@
       <div class="form-group flex">
         <label class="form-label"><span>*</span>APP包名:</label>
         <div class="form-input">
-          <input [disabled]="!can_modify" class="form-control"  required [(ngModel)]="campaign.app_package_name" #app_package_name="ngModel" type="text"
+          <input [disabled]="!can_modify" class="form-control" required [(ngModel)]="campaign.app_package_name" #app_package_name="ngModel" type="text"
                  placeholder="请选择输入APP包名" [ngClass]="{'has-error': (_valid || app_package_name.dirty || app_package_name.touched) && !campaign.app_package_name }">
           <p class="input-error" *ngIf="(_valid || app_package_name.dirty || app_package_name.touched) && !campaign.app_package_name">请选择输入APP包名</p>
         </div>
@@ -159,14 +159,14 @@
         <label class="form-label"><span>*</span>APP版本:</label>
         <div class="form-input">
           <input [disabled]="!can_modify" class="form-control" required [(ngModel)]="campaign.app_version" #app_version="ngModel" type="text"
-                 placeholder="请输入APP版本"  [ngClass]="{'has-error': (_valid || app_version.dirty || app_version.touched) && !campaign.app_version}">
+                 placeholder="请输入APP版本" [ngClass]="{'has-error': (_valid || app_version.dirty || app_version.touched) && !campaign.app_version}">
           <p class="input-error" *ngIf="(_valid || app_version.dirty || app_version.touched) && !campaign.app_version">请输入APP版本</p>
         </div>
       </div>
       <div class="form-group flex">
         <label class="form-label"><span>*</span>APP大小:</label>
         <div class="form-input">
-          <input [disabled]="!can_modify" class="form-control"  required [(ngModel)]="campaign.app_size" #app_size="ngModel" type="text" placeholder="请输入APP大小"
+          <input [disabled]="!can_modify" class="form-control" required [(ngModel)]="campaign.app_size" #app_size="ngModel" type="text" placeholder="请输入APP大小"
                  [ngClass]="{'has-error': (_valid || app_size.dirty || app_size.touched) && (_isNumber2(campaign.app_size) || !campaign.app_size)}">
           <p class="input-error" *ngIf="(_valid || app_size.dirty || app_size.touched) && (_isNumber2(campaign.app_size) || !campaign.app_size)">请输入有效数字</p>
         </div>

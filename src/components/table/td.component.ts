@@ -24,13 +24,13 @@ import {coerceBooleanProperty} from '@angular/cdk/coercion';
     <span [ngStyle]="{'width.px': width}" class="nowrap"><ng-content></ng-content></span>
   `,
 })
-export class TdComponent implements OnChanges{
+export class TdComponent implements OnChanges {
   private _checked = false;
   _checkState = 0;
 
   @Input() fixed: 'left' | 'right'; // 是否固定列
   @Input() showCheckbox;
-  @Input() width
+  @Input() width;
 
   @Input() set checked(val) {
     this._checked = val;
@@ -48,7 +48,7 @@ export class TdComponent implements OnChanges{
     });
   }
 
-  private _sticky
+  private _sticky;
 
   get sticky() {
     return this._sticky;
@@ -58,7 +58,7 @@ export class TdComponent implements OnChanges{
     this._sticky = coerceBooleanProperty(value);
   }
 
-  private _stickyStart
+  private _stickyStart;
 
   get stickyStart() {
     return this._stickyStart;
@@ -68,7 +68,7 @@ export class TdComponent implements OnChanges{
     this._stickyStart = coerceBooleanProperty(value);
   }
 
-  private _stickyEnd
+  private _stickyEnd;
 
   get stickyEnd() {
     return this._stickyEnd;
@@ -78,21 +78,21 @@ export class TdComponent implements OnChanges{
     this._stickyEnd = coerceBooleanProperty(value);
   }
 
-  set Left(val){
-    this.renderer.setStyle(this.ref.nativeElement, 'left', `${val}px`)
-    this.renderer.setStyle(this.ref.nativeElement, 'z-index', 16)
+  set Left(val) {
+    this.renderer.setStyle(this.ref.nativeElement, 'left', `${val}px`);
+    this.renderer.setStyle(this.ref.nativeElement, 'z-index', 16);
   }
 
-  set LeftTFoot(val){
-    this.renderer.setStyle(this.ref.nativeElement, 'left', `${val}px`)
-    this.renderer.setStyle(this.ref.nativeElement, 'z-index', 18)
+  set LeftTFoot(val) {
+    this.renderer.setStyle(this.ref.nativeElement, 'left', `${val}px`);
+    this.renderer.setStyle(this.ref.nativeElement, 'z-index', 18);
   }
 
-  set BorderRight(val: boolean){
-    if(val){
-      this.renderer.setStyle(this.ref.nativeElement, 'border-right', `1px solid #e2e6eb`)
-    }else {
-      this.renderer.setStyle(this.ref.nativeElement, 'border-right', `none`)
+  set BorderRight(val: boolean) {
+    if (val) {
+      this.renderer.setStyle(this.ref.nativeElement, 'border-right', `1px solid #e2e6eb`);
+    } else {
+      this.renderer.setStyle(this.ref.nativeElement, 'border-right', `none`);
     }
   }
 
@@ -101,7 +101,7 @@ export class TdComponent implements OnChanges{
               private renderer: Renderer2,
               @Host() @Optional() private tableComponent: TableComponent,
               private changeDetectorRef: ChangeDetectorRef) {
-    if(trComponent){
+    if (trComponent) {
       trComponent.tdList.push(this);
     }
   }

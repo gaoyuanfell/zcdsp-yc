@@ -1,4 +1,16 @@
-import {ComponentRef, Directive, ElementRef, EventEmitter, forwardRef, HostListener, Inject, Injector, Output, Renderer2, ViewContainerRef} from '@angular/core';
+import {
+  ComponentRef,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  HostListener,
+  Inject,
+  Injector,
+  Output,
+  Renderer2,
+  ViewContainerRef
+} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Overlay, OverlayConfig, OverlayRef} from '@angular/cdk/overlay';
 import {DOCUMENT} from '@angular/common';
@@ -24,7 +36,7 @@ export class ColorPaletteDirective implements ControlValueAccessor {
 
   opened;
 
-  value
+  value;
 
   portal: ComponentPortal<ColorPaletteComponent>;
   popup: OverlayRef;
@@ -83,10 +95,10 @@ export class ColorPaletteDirective implements ControlValueAccessor {
     if (!this.popup.hasAttached()) {
       this.componentRef = this.popup.attach(this.portal);
       this.componentRef.instance.changeEvent.subscribe(data => {
-        this.value = data
-        this.changeEvent.emit(data)
+        this.value = data;
+        this.changeEvent.emit(data);
         this.onChange(data);
-      })
+      });
       this.componentRef.instance.value = this.rgbaHexBy(this.value);
     }
     this.opened = true;
@@ -101,7 +113,7 @@ export class ColorPaletteDirective implements ControlValueAccessor {
   rgbaHexBy(value) {
     if (!value) return {r: 0, g: 0, b: 0, a: 0};
     if (value.indexOf('#') === 0) {
-      value = value.substr(1)
+      value = value.substr(1);
       let arr = value.split('');
       if (value.length === 3) {
         let r16 = arr[0] + arr[0];
@@ -117,7 +129,7 @@ export class ColorPaletteDirective implements ControlValueAccessor {
     }
 
     if (/^rgba?/.test(value)) {
-      let vs = value.match(/(\d(\.\d+)?)+/g)
+      let vs = value.match(/(\d(\.\d+)?)+/g);
       return {r: +vs[0], g: +vs[1], b: +vs[2], a: +vs[3] || 1};
     }
   }

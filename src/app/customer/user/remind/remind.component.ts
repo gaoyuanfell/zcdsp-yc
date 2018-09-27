@@ -41,16 +41,15 @@ export class RemindComponent implements OnInit {
   }
 
 
-
   list() {
     this._customerUserService.remindList().subscribe(res => {
       this.userData = res.result;
       this.tableList = res.result.list;
       this.tableList.forEach((item) => {
         if (item.remind_key === 'BALANCE_ALERT') {  // 账户余额特殊处理
-          item.check_alert = item.remind_scope.replace(/{{remind_balance}}/gi, res.result.remind_balance)
+          item.check_alert = item.remind_scope.replace(/{{remind_balance}}/gi, res.result.remind_balance);
         }
-      })
+      });
       let index = 0;
       this.tableList.forEach((item) => {
         if (item.is_active === 'Y') {
@@ -59,19 +58,20 @@ export class RemindComponent implements OnInit {
         } else {
           item.is_active = false;
         }
-      })
+      });
       this.is_all = index === this.tableList.length;
       this.num = index === this.tableList.length ? 1 : index === 0 ? 0 : 2;
-    })
+    });
   }
+
   // 总开关开着：下面的可以自己打开或者关闭
   // 总开关关闭：下面的不能打开
 
   changeCheckbox() {
     this.tableList.forEach((item) => {
       item.is_active = this.is_all;
-    })
-    this.num =  this.is_all ? 1 : 0;
+    });
+    this.num = this.is_all ? 1 : 0;
   }
 
   onlyChange(event) {
@@ -103,27 +103,27 @@ export class RemindComponent implements OnInit {
       if (item) {
         const el = <Element>this.document.getElementsByName(item)[0] ? this.document.getElementsByName(item)[0] : this.document.getElementById(item);
         if (infoForm.controls[item].invalid) {
-          let top = this.asd(el, this._global.containerFullRef)
-          this._scrollService.scrollTo(this._global.containerFullRef, {top: top - el.clientHeight})
+          let top = this.asd(el, this._global.containerFullRef);
+          this._scrollService.scrollTo(this._global.containerFullRef, {top: top - el.clientHeight});
           break;
         }
       }
     }
     if (!infoForm.valid) {
-      this._notification.error('信息填写错误', ' ')
+      this._notification.error('信息填写错误', ' ');
       return;
     }
 
     const obj = JSON.parse(JSON.stringify(this.tableList));
     obj.forEach((item) => {
       item.is_active = item.is_active === true ? 'Y' : 'N';
-    })
+    });
     this._customerUserService.remindUpdate(obj).subscribe(res => {
       if (res.success === 200) {
-        this._notification.success('保存成功', '修改用户预警成功')
+        this._notification.success('保存成功', '修改用户预警成功');
         this.list();
       }
-    })
+    });
   }
 
   setInvalidClass(form, formControl) {

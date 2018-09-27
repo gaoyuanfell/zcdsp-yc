@@ -1,4 +1,23 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  HostListener,
+  Inject,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  Renderer2,
+  SimpleChanges,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Overlay, OverlayConfig, OverlayRef} from '@angular/cdk/overlay';
 import {TemplatePortal} from '@angular/cdk/portal';
@@ -94,7 +113,7 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy, OnInit,
   }
 
   select(data = {[this._props.label]: this.whole}) {
-    if (data[this._props.disabled]) return
+    if (data[this._props.disabled]) return;
     this._selectValue = data;
     this._value = data[this._props.value];
     this.onChange(data[this._props.value]);
@@ -138,7 +157,7 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy, OnInit,
     if (this.disabled) return;
     if (!this._list || !this._list.length) return;
     this._opened = true;
-    this._onTouched()
+    this._onTouched();
     if (!this.overlayRef) {
       this.portal = new TemplatePortal(this.template, this.viewContainerRef);
     }
@@ -232,7 +251,7 @@ export class SelectComponent implements ControlValueAccessor, OnDestroy, OnInit,
 
   ngOnInit(): void {
     if (this.borderNone) {
-      this.renderer.addClass(this.ref.nativeElement, 'border-none')
+      this.renderer.addClass(this.ref.nativeElement, 'border-none');
     }
     if (this.searchCtrl) {
       this.keyupObservable = fromEvent(window, 'keyup')

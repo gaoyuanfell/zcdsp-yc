@@ -7,7 +7,6 @@ import * as reducerAction from '../../store/actions/menu.action';
 import {fromEvent, Observable, Subject} from 'rxjs';
 import {Loading} from '../../components/loading/loading.service';
 import {Global} from '../../service/global';
-import * as directionalAction from '../../store/actions/directional.action';
 import {PublicService} from '../../service/public.service';
 import {fadeIn} from '../animations/fadeIn';
 import {Title} from '@angular/platform-browser';

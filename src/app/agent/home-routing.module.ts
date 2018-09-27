@@ -8,7 +8,6 @@ import {UserResolverService} from '../../auth/user-resolver-service';
 import {HomeComponent} from './home.component';
 
 
-
 const routeList: Routes = [
   {
     path: 'home',

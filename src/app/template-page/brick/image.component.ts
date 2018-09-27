@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Configure} from './interface';
 
 @Component({
@@ -17,7 +17,7 @@ import {Configure} from './interface';
     </div>
   `,
   styles: [
-      `
+    `
       .img-list { 
         width: 100%;
       }
@@ -68,8 +68,8 @@ export class ImageComponent implements OnInit {
         'margin-bottom.px': 0,
         'margin-left.px': 'auto',
       }
-    }
-    this._list.push(bo)
+    };
+    this._list.push(bo);
   }
 
   removeImg(index) {

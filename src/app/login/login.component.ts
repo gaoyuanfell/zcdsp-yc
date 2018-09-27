@@ -1,6 +1,6 @@
 import {Component, OnInit, Renderer2, TemplateRef, ViewChild} from '@angular/core';
 import {PublicService} from '../../service/public.service';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import SparkMD5 from 'spark-md5';
 import {Dialog} from '../../components/dialog/dialog';
 import {Base64} from 'js-base64';
@@ -31,8 +31,9 @@ export class LoginComponent implements OnInit {
 
   form: any = {};
   forget: any = {};
+
   flag_change() {
-    this.flags=!this.flags;
+    this.flags = !this.flags;
     this.pwd_show = false;
     this.form = {};
     this.forget = {};
@@ -41,9 +42,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.title.setTitle(`智橙移动 领先的信息流广告投放平台`);
     this.verifyCode();
-    this.route.queryParams.subscribe( res => {
+    this.route.queryParams.subscribe(res => {
       this.form.userName = res.user_name ? res.user_name : '';
-    })
+    });
   }
 
 
@@ -63,6 +64,7 @@ export class LoginComponent implements OnInit {
   countdown = 60;
   flagCode = false;
   codeText = '获取验证码';
+
   codeTest() {
     if (localStorage.getItem('countdown') && +localStorage.getItem('countdown') <= 60 && +localStorage.getItem('countdown') > 0) {
       this.countdown = +localStorage.getItem('countdown');
@@ -98,7 +100,7 @@ export class LoginComponent implements OnInit {
     this.pwd_vertify_show = undefined;
     this.forget_vertify_Code();
     this._dialog.open(this.code_template_ref, {title: '', flag: true, async: true}).subscribe((data: any) => {
-      if (data && this.forget_code_ref.valid && this.error !=='img_code') {
+      if (data && this.forget_code_ref.valid && this.error !== 'img_code') {
         let obj = {
           type: this.type,
           user_name: this.forget.user_name,
@@ -126,6 +128,7 @@ export class LoginComponent implements OnInit {
 
   // 忘记密码
   number = 0;
+
   forget_vertify_Code() {
     ++this.number;
     if (document.getElementById('freshen')) {
@@ -142,7 +145,7 @@ export class LoginComponent implements OnInit {
   //
   setInvalidClass(form, formControl) {
     let cl;
-    if ( formControl && formControl.invalid && (formControl.dirty || formControl.touched || form.submitted) ) {
+    if (formControl && formControl.invalid && (formControl.dirty || formControl.touched || form.submitted)) {
       cl = 'has-error';
     }
     if (formControl && formControl.valid) {
@@ -216,7 +219,7 @@ export class LoginComponent implements OnInit {
         } else {
           this.router.navigate(['/']);
         }
-      },() => {
+      }, () => {
         this.verifyCode();
       });
     }

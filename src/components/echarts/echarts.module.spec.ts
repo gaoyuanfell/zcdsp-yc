@@ -1,4 +1,4 @@
-import { EchartsModule } from './echarts.module';
+import {EchartsModule} from './echarts.module';
 
 describe('EchartsModule', () => {
   let echartsModule: EchartsModule;

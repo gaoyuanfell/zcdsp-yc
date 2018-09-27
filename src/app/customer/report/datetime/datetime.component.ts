@@ -32,7 +32,7 @@ export class DatetimeComponent implements OnInit {
 
   ngOnInit() {
     const obj = this.route.snapshot.data['auth'];
-    this.authList = obj['jurisdiction_list']
+    this.authList = obj['jurisdiction_list'];
     this.authUser = obj['user'];
     this.init();
     this.list();
@@ -45,12 +45,12 @@ export class DatetimeComponent implements OnInit {
 
   list() {
 
-    if (   new Date(this.query.end_date).getTime() - new Date(this.query.begin_date).getTime() > 0  ) {  // 不是一天
+    if (new Date(this.query.end_date).getTime() - new Date(this.query.begin_date).getTime() > 0) {  // 不是一天
       this._reportService.dateList(this.query).subscribe(res => {
         this.tableList = res.result.items;
         this.total_count = res.result.total_count;
         this.listTitle = res.result.other;
-      })
+      });
     } else {
       let obj = {
         campaign_id: this.query.campaign_id,
@@ -61,7 +61,7 @@ export class DatetimeComponent implements OnInit {
         this.tableList = res.result.items;
         this.total_count = res.result.total_count;
         this.listTitle = res.result.other;
-      })
+      });
     }
 
   }
@@ -71,8 +71,8 @@ export class DatetimeComponent implements OnInit {
       this.listArray = res.result.campaigns;
       this.listArray.forEach(item => {
         item.name = item.campaign_name + item.show_state_meaning;
-      })
-    })
+      });
+    });
   }
 
   exportUrl() {

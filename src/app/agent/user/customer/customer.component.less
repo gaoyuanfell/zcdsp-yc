@@ -158,48 +158,49 @@
 .container-list {
   padding: 30px 25px;
 }
+
 .table-title {
   color: #666666;
   font-size: 20px;
   font-weight: 700;
 }
 
-.top{
+.top {
   display: flex;
   margin-bottom: 24px;
   justify-content: space-around;
-  li{
+  li {
     width: 32%;
-    height:110px;
+    height: 110px;
     margin-right: 25px;
     background: #fff;
-    border:1px #e2e6eb solid;
+    border: 1px #e2e6eb solid;
     padding: 24px;
-    &:last-child{
+    &:last-child {
       margin-right: 0;
     }
-    .title{
+    .title {
       display: table;
-      .img{
+      .img {
         width: 52px;
-        height:52px;
+        height: 52px;
         display: table-cell;
         vertical-align: middle;
-        img{
+        img {
           display: block;
           width: 100%;
         }
       }
-      .right{
+      .right {
         display: table-cell;
         vertical-align: middle;
         padding-left: 16px;
-        p{
+        p {
           margin-bottom: 8px;
           font-weight: bold;
           color: #666666;
         }
-        h1{
+        h1 {
           color: #111;
           font-size: 30px;
           font-weight: normal;
@@ -208,31 +209,31 @@
       }
 
     }
-    .ratio{
+    .ratio {
       margin-top: 30px;
       font-size: 14px;
       color: #979899;
       padding-bottom: 16px;
       border-bottom: 1px #efefef solid;
       display: flex;
-      .list{
+      .list {
         margin-right: 30px;
         white-space: nowrap;
-        &:last-child{
+        &:last-child {
           margin-right: 0;
         }
-        span{
+        span {
           color: #333;
-          margin:0 6px;
+          margin: 0 6px;
         }
       }
     }
-    .number{
+    .number {
       font-size: 14px;
       color: #979899;
       margin-top: 14px;
       display: flex;
-      .list{
+      .list {
         white-space: nowrap;
         width: 50%;
         span {
@@ -240,61 +241,61 @@
           color: #333;
           margin-right: 5px;
         }
-        &:nth-child(2){
-          text-align:right;
+        &:nth-child(2) {
+          text-align: right;
         }
       }
     }
   }
-  .echart{
+  .echart {
     margin-top: 16px;
     border-bottom: 1px #efefef solid;
   }
 }
+
 .right_bottom {
-  position:absolute;
-  right:15%;
-  bottom:25px;
+  position: absolute;
+  right: 15%;
+  bottom: 25px;
   > div {
-    margin-left:25px;
-    display:inline-block;
+    margin-left: 25px;
+    display: inline-block;
     span {
       color: #2e90ff;
-      font-size:16px;
+      font-size: 16px;
     }
   }
 }
 
-@media screen and (max-width: 1700px) {  // id class 优先级呀 嵌套越深优先级高  保持一致
+@media screen and (max-width: 1700px) {
+  // id class 优先级呀 嵌套越深优先级高  保持一致
   .right_bottom {
-    position:absolute;
-    right:6%;
-    bottom:25px;
+    position: absolute;
+    right: 6%;
+    bottom: 25px;
   }
 }
+
 @media screen and (max-width: 1520px) {
-  .top{
+  .top {
     li {
       height: 120px;
       .title {
-        .right{
-          h1{
+        .right {
+          h1 {
             font-size: 24px;
           }
         }
       }
     }
   }
+
   .right_bottom {
-    position:absolute;
-    bottom:10px;
+    position: absolute;
+    bottom: 10px;
     left: 0;
   }
 }
-
-
-
-
 
 .btn-into-img {
   margin-right: 10px;

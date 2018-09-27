@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Configure} from './interface';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
@@ -13,7 +13,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
             <div class="temp-form-group flex-center">
               <label class="temp-form-label">{{input.label}}</label>
               <div class="temp-form-input">
-                <input class="temp-form-control" type="text" [(ngModel)]="input.value" [name]="input.name" [placeholder]="input.placeholder">
+                <input class="temp-form-control" type="text" [(ngModel)]="input.value" [name]="input.name"
+                       [placeholder]="input.placeholder">
               </div>
             </div>
           </ng-template>
@@ -79,7 +80,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
               <label class="temp-form-label">{{input.label}}</label>
               <div class="temp-form-input">
 
-                <input type="tel" class="temp-form-control" [(ngModel)]="input.value" [name]="input.name" [placeholder]="input.placeholder"/>
+                <input type="tel" class="temp-form-control" [(ngModel)]="input.value" [name]="input.name"
+                       [placeholder]="input.placeholder"/>
 
               </div>
             </div>
@@ -90,7 +92,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
               <label class="temp-form-label">{{input.label}}</label>
               <div class="temp-form-input">
 
-                <input type="email" class="temp-form-control" [(ngModel)]="input.value" [name]="input.name" [placeholder]="input.placeholder"/>
+                <input type="email" class="temp-form-control" [(ngModel)]="input.value" [name]="input.name"
+                       [placeholder]="input.placeholder"/>
 
               </div>
             </div>
@@ -117,7 +120,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
     </form>
   `,
   styles: [
-      `
+    `
       .temp-form-group {
         padding: 10px 15px;
         position: relative;
@@ -169,7 +172,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
         margin-top: -4px;
       }
     `,
-      `
+    `
       .label-radio {
         min-width: 25%;
         margin-right: 10px;
@@ -197,7 +200,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
         display: none;
       }
     `,
-      `
+    `
       .label-checkbox {
         min-width: 25%;
         margin-right: 10px;
@@ -229,7 +232,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
         content: '√ ';
       }
     `,
-      `
+    `
       select {
         -webkit-appearance: none;
         border: 0;
@@ -244,7 +247,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
         padding-left: 0;
       }
     `,
-      `
+    `
       .btn-submit {
         cursor: pointer;
         margin: 10px auto;
@@ -266,7 +269,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
         overflow: hidden;
       }
     `,
-      `
+    `
       textarea {
         display: block;
         resize: none;
@@ -288,7 +291,7 @@ export class FormComponent implements OnInit {
 
   get submitStyle() {
     if (this.formList instanceof Array) {
-      return this.formList[this.formList.length - 1]
+      return this.formList[this.formList.length - 1];
     }
     return null;
   }
@@ -306,7 +309,7 @@ export class FormComponent implements OnInit {
     this._configure = value;
   }
 
-  formList
+  formList;
 
   /**
    * 设置表单
@@ -325,10 +328,10 @@ export class FormComponent implements OnInit {
         data: this.getData()
       }, {headers: new HttpHeaders().set('Content-Type', 'application/json')}).subscribe((res: any) => {
         if (res.success == 200) {
-          alert(this.configure.hints)
-          if (this.configure.jumpLink) window.location.href = this.configure.jumpLink
+          alert(this.configure.hints);
+          if (this.configure.jumpLink) window.location.href = this.configure.jumpLink;
         }
-      })
+      });
     }
   }
 
@@ -338,13 +341,13 @@ export class FormComponent implements OnInit {
         return {
           label: fl.label,
           value: fl.list.filter(vm => vm.checked).map(b => b.value).join('|')
-        }
+        };
       }
       return {
         label: fl.label,
         value: fl.value
-      }
-    })
+      };
+    });
   }
 
   constructor(private http: HttpClient) {

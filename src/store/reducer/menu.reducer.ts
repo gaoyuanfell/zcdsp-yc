@@ -1,5 +1,5 @@
 import {MenuState} from '../model/menu.state';
-import {MenuActionUnion, MenuActionTypes} from '../actions/menu.action';
+import {MenuActionTypes, MenuActionUnion} from '../actions/menu.action';
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 
 const initState: MenuState = {
@@ -18,23 +18,23 @@ export function menuReducer(state: MenuState = initState, action: MenuActionUnio
       state.menuList.every(m => {
         m.active = false;
         return true;
-      })
+      });
       state.menuList.every(m => {
-        if(m.route === path){
+        if (m.route === path) {
           m.active = true;
-          return false
+          return false;
         }
-        if(m.child){
+        if (m.child) {
           m.child.every(c => {
-            if(!!~path.indexOf(c.route)){
+            if (!!~path.indexOf(c.route)) {
               m.active = true;
               return false;
             }
             return true;
-          })
+          });
         }
         return true;
-      })
+      });
       return {...state};
     }
     default: {

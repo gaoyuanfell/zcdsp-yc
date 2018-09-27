@@ -22,51 +22,50 @@
   </div>
 
 
-
-<div class="table-content">
-  <div class="query-tool">
-    <div class="left-tool">
-      <h2 class="table-title">
-        操作日志
-      </h2>
-    </div>
-    <div class="right-tool">
-      <input-datepicker [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
-      <div class="input1-icon">
-        <input type="text" [(ngModel)]="query.operator_name" placeholder="请输入被操作账户"/>
+  <div class="table-content">
+    <div class="query-tool">
+      <div class="left-tool">
+        <h2 class="table-title">
+          操作日志
+        </h2>
       </div>
-      <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'输入日志搜索'"></yc-input-search>
+      <div class="right-tool">
+        <input-datepicker [isRange]="true" [query]="query" [appendField]="['begin_date','end_date']" (search)="search()"></input-datepicker>
+        <div class="input1-icon">
+          <input type="text" [(ngModel)]="query.operator_name" placeholder="请输入被操作账户"/>
+        </div>
+        <yc-input-search [(ngModel)]="query.search_text" (changeEvent)="search()" [placeholder]="'输入日志搜索'"></yc-input-search>
+      </div>
     </div>
-  </div>
 
-  <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
+    <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
 
-    <table #tableRef table>
-      <thead>
-      <tr sticky>
-        <th>内容</th>
-        <th>操作IP</th>
-        <th>被操作账户</th>
-        <th [showSort]="true" [sortKey]="'creation_date'">操作时间</th>
-      </tr>
-      </thead>
-      <tbody>
-      <ng-template [ngForOf]="ycTable.data" ngFor let-data>
-        <tr class="text-center">
-          <td [width]="500" [title]="data.log_description">{{data.log_description}}</td>
-          <td>{{data.client_ip}}</td>
-          <td>{{data.operator_name}}</td>
-          <td>{{ data.creation_date}}</td>
+      <table #tableRef table>
+        <thead>
+        <tr sticky>
+          <th>内容</th>
+          <th>操作IP</th>
+          <th>被操作账户</th>
+          <th [showSort]="true" [sortKey]="'creation_date'">操作时间</th>
         </tr>
-      </ng-template>
-      </tbody>
+        </thead>
+        <tbody>
+        <ng-template [ngForOf]="ycTable.data" ngFor let-data>
+          <tr class="text-center">
+            <td [width]="500" [title]="data.log_description">{{data.log_description}}</td>
+            <td>{{data.client_ip}}</td>
+            <td>{{data.operator_name}}</td>
+            <td>{{ data.creation_date}}</td>
+          </tr>
+        </ng-template>
+        </tbody>
 
-    </table>
-    <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
-    <div paginator style="background: #f9fafb;" [hidden]="!total_count">
-      <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
-    </div>
-  </yc-table>
-</div>
+      </table>
+      <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
+      <div paginator style="background: #f9fafb;" [hidden]="!total_count">
+        <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
+      </div>
+    </yc-table>
+  </div>
 </div>
 

@@ -1,5 +1,6 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
   ElementRef,
@@ -39,7 +40,7 @@ export class TemplatePageComponent implements OnInit {
 
   templateUrl = environment.TEMPLATE;
 
-  @ViewChild('container', {read: ViewContainerRef}) containerRef: ViewContainerRef
+  @ViewChild('container', {read: ViewContainerRef}) containerRef: ViewContainerRef;
 
   componentInstance;
 
@@ -52,7 +53,7 @@ export class TemplatePageComponent implements OnInit {
   pushBrick(type, value: any = {}) {
     let componentBoxFactory = this.componentFactoryResolver.resolveComponentFactory(TemplateBoxComponent);
     let componentBoxRef = this.containerRef.createComponent<TemplateBoxComponent>(componentBoxFactory);
-    componentBoxRef.instance.id = 'template_' + Math.floor(Math.random() * 1000000)
+    componentBoxRef.instance.id = 'template_' + Math.floor(Math.random() * 1000000);
 
     let configure = value.configure;
     let list = value.list;
@@ -60,63 +61,63 @@ export class TemplatePageComponent implements OnInit {
 
     switch (type) {
       case 'text': {
-        let componentRef = componentBoxRef.instance.createComponent<TextComponent>(TextComponent)
+        let componentRef = componentBoxRef.instance.createComponent<TextComponent>(TextComponent);
         if (configure) {
           configure.value = decodeURIComponent(window.atob(configure.value));
-          componentRef.instance.configure = configure
+          componentRef.instance.configure = configure;
         } else {
           componentRef.instance.configure.value = `<p>测试文本</p>`;
         }
         break;
       }
       case 'image': {
-        let componentRef = componentBoxRef.instance.createComponent<ImageComponent>(ImageComponent)
-        componentRef.instance.list = list || []
+        let componentRef = componentBoxRef.instance.createComponent<ImageComponent>(ImageComponent);
+        componentRef.instance.list = list || [];
         break;
       }
       case 'slide': {
-        let componentRef = componentBoxRef.instance.createComponent<SlideComponent>(SlideComponent)
+        let componentRef = componentBoxRef.instance.createComponent<SlideComponent>(SlideComponent);
         if (configure) {
-          componentRef.instance.configure = configure
+          componentRef.instance.configure = configure;
         }
-        componentRef.instance.list = list || []
+        componentRef.instance.list = list || [];
         break;
       }
       case 'link': {
-        let componentRef = componentBoxRef.instance.createComponent<LinkComponent>(LinkComponent)
+        let componentRef = componentBoxRef.instance.createComponent<LinkComponent>(LinkComponent);
         if (configure) {
-          componentRef.instance.configure = configure
+          componentRef.instance.configure = configure;
         } else {
           componentRef.instance.configure.value = `链接文本`;
         }
         break;
       }
       case 'button': {
-        let componentRef = componentBoxRef.instance.createComponent<ButtonComponent>(ButtonComponent)
+        let componentRef = componentBoxRef.instance.createComponent<ButtonComponent>(ButtonComponent);
         if (configure) {
-          componentRef.instance.configure = configure
+          componentRef.instance.configure = configure;
         } else {
           componentRef.instance.configure.value = `按钮文字`;
         }
         break;
       }
       case 'video': {
-        let componentRef = componentBoxRef.instance.createComponent<VideoComponent>(VideoComponent)
+        let componentRef = componentBoxRef.instance.createComponent<VideoComponent>(VideoComponent);
         componentRef.instance.configure = configure || {};
         break;
       }
       case 'form': {
-        let componentRef = componentBoxRef.instance.createComponent<FormComponent>(FormComponent)
+        let componentRef = componentBoxRef.instance.createComponent<FormComponent>(FormComponent);
         componentRef.instance.setFormList(formList || this.formList);
         if (configure) {
-          componentRef.instance.configure = configure
+          componentRef.instance.configure = configure;
         }
         break;
       }
       case 'line': {
-        let componentRef = componentBoxRef.instance.createComponent<LineComponent>(LineComponent)
+        let componentRef = componentBoxRef.instance.createComponent<LineComponent>(LineComponent);
         if (configure) {
-          componentRef.instance.configure = configure
+          componentRef.instance.configure = configure;
         }
         break;
       }
@@ -124,7 +125,7 @@ export class TemplatePageComponent implements OnInit {
 
     this.componentList.forEach(cl => {
       cl.checked = false;
-    })
+    });
 
     componentBoxRef.instance.checked = true;
     this.componentInstance = componentBoxRef.instance;
@@ -136,14 +137,14 @@ export class TemplatePageComponent implements OnInit {
         this.componentBoxList.splice(index, 1);
         this.componentInstance = null;
       }
-    }
+    };
 
     componentBoxRef.instance.selectedEvent.subscribe(data => {
       if (this.componentInstance != data) {
         this.componentList.forEach(cl => {
           cl.checked = false;
-        })
-        this.componentInstance = data
+        });
+        this.componentInstance = data;
         this.componentInstance.checked = true;
       }
     });
@@ -152,9 +153,9 @@ export class TemplatePageComponent implements OnInit {
      * 获取开始拖拽的数据
      */
     componentBoxRef.instance.dragIdEvent.subscribe(({id, y}) => {
-      this.dragId = id
-      this.dragY = y
-    })
+      this.dragId = id;
+      this.dragY = y;
+    });
     this.changeDetectorRef.markForCheck();
   }
 
@@ -191,7 +192,7 @@ export class TemplatePageComponent implements OnInit {
       let url = `${filePath}?${qs.stringify(res.result)}`;
       this.componentInstance.templateInstance.setImg(url);
       this.changeDetectorRef.markForCheck();
-    })
+    });
   }
 
   /**
@@ -211,16 +212,16 @@ export class TemplatePageComponent implements OnInit {
           this.componentInstance.templateInstance.configure.value = res.result.file_path;
           this.changeDetectorRef.markForCheck();
         }
-      })
-    })
+      });
+    });
     uploadData.upload();
   }
 
   //////////////////////////////////////////
-  cacheImg
+  cacheImg;
 
   selectImg(data) {
-    this.cacheImg = data
+    this.cacheImg = data;
   }
 
   /**
@@ -242,7 +243,7 @@ export class TemplatePageComponent implements OnInit {
     {label: '多选', value: 'checkbox'},
     {label: '多文本', value: 'textarea'},
     {label: '下拉框', value: 'select'},
-  ]
+  ];
 
   formList: any[] = [
     {
@@ -261,7 +262,7 @@ export class TemplatePageComponent implements OnInit {
         'border-radius.px': 5,
       }
     }
-  ]
+  ];
 
   /**
    * 选项改变
@@ -297,22 +298,22 @@ export class TemplatePageComponent implements OnInit {
       case 'radio': {
         data._placeholder = false;
         data.list = Array.from({length: 2}).map(() => {
-          return {value: Math.floor(Math.random() * 100000)}
-        })
+          return {value: Math.floor(Math.random() * 100000)};
+        });
         break;
       }
       case 'checkbox': {
         data._placeholder = false;
         data.list = Array.from({length: 2}).map(() => {
-          return {}
-        })
+          return {};
+        });
         break;
       }
       case 'select': {
         data._placeholder = false;
         data.list = Array.from({length: 2}).map(() => {
-          return {}
-        })
+          return {};
+        });
         break;
       }
     }
@@ -327,7 +328,7 @@ export class TemplatePageComponent implements OnInit {
   addFormList(type, list, index?) {
     switch (type) {
       case 'add': {
-        list.push({})
+        list.push({});
         break;
       }
       case 'remove': {
@@ -348,7 +349,7 @@ export class TemplatePageComponent implements OnInit {
       placeholder: '',
       name: 'value' + Math.floor(Math.random() * 100000),
       _placeholder: true,
-    })
+    });
   }
 
   /**
@@ -360,21 +361,21 @@ export class TemplatePageComponent implements OnInit {
     switch (type) {
       case 'remove': {
         if (this.formList.length == 2) break;
-        this.formList.splice(number, 1)
+        this.formList.splice(number, 1);
         break;
       }
       case 'up': {
         if (number == 0) break;
         let bo = this.formList[number];
-        this.formList.splice(number, 1)
-        this.formList.splice(number - 1, 0, bo)
+        this.formList.splice(number, 1);
+        this.formList.splice(number - 1, 0, bo);
         break;
       }
       case 'down': {
         if (number == this.formList.length - 2) break;
         let bo = this.formList[number];
-        this.formList.splice(number, 1)
-        this.formList.splice(number + 1, 0, bo)
+        this.formList.splice(number, 1);
+        this.formList.splice(number + 1, 0, bo);
         break;
       }
     }
@@ -384,7 +385,7 @@ export class TemplatePageComponent implements OnInit {
    * 设置表单
    */
   setFormList() {
-    this.componentInstance.templateInstance.setFormList(this.formList)
+    this.componentInstance.templateInstance.setFormList(this.formList);
   }
 
   /////////////////////////////////////////
@@ -392,7 +393,7 @@ export class TemplatePageComponent implements OnInit {
   templateName; // 模板名称
   templateType; // 模板类型
   templateCover; // 模板预览图
-  _previewCodeUrl
+  _previewCodeUrl;
 
   templateCoverChange(files) {
     this._publicService.imgUpload({
@@ -401,7 +402,7 @@ export class TemplatePageComponent implements OnInit {
       let filePath = res.result.filePath;
       delete res.result.filePath;
       this.templateCover = `${filePath}?${qs.stringify(res.result)}`;
-    })
+    });
   }
 
   /**
@@ -411,20 +412,20 @@ export class TemplatePageComponent implements OnInit {
     let body = this.getData();
     if (!body.name) {
       this._notification.warning('提示', '请填写落地页名称');
-      return
+      return;
     }
     if (this.system === 'Y') {
       if (!body.type) {
         this._notification.warning('提示', '请选择落地页类型');
-        return
+        return;
       }
     }
     let w = window.open();
     this._templateService.landingPreview(body).subscribe(res => {
-      w.location.href = `${this.templateUrl}/template/preview/${res.result.id}`
+      w.location.href = `${this.templateUrl}/template/preview/${res.result.id}`;
     }, () => {
-      w.close()
-    })
+      w.close();
+    });
   }
 
   /**
@@ -434,12 +435,16 @@ export class TemplatePageComponent implements OnInit {
     let body = this.getData();
     if (!body.name) {
       this._notification.warning('提示', '请填写落地页名称');
-      return
+      return;
     }
     this._templateService.landingPreview(body).subscribe(res => {
-      this._previewCodeUrl = this._templateService.landingQrcode({tmp_id: res.result.id, render_url: `${this.templateUrl}/template/preview`, _: Date.now()})
+      this._previewCodeUrl = this._templateService.landingQrcode({
+        tmp_id: res.result.id,
+        render_url: `${this.templateUrl}/template/preview`,
+        _: Date.now()
+      });
       this.changeDetectorRef.markForCheck();
-    })
+    });
   }
 
   /**
@@ -449,23 +454,23 @@ export class TemplatePageComponent implements OnInit {
     let body = this.getData();
     if (!body.name) {
       this._notification.warning('提示', '请填写落地页名称');
-      return
+      return;
     }
     if (this.system === 'Y') {
       if (!body.type) {
         this._notification.warning('提示', '请选择落地页类型');
-        return
+        return;
       }
       if (!body.cover) {
         this._notification.warning('提示', '请上传落地页预览图');
-        return
+        return;
       }
     }
     body.is_system = this.system;
     this._templateService.landingAdd(body).subscribe(res => {
-      this._notification.success('落地页模板', '提交成功')
-      localStorage.setItem(`${Date.now()}`, 'templateList')
-    })
+      this._notification.success('落地页模板', '提交成功');
+      localStorage.setItem(`${Date.now()}`, 'templateList');
+    });
   }
 
   getData() {
@@ -480,7 +485,7 @@ export class TemplatePageComponent implements OnInit {
       switch (cl.type) {
         case 'text': {
           let configure = {...cl.configure};
-          configure.value = window.btoa(encodeURIComponent(configure.value)) // decodeURIComponent(window.atob(''))
+          configure.value = window.btoa(encodeURIComponent(configure.value)); // decodeURIComponent(window.atob(''))
           body.elements.push({
             type: cl.type,
             configure: configure,
@@ -554,26 +559,26 @@ export class TemplatePageComponent implements OnInit {
     let elements = JSON.parse(JSON.stringify(template.elements));
     elements.forEach(value => {
       let configure = value.configure;
-      let list = value.list
+      let list = value.list;
       let formList = value.formList;
-      this.pushBrick(value.type, {configure, list, formList})
-    })
+      this.pushBrick(value.type, {configure, list, formList});
+    });
   }
 
   /////////////////////////////////////////
 
-  templateTypeList
-  templateSysList = []
+  templateTypeList;
+  templateSysList = [];
 
-  showType: 'assembly' | 'template' = 'assembly'
+  showType: 'assembly' | 'template' = 'assembly';
 
   auth;
-  system // 是否是系统模板
+  system; // 是否是系统模板
 
   query = {
     page_index: 1,
     page_size: 30,
-  }
+  };
 
   getTemplateSysList() {
     this._templateService.landingSystem(this.query).subscribe(res => {
@@ -587,7 +592,7 @@ export class TemplatePageComponent implements OnInit {
    */
   loadMoreTemplateSysList({next}) {
     if (this.showType !== 'template') return;
-    ++this.query.page_index
+    ++this.query.page_index;
     this._templateService.landingSystem(this.query).subscribe(res => {
       this.templateSysList.push(...res.result.items);
       next();
@@ -614,7 +619,7 @@ export class TemplatePageComponent implements OnInit {
     this.query.page_index = 3;
     this.query.page_size = 10;
 
-    this.system = route.snapshot.data.system
+    this.system = route.snapshot.data.system;
   }
 
 
@@ -622,9 +627,9 @@ export class TemplatePageComponent implements OnInit {
     this.dropEventInit();
   }
 
-  dragId // 拖动id
-  dragY // 拖动坐标
-  @ViewChild('emulatedDevices') emulatedDevicesRef: ElementRef
+  dragId; // 拖动id
+  dragY; // 拖动坐标
+  @ViewChild('emulatedDevices') emulatedDevicesRef: ElementRef;
 
   /**
    * 初始化模板拖拽
@@ -645,13 +650,13 @@ export class TemplatePageComponent implements OnInit {
         }
         if (tryDrag) {
           this.swapElements(node, targetNode);
-          console.dir(targetNode)
+          console.dir(targetNode);
           let index1 = this.componentBoxList.findIndex(cb => cb.location.nativeElement === targetNode);
           let index2 = this.componentBoxList.findIndex(cb => cb.location.nativeElement === node);
-          [this.componentBoxList[index2], this.componentBoxList[index1]] = [this.componentBoxList[index1], this.componentBoxList[index2]]
+          [this.componentBoxList[index2], this.componentBoxList[index1]] = [this.componentBoxList[index1], this.componentBoxList[index2]];
         }
       }
-      this.dragY = event.y
+      this.dragY = event.y;
     });
 
     this.renderer.listen(this.emulatedDevicesRef.nativeElement, 'dragend', (event: DragEvent) => {
@@ -660,7 +665,7 @@ export class TemplatePageComponent implements OnInit {
 
     this.renderer.listen(this.emulatedDevicesRef.nativeElement, 'drop', (event) => {
       event.preventDefault();
-    })
+    });
   }
 
   /**
@@ -671,7 +676,7 @@ export class TemplatePageComponent implements OnInit {
   findTemplateNode(node) {
     if (!node) return;
     if (node.nodeName === 'TEMPLATE-BOX') return node;
-    return this.findTemplateNode(node.parentNode)
+    return this.findTemplateNode(node.parentNode);
   }
 
   /**

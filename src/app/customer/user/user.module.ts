@@ -7,7 +7,7 @@ import {RemindComponent} from './remind/remind.component';
 import {InfoComponent} from './info/info.component';
 import {RemindPipe} from './remind/remind.pipe';
 import {FormsModule} from '@angular/forms';
-import { SafeCenterComponent } from './safe-center/safe-center.component';
+import {SafeCenterComponent} from './safe-center/safe-center.component';
 
 
 @NgModule({

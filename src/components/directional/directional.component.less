@@ -1,12 +1,12 @@
-:host{
+:host {
 
 }
 
-.directional-box{
+.directional-box {
   height: 50px;
 }
 
-.directional-info-title{
+.directional-info-title {
   line-height: 30px;
   font-weight: 700;
   font-size: 20px;
@@ -17,38 +17,38 @@
   margin-right: 25px;
 }
 
-.directional-info{
+.directional-info {
   padding-top: 6px;
-  > *{
+  > * {
     display: inline-block;
     margin-right: 20px;
   }
-  & :nth-child(1){
+  & :nth-child(1) {
     color: #212121;
     font-size: 16px;
     font-weight: 700;
   }
-  & :nth-child(2){
+  & :nth-child(2) {
     color: #212121;
     font-size: 16px;
     font-weight: 400;
   }
 }
 
-.expanded{
+.expanded {
   overflow: hidden;
   margin: 0 115px;
   visibility: visible;
 }
 
-.directional-operation{
+.directional-operation {
   margin-left: auto;
 }
 
-.choice-values-box{
+.choice-values-box {
   position: relative;
   margin: 10px 0;
-  .triangle{
+  .triangle {
     top: -6px;
     position: absolute;
     left: 120px;
@@ -60,21 +60,21 @@
     border-right: none;
     border-bottom: none;
   }
-  .choice-values{
+  .choice-values {
     border: 1px solid rgba(46, 143, 255, 0.3);
     background-color: #fafcff;
     padding: 10px;
     max-height: 250px;
     overflow-y: auto;
     overflow-x: hidden;
-    .label-value{
+    .label-value {
       color: #212121;
       border-radius: 2px;
       background-color: #ffffff;
       padding: 5px;
       margin: 10px;
       display: inline-block;
-      > i{
+      > i {
         cursor: pointer;
         padding: 2px;
       }
@@ -83,14 +83,14 @@
 }
 
 ///////////////  搜索
-.input-query{
+.input-query {
   border: 1px solid #f2f2f2;
   height: 32px;
   background-color: #ffffff;
   position: relative;
   width: 100%;
   margin-bottom: 11px;
-  .input-query-icon{
+  .input-query-icon {
     background: url("../../assets/img/input-query-icon.png") no-repeat center;
     background-size: 14px;
     display: block;
@@ -99,9 +99,9 @@
     height: 15px;
     top: 50%;
     left: 10px;
-    transform: translate(0,-50%);
+    transform: translate(0, -50%);
   }
-  input{
+  input {
     border: none;
     background: inherit;
     height: 100%;
@@ -109,39 +109,40 @@
     text-indent: 30px;
   }
 }
+
 ///////////////  搜索
 
-.directional-query{
+.directional-query {
   //background-color: #f9fafb;
   border: none;
   border-bottom: 1px #fafafa solid;
   width: 633px;
-  span{
+  span {
     font-size: 14px;
     color: #2e8fff;
   }
 }
 
 ///////////////// 联动盒子
-.linkage-box{
+.linkage-box {
   padding: 10px;
   border: 1px solid #f2f2f2;
   border-right: none;
   min-height: 200px;
-  .linkage-list{
+  .linkage-list {
     overflow-y: scroll;
     overflow-x: hidden;
     max-height: 340px;
-    > li{
-      &:hover,&.active{
+    > li {
+      &:hover, &.active {
         background: #f2f7ff;
       }
     }
-    .linkage-item{
+    .linkage-item {
       padding: 8px;
       width: 100%;
     }
-    .choice-arrow{
+    .choice-arrow {
       background: url("./img/choice-arrow.png") no-repeat center;
       background-size: 6px 10px;
       width: 34px;
@@ -152,20 +153,22 @@
   }
 }
 
-.linkage-box:last-child{
+.linkage-box:last-child {
   border-right: 1px solid #f2f2f2;
 }
-.margin-center{
+
+.margin-center {
   margin: 0 122px 15px 122px;
 }
-.lbstop{
+
+.lbstop {
   padding-bottom: 30px;
   border-bottom: 1px #fafafa solid;
   margin-bottom: 15px;
   margin-top: 10px;
 }
 
-.yccheckbox{
+.yccheckbox {
   display: inline-block;
   min-width: 95px;
   height: 35px;

@@ -1,4 +1,14 @@
-import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
 import {AnchorLinkComponent} from './anchor-link.component';
 import {ScrollService} from '../back-top/scroll.service';
 import {DOCUMENT} from '@angular/common';
@@ -15,7 +25,7 @@ import {distinctUntilChanged, throttleTime} from 'rxjs/operators';
 })
 export class AnchorComponent implements OnInit, OnDestroy, AfterViewInit {
   links: AnchorLinkComponent[] = [];
-  animating
+  animating;
   scroll$: Subscription = null;
 
   private _overflow;
@@ -82,7 +92,7 @@ export class AnchorComponent implements OnInit, OnDestroy, AfterViewInit {
     // console.log(el.offsetLeft)
     this._scrollService.scrollTo(this.getTarget(), {top: el.offsetTop, left: el.offsetLeft}, null, () => {
       this.animating = false;
-    })
+    });
   }
 
   private getOffsetTop(element: HTMLElement): number {
@@ -123,13 +133,13 @@ export class AnchorComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       const maxSection = sections.reduce((prev, curr) => curr.top > prev.top ? curr : prev);
       this.clearActive();
-      maxSection.link.active = true
-      this.cdr.markForCheck()
+      maxSection.link.active = true;
+      this.cdr.markForCheck();
     }
   }
 
   ngOnDestroy(): void {
-    this.removeListen()
+    this.removeListen();
   }
 
   ngOnInit(): void {

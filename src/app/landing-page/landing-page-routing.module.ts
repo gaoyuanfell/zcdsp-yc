@@ -1,8 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LandingPageComponent} from './landing-page.component';
-import {CurrentResolverService} from '../../auth/current-resolver-service';
-import {TokenGuard} from '../../auth/token.guard';
 
 const routeList: Routes = [];
 

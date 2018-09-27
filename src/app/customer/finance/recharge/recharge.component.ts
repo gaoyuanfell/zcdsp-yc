@@ -7,7 +7,7 @@ import {PopoverDirective} from '../../../../components/popover/popover.directive
 @Component({
   selector: 'app-recharge',
   templateUrl: './recharge.component.html',
-  styleUrls: ['../finance.component.less' , './recharge.component.less']
+  styleUrls: ['../finance.component.less', './recharge.component.less']
 })
 export class RechargeComponent implements OnInit {
 
@@ -36,7 +36,7 @@ export class RechargeComponent implements OnInit {
   authUser;
 
   isPermit(type) {
-    return this.authList.indexOf(type) > -1
+    return this.authList.indexOf(type) > -1;
   }
 
   ngOnInit() {
@@ -63,13 +63,15 @@ export class RechargeComponent implements OnInit {
     this.query.page_index = 1;
     this.list();
   }
+
   listTitle;
+
   list() {
     this._financeService.rechargeList(this.query).subscribe(res => {
       this.tableList = res.result.items;
       this.total_count = res.result.total_count;
       this.listTitle = res.result.other;
-    })
+    });
   }
 
   init() {
@@ -77,7 +79,7 @@ export class RechargeComponent implements OnInit {
       this.userData = res.result.user;
       this.rechargeTypeData = res.result.recharge_type_list;
       this.chartsData = res.result.charts;
-    })
+    });
   }
 
   exportUrl() {
@@ -93,7 +95,7 @@ export class RechargeComponent implements OnInit {
         if (res.success === 200) {
           this.init();
         }
-      })
+      });
     }
   }
 

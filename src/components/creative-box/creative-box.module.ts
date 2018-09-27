@@ -6,8 +6,8 @@ import {CreativeBoxComponent} from './creative-box.component';
 import {FileUploadModule} from '../file-upload/file-upload.module';
 import {SelectModule} from '../select/select.module';
 import {CreativeTemplateModule} from '../creative-template/creative-template.module';
-import {PopoverModule} from '../popover/popover.module'
-import {TableModule} from '../table/table.module'
+import {PopoverModule} from '../popover/popover.module';
+import {TableModule} from '../table/table.module';
 import {CreativeMaterialModule} from '../creative-material/creative-material.module';
 import {TooltipModule} from '../tooltip/tooltip.module';
 

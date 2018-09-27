@@ -68,7 +68,7 @@
           <div class="img"><img src="assets/img/indexbaog.png" alt=""></div>
           <div class="right">
             <p>总曝光量</p>
-            <h1 [title]="chartsData?.pv | number:'1.2-2' || 0">{{chartsData?.pv | numberFormat:'1.2-2'}}</h1> <!-- | numberFormat-->
+            <h1 [title]="(chartsData?.pv|| 0) | number:'1.2-2' ">{{chartsData?.pv | numberFormat:'1.2-2'}}</h1> <!-- | numberFormat-->
           </div>
         </div>
         <div class="echart" #todayAllSpendChartSmall></div>
@@ -82,7 +82,7 @@
           <div class="img"><img src="assets/img/indexdianj.png" alt=""></div>
           <div class="right">
             <p>总点击量</p>
-            <h1 [title]="chartsData?.click | number:'1.2-2' || 0">{{chartsData?.click | numberFormat:'1.2-2'}}</h1> <!-- | numberFormat-->
+            <h1 [title]="(chartsData?.click|| 0) | number:'1.2-2' ">{{chartsData?.click | numberFormat:'1.2-2'}}</h1> <!-- | numberFormat-->
           </div>
         </div>
         <div class="echart" #todayAllSpendChartLine>
@@ -126,7 +126,7 @@
         </div>
         <div class="right">
           <yc-button-group class="tool" [list]="totalCodeList | keys:'value':'label'" [(ngModel)]="creativeCode" (changeEvent)="changeCampaignAndCreativeChart(todayCreativeEcharts,creativeChartData,creativeCode);changeCampaignAndCreativeList(creativeChartData,creativeCode, 'creative')"></yc-button-group>
-          <span class="icon-tool"  [ngClass]="{'icon-tool-img-line2':creative_change === 'line', 'icon-tool-img-line': creative_change !== 'line'}" (click)="creative_change = 'line'"></span>
+          <span class="icon-tool" [ngClass]="{'icon-tool-img-line2':creative_change === 'line', 'icon-tool-img-line': creative_change !== 'line'}" (click)="creative_change = 'line'"></span>
           <span class="icon-tool" [ngClass]="{'icon-tool-img-table2':creative_change === 'table', 'icon-tool-img-table':creative_change !== 'table' }" (click)="creative_change = 'table'"></span>
         </div>
       </div>
@@ -190,7 +190,7 @@
           <div class="tit">创意名称<span class="icon-tool-add" [routerLink]="'/ads/spread/creative-add/0'"></span></div>
           <div class="all" (click)="_creativeListClick();_creativeData = null" [ngClass]="{'active': _creativeData === null}">全部在投创意</div>
           <ul>
-            <li *ngFor="let c of creativeListData"  [title]="c.creative_name" (click)="_creativeListClick(c.creative_id);_creativeData = c" [ngClass]="{'active': _creativeData === c}">
+            <li *ngFor="let c of creativeListData" [title]="c.creative_name" (click)="_creativeListClick(c.creative_id);_creativeData = c" [ngClass]="{'active': _creativeData === c}">
               <span>{{c.creative_name}}</span>
               <span class="edit" [routerLink]="['/ads/spread/creative/edit', c.creative_id]" (click)="$event.stopPropagation()">编辑</span>
             </li>
@@ -268,7 +268,7 @@
           <div class="tit">活动名称<span class="icon-tool-add" [routerLink]="'/ads/spread/campaign-add/0'"></span></div>
           <div class="all" (click)="_campaignListClick();_campaignData = null" [ngClass]="{'active': _campaignData === null}">全部在投活动</div>
           <ul>
-            <li *ngFor="let c of campaignListData"  [ngClass]="{'active': _campaignData === c}" (click)="_campaignListClick(c.campaign_id);_campaignData = c">
+            <li *ngFor="let c of campaignListData" [ngClass]="{'active': _campaignData === c}" (click)="_campaignListClick(c.campaign_id);_campaignData = c">
               <span>{{c.campaign_name}}</span>
               <span class="edit" [routerLink]="['/ads/spread/campaign/edit', c.campaign_id]" (click)="$event.stopPropagation()">编辑</span>
             </li>
@@ -283,23 +283,23 @@
           近期数据趋势<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="(_dayTotal === null ? dayTotalTitle : _dayTotal?.date)+ '的投放数据'"></i>
         </div>
         <div class="right">
-          <yc-button-group class="tool" [list]="totalCodeList | keys:'value':'label'" [(ngModel)]="dayTotalCode" (changeEvent)="changeDayTotalChart(todayReportEcharts,dayTotalChartData,dayTotalCode,_dayTotal === null ? dayTotalTitle : _dayTotal?.date)"   *ngIf="dayTotal_change==='table'? false : true"></yc-button-group>
+          <yc-button-group class="tool" [list]="totalCodeList | keys:'value':'label'" [(ngModel)]="dayTotalCode" (changeEvent)="changeDayTotalChart(todayReportEcharts,dayTotalChartData,dayTotalCode,_dayTotal === null ? dayTotalTitle : _dayTotal?.date)" *ngIf="dayTotal_change==='table'? false : true"></yc-button-group>
           <span class="icon-tool" [ngClass]="{'icon-tool-img-line2':dayTotal_change === 'line', 'icon-tool-img-line': dayTotal_change !== 'line'}" (click)="dayTotal_change = 'line'"></span>
           <span class="icon-tool" [ngClass]="{'icon-tool-img-table2':dayTotal_change === 'table', 'icon-tool-img-table': dayTotal_change !== 'table'}" (click)="dayTotal_change = 'table'"></span>
         </div>
       </div>
       <div class="main" [ngStyle]="{'display':dayTotal_change==='line'?'block':'none'}">
         <div style="display: flex;width:100%;">
-        <div class="echart" #todayReportChart></div>
-        <div class="list">
-          <div class="tit">日期筛选</div>
-          <div class="all" (click)="_dayTotalClick();_dayTotal = null" [ngClass]="{'active': _dayTotal === null}">{{dayTotalTitle}}</div>
-          <ul>
-            <li *ngFor="let data of dayTotalListData;let i = index"  (click)="_dayTotalClick(data.date);  _dayTotal = data" [ngClass]="{'active': _dayTotal === data}">
-              <span>{{data.date}}</span>
-            </li>
-          </ul>
-        </div>
+          <div class="echart" #todayReportChart></div>
+          <div class="list">
+            <div class="tit">日期筛选</div>
+            <div class="all" (click)="_dayTotalClick();_dayTotal = null" [ngClass]="{'active': _dayTotal === null}">{{dayTotalTitle}}</div>
+            <ul>
+              <li *ngFor="let data of dayTotalListData;let i = index" (click)="_dayTotalClick(data.date);  _dayTotal = data" [ngClass]="{'active': _dayTotal === data}">
+                <span>{{data.date}}</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="main" [ngStyle]="{'display':dayTotal_change==='table'?'block':'none'}" style="height:350px;overflow: auto">
@@ -357,9 +357,9 @@
         </div>
         <div class="main">
           <!--<div class="tit">-->
-            <!--<div class="list">平均曝光量<span>2,689次</span></div>-->
-            <!--<div class="list">较前日平均<span>26%</span><i class="green"></i></div>-->
-            <!--<div class="list">较上周平均<span>26%</span><i class="red"></i></div>-->
+          <!--<div class="list">平均曝光量<span>2,689次</span></div>-->
+          <!--<div class="list">较前日平均<span>26%</span><i class="green"></i></div>-->
+          <!--<div class="list">较上周平均<span>26%</span><i class="red"></i></div>-->
           <!--</div>-->
           <div class="echart" #todayAllSpendChart></div>
         </div>
@@ -377,14 +377,14 @@
             <div class="item" *ngFor="let media of media_flow_top5;let index = index">
               <p>NO.{{index + 1}}</p>
               <p>{{media.media_name}}</p>
-              <p [title]="media.request_num | number:'1.2-2' || 0">{{media.request_num | numberFormat:'1.2-2'}}</p>
+              <p [title]="(media.request_num || 0) | number:'1.2-2' ">{{media.request_num | numberFormat:'1.2-2'}}</p>
             </div>
           </div>
           <div class="media-left">
             <div class="item" *ngFor="let media of media_flow_top5;">
               <span class="spot" [ngStyle]="{'background-color': media.color}"></span>
               <span>{{media.media_name}}</span>
-              <span [title]="media.request_num | number:'1.2-2' || 0">{{media.request_num | numberFormat:'1.2-2'}}</span>
+              <span [title]="(media.request_num || 0) | number:'1.2-2' ">{{media.request_num | numberFormat:'1.2-2'}}</span>
             </div>
           </div>
         </div>
@@ -398,16 +398,16 @@
           </div>
         </div>
         <div class="main gender">
-            <div class="gender-parent">
-              <div class="gender-child" *ngFor="let x of gender">
-                <img src="{{x.src}}">
-                <div>{{x.gender}}</div>
-                <div>{{x.gender_proportion / genderTotal * 100 | number: '1.2-2'}}%</div>
-              </div>
+          <div class="gender-parent">
+            <div class="gender-child" *ngFor="let x of gender">
+              <img src="{{x.src}}">
+              <div>{{x.gender}}</div>
+              <div>{{x.gender_proportion / genderTotal * 100 | number: '1.2-2'}}%</div>
             </div>
-            <div class="gender-bottom">
-              <span class="item" [ngClass]="{'blue':item.type==='man'?true:false,'purple':item.type==='woman'?true:false, 'gray':item.type==='undefined'?true:false}" [ngStyle]="_getSexStyle(i)" *ngFor="let item of get180();let i = index;"></span>
-            </div>
+          </div>
+          <div class="gender-bottom">
+            <span class="item" [ngClass]="{'blue':item.type==='man'?true:false,'purple':item.type==='woman'?true:false, 'gray':item.type==='undefined'?true:false}" [ngStyle]="_getSexStyle(i)" *ngFor="let item of get180();let i = index;"></span>
+          </div>
         </div>
       </div>
     </div>
@@ -435,10 +435,10 @@
           <table cellspacing="0">
             <tbody>
             <tr>
-              <td *ngFor="let x of age"> <img [src]="x.src"> </td>
+              <td *ngFor="let x of age"><img [src]="x.src"></td>
             </tr>
             <tr>
-              <td *ngFor="let x of age"> {{x.age_part}} </td>
+              <td *ngFor="let x of age"> {{x.age_part}}</td>
             </tr>
             </tbody>
           </table>
@@ -454,38 +454,38 @@
           </div>
         </div>
         <div class="main brand">
-            <div class="brand-echart" #socialDataChart></div>
-            <div class="brand-left">
-              <div class="item" *ngFor="let l of brand;let i = index" (mouseover)="_showHighlightChart(socialDataEcharts, i)">
-                <span class="spot" [ngStyle]="{'background-color': l.color}"></span>
-                <span>{{l.brand_name}}</span>
-                <span>{{l.request_num / brandTotal * 100 | number:'1.2-2' }}%</span>
-              </div>
+          <div class="brand-echart" #socialDataChart></div>
+          <div class="brand-left">
+            <div class="item" *ngFor="let l of brand;let i = index" (mouseover)="_showHighlightChart(socialDataEcharts, i)">
+              <span class="spot" [ngStyle]="{'background-color': l.color}"></span>
+              <span>{{l.brand_name}}</span>
+              <span>{{l.request_num / brandTotal * 100 | number:'1.2-2' }}%</span>
             </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <!--<div class="scatter">-->
-    <!--<div class="title">-->
-      <!--<div class="left">-->
-        <!--人群特征指数<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'智橙移动平台广告受众兴趣偏好占比情况。'"></i>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="main people_data">-->
-      <!--<div class="echart" #hobbyDataChart></div>-->
-      <!--<div class="echart people-left">-->
-        <!--<div class="item flex" *ngFor="let l of hobby; let i = index">-->
-          <!--<span>{{l.app_category_name}}</span>-->
-          <!--<div class="bar-box">-->
-            <!--<div class="bar-black"></div>-->
-            <!--<div class="bar-fill" [ngStyle]="{'width.%': l.hobby_proportion / hobbyTotal * 100}"></div>-->
-          <!--</div>-->
-          <!--<span>{{l.hobby_proportion / hobbyTotal * 100 | number: '1.2-2' }}%</span>-->
-          <!--<span  [ngClass]="{'up': l.flag === 'up'? true :false, 'down': l.flag === 'down' ? true : false}"></span>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
+  <!--<div class="title">-->
+  <!--<div class="left">-->
+  <!--人群特征指数<i class="icon-tool-help" yc-tooltip [widthExp]="320" [ycContent]="'智橙移动平台广告受众兴趣偏好占比情况。'"></i>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="main people_data">-->
+  <!--<div class="echart" #hobbyDataChart></div>-->
+  <!--<div class="echart people-left">-->
+  <!--<div class="item flex" *ngFor="let l of hobby; let i = index">-->
+  <!--<span>{{l.app_category_name}}</span>-->
+  <!--<div class="bar-box">-->
+  <!--<div class="bar-black"></div>-->
+  <!--<div class="bar-fill" [ngStyle]="{'width.%': l.hobby_proportion / hobbyTotal * 100}"></div>-->
+  <!--</div>-->
+  <!--<span>{{l.hobby_proportion / hobbyTotal * 100 | number: '1.2-2' }}%</span>-->
+  <!--<span  [ngClass]="{'up': l.flag === 'up'? true :false, 'down': l.flag === 'down' ? true : false}"></span>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
   <!--</div>-->
   <div class="scatter">
     <div class="title">
@@ -504,7 +504,7 @@
             <div class="bar-fill" [ngStyle]="{'width.%': 80 - i*5}"></div>
           </div>
           <span>{{l.territory_proportion * 100 | number: '1.2-2' }}%</span>
-          <span  [ngClass]="{'up': l.flag === 'up', 'down': l.flag === 'down'}"></span>
+          <span [ngClass]="{'up': l.flag === 'up', 'down': l.flag === 'down'}"></span>
         </div>
       </div>
     </div>
@@ -521,7 +521,7 @@
     <label class="form-label">修改每日预算</label>
     <div style="" class="form-group flex-center">
       <div class="form-input">
-        <input type="text" class="form-control" autofocus [(ngModel)]="_dayMoney" name="money" [ngClass]="{'has-error': moneyRef.invalid || (userData?.consume <= 0 && _dayMoney < 100) || (userData?.consume > 0 && _dayMoney < (100 + userData?.consume))}" #moneyRef="ngModel"  pattern="^[0-9]\d*(\.\d{1,2})?$">
+        <input type="text" class="form-control" autofocus [(ngModel)]="_dayMoney" name="money" [ngClass]="{'has-error': moneyRef.invalid || (userData?.consume <= 0 && _dayMoney < 100) || (userData?.consume > 0 && _dayMoney < (100 + userData?.consume))}" #moneyRef="ngModel" pattern="^[0-9]\d*(\.\d{1,2})?$">
         <p class="input-error" *ngIf="moneyRef.invalid">请输入正确的金额</p>
         <p class="input-error" *ngIf="userData?.consume <= 0  &&  _dayMoney < 100 && moneyRef.valid">每日预算不能小于100元！</p>
         <p class="input-error" *ngIf="userData?.consume > 0 && _dayMoney && _dayMoney < (100 + userData?.consume) && moneyRef.valid">预算金额需大于{{(100 + userData?.consume) | number:'1.2-2'}}</p>

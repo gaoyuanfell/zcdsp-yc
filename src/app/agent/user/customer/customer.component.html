@@ -9,10 +9,10 @@
         </div>
       </div>
       <div class="right_bottom">
-        <div>通过  <span>{{user_state_count?.audited  | number}}</span></div>
-        <div>失败  <span>{{user_state_count?.audit_failed  | number}}</span></div>
-        <div>待审  <span>{{user_state_count?.penging_audit  | number}}</span></div>
-        <div>冻结  <span>{{user_state_count?.freeze  | number}}</span></div>
+        <div>通过 <span>{{user_state_count?.audited  | number}}</span></div>
+        <div>失败 <span>{{user_state_count?.audit_failed  | number}}</span></div>
+        <div>待审 <span>{{user_state_count?.penging_audit  | number}}</span></div>
+        <div>冻结 <span>{{user_state_count?.freeze  | number}}</span></div>
       </div>
     </li>
     <li>
@@ -40,7 +40,7 @@
 
     <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
 
-      <div class="query-tool"  #queryRef query>
+      <div class="query-tool" #queryRef query>
         <div class="left-tool">
           <h2 class="table-title">
             客户管理
@@ -84,8 +84,8 @@
             <td class="text-center">{{ data.zc_audit_date | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
             <td class="text-center">{{ data.creation_date | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
             <td class="text-center">
-              <button  class="btn btn-a" (click)="editCustomer(data.user_id)" [disabled]="!isPermit('ZCMOBI_US_CUSTOMER_EDIT')">修改</button>
-              <button  class="btn btn-a" (click)="sublogin(data.user_id)">进入账户</button>
+              <button class="btn btn-a" (click)="editCustomer(data.user_id)" [disabled]="!isPermit('ZCMOBI_US_CUSTOMER_EDIT')">修改</button>
+              <button class="btn btn-a" (click)="sublogin(data.user_id)">进入账户</button>
             </td>
           </tr>
         </ng-template>

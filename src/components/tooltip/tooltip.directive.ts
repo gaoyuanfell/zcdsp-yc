@@ -1,4 +1,19 @@
-import {ComponentFactoryResolver, ComponentRef, Directive, ElementRef, HostBinding,  HostListener, Input, OnDestroy, OnInit, Optional, Renderer2, ViewContainerRef, ComponentFactory, ChangeDetectorRef} from '@angular/core';
+import {
+  ComponentFactoryResolver,
+  ComponentRef,
+  Directive,
+  ElementRef,
+  HostBinding,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+  Renderer2,
+  ViewContainerRef,
+  ComponentFactory,
+  ChangeDetectorRef
+} from '@angular/core';
 import {TooltipComponent} from './tooltip.component';
 import {Global} from '../../service/global';
 import {Overlay, OverlayConfig, OverlayRef} from '@angular/cdk/overlay';
@@ -113,6 +128,7 @@ export class TooltipDirective implements OnInit, OnDestroy {
   ) {
     // this.factory = this._resolve.resolveComponentFactory(TooltipComponent);
   }
+
   factory: ComponentFactory<TooltipComponent> = this.resolver.resolveComponentFactory(TooltipComponent);
   tooltipPortal: ComponentPortal<TooltipComponent>;
   popupRef: OverlayRef;
@@ -123,23 +139,24 @@ export class TooltipDirective implements OnInit, OnDestroy {
   @Input('colorExp') colorExp = '#fff';   // width
   @Input('ycContent') ycContent;  //  内容或者是一个订阅
   @Input() placement: 'topLeft' | 'top' | 'topRight' | 'leftTop' | 'left' | 'leftBottom' | 'rightTop' | 'right' | 'rightBottom' | 'bottomLeft' | 'bottom' | 'bottomRight' = 'bottomLeft';
+
   // @HostBinding(':hover') isHover = true;
   @HostListener('mouseenter', ['$event'])
 
   open() {
-      this.result = this.ycContent;
-      this.init();
+    this.result = this.ycContent;
+    this.init();
   }
 
   @HostListener('mouseleave', ['$event'])
-   close(event) {
+  close(event) {
     // console.log('鼠标移出事件应该先执行')     // 按理来说应该是这样子的，但是mouseleav 不太好掌控，有时数据来先执行
     // 移出去的时候 判断是否移动到覆盖物的位置
     // 如果是的话 檢查是否有attach東西上去，如果有，就執行detach()  不是销毁哦
     // this.popupRef 这个create后是一直存在的
     if (String(event.toElement.id) !== 'popover' && this.popupRef && this.popupRef.hasAttached()) {  // 鼠标进来的时候，out事件和init(),不知道谁先执行的，
       this.result = undefined;
-      this.popupRef.detach()
+      this.popupRef.detach();
     }
   }
 
@@ -186,7 +203,7 @@ export class TooltipDirective implements OnInit, OnDestroy {
     }
     // 给覆盖物添加事件
     this.render.listen(this.componentRef.location.nativeElement, 'mouseenter', (event) => {
-    })
+    });
     this.render.listen(this.componentRef.location.nativeElement, 'mouseleave', (event) => {
       let arr = [];
       for (let x of event.toElement.attributes) {  // 判断鼠标离开的时候，是否回到宿主元素上
@@ -197,14 +214,15 @@ export class TooltipDirective implements OnInit, OnDestroy {
         this.result = undefined;
       }
 
-    })
+    });
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+  }
 
   ngOnInit(): void {
-      this.render.setStyle(this.elementRef.nativeElement, 'cursor', 'pointer');
-      // this.render.setStyle(this.elementRef.nativeElement, 'transition', 'all 2s');
+    this.render.setStyle(this.elementRef.nativeElement, 'cursor', 'pointer');
+    // this.render.setStyle(this.elementRef.nativeElement, 'transition', 'all 2s');
   }
 
 }

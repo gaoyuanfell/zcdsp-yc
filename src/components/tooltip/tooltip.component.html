@@ -1,6 +1,6 @@
 <!--<div class="tips">-->
-  <!--<ng-container #container>{{ycTitle}}</ng-container>-->
-  <!--<div class="triangle_border_down"></div>-->
+<!--<ng-container #container>{{ycTitle}}</ng-container>-->
+<!--<div class="triangle_border_down"></div>-->
 <!--</div>-->
 <!--id是标志 不可删除-->
 <div class="popover" [ngClass]="getClass" #popover id="popover">
@@ -13,7 +13,7 @@
         </div>
         <!--如果没有标题不显示分割线-->
         <div *ngIf="_ycTitle" class="wire"></div>
-        <ng-container >
+        <ng-container>
           <div *ngIf="flag">
             <div *ngFor="let x of _result">
               默认词: <span>{{x.default_word}}</span><br/>

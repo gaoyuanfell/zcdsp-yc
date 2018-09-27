@@ -12,7 +12,6 @@ import {
 import {CampaignService} from '../../../../service/customer/campaign.service';
 import {ActivatedRoute} from '@angular/router';
 import {Dialog} from '../../../../components/dialog/dialog';
-import {PopoverDirective} from '../../../../components/popover/popover.directive';
 import {Notification} from '../../../../components/notification/notification';
 import {codyDepth, hoursFormat} from '../../../../service/util';
 
@@ -26,13 +25,14 @@ import {codyDepth, hoursFormat} from '../../../../service/util';
         <div class="expand-title">
           <span>活动详情</span>
           <span class="pointer-outline-none m-l-1" (click)="_copy()">复制</span>
-          <span class="pointer-outline-none m-l-1" [routerLink]="['/ads/spread/campaign/edit',id]" *ngIf="isPermit('ZCMOBI_ADS_SPREAD_CAMPAIGN_EDIT')">修改</span>
+          <span class="pointer-outline-none m-l-1" [routerLink]="['/ads/spread/campaign/edit',id]"
+                *ngIf="isPermit('ZCMOBI_ADS_SPREAD_CAMPAIGN_EDIT')">修改</span>
           <span class="pointer-outline-none m-l-1" (click)="_delete()" *ngIf="isPermit('ZCMOBI_ADS_SPREAD_CAMPAIGN_DELETE')">删除</span>
         </div>
 
         <div class="expand-content-bottom">
           <div class="expand-info">
-            
+
             <div class="item" *ngIf="click_link && !download_link">
               <span class="info-key">落地页</span>
               <div class="info-value">
@@ -46,7 +46,7 @@ import {codyDepth, hoursFormat} from '../../../../service/util';
                 <p><a target="_blank" [href]="download_link">{{download_link}}</a></p>
               </div>
             </div>
-            
+
             <div class="item">
               <span class="info-key">投放小时</span>
               <div class="info-value">
@@ -76,7 +76,8 @@ import {codyDepth, hoursFormat} from '../../../../service/util';
                     <label class="form-label">修改投放日期</label>
                     <div style="" class="form-group flex-center">
                       <div class="form-input">
-                        <input-datepicker [isShortcutKey]="false" [width]="215" [disabledTodayBefore]="true"  [isRange]="true" [query]="new_date" [appendField]="['begin_date','end_date']"></input-datepicker>
+                        <input-datepicker [isShortcutKey]="false" [width]="215" [disabledTodayBefore]="true" [isRange]="true"
+                                          [query]="new_date" [appendField]="['begin_date','end_date']"></input-datepicker>
                       </div>
                     </div>
                     <div class="text-right">
@@ -107,7 +108,8 @@ import {codyDepth, hoursFormat} from '../../../../service/util';
             <div class="info-value">
               <p class="is-title">
                 <span>创意列表</span>
-                <i class="icon-img-add  m-l-1" [routerLink]="['/ads/spread/creative-add/0']" [queryParams]="{campaign_id:id}" *ngIf="isPermit('ZCMOBI_ADS_SPREAD_CAMPAIGN_CREATIVE_ADD')"></i>
+                <i class="icon-img-add  m-l-1" [routerLink]="['/ads/spread/creative-add/0']" [queryParams]="{campaign_id:id}"
+                   *ngIf="isPermit('ZCMOBI_ADS_SPREAD_CAMPAIGN_CREATIVE_ADD')"></i>
               </p>
               <div class="overflow-box">
                 <p *ngFor="let c of creatives">
@@ -169,9 +171,9 @@ export class CampaignExpandComponent implements OnInit {
   click_link;
   download_link;
   show_hour_today = [];
-  show_hour_today_format
+  show_hour_today_format;
 
-  date: any = {}
+  date: any = {};
 
   _updateName() {
     this._campaignService.updateName({
@@ -179,10 +181,11 @@ export class CampaignExpandComponent implements OnInit {
       campaign_id: this.id,
     }).subscribe(res => {
       this.init();
-    })
+    });
   }
 
   new_date = {};
+
   _editDirectional(directional) {
     this.directional$ = codyDepth(this.directional);
     this._dialog.open(directional, {title: '修改定向'}).subscribe(data => {
@@ -192,9 +195,9 @@ export class CampaignExpandComponent implements OnInit {
           ...this.directional$
         }).subscribe(res => {
           this.init();
-        })
+        });
       }
-    })
+    });
   }
 
   _updateDate() {
@@ -203,36 +206,38 @@ export class CampaignExpandComponent implements OnInit {
       ...this.new_date
     }).subscribe(res => {
       this.init();
-      this.selectChange.emit()
-    })
+      this.selectChange.emit();
+    });
   }
 
   _newDate() {
-    this.new_date = {...this.date}
+    this.new_date = {...this.date};
   }
 
   _editHourToday(schedule) {
     this.show_hour_today = [...this.show_hour_today_ori];
     this._dialog.open(schedule, {title: '修改投放小时', async: true}).subscribe((data: any) => {
-     if (data) {
-       if (this.show_time_type === 1) {
-         let flag = this.show_hour_today.some( item => !!item);
-         if (!flag) {
-           this._notification.error('提示', '投放小时不能为空！');
-           return
-         } else { data()}
-       } else {
-         data();
-       }
-       this._campaignService.batchUpdateHours({
-         campaign_ids: this.id,
-         show_time_type: this.show_time_type,
-         show_hours:  this.show_hour_today = this.show_time_type === 0 ? null : this.show_hour_today
-       }).subscribe(res => {
-         this.init();
-       })
-     }
-    })
+      if (data) {
+        if (this.show_time_type === 1) {
+          let flag = this.show_hour_today.some(item => !!item);
+          if (!flag) {
+            this._notification.error('提示', '投放小时不能为空！');
+            return;
+          } else {
+            data();
+          }
+        } else {
+          data();
+        }
+        this._campaignService.batchUpdateHours({
+          campaign_ids: this.id,
+          show_time_type: this.show_time_type,
+          show_hours: this.show_hour_today = this.show_time_type === 0 ? null : this.show_hour_today
+        }).subscribe(res => {
+          this.init();
+        });
+      }
+    });
   }
 
   _copy() {
@@ -241,10 +246,10 @@ export class CampaignExpandComponent implements OnInit {
         this._campaignService.batchCopy({
           campaign_ids: this.id
         }).subscribe(res => {
-          this._notification.success('成功', '复制成功！')
-        })
+          this._notification.success('成功', '复制成功！');
+        });
       }
-    })
+    });
   }
 
   _delete() {
@@ -253,10 +258,10 @@ export class CampaignExpandComponent implements OnInit {
         this._campaignService.batchDelete({
           campaign_ids: this.id
         }).subscribe(res => {
-          this.selectChange.emit()
-        })
+          this.selectChange.emit();
+        });
       }
-    })
+    });
   }
 
   chartData() {
@@ -338,12 +343,13 @@ export class CampaignExpandComponent implements OnInit {
   }
 
   isPermit(type) {
-    return this.authList.indexOf(type) > -1
+    return this.authList.indexOf(type) > -1;
   }
 
   ngOnInit(): void {
     this.init();
   }
+
   show_hour_today_ori;
 
   init() {
@@ -379,8 +385,8 @@ export class CampaignExpandComponent implements OnInit {
     this._campaignService.charData({campaign_id: this.id}).subscribe(res => {
       this.chartData();
       this.creativeChartData = res.result;
-      this._changeCampaignAndCreativeChart(this.chartDataInstance, this.creativeChartData, this.campaignCode)
-    })
+      this._changeCampaignAndCreativeChart(this.chartDataInstance, this.creativeChartData, this.campaignCode);
+    });
   }
 
   constructor(private _campaignService: CampaignService,
@@ -398,7 +404,7 @@ export class CampaignExpandComponent implements OnInit {
    * @param type
    */
   _changeCampaignAndCreativeChart(echartsInstance, data, type) {  // echarts 表单数组
-    if (!data) return
+    if (!data) return;
     let suffix;
     let d = data.y[type];
     let max;
@@ -437,10 +443,10 @@ export class CampaignExpandComponent implements OnInit {
       series: [
         {data: d},
       ]
-    }
+    };
 
     if (max) {
-      option.yAxis.max = max
+      option.yAxis.max = max;
     } else {
       option.yAxis.max = null;
     }

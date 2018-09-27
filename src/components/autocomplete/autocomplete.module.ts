@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {AutocompleteComponent} from './autocomplete.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -12,8 +12,7 @@ import { FormsModule } from '@angular/forms';
   exports: [
     AutocompleteComponent
   ],
-  providers:[
-
-  ]
+  providers: []
 })
-export class AutocompleteModule { }
+export class AutocompleteModule {
+}

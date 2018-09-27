@@ -6,7 +6,7 @@ import {DatetimeComponent} from './datetime/datetime.component';
 import {CreativeComponent} from './creative/creative.component';
 import {CampaignComponent} from './campaign/campaign.component';
 import {AreaComponent} from './area/area.component';
-import {ReportExpandComponent} from './report-expand.component'
+import {ReportExpandComponent} from './report-expand.component';
 
 @NgModule({
   imports: [
@@ -23,5 +23,6 @@ import {ReportExpandComponent} from './report-expand.component'
   ],
 })
 export class ReportModule {
-  constructor(){}
+  constructor() {
+  }
 }

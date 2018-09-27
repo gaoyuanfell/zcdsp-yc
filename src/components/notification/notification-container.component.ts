@@ -8,7 +8,7 @@ import {Component} from '@angular/core';
     </ng-template>
   `,
   styles: [
-      `
+    `
       :host {
         top: 20px;
         right: 0;
@@ -38,7 +38,7 @@ export class NotificationContainerComponent {
     this.stackList.some((message, index) => {
       if (message.messageId === messageId) {
         this.stackList.splice(index, 1);
-        message.subject.next()
+        message.subject.next();
         return true;
       }
     });

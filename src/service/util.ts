@@ -26,7 +26,7 @@ export function recursionChild(target) {
           postMessage(e.data);
       }
     `;
-    const blob = new Blob([fun], { type: 'application/javascript' });
+    const blob = new Blob([fun], {type: 'application/javascript'});
     const url = URL.createObjectURL(blob);
     const worker = new Worker(url);
     worker.postMessage(target);
@@ -43,7 +43,7 @@ export function recursionChild(target) {
  */
 export function recursionChildCheck(target) {
   let list = target.children;
-  if(!target.checked) {
+  if (!target.checked) {
     target.checkState = 0;
   }
   if (list && list.length > 0) {
@@ -173,7 +173,7 @@ export function recursionFilter2(target, list, key = 'id') {
     let child = data.children;
     if (child instanceof Array && child.length > 0) {
       recursionFilter2(target, child);
-    }else{
+    } else {
       let bo = target.find((d => {
         if (d == data[key]) {
           return d;
@@ -198,13 +198,13 @@ export function image(url: string) {
   return new Promise((resolve, reject) => {
     let img = new Image();
     img.onload = () => {
-      resolve(img)
+      resolve(img);
     };
     img.onerror = (err) => {
-      reject(err)
+      reject(err);
     };
-    img.src = url
-  })
+    img.src = url;
+  });
 }
 
 /**
@@ -286,9 +286,9 @@ export function loadScript(url) {
     jsapi.src = url;
     document.head.appendChild(jsapi);
     jsapi.onload = () => {
-      resolve()
-    }
-  })
+      resolve();
+    };
+  });
 }
 
 /** Coerces a data-bound value (typically a string) to a boolean. */

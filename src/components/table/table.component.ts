@@ -98,15 +98,15 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
     this._overflowRef = val;
   }
 
-  get overflowRef():TableOverflowComponent {
+  get overflowRef(): TableOverflowComponent {
     return this._overflowRef;
   }
 
-  @ContentChild('paginatorRef') set paginatorRef(val: TablePaginatorComponent){
-    this._paginatorRef = val
+  @ContentChild('paginatorRef') set paginatorRef(val: TablePaginatorComponent) {
+    this._paginatorRef = val;
   }
 
-  get paginatorRef():TablePaginatorComponent {
+  get paginatorRef(): TablePaginatorComponent {
     return this._paginatorRef;
   }
 
@@ -119,10 +119,10 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
 
   ngAfterContentInit(): void {
 
-    if(this.overflowRef){
+    if (this.overflowRef) {
       this.overflowRef.overflowSubject.subscribe(({left}) => {
         this.tableWrapRef.nativeElement.scrollLeft = left;
-      })
+      });
     }
 
     let _queryRef: HTMLElement;
@@ -143,14 +143,14 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
 
   }
 
-  overflowHeight = 0
-  paginatorHeight = 0
+  overflowHeight = 0;
+  paginatorHeight = 0;
 
   ngOnInit() {
     window.onresize = () => {
-      if(this.overflowRef){
+      if (this.overflowRef) {
         let _tableRef = <HTMLElement>this.tableRef.nativeElement;
-        this.overflowRef.width = _tableRef.clientWidth
+        this.overflowRef.width = _tableRef.clientWidth;
       }
 
       if (this.queryRef) {
@@ -161,8 +161,8 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
         let offsetTop = bcrt2.top - bcrt1.top;
       }
 
-      this.position()
-    }
+      this.position();
+    };
     this.checkAllObservable.subscribe((data) => {
       if (data) {
         this.selectData.push(...this.data);
@@ -231,16 +231,16 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
     });
 
     ////
-    if(this.overflowRef) {
-      this.overflowHeight = this.overflowRef.ref.nativeElement.getBoundingClientRect().height
+    if (this.overflowRef) {
+      this.overflowHeight = this.overflowRef.ref.nativeElement.getBoundingClientRect().height;
     }
-    if(this.paginatorRef) {
-      this.paginatorHeight = this.paginatorRef.ref.nativeElement.getBoundingClientRect().height
+    if (this.paginatorRef) {
+      this.paginatorHeight = this.paginatorRef.ref.nativeElement.getBoundingClientRect().height;
     }
 
     this._global.overflowSubject.subscribe(({top}) => {
       this.position();
-    })
+    });
   }
 
   // ------------------ 数据 ------------------ //
@@ -293,33 +293,33 @@ export class TableComponent implements OnInit, AfterContentInit, OnChanges, OnDe
     });
     this.selectData = [];
 
-    if(!value) return
+    if (!value) return;
 
-    setTimeout(()=> {
-      if(this.overflowRef){
+    setTimeout(() => {
+      if (this.overflowRef) {
         let _tableRef = <HTMLElement>this.tableRef.nativeElement;
-        this.overflowRef.width = _tableRef.clientWidth
+        this.overflowRef.width = _tableRef.clientWidth;
       }
-      this.position()
-    })
+      this.position();
+    });
   }
 
-  position(){
+  position() {
     let bcrt1 = this._global.containerFullRef.getBoundingClientRect();
     let bcrt2 = this.tableWrapRef.nativeElement.getBoundingClientRect();
     let bottom = bcrt2.bottom - bcrt1.bottom + this.paginatorHeight + this.overflowHeight;
-    if(bottom < 0) bottom = 0;
-    if(this.tfootList.length){
+    if (bottom < 0) bottom = 0;
+    if (this.tfootList.length) {
       this.tfootList[0].trList.forEach(tr => {
         tr.tdList.forEach(td => {
-          td.ref.nativeElement.style.bottom = `${bottom}px`
-        })
-      })
+          td.ref.nativeElement.style.bottom = `${bottom}px`;
+        });
+      });
     }
-    if(this.overflowRef){
+    if (this.overflowRef) {
       this.overflowRef.bottom = `${bottom}`;
     }
-    if(this.paginatorRef){
+    if (this.paginatorRef) {
       this.paginatorRef.bottom = `${bottom}`;
     }
   }

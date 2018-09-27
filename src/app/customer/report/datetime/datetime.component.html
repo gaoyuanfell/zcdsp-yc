@@ -25,11 +25,11 @@
       <tr sticky>
         <!--<th class="text-right"></th>-->
         <th class="text-center">统计时间</th>
-        <th class="text-right" [showSort]="true" [sortKey]="'pv'" ><span title="广告被展现给受众的次数">曝光量</span></th>
+        <th class="text-right" [showSort]="true" [sortKey]="'pv'"><span title="广告被展现给受众的次数">曝光量</span></th>
         <th class="text-right" [showSort]="true" [sortKey]="'click'"><span title="排除恶意点击后，广告被受众点击的次数">点击量</span></th>
         <th class="text-right" [showSort]="true" [sortKey]="'ctr'"><span title="广告被点击的比率(点击量/曝光量*100%)">点击率</span></th>
-        <th class="text-right" [showSort]="true" [sortKey]="'cpc'" ><span title="广告主为每次点击付出的平均花费(花费/点击量)">点击成本</span></th>
-        <th class="text-right" [showSort]="true" [sortKey]="'cpm'" ><span title="广告主为每1000次曝光付出平均花费(花费/曝光量*1000)">曝光成本</span></th>
+        <th class="text-right" [showSort]="true" [sortKey]="'cpc'"><span title="广告主为每次点击付出的平均花费(花费/点击量)">点击成本</span></th>
+        <th class="text-right" [showSort]="true" [sortKey]="'cpm'"><span title="广告主为每1000次曝光付出平均花费(花费/曝光量*1000)">曝光成本</span></th>
         <th class="text-right" [showSort]="true" [sortKey]="'admoney'"><span title="广告点击后产生的费用">花费</span></th>
       </tr>
       </thead>
@@ -37,7 +37,7 @@
       <ng-template [ngForOf]="ycTable.data" ngFor let-data>
         <tr #tr>
           <!--<td class="text-right">-->
-            <!--<i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>-->
+          <!--<i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>-->
           <!--</td>-->
           <td class="text-center">
             <!--<i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>-->
@@ -52,16 +52,16 @@
           <!--CurrencyPipe  默认保留2位-->
         </tr>
         <!--<tr #trExpand class="none">-->
-          <!--<td colspan="1000" *ngIf="trExpand.show" class="none">-->
-            <!--<yc-report-expand [type]="'datetime-report'" [begin_date]="data.date" [id]="''" [btnShow]='true' [campainActive]="query.campaign_id" [searchText]="query.search_text"></yc-report-expand>-->
-          <!--</td>-->
+        <!--<td colspan="1000" *ngIf="trExpand.show" class="none">-->
+        <!--<yc-report-expand [type]="'datetime-report'" [begin_date]="data.date" [id]="''" [btnShow]='true' [campainActive]="query.campaign_id" [searchText]="query.search_text"></yc-report-expand>-->
+        <!--</td>-->
         <!--</tr>-->
       </ng-template>
       </tbody>
       <tfoot [hidden]="!(ycTable?.data?.length > 1) ">
       <tr sticky>
         <td class="text-center">全部合计</td>
-        <td  class="text-right">{{listTitle?.pv | number}}</td>
+        <td class="text-right">{{listTitle?.pv | number}}</td>
         <td class="text-right">{{listTitle?.click | number}}</td>
         <td class="text-right">{{ listTitle?.ctr * 100 | number: '1.2-2' }}%</td>
         <td class="text-right">{{ listTitle?.cpc | currencyFormat}}</td>

@@ -31,15 +31,15 @@ export class InputDatepickerComponent implements ControlValueAccessor, OnInit, O
   }
 
   registerOnTouched(fn: any): void {
-    this._onTouched = fn
+    this._onTouched = fn;
   }
 
   writeValue(obj: any): void {
     this.fieldValue = obj;
-    this.showValue()
+    this.showValue();
   }
 
-  fieldValue
+  fieldValue;
 
   value;
 
@@ -50,15 +50,16 @@ export class InputDatepickerComponent implements ControlValueAccessor, OnInit, O
 
   selectedValue: number[] = [];
   @Input() borderNone = false;
+
   ngOnInit() {
     if (this.borderNone) {
-      this.renderer.addClass(this.ref.nativeElement, 'border-none')
+      this.renderer.addClass(this.ref.nativeElement, 'border-none');
     }
-    this.showValue()
+    this.showValue();
   }
 
   showValue() {
-    if(this.fieldValue instanceof Array){
+    if (this.fieldValue instanceof Array) {
       let value = [];
       this.fieldValue.forEach(f => {
         if (f) {

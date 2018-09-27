@@ -49,14 +49,14 @@ export class CustomerComponent implements OnInit {
       this.tableList = res.result.items;
       this.total_count = res.result.total_count;
       this.listTitle = res.result.other;
-    })
+    });
   }
 
   init() {
     this._reportService.childInit().subscribe(res => {
       this.user_list = res.result.user_list;
-      this.user_list.forEach( item => item.all_name = item.user_name + item.nick_name)
-    })
+      this.user_list.forEach(item => item.all_name = item.user_name + item.nick_name);
+    });
   }
 
   exportUrl() {
@@ -71,12 +71,12 @@ export class CustomerComponent implements OnInit {
     const tem = window.open(); // 先打开页面
     this._publicService.sublogin({user_id: user_id}).subscribe(res => {
         if (res.success === 200) {
-          tem.location.href = type ? this._publicService.goAct({token: res.result}) : this._publicService.goHome({token: res.result})
+          tem.location.href = type ? this._publicService.goAct({token: res.result}) : this._publicService.goHome({token: res.result});
         }
       },
       () => {
-        tem.close()
+        tem.close();
       }
-    )
+    );
   }
 }

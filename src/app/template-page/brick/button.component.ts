@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Configure} from './interface';
 
 @Component({
@@ -9,7 +9,7 @@ import {Configure} from './interface';
     </div>
   `,
   styles: [
-      `
+    `
       a {
         cursor: pointer;
         width: 50%;
@@ -38,7 +38,7 @@ export class ButtonComponent implements OnInit {
         'margin-right.px': this.configure.style['margin-right.px'],
         'margin-bottom.px': this.configure.style['margin-bottom.px'],
         'margin-left.px': this.configure.style['margin-left.px'],
-      }
+      };
     }
     return null;
   }

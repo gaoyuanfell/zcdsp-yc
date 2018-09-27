@@ -72,7 +72,7 @@
       <ng-template [ngForOf]="(LbsCityMapResult$ | async)" ngFor let-value>
           <span class="label-value">
             <span (click)="toChild(value)">{{value.name}}</span>
-             <!--<span (click)="toChild(value)">{{value.name}}</span>-->
+            <!--<span (click)="toChild(value)">{{value.name}}</span>-->
             <i (click)="lbsCityMapRemove(value)">&times;</i>
           </span>
       </ng-template>
@@ -95,7 +95,7 @@
       <!--请输入<input type="text" id="searchMap">-->
       <!--如果你用ycMap的话，ngIf 需要再ts文件中 set到这个#map哦-->
       <div style="border: 1px solid #ccc;padding: 10px;">
-        <div style="width: 100%;height: 600px;" yc-map #map="ycMap" [searchMap]="'searchMap'" (registerDel)="del = $event" (registerRemoveMapResult)="removeMapResult = $event" (registerEcho)="echoFunction($event)" (pushCoordinate)="pushCoordinate($event)" (removeCoordinate)="removeCoordinate($event)"  [markerList]="LbsCityMapResult$"></div>
+        <div style="width: 100%;height: 600px;" yc-map #map="ycMap" [searchMap]="'searchMap'" (registerDel)="del = $event" (registerRemoveMapResult)="removeMapResult = $event" (registerEcho)="echoFunction($event)" (pushCoordinate)="pushCoordinate($event)" (removeCoordinate)="removeCoordinate($event)" [markerList]="LbsCityMapResult$"></div>
       </div>
     </div>
   </ng-template>

@@ -38,7 +38,7 @@
             <input class="form-control" type="text" required [(ngModel)]="user.site_name" placeholder="请填写网站名称" name="site_name" [ngClass]="setInvalidClass(infoForm, infoForm.controls['site_name'])">
             <app-form-tips [target]="infoForm.controls['site_name']" [formTarget]="infoForm" placeholder="请填写网站名称"></app-form-tips>
           </div>
-          <p  *ngIf="_audit_status" class="input-text">{{user.site_name}}</p>
+          <p *ngIf="_audit_status" class="input-text">{{user.site_name}}</p>
         </div>
         <div class="form-group flex">
           <label class="form-label"><span>*</span>推广域名:</label>
@@ -58,7 +58,7 @@
         <div class="form-group flex">
           <label class="form-label"><span>*</span>行业分类:</label>
           <div class="form-input" *ngIf="!_audit_status">
-            <yc-select  [(ngModel)]="user.ad_category_id" name="ad_category_id" required [searchCtrl]="true" [width]="360" placeholder="请选择行业分类" [list]="ad_category_list" [props]="{value:'ad_category_id',label:'ad_category_name'}" [ngClass]="setInvalidClass(infoForm, infoForm.controls['ad_category_id'])"></yc-select>
+            <yc-select [(ngModel)]="user.ad_category_id" name="ad_category_id" required [searchCtrl]="true" [width]="360" placeholder="请选择行业分类" [list]="ad_category_list" [props]="{value:'ad_category_id',label:'ad_category_name'}" [ngClass]="setInvalidClass(infoForm, infoForm.controls['ad_category_id'])"></yc-select>
             <app-form-tips [target]="infoForm.controls['ad_category_id']" [formTarget]="infoForm" placeholder="请选择行业分类"></app-form-tips>
           </div>
           <p *ngIf="_audit_status" class="input-text">{{_ad_category_name}}</p>
@@ -122,16 +122,16 @@
         </div>
         <table class="table-border tableMain" *ngIf="main_qualification_list.length > 0">
           <thead>
-            <tr>
-              <th>图片</th>
-              <th style="text-align: left;">资质分类</th>
-              <th style="text-align: left;">资质名称</th>
-              <th style="text-align: left;">编号或登记号</th>
-              <th style="text-align: left;">有效期</th>
-            </tr>
+          <tr>
+            <th>图片</th>
+            <th style="text-align: left;">资质分类</th>
+            <th style="text-align: left;">资质名称</th>
+            <th style="text-align: left;">编号或登记号</th>
+            <th style="text-align: left;">有效期</th>
+          </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let x of main_qualification_list">
+          <tr *ngFor="let x of main_qualification_list">
             <td>
               <div class="td-one" *ngIf="!_audit_status">
                 <div *ngIf="!x[x.name] && !x.url" class="ele-img" yc-file-upload #eleImg (eventChange)="upload($event,x,x.name,'')"
@@ -144,19 +144,19 @@
                      [dataType]="'M'"
                      [accept]="{extensions: extensions.extensions,maxSize: extensions.maxSize}"
                      (eventError)="_imgError($event)">
-                  <img  *ngIf="x[x.name] ||  x.url" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.url)" alt="">
+                  <img *ngIf="x[x.name] ||  x.url" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.url)" alt="">
                 </div>
                 <i preview-img *ngIf="x.url" [list]="[x.url]" class="search-icon zcdsp-icon">&#xe631;</i>
               </div>
               <div class="td-one" *ngIf="_audit_status">
-                <div  class="ele-img"   style="background-color:#dbdde2">
-                  <img  *ngIf="x[x.name] ||  x.url" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.url)" alt="">
+                <div class="ele-img" style="background-color:#dbdde2">
+                  <img *ngIf="x[x.name] ||  x.url" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.url)" alt="">
                 </div>
                 <i preview-img *ngIf="x.url" [list]="[x.url]" class="search-icon zcdsp-icon">&#xe631;</i>
               </div>
             </td>
             <td style="text-align: left; padding-left: 18px;">
-             {{x.item_type_name}}
+              {{x.item_type_name}}
             </td>
             <td style="text-align: left; padding-left: 18px;">
               <div *ngIf="!_audit_status">
@@ -189,7 +189,7 @@
         </div>
         <table class="table-border tableOption" *ngIf="optional_qualification_list.length > 0">
           <thead>
-            <tr>
+          <tr>
             <th>图片</th>
             <th style="text-align: left;">资质分类</th>
             <th style="text-align: left;">资质名称</th>
@@ -199,7 +199,7 @@
           </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let x of optional_qualification_list;let index = index">
+          <tr *ngFor="let x of optional_qualification_list;let index = index">
             <td>
               <div class="td-one">
                 <div *ngIf="!x[x.name] && !x.url" class="ele-img" yc-file-upload #eleImg (eventChange)="upload($event,x,x.name,'')"
@@ -226,17 +226,17 @@
             <td style="text-align: left; padding-left: 18px;">
               <!--<input class="form-control" type="text" required [(ngModel)]="x.quatification_name" placeholder="请输入名称" name="{{ (x.id || x.item_type_id) + 'quatification_name'}}" id="{{(x.id || x.item_type_id) + 'quatification_name'}}" [ngClass]="setInvalidClass(infoForm, infoForm.controls[(x.id || x.item_type_id) + 'quatification_name'])">-->
               <!--<app-form-tips [target]="infoForm.controls[(x.id || x.item_type_id) + 'quatification_name']" placeholder="请输入名称" [formTarget]="infoForm"></app-form-tips>-->
-              <input class="form-control" type="text"  [(ngModel)]="x.quatification_name" placeholder="请输入名称" name="{{ (x.id || x.item_type_id) + 'quatification_name'}}">
+              <input class="form-control" type="text" [(ngModel)]="x.quatification_name" placeholder="请输入名称" name="{{ (x.id || x.item_type_id) + 'quatification_name'}}">
             </td>
             <td style="text-align: left; padding-left: 18px;">
               <!--<input class="form-control td-four" type="text" required [(ngModel)]="x.quatification_number" placeholder="请输入编号" name="{{(x.id || x.item_type_id) + 'quatification_number'}}" id="{{(x.id || x.item_type_id) + 'quatification_number'}}" [ngClass]="setInvalidClass(infoForm, infoForm.controls[(x.id || x.item_type_id) + 'quatification_number'])">-->
               <!--<app-form-tips [target]="infoForm.controls[(x.id || x.item_type_id) + 'quatification_number']" placeholder="请输入编号" [formTarget]="infoForm"></app-form-tips>-->
-              <input class="form-control td-four" type="text"  [(ngModel)]="x.quatification_number" placeholder="请输入编号" name="{{(x.id || x.item_type_id) + 'quatification_number'}}">
+              <input class="form-control td-four" type="text" [(ngModel)]="x.quatification_number" placeholder="请输入编号" name="{{(x.id || x.item_type_id) + 'quatification_number'}}">
             </td>
             <td style="text-align: left; padding-left: 18px;">
               <!--<input-datepicker [isRange]="true" [query]="x"  [required] [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time1'}}" [ngClass]="{'has-error': !x.begin_date && infoForm.submitted}"></input-datepicker>-->
               <!--<span *ngIf="!x.begin_date && infoForm.submitted">请填写时间</span>-->
-              <input-datepicker [isRange]="true" [query]="x"   [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time1'}}"></input-datepicker>
+              <input-datepicker [isRange]="true" [query]="x" [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time1'}}"></input-datepicker>
               <!--<a data-link (click)="_remove(optional_qualification_list, index)">删除</a>-->
             </td>
             <td class="text-right">
@@ -277,31 +277,31 @@
           </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let x of user_logo_list;let index = index">
-              <td>
-                <div class="td-one">
-                  <div class="ele-img" yc-file-upload (eventChange)="upload($event,x,x.name,'logo')"
-                       [dataType]="'K'"
-                       [accept]="{extensions: extensions1.extensions,maxSize: extensions1.maxSize,size: user_logo_size_list}"
-                       (eventError)="_imgError($event)">
-                    <div *ngIf="!x[x.name] && !x.logo_src">点击上传</div>
-                    <img *ngIf="x[x.name] ||  x.logo_src" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.logo_src)" alt="">
-                  </div>
+          <tr *ngFor="let x of user_logo_list;let index = index">
+            <td>
+              <div class="td-one">
+                <div class="ele-img" yc-file-upload (eventChange)="upload($event,x,x.name,'logo')"
+                     [dataType]="'K'"
+                     [accept]="{extensions: extensions1.extensions,maxSize: extensions1.maxSize,size: user_logo_size_list}"
+                     (eventError)="_imgError($event)">
+                  <div *ngIf="!x[x.name] && !x.logo_src">点击上传</div>
+                  <img *ngIf="x[x.name] ||  x.logo_src" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.logo_src)" alt="">
                 </div>
-              </td>
-              <td style="text-align: left; padding-left: 18px;">
-                <span>{{x.logo_height ?  x.logo_height + '*' + x.logo_width: '' }}</span>
-              </td>
-              <td style="text-align: left; padding-left: 18px;">
-                <input class="form-control" type="text"  [(ngModel)]="x.brand_name" placeholder="请输入名称" name="{{(x.id || x.item_id) + 'brand_name'}}">
-                <!--<input class="form-control" type="text" required [(ngModel)]="x.brand_name" placeholder="请输入名称" name="{{(x.id || x.item_id) + 'brand_name'}}" id="{{(x.id || x.item_id) + 'brand_name'}}" [ngClass]="setInvalidClass(infoForm, infoForm.controls[((x.id || x.item_id)) + 'brand_name'])">-->
-                <!--<app-form-tips [target]="infoForm.controls[((x.id || x.item_id)) + 'brand_name']" [formTarget]="infoForm" placeholder="请输入名称"></app-form-tips>-->
-              </td>
-              <td class="text-right">
-                <div style="width:45px;">
-                  <a data-link (click)="_remove(user_logo_list, index, 'logo')">删除</a>
-                </div>
-              </td>
+              </div>
+            </td>
+            <td style="text-align: left; padding-left: 18px;">
+              <span>{{x.logo_height ?  x.logo_height + '*' + x.logo_width: '' }}</span>
+            </td>
+            <td style="text-align: left; padding-left: 18px;">
+              <input class="form-control" type="text" [(ngModel)]="x.brand_name" placeholder="请输入名称" name="{{(x.id || x.item_id) + 'brand_name'}}">
+              <!--<input class="form-control" type="text" required [(ngModel)]="x.brand_name" placeholder="请输入名称" name="{{(x.id || x.item_id) + 'brand_name'}}" id="{{(x.id || x.item_id) + 'brand_name'}}" [ngClass]="setInvalidClass(infoForm, infoForm.controls[((x.id || x.item_id)) + 'brand_name'])">-->
+              <!--<app-form-tips [target]="infoForm.controls[((x.id || x.item_id)) + 'brand_name']" [formTarget]="infoForm" placeholder="请输入名称"></app-form-tips>-->
+            </td>
+            <td class="text-right">
+              <div style="width:45px;">
+                <a data-link (click)="_remove(user_logo_list, index, 'logo')">删除</a>
+              </div>
+            </td>
           </tr>
           </tbody>
         </table>
@@ -326,12 +326,11 @@
 </div>
 
 
-
 <ng-template #pwd_template>
   <form class="pwd-class" #pwdForm="ngForm">
     <div class="form-group">
       <div class="form-input">
-        <input class="form-control" type="text" required [(ngModel)]="form.o_pwd" placeholder="请输入原密码"  #o_pwd="ngModel"  name="o_pwd"
+        <input class="form-control" type="text" required [(ngModel)]="form.o_pwd" placeholder="请输入原密码" #o_pwd="ngModel" name="o_pwd"
                pattern="((?=.*\d)(?=.*[A-Za-z])|(?=.*\d)(?=.*\W)|(?=.*[A-Za-z])(?=.*\W))^[A-Za-z\d\W]{8,18}$"
                [ngClass]="{'red': ori_pwd || (o_pwd.invalid && (o_pwd.dirty || o_pwd.touched || valid))}" autocomplete="off">
         <span></span>

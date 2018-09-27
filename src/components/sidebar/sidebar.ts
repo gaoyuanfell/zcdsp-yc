@@ -1,10 +1,21 @@
-import { ComponentRef, Inject, Injectable, PLATFORM_ID, TemplateRef, CompilerFactory, ComponentFactory, ComponentFactoryResolver, InjectionToken, Injector } from '@angular/core';
-import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
-import { ComponentPortal, ComponentType, PortalInjector } from '@angular/cdk/portal';
-import { fromEvent, Subject } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { isPlatformBrowser } from '@angular/common';
-import { SidebarComponent } from './sidebar.component';
+import {
+  ComponentRef,
+  Inject,
+  Injectable,
+  PLATFORM_ID,
+  TemplateRef,
+  CompilerFactory,
+  ComponentFactory,
+  ComponentFactoryResolver,
+  InjectionToken,
+  Injector
+} from '@angular/core';
+import {Overlay, OverlayConfig, OverlayRef} from '@angular/cdk/overlay';
+import {ComponentPortal, ComponentType, PortalInjector} from '@angular/cdk/portal';
+import {fromEvent, Subject} from 'rxjs';
+import {filter} from 'rxjs/operators';
+import {isPlatformBrowser} from '@angular/common';
+import {SidebarComponent} from './sidebar.component';
 
 export const YC_SIDEBAR_DATA = new InjectionToken<any>('YcSidebarData');
 
@@ -20,9 +31,9 @@ export class Sidebar {
   private opened;
 
   constructor(private _overlay: Overlay,
-    private injector: Injector,
-    private cfr: ComponentFactoryResolver,
-    @Inject(PLATFORM_ID) private platformId: Object) {
+              private injector: Injector,
+              private cfr: ComponentFactoryResolver,
+              @Inject(PLATFORM_ID) private platformId: Object) {
 
   }
 
@@ -71,21 +82,21 @@ export class Sidebar {
         const injectionTokens = new WeakMap<any, any>([
           [YC_SIDEBAR_DATA, config.data]
         ]);
-        let containerRef = this.componentRef.instance.containerRef
-        let componentFactory = this.cfr.resolveComponentFactory(ref)
-        containerRef.createComponent(componentFactory, containerRef.length, new PortalInjector(this.injector, injectionTokens))
+        let containerRef = this.componentRef.instance.containerRef;
+        let componentFactory = this.cfr.resolveComponentFactory(ref);
+        containerRef.createComponent(componentFactory, containerRef.length, new PortalInjector(this.injector, injectionTokens));
       }
-      this.componentRef.instance.open()
+      this.componentRef.instance.open();
       this.componentRef.instance.closeSubject.subscribe((data) => {
-        this.close()
-      })
+        this.close();
+      });
     }
     this.opened = true;
     return this.closeSubject;
   }
 
   close() {
-    this.componentRef.instance.close()
+    this.componentRef.instance.close();
     if (this.popupRef) {
       this.popupRef.detachBackdrop();
       if (isPlatformBrowser(this.platformId)) {

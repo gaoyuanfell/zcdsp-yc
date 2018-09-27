@@ -107,10 +107,10 @@ export class DatepickerBaseComponent implements OnInit, OnDestroy {
       date.setDate(i);
       let enabled = false;
       if (this.disabledTodayBefore) {
-        enabled = date.getTime() < today.getTime()
+        enabled = date.getTime() < today.getTime();
       }
       if (this.disabledTodayAfter) {
-        enabled = date.getTime() > today.getTime()
+        enabled = date.getTime() > today.getTime();
       }
       weeks.push(new CalendarCell(date.getTime(), String(date.getDate()), enabled));
     }
@@ -346,21 +346,27 @@ export class DatepickerComponent implements OnInit, OnDestroy {
     date.setSeconds(0);
     return date.getTime();
   }
+
   threeMonth() {
     this.selectedChange.emit([this.dateCalendar(2, -3), this.dateCalendar()]);
   }
+
   oneMonth() {
     this.selectedChange.emit([this.dateCalendar(2, -1), this.dateCalendar()]);
   }
+
   monthRencently() {
     this.selectedChange.emit([this.dateCalendar(3, -14), this.dateCalendar()]);
   }
+
   weekRencently() {
     this.selectedChange.emit([this.dateCalendar(3, -6), this.dateCalendar()]);
   }
+
   yestoday() {
     this.selectedChange.emit([this.dateCalendar(3, -1), this.dateCalendar(3, -1)]);
   }
+
   today() {
     this.selectedChange.emit([this.dateCalendar(3, 0), this.dateCalendar(3, 0)]);
   }

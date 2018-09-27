@@ -36,7 +36,7 @@ import {Global} from '../../service/global';
     <ng-content></ng-content>
   `,
 })
-export class TrComponent implements AfterViewInit{
+export class TrComponent implements AfterViewInit {
 
   tdList: Array<TdComponent> = [];
   thList: Array<ThComponent> = [];
@@ -62,36 +62,36 @@ export class TrComponent implements AfterViewInit{
   trigger() {
     if (!this.expand) return;
     this.tbodyComponent.trList.filter(tr => !tr.expand && tr.active).forEach(tr => {
-      if(this.expand === tr) return
+      if (this.expand === tr) return;
       tr.active = false;
       tr.state = tr.active ? 'active' : 'inactive';
-      tr.show = false
-    })
-    let scrollTop = this._global.containerFullRef.scrollTop
+      tr.show = false;
+    });
+    let scrollTop = this._global.containerFullRef.scrollTop;
     let number = -1;
-    if(scrollTop === 0){
-      number = 1
+    if (scrollTop === 0) {
+      number = 1;
     }
     this.expand.active = !this.expand.active;
     this.expand.state = this.expand.active ? 'active' : 'inactive';
     if (this.expand.active) {
       this.expand.show = true;
       setTimeout(() => {
-        this._global.containerFullRef.scrollTop = scrollTop + number
-      })
+        this._global.containerFullRef.scrollTop = scrollTop + number;
+      });
       this.changeDetectorRef.markForCheck();
     } else {
       setTimeout(() => {
         this.expand.show = false;
         setTimeout(() => {
-          this._global.containerFullRef.scrollTop = scrollTop + number
-        })
+          this._global.containerFullRef.scrollTop = scrollTop + number;
+        });
         this.changeDetectorRef.markForCheck();
       }, 150);
     }
   }
 
-  private _sticky
+  private _sticky;
 
   get sticky() {
     return this._sticky;
@@ -122,12 +122,12 @@ export class TrComponent implements AfterViewInit{
   }
 
   ngAfterViewInit(): void {
-    if(!this.tableComponent) return;
+    if (!this.tableComponent) return;
     if (this.theadComponent) {
       let bcrt1 = this._global.containerFullRef.getBoundingClientRect();
       let bcrt2 = this.tableComponent.tableWrapRef.nativeElement.getBoundingClientRect();
       let offsetTop = bcrt2.top - bcrt1.top;
-      if(this.sticky){
+      if (this.sticky) {
         this._global.overflowSubject.subscribe(({top}) => {
           this.thList.forEach(th => {
             if (offsetTop < top) {
@@ -135,42 +135,41 @@ export class TrComponent implements AfterViewInit{
             } else {
               th.ref.nativeElement.style.top = `0px`;
             }
-          })
-        })
+          });
+        });
       }
       this.tableComponent.overflowRef && this.tableComponent.overflowRef.overflowSubject.subscribe(({left}) => {
-        this.thList.filter(th => th.stickyStart).forEach((th,index,item) => {
+        this.thList.filter(th => th.stickyStart).forEach((th, index, item) => {
           th.Left = left;
-          if(index === item.length - 1){
-            th.BorderRight = left != 0
+          if (index === item.length - 1) {
+            th.BorderRight = left != 0;
           }
-        })
-      })
+        });
+      });
     }
 
     if (this.tbodyComponent) {
       this.tableComponent.overflowRef && this.tableComponent.overflowRef.overflowSubject.subscribe(({left}) => {
-        this.tdList.filter(td => td.stickyStart).forEach((td,index,item) => {
+        this.tdList.filter(td => td.stickyStart).forEach((td, index, item) => {
           td.Left = left;
-          if(index === item.length - 1){
-            td.BorderRight = left != 0
+          if (index === item.length - 1) {
+            td.BorderRight = left != 0;
           }
-        })
-      })
+        });
+      });
     }
 
     if (this.tfootComponent) {
       this.tableComponent.overflowRef && this.tableComponent.overflowRef.overflowSubject.subscribe(({left}) => {
-        this.tdList.filter(td => td.stickyStart).forEach((td,index,item) => {
+        this.tdList.filter(td => td.stickyStart).forEach((td, index, item) => {
           td.LeftTFoot = left;
-          if(index === item.length - 1){
-            td.BorderRight = left != 0
+          if (index === item.length - 1) {
+            td.BorderRight = left != 0;
           }
-        })
-      })
+        });
+      });
     }
   }
-
 
 
   constructor(@Host() @Optional() private theadComponent: TheadComponent,
@@ -179,7 +178,7 @@ export class TrComponent implements AfterViewInit{
               @Host() @Optional() private tableComponent: TableComponent,
               @Optional() public ref: ElementRef,
               private _global: Global,
-              private renderer:Renderer2,
+              private renderer: Renderer2,
               private changeDetectorRef: ChangeDetectorRef) {
     if (theadComponent) {
       theadComponent.trList.push(this);

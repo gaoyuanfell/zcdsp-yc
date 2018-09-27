@@ -1,4 +1,17 @@
-import {ComponentRef, Directive, ElementRef, EventEmitter, HostListener, Inject, Injector, Input, Output, Renderer2, TemplateRef, ViewContainerRef} from '@angular/core';
+import {
+  ComponentRef,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Inject,
+  Injector,
+  Input,
+  Output,
+  Renderer2,
+  TemplateRef,
+  ViewContainerRef
+} from '@angular/core';
 import {Overlay, OverlayConfig, OverlayRef} from '@angular/cdk/overlay';
 import {DOCUMENT} from '@angular/common';
 import {ComponentPortal} from '@angular/cdk/portal';
@@ -107,7 +120,7 @@ export class PopoverDirective {
 
   @Input() template: TemplateRef<any>;
   @Input() placement: 'topLeft' | 'top' | 'topRight' | 'leftTop' | 'left' | 'leftBottom' | 'rightTop' | 'right' | 'rightBottom' | 'bottomLeft' | 'bottom' | 'bottomRight' = 'top';
-  @Output() openEvent = new EventEmitter<any>()
+  @Output() openEvent = new EventEmitter<any>();
 
   popoverPortal: ComponentPortal<PopoverComponent>;
   popupRef: OverlayRef;
@@ -150,7 +163,7 @@ export class PopoverDirective {
       }
     }
     this.opened = true;
-    this.openEvent.emit()
+    this.openEvent.emit();
   }
 
 

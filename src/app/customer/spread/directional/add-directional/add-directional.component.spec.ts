@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AddDirectionalComponent } from './add-directional.component';
+import {AddDirectionalComponent} from './add-directional.component';
 
 describe('AddDirectionalComponent', () => {
   let component: AddDirectionalComponent;
@@ -8,9 +8,9 @@ describe('AddDirectionalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddDirectionalComponent ]
+      declarations: [AddDirectionalComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

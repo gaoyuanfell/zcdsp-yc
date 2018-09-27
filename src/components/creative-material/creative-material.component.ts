@@ -14,9 +14,9 @@ export class CreativeMaterialComponent {
 
   historyList;
 
-  _image
+  _image;
 
-  private _config
+  private _config;
 
   get config() {
     return this._config;
@@ -33,8 +33,8 @@ export class CreativeMaterialComponent {
         support_file_type: value.support_file_type,
       }).subscribe(res => {
         this.historyList = res.result;
-        this._image = this.historyList.find(hl => hl.url === value[value.name])
-      })
+        this._image = this.historyList.find(hl => hl.url === value[value.name]);
+      });
     }
   }
 
@@ -43,7 +43,7 @@ export class CreativeMaterialComponent {
    */
   selected(image) {
     if (this._image === image) return;
-    this._image = image
+    this._image = image;
 
     this._dialog.closeSubject.next(image);
     this._dialog.close();
@@ -56,7 +56,7 @@ export class CreativeMaterialComponent {
       x: event.x,
       y: event.y,
     };
-    this._previewImg.open(list, {...position})
+    this._previewImg.open(list, {...position});
   }
 
   constructor(private _templateService: TemplateService, private _dialog: Dialog, private _previewImg: PreviewImg) {

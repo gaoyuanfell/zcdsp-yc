@@ -19,7 +19,7 @@ export class ScrollMoreDirective implements OnInit {
   private status = 0;
 
   recovery() {
-    this.status = 0
+    this.status = 0;
   }
 
   @HostListener('scroll', ['$event'])
@@ -32,8 +32,7 @@ export class ScrollMoreDirective implements OnInit {
     }
 
 
-
-    let h = Array.from<HTMLDivElement>(event.target.childNodes).map(cn => cn[client] || 0).reduce((a, b) => a + b)
+    let h = Array.from<HTMLDivElement>(event.target.childNodes).map(cn => cn[client] || 0).reduce((a, b) => a + b);
 
     if (h - event.target[client] - event.target[scroll] <= this.offset) {
       if (this.status !== 0) return;

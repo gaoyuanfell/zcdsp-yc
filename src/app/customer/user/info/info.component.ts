@@ -9,7 +9,7 @@ import {fromEvent} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ScrollService} from '../../../../components/back-top/scroll.service';
 import {DOCUMENT} from '@angular/common';
-import SparkMD5 from 'spark-md5'
+import SparkMD5 from 'spark-md5';
 
 @Component({
   selector: 'app-info',
@@ -83,8 +83,8 @@ export class InfoComponent implements OnInit {
     body[key] = URL.createObjectURL(files[0]);  // 显示
     const obj = {
       'file': files[0],
-    }
-    let img = new Image()  // 创建一个Image对象，实现图片的预下载
+    };
+    let img = new Image();  // 创建一个Image对象，实现图片的预下载
     img.src = body[key];
     let files_copy = files[0];  // 组长封装组件的时候 在onload中把fiels置空了
     img.onload = (e) => {   // 图片下载完毕时异步调用  尺寸信息加载完图片后才能拿到
@@ -101,7 +101,7 @@ export class InfoComponent implements OnInit {
           body['logo_height'] = parseInt(len[1]);
           body['logo_src'] = res.result['filePath'];
           // body['brand_name'] = body['brand_name'] ? body['brand_name'] : res.result['fileName'].split('.')[0]
-        })
+        });
       } else {
         // if (files_copy['size'] > (5 * 1024 * 1024) || (files_copy['name'].split('.')[1] !== 'jpg' && files_copy['name'].split('.')[1] !== 'jpeg' && files_copy['name'].split('.')[1] !== 'bmp'
         //   && files_copy['name'].split('.')[1] !== 'png')) {
@@ -112,9 +112,9 @@ export class InfoComponent implements OnInit {
         this._customerUserService.imgQualification(obj).subscribe(res => {
           // body['quatification_name'] = body['quatification_name'] ? body['quatification_name'] : res.result.fileName.split('.')[0]
           body['url'] = res.result.filePath;
-        })
+        });
       }
-    }
+    };
   }
 
   getDomSanitizerUrl(url) {
@@ -122,11 +122,11 @@ export class InfoComponent implements OnInit {
   }
 
   addLogo() {
-    this.user_logo_list.push({id: this.uuid()})
+    this.user_logo_list.push({id: this.uuid()});
   }
 
   addQualification() {
-    this.optional_qualification_list.push({id: this.uuid()})
+    this.optional_qualification_list.push({id: this.uuid()});
   }
 
   // 唯一tagid
@@ -147,48 +147,50 @@ export class InfoComponent implements OnInit {
   pwd_comform() {
     this.flag_pwd = this.form.new_pwd === this.form.firm_pwd ? false : true;
   }
+
   valid = false;
   ori_pwd = false;
+
   changePwd() {
     this.flag_pwd = false;
-      this.form = {};
-      this.valid = false;
-      this.ori_pwd = false;
-      this._dialog.open(this.pwd_template_ref, {title: '修改密码', flag: true, async: true}).subscribe((data: any) => {
-        if (data) {
-          if (!this.pwdForm['valid'] || this.form.new_pwd !== this.form.firm_pwd) {
-            this.valid = true;
-            return
-          }
-          const body = {
-            // o_pwd: Md5.hashStr(this.form.o_pwd),
-            // new_pwd: Md5.hashStr(this.form.new_pwd),
-            o_pwd: SparkMD5.hash(this.form.o_pwd),
-            new_pwd: SparkMD5.hash(this.form.new_pwd),
-            nb: Base64.encode(this.form.new_pwd),
-            user_id: this.user.user_id
-          }
-          this._customerUserService.updatePwd(body).subscribe(res => {
-              data();
-              this._notification.success('密码修改', '密码修改成功！')
-            },
-            error => {
-              this.ori_pwd = true;
-            })
-        } else {
-          this.valid = false;
+    this.form = {};
+    this.valid = false;
+    this.ori_pwd = false;
+    this._dialog.open(this.pwd_template_ref, {title: '修改密码', flag: true, async: true}).subscribe((data: any) => {
+      if (data) {
+        if (!this.pwdForm['valid'] || this.form.new_pwd !== this.form.firm_pwd) {
+          this.valid = true;
+          return;
         }
-      });
+        const body = {
+          // o_pwd: Md5.hashStr(this.form.o_pwd),
+          // new_pwd: Md5.hashStr(this.form.new_pwd),
+          o_pwd: SparkMD5.hash(this.form.o_pwd),
+          new_pwd: SparkMD5.hash(this.form.new_pwd),
+          nb: Base64.encode(this.form.new_pwd),
+          user_id: this.user.user_id
+        };
+        this._customerUserService.updatePwd(body).subscribe(res => {
+            data();
+            this._notification.success('密码修改', '密码修改成功！');
+          },
+          error => {
+            this.ori_pwd = true;
+          });
+      } else {
+        this.valid = false;
+      }
+    });
   }
 
   everyCheck(obj, title, type = '') {
     if (!type) {
       return obj.every((item) => {
         if (!item.url || !item.begin_date) {
-          this._notification.success(title, ' ')
+          this._notification.success(title, ' ');
         }
         return (item.url && item.begin_date) ? true : false;
-      })
+      });
     }
   }
 
@@ -208,35 +210,35 @@ export class InfoComponent implements OnInit {
       if (item) {
         const el = <Element>this.document.getElementsByName(item)[0] ? this.document.getElementsByName(item)[0] : this.document.getElementById(item);
         if (infoForm.controls[item].invalid) {
-          let top = this.asd(el, this._global.containerFullRef)
-          this._scrollService.scrollTo(this._global.containerFullRef, {top: top - el.clientHeight})
+          let top = this.asd(el, this._global.containerFullRef);
+          this._scrollService.scrollTo(this._global.containerFullRef, {top: top - el.clientHeight});
           break;
         }
       }
     }
     if (!infoForm.valid) {
-      this._notification.success('请完善表单内容', ' ')
+      this._notification.success('请完善表单内容', ' ');
       return;
     }
     // 主体资质信息
     const mainBool = this.main_qualification_list.every((item) => {
       if (!item.url || !item.begin_date) {
-        this._scrollService.scrollTo(this._global.containerFullRef, {top: this.apititude.nativeElement.offsetTop - this.apititude.nativeElement.clientHeight})
+        this._scrollService.scrollTo(this._global.containerFullRef, {top: this.apititude.nativeElement.offsetTop - this.apititude.nativeElement.clientHeight});
         this._notification.success('请完善主体资质信息', ' ');
       }
       return item.url && item.begin_date;  // 不能写在if里面
-    })
+    });
     if (!mainBool) {
       return;
     }
-   // 行业资质，当你资质分类填写后，一定要上传资质图片的
-     const optionBool = this.optional_qualification_list.every((item: any) => {
-       if (item.item_type_id && !item.url) {
-         this._scrollService.scrollTo(this._global.containerFullRef, {top: this.trade.nativeElement.offsetTop - this.trade.nativeElement.clientHeight})
-         this._notification.success('请上传行业资质的图片', ' ');
-       }
-       return ( (item.item_type_id && item.url) || (!item.item_type_id) );
-    })
+    // 行业资质，当你资质分类填写后，一定要上传资质图片的
+    const optionBool = this.optional_qualification_list.every((item: any) => {
+      if (item.item_type_id && !item.url) {
+        this._scrollService.scrollTo(this._global.containerFullRef, {top: this.trade.nativeElement.offsetTop - this.trade.nativeElement.clientHeight});
+        this._notification.success('请上传行业资质的图片', ' ');
+      }
+      return ((item.item_type_id && item.url) || (!item.item_type_id));
+    });
     if (!optionBool) {
       return;
     }
@@ -245,15 +247,15 @@ export class InfoComponent implements OnInit {
       main_qualification_list: this.main_qualification_list,
       user_logo_list: this.user_logo_list,
       optional_qualification_list: this.optional_qualification_list
-    }
+    };
     this._customerUserService.editUpdate(obj).subscribe(res => {
       if (res.success === 200) {
-        this._notification.success('保存成功', '修改用户成功')
+        this._notification.success('保存成功', '修改用户成功');
         this.search();
       } else {
-        this._notification.error('保存失败', res.errorList[0]._description)
+        this._notification.error('保存失败', res.errorList[0]._description);
       }
-    })
+    });
   }
 
   changeSelect(event, x) {
@@ -262,26 +264,27 @@ export class InfoComponent implements OnInit {
       if (item1.item_type_id === event) {
         x['item_type_name'] = item1.item_type_name;
       }
-    })
+    });
     this.change_select();
   }
 
   change_select() {
     this.optional_ad_category_list.forEach((item1) => {
       item1.disabled = false;
-    })
+    });
     this.optional_qualification_list.forEach((item) => {
       this.optional_ad_category_list.some((item1) => {
         if (item1.item_type_id === item.item_type_id) {
           item1.disabled = true;
           return true;
         }
-      })
-    })
+      });
+    });
   }
 
   _audit_status;
   _ad_category_name;
+
   search() {
     this._customerUserService.editList().subscribe(res => {
       this.user = res.result.user;
@@ -290,7 +293,7 @@ export class InfoComponent implements OnInit {
       this.ad_category_list = res.result.ad_category_list;
       // 通过id找到对应的name
       if (this.user.ad_category_id) {
-        this._ad_category_name = this.ad_category_list.find(item => this.user.ad_category_id === item.ad_category_id).ad_category_name
+        this._ad_category_name = this.ad_category_list.find(item => this.user.ad_category_id === item.ad_category_id).ad_category_name;
       }
       this.main_qualification_list = res.result.main_qualification_list;
       this.optional_ad_category_list = res.result.optional_ad_category_list;
@@ -299,17 +302,17 @@ export class InfoComponent implements OnInit {
       this.optional_qualification_list = res.result.optional_qualification_list.length === 0 ? [{id: this.uuid()}] : res.result.optional_qualification_list;
       // 初始化数据
       this.change_select();
-    })
+    });
   }
 
   get containerFullRef() {
-    return this._global.containerFullRef
+    return this._global.containerFullRef;
   }
 
   _remove(list, index, type = '') {
     list.splice(index, 1);
     if (list.length === 0) {
-      type ?  this.addLogo() : this.addQualification();
+      type ? this.addLogo() : this.addQualification();
     }
   }
 
@@ -340,7 +343,7 @@ export class InfoComponent implements OnInit {
           itemChild[itemChild.length - 1].className = 'item cur';
         }
       }
-    })
+    });
   }
 
 
@@ -353,9 +356,9 @@ export class InfoComponent implements OnInit {
   }
 
   extensions: any = {
-      extensions: ['jpg', 'jpeg', 'bmp', 'png'],
-      // mimeTypes: 'image/*',
-      maxSize: 5
+    extensions: ['jpg', 'jpeg', 'bmp', 'png'],
+    // mimeTypes: 'image/*',
+    maxSize: 5
   };
   extensions1: any = {
     extensions: ['jpg'],
@@ -364,7 +367,7 @@ export class InfoComponent implements OnInit {
   };
 
   _imgError(error) {
-    this._notification.error('上传', error.message)
+    this._notification.error('上传', error.message);
   }
 
 

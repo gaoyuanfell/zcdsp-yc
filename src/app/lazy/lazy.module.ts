@@ -1,31 +1,16 @@
-import {
-  Component,
-  NgModule,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Inject, Input, NgZone
-} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, NgModule, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {Module} from '../module';
-import {MenuGuard} from '../../auth/menu.guard';
-import {Sidebar, YC_SIDEBAR_DATA} from '../../components/sidebar/sidebar';
-import {Dialog, YC_DIALOG_DATA} from '../../components/dialog/dialog';
+import {Sidebar} from '../../components/sidebar/sidebar';
+import {Dialog} from '../../components/dialog/dialog';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/model';
-import * as directionalAction from '../../store/actions/directional.action';
-import {AutoCookie} from '../../decorator/decorator';
-import {CreativeService} from '../../service/customer/creative.service';
-import {TableComponent} from '../../components/table/table.component';
 import {CdkTableModule} from '@angular/cdk/table';
 
 @Component({
   selector: 'app-lazy-view',
   styles: [
-      `
+    `
       
     `
   ],
@@ -127,37 +112,45 @@ export class LazyComponent implements OnDestroy, OnInit {
 
   echo;
   arrList = [
-    {coords:{
-      'longitude': '120.995425', 'latitude': '31.175912', 'radius': '1159'
-    },name:'江苏省苏州市昆山市淀山湖镇富园路',id: 23, id_random: `80${Math.round(Math.random() * 1000000)}`},
+    {
+      coords: {
+        'longitude': '120.995425', 'latitude': '31.175912', 'radius': '1159'
+      }, name: '江苏省苏州市昆山市淀山湖镇富园路', id: 23, id_random: `80${Math.round(Math.random() * 1000000)}`
+    },
     // {coords:{'longitude': '121.410159', 'latitude': '31.462168', 'radius': '2159'},name:'上海市宝山区月浦镇盛石路298号', id: `80${Math.round(Math.random() * 1000000)}`},
-    {coords:{'longitude': '120.94736', 'latitude': '31.287467', 'radius': '3159'},name:'江苏省苏州市昆山市张浦镇茶风街106号张浦镇人民政府', id: 25, id_random: `80${Math.round(Math.random() * 1000000)}`}
-  ]
+    {
+      coords: {'longitude': '120.94736', 'latitude': '31.287467', 'radius': '3159'},
+      name: '江苏省苏州市昆山市张浦镇茶风街106号张浦镇人民政府',
+      id: 25,
+      id_random: `80${Math.round(Math.random() * 1000000)}`
+    }
+  ];
+
   toChild(x) {
-    this.echo  = x;
+    this.echo = x;
   }
 
   pushCoordinate(event) {
-    let flag = this.arrList.some ( (item, index) => {
-      if ( item.id_random === event.id_random) {
-        this.arrList[index] = event
+    let flag = this.arrList.some((item, index) => {
+      if (item.id_random === event.id_random) {
+        this.arrList[index] = event;
         // item = event;  // 说明存在，覆盖
       }
       return item.id_random === event.id_random;
-    })
+    });
 
     if (!flag) { // 说明不存在 重新添加
-      this.arrList.push(event)
+      this.arrList.push(event);
     }
     this.changeDetectorRef.markForCheck();
   }
 
   removeCoordinate(event) {
-    this.arrList.filter((item,index) => {
-      if(event.id_random === item.id_random) {
-        this.arrList.splice(index,1)
+    this.arrList.filter((item, index) => {
+      if (event.id_random === item.id_random) {
+        this.arrList.splice(index, 1);
       }
-    })
+    });
   }
 
   start() {
@@ -172,15 +165,15 @@ export class LazyComponent implements OnDestroy, OnInit {
     this.list7 = Array.from({length: 1000});
   }
 
-  end(){
-    this.list = null
-    this.list1 = null
-    this.list2 = null
-    this.list3 = null
-    this.list4 = null
-    this.list5 = null
-    this.list6 = null
-    this.list7 = null
+  end() {
+    this.list = null;
+    this.list1 = null;
+    this.list2 = null;
+    this.list3 = null;
+    this.list4 = null;
+    this.list5 = null;
+    this.list6 = null;
+    this.list7 = null;
   }
 
   list;
@@ -193,7 +186,6 @@ export class LazyComponent implements OnDestroy, OnInit {
   list7;
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-
 
 
   constructor(private _sidebar: Sidebar,
@@ -236,12 +228,13 @@ export class LazyComponent implements OnDestroy, OnInit {
 })
 export class LazyComponent2 implements OnDestroy, OnInit {
 
-  color
+  color;
 
   progress: number = 0;
   label: string;
 
-  constructor(private _ngZone: NgZone, private changeDetectorRef:ChangeDetectorRef) {}
+  constructor(private _ngZone: NgZone, private changeDetectorRef: ChangeDetectorRef) {
+  }
 
   // Loop inside the Angular zone
   // so the UI DOES refresh after each setTimeout cycle
@@ -259,7 +252,9 @@ export class LazyComponent2 implements OnDestroy, OnInit {
     this._ngZone.runOutsideAngular(() => {
       this._increaseProgress(() => {
         // reenter the Angular zone and display done
-        this._ngZone.run(() => { console.log('Outside Done!'); });
+        this._ngZone.run(() => {
+          console.log('Outside Done!');
+        });
       });
     });
   }
@@ -267,7 +262,7 @@ export class LazyComponent2 implements OnDestroy, OnInit {
   _increaseProgress(doneCallback: () => void) {
     this.progress += 1;
     console.log(`Current progress: ${this.progress}%`);
-    this.changeDetectorRef.markForCheck()
+    this.changeDetectorRef.markForCheck();
     if (this.progress < 100) {
       window.setTimeout(() => this._increaseProgress(doneCallback), 10);
     } else {

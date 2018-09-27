@@ -14,72 +14,72 @@ export class ReportService extends ConfigService {
   }
 
 
-
   campaignList(query) {
-    return this.get(`/ads/report/campaign/list`, query)
+    return this.get(`/ads/report/campaign/list`, query);
   }
 
   creativeList(query) {
-    return this.get(`/ads/report/creative/list`, query)
+    return this.get(`/ads/report/creative/list`, query);
   }
 
   dateList(query) {
-    return this.get(`/ads/report/date/list`, query)
+    return this.get(`/ads/report/date/list`, query);
   }
+
   dateChart(query) {
-    return this.get(`/ads/report/date/hourList`, query)
+    return this.get(`/ads/report/date/hourList`, query);
   }
 
   areaList(query) {
-    return this.get(`/ads/report/area/list`, query)
+    return this.get(`/ads/report/area/list`, query);
   }
 
   init(body = {}) {
-    return this.get('/ads/report/campaign/init', body = {})
+    return this.get('/ads/report/campaign/init', body = {});
   }
 
   creativeInit(body = {}) {
-    return this.get(`/ads/report/creative/init`, body = {})
+    return this.get(`/ads/report/creative/init`, body = {});
   }
 
   datetimeChart(body = {}) {
-    return this.get(`/ads/report/date/hourChart`, body)
+    return this.get(`/ads/report/date/hourChart`, body);
   }
 
   campaignChart(body = {}) {
-    return this.get(`/ads/report/campaign/chart`, body)
+    return this.get(`/ads/report/campaign/chart`, body);
   }
 
   creativeChart(body = {}) {
-    return this.get(`/ads/report/creative/chart`, body)
+    return this.get(`/ads/report/creative/chart`, body);
   }
 
   creativeExport(body = {}) {
     Reflect.deleteProperty(body, 'page_index');
     Reflect.deleteProperty(body, 'page_size');
-    return this.getUrl(`/ads/report/creative/export`, body)
+    return this.getUrl(`/ads/report/creative/export`, body);
   }
 
   hourExport(body = {}) {
-    return this.getUrl(`/ads/report/date/hourExport `, body)
+    return this.getUrl(`/ads/report/date/hourExport `, body);
   }
 
   datetimeExport(body = {}) {
     Reflect.deleteProperty(body, 'page_index');
     Reflect.deleteProperty(body, 'page_size');
-    return this.getUrl(`/ads/report/date/export`, body)
+    return this.getUrl(`/ads/report/date/export`, body);
   }
 
   campaignExport(body = {}) {
     Reflect.deleteProperty(body, 'page_index');
     Reflect.deleteProperty(body, 'page_size');
-    return this.getUrl(`/ads/report/campaign/export`, body)
+    return this.getUrl(`/ads/report/campaign/export`, body);
   }
 
   areaExport(body = {}) {
     Reflect.deleteProperty(body, 'page_index');
     Reflect.deleteProperty(body, 'page_size');
-    return this.getUrl(`/ads/report/area/export`, body)
+    return this.getUrl(`/ads/report/area/export`, body);
   }
 
   // list(type, query) {

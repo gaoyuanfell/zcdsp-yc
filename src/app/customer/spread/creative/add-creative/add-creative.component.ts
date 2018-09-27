@@ -368,7 +368,7 @@ export class AddCreativeComponent implements OnInit {
   changeMediaSize(mediaSize) {
     if (mediaSize === this.selectMediaSize) return;
 
-    this.dtlApp = {} // 改变媒体 清除app定向
+    this.dtlApp = {}; // 改变媒体 清除app定向
 
     this.removeElementList();
     this.showAppAudiences(mediaSize);
@@ -582,7 +582,7 @@ export class AddCreativeComponent implements OnInit {
           this.elementList.length = 0;
           this.addCreative();
           this.changeDetectorRef.markForCheck();
-          this._scrollService.setScrollTopByElement(this._global.containerFullRef, this.document.getElementById('toufangmeiti'))
+          this._scrollService.setScrollTopByElement(this._global.containerFullRef, this.document.getElementById('toufangmeiti'));
           // this._scrollService.scrollTo(this._global.containerFullRef, {top: this.toufangmeiti.nativeElement.offsetTop - this.toufangmeiti.nativeElement.clientHeight});
         } else {
           this.router.navigate(['/ads/spread/creative']);
@@ -596,7 +596,7 @@ export class AddCreativeComponent implements OnInit {
   dtlApp;
   dtlAppType = 1;
 
-  qRiousImgUrl
+  qRiousImgUrl;
 
   /////////////// 快速导航栏
 
@@ -677,10 +677,10 @@ export class AddCreativeComponent implements OnInit {
     }
     this._creativeService.campaignList().subscribe(res => {
       this.campaignList = res.result;
-      if(this.campaignList instanceof Array && this.campaignList.length){
-        let data = this.campaignList[0]
-        this.campaign_id = data.campaign_id
-        this.campaignChange(data)
+      if (this.campaignList instanceof Array && this.campaignList.length) {
+        let data = this.campaignList[0];
+        this.campaign_id = data.campaign_id;
+        this.campaignChange(data);
       }
       this.changeDetectorRef.markForCheck();
     });

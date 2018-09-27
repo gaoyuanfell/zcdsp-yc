@@ -33,7 +33,7 @@ import {CreativeExpandComponent} from './creative/creative-expand.component';
     CampaignExpandComponent,
     CreativeExpandComponent,
   ],
-  entryComponents:[
+  entryComponents: [
     CampaignDetailComponent,
     CreativeDetailComponent,
   ]

@@ -1,4 +1,16 @@
-import {ComponentRef, Directive, ElementRef, EventEmitter, HostListener, Inject, Injector, Input, Output, Renderer2, ViewContainerRef} from '@angular/core';
+import {
+  ComponentRef,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Inject,
+  Injector,
+  Input,
+  Output,
+  Renderer2,
+  ViewContainerRef
+} from '@angular/core';
 import {Overlay, OverlayConfig, OverlayRef} from '@angular/cdk/overlay';
 import {DOCUMENT} from '@angular/common';
 import {ComponentPortal} from '@angular/cdk/portal';
@@ -40,7 +52,7 @@ export class DropMenuDirective {
   open() {
     if (this.opened || !this.list) return;
     if (!this.componentPortal) {
-      this.componentPortal = new ComponentPortal<DropMenuComponent>(DropMenuComponent, this._viewContainerRef, this._injector)
+      this.componentPortal = new ComponentPortal<DropMenuComponent>(DropMenuComponent, this._viewContainerRef, this._injector);
     }
 
     if (!this.overlayRef) {
@@ -92,7 +104,7 @@ export class DropMenuDirective {
       this.componentRef.instance.selectedEvent.subscribe(data => {
         this.selectedChange.emit(data);
         this.close();
-      })
+      });
     }
     this.opened = true;
   }

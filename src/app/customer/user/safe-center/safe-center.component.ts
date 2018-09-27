@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-safe-center',
@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SafeCenterComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
@@ -22,7 +23,7 @@ export class SafeCenterComponent implements OnInit {
 
   }
 
-  setInvalidClass(a,b) {
+  setInvalidClass(a, b) {
 
   }
 

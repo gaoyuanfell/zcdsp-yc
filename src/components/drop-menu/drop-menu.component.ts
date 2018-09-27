@@ -37,7 +37,7 @@ export class DropMenuComponent implements OnInit {
   @Output() selectedEvent = new EventEmitter<any>();
 
   select(data) {
-    this.selectedEvent.emit(data)
+    this.selectedEvent.emit(data);
   }
 
   constructor() {

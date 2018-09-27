@@ -128,7 +128,9 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     this.store.dispatch(new directionalAction.LbsCityNextChild({value, index}));
   }
 
-  removeMapResult = () =>{};
+  removeMapResult = () => {
+  };
+
   checkLbsCityChange(value) {
     if (!value) {
       this.removeMapResult();
@@ -142,9 +144,10 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     this.store.dispatch(new directionalAction.QueryLbsCityByName({target, value}));
   }
 
-  del = (value) =>{}; // 删除的元素  初始化
+  del = (value) => {
+  }; // 删除的元素  初始化
   lbsCityMapRemove(data) {
-    this.del(data)
+    this.del(data);
     this.store.dispatch(new directionalAction.LbsCityMapRemove(data));
   }
 
@@ -375,14 +378,14 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
       if (!data) return;
       if (this.areasHaveResult) this.areasShow = true;
 
-      this.resultData.dtl_address.lbs = this.resultData.dtl_address.lbs.filter(lbs => lbs.type_id)
+      this.resultData.dtl_address.lbs = this.resultData.dtl_address.lbs.filter(lbs => lbs.type_id);
 
       let lbs = data.map(ar => ({id: ar.id_random, name: ar.name, coords: JSON.stringify(ar.coords), type_id: ar.type_id}));
       lbs.forEach(l => {
-        if(!this.resultData.dtl_address.lbs.find(lbs => lbs.id == l.id)){
-          this.resultData.dtl_address.lbs.push(l)
+        if (!this.resultData.dtl_address.lbs.find(lbs => lbs.id == l.id)) {
+          this.resultData.dtl_address.lbs.push(l);
         }
-      })
+      });
 
       this.resultSubject.next(this.resultData);
     });
@@ -453,14 +456,18 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   // 地图
 
   lbsCityType;
-  echo = (value) => {};   // 回显字段
+  echo = (value) => {
+  };   // 回显字段
   toChild(value) {  // 回显事件
     this.echo(value);
   }
-  echoFunction( $event) {
+
+  echoFunction($event) {
     this.echo = $event;
   }
+
   arrList = [];
+
   pushCoordinate(event) {
     this.store.dispatch(new directionalAction.LbsCityMapPush(event));  //  触发 reducer根据type找到对应要处理的操作  携带数据的动作
     this.changeDetectorRef.markForCheck();
@@ -510,7 +517,6 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
       }
     });
   }
-
 
 
 }

@@ -1,4 +1,4 @@
-import { MapModule } from './map.module';
+import {MapModule} from './map.module';
 
 describe('MapModule', () => {
   let mapModule: MapModule;

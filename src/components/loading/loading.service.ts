@@ -29,7 +29,7 @@ export class Loading {
 
   config: any = {};
 
-  style
+  style;
 
   cache = [];
 
@@ -39,7 +39,7 @@ export class Loading {
       this.componentRef.instance.state = false;
       this._container = this.componentRef.instance;
     }
-    config = {...this.config, config}
+    config = {...this.config, config};
     this.cache.push(0);
     this._container.open(config);
   }

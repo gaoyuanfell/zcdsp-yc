@@ -15,14 +15,14 @@ import html2canvas from 'html2canvas';
 export class LandingPageComponent implements OnInit {
 
 
-  @ViewChild('brickCanvas', {read: ViewContainerRef}) brickVcr: ViewContainerRef
+  @ViewChild('brickCanvas', {read: ViewContainerRef}) brickVcr: ViewContainerRef;
 
   canvasBox: any = {
     width: 600,
     height: 300
-  }
+  };
 
-  settingCache
+  settingCache;
 
   get canvasBoxStyle() {
     if (!this.canvasBox) return null;
@@ -78,15 +78,15 @@ export class LandingPageComponent implements OnInit {
         'left.px': 0,
       }
     }
-  }
+  };
 
 
-  query: any
+  query: any;
 
-  private _brickList = []
+  private _brickList = [];
 
   get brickList() {
-    return this._brickList
+    return this._brickList;
   }
 
   set brickList(val) {
@@ -112,7 +112,7 @@ export class LandingPageComponent implements OnInit {
    * @returns {any}
    */
   copy(target) {
-    return JSON.parse(JSON.stringify(target))
+    return JSON.parse(JSON.stringify(target));
   }
 
   /**
@@ -130,8 +130,8 @@ export class LandingPageComponent implements OnInit {
   removeBrick(settingCache = this.settingCache) {
     let index = this.brickList.indexOf(settingCache);
     if (index != -1) {
-      this.brickList.splice(index, 1)
-      if (settingCache === this.settingCache) this.settingCache = null
+      this.brickList.splice(index, 1);
+      if (settingCache === this.settingCache) this.settingCache = null;
       settingCache = null;
     }
   }
@@ -161,10 +161,10 @@ export class LandingPageComponent implements OnInit {
           width: img.width,
           height: img.height
         };
-        this.isBackgroundChange()
+        this.isBackgroundChange();
       };
-      img.src = fileReader.result
-    }
+      img.src = fileReader.result;
+    };
   }
 
   /**
@@ -188,7 +188,7 @@ export class LandingPageComponent implements OnInit {
       }
       this.settingCache.style['top.px'] = (this.canvasBox.height - height) / 2;
     } else {
-      delete this.settingCache.upDownMiddle
+      delete this.settingCache.upDownMiddle;
     }
   }
 
@@ -211,9 +211,9 @@ export class LandingPageComponent implements OnInit {
           break;
         }
       }
-      this.settingCache.style['left.px'] = (this.canvasBox.width - width) / 2
+      this.settingCache.style['left.px'] = (this.canvasBox.width - width) / 2;
     } else {
-      delete this.settingCache.leftRightMiddle
+      delete this.settingCache.leftRightMiddle;
     }
   }
 
@@ -231,7 +231,7 @@ export class LandingPageComponent implements OnInit {
 
       if (width > _width || height > _height) {
         this._notification.warning('背景', '背景图片太小，不能作为背景图');
-        return
+        return;
       }
 
       this.settingCache.style['width.px'] = width;
@@ -243,12 +243,12 @@ export class LandingPageComponent implements OnInit {
           this.imgStyleHeightChange();
         } else {
           this.settingCache.imgStyle['width.px'] = width;
-          this.imgStyleWidthChange()
+          this.imgStyleWidthChange();
         }
       } else {
         if (width / height > _width / _height) {
           this.settingCache.imgStyle['width.px'] = width;
-          this.imgStyleWidthChange()
+          this.imgStyleWidthChange();
         } else {
           this.settingCache.imgStyle['height.px'] = height;
           this.imgStyleHeightChange();
@@ -259,7 +259,7 @@ export class LandingPageComponent implements OnInit {
       this.settingCache.style['height.px'] = this.settingCache.img['height'];
 
       delete this.settingCache.imgStyle['width.px'];
-      delete this.settingCache.imgStyle['height.px']
+      delete this.settingCache.imgStyle['height.px'];
     }
   }
 
@@ -275,7 +275,7 @@ export class LandingPageComponent implements OnInit {
 
     let __h = h / w * _w;
     if (__h) {
-      this.settingCache.imgStyle['height.px'] = __h
+      this.settingCache.imgStyle['height.px'] = __h;
     } else {
       delete this.settingCache.imgStyle['width.px'];
       delete this.settingCache.imgStyle['height.px'];
@@ -309,16 +309,16 @@ export class LandingPageComponent implements OnInit {
       if (bl.is_background) continue;
       let e: any = {};
       if (this.isRealNumber(bl.style['left.px'])) {
-        e.left = bl.style['left.px']
+        e.left = bl.style['left.px'];
       }
       if (this.isRealNumber(bl.style['right.px'])) {
-        e.right = bl.style['right.px']
+        e.right = bl.style['right.px'];
       }
       if (this.isRealNumber(bl.style['top.px'])) {
-        e.top = bl.style['top.px']
+        e.top = bl.style['top.px'];
       }
       if (this.isRealNumber(bl.style['bottom.px'])) {
-        e.bottom = bl.style['bottom.px']
+        e.bottom = bl.style['bottom.px'];
       }
       e.opacity = bl.style.opacity;
       e.sort = bl.style['z-index'];
@@ -351,42 +351,42 @@ export class LandingPageComponent implements OnInit {
           e.height = bl.style['height.px'];
           e.imgStyle = {};
           if (this.isRealNumber(bl.imgStyle['left.px'])) {
-            e.imgStyle.left = bl.imgStyle['left.px']
+            e.imgStyle.left = bl.imgStyle['left.px'];
           }
           if (this.isRealNumber(bl.imgStyle['right.px'])) {
-            e.imgStyle.right = bl.imgStyle['right.px']
+            e.imgStyle.right = bl.imgStyle['right.px'];
           }
           if (this.isRealNumber(bl.imgStyle['top.px'])) {
-            e.imgStyle.top = bl.imgStyle['top.px']
+            e.imgStyle.top = bl.imgStyle['top.px'];
           }
           if (this.isRealNumber(bl.imgStyle['bottom.px'])) {
-            e.imgStyle.bottom = bl.imgStyle['bottom.px']
+            e.imgStyle.bottom = bl.imgStyle['bottom.px'];
           }
           e.imgStyle.opacity = bl.imgStyle.opacity;
           break;
         }
       }
-      elements.push(e)
+      elements.push(e);
     }
 
     data.elements = elements.sort((a, b) => a.sort - b.sort);
 
     if (!data.template_type) {
       this._notification.warning('提示', '请选择类型');
-      return
+      return;
     }
 
     if (!data.preview_url) {
       this.saveDomToFile().then(preview_url => {
         data.preview_url = preview_url;
         this._templateService.saveTemplate({template: data}).subscribe(res => {
-          this._notification.success('创意模板', '提交成功')
-        })
-      })
+          this._notification.success('创意模板', '提交成功');
+        });
+      });
     } else {
       this._templateService.saveTemplate({template: data}).subscribe(res => {
-        this._notification.success('创意模板', '提交成功')
-      })
+        this._notification.success('创意模板', '提交成功');
+      });
     }
   }
 
@@ -410,8 +410,8 @@ export class LandingPageComponent implements OnInit {
     return new Promise<any>((resolve, reject) => {
       observable.subscribe(res => {
         resolve(res);
-      })
-    })
+      });
+    });
   }
 
   dataURLtoBlob(dataurl) {
@@ -442,7 +442,7 @@ export class LandingPageComponent implements OnInit {
 
   //////////////////////////
 
-  templateTypeList
+  templateTypeList;
 
   constructor(private _publicService: PublicService,
               private _templateService: TemplateService,
@@ -452,25 +452,25 @@ export class LandingPageComponent implements OnInit {
               private route: ActivatedRoute) {
 
     _templateService.templateType().subscribe(res => {
-      this.templateTypeList = res.result
-    })
+      this.templateTypeList = res.result;
+    });
 
-    this.auth = route.snapshot.data.auth
+    this.auth = route.snapshot.data.auth;
   }
 
-  auth
+  auth;
 
   ngOnInit() {
   }
 
-  imgLink
+  imgLink;
   @ViewChild('imgBoxRef') imgBoxRef;
 
   toImage() {
     let ref = document.querySelector('#brick-canvas');
     let canvasRef = html2canvas(ref).then(canvasRef => {
       this.imgLink = canvasRef.toDataURL();
-      this._dialog.open(this.imgBoxRef, {flag: false, title: '创意模板预览'})
+      this._dialog.open(this.imgBoxRef, {flag: false, title: '创意模板预览'});
     });
   }
 }

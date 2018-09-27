@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SafeCenterComponent } from './safe-center.component';
+import {SafeCenterComponent} from './safe-center.component';
 
 describe('SafeCenterComponent', () => {
   let component: SafeCenterComponent;
@@ -8,9 +8,9 @@ describe('SafeCenterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SafeCenterComponent ]
+      declarations: [SafeCenterComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

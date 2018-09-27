@@ -12,10 +12,11 @@ import {TrComponent} from './tr.component';
   `,
 })
 export class TbodyComponent {
-  trList:Array<TrComponent> = []
-  constructor(@Host() @Optional() private tableComponent: TableComponent, @Optional() public ref: ElementRef){
-    if(tableComponent){
-      tableComponent.tbodyList.push(this)
+  trList: Array<TrComponent> = [];
+
+  constructor(@Host() @Optional() private tableComponent: TableComponent, @Optional() public ref: ElementRef) {
+    if (tableComponent) {
+      tableComponent.tbodyList.push(this);
     }
   }
 }

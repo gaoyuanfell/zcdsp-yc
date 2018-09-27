@@ -42,7 +42,7 @@ export class CampaignComponent implements OnInit {
   query;
   other;
   total_count;
-  datepicker
+  datepicker;
 
   current_state_list;
   show_state_list;
@@ -77,7 +77,7 @@ export class CampaignComponent implements OnInit {
       let list = ['page_index', 'page_size', 'begin_date', 'end_date'];
       if (!!~list.indexOf(key)) return;
       Reflect.deleteProperty(this.query, key);
-    })
+    });
 
     let [begin_date, end_date] = this.datepicker = [
       new Date().formatDate('yyyy-MM-dd'),
@@ -86,11 +86,11 @@ export class CampaignComponent implements OnInit {
     this.query.begin_date = begin_date;
     this.query.end_date = end_date;
 
-    this.search()
+    this.search();
   }
 
-  get containerFullRef(){
-    return this._global.containerFullRef
+  get containerFullRef() {
+    return this._global.containerFullRef;
   }
 
   ////*******************************///
@@ -466,14 +466,14 @@ export class CampaignDetailComponent implements OnInit, OnDestroy {
     this._changeCampaignAndCreativeChart(this.chartDataInstance, this.creativeChartData, this.campaignCode);
   }
 
-  constructor(@Inject(YC_SIDEBAR_DATA) public data: any, private _campaignService: CampaignService, private changeDetectorRef:ChangeDetectorRef) {
+  constructor(@Inject(YC_SIDEBAR_DATA) public data: any, private _campaignService: CampaignService, private changeDetectorRef: ChangeDetectorRef) {
 
     this.campaignData = data.campaignData;
     this.campaign = data.campaignData.campaign;
     this.creativeChartData = data.chartData;
 
     this.creativeList = this.campaignData.creatives;
-    this.show_hours_today = this.campaignData.show_hours_today
+    this.show_hours_today = this.campaignData.show_hours_today;
     if (this.show_hours_today) {
       this.show_hour_today_format = hoursFormat(this.show_hours_today).join(' ');
     } else {
@@ -488,12 +488,12 @@ export class CampaignDetailComponent implements OnInit, OnDestroy {
   // 显示活动详情
   @ViewChild('campaignDetail', {read: TemplateRef}) campaignDetailRef: TemplateRef<any>;
 
-  show_hours_today
+  show_hours_today;
   show_hour_today_format;
   orientationValue;
   creativeList;
   campaignData: any = {};
-  campaign:any = {};
+  campaign: any = {};
   show_time_type;
 
   campaignCode = 'pv';
@@ -522,38 +522,38 @@ export class CampaignDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  cancel(){
+  cancel() {
     this.edit = false;
   }
 
   save() {
     let campaign = {
-      campaign_id:this.campaign.campaign_id,
-      campaign_name:this.campaign.campaign_name,
-      ad_price:this.campaign.ad_price,
-      day_budget:this.campaign.day_budget,
-      begin_date:this.campaign.begin_date,
-      end_date:this.campaign.end_date,
+      campaign_id: this.campaign.campaign_id,
+      campaign_name: this.campaign.campaign_name,
+      ad_price: this.campaign.ad_price,
+      day_budget: this.campaign.day_budget,
+      begin_date: this.campaign.begin_date,
+      end_date: this.campaign.end_date,
     };
 
     let body: any = {
-      campaign:campaign,
-    }
+      campaign: campaign,
+    };
 
-    if(!isNaN(+this.startData) && !isNaN(+this.endData)){
+    if (!isNaN(+this.startData) && !isNaN(+this.endData)) {
       let today_show_hours = Array.from({length: 24}).map((a, b) => {
-        if(this.startData <= b && this.endData >= b){
-          return 1
+        if (this.startData <= b && this.endData >= b) {
+          return 1;
         }
-        return 0
-      })
-      body.today_show_hours = today_show_hours
+        return 0;
+      });
+      body.today_show_hours = today_show_hours;
     }
 
     this._campaignService.campaignDetailUpdate(body).subscribe(res => {
       this.edit = false;
       this.changeDetectorRef.markForCheck();
-    })
+    });
   }
 
   changeDayTotalList(chartDatas) {

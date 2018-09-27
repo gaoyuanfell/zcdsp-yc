@@ -25,7 +25,7 @@ import {hoursFormat} from '../../../../service/util';
         <div class="expand-title">
           <span>创意详情</span>
           <span class="pointer-outline-none m-l-1" (click)="_copy()">复制</span>
-          <span class="pointer-outline-none m-l-1" [routerLink]="['/ads/spread/creative/edit',id]" >修改</span>
+          <span class="pointer-outline-none m-l-1" [routerLink]="['/ads/spread/creative/edit',id]">修改</span>
           <span class="pointer-outline-none m-l-1" (click)="_delete()">删除</span>
         </div>
 

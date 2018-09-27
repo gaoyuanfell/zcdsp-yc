@@ -7,4 +7,4 @@ export const panel = trigger('panel', [
   state('', style({
     height: '0px', visibility: 'hidden'
   })),
-])
+]);

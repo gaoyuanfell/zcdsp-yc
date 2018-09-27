@@ -23,10 +23,9 @@
   </div>
 
 
-
   <div class="table-content">
 
-    <form #infoForm="ngForm"  (ngSubmit)="save(infoForm)">
+    <form #infoForm="ngForm" (ngSubmit)="save(infoForm)">
 
       <div class="query-tool">
         <div class="left-tool">
@@ -50,7 +49,7 @@
             <th>预警点</th>
             <th>预警频次</th>
             <th>预警范围</th>
-            <th >预警手机</th>
+            <th>预警手机</th>
             <th>预警邮箱</th>
           </tr>
           </thead>
@@ -71,13 +70,13 @@
                 <input class='form-control' type="text" [(ngModel)]="data.remind_phone" [disabled]="flag" placeholder="请输入手机号码" name="{{data.remind_id + 'remind_phone'}}"
                        pattern="^(1[3,5,6,7,8]{1})\d{9}$" id="{{data.remind_id + 'remind_phone'}}"
                        [ngClass]="setInvalidClass(infoForm, infoForm.controls[data.remind_id + 'remind_phone'])">
-                <app-form-tips [target]="infoForm.controls[data.remind_id + 'remind_phone']" [tips]="'请输入正确的手机号'" [formTarget]="infoForm" ></app-form-tips>
+                <app-form-tips [target]="infoForm.controls[data.remind_id + 'remind_phone']" [tips]="'请输入正确的手机号'" [formTarget]="infoForm"></app-form-tips>
               </td>
               <td>
                 <input class='form-control' type="text" [(ngModel)]="data.remind_email" [disabled]="flag" placeholder="请输入邮箱" name="{{data.remind_id + 'remind_email'}}"
                        pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" id="{{data.remind_id + 'remind_email'}}"
                        [ngClass]="setInvalidClass(infoForm, infoForm.controls[data.remind_id + 'remind_email'])">
-                <app-form-tips [target]="infoForm.controls[data.remind_id + 'remind_email']" [tips]="'请输入正确的邮箱格式'" [formTarget]="infoForm" ></app-form-tips>
+                <app-form-tips [target]="infoForm.controls[data.remind_id + 'remind_email']" [tips]="'请输入正确的邮箱格式'" [formTarget]="infoForm"></app-form-tips>
 
               </td>
             </tr>
@@ -86,10 +85,9 @@
         </table>
       </yc-table>
 
-      <button class="btn"  type='submit'>保存</button>
+      <button class="btn" type='submit'>保存</button>
 
     </form>
-
 
 
   </div>

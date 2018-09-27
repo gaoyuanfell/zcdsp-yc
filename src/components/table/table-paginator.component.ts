@@ -81,7 +81,7 @@ export interface Props {
 })
 export class TablePaginatorComponent {
 
-  private _bottom
+  private _bottom;
 
   get bottom() {
     return this._bottom;
@@ -92,7 +92,7 @@ export class TablePaginatorComponent {
     this.changeDetectorRef.markForCheck();
   }
 
-  constructor(public ref: ElementRef,private changeDetectorRef:ChangeDetectorRef){
+  constructor(public ref: ElementRef, private changeDetectorRef: ChangeDetectorRef) {
 
   }
 

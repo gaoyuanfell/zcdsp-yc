@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class Global {
 
   }
 
-  overflowSubject: Subject<{[key: string]: any}>
+  overflowSubject: Subject<{ [key: string]: any }>;
 
   private _containerFullRef: HTMLDivElement = null;
   private _token = null;
@@ -23,6 +23,7 @@ export class Global {
   get bid_min() {
     return this.bidMin;
   }
+
   get bid_max() {
     return this.bidMax;
   }
@@ -50,6 +51,7 @@ export class Global {
   set containerFullRef(value) {
     this._containerFullRef = value;
   }
+
   get scrollTop(): number {
     return this._scrollTop;
   }
@@ -57,6 +59,7 @@ export class Global {
   set scrollTop(value) {
     this._scrollTop = value;
   }
+
   get scrollHeight(): number {
     return this._scrollHeight;
   }

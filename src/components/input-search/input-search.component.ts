@@ -1,4 +1,15 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -33,7 +44,7 @@ export class InputSearchComponent implements OnInit, ControlValueAccessor, OnCha
   }
 
   onChange = (value) => {
-  }
+  };
 
   ngOnInit() {
   }

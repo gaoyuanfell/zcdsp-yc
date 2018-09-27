@@ -7,7 +7,9 @@ import {Component, ElementRef, OnInit, ViewChild, Input, AfterViewInit, OnDestro
   styleUrls: ['./echarts.component.less']
 })
 export class EchartsComponent implements OnInit, AfterViewInit, OnDestroy {
-  constructor() { }
+  constructor() {
+  }
+
   @ViewChild('chartDataRef') chartDataRef: ElementRef;
   @Input('height') height;
   chartInstance;
@@ -22,7 +24,7 @@ export class EchartsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.chart();
     this.chartInstance.setOption(
       this._setOptionKey
-    )
+    );
     // setTimeout( () => {
     //   console.log('孩子ngOnInit11111111111111')
     //   this.chart();

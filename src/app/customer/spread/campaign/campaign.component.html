@@ -50,7 +50,7 @@
       <thead>
       <tr sticky>
         <th stickyStart width="50" [showCheckbox]="true"></th>
-        <th stickyStart  class="text-center">活动ID</th>
+        <th stickyStart class="text-center">活动ID</th>
         <th stickyStart class="text-left">活动名称</th>
         <!--<th></th>-->
         <th class="text-right">每日预算</th>
@@ -72,7 +72,8 @@
           <td stickyStart [showCheckbox]="data"></td>
           <td stickyStart [title]="data.campaign_id">
             <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>
-            {{data.campaign_id}}</td>
+            {{data.campaign_id}}
+          </td>
           <td stickyStart [width]="120" [title]="data.campaign_name">
             <a data-link [routerLink]="['/ads/spread/creative']" [queryParams]="{campaign_id: data.campaign_id}">{{data.campaign_name}}</a>
             <i class="icon-img-edit" [ngClass]="{'active': popover.opened}" style="margin-right: 3px" yc-popover [template]="campaignName" #popover="ycPopover" (openEvent)="campaign_name = data.campaign_name"></i>
@@ -111,7 +112,7 @@
 
         <tr #trExpand class="none">
           <td colspan="100%" class="none" *ngIf="trExpand.show">
-            <yc-campaign-expand  [id]="data.campaign_id" [authList]="authList"></yc-campaign-expand>
+            <yc-campaign-expand [id]="data.campaign_id" [authList]="authList"></yc-campaign-expand>
           </td>
         </tr>
 

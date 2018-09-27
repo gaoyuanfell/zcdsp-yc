@@ -54,7 +54,9 @@
 
         <ng-template [ngIf]="edit">
           <p>
-            <yc-select [width]="80" [(ngModel)]="startData" [list]="startList" (selectedEvent)="startListChange()"></yc-select> - <yc-select [width]="80" [(ngModel)]="endData" [list]="endList"></yc-select>
+            <yc-select [width]="80" [(ngModel)]="startData" [list]="startList" (selectedEvent)="startListChange()"></yc-select>
+            -
+            <yc-select [width]="80" [(ngModel)]="endData" [list]="endList"></yc-select>
           </p>
         </ng-template>
 
@@ -85,7 +87,7 @@
 
     <div *ngIf="isChart" style="margin-left: auto">
       <yc-button-group class="tool" [(ngModel)]="creativeCode" (changeEvent)="_changeCampaignAndCreativeChart(chartDataInstance,creativeChartData,creativeCode)"
-        [list]="[{value:'pv',label:'曝光量'},{value:'click',label:'点击量'},{value:'ctr',label:'点击率'},{value:'cpc',label:'点击成本'},{value:'cpm',label:'曝光成本'},{value:'admoney',label:'花费'}]">
+                       [list]="[{value:'pv',label:'曝光量'},{value:'click',label:'点击量'},{value:'ctr',label:'点击率'},{value:'cpc',label:'点击成本'},{value:'cpm',label:'曝光成本'},{value:'admoney',label:'花费'}]">
       </yc-button-group>
     </div>
 
@@ -101,26 +103,26 @@
       <div style="max-height: 300px;overflow-y: auto;overflow-x: hidden;">
         <table [hidden]="isChart">
           <thead>
-            <tr>
-              <th>日期</th>
-              <th>曝光量</th>
-              <th>点击量</th>
-              <th>点击率</th>
-              <th>点击成本</th>
-              <th>曝光成本</th>
-              <th>累计花费</th>
-            </tr>
+          <tr>
+            <th>日期</th>
+            <th>曝光量</th>
+            <th>点击量</th>
+            <th>点击率</th>
+            <th>点击成本</th>
+            <th>曝光成本</th>
+            <th>累计花费</th>
+          </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let x of creativeChartDataList">
-              <td>{{x.time}}</td>
-              <td>{{x.pv}}次</td>
-              <td>{{x.click}}次</td>
-              <td>{{x.cpc}}%</td>
-              <td>{{x.cpm | currencyFormat}}</td>
-              <td>{{x.ctr | currencyFormat}}</td>
-              <td>{{x.admoney | currencyFormat }}</td>
-            </tr>
+          <tr *ngFor="let x of creativeChartDataList">
+            <td>{{x.time}}</td>
+            <td>{{x.pv}}次</td>
+            <td>{{x.click}}次</td>
+            <td>{{x.cpc}}%</td>
+            <td>{{x.cpm | currencyFormat}}</td>
+            <td>{{x.ctr | currencyFormat}}</td>
+            <td>{{x.admoney | currencyFormat }}</td>
+          </tr>
           </tbody>
         </table>
       </div>

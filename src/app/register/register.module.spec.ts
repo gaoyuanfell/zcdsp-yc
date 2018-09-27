@@ -1,4 +1,4 @@
-import { RegisterModule } from './register.module';
+import {RegisterModule} from './register.module';
 
 describe('RegisterModule', () => {
   let registerModule: RegisterModule;

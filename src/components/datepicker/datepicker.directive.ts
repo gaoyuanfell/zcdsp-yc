@@ -1,4 +1,18 @@
-import {ComponentRef, Directive, ElementRef, EventEmitter, forwardRef, HostListener, Inject, Injector, Input, OnDestroy, Output, Renderer2, ViewContainerRef} from '@angular/core';
+import {
+  ComponentRef,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  HostListener,
+  Inject,
+  Injector,
+  Input,
+  OnDestroy,
+  Output,
+  Renderer2,
+  ViewContainerRef
+} from '@angular/core';
 import {Overlay, OverlayConfig, OverlayRef} from '@angular/cdk/overlay';
 import {ComponentPortal} from '@angular/cdk/portal';
 import {DatepickerComponent} from './datepicker.component';
@@ -113,8 +127,8 @@ export class DatepickerDirective implements ControlValueAccessor, OnDestroy {
 
     if (!this.popupRef.hasAttached()) {
       this.componentRef = this.popupRef.attach(this.calendarPortal);
-      this.componentRef.instance.disabledTodayAfter = this.disabledTodayAfter
-      this.componentRef.instance.disabledTodayBefore = this.disabledTodayBefore
+      this.componentRef.instance.disabledTodayAfter = this.disabledTodayAfter;
+      this.componentRef.instance.disabledTodayBefore = this.disabledTodayBefore;
       this.componentRef.instance.isRange = this.isRange;
       this.componentRef.instance.isShortcutKey = this.isShortcutKey;
     }
@@ -130,14 +144,14 @@ export class DatepickerDirective implements ControlValueAccessor, OnDestroy {
       this.selectedChange.emit(value);
     });
     this.opened = true;
-    this.openEvent.emit()
+    this.openEvent.emit();
   }
 
   close() {
     this.popupRef.detach();
     this.popupRef.detachBackdrop();
     this.opened = false;
-    this.closeEvent.emit()
+    this.closeEvent.emit();
   }
 
   @Input() isRange = false;

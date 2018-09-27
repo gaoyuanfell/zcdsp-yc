@@ -79,14 +79,14 @@ export class PreviewImgComponent implements OnInit {
     // this.styleBox = {
     //   overflow: 'auto'
     // };
-    this.cdr.markForCheck()
+    this.cdr.markForCheck();
   }
 
   open(config?) {
     this.config = config;
     this.setStyle();
     this.isOpen = true;
-    this.cdr.markForCheck()
+    this.cdr.markForCheck();
   }
 
   close() {
@@ -97,8 +97,8 @@ export class PreviewImgComponent implements OnInit {
       this.isOpen = false;
       this.isAnimation = false;
       // this.styleBox = null;
-      this.cdr.markForCheck()
-    }, 300)
+      this.cdr.markForCheck();
+    }, 300);
   }
 
   setStyle() {
@@ -106,7 +106,7 @@ export class PreviewImgComponent implements OnInit {
     let y;
     if (this.config) {
       x = this.config.x || this.document.body.clientWidth / 2;
-      y = this.config.y || this.document.body.clientHeight / 2
+      y = this.config.y || this.document.body.clientHeight / 2;
     }
     this.style = {
       transform: `translate3d(${x}px, ${y}px, 0px) scale(0.1,0.1)`,

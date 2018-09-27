@@ -42,11 +42,10 @@
   </ul>
 
 
-
   <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" [total]="total_count" (changeEvent)="list()">
 
 
-       <div  #queryRef query class="query-tool">
+    <div #queryRef query class="query-tool">
       <div class="left-tool">
         <h2 class="table-title">
           流水
@@ -62,46 +61,46 @@
       </div>
     </div>
 
-      <table #tableRef table>
-        <thead>
-        <tr sticky>
-          <!--<th [showCheckbox]="true"></th>-->
-          <th class="text-center" [showSort]="true" [sortKey]="'creation_date'" [width]="200">时间</th>
-          <th class="text-center" [width]="200">类型</th>
-          <th class="text-right" [showSort]="true" [sortKey]="'money'" [width]="200">金额</th>
-          <th class="text-center">目标账户</th>
-          <th class="text-center">目标公司</th>
+    <table #tableRef table>
+      <thead>
+      <tr sticky>
+        <!--<th [showCheckbox]="true"></th>-->
+        <th class="text-center" [showSort]="true" [sortKey]="'creation_date'" [width]="200">时间</th>
+        <th class="text-center" [width]="200">类型</th>
+        <th class="text-right" [showSort]="true" [sortKey]="'money'" [width]="200">金额</th>
+        <th class="text-center">目标账户</th>
+        <th class="text-center">目标公司</th>
 
+      </tr>
+      </thead>
+      <tbody>
+      <ng-template [ngForOf]="ycTable.data" ngFor let-data>
+        <tr #tr class="text-center">
+          <!--<td [showCheckbox]="data"></td>-->
+          <td class="text-center">{{data['creation_date'] === '小计'? data['creation_date'] : data['creation_date'] | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+          <td class="text-center">{{data['recharge_type_name']}}</td>
+          <td class="text-right">{{data.money | currencyFormat }}</td>
+          <td class="text-center">{{data['reciprocal_user_name']}}</td>
+          <td class="text-center">{{data['reciprocal_nick_name']}}</td>
         </tr>
-        </thead>
-        <tbody>
-        <ng-template [ngForOf]="ycTable.data" ngFor let-data>
-          <tr #tr class="text-center">
-            <!--<td [showCheckbox]="data"></td>-->
-            <td class="text-center">{{data['creation_date'] === '小计'? data['creation_date'] : data['creation_date'] | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-            <td class="text-center">{{data['recharge_type_name']}}</td>
-            <td class="text-right">{{data.money | currencyFormat }}</td>
-            <td class="text-center">{{data['reciprocal_user_name']}}</td>
-            <td class="text-center">{{data['reciprocal_nick_name']}}</td>
-          </tr>
-        </ng-template>
-        </tbody>
-        <tfoot [hidden]="!(ycTable?.data?.length > 1) ">
-        <tr sticky>
-          <td class="text-center">全部合计</td>
-          <td class="text-center">-</td>
-          <td class="text-right">{{listTitle?.money | currencyFormat}}</td>
-          <td></td>
-          <td></td>
-        </tr>
-        </tfoot>
-      </table>
+      </ng-template>
+      </tbody>
+      <tfoot [hidden]="!(ycTable?.data?.length > 1) ">
+      <tr sticky>
+        <td class="text-center">全部合计</td>
+        <td class="text-center">-</td>
+        <td class="text-right">{{listTitle?.money | currencyFormat}}</td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tfoot>
+    </table>
 
-      <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
-      <div paginator style="background: #f9fafb;" [hidden]="!total_count">
-        <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
-      </div>
-    </yc-table>
+    <yc-table-overflow #overflowRef style="background: #f9fafb;"></yc-table-overflow>
+    <div paginator style="background: #f9fafb;" [hidden]="!total_count">
+      <yc-table-paginator #paginatorRef [total]="total_count" [query]="query" (changeEvent)="list()"></yc-table-paginator>
+    </div>
+  </yc-table>
 </div>
 
 

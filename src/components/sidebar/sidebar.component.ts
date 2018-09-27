@@ -14,25 +14,26 @@ export class SidebarComponent implements OnInit {
 
   closeSubject = new Subject();
 
-  opened
+  opened;
 
-  open(){
+  open() {
     this.opened = true;
-    this.changeDetectorRef.markForCheck()
+    this.changeDetectorRef.markForCheck();
   }
 
-  _close(){
+  _close() {
     this.opened = false;
-    this.changeDetectorRef.markForCheck()
-    this.closeSubject.next()
+    this.changeDetectorRef.markForCheck();
+    this.closeSubject.next();
   }
 
-  close(){
+  close() {
     this.opened = false;
-    this.changeDetectorRef.markForCheck()
+    this.changeDetectorRef.markForCheck();
   }
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
+  }
 
   ngOnInit() {
 

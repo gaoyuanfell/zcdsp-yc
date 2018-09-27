@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Configure} from './interface';
 
 @Component({
@@ -9,7 +9,7 @@ import {Configure} from './interface';
     </div>
   `,
   styles: [
-      `
+    `
       .separator-line {
 
       }
@@ -26,7 +26,7 @@ export class LineComponent implements OnInit {
 
         'padding-right.px': this.configure.style['padding-right.px'],
         'padding-left.px': this.configure.style['padding-left.px'],
-      }
+      };
     }
     return null;
   }
@@ -40,7 +40,7 @@ export class LineComponent implements OnInit {
         'border-top-width.px': this.configure.style['border-top-width.px'],
         'border-top-color': this.configure.style['border-top-color'],
         'border-top-style': this.configure.style['border-top-style'],
-      }
+      };
     }
     return null;
   }

@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {FinanceService} from '../../../../service/customer/finance.service';
 import {Dialog} from '../../../../components/dialog/dialog';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -19,7 +19,7 @@ export class ConsumeComponent implements OnInit {
 
   // ngIf的限制，用set捕获
   @ViewChild('popover', {read: PopoverDirective}) set popoverRef(val) {
-    this._popoverRef = val
+    this._popoverRef = val;
   }
 
   chinaDataEcharts;
@@ -47,7 +47,7 @@ export class ConsumeComponent implements OnInit {
   };
 
   isPermit(type) {
-    return this.authList.indexOf(type) > -1
+    return this.authList.indexOf(type) > -1;
   }
 
   ngOnInit() {
@@ -63,14 +63,16 @@ export class ConsumeComponent implements OnInit {
     this.query.page_index = 1;
     this.list();
   }
+
   listTitle;
+
   list() {
     this._financeService.consumeList(this.query).subscribe(res => {
       this.tableList = res.result.items;
       this.total_count = res.result.total_count;
       this.listTitle = res.result.other;
 
-    })
+    });
   }
 
 
@@ -78,7 +80,7 @@ export class ConsumeComponent implements OnInit {
     this._financeService.consumeInit().subscribe(res => {
       this.echartsData = res.result.charts;
       this.userData = res.result.user;
-    })
+    });
   }
 
   exportUrl() {
@@ -94,7 +96,7 @@ export class ConsumeComponent implements OnInit {
         if (res.success === 200) {
           this.init();
         }
-      })
+      });
     }
   }
 

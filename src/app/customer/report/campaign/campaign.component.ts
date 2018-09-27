@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ReportService} from '../../../../service/customer/report.service';
-import {ActivatedRoute} from '@angular/router'
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-campaign',
@@ -42,7 +42,7 @@ export class CampaignComponent implements OnInit {
 
   ngOnInit() {
     const obj = this.route.snapshot.data['auth'];
-    this.authList = obj['jurisdiction_list']
+    this.authList = obj['jurisdiction_list'];
     this.authUser = obj['user'];
     this.init();
     this.list();
@@ -65,7 +65,7 @@ export class CampaignComponent implements OnInit {
       this.tableList = res.result.items;
       this.total_count = res.result.total_count;
       this.listTitle = res.result.other;
-    })
+    });
   }
 
   /**
@@ -76,8 +76,8 @@ export class CampaignComponent implements OnInit {
       this.listArray = res.result.campaigns;
       this.listArray.forEach(item => {
         item.name = item.campaign_name + item.show_state_meaning;
-      })
-    })
+      });
+    });
   }
 
   /**

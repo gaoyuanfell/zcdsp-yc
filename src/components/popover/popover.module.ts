@@ -5,7 +5,6 @@ import {PopoverComponent} from './popover.component';
 import {PopoverDirective} from './popover.directive';
 
 
-
 @NgModule({
   imports: [
     CommonModule,

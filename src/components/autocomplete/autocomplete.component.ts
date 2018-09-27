@@ -67,9 +67,9 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor, Vali
     hide: 'hide',
   };
 
-  private value
+  private value;
   _value;
-  _selected
+  _selected;
   opened = false;
 
   private _overlayRef: OverlayRef | null;
@@ -121,7 +121,7 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor, Vali
   @Output() inputEvent = new EventEmitter<any>();
 
   open() {
-    if(this.opened) return;
+    if (this.opened) return;
     this._onTouched();
 
     if (!this._overlayRef) {
@@ -151,8 +151,8 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor, Vali
   }
 
   selected(data) {
-    if(this._selected === data) return;
-    this._selected = data
+    if (this._selected === data) return;
+    this._selected = data;
     this._value = data[this._props.label];
     this._onChange(data[this._props.value]);
     this.selectedEvent.emit(data);
@@ -166,12 +166,12 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor, Vali
       item[this._props.hide] = true;
       if (!!~item[this._props.label].indexOf(this._value)) item[this._props.hide] = false;
     });
-    let length = this.list.filter(item => !item.hide).length
-    if(length){
-      this.open()
+    let length = this.list.filter(item => !item.hide).length;
+    if (length) {
+      this.open();
 
-    }else{
-      this.close()
+    } else {
+      this.close();
     }
     this.inputEvent.emit(this._value);
   }
@@ -210,18 +210,18 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor, Vali
     return this._positionStrategy;
   }
 
-  _setSelectionByValue(){
-    if(!this.list || !this.value) return;
+  _setSelectionByValue() {
+    if (!this.list || !this.value) return;
     this._selected = this.list.find(item => item[this._props.value] == this.value);
-    if(this._selected){
-      this._value = this._selected[this._props.label]
-    }else{
+    if (this._selected) {
+      this._value = this._selected[this._props.label];
+    } else {
       this._value = this.value;
     }
-    this._changeDetectorRef.markForCheck()
+    this._changeDetectorRef.markForCheck();
   }
 
-  _validator
+  _validator;
 
   constructor(private _viewContainerRef: ViewContainerRef,
               private _changeDetectorRef: ChangeDetectorRef,
@@ -245,7 +245,7 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor, Vali
 
   writeValue(obj: any): void {
     this.value = obj;
-    this._setSelectionByValue()
+    this._setSelectionByValue();
   }
 
   registerOnValidatorChange(fn: () => void): void {
@@ -257,7 +257,7 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor, Vali
 
 
   ngOnInit() {
-    this._validator = createPatternValidator(this.pattern)
+    this._validator = createPatternValidator(this.pattern);
   }
 
 }

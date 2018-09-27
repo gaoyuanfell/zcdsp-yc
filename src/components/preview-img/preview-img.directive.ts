@@ -7,7 +7,7 @@ import {PreviewImg} from './preview-img.service';
 })
 export class PreviewImgDirective {
   constructor(private _previewImg: PreviewImg, private ref: ElementRef) {
-    console.dir(ref)
+    console.dir(ref);
   }
 
   @Input('list') previewImg;
@@ -19,6 +19,6 @@ export class PreviewImgDirective {
       x: event.x,
       y: event.y,
     };
-    this._previewImg.open(this.previewImg, {...this.config, ...position})
+    this._previewImg.open(this.previewImg, {...this.config, ...position});
   }
 }

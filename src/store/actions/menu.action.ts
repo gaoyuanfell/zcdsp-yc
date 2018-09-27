@@ -13,7 +13,7 @@ export class AssignMenu implements Action {
 }
 
 // 展开对应的菜单
-export class SelectActiveMenu implements Action{
+export class SelectActiveMenu implements Action {
   readonly type = MenuActionTypes.SELECT_ACTIVE_MENU;
 
   constructor(public payload: string) {

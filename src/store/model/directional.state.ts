@@ -26,23 +26,23 @@ export interface DirectionalState {
 
   lbsCity?: Directional
   lbsScenes?: Array<any>
-  lbsCityList?:Array<Array<any>>
+  lbsCityList?: Array<Array<any>>
   lbsCityResult?: Array<any>
   lbsCityMapResult?: Array<any>
   lbsCityViewResult?: Array<any>
   lbsCityMapView?: Array<any>
 
   audiencesAction?: Directional
-  audiencesActionList?:Array<Array<any>>
+  audiencesActionList?: Array<Array<any>>
   audiencesActionResult?: Array<any>
 
   audiencesAction2?: Directional
-  audiencesAction2List?:Array<Array<any>>
+  audiencesAction2List?: Array<Array<any>>
   audiencesAction2Result?: Array<any>
 
   audiencesApp?: Directional
-  audiencesAppList?:Array<Array<any>>
-  audiencesAppResult?:Array<Array<any>>
+  audiencesAppList?: Array<Array<any>>
+  audiencesAppResult?: Array<Array<any>>
 
   result?: any
   result2?: any
@@ -51,18 +51,18 @@ export interface DirectionalState {
 export interface LbsCityState {
   lbsCity?: Directional
   lbsScenes?: Array<any>
-  lbsCityList?:Array<Array<any>>
+  lbsCityList?: Array<Array<any>>
   lbsCityResult?: Array<any>
   lbsCityViewResult?: Array<any>
 }
 
 export interface AudiencesActionState {
   audiencesAction?: Directional
-  audiencesActionList?:Array<Array<any>>
+  audiencesActionList?: Array<Array<any>>
   audiencesActionResult?: Array<any>
 
   audiencesAction2?: Directional
-  audiencesAction2List?:Array<Array<any>>
+  audiencesAction2List?: Array<Array<any>>
   audiencesAction2Result?: Array<any>
 }
 

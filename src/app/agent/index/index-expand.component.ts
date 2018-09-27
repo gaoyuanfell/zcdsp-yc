@@ -39,9 +39,9 @@ import {IndexService} from '../../../service/agent/index.service';
 })
 export class IndexExpandComponent implements OnInit {
 
-  _id
-  chartData
-  chartDataEcharts
+  _id;
+  chartData;
+  chartDataEcharts;
   chartCode = 'pv';
 
   private _chartDataRef: ElementRef;
@@ -55,8 +55,8 @@ export class IndexExpandComponent implements OnInit {
     this._chartDataRef = value;
     setTimeout(() => {
       this.chart();
-      this.init()
-    }, 0)
+      this.init();
+    }, 0);
   }
 
   @Input() set id(id) {
@@ -70,8 +70,8 @@ export class IndexExpandComponent implements OnInit {
   init() {
     this._indexService.childListChart({user_id: this._id}).subscribe(res => {
       this.chartData = res.result;
-      this.changeCampaignAndCreativeChart(this.chartDataEcharts, res.result, this.chartCode)
-    })
+      this.changeCampaignAndCreativeChart(this.chartDataEcharts, res.result, this.chartCode);
+    });
   }
 
   chart() {
@@ -101,17 +101,17 @@ export class IndexExpandComponent implements OnInit {
             let str = '';
             str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
             if (params.length > 1) {
-              params.forEach( item => {
+              params.forEach(item => {
                 str = str + `
                 <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${item.color}"></div>
                 ${item.seriesName}<span style="margin-right:20px"></span>${item.data}<div style="margin-top:5px"></div>
               `;
               });
             } else {
-              str = str +  `
+              str = str + `
               <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${params[0].color}"></div>
               ${params[0].seriesName}<span style="margin-right:20px"></span>${params[0].data}
-              `
+              `;
             }
             return str;
           }
@@ -135,8 +135,8 @@ export class IndexExpandComponent implements OnInit {
             show: false,
           },
           splitLine: {
-            lineStyle:{
-              color:['#f7f8fa'],
+            lineStyle: {
+              color: ['#f7f8fa'],
               width: 2,
               type: 'dashed'
             }
@@ -154,8 +154,8 @@ export class IndexExpandComponent implements OnInit {
             show: false,
           },
           splitLine: {
-            lineStyle:{
-              color:['#f7f8fa'],
+            lineStyle: {
+              color: ['#f7f8fa'],
               width: 2,
               type: 'dashed'
             }
@@ -166,7 +166,7 @@ export class IndexExpandComponent implements OnInit {
         },
         series: [
           {
-            symbol:'emptyCircle',
+            symbol: 'emptyCircle',
             symbolSize: 2,//拐点大小
             name: '今日数据',
             type: 'line',
@@ -176,7 +176,7 @@ export class IndexExpandComponent implements OnInit {
             name: '昨日数据',
             type: 'line',
             color: ['#31c38f'],
-            symbol:'emptyCircle',
+            symbol: 'emptyCircle',
             symbolSize: 2,//拐点大小
           },
         ]
@@ -191,7 +191,7 @@ export class IndexExpandComponent implements OnInit {
     let suffix;
     let today = data.y[type].today;
     let yesterday = data.y[type].yesterday;
-    let max
+    let max;
     switch (type) {
       case 'pv':
       case 'click':
@@ -233,7 +233,7 @@ export class IndexExpandComponent implements OnInit {
       ]
     };
     if (max) {
-      option.yAxis.max = max
+      option.yAxis.max = max;
     } else {
       option.yAxis.max = null;
     }

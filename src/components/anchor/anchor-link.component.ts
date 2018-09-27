@@ -18,15 +18,15 @@ export class AnchorLinkComponent implements OnInit, OnDestroy {
     this._active = value;
   }
 
-  @Input('anchor-link') anchorLink = '#'
+  @Input('anchor-link') anchorLink = '#';
 
   ngOnDestroy(): void {
-    this.anchor.unregisterLink(this)
+    this.anchor.unregisterLink(this);
   }
 
   ngOnInit(): void {
     this.renderer.addClass(this.el.nativeElement, 'anchor-item');
-    this.anchor.registerLink(this)
+    this.anchor.registerLink(this);
   }
 
   @HostListener('click', ['$event'])

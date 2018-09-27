@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ScrollMoreDirective } from './scroll-more.component';
+import {ScrollMoreDirective} from './scroll-more.component';
 
 describe('ScrollMoreComponent', () => {
   let component: ScrollMoreDirective;
@@ -8,9 +8,9 @@ describe('ScrollMoreComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScrollMoreDirective ]
+      declarations: [ScrollMoreDirective]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

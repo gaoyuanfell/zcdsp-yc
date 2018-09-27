@@ -43,15 +43,15 @@ export class DirectionalAppComponent implements OnInit, ControlValueAccessor, On
   audiencesAppList$: Observable<Array<any>>;
   audiencesAppResult$: Observable<Array<any>>;
 
-  checkAudiencesAppChange(value){
-    this.store.dispatch(new directionalAction.CheckAudiencesAppChange(value))
+  checkAudiencesAppChange(value) {
+    this.store.dispatch(new directionalAction.CheckAudiencesAppChange(value));
   }
 
-  setAudiencesAppNextChild({value, index}){
+  setAudiencesAppNextChild({value, index}) {
     this.store.dispatch(new directionalAction.AudiencesAppNextChild({value, index}));
   }
 
-  queryAudiencesAppByName({target, value}){
+  queryAudiencesAppByName({target, value}) {
     if (!value) return;
     this.store.dispatch(new directionalAction.QueryAudiencesAppByName({target, value}));
   }
@@ -71,10 +71,10 @@ export class DirectionalAppComponent implements OnInit, ControlValueAccessor, On
     this.store.dispatch(new directionalAction.DirectionalRecovery2());
     this.audiencesAppResult$.subscribe(result => {
       this.onChange(result.map(r => ({id: r.id, name: r.name})));
-    })
+    });
   }
 
-  result
+  result;
 
   onChange = (value) => {
 

@@ -12,7 +12,7 @@ import {Notification} from '../../../../components/notification/notification';
 
 export class UserchargeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
-    window['test'] = this
+    window['test'] = this;
   }
 
   constructor(
@@ -43,7 +43,7 @@ export class UserchargeComponent implements OnInit, OnDestroy {
   query: any = {
     page_index: 1,
     page_size: 20
-  }
+  };
   @ViewChild('transferIn_template', {read: TemplateRef}) transferIn_template_ref: TemplateRef<any>;
   @ViewChild('transForm') transFormRef;
 
@@ -59,20 +59,22 @@ export class UserchargeComponent implements OnInit, OnDestroy {
     this.query.page_index = 1;
     this.list();
   }
+
   listTitle;
+
   list() {
     this._financeService.consumeList(this.query).subscribe(res => {
       this.tableList = res.result.items;
       this.total_count = res.result.total_count;
       this.listTitle = res.result.other;
-    })
+    });
   }
 
   init() {
     this._financeService.consumeInit().subscribe(res => {
       this.userData = res.result.user;
-      this.userList = res.result.user_list
-    })
+      this.userList = res.result.user_list;
+    });
   }
 
   exportUrl() {
@@ -90,6 +92,7 @@ export class UserchargeComponent implements OnInit, OnDestroy {
    // a1   -> 转出  a1 减去操作金额，A 加上操作金额   init: user_id = a1,   {a1:余额,A：余额} =>a1:余额
    */
   valid = false;
+
   transfer(id, name, type) {
     this.form = {};
     this.valid = false;
@@ -113,12 +116,16 @@ export class UserchargeComponent implements OnInit, OnDestroy {
       } else {   // 转出
         this.current_money = this.listMoney;
       }
-    })
-    this._dialog.open(this.transferIn_template_ref, {title: type === 5 ? '金额转入' : '金额转出', flag: true, async: true}).subscribe((data: any) => {
+    });
+    this._dialog.open(this.transferIn_template_ref, {
+      title: type === 5 ? '金额转入' : '金额转出',
+      flag: true,
+      async: true
+    }).subscribe((data: any) => {
       if (data) {
         if (!this.transFormRef['valid'] || (this.form.money > this.current_money)) {
           this.valid = true;
-          return
+          return;
         }
         data();
         this._financeService.transferPost(
@@ -129,7 +136,8 @@ export class UserchargeComponent implements OnInit, OnDestroy {
             this.init();
             this.search();
           }
-        }, (error) => {})
+        }, (error) => {
+        });
       } else {
         this.valid = false;
       }

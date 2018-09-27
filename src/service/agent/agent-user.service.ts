@@ -15,15 +15,15 @@ export class AgentUserService extends ConfigService {
   }
 
   logsList(query) {
-    return this.get(`logs/list`, query)
+    return this.get(`logs/list`, query);
   }
 
   addInit(body = {}) {
-    return this.get(`/us/user/child/add/init`, body)
+    return this.get(`/us/user/child/add/init`, body);
   }
 
   editInit(body = {}) {
-    return this.get(`/us/user/child/edit/init`, body)
+    return this.get(`/us/user/child/edit/init`, body);
   }
 
   addSave(body = {}) {
@@ -47,17 +47,17 @@ export class AgentUserService extends ConfigService {
   }
 
   listInit(body = {}) {
-    return this.get(`/us/user/child/list/init`, body)
+    return this.get(`/us/user/child/list/init`, body);
   }
 
   childList(body = {}) {
-    return this.get(`/us/user/child/list`, body)
+    return this.get(`/us/user/child/list`, body);
   }
 
   listExport(body = {}) {
     Reflect.deleteProperty(body, 'page_index');
     Reflect.deleteProperty(body, 'page_size');
-    return this.getUrl(`/us/user/child/list/export`, body)
+    return this.getUrl(`/us/user/child/list/export`, body);
   }
 
   updatePwd(body = {}) {
@@ -65,10 +65,10 @@ export class AgentUserService extends ConfigService {
   }
 
   selfInit(body = {}) {
-    return this.get(`/us/user/edit/init`, body)
+    return this.get(`/us/user/edit/init`, body);
   }
 
   existUser(body = {}) {
-    return this.get(`/us/user/exist/user_name` , body)
+    return this.get(`/us/user/exist/user_name`, body);
   }
 }

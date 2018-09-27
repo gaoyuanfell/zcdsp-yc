@@ -355,9 +355,9 @@ export class MapDirective implements OnInit {
       } else {
 
       }
-      setTimeout(()=>{
+      setTimeout(() => {
         auto.input.value = '';
-      })
+      });
     });
   }
 

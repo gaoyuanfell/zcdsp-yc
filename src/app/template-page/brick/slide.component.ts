@@ -23,7 +23,7 @@ import {isPlatformBrowser} from '@angular/common';
     </div>
   `,
   styles: [
-      `
+    `
       .img-list {
         width: 100%;
         height: auto;
@@ -243,9 +243,9 @@ export class SlideComponent implements OnInit {
     if (Math.abs(b) > 0.5) {
       let index = this._index;
       if (b > 0) {
-        ++index
+        ++index;
       } else {
-        --index
+        --index;
       }
       if (index >= this._list.length) {
         index = 0;

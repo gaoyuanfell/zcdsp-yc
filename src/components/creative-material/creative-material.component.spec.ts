@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CreativeMaterialComponent } from './creative-material.component';
+import {CreativeMaterialComponent} from './creative-material.component';
 
 describe('CreativeMaterialComponent', () => {
   let component: CreativeMaterialComponent;
@@ -8,9 +8,9 @@ describe('CreativeMaterialComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreativeMaterialComponent ]
+      declarations: [CreativeMaterialComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

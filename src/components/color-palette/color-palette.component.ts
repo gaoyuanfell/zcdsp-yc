@@ -48,7 +48,7 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
       let {layerX, layerY} = event;
       this.layerX = layerX;
       this.layerY = layerY;
-      this.getRgbaByXY(layerX, layerY)
+      this.getRgbaByXY(layerX, layerY);
     });
   }
 
@@ -61,7 +61,7 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
 
     val.nativeElement.addEventListener('mouseup', (event) => {
       this.mouse = false;
-    })
+    });
   }
 
   getRgbaByXY(layerX, layerY) {
@@ -73,7 +73,7 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
       b: b,
       a: this.opacity,
     };
-    this.changeEvent.emit(this.color)
+    this.changeEvent.emit(this.color);
   }
 
   mouseBar = false;
@@ -86,13 +86,13 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
     this.canvasBar.addEventListener('mousedown', (event) => {
       this.mouseBar = true;
       let {layerX, layerY} = event;
-      this.setRgbaByXY(layerX, layerY)
+      this.setRgbaByXY(layerX, layerY);
     });
 
     this.canvasBar.addEventListener('mousemove', (event) => {
       if (!this.mouseBar) return;
       let {layerX, layerY} = event;
-      this.setRgbaByXY(layerX, layerY)
+      this.setRgbaByXY(layerX, layerY);
     });
 
     this.canvasBar.addEventListener('mouseout', (event) => {
@@ -101,7 +101,7 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
 
     this.canvasBar.addEventListener('mouseup', (event) => {
       this.mouseBar = false;
-    })
+    });
   }
 
   setRgbaByXY(layerX, layerY) {
@@ -114,7 +114,7 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
       a: this.opacity,
     };
     this.drawPalette();
-    this.getRgbaByXY(this.layerX, this.layerY)
+    this.getRgbaByXY(this.layerX, this.layerY);
   }
 
   private _value;
@@ -126,7 +126,7 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
   set value(value) {
     this._value = value;
     this.opacity = 1;
-    if(value){
+    if (value) {
       this.opacity = value.a || 1;
     }
     this.changeDetectorRef.markForCheck();
@@ -135,27 +135,27 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
   get hex() {
     let {r, g, b, a} = this.value;
 
-    let _r = (+r).toString(16)
+    let _r = (+r).toString(16);
     if (_r.length === 1) {
-      _r = '0' + _r
+      _r = '0' + _r;
     }
 
-    let _g = (+g).toString(16)
+    let _g = (+g).toString(16);
     if (_g.length === 1) {
-      _g = '0' + _g
+      _g = '0' + _g;
     }
 
-    let _b = (+b).toString(16)
+    let _b = (+b).toString(16);
     if (_b.length === 1) {
-      _b = '0' + _b
+      _b = '0' + _b;
     }
 
-    let _a = Math.round((a || 1) * 255).toString(16)
+    let _a = Math.round((a || 1) * 255).toString(16);
     if (_a.length === 1) {
-      _a = '0' + _a
+      _a = '0' + _a;
     }
 
-    return `#${_r}${_g}${_b}${_a}`
+    return `#${_r}${_g}${_b}${_a}`;
   }
 
   rgba = {
@@ -177,8 +177,8 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
   opacity = 1;
 
   opacityChange() {
-    this.value.a = this.opacity
-    this.changeEvent.emit(this.color)
+    this.value.a = this.opacity;
+    this.changeEvent.emit(this.color);
   }
 
   /**
@@ -316,15 +316,15 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
   }
 
   copyColor() {
-    this.copy(this.hex)
+    this.copy(this.hex);
   }
 
-  changeColor(){
+  changeColor() {
     let {r, g, b, a} = this.value;
-    this.changeEvent.emit(`rgba(${r},${g},${b},${a})`)
+    this.changeEvent.emit(`rgba(${r},${g},${b},${a})`);
   }
 
-  constructor(@Inject(DOCUMENT) private document: Document,private changeDetectorRef: ChangeDetectorRef) {
+  constructor(@Inject(DOCUMENT) private document: Document, private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -337,7 +337,7 @@ export class ColorPaletteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.changeEvent.unsubscribe()
+    this.changeEvent.unsubscribe();
   }
 
   copy(text: string) {

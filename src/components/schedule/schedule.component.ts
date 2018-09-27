@@ -116,11 +116,11 @@ export class ScheduleComponent implements OnInit, ControlValueAccessor, OnChange
     });
   }
 
-   _quickSetting(type) {
+  _quickSetting(type) {
     switch (type) {
       case 1:
         this.timeGrain.forEach((t, i) => {
-          t.active = true
+          t.active = true;
         });
         break;
       case 2:
@@ -142,6 +142,7 @@ export class ScheduleComponent implements OnInit, ControlValueAccessor, OnChange
   }
 
   onChange = (value) => value;
+
   writeValue(obj: any): void {
     // 打印2次 第一次undefined
     if (!obj) return;
@@ -172,19 +173,19 @@ export class ScheduleComponent implements OnInit, ControlValueAccessor, OnChange
 
     if (obj instanceof Array) {
       // 当obj空数组的时候
-      let flag = obj.some( item => !!item);
+      let flag = obj.some(item => !!item);
       if (flag) {
         this.timeGrain.forEach((t, i) => {
           t.active = !!obj[i];
         });
       } else {
         this.timeGrain.forEach((t, i) => {
-          t.active = true
+          t.active = true;
         });
       }
       // 引用呀
       // obj.push(...this.timeGrain.map(t => t.active ? 1 : 0))
-    this.onChange(this.timeGrain.map(t => t.active ? 1 : 0));   // 这里最好不要加这句
+      this.onChange(this.timeGrain.map(t => t.active ? 1 : 0));   // 这里最好不要加这句
     }
     this.changeDetectorRef.markForCheck();
   }

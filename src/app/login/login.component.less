@@ -2,17 +2,19 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left:0;
+  left: 0;
   right: 0;
   z-index: 1;
 }
-.container{
-  width:100%;
+
+.container {
+  width: 100%;
   min-height: 100%;
   background: url("../../assets/img/index/dlbg.jpg") no-repeat;
   background-size: 100% 100%;
 }
-.login-main{
+
+.login-main {
   width: 1200px;
   min-height: 90%;
   margin: auto;
@@ -21,105 +23,107 @@
   text-align: center;
   padding-bottom: 13%;
 }
-.title{
+
+.title {
   display: table;
   width: 100%;
   padding: 24px 40px 0 40px;
-  .logo{
+  .logo {
     display: table-cell;
     text-align: left;
   }
-  .home{
+  .home {
     display: table-cell;
     float: right;
     vertical-align: middle;
-    a{
+    a {
       font-size: 16px;
       color: #313a5a;
       cursor: pointer;
-      &:hover{
+      &:hover {
         color: #0d98f3;
       }
     }
   }
 }
-.login-body{
+
+.login-body {
   margin-top: 78px;
-  .top{
+  .top {
     font-size: 28px;
     color: #313a5a;
     font-weight: normal;
     margin-bottom: 120px;
-    span{
+    span {
       color: #0d98f3;
     }
   }
-  .forget{
-    width:438px;
-    margin:0 auto;
+  .forget {
+    width: 438px;
+    margin: 0 auto;
     text-align: right;
     margin-top: 20px;
     font-size: 18px;
-    span{
+    span {
       cursor: pointer;
       margin-right: 8px;
       color: #83899c;
     }
-    a{
+    a {
       color: #0d98f3;
     }
   }
 }
 
-.from{
-  width:438px;
-  margin:0 auto;
-  input{
+.from {
+  width: 438px;
+  margin: 0 auto;
+  input {
     width: 100%;
-    height:50px;
-    border:1px #d6d8de solid;
+    height: 50px;
+    border: 1px #d6d8de solid;
     font-size: 18px;
     color: #313a5a;
     padding-left: 45px;
     margin: 10px 0;
-    &.pUser{
+    &.pUser {
       border-color: transparent;
     }
     &.has-error {
-      border:1px solid red;
+      border: 1px solid red;
     }
     &:focus, &.has-success {
-      border:1px solid #0d98f3;
-      &.name{
+      border: 1px solid #0d98f3;
+      &.name {
         background: url("../../assets/img/index/yh1.png") 20px center no-repeat;
       }
-      &.password{
+      &.password {
         background: url("../../assets/img/index/mim1.png") 20px center no-repeat;
       }
-      &.verifica{
+      &.verifica {
         //background: url("../../assets/img/index/yz1.png") 20px center no-repeat;
         width: 270px;
         float: left;
       }
     }
   }
-  .name{
+  .name {
     background: url("../../assets/img/index/yh.png") 20px center no-repeat;
   }
-  .password{
+  .password {
     background: url("../../assets/img/index/mim.png") 20px center no-repeat;
   }
-  .verifica{
+  .verifica {
     //background: url("../../assets/img/index/yz.png") 20px center no-repeat;
     width: 270px;
     float: left;
   }
-  .verifica-img{
+  .verifica-img {
     float: right;
     margin-top: 10px;
-    border:1px #d6d8de solid;
+    border: 1px #d6d8de solid;
   }
-  .login{
+  .login {
     margin-top: 50px;
     width: 100%;
     height: 64px;
@@ -134,51 +138,53 @@
     }
   }
 }
-.error{
+
+.error {
   text-align: left;
   font-size: 14px;
   color: #e61e1e;
-  img{
+  img {
     margin-right: 4px;
     vertical-align: middle;
   }
 }
-.forget-body{
+
+.forget-body {
   margin-top: 110px;
-  .top{
+  .top {
     font-size: 28px;
     color: #313a5a;
     font-weight: normal;
     margin-bottom: 38px;
   }
-  .forget{
-    width:438px;
-    margin:0 auto;
+  .forget {
+    width: 438px;
+    margin: 0 auto;
     text-align: right;
     margin-top: 20px;
     font-size: 18px;
-    span{
+    span {
       cursor: pointer;
-      margin-right:12px;
+      margin-right: 12px;
       color: #83899c;
     }
-    a{
+    a {
       color: #0d98f3;
     }
   }
-  .name{
+  .name {
     background: url("../../assets/img/index/yh.png") 20px center no-repeat;
   }
-  .verification{
+  .verification {
     display: flex;
     align-items: center;
     justify-content: space-between;
     //margin-bottom: 20px;
   }
-  .send{
+  .send {
     float: right;
     width: 140px;
-    height:50px;
+    height: 50px;
     line-height: 50px;
     background: #0d98f3;;
     font-size: 18px;
@@ -189,51 +195,51 @@
       background: #8fd6ff;;
     }
   }
-  .login{
+  .login {
     margin-top: 30px;
   }
-  .radio{
+  .radio {
     margin: 20px 0;
     text-align: left;
   }
-  .radio_label{
+  .radio_label {
     position: relative;
-    padding-left:25px;
+    padding-left: 25px;
     margin-right: 76px;
     cursor: pointer;
-    &:last-child{
+    &:last-child {
       margin-right: 0;
     }
-    input{
+    input {
       width: 18px;
-      height:18px;
+      height: 18px;
       display: inline-block;
       position: absolute;
       left: 0;
-      top:-9px;
+      top: -9px;
       opacity: 0;
     }
-    span{
+    span {
       position: absolute;
       display: inline-block;
       width: 18px;
-      height:18px;
+      height: 18px;
       background: url("../../assets/img/index/radio.png") no-repeat;
       background-size: 100%;
       left: 0;
-      top:0;
+      top: 0;
     }
-    i{
-      color:#b2b6c2;
+    i {
+      color: #b2b6c2;
     }
-    input:checked + span{
+    input:checked + span {
       background-image: url("../../assets/img/index/radioactive.png");
     }
-    input:checked + span + i{
+    input:checked + span + i {
       color: #313a5a;
     }
   }
-  .text{
+  .text {
     font-size: 20px;
     color: #313a5a;
     margin-top: 34px;
@@ -241,15 +247,14 @@
   }
 }
 
-
-.footer{
+.footer {
   width: 100%;
   font-size: 14px;
   color: #313a5a;
   padding: 25px 0;
   text-align: center;
   margin-top: 8px;
-  a{
+  a {
     color: #313a5a;
     margin: 0 8px;
   }
@@ -265,7 +270,7 @@ a.vertifyCode {
   border-radius: 4px;
 }
 
-.verification{
+.verification {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -277,38 +282,38 @@ button:disabled {
 
 .forgetCode {
   text-indent: 5px;
-  border:1px #d6d8de solid;
-  height:50px;
-  margin-right:10px;
+  border: 1px #d6d8de solid;
+  height: 50px;
+  margin-right: 10px;
 }
 
 .code_all {
   p:nth-child(1) {
     font-family: Adobe 黑体 Std R;
-    font-size:16px;
+    font-size: 16px;
     font-weight: bold;
   }
   padding: 10px;
   .input {
-    width:280px;
+    width: 280px;
     margin-left: 18px;
     > input {
-     text-align: center;
-      width:100%;
+      text-align: center;
+      width: 100%;
     }
   }
   .vertifyCode {
     margin-bottom: 45px;
     margin-top: 30px;
-    width:300px;
+    width: 300px;
     > div {
       float: right;
-      margin-top:8px;
+      margin-top: 8px;
       > img {
-        transition:all 0.2s;  // 行为 动作
+        transition: all 0.2s; // 行为 动作
       }
-      >span {
-        margin-left:5px;
+      > span {
+        margin-left: 5px;
         color: #313a5a;
       }
     }

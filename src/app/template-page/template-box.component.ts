@@ -1,4 +1,16 @@
-import {Component, ComponentFactoryResolver, ComponentRef, EventEmitter, HostListener, Injector, OnInit, Output, Type, ViewChild, ViewContainerRef} from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  EventEmitter,
+  HostListener,
+  Injector,
+  OnInit,
+  Output,
+  Type,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 
 @Component({
   selector: 'template-box',
@@ -8,7 +20,7 @@ import {Component, ComponentFactoryResolver, ComponentRef, EventEmitter, HostLis
       <span class="remove" (click)="remove()">&times;</span>
       <span class="move"></span>
       <div class="template-box-mask">
-        
+
       </div>
     </div>
   `,
@@ -28,8 +40,8 @@ import {Component, ComponentFactoryResolver, ComponentRef, EventEmitter, HostLis
         position: relative;
         padding: 3px 0;
       }
-      
-      .template-box-mask{
+
+      .template-box-mask {
         position: absolute;
         z-index: 100;
         width: 100%;
@@ -45,11 +57,11 @@ import {Component, ComponentFactoryResolver, ComponentRef, EventEmitter, HostLis
       .template-box:hover .remove, .template-box.active .remove {
         display: block;
       }
-      
+
       .template-box:hover .move, .template-box.active .move {
         display: block;
       }
-      
+
       .remove {
         display: none;
         position: absolute;
@@ -67,8 +79,8 @@ import {Component, ComponentFactoryResolver, ComponentRef, EventEmitter, HostLis
         cursor: pointer;
         z-index: 101;
       }
-      
-      .move{
+
+      .move {
         display: none;
         position: absolute;
         z-index: 11;
@@ -87,8 +99,8 @@ import {Component, ComponentFactoryResolver, ComponentRef, EventEmitter, HostLis
         background-color: #fff;
         z-index: 101;
       }
-      
-      .move:before, .move:after{
+
+      .move:before, .move:after {
         display: block;
         height: 1px;
         background-color: #0094d4;
@@ -100,19 +112,19 @@ import {Component, ComponentFactoryResolver, ComponentRef, EventEmitter, HostLis
 })
 export class TemplateBoxComponent implements OnInit {
 
-  templateInstance
-  templateType
-  checked
-  id
+  templateInstance;
+  templateType;
+  checked;
+  id;
 
   @ViewChild('container', {read: ViewContainerRef}) containerRef: ViewContainerRef;
 
   createComponent<T>(componentClass: Type<T>): ComponentRef<T> {
     let componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentClass);
-    let instance = this.containerRef.createComponent<T>(componentFactory)
+    let instance = this.containerRef.createComponent<T>(componentFactory);
     this.templateInstance = instance.instance;
-    this.templateType = this.templateInstance.type
-    return instance
+    this.templateType = this.templateInstance.type;
+    return instance;
   }
 
   /////////////////////////////
@@ -130,11 +142,11 @@ export class TemplateBoxComponent implements OnInit {
     this.dragIdEvent.emit({
       id: event.target.id,
       y: event.y
-    })
+    });
   }
 
   remove = () => {
-  }
+  };
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private injector: Injector) {

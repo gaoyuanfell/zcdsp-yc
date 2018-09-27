@@ -62,7 +62,7 @@ export class RichEditorComponent implements OnInit, ControlValueAccessor {
       '#ffffff'
     ];
     this.editor.customConfig.onchange = (html) => {
-      this.onChange(html)
+      this.onChange(html);
     };
     this.editor.create();
   }
@@ -72,7 +72,7 @@ export class RichEditorComponent implements OnInit, ControlValueAccessor {
   }
 
   ngOnInit(): void {
-    this.editorInit()
+    this.editorInit();
   }
 
   onChange = (value) => value;

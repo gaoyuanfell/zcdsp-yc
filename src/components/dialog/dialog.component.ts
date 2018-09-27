@@ -47,13 +47,13 @@ export class DialogComponent implements OnInit {
     this.closeSubject.next(true);
   }
 
-  animationStarted(event){
-    this._animationStateChanged.emit(event)
+  animationStarted(event) {
+    this._animationStateChanged.emit(event);
 
   }
 
-  animationDone(event){
-    this._animationStateChanged.emit(event)
+  animationDone(event) {
+    this._animationStateChanged.emit(event);
   }
 
 }

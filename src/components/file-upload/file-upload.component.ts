@@ -1,7 +1,19 @@
-import {Component, ElementRef, EventEmitter, HostListener, Inject, Input, OnDestroy, Output, ViewChild, HostBinding, Renderer2} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Inject,
+  Input,
+  OnDestroy,
+  Output,
+  ViewChild,
+  HostBinding,
+  Renderer2
+} from '@angular/core';
 import {Subject} from 'rxjs';
 import {DOCUMENT} from '@angular/common';
-import SparkMD5 from 'spark-md5'
+import SparkMD5 from 'spark-md5';
 
 @Component({
   selector: '[yc-file-upload]',
@@ -14,7 +26,6 @@ export class FileUploadComponent implements OnDestroy {
   subject = new Subject<any>();
 
 
-
   constructor(@Inject(DOCUMENT) private document: Document, private ref: ElementRef,
               private renderer: Renderer2) {
   }
@@ -25,7 +36,7 @@ export class FileUploadComponent implements OnDestroy {
     this.eventDragleave.unsubscribe();
     this.eventDragenter.unsubscribe();
     this.eventDragover.unsubscribe();
-    this.subject.unsubscribe()
+    this.subject.unsubscribe();
   }
 
   private _sliceSize = this.getByte() * 10;
@@ -61,15 +72,17 @@ export class FileUploadComponent implements OnDestroy {
   _disabled: any = false;
   @Input() set disabled(disabled) {
     if (disabled) {
-      this.renderer.setAttribute(this.ref.nativeElement, 'disabled', 'true')
+      this.renderer.setAttribute(this.ref.nativeElement, 'disabled', 'true');
     } else {
-      this.renderer.removeAttribute(this.ref.nativeElement, 'disabled')
+      this.renderer.removeAttribute(this.ref.nativeElement, 'disabled');
     }
     this._disabled = disabled;
   }
+
   get disabled() {
     return this._disabled;
   }
+
   // @HostBinding('attr.disabled')  false;
 
   // @HostBinding('attr.disabled') @Input('disabled') disabled;
@@ -82,9 +95,9 @@ export class FileUploadComponent implements OnDestroy {
       case 'K':
         return 1024;
       case 'B':
-        return 1
+        return 1;
     }
-    return 0
+    return 0;
   }
 
   cacheFiles = [];
@@ -93,7 +106,7 @@ export class FileUploadComponent implements OnDestroy {
     this.cacheFiles.every(cf => {
       this.subject.next(cf);
       return true;
-    })
+    });
   }
 
   async change(file) {
@@ -111,7 +124,7 @@ export class FileUploadComponent implements OnDestroy {
             message: '文件过大！'
           });
           this.fileRef.nativeElement.value = null;
-          return
+          return;
         }
       }
       //////
@@ -124,7 +137,7 @@ export class FileUploadComponent implements OnDestroy {
             message: '文件格式不对！'  // 未识别文件扩展名
           });
           this.fileRef.nativeElement.value = null;
-          return
+          return;
         }
       }
       //
@@ -136,7 +149,7 @@ export class FileUploadComponent implements OnDestroy {
             message: '文件格式不对！'  // 未识别的文件类型
           });
           this.fileRef.nativeElement.value = null;
-          return
+          return;
         }
       }
       ///////
@@ -151,7 +164,7 @@ export class FileUploadComponent implements OnDestroy {
               message: '图片尺寸不匹配！'
             });
             this.fileRef.nativeElement.value = null;
-            return
+            return;
           }
         }
 
@@ -159,7 +172,7 @@ export class FileUploadComponent implements OnDestroy {
           let {width, height, duration} = await this.video(blob);
           let _wh = this.accept.size[0] == width && this.accept.size[1] == height;
 
-          let _duration = this.accept.duration >= Math.floor(duration)
+          let _duration = this.accept.duration >= Math.floor(duration);
 
           if (!_duration) {
             this.eventError.emit({
@@ -167,7 +180,7 @@ export class FileUploadComponent implements OnDestroy {
               message: `视频时长不匹配！当前${Math.floor(duration)}s`
             });
             this.fileRef.nativeElement.value = null;
-            return
+            return;
           }
 
           if (!_wh) {
@@ -176,7 +189,7 @@ export class FileUploadComponent implements OnDestroy {
               message: '视频尺寸不匹配！'
             });
             this.fileRef.nativeElement.value = null;
-            return
+            return;
           }
         }
       }
@@ -256,17 +269,17 @@ export class FileUploadComponent implements OnDestroy {
         resolve({
           width: img.width,
           height: img.height,
-        })
+        });
       };
       img.onerror = (err) => {
-        reject(err)
+        reject(err);
       };
       if (url instanceof Blob) {
-        img.src = URL.createObjectURL(url)
+        img.src = URL.createObjectURL(url);
       } else {
-        img.src = url
+        img.src = url;
       }
-    })
+    });
   }
 
   video(url: string | Blob) {
@@ -274,23 +287,23 @@ export class FileUploadComponent implements OnDestroy {
       let videoRef = <HTMLVideoElement>this.document.createElement('video');
 
       if (url instanceof Blob) {
-        videoRef.src = URL.createObjectURL(url)
+        videoRef.src = URL.createObjectURL(url);
       } else {
-        videoRef.src = url
+        videoRef.src = url;
       }
 
       videoRef.addEventListener('loadedmetadata', (event) => {
-        console.dir(videoRef)
+        console.dir(videoRef);
         resolve({
           width: videoRef.videoWidth,
           height: videoRef.videoHeight,
           duration: videoRef.duration,
-        })
-        this.document.body.removeChild(videoRef)
+        });
+        this.document.body.removeChild(videoRef);
       });
 
-      this.document.body.appendChild(videoRef)
-    })
+      this.document.body.appendChild(videoRef);
+    });
   }
 
   async fileMd5(file) {
@@ -298,7 +311,7 @@ export class FileUploadComponent implements OnDestroy {
     let end;
     let index = 0;
     let fileSize = file.size;
-    if (!SparkMD5) throw {message: 'Depend on SparkMD5 download link https://github.com/satazor/js-spark-md5'}
+    if (!SparkMD5) throw {message: 'Depend on SparkMD5 download link https://github.com/satazor/js-spark-md5'};
     let spark = new SparkMD5();
     while (start < fileSize) {
       end = start + this._sliceSize;
@@ -311,7 +324,7 @@ export class FileUploadComponent implements OnDestroy {
       start = end;
       ++index;
     }
-    return spark.end()
+    return spark.end();
   }
 
   fileReader(blob) {
@@ -319,12 +332,12 @@ export class FileUploadComponent implements OnDestroy {
       let fileReader = new FileReader();
       fileReader.readAsBinaryString(blob);
       fileReader.onload = (e: any) => {
-        resolve(e.target.result)
-      }
+        resolve(e.target.result);
+      };
       fileReader.onerror = (error) => {
-        reject(error)
-      }
-    })
+        reject(error);
+      };
+    });
   }
 
   @HostListener('click')
@@ -363,6 +376,6 @@ export class FileUploadComponent implements OnDestroy {
     e.stopPropagation();
     if (!this.isDrop) return;
     if (this.disabled) return;
-    this.change(e.dataTransfer.files).catch(error => console.error(error))
+    this.change(e.dataTransfer.files).catch(error => console.error(error));
   }
 }

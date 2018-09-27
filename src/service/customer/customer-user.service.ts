@@ -1,7 +1,7 @@
 import {ConfigService} from '../config-service';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Global} from "../global";
+import {Global} from '../global';
 
 @Injectable(
   {
@@ -15,15 +15,15 @@ export class CustomerUserService extends ConfigService {
   }
 
   logsList(body = {}) {
-    return this.get(`/logs/list`, body)
+    return this.get(`/logs/list`, body);
   }
 
   remindList(body = {}) {
-    return this.get(`/ads/user/remind/get`, body)
+    return this.get(`/ads/user/remind/get`, body);
   }
 
   editList(body = {}) {
-    return this.get(`/ads/user/edit/init`, body)
+    return this.get(`/ads/user/edit/init`, body);
   }
 
   remindUpdate(body = {}) {
@@ -47,6 +47,6 @@ export class CustomerUserService extends ConfigService {
   }
 
   init(body = {}) {
-    return this.get('/logs/list/init', body = {})
+    return this.get('/logs/list/init', body = {});
   }
 }

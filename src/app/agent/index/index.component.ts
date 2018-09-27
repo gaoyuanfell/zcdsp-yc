@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild, ElementRef, Renderer2, TemplateRef} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, Renderer2, TemplateRef, ViewChild} from '@angular/core';
 import {Subject} from 'rxjs';
 import {IndexService} from '../../../service/agent/index.service';
 import {BaseIndexComponent} from '../../common/common.component';
@@ -15,7 +15,7 @@ import {bufferCount} from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,  // 数据手动刷新
   preserveWhitespaces: true,
 })
-export class IndexComponent extends BaseIndexComponent  implements OnInit {  // BaseIndexComponent直接一个类
+export class IndexComponent extends BaseIndexComponent implements OnInit {  // BaseIndexComponent直接一个类
 
   constructor(
     private _indexService: IndexService,
@@ -27,6 +27,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   ) {
     super(changeDetectorRef, _publicService, render, route);  // 父亲也有constructor
   }
+
   // 近期数据趋势
   dayTotalListData;
   dayTotalChartData;
@@ -34,27 +35,28 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
 
   ngOnInit(): void {
     if (this.new_user) {
-      this.notData()  // 当true 不显示首页上面数据 直接显示引导语和相同部分
+      this.notData();  // 当true 不显示首页上面数据 直接显示引导语和相同部分
     } else {
-      this.hasData()  // 当false 显示首页上方数据和相同部分
+      this.hasData();  // 当false 显示首页上方数据和相同部分
     }
 
     // 在性别那块的小方格上 窗口变化的
-   this.resizeFun();
+    this.resizeFun();
   }
 
   notData() {
     this._showData();
   }
-  hasData(){
+
+  hasData() {
     // 上面数据的解析
-    setTimeout( () => {
+    setTimeout(() => {
       // this.todayReportChart();
       this.todayAllSpendChartSmall();
       this.todayAllSpendChartLine();
       this._init();
       this._showData();
-    },500); // 当你的echarts的宽高是百分比的时候，会出现显示不完全，延时即可
+    }, 500); // 当你的echarts的宽高是百分比的时候，会出现显示不完全，延时即可
   }
 
 
@@ -67,6 +69,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
   user_state_count: any = {}; // 总计客户这块
   creative_state_count: any = {}; // 在投创意这块
   dayTotalTitle;
+
   _init() {
     const countSubscribe = new Subject(); // 计数器
 
@@ -75,16 +78,16 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       this.user = res.result.user;
       this.user_list = res.result.user_list;
       this.user_list.forEach(item => {
-        item.nick_user = item.nick_name + item.user_name
-      })
+        item.nick_user = item.nick_name + item.user_name;
+      });
       this.totalCodeList = res.result.total_code;
       this.creative_state_count = res.result.creative_state_count;
       this.charts = res.result.charts;
       this.user_state_count = res.result.user_state_count;
-      countSubscribe.next()
-    },() => {
-      countSubscribe.next()
-    })
+      countSubscribe.next();
+    }, () => {
+      countSubscribe.next();
+    });
 
     // 客户列表
     this.customerList('all');
@@ -94,23 +97,23 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
       this.dayTotalListData = res.result.list.items; // 列表
       this.dayTotalChartData = res.result.chart;
       this.dayTotalTitle = res.result.title;
-      setTimeout( ()=> {
+      setTimeout(() => {
         this.todayReportChart();
         // 对于处理的上面的 曝光总量 点击总量 2个小块块
-        this.dayTotalUp(res)
-        this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, this.dayTotalTitle)
-        this.changeDayTotalList(this.dayTotalChartData)
-      },500)
-      countSubscribe.next()
+        this.dayTotalUp(res);
+        this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, this.dayTotalTitle);
+        this.changeDayTotalList(this.dayTotalChartData);
+      }, 500);
+      countSubscribe.next();
     }, () => {
-      countSubscribe.next()
+      countSubscribe.next();
     });
 
     countSubscribe.pipe(
       bufferCount(2)
     ).subscribe(() => {
       this.changeDetectorRef.markForCheck();
-    })
+    });
   }
 
   /**
@@ -122,20 +125,23 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     page_index: 1,
     page_size: 20,
   };
+
   search() {
     this.query.page_index = 1;
     this.customerList();
   }
+
   childTotal;
+
   customerList(all?) {
-      this._indexService.childList(this.query).subscribe((res) => {
-        this.changeDetectorRef.markForCheck();
-        if (all) {
-          this.childTotal = res.result.items;
-        }
-        this.childList = res.result.items;
-        this.childListTotal_count = res.result.total_count;
-      })
+    this._indexService.childList(this.query).subscribe((res) => {
+      this.changeDetectorRef.markForCheck();
+      if (all) {
+        this.childTotal = res.result.items;
+      }
+      this.childList = res.result.items;
+      this.childListTotal_count = res.result.total_count;
+    });
   }
 
   /**
@@ -143,6 +149,7 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
    */
   _dayTotal = null;
   dayTotal_change = 'line';
+
   _dayTotalClick(date?) {
     if (!date) {
       this._indexService.dayTotal().subscribe(res => {
@@ -155,12 +162,14 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
         this.dayTotalChartData = res.result;
         this.changeDayTotalChart(this.todayReportEcharts, this.dayTotalChartData, this.dayTotalCode, date);
         this.changeDetectorRef.markForCheck();
-      })
+      });
     }
 
   }
+
   // 充值流程
   @ViewChild('templateRecharge', {read: TemplateRef}) templateRecharge: TemplateRef<any>;
+
   recharge() {
     this._dialog.open(this.templateRecharge, {title: '充值流程', flag: false}).subscribe(data => {
     });
@@ -172,13 +181,13 @@ export class IndexComponent extends BaseIndexComponent  implements OnInit {  // 
     const tem = window.open(); // 先打开页面
     this._publicService.sublogin({user_id: user_id}).subscribe(res => {
         if (res.success === 200) {
-          tem.location.href = type ? this._publicService.goAct({token: res.result}) : this._publicService.goHome({token: res.result})
+          tem.location.href = type ? this._publicService.goAct({token: res.result}) : this._publicService.goHome({token: res.result});
         }
       },
       () => {
-        tem.close()
+        tem.close();
       }
-    )
+    );
   }
 
 

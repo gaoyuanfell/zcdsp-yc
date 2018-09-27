@@ -70,8 +70,8 @@ export class ReportExpandComponent implements OnInit {
     this._chartDataRef = value;
     setTimeout(() => {
       this.chart();  // width用百分比 chart渲染不出来 所以延迟
-      this.init()
-    }, 0)
+      this.init();
+    }, 0);
   }
 
   get id() {
@@ -107,8 +107,8 @@ export class ReportExpandComponent implements OnInit {
         };
         this._reportService.creativeChart(obj).subscribe(res => {
           this.chartData = res.result;
-          this.changeDayTotalChart(this.chartDataRefThis, this.chartData, this.chartType)
-        })
+          this.changeDayTotalChart(this.chartDataRefThis, this.chartData, this.chartType);
+        });
         break;
       }
       case 'datetime-report': {
@@ -120,16 +120,16 @@ export class ReportExpandComponent implements OnInit {
         };
         this._reportService.datetimeChart(obj).subscribe(res => {
           this.chartData = res.result;
-          this.changeDayTotalChart(this.chartDataRefThis, this.chartData, this.chartType)
-        })
+          this.changeDayTotalChart(this.chartDataRefThis, this.chartData, this.chartType);
+        });
         break;
       }
       case 'campaign-report': {
         obj['campaign_id'] = this._id;
         this._reportService.campaignChart(obj).subscribe(res => {
           this.chartData = res.result;
-          this.changeDayTotalChart(this.chartDataRefThis, this.chartData, this.chartType)
-        })
+          this.changeDayTotalChart(this.chartDataRefThis, this.chartData, this.chartType);
+        });
         break;
       }
     }
@@ -160,7 +160,7 @@ export class ReportExpandComponent implements OnInit {
   }*/
 
   changeDayTotalChart(echartsInstance, data, type) {  // echarts 表单数组
-    if (!data) return
+    if (!data) return;
     let suffix;
     let d = data.y[type];
     let max;
@@ -199,10 +199,10 @@ export class ReportExpandComponent implements OnInit {
       series: [
         {data: d},
       ]
-    }
+    };
 
     if (max) {
-      option.yAxis.max = max
+      option.yAxis.max = max;
     } else {
       option.yAxis.max = null;
     }
@@ -249,10 +249,10 @@ export class ReportExpandComponent implements OnInit {
           formatter: function (params) {
             let str = '';
             str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
-            str = str +  `
+            str = str + `
               <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${params[0].color}"></div>
               ${params[0].seriesName}<span style="margin-right:20px"></span>${params[0].data}
-              `
+              `;
             return str;
           }
         },
@@ -275,8 +275,8 @@ export class ReportExpandComponent implements OnInit {
             show: false,
           },
           splitLine: {
-            lineStyle:{
-              color:['#f7f8fa'],
+            lineStyle: {
+              color: ['#f7f8fa'],
               width: 2,
               type: 'dashed'
             }
@@ -294,8 +294,8 @@ export class ReportExpandComponent implements OnInit {
             show: false,
           },
           splitLine: {
-            lineStyle:{
-              color:['#f7f8fa'],
+            lineStyle: {
+              color: ['#f7f8fa'],
               width: 2,
               type: 'dashed'
             }
@@ -314,7 +314,7 @@ export class ReportExpandComponent implements OnInit {
           }
         ]
       }
-      );
+    );
     window.addEventListener('resize', () => {
       chartDataRef.resize();
     });

@@ -102,7 +102,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   navigate(menu) {
     if (!menu.child) {
       menu.active = true;
-      this.router.navigate([menu.route], {queryParamsHandling:'merge'});
+      this.router.navigate([menu.route], {queryParamsHandling: 'merge'});
     } else {
       menu.active = !menu.active;
     }

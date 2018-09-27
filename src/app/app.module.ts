@@ -14,7 +14,7 @@ import {effects} from '../store/effects';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LoadingModule} from '../components/loading/loading.module';
-import { HomeComponent } from './home.component';
+import {HomeComponent} from './home.component';
 
 
 @NgModule({

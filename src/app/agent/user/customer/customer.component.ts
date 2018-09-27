@@ -32,6 +32,7 @@ export class CustomerComponent implements OnInit {
 
   authList;
   authUser;
+
   ngOnInit() {
     const obj = this.route.snapshot.data['auth'];
     this.authList = Object.keys(obj['jurisdiction_list']);
@@ -39,16 +40,18 @@ export class CustomerComponent implements OnInit {
     this.init();
     this.list();
   }
+
   isPermit(type) {
-    return this.authList.indexOf(type) > -1
+    return this.authList.indexOf(type) > -1;
   }
-  zc_audit_status
+
+  zc_audit_status;
 
   auditStatusChange() {
     if (this.zc_audit_status) {
       this.query.zc_audit_status = this.zc_audit_status.join(',');
     } else {
-      delete this.query.zc_audit_status
+      delete this.query.zc_audit_status;
     }
     this.search();
   }
@@ -62,9 +65,11 @@ export class CustomerComponent implements OnInit {
     this._agentUserService.childList(this.query).subscribe(res => {
       this.tableList = res.result.items;
       this.total_count = res.result.total_count;
-    })
+    });
   }
+
   user_state_count;
+
   init() {
     this._agentUserService.listInit().subscribe(res => {
       this.audit_status_list = res.result.audit_status_list;
@@ -73,7 +78,7 @@ export class CustomerComponent implements OnInit {
       //       return total +  Number(item.entry_sequence)
       // }, 0)
       this.userData = res.result.user;
-    })
+    });
   }
 
   exportUrl() {
@@ -84,7 +89,7 @@ export class CustomerComponent implements OnInit {
   }
 
   addCustomer() {
-    this.router.navigate(['/us/user/info', 0])
+    this.router.navigate(['/us/user/info', 0]);
     // this.router.navigate(['/us/user/info'], {
     //   queryParams: {
     //     user_id: '',
@@ -102,13 +107,13 @@ export class CustomerComponent implements OnInit {
     const tem = window.open(); // 先打开页面
     this._publicService.sublogin({user_id: user_id}).subscribe(res => {
         if (res.success === 200) {
-          tem.location.href = this._publicService.goHome({token: res.result})
+          tem.location.href = this._publicService.goHome({token: res.result});
         }
       },
       () => {
-        tem.close()
+        tem.close();
       }
-    )
+    );
   }
 
 }

@@ -17,8 +17,9 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR
   ]
 })
-export class MapComponent  {
+export class MapComponent {
 
-  constructor() {}
+  constructor() {
+  }
 
 }

@@ -3,7 +3,7 @@ import {PublicService} from '../../service/public.service';
 import * as chinaJson from 'echarts/map/json/china.json';
 import {ActivatedRoute} from '@angular/router';
 
-export class BaseIndexComponent implements OnInit{
+export class BaseIndexComponent implements OnInit {
   // 曝光总量
   @ViewChild('todayAllSpendChartSmall') todayAllSpendChartSmallRef: ElementRef;
   todayAllSpendChartSmalls;
@@ -31,36 +31,39 @@ export class BaseIndexComponent implements OnInit{
     protected _publicService: PublicService,
     protected  render: Renderer2,
     protected route: ActivatedRoute,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
 
   }
+
   _new_user_flag = true;   // 点击关闭后，弹框消失，但是不能改变new_user这个值呀！
   get new_user() {
     if (this.route.snapshot.data.user) {
-      return this.route.snapshot.data.user.is_new_user
+      return this.route.snapshot.data.user.is_new_user;
     }
     return false;
   }
 
   get user_status() {
     if (this.route.snapshot.data.user) {
-      return this.route.snapshot.data.user.status
+      return this.route.snapshot.data.user.status;
     }
-    return 0
+    return 0;
   }
 
   _showData() {
-    setTimeout(()=> {
+    setTimeout(() => {
       this.todayAllDataChart();
       this.todayAllSpendChart();
       this.socialDataChart();
       // this.hobbyDataChart();
       this.chinaDataChart();
       this.initData();
-    }, 500)
+    }, 500);
   }
+
   /**
    * 数据趋势
    */
@@ -68,105 +71,104 @@ export class BaseIndexComponent implements OnInit{
     const todayReportChartRef = this.todayReportEcharts = echarts.init(this.todayReportChartRef.nativeElement);
     todayReportChartRef.setOption(
       {
-      title: {
-        text: '2018-08-12数据趋势',
-        textStyle: {
-          fontWeight: 400,
-          fontSize: 14,
-          color: '#616366',
-          align: 'left'
+        title: {
+          text: '2018-08-12数据趋势',
+          textStyle: {
+            fontWeight: 400,
+            fontSize: 14,
+            color: '#616366',
+            align: 'left'
+          },
+          padding: 0
         },
-        padding: 0
-      },
-      color: ['#2e90ff', '#ffa542'],
-      legend: {
-        itemWidth: 48,
-        data: ['数据趋势'],
-        right: 0,
-        textStyle: {
-          color: '#ccc'
-        }
-      },
-      tooltip: {
-        trigger: 'axis',
-        backgroundColor: '#fff',
-        borderWidth: 1,
-        borderColor: '#ccc',
-        padding: [10, 8],
-        textStyle: {
-          color: 'black',
-          fontSize: 10,
-          fontFamily: '微软雅黑 Regular'
+        color: ['#2e90ff', '#ffa542'],
+        legend: {
+          itemWidth: 48,
+          data: ['数据趋势'],
+          right: 0,
+          textStyle: {
+            color: '#ccc'
+          }
         },
-        formatter: function (params) {
-          let str = '';
-          str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
-          str = str +  `
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: '#fff',
+          borderWidth: 1,
+          borderColor: '#ccc',
+          padding: [10, 8],
+          textStyle: {
+            color: 'black',
+            fontSize: 10,
+            fontFamily: '微软雅黑 Regular'
+          },
+          formatter: function (params) {
+            let str = '';
+            str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
+            str = str + `
               <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${params[0].color}"></div>
               ${params[0].seriesName}<span style="margin-right:20px"></span>${params[0].data}
-              `
-          return str;
-        }
-      },
-      grid: {
-        left: 0,
-        right: 50,
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        axisLine: {
-          show: false,
-          lineStyle: {
-            color: '#979899'
+              `;
+            return str;
           }
         },
-        axisTick: {
-          show: false,
+        grid: {
+          left: 0,
+          right: 50,
+          bottom: '3%',
+          containLabel: true
         },
-        splitLine: {
-          lineStyle:{
-            color:['#f7f8fa'],
-            width: 2,
-            type: 'dashed'
-          }
-        }
-      },
-      yAxis: {
-        type: 'value',
-        axisLine: {
-          show: false,
-          lineStyle: {
-            color: '#979899'
-          }
-        },
-        axisTick: {
-          show: false,
-        },
-        splitLine: {
-          lineStyle:{
-            color:['#f7f8fa'],
-            width: 2,
-            type: 'dashed'
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: '#979899'
+            }
+          },
+          axisTick: {
+            show: false,
+          },
+          splitLine: {
+            lineStyle: {
+              color: ['#f7f8fa'],
+              width: 2,
+              type: 'dashed'
+            }
           }
         },
-        axisLabel: {
-          formatter: '{value} 次'
-        }
-      },
-      series: [
-        {
-          name: '数据趋势',
-          type: 'line',
-          color: ['#2e90ff'],
-          symbol:'emptyCircle',
-          symbolSize: 2,//拐点大小
-        }
-      ]
-    }
-
+        yAxis: {
+          type: 'value',
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: '#979899'
+            }
+          },
+          axisTick: {
+            show: false,
+          },
+          splitLine: {
+            lineStyle: {
+              color: ['#f7f8fa'],
+              width: 2,
+              type: 'dashed'
+            }
+          },
+          axisLabel: {
+            formatter: '{value} 次'
+          }
+        },
+        series: [
+          {
+            name: '数据趋势',
+            type: 'line',
+            color: ['#2e90ff'],
+            symbol: 'emptyCircle',
+            symbolSize: 2,//拐点大小
+          }
+        ]
+      }
     );
     window.addEventListener('resize', () => {
       todayReportChartRef.resize();
@@ -291,17 +293,17 @@ export class BaseIndexComponent implements OnInit{
             let str = '';
             str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
             if (params.length > 1) {
-              params.forEach( item => {
+              params.forEach(item => {
                 str = str + `
                 <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${item.color}"></div>
                 ${item.seriesName}<span style="margin-right:20px"></span>${item.data}<div style="margin-top:5px"></div>
               `;
               });
             } else {
-              str = str +  `
+              str = str + `
               <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${params[0].color}"></div>
               ${params[0].seriesName}<span style="margin-right:20px"></span>${params[0].data}
-              `
+              `;
             }
             return str;
           }
@@ -325,8 +327,8 @@ export class BaseIndexComponent implements OnInit{
             show: false,
           },
           splitLine: {
-            lineStyle:{
-              color:['#f7f8fa'],
+            lineStyle: {
+              color: ['#f7f8fa'],
               width: 2,
               type: 'dashed'
             }
@@ -344,8 +346,8 @@ export class BaseIndexComponent implements OnInit{
             show: false,
           },
           splitLine: {
-            lineStyle:{
-              color:['#f7f8fa'],
+            lineStyle: {
+              color: ['#f7f8fa'],
               width: 2,
               type: 'dashed'
             }
@@ -359,7 +361,7 @@ export class BaseIndexComponent implements OnInit{
             name: '今日数据',
             // type: 'line',
             type: 'bar',
-            barWidth : 5,
+            barWidth: 5,
             color: ['#2e90ff'],
             symbol: 'none'
           },
@@ -367,13 +369,13 @@ export class BaseIndexComponent implements OnInit{
             name: '昨日数据',
             // type: 'line',
             type: 'bar',
-            barWidth : 5,
+            barWidth: 5,
             color: ['#31c38f'],
             symbol: 'none'
           },
         ]
       }
-      );
+    );
     window.addEventListener('resize', () => {
       todayAllDataChartRef.resize();
     });
@@ -497,17 +499,17 @@ export class BaseIndexComponent implements OnInit{
             let str = '';
             str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
             if (params.length > 1) {
-              params.forEach( item => {
+              params.forEach(item => {
                 str = str + `
                 <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${item.color}"></div>
                 ${item.seriesName}<span style="margin-right:20px"></span>${item.data}<div style="margin-top:5px"></div>
               `;
               });
             } else {
-              str = str +  `
+              str = str + `
               <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${params[0].color}"></div>
               ${params[0].seriesName}<span style="margin-right:20px"></span>${params[0].data}
-              `
+              `;
             }
             return str;
           }
@@ -531,8 +533,8 @@ export class BaseIndexComponent implements OnInit{
             show: false,
           },
           splitLine: {
-            lineStyle:{
-              color:['#f7f8fa'],
+            lineStyle: {
+              color: ['#f7f8fa'],
               width: 2,
               type: 'dashed'
             }
@@ -550,8 +552,8 @@ export class BaseIndexComponent implements OnInit{
             show: false,
           },
           splitLine: {
-            lineStyle:{
-              color:['#f7f8fa'],
+            lineStyle: {
+              color: ['#f7f8fa'],
               width: 2,
               type: 'dashed'
             }
@@ -565,7 +567,7 @@ export class BaseIndexComponent implements OnInit{
             name: '今日数据',
             // type: 'line',
             type: 'bar',
-            barWidth : 5,
+            barWidth: 5,
             color: ['#2e90ff'],
             symbol: 'none'
           },
@@ -573,14 +575,12 @@ export class BaseIndexComponent implements OnInit{
             name: '昨日数据',
             // type: 'line',
             type: 'bar',
-            barWidth : 5,
+            barWidth: 5,
             color: ['#31c38f'],
             symbol: 'none'
           },
         ]
       }
-
-
     );
     window.addEventListener('resize', () => {
       todayAllSpendChartRef.resize();
@@ -608,10 +608,10 @@ export class BaseIndexComponent implements OnInit{
           formatter: function (params) {
             let str = '';
             str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
-            str = str +  `
+            str = str + `
               <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${params[0].color}"></div>
               数据趋势<span style="margin-right:20px"></span>${params[0].data}
-              `
+              `;
             return str;
           }
         },
@@ -621,7 +621,7 @@ export class BaseIndexComponent implements OnInit{
           left: '0',
           right: '0',
           bottom: '0',
-          containLabel:false
+          containLabel: false
         },
         xAxis: {
           type: 'category',
@@ -637,13 +637,13 @@ export class BaseIndexComponent implements OnInit{
             },
           },
           axisLabel: {
-            show:false
+            show: false
           },
           data: [],
 
         },
         yAxis: {
-          show:false,
+          show: false,
           type: 'value',
           axisTick: {
             show: false,
@@ -780,9 +780,9 @@ export class BaseIndexComponent implements OnInit{
       series: [
         {data: d},
       ]
-    }
+    };
     if (max) {
-      option.yAxis.max = max
+      option.yAxis.max = max;
     } else {
       option.yAxis.max = null;
     }
@@ -820,8 +820,8 @@ export class BaseIndexComponent implements OnInit{
             normal: {
               borderWidth: 4,
               borderColor: '#ffffff',
-              }
-            },
+            }
+          },
           label: {
             normal: {
               show: false,
@@ -982,7 +982,7 @@ export class BaseIndexComponent implements OnInit{
             let str = '';
             str = str + params[0].axisValue + '<div style="margin-bottom:8px"></div>';  // title
             if (params.length > 1) {
-              params.forEach( item => {
+              params.forEach(item => {
                 // 模板字符串
                 str = str + `
                 <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${item.color}"></div>
@@ -990,10 +990,10 @@ export class BaseIndexComponent implements OnInit{
               `;
               });
             } else {
-              str = str +  `
+              str = str + `
               <div style="display:inline-block; vertical-align: middle; margin-right: 7px; width:5px; height:5px;border-radius: 5px;background-color: ${params[0].color}"></div>
               数据趋势<span style="margin-right:20px"></span>${params[0].data}
-              `
+              `;
             }
             return str;
           }
@@ -1011,7 +1011,7 @@ export class BaseIndexComponent implements OnInit{
             },
           },
           axisLabel: {
-            show:false
+            show: false
           },
           type: 'category',
           boundaryGap: false,
@@ -1022,14 +1022,14 @@ export class BaseIndexComponent implements OnInit{
           type: 'value'
         },
         series: [{
-          symbol:'emptyCircle',
+          symbol: 'emptyCircle',
           symbolSize: 2,//拐点大小
           data: [],
           type: 'line',
           areaStyle: {}
         }]
       }
-  );
+    );
     window.addEventListener('resize', () => {
       todayAllSpendChartLine.resize();
     });
@@ -1067,7 +1067,7 @@ export class BaseIndexComponent implements OnInit{
         map: 'china',
         data: []
       }]
-    })
+    });
     window.addEventListener('resize', () => {
       chinaDataEcharts.resize();
     });
@@ -1082,7 +1082,7 @@ export class BaseIndexComponent implements OnInit{
   brand;
   brandTotal;
   media_flow_top5;
-  media_flow_top5_color = ['#2e90ff', '#8690e6', '#ffaf57', '#35d494', '#71b8ea']
+  media_flow_top5_color = ['#2e90ff', '#8690e6', '#ffaf57', '#35d494', '#71b8ea'];
   hobby;
   hobbyTotal = 0;
   top_area_data;
@@ -1096,7 +1096,7 @@ export class BaseIndexComponent implements OnInit{
   genderTotal = 0;
   genderUndefined;
   manPro;
-  womanPro
+  womanPro;
   undefinedPro;
 
   /**
@@ -1110,21 +1110,21 @@ export class BaseIndexComponent implements OnInit{
       this.changeDetectorRef.markForCheck();
       this.todayAllDataEcharts.setOption(
         {
-          xAxis : [
+          xAxis: [
             {
-              data : this.all_ad_Flow.x,
+              data: this.all_ad_Flow.x,
             }
           ],
-          series : [
+          series: [
             {
-              data:this.all_ad_Flow.y.today,
+              data: this.all_ad_Flow.y.today,
             },
             {
-              data:this.all_ad_Flow.y.yesterday,
+              data: this.all_ad_Flow.y.yesterday,
             }
           ]
         }
-      )
+      );
       this.changeCampaignAndCreativeChart(this.todayAllSpendEcharts, this.ad_total_echarts, this.todayAllSpend);
       // this.changeDayTotalChart(this.todayAllSpendEcharts, this.ad_total_echarts, this.todayAllSpend)
     });
@@ -1135,7 +1135,7 @@ export class BaseIndexComponent implements OnInit{
       this.brandDataDetail(res);
       // 媒体流量
       this.media_flow_top5 = res.result.media_flow_top5;
-      this.media_flow_top5.forEach ( (item, index) => item.color = this.media_flow_top5_color[index] )
+      this.media_flow_top5.forEach((item, index) => item.color = this.media_flow_top5_color[index]);
       // 兴趣爱好
       // this.hobbyDataDetail(res);
       // 地域流量top10
@@ -1150,8 +1150,8 @@ export class BaseIndexComponent implements OnInit{
   }
 
   /**
-  *  手机品牌的数据处理
-  * */
+   *  手机品牌的数据处理
+   * */
   brandDataDetail(res) {
     // 手机品牌
     this.brand = res.result.brand;
@@ -1162,7 +1162,7 @@ export class BaseIndexComponent implements OnInit{
         name: item.brand_name,
         value: item.request_num
       };
-    })
+    });
     this.socialDataEcharts.setOption({
       color: this.color,
       series: [
@@ -1237,6 +1237,7 @@ export class BaseIndexComponent implements OnInit{
       ]
     });
   }
+
   /**
    *  年龄分布
    * */
@@ -1245,9 +1246,10 @@ export class BaseIndexComponent implements OnInit{
     this.age.forEach((item, index) => {
       this.ageTotal = this.ageTotal + item.age_proportion;
       index = +index + 1;
-      item.src = "assets/index/" + index  + ".png"
-    })
+      item.src = 'assets/index/' + index + '.png';
+    });
   }
+
   /**
    *  性别分布
    * */
@@ -1255,30 +1257,30 @@ export class BaseIndexComponent implements OnInit{
     this.gender = res.result.gender;
     this.gender.forEach((item) => {
       if (item.gender === '男') {
-        item.src = "assets/index/man.png";
+        item.src = 'assets/index/man.png';
         this.genderMan = item.gender_proportion;
-      } else if (item.gender === '女'){
-        item.src = "assets/index/woman.png";
+      } else if (item.gender === '女') {
+        item.src = 'assets/index/woman.png';
         this.genderWoman = item.gender_proportion;
       } else {
-        item.src = "assets/index/undefined.png";
+        item.src = 'assets/index/undefined.png';
         this.genderUndefined = item.gender_proportion;
       }
       this.genderTotal = this.genderTotal + item.gender_proportion;
-    })
+    });
     this.manPro = Number((this.genderMan / this.genderTotal).toFixed(2));
     this.womanPro = Number((this.genderWoman / this.genderTotal).toFixed(2));
     this.undefinedPro = Number((this.genderUndefined / this.genderTotal).toFixed(2));
   }
 
   _getSexStyle(index) {
-      return {
-        'top.px': index % 3 * 12,
-        'left.px': Math.floor(index / 3) * 12
-      };
+    return {
+      'top.px': index % 3 * 12,
+      'left.px': Math.floor(index / 3) * 12
+    };
   }
 
-  _getAgeStyle(index,AgeWidth) {
+  _getAgeStyle(index, AgeWidth) {
 
     if (AgeWidth) {
       let width = AgeWidth.offsetWidth;
@@ -1286,16 +1288,17 @@ export class BaseIndexComponent implements OnInit{
         'left.px': width * index + (width / 0.1 * 0.03) * index
       };
     } else {
-       return {}
+      return {};
     }
   }
 
   sexCount = 180;
+
   get180() {
     let x = this.sexCount ? this.sexCount : 180;
     let arr = [];
     let obj = {};
-    if(this.manPro) {
+    if (this.manPro) {
       let manCount = this.manPro * x;
       let womanCount = this.womanPro * x;
       for (let i = 0; i < x; i++) {
@@ -1307,11 +1310,11 @@ export class BaseIndexComponent implements OnInit{
         //   obj = {'value': i, 'type': 'woman'}
         // }
         if (i < manCount) {    // 未知
-          obj = {'value': i, 'type': 'man'}
+          obj = {'value': i, 'type': 'man'};
         } else if (i >= manCount && i < manCount + womanCount) {
-          obj = {'value': i, 'type': 'woman'}
+          obj = {'value': i, 'type': 'woman'};
         } else {
-          obj = {'value': i, 'type': 'undefined'}
+          obj = {'value': i, 'type': 'undefined'};
         }
 
         arr.push(obj);
@@ -1342,12 +1345,14 @@ export class BaseIndexComponent implements OnInit{
    */
   creativeCode = 'pv';
   creativeChartList: any = [];
-  campaignChartList; any = [];
+  campaignChartList;
+  any = [];
   campaignCode = 'pv';
+
   changeCampaignAndCreativeList(chartDatas, code, type) {
-    let today =  chartDatas.y[code].today;
+    let today = chartDatas.y[code].today;
     let yesterday = chartDatas.y[code].yesterday;
-    let unit = '次'
+    let unit = '次';
     switch (code) {
       case 'pv':
       case 'click':
@@ -1371,25 +1376,25 @@ export class BaseIndexComponent implements OnInit{
     }
     let list = [];
     let obj = {};
-    chartDatas.x.forEach( (item, index) => {
-     list.push (
-       {
-         'time':  chartDatas.x[index],
-         'today': today[index],
-         'yesterday': yesterday[index],
-         'unit': unit
-       }
-     )
-   })
+    chartDatas.x.forEach((item, index) => {
+      list.push(
+        {
+          'time': chartDatas.x[index],
+          'today': today[index],
+          'yesterday': yesterday[index],
+          'unit': unit
+        }
+      );
+    });
     obj = {
-      'first': list.slice(0,8),
-      'second': list.slice(8,16),
-      'third': list.slice(17,25)
-    }
+      'first': list.slice(0, 8),
+      'second': list.slice(8, 16),
+      'third': list.slice(17, 25)
+    };
 
     if (type === 'creative') {
       this.creativeChartList = obj;
-    } else if (type === 'campaign'){
+    } else if (type === 'campaign') {
       this.campaignChartList = obj;
     }
 
@@ -1402,11 +1407,12 @@ export class BaseIndexComponent implements OnInit{
    * @param type
    */
   dayTotalList: any = [];
-  changeDayTotalList(chartDatas){
+
+  changeDayTotalList(chartDatas) {
     let x = chartDatas.x;
     let y = chartDatas.y;
     let list = [];
-    x.forEach((item,index) => {
+    x.forEach((item, index) => {
       list.push({
         'time': x[index],
         'admoney': y.admoney[index],
@@ -1415,8 +1421,8 @@ export class BaseIndexComponent implements OnInit{
         'cpm': y.cpm[index],
         'ctr': y.ctr[index],
         'pv': y.pv[index]
-      })
-    })
+      });
+    });
     this.dayTotalList = list;
 
   }
@@ -1434,34 +1440,34 @@ export class BaseIndexComponent implements OnInit{
     //  曝光总量
     this.todayAllSpendChartSmalls.setOption(   // 这边的曝光总量是每一天的
       {
-        xAxis : [
+        xAxis: [
           {
-            data : res.result.chart.x,
+            data: res.result.chart.x,
           }
         ],
-        series : [
+        series: [
           {
             data: res.result.chart.y.pv
           }
         ]
       }
-    )
+    );
 
     // 点击总量
     this.todayAllSpendChartLines.setOption(  // 这边的点击总量是每一天的
       {
-        xAxis : [
+        xAxis: [
           {
-            data : res.result.chart.x,
+            data: res.result.chart.x,
           }
         ],
-        series : [
+        series: [
           {
             data: res.result.chart.y.click
           }
         ]
       }
-    )
+    );
 
     // 这边因为当只有一天的时候，可能久显示小时了，但是不管是小时还是天，都显示最后一个数字
     // this.todayReportTop = {
@@ -1473,13 +1479,13 @@ export class BaseIndexComponent implements OnInit{
     //   yesCtr:  res.result.chart.y.ctr[res.result.chart.y.ctr.length - 2],
     // }
     this.todayReportTop = {
-      todayCpm : res.result.chart.y.cpm[res.result.chart.other.last_index],
-      yesCpm:  res.result.chart.y.cpm[res.result.chart.other.last_index - 1],
-      todayCpc:  res.result.chart.y.cpc[res.result.chart.other.last_index],
-      yesCpc:  res.result.chart.y.cpc[res.result.chart.other.last_index -1 ],
-      todayCtr:  res.result.chart.y.ctr[res.result.chart.other.last_index],
-      yesCtr:  res.result.chart.y.ctr[res.result.chart.other.last_index - 1],
-    }
+      todayCpm: res.result.chart.y.cpm[res.result.chart.other.last_index],
+      yesCpm: res.result.chart.y.cpm[res.result.chart.other.last_index - 1],
+      todayCpc: res.result.chart.y.cpc[res.result.chart.other.last_index],
+      yesCpc: res.result.chart.y.cpc[res.result.chart.other.last_index - 1],
+      todayCtr: res.result.chart.y.ctr[res.result.chart.other.last_index],
+      yesCtr: res.result.chart.y.ctr[res.result.chart.other.last_index - 1],
+    };
   }
 
   /**
@@ -1489,26 +1495,26 @@ export class BaseIndexComponent implements OnInit{
    * @param type
    */
   resizeFun() {
-    let width = window.document.body.offsetWidth
+    let width = window.document.body.offsetWidth;
     if (width > 1500 && width < 1920) {
       this.sexCount = 150;
-    } else if (width=== 1920) {
+    } else if (width === 1920) {
       this.sexCount = 180;
     } else if (width <= 1500) {
       this.sexCount = 123;
     }
 
     this.render.listen('window', 'resize', () => {
-      let width = window.document.body.offsetWidth
+      let width = window.document.body.offsetWidth;
       if (width > 1500 && width < 1920) {
         this.sexCount = 150;
-      } else if (width=== 1920) {
+      } else if (width === 1920) {
         this.sexCount = 180;
       } else if (width <= 1500) {
         this.sexCount = 123;
       }
       this.changeDetectorRef.markForCheck();  //这句话不应该放到这里
-    })
+    });
   }
 
 

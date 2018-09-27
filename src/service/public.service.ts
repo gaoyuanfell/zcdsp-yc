@@ -84,6 +84,7 @@ export class PublicService extends ConfigService {
   verifyCode(body = {}) {
     return this.getUrl(`/verifyCode`, body);
   }
+
   /**
    * 注册验证码接口
    * @param {{}} body
@@ -92,14 +93,16 @@ export class PublicService extends ConfigService {
   RegisterVerifyCode(body = {}) {
     return this.get(`/jurisdiction/sms/verifycode`, body);
   }
+
   /**
    * 注册接口
    * @param {{}} body
    * @returns {Observable<Result<any>>}
    */
   register(body = {}) {
-  return this.postJson('/jurisdiction/register', body, {})
+    return this.postJson('/jurisdiction/register', body, {});
   }
+
   /**
    * 判断账户是否存在
    * @param {{}} body
@@ -107,7 +110,7 @@ export class PublicService extends ConfigService {
    */
 
   existUser(body = {}) {
-    return this.get(`/jurisdiction/exist/user` , body)
+    return this.get(`/jurisdiction/exist/user`, body);
   }
 
   /**
@@ -126,7 +129,7 @@ export class PublicService extends ConfigService {
    */
   // 今日全网数据接口
   allNetWork(body = {}) {
-    return this.get(`/common/flowstat/allNetWork`, body)
+    return this.get(`/common/flowstat/allNetWork`, body);
   }
 
   /**
@@ -136,7 +139,7 @@ export class PublicService extends ConfigService {
    */
   // 媒体流量top5，性别占比，年龄比例，兴趣爱好，地域流量top10，地域流量分布图数据
   otherData(body = {}) {
-    return this.get(`/common/flowstat/otherData`, body)
+    return this.get(`/common/flowstat/otherData`, body);
   }
 
   /**
@@ -145,7 +148,7 @@ export class PublicService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   getAudienceCount(body = {}) {
-    return this.postJson(`/common/directional/audience/count`, body)
+    return this.postJson(`/common/directional/audience/count`, body);
   }
 
   /**
@@ -154,7 +157,7 @@ export class PublicService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   imgUpload(body = {}) {
-    return this.postFormData(`/ws-api/v4/common/img`, body)
+    return this.postFormData(`/ws-api/v4/common/img`, body);
   }
 
   /**
@@ -163,7 +166,7 @@ export class PublicService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   fileUpload(body = {}) {
-    return this.postFormData(`/ws-api/v4/common/file`, body)
+    return this.postFormData(`/ws-api/v4/common/file`, body);
   }
 
   /**
@@ -172,9 +175,8 @@ export class PublicService extends ConfigService {
    * @returns {Observable<Result<any>>}
    */
   videoUpload(body = {}) {
-    return this.postFormData(`/ws-api/v4/common/video`, body)
+    return this.postFormData(`/ws-api/v4/common/video`, body);
   }
-
 
 
   /**
@@ -183,7 +185,7 @@ export class PublicService extends ConfigService {
    * @returns {string}
    */
   goHome(body = {}) {
-    return this.getUrl('/ads/home', body)
+    return this.getUrl('/ads/home', body);
   }
 
   /**
@@ -192,7 +194,7 @@ export class PublicService extends ConfigService {
    * @returns {string}
    */
   goAct(body = {}) {
-    return this.getUrl('/ads/spread/campaign-add/0', body)
+    return this.getUrl('/ads/spread/campaign-add/0', body);
   }
 
   /**
@@ -202,7 +204,7 @@ export class PublicService extends ConfigService {
    * {key:'not_recharge'}
    */
   newUser(body = {}) {
-    return this.get(`/financeinfo/user_status`, body)
+    return this.get(`/financeinfo/user_status`, body);
   }
 
   /**
@@ -213,10 +215,8 @@ export class PublicService extends ConfigService {
    */
   dynamicWords(body = {}) {
 
-    return this.get(`/ads/spread/creative/dynamicWords`, body)
+    return this.get(`/ads/spread/creative/dynamicWords`, body);
   }
-
-
 
 
 }

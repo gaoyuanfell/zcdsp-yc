@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import { OrientationService } from '../../../../service/customer/orientation.service';
-import { Dialog } from '../../../../components/dialog/dialog';
-import { AutoCookie } from '../../../../decorator/decorator';
+import {OrientationService} from '../../../../service/customer/orientation.service';
+import {Dialog} from '../../../../components/dialog/dialog';
+import {AutoCookie} from '../../../../decorator/decorator';
 
 @Component({
   selector: 'app-directional',
@@ -19,7 +19,7 @@ export class DirectionalComponent implements OnInit {
     keepValue: {},
     cookieKey: 'Directional2Component'
   })
-  query
+  query;
   total_count;
   tableList;
 
@@ -33,26 +33,26 @@ export class DirectionalComponent implements OnInit {
       this.tableList = res.result.items;
       this.total_count = res.result.total_count;
       this.changeDetectorRef.markForCheck();
-    })
+    });
   }
 
   _delete(id) {
-    this._dialog.open('是否删除定向包？', { title: '删除定向包' }).subscribe(data => {
+    this._dialog.open('是否删除定向包？', {title: '删除定向包'}).subscribe(data => {
       if (data) {
-        this._orientationService.deleteOrientation({ package_ids: id }).subscribe(res => {
+        this._orientationService.deleteOrientation({package_ids: id}).subscribe(res => {
           this.search();
-        })
+        });
       }
-    })
+    });
   }
 
   constructor(private _orientationService: OrientationService,
-    private _dialog: Dialog,
-    private changeDetectorRef: ChangeDetectorRef) {
+              private _dialog: Dialog,
+              private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnInit() {
-    this.search()
+    this.search();
   }
 
 }

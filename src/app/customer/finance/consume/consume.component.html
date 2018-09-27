@@ -1,4 +1,3 @@
-
 <div class="container-list">
 
   <ul class="top">
@@ -13,7 +12,7 @@
       <div class="echart"></div>
       <div class="number">
         <div class="list">今日花费<span>{{userData?.consume | currencyFormat}}</span></div>
-          <div class="list">每日预算<span>{{userData?.max_day_money | currencyFormat}}
+        <div class="list">每日预算<span>{{userData?.max_day_money | currencyFormat}}
             <i yc-popover [template]="template" #popover="ycPopover" class="icon-tool-edit" (openEvent)=" money = (userData?.max_day_money) " *ngIf="isPermit('ZCMOBI_ADS_FINACE_CONSUME_UPDATE_MAX_DAY_MONEY')"></i>
           </span></div>
       </div>
@@ -69,8 +68,8 @@
         <thead>
         <tr sticky class="text-center">
           <!--<th [showCheckbox]="true"></th>-->
-          <th class="text-center" [showSort]="true"  [sortKey]="'creation_date'">时间</th>
-          <th class="text-center" [showSort]="true"   [sortKey]="'consume_money'">金额</th>
+          <th class="text-center" [showSort]="true" [sortKey]="'creation_date'">时间</th>
+          <th class="text-center" [showSort]="true" [sortKey]="'consume_money'">金额</th>
         </tr>
         </thead>
         <tbody>
@@ -115,7 +114,7 @@
       <div class="form-input">
         <input type="text" class="form-control" autofocus [(ngModel)]="money" (keyup.enter)="postBudget();_popoverRef.close()" name="money"
                [ngClass]="{'has-error': moneyRef.invalid || (userData?.consume <= 0 && money < 100) || (userData?.consume > 0 && money < (100 + userData?.consume))}"
-               #moneyRef="ngModel"  pattern="^[0-9]\d*(\.\d{1,2})?$">
+               #moneyRef="ngModel" pattern="^[0-9]\d*(\.\d{1,2})?$">
         <p class="input-error" *ngIf="moneyRef.invalid">请输入正确的金额</p>
         <p class="input-error" *ngIf="userData?.consume <= 0  && money < 100 && moneyRef.valid">每日预算不能小于100元</p>
         <p class="input-error" *ngIf="userData?.consume > 0 && money && money < (100 + userData?.consume) && moneyRef.valid">预算金额需大于{{(100 + userData?.consume) | number:'1.2-2'}}</p>
@@ -124,54 +123,55 @@
     <div class="text-right">
       <button class="btn btn-border" (click)="_popoverRef.close()">取消</button>
       <button class="btn btn-small" (click)="postBudget();_popoverRef.close();"
-              [disabled]="!money || moneyRef.invalid || (userData?.consume <= 0 && money < 100) || (userData?.consume > 0 && money < (100 + userData?.consume))">确定</button>
+              [disabled]="!money || moneyRef.invalid || (userData?.consume <= 0 && money < 100) || (userData?.consume > 0 && money < (100 + userData?.consume))">确定
+      </button>
     </div>
   </div>
 </ng-template>
 
 <ng-template #templateRecharge>
-    <div class="recharge-par">
-      <div class="recharge-tem">
-        <h3>一、智橙收款账户</h3>
-        <div>请通过网银、汇款、转账、现金存入等方式，将广告费用转入以下账户</div>
-        <table class="recharge-table">
-          <tbody>
-          <tr>
-            <td>单位名称</td>
-            <td>银橙(上海)信息有限公司</td>
-          </tr>
-          <tr>
-            <td>开户账户</td>
-            <td>平安银行上海西南支行</td>
-          </tr>
-          <tr>
-            <td>银行账户</td>
-            <td>1101 1051 8224 01</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="recharge-tem">
-        <h3>二、使用指定账户转账</h3>
-        <div>请使用已经预留给智橙的账户操作转账，若需变更打款账号或咨询其他问题，请联系客服人员</div>
-        <div>
-          <a>
-            <div class="phone-icon"></div>
-            <span>400-670-9027</span>
-          </a>
-          <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&amp;key=XzkzODAxNTMxNF8yOTU2NDZfNDAwNjcwOTkyN18yXw" target="_blank">
-            <div class="service-icon"></div>
-            <span>在线客服</span>
-          </a>
-        </div>
-      </div>
-      <div class="recharge-tem">
-        <h3>三、收款核对</h3>
-        <div>智橙在收到款后一个工作日内核对款项信息，并操作充值到用户账户中。</div>
-      </div>
-      <div class="recharge-tem">
-        <h3>四、用户查看余额</h3>
-        <div>请在1个工作日后，登录智橙并在<a (click)="_dialog.close();" [routerLink]="['/ads/finance/recharge']">“财务-流水”</a>中查看余额变动信息，确认充值是否成功。</div>
+  <div class="recharge-par">
+    <div class="recharge-tem">
+      <h3>一、智橙收款账户</h3>
+      <div>请通过网银、汇款、转账、现金存入等方式，将广告费用转入以下账户</div>
+      <table class="recharge-table">
+        <tbody>
+        <tr>
+          <td>单位名称</td>
+          <td>银橙(上海)信息有限公司</td>
+        </tr>
+        <tr>
+          <td>开户账户</td>
+          <td>平安银行上海西南支行</td>
+        </tr>
+        <tr>
+          <td>银行账户</td>
+          <td>1101 1051 8224 01</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="recharge-tem">
+      <h3>二、使用指定账户转账</h3>
+      <div>请使用已经预留给智橙的账户操作转账，若需变更打款账号或咨询其他问题，请联系客服人员</div>
+      <div>
+        <a>
+          <div class="phone-icon"></div>
+          <span>400-670-9027</span>
+        </a>
+        <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&amp;key=XzkzODAxNTMxNF8yOTU2NDZfNDAwNjcwOTkyN18yXw" target="_blank">
+          <div class="service-icon"></div>
+          <span>在线客服</span>
+        </a>
       </div>
     </div>
-  </ng-template>
+    <div class="recharge-tem">
+      <h3>三、收款核对</h3>
+      <div>智橙在收到款后一个工作日内核对款项信息，并操作充值到用户账户中。</div>
+    </div>
+    <div class="recharge-tem">
+      <h3>四、用户查看余额</h3>
+      <div>请在1个工作日后，登录智橙并在<a (click)="_dialog.close();" [routerLink]="['/ads/finance/recharge']">“财务-流水”</a>中查看余额变动信息，确认充值是否成功。</div>
+    </div>
+  </div>
+</ng-template>

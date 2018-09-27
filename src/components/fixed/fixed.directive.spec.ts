@@ -1,4 +1,4 @@
-import { FixedDirective } from './fixed.directive';
+import {FixedDirective} from './fixed.directive';
 
 describe('FixedDirective', () => {
   it('should create an instance', () => {

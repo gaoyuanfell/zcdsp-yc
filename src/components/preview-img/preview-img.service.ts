@@ -21,17 +21,17 @@ export class PreviewImg {
         hasBackdrop: false,
         scrollStrategy: this.overlay.scrollStrategies.block(),
       });
-      this.overlayRef = this.overlay.create(overlayConfig)
+      this.overlayRef = this.overlay.create(overlayConfig);
       this._container = this.overlayRef.attach(new ComponentPortal(PreviewImgComponent)).instance;
     }
 
     this._container.index = 0;
     this._container.imgList = list;
-    this._container.open(config)
+    this._container.open(config);
   }
 
   close() {
-    this._container.close()
+    this._container.close();
   }
 
 }

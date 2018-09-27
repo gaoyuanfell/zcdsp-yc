@@ -40,13 +40,13 @@ export class LogsComponent implements OnInit {
     this._customerUserService.logsList(this.query).subscribe(res => {
       this.tableList = res.result.items;
       this.total_count = res.result.total_count;
-    })
+    });
   }
 
   init() {
     this._customerUserService.init().subscribe(res => {
       this.user = res.result;
-    })
+    });
   }
 
   search() {
