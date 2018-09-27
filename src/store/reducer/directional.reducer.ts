@@ -337,6 +337,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
       recursionParentCheck(state.lbsCity);
       state.lbsCityViewResult = [];
       state.lbsCityResult = [];
+      state.lbsCityMapResult = [];
 
       state.audiencesAction.checked = false;
       state.audiencesAction.checkState = 0;
