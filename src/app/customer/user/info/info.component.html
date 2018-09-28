@@ -174,7 +174,7 @@
             </td>
             <td style="text-align: left; padding-left: 18px;">
               <div *ngIf="!_audit_status">
-                <input-datepicker [isRange]="true" [query]="x" [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time'}}" placeholder="请填写时间" id="{{ (x.id || x.item_type_id) + 'time'}}" [ngClass]="{'has-error': !x.begin_date && infoForm.submitted}"></input-datepicker>
+                <input-datepicker [isRange]="true" [isShortcutKey]="false" [query]="x" [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time'}}" placeholder="请填写时间" id="{{ (x.id || x.item_type_id) + 'time'}}" [ngClass]="{'has-error': !x.begin_date && infoForm.submitted}"></input-datepicker>
                 <span *ngIf="!x.begin_date && infoForm.submitted">请填写时间</span>
               </div>
               <div *ngIf="_audit_status">{{x.begin_date + '~' + x.end_date}}</div>
@@ -236,7 +236,7 @@
             <td style="text-align: left; padding-left: 18px;">
               <!--<input-datepicker [isRange]="true" [query]="x"  [required] [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time1'}}" [ngClass]="{'has-error': !x.begin_date && infoForm.submitted}"></input-datepicker>-->
               <!--<span *ngIf="!x.begin_date && infoForm.submitted">请填写时间</span>-->
-              <input-datepicker [isRange]="true" [query]="x" [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time1'}}"></input-datepicker>
+              <input-datepicker [isRange]="true" [query]="x" [isShortcutKey]="false" [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time1'}}"></input-datepicker>
               <!--<a data-link (click)="_remove(optional_qualification_list, index)">删除</a>-->
             </td>
             <td class="text-right">
