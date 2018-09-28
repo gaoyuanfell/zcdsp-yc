@@ -274,6 +274,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   getResultDestroy() {
     this.areasResult$$.unsubscribe();
     this.lbsCityResult$$.unsubscribe();
+    this.LbsCityMapResult$$.unsubscribe();
     this.audiencesActionResult$$.unsubscribe();
     this.audiencesAction2Result$$.unsubscribe();
     this.audiencesResult$$.unsubscribe();
@@ -377,16 +378,13 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
       this.lbsCityMapResult = data;
       if (!data) return;
       if (this.areasHaveResult) this.areasShow = true;
-
       this.resultData.dtl_address.lbs = this.resultData.dtl_address.lbs.filter(lbs => lbs.type_id);
-
       let lbs = data.map(ar => ({id: ar.id_random, name: ar.name, coords: JSON.stringify(ar.coords), type_id: ar.type_id}));
       lbs.forEach(l => {
         if (!this.resultData.dtl_address.lbs.find(lbs => lbs.id == l.id)) {
           this.resultData.dtl_address.lbs.push(l);
         }
       });
-
       this.resultSubject.next(this.resultData);
     });
 
@@ -493,9 +491,9 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   }
 
   writeValue(obj: any): void {
-    if (!obj) return;
-    this.assignDefaultData(obj, getDirectionalData());
-    this.result = obj;
+    // if (!obj) return;
+    this.result = obj || {};
+    this.assignDefaultData(this.result, getDirectionalData());
     this.store.dispatch(new directionalAction.DirectionalSetResult(this.result));
   }
 
@@ -505,6 +503,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
 
   ngOnDestroy(): void {
     this.getResultDestroy();
+    this.close();
   }
 
   assignDefaultData(target, source) {
