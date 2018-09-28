@@ -76,8 +76,18 @@ export class DatetimeComponent implements OnInit {
   }
 
   exportUrl() {
-    let url = this._reportService.datetimeExport({...this.query});
-    window.open(url);
+    if (new Date(this.query.end_date).getTime() - new Date(this.query.begin_date).getTime() > 0) {  // 不是一天
+      let url = this._reportService.datetimeExport({...this.query});
+      window.open(url);
+    } else {
+      let obj = {
+        campaign_id: this.query.campaign_id,
+        search_text: this.query.search_text,
+        date: this.query.begin_date,
+      };
+      let url = this._reportService.datetimeExportDay({...obj});
+      window.open(url);
+    }
   }
 
 }

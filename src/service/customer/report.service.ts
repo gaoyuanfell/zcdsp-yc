@@ -70,6 +70,12 @@ export class ReportService extends ConfigService {
     return this.getUrl(`/ads/report/date/export`, body);
   }
 
+  datetimeExportDay(body = {}) {
+    Reflect.deleteProperty(body, 'page_index');
+    Reflect.deleteProperty(body, 'page_size');
+    return this.getUrl(`/ads/report/date/hourExport`, body);
+  }
+
   campaignExport(body = {}) {
     Reflect.deleteProperty(body, 'page_index');
     Reflect.deleteProperty(body, 'page_size');
