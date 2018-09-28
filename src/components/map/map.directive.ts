@@ -85,6 +85,7 @@ export class MapDirective implements OnInit {
             marker[0].else_circle.hide();
             marker[0].else_circleEditor.close();
           });
+          this.map.setFitView(marker[0]);
           marker[0].else_circle.show();
           marker[0].else_circleEditor.open();
 
@@ -228,6 +229,7 @@ export class MapDirective implements OnInit {
           marker.else_circle.hide();
           marker.else_circleEditor.close(); // 编辑半径
         });
+        this.map.setFitView(marker);
         // 点击详情的时候 展示圆
         marker.else_circle.show();
         marker.else_circleEditor.open(); // 编辑半径
@@ -355,6 +357,7 @@ export class MapDirective implements OnInit {
     // })
 
     AMap.event.addListener(auto, 'select', (event) => {
+      console.log(event)
       if (event.poi.location) {
         let {lng, lat} = event.poi.location;
         this.addMarkerClick({lng, lat} , 'setFit');
