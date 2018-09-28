@@ -4,6 +4,7 @@
   <div class="directional-info">
     <!--<h4>行为指定</h4>-->
     <p>当前已选择（{{(audiencesAppResult$ | async)?.length || 0}}）</p>
+    <button class="btn btn-outline btn-round" (click)="checkAudiencesAppChange(true)">选择全部</button>
     <button class="btn btn-outline btn-round" (click)="checkAudiencesAppChange(false)">清除全部</button>
   </div>
 </div>

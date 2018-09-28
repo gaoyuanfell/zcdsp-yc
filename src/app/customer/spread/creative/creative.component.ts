@@ -286,6 +286,8 @@ export class CreativeComponent implements OnInit {
     });
   }
 
+  jurisdiction
+  user
 
   constructor(private _creativeService: CreativeService,
               private _notification: Notification,
@@ -299,20 +301,25 @@ export class CreativeComponent implements OnInit {
     let queryParams = route.snapshot.queryParams;
     let data = route.snapshot.data;
     Object.assign(this.query, queryParams);
+
+    this.bid_min = this._global.bid_min;
+    this.bid_max = this._global.bid_max;
+
+    this.jurisdiction = route.snapshot.data.auth.jurisdiction_list;
+    this.user = route.snapshot.data.auth.user;
+
+    if(this.jurisdiction.ZCMOBI_ADS_SPREAD_CREATIVE_BATCH){
+      this.batchUpdateMenu = this.jurisdiction.ZCMOBI_ADS_SPREAD_CREATIVE_BATCH.child.map(item => {
+        return {value: item.route, label: item.name};
+      })
+    }
   }
 
   bid_min;
   bid_max;
 
   ngOnInit() {
-    this.bid_min = this._global.bid_min;
-    this.bid_max = this._global.bid_max;
-    const obj = this.route.snapshot.data['auth'];
-    this.authList = Object.keys(obj['jurisdiction_list']);
-    this.authUser = obj['user'];
-    this.batchUpdateMenu = obj['jurisdiction_list']['ZCMOBI_ADS_SPREAD_CREATIVE_BATCH'] ? obj['jurisdiction_list']['ZCMOBI_ADS_SPREAD_CREATIVE_BATCH']['child'].map(item => {
-      return {value: item.route, label: item.name};
-    }) : [];
+
     let queryParams = this.route.snapshot.queryParams;
     if (queryParams.campaign_id) {
       this.query.campaign_id = queryParams.campaign_id;

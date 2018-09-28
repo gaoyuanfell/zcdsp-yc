@@ -382,6 +382,9 @@ export class CampaignComponent implements OnInit {
     });
   }
 
+  jurisdiction
+  user
+
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private router: Router,
               private route: ActivatedRoute,
@@ -392,7 +395,14 @@ export class CampaignComponent implements OnInit {
               private _campaignService: CampaignService) {
     let params = route.snapshot.params;
     let queryParams = route.snapshot.queryParams;
-    let data = route.snapshot.data;
+    let data = route.snapshot.data
+    this.jurisdiction = route.snapshot.data.auth.jurisdiction_list;
+    this.user = route.snapshot.data.auth.user;
+    if(this.jurisdiction.ZCMOBI_ADS_SPREAD_CAMPAIGN_BATCH){
+      this.batchUpdateMenu = this.jurisdiction.ZCMOBI_ADS_SPREAD_CAMPAIGN_BATCH.child.map(item => {
+        return {value: item.route, label: item.name};
+      })
+    }
   }
 
   bid_min;
@@ -401,15 +411,6 @@ export class CampaignComponent implements OnInit {
   ngOnInit() {
     this.bid_min = this._global.bid_min;
     this.bid_max = this._global.bid_max;
-
-    const obj = this.route.snapshot.data['auth'];
-    this.authList = Object.keys(obj['jurisdiction_list']);
-    this.authUser = obj['user'];
-
-    // 批量修改所拥有的权限
-    this.batchUpdateMenu = obj['jurisdiction_list']['ZCMOBI_ADS_SPREAD_CAMPAIGN_BATCH'] ? obj['jurisdiction_list']['ZCMOBI_ADS_SPREAD_CAMPAIGN_BATCH']['child'].map(item => {
-      return {value: item.route, label: item.name};
-    }) : [];
 
     this._campaignService.init().subscribe(res => {
       this.current_state_list = res.result.current_state_list;

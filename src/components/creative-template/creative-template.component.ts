@@ -604,10 +604,12 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
     });
   }
 
+  recovery = () => {}
   /**
    * 素材类型改变 编辑模板不能
    */
   imgTypeChange() {
+    this.recovery()
     this.imgList = [];
     this.query.page_index = 1;
     this.query.page_size = 60;

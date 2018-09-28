@@ -24,9 +24,9 @@ import {hoursFormat} from '../../../../service/util';
 
         <div class="expand-title">
           <span>创意详情</span>
-          <span class="pointer-outline-none m-l-1" (click)="_copy()">复制</span>
-          <span class="pointer-outline-none m-l-1" [routerLink]="['/ads/spread/creative/edit',id]">修改</span>
-          <span class="pointer-outline-none m-l-1" (click)="_delete()">删除</span>
+          <span class="pointer-outline-none m-l-1" (click)="_copy()" *ngIf="isPermit('ZCMOBI_ADS_SPREAD_CREATIVE_COPY')">复制</span>
+          <span class="pointer-outline-none m-l-1" [routerLink]="['/ads/spread/creative/edit',id]" *ngIf="isPermit('ZCMOBI_ADS_SPREAD_CREATIVE_UPDATE')">修改</span>
+          <span class="pointer-outline-none m-l-1" (click)="_delete()" *ngIf="isPermit('ZCMOBI_ADS_SPREAD_CREATIVE_DELETE')">删除</span>
         </div>
 
         <div class="expand-content-bottom">
@@ -279,7 +279,7 @@ export class CreativeExpandComponent implements OnInit {
   }
 
   isPermit(type) {
-    return this.authList.indexOf(type) > -1;
+    return this.authList[type]
   }
 
   show_hour_today_ori;

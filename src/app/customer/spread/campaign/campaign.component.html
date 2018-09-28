@@ -21,11 +21,11 @@
   <yc-table #ycTable="ycTable" [data]="tableList" [query]="query" (changeEvent)="list()"> <!--[total]="total_count" [fixed]="true" -->
     <div #queryRef query class="query-tool">
       <div class="left-tool">
-        <div class="btn" routerLink="/ads/spread/campaign-add/0">
+        <div class="btn" routerLink="/ads/spread/campaign-add/0" *ngIf="jurisdiction.ZCMOBI_ADS_SPREAD_CAMPAIGN_ADD">
           新建活动
           <i class="btn-icon-add"></i>
         </div>
-        <div class="btn" (click)="batchUpdate('batch_copy')">
+        <div class="btn" (click)="batchUpdate('batch_copy')" *ngIf="jurisdiction.ZCMOBI_ADS_SPREAD_CAMPAIGN_BATCH_COPY">
           复制
           <i class="btn-icon-copy"></i>
         </div>
@@ -33,7 +33,7 @@
           导出
           <i class="btn-icon-export"></i>
         </div>
-        <div class="btn btn-outline" [yc-drop-menu]="batchUpdateMenu" (selectedEvent)="batchUpdate($event.value)">
+        <div class="btn btn-outline" [yc-drop-menu]="batchUpdateMenu" (selectedEvent)="batchUpdate($event.value)" *ngIf="jurisdiction.ZCMOBI_ADS_SPREAD_CAMPAIGN_BATCH" >
           批量修改
           <i class="zcdsp-icon m-l-1" style="font-size: 14px;">&#xe8e5;</i>
         </div>
@@ -76,7 +76,7 @@
           </td>
           <td stickyStart [width]="120" [title]="data.campaign_name">
             <a data-link [routerLink]="['/ads/spread/creative']" [queryParams]="{campaign_id: data.campaign_id}">{{data.campaign_name}}</a>
-            <i class="icon-img-edit" [ngClass]="{'active': popover.opened}" style="margin-right: 3px" yc-popover [template]="campaignName" #popover="ycPopover" (openEvent)="campaign_name = data.campaign_name"></i>
+            <i [hidden]="!jurisdiction.ZCMOBI_ADS_SPREAD_CAMPAIGN_RENAME" class="icon-img-edit" [ngClass]="{'active': popover.opened}" style="margin-right: 3px" yc-popover [template]="campaignName" #popover="ycPopover" (openEvent)="campaign_name = data.campaign_name"></i>
           </td>
           <!--<td>
             <i class="icon-img-edit" style="margin-right: 3px" yc-popover [template]="campaignName" #popover="ycPopover" (openEvent)="campaign_name = data.campaign_name"></i>
@@ -84,14 +84,14 @@
           <td class="text-right">
             {{data.day_budget | currencyFormat}}
             <i class="icon-img-edit" [ngClass]="{'active': popoverDayBudget.opened}" (click)="popoverOpen(popoverDayBudget, data)"></i>
-            <i style="width: 1px;height: 14px;margin: 0;display: inline-block;" yc-popover [template]="dayBudget" #popoverDayBudget="ycPopover" (openEvent)="day_budget = data.day_budget;"></i>
+            <i [hidden]="!jurisdiction.ZCMOBI_ADS_SPREAD_CAMPAIGN_UPDATE_BUDGET" style="width: 1px;height: 14px;margin: 0;display: inline-block;" yc-popover [template]="dayBudget" #popoverDayBudget="ycPopover" (openEvent)="day_budget = data.day_budget;"></i>
           </td>
           <td class="text-right">
             {{data.ad_price | currencyFormat}}
-            <i style="width: 20px;margin: 0;" class="icon-img-edit" [ngClass]="{'active': popoverAdPrice.opened}" yc-popover [template]="adPrice" #popoverAdPrice="ycPopover" (openEvent)="ad_price = data.ad_price"></i>
+            <i [hidden]="!jurisdiction.ZCMOBI_ADS_SPREAD_CAMPAIGN_UPDATE_PRICE" style="width: 20px;margin: 0;" class="icon-img-edit" [ngClass]="{'active': popoverAdPrice.opened}" yc-popover [template]="adPrice" #popoverAdPrice="ycPopover" (openEvent)="ad_price = data.ad_price"></i>
           </td>
           <td>
-            <yc-switch-input [values]="['1','2']" [size]="'small'" [(ngModel)]="data.show_state" #switchRef="switchInput" (eventChange)="updateOneShowState(data,switchRef)"></yc-switch-input>
+            <yc-switch-input [disabled]="!jurisdiction.ZCMOBI_ADS_SPREAD_CAMPAIGN_SHOW_STATE" [values]="['1','2']" [size]="'small'" [(ngModel)]="data.show_state" #switchRef="switchInput" (eventChange)="updateOneShowState(data,switchRef)"></yc-switch-input>
           </td>
           <td [title]="data.current_state_meaning">
             <span [ngClass]="{'green': data.current_state_origin == 1 ,'red': data.current_state_origin == 3, 'yellow': data.current_state_origin == 2}">
@@ -112,7 +112,7 @@
 
         <tr #trExpand class="none">
           <td colspan="100%" class="none" *ngIf="trExpand.show">
-            <yc-campaign-expand [id]="data.campaign_id" [authList]="authList"></yc-campaign-expand>
+            <yc-campaign-expand [id]="data.campaign_id" [authList]="jurisdiction"></yc-campaign-expand>
           </td>
         </tr>
 

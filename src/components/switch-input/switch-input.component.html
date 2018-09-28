@@ -1,4 +1,4 @@
-<label class="m-switch" [ngClass]="{'small':size === 'small', 'active':_value}">
-  <input type="checkbox" class="m-switch-input" [(ngModel)]="_value" (ngModelChange)="change()">
+<label class="m-switch" [ngClass]="{'small':size === 'small', 'active':_value, 'disabled': disabled}">
+  <input [disabled]="disabled" type="checkbox" class="m-switch-input" [(ngModel)]="_value" (ngModelChange)="change()">
   <span class="m-switch-helper"></span>
 </label>

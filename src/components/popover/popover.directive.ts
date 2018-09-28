@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy, ChangeDetectorRef,
   ComponentRef,
   Directive,
   ElementRef,
@@ -106,13 +107,14 @@ export const POSITION_MAP: { [key: string]: any } = {
 
 @Directive({
   selector: '[yc-popover]',
-  exportAs: 'ycPopover'
+  exportAs: 'ycPopover',
 })
 export class PopoverDirective {
   constructor(private _overlay: Overlay,
               private _viewContainerRef: ViewContainerRef,
               private _renderer: Renderer2,
               private _ref: ElementRef,
+              private changeDetectorRef:ChangeDetectorRef,
               @Inject(DOCUMENT) private _document,
               private _injector: Injector) {
 
@@ -168,10 +170,11 @@ export class PopoverDirective {
 
 
   close() {
+    this.opened = false;
+    this.changeDetectorRef.markForCheck();
     this.popupRef.detach();
     if (this.popoverPortal && this.popoverPortal.isAttached) {
       this.popoverPortal.detach();
     }
-    this.opened = false;
   }
 }
