@@ -175,7 +175,7 @@ export class EditCreativeComponent implements OnInit {
   save() {
     this._valid = true;
     if (this.ad_price.invalid || this.creative.ad_price > this.bid_max || this.creative.ad_price < this.bid_min) {
-      this._scrollService.scrollTo(this.containerFullRef, {top: this.chujia.nativeElement.offsetTop});
+      this._scrollService.setScrollTopByElement(this.containerFullRef, document.getElementById('chujia'));
       return;
     }
     // if (!/^\+?(\d*\.?\d{0,2})$/.test(this.creative.ad_price) || !this.creative.ad_price) return;
@@ -210,12 +210,14 @@ export class EditCreativeComponent implements OnInit {
             });
             validate = el.validate;
             // 内容校验
+
             if (!validate) {
               if (el.element_type === 'img' || el.element_type === 'video') {
                 this._notification.error('创意', `素材未上传！`);
               } else {
                 this._notification.error('创意', `内容填写有误！`);
               }
+              this._scrollService.setScrollTopByElement(this.containerFullRef, document.getElementById('chuangyi'));
             }
             return validate;
           });
