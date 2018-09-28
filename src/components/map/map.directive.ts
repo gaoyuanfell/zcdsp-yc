@@ -94,7 +94,6 @@ export class MapDirective implements OnInit {
     }
   }
 
-
   @Input('markerList') set markerList(value) {
     value.subscribe(data => {
       this.marker = data;
@@ -102,61 +101,69 @@ export class MapDirective implements OnInit {
   }
 
   ngOnInit(): void {
-    loadScript(`//webapi.amap.com/maps?v=1.4.8&key=${this.key}&plugin=AMap.Autocomplete,AMap.PlaceSearch,AMap.PolyEditor,AMap.CircleEditor&callback=onLoad`, 'onLoad').then(() => {
-      AMap.plugin('AMap.Geocoder');
-
-
-      this.map = new AMap.Map(this.ref.nativeElement, {
-        resizeEnable: true,
-        center: [121.340121, 31.196178],
-        zoom: 11
-      });
-
-
-      // 创建右键菜单
-      this.contextMenu = new AMap.ContextMenu();
-
+    try {
       this.init();
-
-      // 右键删除
-      this.contextMenu.addItem('删除标记', (e) => {
-        let marker = this.marker_only[0];
-        if (marker) {
-          let {lng, lat} = marker.getPosition();
-          this.removeCoordinateFun({lng, lat}, marker);
-          this.map.remove(marker);
-          if (this.infoWindow) {
-            this.infoWindow.close();
-          }
-        }
-      }, 0);
-
-
-      // 添加标注
-      this.map.on('click', (event) => {
-        let {lng, lat} = event.lnglat;
-        this.addMarkerClick({lng, lat});
-      });
-
-      // 初始化已经存在的地址
-      if (this.marker && this.marker.length > 0) {
-        this.marker.map(m => ({
-          lat: m.coords.latitude,
-          lng: m.coords.longitude,
-          radius: m.coords.radius,
-          id_random: m.id_random
-        })).forEach(m => {
-          this.markerClickEvent(this.contextMenu, m);
+    }catch (e) {
+      if(e.message === 'AMap is not defined'){
+        loadScript(`//webapi.amap.com/maps?v=1.4.8&key=${this.key}&plugin=AMap.Autocomplete,AMap.PlaceSearch,AMap.PolyEditor,AMap.CircleEditor&callback=onLoad`, 'onLoad').then(() => {
+          AMap.plugin('AMap.Geocoder');
+          this.init();
         });
       }
+    }
+  }
 
-      // 不管地图存在否 这个方法都可以
-      this.registerDel.emit(this.del.bind(this));
-      this.registerEcho.emit(this.echo.bind(this));  // 把这个方法发射出去了
-      this.registerRemoveMapResult.emit(this.removeMapResult.bind(this)); // 删除全部
-
-
+  private init(){
+    this.map = new AMap.Map(this.ref.nativeElement, {
+      resizeEnable: true,
+      center: [121.340121, 31.196178],
+      zoom: 11
     });
+
+    // 创建右键菜单
+    this.contextMenu = new AMap.ContextMenu();
+
+    this.initAutocomplete();
+
+    // 右键删除
+    this.contextMenu.addItem('删除标记', (e) => {
+      let marker = this.marker_only[0];
+      if (marker) {
+        let {lng, lat} = marker.getPosition();
+        this.removeCoordinateFun({lng, lat}, marker);
+        this.map.remove(marker);
+        if (this.infoWindow) {
+          this.infoWindow.close();
+        }
+      }
+    }, 0);
+
+
+    // 添加标注
+    this.map.on('click', (event) => {
+      let {lng, lat} = event.lnglat;
+      this.addMarkerClick({lng, lat});
+    });
+
+    // 初始化已经存在的地址
+    if (this.marker && this.marker.length > 0) {
+      this.marker.map(m => ({
+        lat: m.coords.latitude,
+        lng: m.coords.longitude,
+        radius: m.coords.radius,
+        id_random: m.id_random
+      })).forEach(m => {
+        this.markerClickEvent(this.contextMenu, m);
+      });
+    }
+
+    this.map.setFitView(this.map.getAllOverlays('marker'))
+
+    // 不管地图存在否 这个方法都可以
+    this.registerDel.emit(this.del.bind(this));
+    this.registerEcho.emit(this.echo.bind(this));  // 把这个方法发射出去了
+    this.registerRemoveMapResult.emit(this.removeMapResult.bind(this)); // 删除全部
+
   }
 
   addMarker({lng, lat}) {
@@ -341,7 +348,7 @@ export class MapDirective implements OnInit {
   /**
    * 搜索框 构造地点查询类
    * */
-  init() {
+  initAutocomplete() {
     let autoOptions = {
       input: this.searchMap
     };
