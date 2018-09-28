@@ -25,15 +25,15 @@
 
     <div #queryRef query class="query-tool">
       <div class="left-tool">
-        <div class="btn" routerLink="/ads/spread/creative-add/0" [queryParamsHandling]="'merge'">
+        <div class="btn" routerLink="/ads/spread/creative-add/0" [queryParamsHandling]="'merge'" *ngIf="jurisdiction.ZCMOBI_ADS_SPREAD_CREATIVE_ADD">
           新建创意
           <i class="btn-icon-add"></i>
         </div>
-        <div class="btn" (click)="batchUpdate('submit_audit')">
+        <div class="btn" (click)="batchUpdate('submit_audit')" *ngIf="jurisdiction.ZCMOBI_ADS_SPREAD_CREATIVE_SUBMIT_AUDIT">
           提交审核
           <i class="btn-icon-copy"></i>
         </div>
-        <div class="btn" (click)="batchUpdate('creative_copy')">
+        <div class="btn" (click)="batchUpdate('creative_copy')" *ngIf="jurisdiction.ZCMOBI_ADS_SPREAD_CREATIVE_BATCH_COPY">
           复制
           <i class="btn-icon-copy"></i>
         </div>
@@ -41,7 +41,7 @@
           导出
           <i class="btn-icon-export"></i>
         </div>
-        <div class="btn btn-outline" [yc-drop-menu]="batchUpdateMenu" (selectedEvent)="batchUpdate($event.value)">
+        <div class="btn btn-outline" [yc-drop-menu]="batchUpdateMenu" (selectedEvent)="batchUpdate($event.value)" *ngIf="jurisdiction.ZCMOBI_ADS_SPREAD_CREATIVE_BATCH">
           批量修改
           <i class="zcdsp-icon m-l-1" style="font-size: 14px;">&#xe8e5;</i>
         </div>
@@ -83,7 +83,7 @@
           <td stickyStart><i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>{{data.creative_id}}</td>
           <td class="text-left" [width]="200" title="{{data.creative_name}}">
             <a data-link (click)="_showCreative(data)">{{data.creative_name}}</a>
-            <i class="icon-img-edit" yc-popover [ngClass]="{'active': popoverCreativeName.opened}" [template]="creativeName" #popoverCreativeName="ycPopover" (openEvent)="creative_name = data.creative_name"></i>
+            <i [hidden]="jurisdiction.ZCMOBI_ADS_SPREAD_CREATIVE_RENAME" class="icon-img-edit" yc-popover [ngClass]="{'active': popoverCreativeName.opened}" [template]="creativeName" #popoverCreativeName="ycPopover" (openEvent)="creative_name = data.creative_name"></i>
           </td>
           <!--<td>
             <i class="icon-img-edit" yc-popover [template]="creativeName" #popoverCreativeName="ycPopover" (openEvent)="creative_name = data.creative_name"></i>
@@ -92,10 +92,10 @@
           <td class="text-left" (width)="100" title="{{data.media_name}}">{{data.media_name}}</td>
           <td class="text-right">
             {{data.ad_price | currencyFormat}}
-            <i class="icon-img-edit" yc-popover [ngClass]="{'active': popoverAdPrice.opened}" [template]="adPrice" #popoverAdPrice="ycPopover" (openEvent)="ad_price = data.ad_price"></i>
+            <i [hidden]="jurisdiction.ZCMOBI_ADS_SPREAD_CREATIVE_UPDATE_PRICE" class="icon-img-edit" yc-popover [ngClass]="{'active': popoverAdPrice.opened}" [template]="adPrice" #popoverAdPrice="ycPopover" (openEvent)="ad_price = data.ad_price"></i>
           </td>
           <td>
-            <yc-switch-input [size]="'small'" [values]="['1','2']" [(ngModel)]="data.show_state" #switchRef="switchInput" (eventChange)="updateOneShowState(data, switchRef)"></yc-switch-input>
+            <yc-switch-input [disabled]="!jurisdiction.ZCMOBI_ADS_SPREAD_CREATIVE_SHOW_STATE" [size]="'small'" [values]="['1','2']" [(ngModel)]="data.show_state" #switchRef="switchInput" (eventChange)="updateOneShowState(data, switchRef)"></yc-switch-input>
           </td>
           <td [title]="data.current_state_origin_meaning">
             <span [ngClass]="{'green': data.current_state_origin == 1 ,'red': data.current_state_origin == 3, 'yellow': data.current_state_origin == 2}">
@@ -117,7 +117,7 @@
 
         <tr #trExpand class="none">
           <td colspan="100%" class="none" *ngIf="trExpand.show">
-            <yc-creative-expand (change)="list()" [id]="data.creative_id" [authList]="authList"></yc-creative-expand>
+            <yc-creative-expand (change)="list()" [id]="data.creative_id" [authList]="jurisdiction"></yc-creative-expand>
           </td>
         </tr>
 

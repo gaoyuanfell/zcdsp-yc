@@ -1,4 +1,4 @@
-<div style="height: 100%;width: 100%;position: relative;overflow: auto;max-height: 85vh;max-width: 100vw;" yc-scroll-more (loadMore)="loadMoreTemplateMaterial($event)">
+<div style="height: 100%;width: 100%;position: relative;overflow: auto;max-height: 85vh;max-width: 100vw;" yc-scroll-more (loadMore)="loadMoreTemplateMaterial($event)" (registerRecovery)="recovery = $event">
   <div style="padding: 5px;">
     <h2 style="color: #aaa;padding: 10px 0;">选择素材</h2>
     <yc-select [disabled]="img" [list]="imgType" [searchCtrl]="true" [props]="{label: 'meaning', value: 'lookup_code'}" [(ngModel)]="query.img_type" [placeholder]="'素材分类'" (selectedEvent)="imgTypeChange()"></yc-select>

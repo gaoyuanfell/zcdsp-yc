@@ -79,10 +79,10 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   areasChildList$: Observable<Array<any>>;
 
   lbsCityState$: Observable<Directional>;
-  LbsScenes$: Observable<Array<any>>;
+  lbsScenes$: Observable<Array<any>>;
   lbsCityList$: Observable<Array<any>>;
   lbsCityResult$: Observable<Array<any>>;
-  LbsCityMapResult$: Observable<Array<any>>;
+  lbsCityMapResult$: Observable<Array<any>>;
   lbsCityViewResult$: Observable<Array<any>>;
 
   audiences$: Observable<Array<any>>;
@@ -207,10 +207,10 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     this.areasChildList$ = store.pipe(select(directionalReducer.AreasChildList));
 
     this.lbsCityState$ = store.pipe(select(directionalReducer.LbsCity));
-    this.LbsScenes$ = store.pipe(select(directionalReducer.LbsScenes));
+    this.lbsScenes$ = store.pipe(select(directionalReducer.LbsScenes));
     this.lbsCityList$ = store.pipe(select(directionalReducer.LbsCityList));
     this.lbsCityResult$ = store.pipe(select(directionalReducer.LbsCityResult));
-    this.LbsCityMapResult$ = store.pipe(select(directionalReducer.LbsCityMapResult));
+    this.lbsCityMapResult$ = store.pipe(select(directionalReducer.LbsCityMapResult));
     this.lbsCityViewResult$ = store.pipe(select(directionalReducer.LbsCityViewResult));
     this.audiences$ = store.pipe(select(directionalReducer.Audiences));
     this.audiencesResult$ = store.pipe(select(directionalReducer.AudiencesResult));
@@ -265,7 +265,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
 
   areasResult$$;
   lbsCityResult$$;
-  LbsCityMapResult$$;
+  lbsCityMapResult$$;
   audiencesActionResult$$;
   audiencesAction2Result$$;
   audiencesResult$$;
@@ -274,7 +274,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
   getResultDestroy() {
     this.areasResult$$.unsubscribe();
     this.lbsCityResult$$.unsubscribe();
-    this.LbsCityMapResult$$.unsubscribe();
+    this.lbsCityMapResult$$.unsubscribe();
     this.audiencesActionResult$$.unsubscribe();
     this.audiencesAction2Result$$.unsubscribe();
     this.audiencesResult$$.unsubscribe();
@@ -374,7 +374,7 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
       this.resultSubject.next(this.resultData);
     });
 
-    this.LbsCityMapResult$$ = this.LbsCityMapResult$.subscribe(data => {
+    this.lbsCityMapResult$$ = this.lbsCityMapResult$.subscribe(data => {
       this.lbsCityMapResult = data;
       if (!data) return;
       if (this.areasHaveResult) this.areasShow = true;

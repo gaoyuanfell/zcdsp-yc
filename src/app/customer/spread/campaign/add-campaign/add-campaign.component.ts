@@ -38,6 +38,7 @@ export interface CampaignModel {
   app_package_type?: string, // app包类型
   app_bundle_id?: string, // app包类型
   app_package_name?: string, // app包类型
+  package_name?: string, // app包类型
   app_channel_package_name?: string, // 渠道包名
   app_name?: string, // APP包名
   app_version?: string, // APP版本
@@ -209,7 +210,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
 
   /*1053012308*/
   parseIos() {
-    this._campaignService.parseIos({appid: this.campaign.app_bundle_id}).subscribe(
+    this._campaignService.parseIos({appid: this.campaign.app_package_name}).subscribe(
       res => {
         this.setAppInfo(res.result);
       },
@@ -236,6 +237,7 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
   }
 
   valid() {
+    debugger
     this._valid = true;
     if (!this.campaign.campaign_name) {
       this._scrollService.setScrollTopByElement(this.containerFullRef, document.getElementById('huodongshezhi'));
@@ -330,12 +332,12 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
         // this._scrollService.scrollTo(this.containerFullRef, {top: 430});
         return true;
       }
-      if (!this.campaign.app_bundle_id) {
-        this._scrollService.setScrollTopByElement(this.containerFullRef, document.getElementById('tuiguangmubiao'));
-
-        // this._scrollService.scrollTo(this.containerFullRef, {top: 430});
-        return true;
-      }
+      // if (!this.campaign.app_bundle_id) {
+      //   this._scrollService.setScrollTopByElement(this.containerFullRef, document.getElementById('tuiguangmubiao'));
+      //
+      //   // this._scrollService.scrollTo(this.containerFullRef, {top: 430});
+      //   return true;
+      // }
       if (!this.campaign.app_package_name) {
         this._scrollService.setScrollTopByElement(this.containerFullRef, document.getElementById('tuiguangmubiao'));
 
@@ -371,8 +373,8 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
       delete this.campaign.app_package_type;
       delete this.campaign.app_channel_package_name;
       delete this.campaign.app_package_name;
-
       delete this.campaign.app_bundle_id;
+
       delete this.campaign.app_name;
       delete this.campaign.app_version;
       delete this.campaign.app_size;
@@ -380,11 +382,10 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     }
 
     if (this.campaign.target_type == '3') {
-      delete this.campaign.download_link;
+      delete this.campaign.app_bundle_id;
       delete this.campaign.app_store_id;
       delete this.campaign.app_package_type;
       delete this.campaign.app_channel_package_name;
-      delete this.campaign.app_package_name;
     }
 
     this._valid2 = true;

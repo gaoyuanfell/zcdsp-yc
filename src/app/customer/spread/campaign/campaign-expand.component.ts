@@ -24,7 +24,7 @@ import {codyDepth, hoursFormat} from '../../../../service/util';
 
         <div class="expand-title">
           <span>活动详情</span>
-          <span class="pointer-outline-none m-l-1" (click)="_copy()">复制</span>
+          <span class="pointer-outline-none m-l-1" (click)="_copy()" *ngIf="isPermit('ZCMOBI_ADS_SPREAD_CAMPAIGN_COPY')">复制</span>
           <span class="pointer-outline-none m-l-1" [routerLink]="['/ads/spread/campaign/edit',id]"
                 *ngIf="isPermit('ZCMOBI_ADS_SPREAD_CAMPAIGN_EDIT')">修改</span>
           <span class="pointer-outline-none m-l-1" (click)="_delete()" *ngIf="isPermit('ZCMOBI_ADS_SPREAD_CAMPAIGN_DELETE')">删除</span>
@@ -93,7 +93,7 @@ import {codyDepth, hoursFormat} from '../../../../service/util';
             <div class="item">
               <span class="info-key">定向</span>
               <div class="info-value overflow-box">
-                <i class="icon-img-edit" (click)="_editDirectional(directionalRef)"></i>
+                <i class="icon-img-edit" (click)="_editDirectional(directionalRef)" *ngIf="isPermit('ZCMOBI_ADS_SPREAD_CAMPAIGN_DIRECTION')"></i>
                 <ng-template [ngIf]="_orientationValue?.length">
                   <p *ngFor="let ov of _orientationValue">{{ov.name}}：{{ov.value}}</p>
                 </ng-template>
@@ -343,7 +343,7 @@ export class CampaignExpandComponent implements OnInit {
   }
 
   isPermit(type) {
-    return this.authList.indexOf(type) > -1;
+    return this.authList[type]
   }
 
   ngOnInit(): void {

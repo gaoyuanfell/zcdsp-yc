@@ -20,6 +20,16 @@ export class Global {
   private _scrollTop;
   private _pageSize = 20;
 
+  private _loadLbsData:boolean
+
+  get loadLbsData(): boolean {
+    return this._loadLbsData;
+  }
+
+  set loadLbsData(value: boolean) {
+    this._loadLbsData = value;
+  }
+
   get bid_min() {
     return this.bidMin;
   }

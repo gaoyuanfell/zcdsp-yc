@@ -9,12 +9,13 @@ export class ScrollMoreDirective implements OnInit {
   }
 
   ngOnInit() {
-
+    this.registerRecovery.emit(this.recovery.bind(this))
   }
 
   @Input() direction: 'x' | 'y' = 'y';
   @Input() offset: number = 50;
   @Output() loadMore = new EventEmitter<any>();
+  @Output() registerRecovery = new EventEmitter<any>();
 
   private status = 0;
 

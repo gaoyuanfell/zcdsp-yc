@@ -34,6 +34,7 @@ export class SwitchInputComponent implements OnInit, ControlValueAccessor, OnCha
 
   @Input() size;
   @Input('values') values = [true, false];
+  @Input('disabled') disabled = false;
   @Output() eventChange = new EventEmitter<any>();
 
   @HostListener('click', ['$event']) click(event) {

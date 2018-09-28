@@ -48,7 +48,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
         state.result = undefined;
       }
 
-      return {...state};
+      return state;
     }
     //// -----------------AREAS-------------------- ////
     case DirectionalActionTypes.NEXT_AREAS_CHILD: {
@@ -187,6 +187,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
       });
       if (!flag) { // 说明不存在 重新添加
         state.lbsCityMapResult.push(action.payload);
+        state.lbsCityMapResult = [...state.lbsCityMapResult]
       }
       // state.lbsCityMapResult.push(action.payload);
       return {...state}; // 返回一个新状态
@@ -194,13 +195,10 @@ export function directionalReducer(state: DirectionalState = initState, action: 
     case DirectionalActionTypes.LBS_CITY_MAP_REMOVE: {
       if (!action.payload) return;
       let {longitude, latitude} = action.payload.coords;
-      // let index = state.lbsCityMapResult.findIndex(lbs => lbs.coords.longitude === longitude && lbs.coords.latitude === latitude);
-      // if (!!~index) {
-      //   state.lbsCityMapResult.splice(index, 1);
-      // }
       state.lbsCityMapResult.forEach((item, index) => {
         if (action.payload.id_random == item.id_random) {
           state.lbsCityMapResult.splice(index, 1);
+          state.lbsCityMapResult = [...state.lbsCityMapResult]
         }
       });
       return {...state};
@@ -275,7 +273,7 @@ export function directionalReducer(state: DirectionalState = initState, action: 
         setResult2();
         state.result2 = undefined;
       }
-      return {...state};
+      return state;
     }
     case DirectionalActionTypes.QUERY_AUDIENCES_APP_BY_NAME: {
       let {target, value} = action.payload;
@@ -609,7 +607,7 @@ export const LbsCityResult = createSelector(
 
 export const LbsCityMapResult = createSelector(
   getDirectionalState,
-  (state: DirectionalState) => [...state.lbsCityMapResult]
+  (state: DirectionalState) => state.lbsCityMapResult
 );
 
 export const LbsCityViewResult = createSelector(

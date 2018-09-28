@@ -80,11 +80,13 @@ export class HomeComponent implements OnInit, OnDestroy {
               private _global: Global,
               private _publicService: PublicService,
               private _loading: Loading) {
-    this.store.dispatch(new directionalAction.DirectionalInit());
-    this.store.dispatch(new directionalAction.LbsCityInit());
-    this.store.dispatch(new directionalAction.AudiencesActionInit());
+    if(!_global.loadLbsData){
+      this.store.dispatch(new directionalAction.DirectionalInit());
+      this.store.dispatch(new directionalAction.LbsCityInit());
+      this.store.dispatch(new directionalAction.AudiencesActionInit());
+      _global.loadLbsData = true;
+    }
     this.menuList$ = store.pipe(select(reducerMenu.MenuList));
-
     router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         _global.containerFullRef.scrollTop = 0;

@@ -55,12 +55,12 @@
   <!--LBS-->
   <div class="directional-info" style="margin: 25px 0 15px 0;">
     <h4>LBS</h4>
-    <p>当前已选择（{{ ( (lbsCityViewResult$ | async)?.length + (LbsCityMapResult$ | async)?.length )|| 0}}）</p>
+    <p>当前已选择（{{ ( (lbsCityViewResult$ | async)?.length + (lbsCityMapResult$ | async)?.length )|| 0}}）</p>
     <button class="btn btn-outline btn-round" (click)="checkLbsCityChange(true)">选择全部</button>
     <button class="btn btn-outline btn-round" (click)="checkLbsCityChange(false)">清除全部</button>
   </div>
   <!---->
-  <div class="choice-values-box" [hidden]="!(lbsCityViewResult$ | async)?.length && !(LbsCityMapResult$ | async)?.length">
+  <div class="choice-values-box" [hidden]="!(lbsCityViewResult$ | async)?.length && !(lbsCityMapResult$ | async)?.length">
     <div class="choice-values">
       <ng-template [ngForOf]="(lbsCityViewResult$ | async)" ngFor let-value>
           <span class="label-value">
@@ -69,7 +69,7 @@
           </span>
       </ng-template>
       <span *ngIf="(lbsCityViewResult$ | async)?.length">|</span>
-      <ng-template [ngForOf]="(LbsCityMapResult$ | async)" ngFor let-value>
+      <ng-template [ngForOf]="(lbsCityMapResult$ | async)" ngFor let-value>
           <span class="label-value">
             <span (click)="toChild(value)">{{value.name}}</span>
             <!--<span (click)="toChild(value)">{{value.name}}</span>-->
@@ -95,7 +95,7 @@
       <!--请输入<input type="text" id="searchMap">-->
       <!--如果你用ycMap的话，ngIf 需要再ts文件中 set到这个#map哦-->
       <div style="border: 1px solid #ccc;padding: 10px;">
-        <div style="width: 100%;height: 600px;" yc-map #map="ycMap" [searchMap]="'searchMap'" (registerDel)="del = $event" (registerRemoveMapResult)="removeMapResult = $event" (registerEcho)="echoFunction($event)" (pushCoordinate)="pushCoordinate($event)" (removeCoordinate)="removeCoordinate($event)" [markerList]="LbsCityMapResult$"></div>
+        <div style="width: 100%;height: 600px;" yc-map #map="ycMap" [searchMap]="'searchMap'" (registerDel)="del = $event" (registerRemoveMapResult)="removeMapResult = $event" (registerEcho)="echoFunction($event)" (pushCoordinate)="pushCoordinate($event)" (removeCoordinate)="removeCoordinate($event)" [markerList]="lbsCityMapResult$"></div>
       </div>
     </div>
   </ng-template>
