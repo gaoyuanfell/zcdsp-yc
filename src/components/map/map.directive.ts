@@ -1,5 +1,6 @@
 import {Directive, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2} from '@angular/core';
 import {loadScript} from '../../service/util';
+import {Notification} from '../notification/notification';
 
 @Directive({
   selector: '[yc-map]',
@@ -12,7 +13,8 @@ export class MapDirective implements OnInit {
   contextMenu;
 
   constructor(private ref: ElementRef,
-              private render: Renderer2) {
+              private render: Renderer2,
+              private _notification: Notification,) {
 
   }
 
@@ -167,7 +169,7 @@ export class MapDirective implements OnInit {
   /**
    *  添加标注事件
    * */
-  addMarkerClick({lng, lat}) {
+  addMarkerClick({lng, lat}, setFit?) {
 
     this.addressByLnglat([lng, lat]).then((result: any) => {
       marker.id_random = `80${Math.round(Math.random() * 1000000)}`;
@@ -175,6 +177,9 @@ export class MapDirective implements OnInit {
     });
     let marker = this.addMarker({lng, lat});
     let radius = 30;
+    if (setFit) {
+      this.map.setFitView(marker);
+    }
     this.markerClickEvent(this.contextMenu, ({lng, lat, radius}), marker);
   }
 
@@ -352,14 +357,14 @@ export class MapDirective implements OnInit {
     AMap.event.addListener(auto, 'select', (event) => {
       if (event.poi.location) {
         let {lng, lat} = event.poi.location;
-        this.addMarkerClick({lng, lat});
-        this.map.setFitView();
+        this.addMarkerClick({lng, lat} , 'setFit');
+        // this.map.setFitView();
       } else {
-
+        this._notification.error('请选取明确地址', ' ');
       }
-      setTimeout(() => {
-        auto.input.value = '';
-      });
+      // setTimeout(() => {
+      //   auto.input.value = '';
+      // });
     });
   }
 
