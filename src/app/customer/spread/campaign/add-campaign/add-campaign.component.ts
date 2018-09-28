@@ -237,7 +237,6 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
   }
 
   valid() {
-    debugger
     this._valid = true;
     if (!this.campaign.campaign_name) {
       this._scrollService.setScrollTopByElement(this.containerFullRef, document.getElementById('huodongshezhi'));

@@ -143,12 +143,8 @@ export function recursionResult2(list, result = []) {
 export function recursionFilter(target, list, key = 'id') {
   if (!(target instanceof Array) || !(list instanceof Array)) return;
   list.forEach((data) => {
-    let bo = target.find((d => {
-      if (d == data[key]) {
-        return d;
-      }
-    }));
-    if (bo) {
+    let bo = target.find((d => d == data[key]));
+    if (bo != undefined) {
       data.checked = true;
       data.checkState = 1;
       recursionChildCheck(data);
@@ -174,12 +170,8 @@ export function recursionFilter2(target, list, key = 'id') {
     if (child instanceof Array && child.length > 0) {
       recursionFilter2(target, child);
     } else {
-      let bo = target.find((d => {
-        if (d == data[key]) {
-          return d;
-        }
-      }));
-      if (bo) {
+      let bo = target.find((d => d == data[key]));
+      if (bo != undefined) {
         data.checked = true;
         data.checkState = 1;
         recursionChildCheck(data);
@@ -282,11 +274,11 @@ export function codyDepth(target) {
 export function loadScript(url, callback?) {
   return new Promise((resolve, reject) => {
     let jsapi = window.document.createElement('script');
-    if(callback){
+    if (callback) {
       window[callback] = function () {
         resolve();
-      }
-    }else{
+      };
+    } else {
       jsapi.onload = () => {
         resolve();
       };
