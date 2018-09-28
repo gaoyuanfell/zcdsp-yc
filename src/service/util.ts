@@ -279,15 +279,21 @@ export function codyDepth(target) {
 /**
  * 异步加载js
  */
-export function loadScript(url) {
+export function loadScript(url, callback?) {
   return new Promise((resolve, reject) => {
     let jsapi = window.document.createElement('script');
+    if(callback){
+      window[callback] = function () {
+        resolve();
+      }
+    }else{
+      jsapi.onload = () => {
+        resolve();
+      };
+    }
     jsapi.charset = 'utf-8';
     jsapi.src = url;
     document.head.appendChild(jsapi);
-    jsapi.onload = () => {
-      resolve();
-    };
   });
 }
 
