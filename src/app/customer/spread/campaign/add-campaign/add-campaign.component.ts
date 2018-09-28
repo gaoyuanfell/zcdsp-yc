@@ -51,6 +51,42 @@ export interface CampaignModel {
   is_pack_link?: string, // APP下载地址
 }
 
+class asd{
+  app_name
+  app_description
+  app_size
+  app_version
+  app_package_name
+  app_file_byte
+  app_file_md5
+  app_upload_url
+}
+
+function catchCampaignfun() {
+  return {
+    '2':{
+      app_name:undefined,
+      app_description:undefined,
+      app_size:undefined,
+      app_version:undefined,
+      app_package_name:undefined,
+      app_file_byte:undefined,
+      app_file_md5:undefined,
+      app_upload_url:undefined,
+    },
+    '3':{
+      app_name:undefined,
+      app_description:undefined,
+      app_size:undefined,
+      app_version:undefined,
+      app_package_name:undefined,
+      app_file_byte:undefined,
+      app_file_md5:undefined,
+      app_upload_url:undefined,
+    }
+  }
+}
+
 @Component({
   selector: 'app-add-campaign',
   templateUrl: './add-campaign.component.html',
@@ -119,6 +155,8 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     return !/^\+?(\d*\.?\d{0,9})$/.test(val);
   }
 
+  catchCampaign = catchCampaignfun()
+
   _targetTypeChange() {
     // delete this.campaign.click_link;
     // delete this.campaign.download_link;
@@ -133,6 +171,8 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     // delete this.campaign.app_description;
     // delete this.campaign.app_size;
     // delete this.campaign.app_version;
+
+    Object.assign(this.campaign, this.catchCampaign[this.campaign.target_type])
 
     this._valid = false;
     if (this.directionalType === '1' && this._nextStepNum == 1) {
@@ -200,10 +240,25 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     this.campaign.app_size = this._util.pipes(result.file_size / 1024 / 1024 || 0, [{transform: DecimalPipe}]);
     this.campaign.app_file_byte = String(result.file_size || '');
     this.campaign.app_file_md5 = result.md5;
-    this.campaign.app_package_name = result.package_name;
     this.campaign.app_version = result.version;
     this.campaign.app_upload_url = result.upload_url;
+    if(this.campaign.target_type == '2'){
+      this.campaign.app_package_name = result.package_name;
+    }
     this.changeDetectorRef.markForCheck();
+    this.catchCampaign[this.campaign.target_type] = {
+      app_name:this.campaign.app_name,
+      app_description:this.campaign.app_description,
+      app_size:this.campaign.app_size,
+      app_version:this.campaign.app_version,
+      app_package_name:this.campaign.app_package_name,
+      app_file_byte:this.campaign.app_file_byte,
+      app_file_md5:this.campaign.app_file_md5,
+      app_upload_url:this.campaign.app_upload_url,
+    }
+    if(this.campaign.target_type == '2'){
+      this.catchCampaign[this.campaign.target_type].app_package_name = this.campaign.app_package_name
+    }
   }
 
   _appIdSubject = new Subject<any>();
@@ -408,6 +463,8 @@ export class AddCampaignComponent implements OnInit, OnDestroy {
     if (this.package_name) {
       body.directional.package_name = this.package_name;
     }
+
+    this.catchCampaign = catchCampaignfun()
 
     this._campaignService.save(body).subscribe((res) => {
       this._notification.success('提示', '提交活动成功！');
