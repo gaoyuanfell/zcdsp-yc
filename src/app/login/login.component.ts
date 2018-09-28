@@ -181,9 +181,11 @@ export class LoginComponent implements OnInit {
       if (res.success === 200) {
         this.flags = false;  // 到登入页面
         this.pwd_show = false;
-        this.forget = {};
         this.form = {};
         this.form.userName = this.forget.user_name; // 忘记密码成功 要带出账号
+        console.log('lalalalallalalal')
+        console.log(this.forget.user_name)
+        this.forget = {};
       }
     }, error => {
       this.pwd_show = false;
