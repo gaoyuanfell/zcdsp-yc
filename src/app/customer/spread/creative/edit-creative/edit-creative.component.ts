@@ -175,7 +175,7 @@ export class EditCreativeComponent implements OnInit {
   save() {
     this._valid = true;
     if (this.ad_price.invalid || this.creative.ad_price > this.bid_max || this.creative.ad_price < this.bid_min) {
-      this._scrollService.scrollTo(this.containerFullRef, {top: this.chujia.nativeElement.offsetTop});
+      this._scrollService.setScrollTopByElement(this.containerFullRef, document.getElementById('chujia'));
       return;
     }
     // if (!/^\+?(\d*\.?\d{0,2})$/.test(this.creative.ad_price) || !this.creative.ad_price) return;
