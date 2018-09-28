@@ -99,7 +99,7 @@ export class MapDirective implements OnInit {
   }
 
   ngOnInit(): void {
-    loadScript(`//webapi.amap.com/maps?v=1.4.8&key=${this.key}&plugin=AMap.Autocomplete,AMap.PlaceSearch,AMap.PolyEditor,AMap.CircleEditor`).then(() => {
+    loadScript(`//webapi.amap.com/maps?v=1.4.8&key=${this.key}&plugin=AMap.Autocomplete,AMap.PlaceSearch,AMap.PolyEditor,AMap.CircleEditor&callback=onLoad`, 'onLoad').then(() => {
       AMap.plugin('AMap.Geocoder');
 
 
@@ -112,6 +112,8 @@ export class MapDirective implements OnInit {
 
       // 创建右键菜单
       this.contextMenu = new AMap.ContextMenu();
+
+      this.init();
 
       // 右键删除
       this.contextMenu.addItem('删除标记', (e) => {
@@ -150,7 +152,7 @@ export class MapDirective implements OnInit {
       this.registerEcho.emit(this.echo.bind(this));  // 把这个方法发射出去了
       this.registerRemoveMapResult.emit(this.removeMapResult.bind(this)); // 删除全部
 
-      this.init();
+
     });
   }
 

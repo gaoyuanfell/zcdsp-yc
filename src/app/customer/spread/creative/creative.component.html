@@ -97,7 +97,7 @@
           <td>
             <yc-switch-input [size]="'small'" [values]="['1','2']" [(ngModel)]="data.show_state" #switchRef="switchInput" (eventChange)="updateOneShowState(data, switchRef)"></yc-switch-input>
           </td>
-          <td [title]="data.current_state_meaning">
+          <td [title]="data.current_state_origin_meaning">
             <span [ngClass]="{'green': data.current_state_origin == 1 ,'red': data.current_state_origin == 3, 'yellow': data.current_state_origin == 2}">
               {{data.current_state_origin_meaning}}
             </span>
