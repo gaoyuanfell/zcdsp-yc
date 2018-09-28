@@ -19,6 +19,20 @@
       </div>
     </div>
 
+    <div class="form-group flex-center">
+      <label class="form-label"><span>*</span>目标类型</label>
+      <div class="form-input">
+        <p>{{creative.target_type_name}}</p>
+      </div>
+    </div>
+
+    <div class="form-group flex-center">
+      <label class="form-label"><span>*</span>落地页</label>
+      <div class="form-input">
+        <p>{{creative.click_link}}</p>
+      </div>
+    </div>
+
     <div class="form-group flex">
       <label class="form-label"><span>*</span>投放小时</label>
       <div class="form-input">
@@ -26,7 +40,7 @@
       </div>
     </div>
 
-    <div class="form-group flex">
+    <!--<div class="form-group flex">
       <label class="form-label" #chujia><span>*</span>出价</label>
       <div class="form-input">
         <input class="form-control" type="text" [(ngModel)]="creative.ad_price" #ad_price="ngModel" [placeholder]="'请填写出价'"
@@ -36,7 +50,7 @@
           {{bid_max}}]</p>
       </div>
       <p class="input-suffix">元/CPC</p>
-    </div>
+    </div>-->
   </div>
 
   <h2 class="extension-title">
@@ -94,5 +108,21 @@
 
     </div>
   </ng-template>
+
+  <div class="flex">
+    <h2 class="extension-title" id="chujia">
+      出价
+    </h2>
+    <div class="flex" style="margin-top: 30px;margin-left: 45px;">
+      <div class="form-input">
+        <input class="form-control" type="text" [(ngModel)]="creative.ad_price" #ad_price="ngModel" [placeholder]="'请填写出价'"
+               required pattern="(^[0-9]\d*\.?\d{0,2}$)" [ngClass]="{'has-error': (_valid || ad_price.dirty || ad_price.touched) && (ad_price.invalid || creative.ad_price > bid_max || creative.ad_price < bid_min)}">
+        <p class="input-error" *ngIf="(_valid || ad_price.dirty || ad_price.touched) &&  ad_price.invalid">请填写正确的金额</p>
+        <p class="input-error" *ngIf="ad_price.valid && ( creative.ad_price > bid_max || creative.ad_price < bid_min)">出价范围[{{bid_min}},
+          {{bid_max}}]</p>
+      </div>
+      <p class="input-suffix">元/CPC</p>
+    </div>
+  </div>
 
 </div>
