@@ -210,12 +210,14 @@ export class EditCreativeComponent implements OnInit {
             });
             validate = el.validate;
             // 内容校验
+
             if (!validate) {
               if (el.element_type === 'img' || el.element_type === 'video') {
                 this._notification.error('创意', `素材未上传！`);
               } else {
                 this._notification.error('创意', `内容填写有误！`);
               }
+              this._scrollService.setScrollTopByElement(this.containerFullRef, document.getElementById('chuangyi'));
             }
             return validate;
           });
