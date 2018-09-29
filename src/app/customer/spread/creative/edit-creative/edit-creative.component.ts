@@ -192,6 +192,11 @@ export class EditCreativeComponent implements OnInit {
         data_list: []
       }
     };
+    if (!elements.creative_name) {
+      this._notification.error('创意', `创意名称不能为空！`);
+      this._scrollService.setScrollTopByElement(this.containerFullRef, document.getElementById('chuangyi'));
+      return;
+    }
 
     let element = elements.data_list;
 

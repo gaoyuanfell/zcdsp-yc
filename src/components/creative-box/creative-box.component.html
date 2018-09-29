@@ -123,7 +123,7 @@
 
 <div class="creative-box" *ngFor="let elements of elementList;let index = index">
   <div class="ele-title" *ngIf="!preview">
-    <input type="text" [(ngModel)]="elements.creative_name" (ngModelChange)="_inputSubject.next()" placeholder="请输入创意名称">
+    <input type="text" [(ngModel)]="elements.creative_name" (ngModelChange)="_inputSubject.next()" placeholder="请输入创意名称"  [ngClass]="{'red': !elements.creative_name }">
   </div>
   <div class="element-box flex" [ngStyle]="{'width.px': maxWidth2}">
 
