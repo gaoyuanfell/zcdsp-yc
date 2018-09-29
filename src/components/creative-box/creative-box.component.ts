@@ -32,7 +32,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   host: {
     '[class.flex-wrap-center]': 'is_edit'
   },
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   providers: [
     CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR
@@ -181,6 +181,7 @@ export class CreativeBoxComponent implements OnInit, ControlValueAccessor {
    * @param {[any]} values
    */
   setValue(values: [any] | any) {
+    console.log('kkkkkkkk')
     if (!this.element) return;
     this.elementList.length = 0;
     if (values instanceof Array && values.length) {
@@ -198,6 +199,7 @@ export class CreativeBoxComponent implements OnInit, ControlValueAccessor {
     let result = [];
     if (this._elementList instanceof Array && this._elementList.length) {
       this._elementList.every(elements => {
+        console.log(elements)
         let element_data = {
           data_list: [],
           creative_name: elements.creative_name,
@@ -235,6 +237,7 @@ export class CreativeBoxComponent implements OnInit, ControlValueAccessor {
    * @param values
    */
   private setValueFun(values) {
+    console.info('ok')
     values.forEach(value => {
       let element = JSON.parse(JSON.stringify(this.element));
       element.data_list.forEach((dl, dli) => {
@@ -409,6 +412,7 @@ export class CreativeBoxComponent implements OnInit, ControlValueAccessor {
   }
 
   writeValue(obj: any): void {
+    console.log('卡卡卡卡卡卡')
     if (!obj) return;
     this.setValue(obj);
     this.changeDetectorRef.markForCheck();
@@ -421,6 +425,7 @@ export class CreativeBoxComponent implements OnInit, ControlValueAccessor {
     this._inputSubject.pipe(
       debounceTime(500)
     ).subscribe(() => {
+      console.log('lllll')
       this.getValue();
     });
   }

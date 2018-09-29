@@ -510,54 +510,56 @@ export class AddCreativeComponent implements OnInit {
       };
 
       if (!elements.creative_name) {
+        validate = false;
         this._notification.error('创意', `创意名称不能为空！`);
         this._scrollService.setScrollTopByElement(this.containerFullRef, this.document.getElementById('creative-box'));
-        return;
-      }
-      let element = elements.data_list;
+      } else {
+        let element = elements.data_list;
 
-      element.every((ele, inx) => {
-        let body = {};
-        Object.keys(ele).every(oke => {
-          if (ele[oke] instanceof Array) {
-            body[oke] = [];
-            ele[oke].every(el => {
-              body[oke].push({
-                [el.name]: el[el.name]
+        element.every((ele, inx) => {
+          let body = {};
+          Object.keys(ele).every(oke => {
+            if (ele[oke] instanceof Array) {
+              body[oke] = [];
+              ele[oke].every(el => {
+                body[oke].push({
+                  [el.name]: el[el.name]
+                });
+                validate = el.validate;
+
+
+                // 内容校验
+                if (!validate) {
+                  if (el.element_type === 'img' || el.element_type === 'video') {
+                    this._notification.error('创意', `第${index + 1}个创意中第${inx + 1}组素材未上传！`);
+                  } else {
+                    this._notification.error('创意', `第${index + 1}个创意中第${inx + 1}组内容填写有误！`);
+                  }
+
+                  let creativeBox = this.document.getElementById('creative-box');
+                  if (creativeBox) {
+                    let offsetTop = creativeBox.offsetTop;
+                    this._scrollService.scrollTo(this.containerFullRef, {top: offsetTop});
+                  }
+
+                }
+                return validate;
               });
-              validate = el.validate;
-
-              // 内容校验
-              if (!validate) {
-                if (el.element_type === 'img' || el.element_type === 'video') {
-                  this._notification.error('创意', `第${index + 1}个创意中第${inx + 1}组素材未上传！`);
-                } else {
-                  this._notification.error('创意', `第${index + 1}个创意中第${inx + 1}组内容填写有误！`);
-                }
-
-                let creativeBox = this.document.getElementById('creative-box');
-                if (creativeBox) {
-                  let offsetTop = creativeBox.offsetTop;
-                  this._scrollService.scrollTo(this.containerFullRef, {top: offsetTop});
-                }
-
-              }
-              return validate;
-            });
-          }
+            }
+            return validate;
+          });
+          element_data.elements.data_list.push(body);
           return validate;
         });
-        element_data.elements.data_list.push(body);
-        return validate;
-      });
 
-      let logo = this.selectMediaSize.elements.logo;
-      if (logo) {
-        element_data.elements.logo = {
-          [logo.name]: logo[logo.name]
-        };
+        let logo = this.selectMediaSize.elements.logo;
+        if (logo) {
+          element_data.elements.logo = {
+            [logo.name]: logo[logo.name]
+          };
+        }
+        result.push(element_data);
       }
-      result.push(element_data);
       return validate;
     });
 
