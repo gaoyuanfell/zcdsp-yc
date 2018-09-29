@@ -37,10 +37,11 @@ export class EditCreativeComponent implements OnInit {
 
   @ViewChild('ad_price') ad_price;
 
-  @ViewChild('creativeBox', {read: CreativeBoxComponent}) set creativeBoxRef(ref: CreativeBoxComponent) {
-    if (!ref) return;
-    ref.setValue([this.value]);
-  }
+  // @ViewChild('creativeBox', {read: CreativeBoxComponent}) set creativeBoxRef(ref: CreativeBoxComponent) {
+  //   if (!ref) return;
+  //   console.info('okkkkkkkkkkkkkk')
+  //   ref.setValue([this.value]);
+  // }
 
   logoChange(files) {
     this._creativeService.logoUpload({
@@ -174,10 +175,7 @@ export class EditCreativeComponent implements OnInit {
 
   save() {
     this._valid = true;
-    if (this.ad_price.invalid || this.creative.ad_price > this.bid_max || this.creative.ad_price < this.bid_min) {
-      this._scrollService.setScrollTopByElement(this.containerFullRef, document.getElementById('chujia'));
-      return;
-    }
+
     // if (!/^\+?(\d*\.?\d{0,2})$/.test(this.creative.ad_price) || !this.creative.ad_price) return;
     let elements = this.elementList[0];
     if (!elements) return;
@@ -192,6 +190,11 @@ export class EditCreativeComponent implements OnInit {
         data_list: []
       }
     };
+    if (!elements.creative_name) {
+      this._notification.error('创意', `创意名称不能为空！`);
+      this._scrollService.setScrollTopByElement(this.containerFullRef, document.getElementById('chuangyi'));
+      return;
+    }
 
     let element = elements.data_list;
 
@@ -243,6 +246,12 @@ export class EditCreativeComponent implements OnInit {
       this._notification.error('提示', '投放小时不能为空！');
       return;
     }
+
+    if (this.ad_price.invalid || this.creative.ad_price > this.bid_max || this.creative.ad_price < this.bid_min) {
+      this._scrollService.setScrollTopByElement(this.containerFullRef, document.getElementById('chujia'));
+      return;
+    }
+
     let body = {
       creative: element_data,
       show_hours: this.show_hours,
