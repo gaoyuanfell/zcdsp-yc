@@ -1,14 +1,17 @@
-<div class="header flex-center-between">
+<div class="header flex-center-between" *ngIf="system == 'N'">
   <div class="logo">
     <img src="assets/img/logo.png" alt="">
   </div>
   <p></p>
   <div class="user-info flex-center-between">
-    <i class="header-search-icon"></i>
+    <!--<i class="header-search-icon"></i>
     <i class="header-help-icon"></i>
-    <i class="header-phone-icon"></i>
+    <i class="header-phone-icon"></i>-->
     <img class="user-head" src="assets/img/default-user-head.png" alt="">
-    <p>Lecheng Zhou</p>
+    <div>
+      <p>{{auth?.user.user_name}}</p>
+      <p>{{auth?.user.nick_name}}</p>
+    </div>
   </div>
 </div>
 
