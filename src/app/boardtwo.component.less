@@ -114,7 +114,11 @@
 .connect{position: relative; margin-bottom: 30px;}
 .connect input{background: #fff; width: 440px; height: 40px; color: #999; border: 1px solid #7985ac; text-indent: 40px;}
 .connect i{ position: absolute; left: 10px; color: #b9b9b9; font-size: 20px; top: 10px;}
-.connect-btn{ width: 440px; height: 40px; border: 1px solid #ffffff; background: none; text-align: center; line-height: 40px; color: #efefef; font-size: 18px; cursor: pointer;}
+.connect-btn{ width: 440px; height: 40px; border: 1px solid #ffffff; background: none; text-align: center; line-height: 40px; color: #efefef; font-size: 18px; cursor: pointer;
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
 .connect_right{ position: absolute; right: 0; top: 0; width: 440px;}
 .connect_right>div{ text-align: center;}
 .connect_right>div img{margin: 10px auto;}
@@ -127,6 +131,77 @@
 /*底部*/
 .bottom{ width: 100px; height: 100px; background: #0c0e24;}
 .bottom div{width: 1200px; margin: 0 auto; text-align: center; line-height: 100px;}
+
+a.vertifyCode {
+  display: inline-block;
+  width: 90px;
+  height: 34px;
+  vertical-align: middle;
+  margin-bottom: 3px;
+  border-radius: 4px;
+}
+
+input.input-color.userOn{
+  border: 1px solid red !important;
+
+    &::-webkit-input-placeholder {
+      color: red;
+    }
+}
+
+
+.code_all {
+  p:nth-child(1) {
+    font-family: Adobe 黑体 Std R;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  padding: 10px;
+  .input {
+    width: 280px;
+    margin-left: 18px;
+    > input {
+      text-align: center;
+      width: 100%;
+    }
+  }
+  .vertifyCode {
+    margin-bottom: 45px;
+    width: 300px;
+    > div {
+      float: right;
+      margin-top: 8px;
+      > img {
+        transition: all 0.2s; // 行为 动作
+      }
+      > span {
+        margin-left: 5px;
+        color: #313a5a;
+      }
+    }
+  }
+  .error {
+    margin-top: 10px;
+    margin-left:19px;
+    img {
+      margin-right:5px;
+      vertical-align: middle;
+    }
+    span {
+      vertical-align: middle;
+    }
+  }
+}
+
+.input {
+  width: 100%;
+  height: 50px;
+  border: 1px #d6d8de solid;
+  input {
+    width:100%;
+    height:100%;
+  }
+}
 
 
 

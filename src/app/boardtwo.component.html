@@ -144,30 +144,27 @@
           <div>
 
             <div class="connect">
-
-              <input type="text" style="" placeholder="企业名称(必填)"/>
+              <input type="text" placeholder="企业名称(必填)" [(ngModel)]="company_name" (input)="companyData()" class="input-color" [ngClass]="{ userOn: companyTrue}">
 
               <i class="zcdsp-icon">&#xe66a;</i>
 
             </div>
 
             <div class="connect">
-
-              <input type="text" placeholder="姓名(必填)"/>
+              <input type="text" placeholder="姓名(必填)" [(ngModel)]="customer_name" (input)="customerData()"  class="input-color" [ngClass]="{ userOn: customerTrue}">
 
               <i class="zcdsp-icon">&#xe633;</i>
 
             </div>
 
             <div class="connect">
-
-              <input type="text"  placeholder="手机(必填)"/>
+              <input type="text" placeholder="以1开头的11位手机号码(必填)" [(ngModel)]="phone" (input)="phoneData()" class="input-color" [ngClass]="{ userOn: phoneTrue}">
 
               <i class="zcdsp-icon">&#xe63b;</i>
 
             </div>
 
-            <div class="connect-btn">预约顾问咨询</div>
+            <button class="connect-btn" (click)="order()" [disabled]="phoneTrue || customerTrue || companyTrue || !customer_name || !phone || !company_name">预约顾问咨询</button>
 
           </div>
 
@@ -208,22 +205,22 @@
     <div class="login">
 
       <div class="login_box">
+        <input type="text" placeholder="请输入用户名" [(ngModel)]="userName" (input)="userData()"  [ngClass]="{ userOn: userTrue}" class="username input-color">
+        <input type="password" placeholder="密码"  class="username input-color" [(ngModel)]="passWord" (input)="passData()"  [ngClass]="{ userOn :passTrue}" autocomplete="off">
+        <input type="text" maxlength="4" placeholder="验证码" id="vertCode" [(ngModel)]="vertCode" (input)="codeData()"
+               style="width: 100px;" [ngClass]="{ userOn: codeTrue}" autocomplete="off" class="validate input-color">
 
-        <input type="text" placeholder="请输入用户名" style="" class="username">
-
-        <input type="password" placeholder="密码" class="username">
-
-        <input type="text" placeholder="验证码" class="validate">
-
-        <img src="">
+        <a href="javascript:;" class="vertifyCode">
+          <img [src]="vertCodeUrl" width="100%" height="100%" style="border-radius:4px;" title="看不清" (click)="verifyCode()">
+        </a>
 
         <span>忘记密码?</span>
 
         <div class="login_btn">
 
-          <div class="login_quick">快速登录</div>
+          <div class="login_quick" (click)="login()">快速登录</div>
 
-          <div class="login_free">免费注册</div>
+          <div class="login_free" [routerLink]="['/register']">免费注册</div>
 
         </div>
 
@@ -240,4 +237,28 @@
   <div class="back"><img src="../assets/index2/dhj.png" alt=""></div>
   <div class="back"><a href="javascript:;" [ngClass]="{'active': hash === 'home'}" (click)="scrollTop('home')"><img src="../assets/index2/up.png" alt=""></a></div>
 </div>
+
+
+
+<ng-template #code_template>
+
+  <div class="code_all">
+    <a href="javascript:;" class="vertifyCode">
+      <!--点击后给的就是一张图片-->
+      <img [src]="codeUrl" width="100%" height="100%" style="border-radius:4px;" title="看不清" (click)="imgCode_vertify()" id="imgReload">
+      <div>
+        <img src="assets/index/freshen.png" id="freshen">
+        <span (click)="imgCode_vertify()">点击图片刷新</span>
+      </div>
+    </a>
+    <div class="input">
+      <input type="text" class="verifica forgetCode" autocomplete="off" [(ngModel)]="img_code" placeholder="请输入验证码" #img_code_model="ngModel" [ngClass]="{ 'has-error': ((img_code_model.dirty || img_code_model.touched || _valid) && img_code_model.invalid) || (error==='img_code')}" required name="img_code">
+    </div>
+    <p class="error"  *ngIf="((img_code_model.dirty || img_code_model.touched || _valid) && img_code_model.invalid)">
+      <img src="assets/img/index/tips.png" alt="">
+      <span>请输入验证码</span>
+    </p>
+    <p class="error"  *ngIf="error === 'img_code'"><img src="assets/img/index/tips.png" alt="">{{errorText}}</p>
+  </div>
+</ng-template>
 
