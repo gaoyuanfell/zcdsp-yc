@@ -162,6 +162,7 @@ export class CreativeTemplateComponent implements OnInit, OnDestroy {
     });
 
     this._mousemoveEvent = fromEvent(eventRef, 'mousemove').subscribe((event: MouseEvent) => {
+      console.log(event)
       if (!this.moveStatus) return;
 
       if (this.img.naturalWidth * this.scale <= this.drawingCanvas.width && this.img.naturalHeight * this.scale <= this.drawingCanvas.height) {

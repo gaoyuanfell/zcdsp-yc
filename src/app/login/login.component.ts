@@ -99,7 +99,7 @@ export class LoginComponent implements OnInit {
     this.forget.forgetCode = undefined;
     this.pwd_vertify_show = undefined;
     this.forget_vertify_Code();
-    this._dialog.open(this.code_template_ref, {title: '', flag: true, async: true}).subscribe((data: any) => {
+    this._dialog.open(this.code_template_ref, {title: '请您输入图形验证码', flag: true, async: true}).subscribe((data: any) => {
       if (data && this.forget_code_ref.valid && this.error !== 'img_code') {
         let obj = {
           type: this.type,
