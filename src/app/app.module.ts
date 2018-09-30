@@ -16,7 +16,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LoadingModule} from '../components/loading/loading.module';
 import {HomeComponent} from './home.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
