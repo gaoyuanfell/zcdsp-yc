@@ -17,7 +17,6 @@ import {LoadingModule} from '../components/loading/loading.module';
 import {HomeComponent} from './home.component';
 import { BoardtwoComponent } from './boardtwo.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

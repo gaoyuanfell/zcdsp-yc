@@ -27,9 +27,10 @@
     </i>
     <!--<img class="user-head" [src]="auth?.user.head_url" alt="">-->
     <img class="user-head" src="assets/img/default-user-head.png" alt="">
-    <p style="line-height: 66px;cursor: pointer;outline: none;" (click)="userToolBox = !userToolBox" [ngStyle]="{'color': userToolBox ? '#fff': '#ccc' }">
-      {{auth?.user.user_name}}
-    </p>
+    <div style="cursor: pointer;outline: none;" (click)="userToolBox = !userToolBox" [ngStyle]="{'color': userToolBox ? '#fff': '#ccc' }">
+      <p>{{auth?.user.user_name}}</p>
+      <p>{{auth?.user.nick_name}}</p>
+    </div>
   </div>
 </div>
 <div class="main">

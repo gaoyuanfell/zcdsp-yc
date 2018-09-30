@@ -42,6 +42,7 @@ import {MapModule} from '../components/map/map.module';
 import {LoadingModule} from '../components/loading/loading.module';
 import {AutocompleteModule} from '../components/autocomplete/autocomplete.module';
 import {EchartsModule} from '../components/echarts/echarts.module';
+import {CutCardsModule} from './cut-cards/cut-cards.module';
 
 @NgModule({
   imports: [
@@ -83,7 +84,8 @@ import {EchartsModule} from '../components/echarts/echarts.module';
     MapModule,
     LoadingModule,
     AutocompleteModule,
-    EchartsModule
+    EchartsModule,
+    CutCardsModule,
   ],
   declarations: [],
   exports: [
@@ -125,7 +127,8 @@ import {EchartsModule} from '../components/echarts/echarts.module';
     MapModule,
     LoadingModule,
     AutocompleteModule,
-    EchartsModule
+    EchartsModule,
+    CutCardsModule,
   ],
   providers: [
     {

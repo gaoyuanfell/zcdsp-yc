@@ -42,7 +42,7 @@
 
       <div class="query-tool" #queryRef query>
         <div class="left-tool">
-          <h2 class="table-title">
+          <h2 class="table-title" style="padding-right: 20px;">
             客户管理
           </h2>
           <yc-checkbox-group [(ngModel)]="zc_audit_status" [list]="audit_status_list" (changeEvent)="auditStatusChange()" [props]="{value:'lookup_code',label:'meaning'}"></yc-checkbox-group>

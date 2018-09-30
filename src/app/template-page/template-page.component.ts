@@ -613,12 +613,10 @@ export class TemplatePageComponent implements OnInit {
     _templateService.templateType().subscribe(res => {
       this.templateTypeList = res.result;
     });
-
     this.auth = route.snapshot.data.auth;
     this.getTemplateSysList();
     this.query.page_index = 3;
     this.query.page_size = 10;
-
     this.system = route.snapshot.data.system;
   }
 
