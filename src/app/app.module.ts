@@ -15,6 +15,7 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LoadingModule} from '../components/loading/loading.module';
 import {HomeComponent} from './home.component';
+import { BoardtwoComponent } from './boardtwo.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {HomeComponent} from './home.component';
     AppComponent,
     BoardComponent,
     HomeComponent,
+    BoardtwoComponent,
   ],
   imports: [
     BrowserModule,

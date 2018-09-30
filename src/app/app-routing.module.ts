@@ -4,6 +4,7 @@ import {MenuGuard} from '../auth/menu.guard';
 import {BoardComponent} from './board.component';
 import {HomeComponent} from './home.component';
 import {TokenGuard} from '../auth/token.guard';
+import {BoardtwoComponent} from './boardtwo.component';
 
 const routes: Routes = [
   {path: 'lazy', loadChildren: './lazy/lazy.module#LazyModule'},
@@ -20,9 +21,17 @@ const routes: Routes = [
     canActivate: [TokenGuard, MenuGuard],
     component: HomeComponent,
   },
+  // {
+  //   path: '',
+  //   component: BoardComponent,
+  // }
   {
     path: '',
-    component: BoardComponent,
+    component: BoardtwoComponent
+  },
+  {
+    path: 'aaaa',
+    component: BoardComponent
   }
 ];
 

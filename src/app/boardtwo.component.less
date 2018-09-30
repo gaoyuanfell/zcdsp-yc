@@ -1,0 +1,138 @@
+.container-main {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  font-family: "microsoft yahei",simhei,sans-serif;
+}
+
+.head{
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background: #04031d;
+  position: fixed;;
+  top: 0;
+  z-index: 1000;
+}
+.head .head_title{
+  width: 1200px;
+  margin: 0 auto;
+  position: relative;;
+}
+.head .head_title .logo{
+  display: table-cell;
+  vertical-align: middle;
+  width: 143px;
+  height: 33px;
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.nav {
+  padding-left: 50px;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 16px;
+  color: rgba(13, 152, 243, 0.5);
+  li {
+    padding: 0 15px;
+    float: left;
+    cursor: pointer;
+    a {
+      display: block;
+      color: rgba(255,255,255,0.6);
+
+      &.active {
+        color: #fff;
+      }
+    }
+  }
+}
+
+.container{ margin-top: 60px;}
+.banner{ position: relative; min-width: 1200px;}
+.banner>img{ display: block; width: 100%; min-width: 1200px;}
+.banner .banner_box{position: absolute; width: 70%; left: 15%; bottom: 100px; display: flex;}
+.banner .banner_list{flex: 1; text-align: center;}
+.banner .banner_list p{ color: #fff; font-size: 20px; font-weight: 600; margin-top: 20px;}
+.banner .banner_list span{ color: #fff; font-size: 16px; margin-top: 10px;}
+
+
+/*引擎*/
+.engine{ background: #14163b; height: 850px; padding-top: 120px;}
+.engine .engine_img{width: 444px; margin: 0 auto;}
+.engine .engine_img img{ display: block;}
+.engine .engine_desc{width: 900px; text-align: center; margin: 0 auto; font-size: 16px; color: #ccc; margin-top: 38px; margin-bottom: 30px;}
+.engine .engine_content{ width: 980px; margin: 0 auto;}
+.engine .engine_content img{ display: block;}
+
+//登录样式
+.login{position: fixed; bottom: 0; height: 68px; width: 100%; background:  url("../assets/index2/login_cont_bg.jpg") repeat; padding-top: 15px;}
+.login .login_box{width: 1200px; margin: 0 auto; position: relative;}
+.login .login_box input{background: #fff; width: 210px; color: #333333; font-size: 14px; border: 1px solid #666666; height: 36px; text-indent: 10px; margin-right: 10px;}
+.login .login_box .validate{width: 106px;}
+.login .login_box span{width: 106px; cursor: pointer; color: #333333; text-decoration: underline; font-size: 14px; margin-left: 10px;}
+.login .login_box .login_btn{ position: absolute; right: 0; top: 0px;}
+.login .login_box .login_btn div{ width: 150px; height: 36px; display: inline-block; text-align: center; line-height: 36px; font-size: 14px; color: #fff; cursor: pointer;}
+.login .login_box .login_btn .login_quick{ border: 1px solid #8e94a9; }
+.login .login_box .login_btn .login_free{ border: 1px solid #1176f2; background: #1176f2; margin-left: 10px;}
+
+
+/*返回到顶部*/
+.goback {
+  position: fixed;
+  bottom: 76px;
+  right: 30px;
+  z-index: 8;
+  .back {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    background: #fdfeff;
+    margin-bottom: 10px;
+    box-shadow: 0 0 14px 3px #c3e6ff;
+    cursor: pointer;
+    border-radius: 50%;
+    img {
+      vertical-align: middle;
+    }
+    a {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+/*联系*/
+.connect{position: relative; margin-bottom: 30px;}
+.connect input{background: #fff; width: 440px; height: 40px; color: #999; border: 1px solid #7985ac; text-indent: 40px;}
+.connect i{ position: absolute; left: 10px; color: #b9b9b9; font-size: 20px; top: 10px;}
+.connect-btn{ width: 440px; height: 40px; border: 1px solid #ffffff; background: none; text-align: center; line-height: 40px; color: #efefef; font-size: 18px; cursor: pointer;}
+.connect_right{ position: absolute; right: 0; top: 0; width: 440px;}
+.connect_right>div{ text-align: center;}
+.connect_right>div img{margin: 10px auto;}
+.connect_right>div p{font-size: 14px; margin-top: 10px; font-weight: bold; font-style: italic; color: #ccc;}
+.connect_right>div .connect_btn{width: 440px; height: 42px; text-align: center; line-height: 42px; font-size: 18px; color: #fff; cursor: pointer; background: url('../assets/index2/btn_bg.png') repeat; margin-top: 32px;}
+.connect_right>div .connect_info{margin-top: 15px;}
+.connect_right>div .connect_info i{font-size: 22px; color: #c0c0c5; margin-right: 10px;}
+.connect_right>div .connect_info span{font-size: 25px; font-weight: bold; font-style: italic; color: #efefef;}
+
+/*底部*/
+.bottom{ width: 100px; height: 100px; background: #0c0e24;}
+.bottom div{width: 1200px; margin: 0 auto; text-align: center; line-height: 100px;}
+
+
+
+
+
+
+
+
+
