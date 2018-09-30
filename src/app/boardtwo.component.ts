@@ -1,9 +1,11 @@
-import {Component, OnInit, Renderer2, TemplateRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2, TemplateRef, ViewChild} from '@angular/core';
 import {PublicService} from '../service/public.service';
 import SparkMD5 from 'spark-md5';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Dialog} from '../components/dialog/dialog';
 import {Notification} from '../components/notification/notification';
+import {Global} from '../service/global';
+import {fromEvent} from 'rxjs';
 
 @Component({
   selector: 'app-boardtwo',
@@ -48,17 +50,46 @@ export class BoardtwoComponent implements OnInit {
   ]
 
   @ViewChild('code_template', {read: TemplateRef}) code_template_ref: TemplateRef<any>;
+  @ViewChild('containerFull') containerFullRef: ElementRef;
+  @ViewChild('footer') footer: ElementRef;
+  @ViewChild('login') loginRef: ElementRef;
+  // @ViewChild('containerFull', {read: ElementRef}) containerFull: ElementRef<any>;
   constructor(
     private _publicService: PublicService,
     private router: Router,
     private _dialog: Dialog,
     private render: Renderer2,
     private _notification: Notification,
+    private _global: Global
   ) { }
 
   ngOnInit() {
     this.verifyCode();
+
+    // this._global.containerFullRef = this.containerFullRef.nativeElement;
+    this.render.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
+      console.log(event)
+      console.log(this.containerFullRef.nativeElement.scrollTop)
+      if (this.containerFullRef.nativeElement.scrollTop > 3300) {
+           this.render.addClass(this.footer.nativeElement, 'footerTransition')
+           this.render.addClass(this.loginRef.nativeElement, 'loginTransition')
+           this.footer.nativeElement.style.transition="all 1s"
+            this.loginRef.nativeElement.style.transition="all 1s"
+
+      } else {
+        this.render.removeClass(this.footer.nativeElement, 'footerTransition')
+        this.render.removeClass(this.loginRef.nativeElement, 'loginTransition')
+        this.footer.nativeElement.style.transition="all 1s"
+        this.loginRef.nativeElement.style.transition="all 1s"
+      }
+    });
+
+    // fromEvent(this.containerFullRef.nativeElement, 'scroll').subscribe((event: Event | any) => {
+    //    console.log(event)
+    // });
   }
+
+
 
   scrollTop(name) {
     this.hash = name;
