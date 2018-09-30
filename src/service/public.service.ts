@@ -31,6 +31,10 @@ export class PublicService extends ConfigService {
     return this.postForm('/jurisdiction/send/verifycode', body);
   }
 
+  customer(body = {}) {
+    return this.postJson('/jurisdiction/customer', body);
+  }
+
   /**
    *  验证用户填写的验证码是否和邮箱或者短信发的验证码一致
    * @param {{}} body {username,password,veritycode}

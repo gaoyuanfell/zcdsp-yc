@@ -15,7 +15,7 @@ import * as MenuAction from '../../store/actions/menu.action';
   styleUrls: ['./login.component.less']
 })
 export class LoginComponent implements OnInit {
-  flags = false;
+
 
   constructor(
     private _publicService: PublicService,
@@ -29,38 +29,19 @@ export class LoginComponent implements OnInit {
     this.$store.dispatch(new MenuAction.AssignMenu([]));
   }
 
-  form: any = {};
   forget: any = {};
 
-  flag_change() {
-    this.flags = !this.flags;
-    this.pwd_show = false;
-    this.form = {};
-    this.forget = {};
-  }
+
 
   ngOnInit() {
     this.title.setTitle(`智橙移动 领先的信息流广告投放平台`);
-    this.verifyCode();
-    this.route.queryParams.subscribe(res => {
-      this.form.userName = res.user_name ? res.user_name : '';
-    });
+    // this.route.queryParams.subscribe(res => {
+    //   this.form.userName = res.user_name ? res.user_name : '';
+    // });
   }
 
 
   _valid = false;
-  vertCodeUrl;
-
-  verifyCode() {
-    let obj = {
-      _: Date.now(),
-      w: 110,
-      h: 45
-    };
-    this.vertCodeUrl = this._publicService.verifyCode(obj);
-  }
-
-
   countdown = 60;
   flagCode = false;
   codeText = '获取验证码';
@@ -99,7 +80,7 @@ export class LoginComponent implements OnInit {
     this.forget.forgetCode = undefined;
     this.pwd_vertify_show = undefined;
     this.forget_vertify_Code();
-    this._dialog.open(this.code_template_ref, {title: '', flag: true, async: true}).subscribe((data: any) => {
+    this._dialog.open(this.code_template_ref, {title: '请您输入图形验证码', flag: true, async: true}).subscribe((data: any) => {
       if (data && this.forget_code_ref.valid && this.error !== 'img_code') {
         let obj = {
           type: this.type,
@@ -179,12 +160,7 @@ export class LoginComponent implements OnInit {
     };
     this._publicService.resetPassword(obj).subscribe(res => {
       if (res.success === 200) {
-        this.flags = false;  // 到登入页面
         this.pwd_show = false;
-        this.form = {};
-        this.form.userName = this.forget.user_name; // 忘记密码成功 要带出账号
-        console.log('lalalalallalalal')
-        console.log(this.forget.user_name)
         this.forget = {};
       }
     }, error => {
@@ -209,22 +185,5 @@ export class LoginComponent implements OnInit {
     this.flag = this.forget.password === this.forget.old_pwd ? false : true;
   }
 
-  login(inform) {
-    this._valid = true;
-    if (inform.valid) {
-      this._publicService.login({
-        username: this.form.userName,
-        password: SparkMD5.hash(this.form.passWord),
-        veritycode: this.form.vertCode
-      }).subscribe(res => {
-        if (res.success === 200) {
-          this.router.navigate(['/home']);
-        } else {
-          this.router.navigate(['/']);
-        }
-      }, () => {
-        this.verifyCode();
-      });
-    }
-  }
+
 }
