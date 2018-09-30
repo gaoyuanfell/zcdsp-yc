@@ -65,11 +65,8 @@ export class BoardtwoComponent implements OnInit {
 
   ngOnInit() {
     this.verifyCode();
-
-    // this._global.containerFullRef = this.containerFullRef.nativeElement;
+    // 滚动条在哪里 就监听哪里
     this.render.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
-      console.log(event)
-      console.log(this.containerFullRef.nativeElement.scrollTop)
       if (this.containerFullRef.nativeElement.scrollTop > 3300) {
            this.render.addClass(this.footer.nativeElement, 'footerTransition')
            this.render.addClass(this.loginRef.nativeElement, 'loginTransition')
