@@ -220,6 +220,22 @@ export class LazyComponent implements OnDestroy, OnInit {
 
       <p>{{color}}</p>
       <input-color-palette [(ngModel)]="color"></input-color-palette>
+
+
+      <cut-cards>
+        <cut-cards-item>
+          <div style="width: 200px;height: 400px;background-color: #0d97f3"></div>
+        </cut-cards-item>
+        <cut-cards-item>
+          <div style="width: 200px;height: 400px;background-color: #2cb543"></div>
+        </cut-cards-item>
+        <cut-cards-item>
+          <div style="width: 200px;height: 400px;background-color: #282b30"></div>
+        </cut-cards-item>
+        <cut-cards-item>
+          <div style="width: 200px;height: 400px;background-color: #c24f4a"></div>
+        </cut-cards-item>
+      </cut-cards>
       
     </div>
   `,

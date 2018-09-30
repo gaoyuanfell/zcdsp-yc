@@ -1,0 +1,243 @@
+<div class="container-main">
+
+  <div style="width:100%;height: 100%;overflow: auto;position: relative">
+
+    <div class="head">
+
+      <div class="head_title">
+
+        <div class="logo">
+          <img src="../assets/index2/logo.png" alt="">
+        </div>
+
+        <ul class="nav clear">
+          <li><a href="javascript:;" [ngClass]="{'active': hash === 'home'}" (click)="scrollTop('home')">首页</a></li>
+          <li><a href="javascript:;" [ngClass]="{'active': hash === 'engine'}" (click)="scrollTop('engine')">决策引擎</a></li>
+          <li><a href="javascript:;" [ngClass]="{'active': hash === 'scheme'}" (click)="scrollTop('scheme')">解决方案</a></li>
+          <li><a href="javascript:;" [ngClass]="{'active': hash === 'case'}" (click)="scrollTop('case')">成功案例</a></li>
+          <li><a href="javascript:;" [ngClass]="{'active': hash === 'media'}" (click)="scrollTop('media')">媒体资源</a></li>
+          <li><a href="javascript:;" [ngClass]="{'active': hash === 'contact'}" (click)="scrollTop('contact')">联系我们</a></li>
+          <li><a routerLink="/help" target="_blank">帮助中心</a></li>
+        </ul>
+
+        <div style=" position: absolute; height: 60px; line-height: 60px; right: 0; top: 0;">
+
+          <i class="zcdsp-icon" style="font-size: 22px; color: #c0c0c5; margin-right: 10px;">&#xe62b;</i>
+
+          <span style="font-size: 25px; font-weight: bold; font-style: italic; color: #efefef;">400-670-9927</span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="container">
+
+      <div class="banner">
+
+        <img src="../assets/index2/banner_bg.jpg">
+
+        <div class="banner_box">
+
+          <div class="banner_list" *ngFor="let item of banngerList">
+
+            <img src="../assets/index2/icon1.png">
+
+            <p>{{item.name}}</p>
+
+            <span>{{item.desc}}</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!--决策引擎-->
+      <div class="engine">
+
+        <div class="engine_img">
+
+          <img src="../assets/index2/title1.png">
+
+        </div>
+
+        <p class="engine_desc">智橙V4运作核心 — 智橙决策引擎，由AI技术、大数据等打造而成。机器通过不断学习，基于大数据产出专属的智能决策，助力广告主进行营销、产品、用户体验等全方位智能营销策略，使其在广泛的场景应用中创造更大价值，轻松实现营销目标。</p>
+
+        <div class="engine_content">
+
+          <img src="../assets/index2/cont1.png">
+
+        </div>
+
+      </div>
+
+      <!--解决方案-->
+      <div class="engine" style="background: #e7effe; height: 880px;">
+
+        <div class="engine_img">
+
+          <img src="../assets/index2/title2.png">
+
+        </div>
+
+        <p class="engine_desc" style="color: #333333;">三大核心能力为依托 为电商类、网服类、金融类、游戏类、工具类客户提供全面升级的解决方案</p>
+
+        <div class="engine_content">
+
+          <img src="../assets/index2/banner_two.png">
+
+        </div>
+
+      </div>
+
+      <!--成功案例-->
+      <div class="engine" style="background: #14163b;">
+
+        <div class="engine_img">
+
+          <img src="../assets/index2/title3.png">
+
+        </div>
+
+        <p class="engine_desc" style="color: #333333;">三大核心能力为依托 为电商类、网服类、金融类、游戏类、工具类客户提供全面升级的解决方案</p>
+
+        <div class="engine_content">
+
+          <img src="../assets/index2/banner_two.png">
+
+        </div>
+
+      </div>
+
+      <!--媒体资源-->
+      <div class="engine" style=" height: 690px; background: #e8f0fe;">
+
+        <div class="engine_img">
+
+          <img src="../assets/index2/title4.png">
+
+        </div>
+
+        <div class="engine_content" style="margin-top: 60px;">
+
+          <img src="../assets/index2/cont4_img.png">
+
+        </div>
+
+      </div>
+
+      <!--联系我们-->
+      <div class="engine" style=" height: 700px; background: url('../assets/index2/connect_bg.png') no-repeat; background-size: cover;">
+
+        <div class="engine_img">
+
+          <img src="../assets/index2/title5.png">
+
+        </div>
+
+        <p class="engine_desc">请留下您的联系方式，我们的投放广告顾问将尽快与您取得联系，免费咨询……</p>
+
+        <div class="engine_content" style="margin-top: 60px; position: relative;">
+
+          <div>
+
+            <div class="connect">
+
+              <input type="text" style="" placeholder="企业名称(必填)"/>
+
+              <i class="zcdsp-icon">&#xe66a;</i>
+
+            </div>
+
+            <div class="connect">
+
+              <input type="text" placeholder="姓名(必填)"/>
+
+              <i class="zcdsp-icon">&#xe633;</i>
+
+            </div>
+
+            <div class="connect">
+
+              <input type="text"  placeholder="手机(必填)"/>
+
+              <i class="zcdsp-icon">&#xe63b;</i>
+
+            </div>
+
+            <div class="connect-btn">预约顾问咨询</div>
+
+          </div>
+
+          <div class="connect_right">
+
+            <div>
+
+              <img src="../assets/index2/erweima.png" width="90">
+
+              <div class="connect_info">
+
+                <i class="zcdsp-icon">&#xe62b;</i>
+
+                <span>400-670-9927</span>
+
+              </div>
+
+              <p style="">周一至周五 9:00-18:00 (节假日除外)</p>
+
+              <div class="connect_btn">自助开通广告账户</div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+      <!--<div class="bottom">
+
+        <div>Copyright (C) 2015~2020 zcmobi.comAll Rights Reserved. 沪ICP备09044414号</div>
+
+      </div>-->
+
+    </div>
+
+    <!--定位在最下面的登录-->
+    <div class="login">
+
+      <div class="login_box">
+
+        <input type="text" placeholder="请输入用户名" style="" class="username">
+
+        <input type="password" placeholder="密码" class="username">
+
+        <input type="text" placeholder="验证码" class="validate">
+
+        <img src="">
+
+        <span>忘记密码?</span>
+
+        <div class="login_btn">
+
+          <div class="login_quick">快速登录</div>
+
+          <div class="login_free">免费注册</div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="goback">
+  <div class="back"><img src="../assets/index2/qq.png" alt=""></div>
+  <div class="back"><img src="../assets/index2/dhj.png" alt=""></div>
+  <div class="back"><a href="javascript:;" [ngClass]="{'active': hash === 'home'}" (click)="scrollTop('home')"><img src="../assets/index2/up.png" alt=""></a></div>
+</div>
+
