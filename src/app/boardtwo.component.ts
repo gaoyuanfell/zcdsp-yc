@@ -136,7 +136,7 @@ export class BoardtwoComponent implements OnInit {
     console.log(this.vertCodeUrl)
   }
 
-  login() {
+  loginFun() {
     this.userTrue = !this.userName;
     this.passTrue = !this.passWord;
     this.codeTrue = !this.vertCode;
@@ -211,7 +211,7 @@ export class BoardtwoComponent implements OnInit {
   }
 
   isTrue: string = 'tool';
-  isTrueChild;
+  isTrueChild: string = 'tool0';
 
 
 }

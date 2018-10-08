@@ -112,19 +112,37 @@
         <div style="width: 1000px; margin: 0 auto; position: relative;">
 
           <div style="margin-bottom: 30px; margin-left: 50px; margin-top: 85px;">
+            <div *ngIf="isTrue=== 'tool'">
             <img src="../assets/index2/cont3_icon1.png" width="36" style="vertical-align: middle;">
-            <span style="vertical-align: middle; color: #fff; font-size: 26px; margin-left: 20px;">UC浏览器</span>
+            <span style="vertical-align: middle; color: #fff; font-size: 26px; margin-left: 20px;">{{isTrueChild==='tool0' ? 'UC浏览器' : '快手'}}</span>
+            </div>
+            <div *ngIf="isTrue=== 'game'">
+              <img src="../assets/index2/cont3_icon1.png" width="36" style="vertical-align: middle;">
+              <span style="vertical-align: middle; color: #fff; font-size: 26px; margin-left: 20px;">{{isTrueChild==='game0' ? '魔域' : ''}}</span>
+            </div>
+            <div *ngIf="isTrue=== 'network'">
+              <img src="../assets/index2/cont3_icon1.png" width="36" style="vertical-align: middle;">
+              <span style="vertical-align: middle; color: #fff; font-size: 26px; margin-left: 20px;">{{isTrueChild==='tool0' ? '饿了吗' : '每日优鲜'}}</span>
+            </div>
+            <div *ngIf="isTrue=== 'electric'">
+              <img src="../assets/index2/cont3_icon1.png" width="36" style="vertical-align: middle;">
+              <span style="vertical-align: middle; color: #fff; font-size: 26px; margin-left: 20px;">{{isTrueChild==='electric0' ? '拼多多' : '网易考拉'}}</span>
+            </div>
+            <div *ngIf="isTrue=== 'money'">
+              <img src="../assets/index2/cont3_icon1.png" width="36" style="vertical-align: middle;">
+              <span style="vertical-align: middle; color: #fff; font-size: 26px; margin-left: 20px;">{{isTrueChild==='money0' ? '拍拍贷' : '你我贷'}}</span>
+            </div>
           </div>
 
           <div>
 
-            <div style="width: 747px; height: 245px; background: url('../assets/index2/success_bg.png') no-repeat;" class="bgText">
+            <div  class="bgText">
               <ul>
-                <li><i></i><p>营销目标：通过智橙平台精准广告推送，高效传递品牌信息，有效提升精准度和转化效果，为品牌带来更多有效用户。</p></li>
-                <li><i></i><p>投放平台：智橙移动端</p></li>
-                <li><i></i><p>CPC成本：0.20-0.30 元</p></li>
-                <li><i></i><p>激活成本：8.00 元</p></li>
-                <li><i></i><p>点击率：4%-6%</p></li>
+                <li><i></i>营销目标：通过智橙平台精准广告推送，高效传递品牌信息，有效提升精准度和转化效果，为品牌带来更多有效用户。</li>
+                <li><i></i>投放平台：智橙移动端</li>
+                <li><i></i>CPC成本：0.20-0.30 元</li>
+                <li><i></i>激活成本：8.00 元</li>
+                <li><i></i>点击率：4%-6%</li>
               </ul>
             </div>
 
@@ -275,7 +293,7 @@
 
         <div class="login_btn">
 
-          <div class="login_quick" (click)="login()">快速登录</div>
+          <div class="login_quick" (click)="loginFun()">快速登录</div>
 
           <div class="login_free" [routerLink]="['/register']">免费注册</div>
 
