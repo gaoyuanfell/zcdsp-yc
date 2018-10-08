@@ -1140,12 +1140,12 @@ export class BaseIndexComponent implements OnInit {
       // this.hobbyDataDetail(res);
       // 地域流量top10
       this.top_area_data = res.result.top_area_data;
-      // 地域流量分布图数据
-      this.allAreaDataDetail(res);
       // 年龄
       this.ageDataDetail(res);
       // 性别
       this.genderDataDetail(res);
+      // 地域流量分布图数据
+      this.allAreaDataDetail(res);
     });
   }
 
