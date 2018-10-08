@@ -27,7 +27,7 @@ const routes: Routes = [
   // }
   {
     path: '',
-    canActivate: [TokenGuard, MenuGuard], // 这边要调用接口
+    // canActivate: [TokenGuard, MenuGuard], // 这边要调用接口
     component: BoardtwoComponent
   },
   {

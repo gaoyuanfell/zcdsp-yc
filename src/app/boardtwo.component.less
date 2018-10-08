@@ -73,7 +73,11 @@
 
 /*成功案例*/
 .menu_list{width: 600px; margin: 0 auto; display: flex; margin-top: 30px;}
-.menu_list div{ flex: 1; width: 100px; height: 35px; line-height: 35px; text-align: center; font-size: 16px; color: #a1a2b1; border: 1px solid #55566d; margin-right: 10px;}
+.menu_list div{ flex: 1; width: 100px; height: 35px; line-height: 35px; text-align: center; font-size: 16px; color: #a1a2b1; border: 1px solid #55566d; margin-right: 10px;
+  &:hover{
+    cursor: pointer;
+  }
+}
 .menu_list div.active{ color: #fff; background: #154591; border: 1px solid #154591;}
 
 //登录样式
@@ -226,6 +230,30 @@ input.input-color.userOn{
   line-height: 22px;
 }
 .loginTransition{height:80px}
+
+.successImg{
+  > div {
+    float: left;
+    margin-right: 28px;
+    width: 46px;
+    height: 46px;
+    &.active {
+      border: 1px solid red;
+      background-position: -46px  46px;
+    }
+  }
+}
+
+.bgText{
+  li {
+    i {
+      width:10px;
+      height:10px;
+      border-radius: 50%;
+      background-color:#0fbefc;
+    }
+  }
+}
 
 
 
