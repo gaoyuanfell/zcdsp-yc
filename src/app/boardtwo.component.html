@@ -42,7 +42,7 @@
 
           <div class="banner_list" *ngFor="let item of banngerList">
 
-            <img src="https://img.zcdsp.com/zcmobi-assets/index/icon1.png">
+            <img [src]="item.icon">
 
             <p>{{item.name}}</p>
 

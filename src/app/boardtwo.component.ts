@@ -29,27 +29,27 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
   hash = 'home';
   banngerList:Array<any> = [
     {
-      icon:"",
+      icon:"https://img.zcdsp.com/zcmobi-assets/index/icon1.png",
       name:"10亿+",
       desc:"移动终端"
     },
     {
-      icon:"",
+      icon:"https://img.zcdsp.com/zcmobi-assets/index/icon2.png",
       name:"30亿+",
       desc:"日均流量"
     },
     {
-      icon:"",
+      icon:"https://img.zcdsp.com/zcmobi-assets/index/icon3.png",
       name:"20000+",
       desc:"主流APP资源"
     },
     {
-      icon:"",
+      icon:"https://img.zcdsp.com/zcmobi-assets/index/icon4.png",
       name:"精准",
       desc:"人群定向"
     },
     {
-      icon:"",
+      icon:"https://img.zcdsp.com/zcmobi-assets/index/icon5.png",
       name:"智能推荐",
       desc:"投放策略"
     }
