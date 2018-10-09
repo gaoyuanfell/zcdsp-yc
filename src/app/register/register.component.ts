@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
 
   user: any = {};
   _valid = false;
-  service_data;
+  service_data = true;
   flag: boolean = false;
 
   pwd_comfirm() {
