@@ -6,6 +6,7 @@ import {Dialog} from '../components/dialog/dialog';
 import {Notification} from '../components/notification/notification';
 import {Global} from '../service/global';
 import {fromEvent} from 'rxjs';
+import {ScrollService} from '../components/back-top/scroll.service';
 
 @Component({
   selector: 'app-boardtwo',
@@ -60,13 +61,24 @@ export class BoardtwoComponent implements OnInit {
     private _dialog: Dialog,
     private render: Renderer2,
     private _notification: Notification,
-    private _global: Global
+    private _global: Global,
+    private _scrollService: ScrollService,
   ) { }
+
+
+  year;
+  domain;
+  arrow = false;
 
   ngOnInit() {
     this.verifyCode();
     // 滚动条在哪里 就监听哪里
     this.render.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
+      if (this.containerFullRef.nativeElement.scrollTop > 860) {
+         this.arrow = true;
+      } else {
+        this.arrow = false;
+      }
       if (this.containerFullRef.nativeElement.scrollTop > 3300) {
            this.render.addClass(this.footer.nativeElement, 'footerTransition')
            this.render.addClass(this.loginRef.nativeElement, 'loginTransition')
@@ -81,6 +93,10 @@ export class BoardtwoComponent implements OnInit {
       }
     });
 
+     this.year = new Date().getFullYear() + 1
+     this.domain = document.domain;
+
+
     // fromEvent(this.containerFullRef.nativeElement, 'scroll').subscribe((event: Event | any) => {
     //    console.log(event)
     // });
@@ -89,7 +105,8 @@ export class BoardtwoComponent implements OnInit {
 
 
   scrollTop(name) {
-    this.hash = name;
+    this._scrollService.scrollTo(this.containerFullRef.nativeElement, {left: 0, top: 20});
+    // this.hash = name;
   }
 
   userData() {
@@ -212,6 +229,9 @@ export class BoardtwoComponent implements OnInit {
 
   isTrue: string = 'tool';
   isTrueChild: string = 'tool0';
+
+
+
 
 
 }
