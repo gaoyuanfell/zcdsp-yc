@@ -77,14 +77,14 @@ export class TrComponent implements AfterViewInit {
     if (this.expand.active) {
       this.expand.show = true;
       setTimeout(() => {
-        this._global.containerFullRef.scrollTop = scrollTop + number;
+        this.tableComponent.position()
       });
       this.changeDetectorRef.markForCheck();
     } else {
       setTimeout(() => {
         this.expand.show = false;
         setTimeout(() => {
-          this._global.containerFullRef.scrollTop = scrollTop + number;
+          this.tableComponent.position()
         });
         this.changeDetectorRef.markForCheck();
       }, 150);
