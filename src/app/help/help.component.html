@@ -1,17 +1,70 @@
-<header class="header flex-center-between">
-  <div class="flex-center-between">
-    <img class="logo" src="assets/img/logo.png" alt="logo">
-    <div class="menu"></div>
-  </div>
-  <!--<div class="flex-center-between user-info">
-    <div class="user-block active">
-      <img class="user-head" src="assets/img/user-head.png" alt="user-head">
-      <p class="user-name">
-        {{auth?.user.user_name}}
-      </p>
+<!--<header class="header flex-center-between">-->
+
+  <!--<div class="flex-center-between">-->
+    <!--<img class="logo" src="assets/img/logo.png" alt="logo">-->
+    <!--<div class="menu"></div>-->
+  <!--</div>-->
+
+
+  <!--<ul class="nav clear">-->
+    <!--<li><a href="javascript:;"  >首页</a></li>-->
+    <!--<li><a href="javascript:;"  >决策引擎</a></li>-->
+    <!--<li><a href="javascript:;"  >解决方案</a></li>-->
+    <!--<li><a href="javascript:;"  >成功案例</a></li>-->
+    <!--<li><a href="javascript:;"  >媒体资源</a></li>-->
+    <!--<li><a href="javascript:;"  >联系我们</a></li>-->
+    <!--<li><a routerLink="/help">帮助中心</a></li>-->
+  <!--</ul>-->
+
+  <!--<div style=" position: absolute; height: 60px; line-height: 60px; right: 0; top: 0;">-->
+
+    <!--<i class="zcdsp-icon" style="font-size: 22px; color: #c0c0c5; margin-right: 10px;">&#xe62b;</i>-->
+
+    <!--<span style="font-size: 25px; font-weight: bold; font-style: italic; color: #efefef;">400-670-9927</span>-->
+
+  <!--</div>-->
+
+  <!--&lt;!&ndash;<div class="flex-center-between user-info">-->
+    <!--<div class="user-block active">-->
+      <!--<img class="user-head" src="assets/img/user-head.png" alt="user-head">-->
+      <!--<p class="user-name">-->
+        <!--{{auth?.user.user_name}}-->
+      <!--</p>-->
+    <!--</div>-->
+  <!--</div>&ndash;&gt;-->
+<!--</header>-->
+
+<div class="head">
+
+  <div class="head_title">
+
+    <div class="logo">
+      <img src="../assets/index2/logo.png" alt="">
     </div>
-  </div>-->
-</header>
+
+    <ul class="nav clear">
+
+      <li><a href="javascript:;"  [routerLink]="['/']" [queryParams] = " {'title':'home'}">首页</a></li>
+      <li><a href="javascript:;"  [routerLink]="['/']" [queryParams] = " {'title':'engine'}">决策引擎</a></li>
+      <li><a href="javascript:;"  [routerLink]="['/']" [queryParams] = " {'title':'scheme'}">解决方案</a></li>
+      <li><a href="javascript:;"  [routerLink]="['/']" [queryParams] = " {'title':'case'}">成功案例</a></li>
+      <li><a href="javascript:;"  [routerLink]="['/']" [queryParams] = " {'title':'media'}">媒体资源</a></li>
+      <li><a href="javascript:;"  [routerLink]="['/']" [queryParams] = " {'title':'contact'}">联系我们</a></li>
+      <li><a routerLink="/help" class="active">帮助中心</a></li>
+
+    </ul>
+
+    <div style=" position: absolute; height: 60px; line-height: 60px; right: 0; top: 0;">
+
+      <i class="zcdsp-icon" style="font-size: 22px; color: #c0c0c5; margin-right: 10px;">&#xe62b;</i>
+
+      <span style="font-size: 25px; font-weight: bold; font-style: italic; color: #efefef;">400-670-9927</span>
+
+    </div>
+
+  </div>
+
+</div>
 
 <div class="container-full">
   <div class="container clear">

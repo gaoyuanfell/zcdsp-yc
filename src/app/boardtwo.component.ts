@@ -6,9 +6,12 @@ import {Dialog} from '../components/dialog/dialog';
 import {Notification} from '../components/notification/notification';
 import {Global} from '../service/global';
 import {fromEvent} from 'rxjs';
+
+import {ScrollService} from '../components/back-top/scroll.service';
 import {DOCUMENT} from '@angular/common';
 import {filter} from 'rxjs/operators';
 import {Observable} from 'rxjs/src/internal/Observable';
+
 
 @Component({
   selector: 'app-boardtwo',
@@ -27,7 +30,7 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
   banngerList:Array<any> = [
     {
       icon:"",
-      name:"9.5亿+",
+      name:"10亿+",
       desc:"移动终端"
     },
     {
@@ -65,14 +68,25 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private document: Document,
     private _notification: Notification,
     private _global: Global,
+    private _scrollService: ScrollService,
+    private route: ActivatedRoute
   ) { }
 
-  keyupEvent
+
+  year;
+  domain;
+  arrow = false;
+  keyupEvent;
 
   ngOnInit() {
     this.verifyCode();
     // 滚动条在哪里 就监听哪里
     this.renderer.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
+      if (this.containerFullRef.nativeElement.scrollTop > 860) {
+        this.arrow = true;
+      } else {
+        this.arrow = false;
+      }
       if (this.containerFullRef.nativeElement.scrollTop > 3300) {
            this.renderer.addClass(this.footer.nativeElement, 'footerTransition')
            this.renderer.addClass(this.loginRef.nativeElement, 'loginTransition')
@@ -87,21 +101,45 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
       }
     });
 
+
+     this.year = new Date().getFullYear() + 1
+     this.domain=document.domain.split(".");
+     this.domain.length > 2 ? this.domain.shift() : this.domain
+
+
     this.keyupEvent = fromEvent(this.document, 'keyup').pipe(
       filter((event:KeyboardEvent) => event.keyCode === 13)
     ).subscribe(event => {
       this.loginFun()
     })
 
-    // fromEvent(this.containerFullRef.nativeElement, 'scroll').subscribe((event: Event | any) => {
-    //    console.log(event)
-    // });
+
+    this.route.queryParams.subscribe((params)=> {
+      console.log(params)
+      if (params.title) {
+        this.title = params.title;
+        this._scrollService.setScrollTopByElement(this.containerFullRef.nativeElement, document.getElementById(params.title));
+      }
+      if(params.user_name) {
+        this.userName = params.user_name;
+      }
+    })
+
   }
 
 
+  title:string;
+  scrollTop(name?) {
 
-  scrollTop(name) {
-    this.hash = name;
+    if (!name) {
+      this.title = 'home';
+      this.router.navigate(['/'], {queryParams:{'title': this.title}})
+      this._scrollService.scrollTo(this.containerFullRef.nativeElement, {left: 0, top: 20});
+    } else {
+      this.router.navigate(['/'], {queryParams:{'title': this.title}})
+      this._scrollService.setScrollTopByElement(this.containerFullRef.nativeElement, name);
+    }
+
   }
 
   userData() {
@@ -177,9 +215,11 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
   _valid = false;
   order() {
     this._valid = false;
+    this.img_code = '';
     this.imgCode_vertify();
     this._dialog.open(this.code_template_ref, {title: '请您输入图形验证码', flag: true, async: true}).subscribe((data: any) => {
       // 点击确定后 触发
+      //
       if (data && this.img_code) {
         this._valid = true;
         let obj = {

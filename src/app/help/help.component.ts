@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ScrollService} from '../../components/back-top/scroll.service';
 
 @Component({
   selector: 'app-help',
@@ -9,7 +10,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class HelpComponent implements OnInit {
 
   constructor(private router: Router,
-              private route: ActivatedRoute,) {
+              private route: ActivatedRoute,
+              private _scrollService: ScrollService,) {
 
     // this.auth = route.snapshot.data.auth
   }
@@ -19,6 +21,8 @@ export class HelpComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
+
 
   num = 0;
 
