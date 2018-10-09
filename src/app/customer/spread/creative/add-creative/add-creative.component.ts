@@ -143,6 +143,7 @@ export class AddCreativeComponent implements OnInit {
   private _media_list;
   rec_media_list; // 建议媒体
   rec_media_type = '1';
+  user_logo // 用户logo
 
   /**
    * 获取媒体列表
@@ -223,7 +224,11 @@ export class AddCreativeComponent implements OnInit {
         }
       }
       if (logo) {
+        let logo_data = this.user_logo[logo.logo_size]
         logo.logo_src = '';
+        if(logo_data){
+          logo.logo_src = logo_data.logo_src
+        }
       }
       return logo;
     }
@@ -632,6 +637,7 @@ export class AddCreativeComponent implements OnInit {
 
   _campaignShow = false;
 
+
   init(campaign_id) {
     this._creativeService.addInit({campaign_id: campaign_id}).subscribe(
       res => {
@@ -645,6 +651,8 @@ export class AddCreativeComponent implements OnInit {
         this.media_list = res.result.media_list;
         this.rec_media_list = res.result.rec_media_list;
         this.first_char_list = res.result.first_char_list;
+
+        this.user_logo = res.result.user_logo
 
         if (this.rec_media_list instanceof Array && this.rec_media_list.length) {
           this.changeMediaSize(this.rec_media_list[0]);

@@ -92,7 +92,7 @@ import {codyDepth, hoursFormat} from '../../../../service/util';
 
             <div class="item">
               <span class="info-key">定向</span>
-              <div class="info-value overflow-box">
+              <div class="info-value overflow-box" style="max-height: 187px;">
                 <i class="icon-img-edit" (click)="_editDirectional(directionalRef)" *ngIf="isPermit('ZCMOBI_ADS_SPREAD_CAMPAIGN_DIRECTION')"></i>
                 <ng-template [ngIf]="_orientationValue?.length">
                   <p *ngFor="let ov of _orientationValue">{{ov.name}}：{{ov.value}}</p>

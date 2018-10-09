@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, Renderer2, TemplateRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2, TemplateRef, ViewChild} from '@angular/core';
 import {PublicService} from '../service/public.service';
 import SparkMD5 from 'spark-md5';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -6,14 +6,19 @@ import {Dialog} from '../components/dialog/dialog';
 import {Notification} from '../components/notification/notification';
 import {Global} from '../service/global';
 import {fromEvent} from 'rxjs';
+
 import {ScrollService} from '../components/back-top/scroll.service';
+import {DOCUMENT} from '@angular/common';
+import {filter} from 'rxjs/operators';
+import {Observable} from 'rxjs/src/internal/Observable';
+
 
 @Component({
   selector: 'app-boardtwo',
   templateUrl: './boardtwo.component.html',
   styleUrls: ['./boardtwo.component.less']
 })
-export class BoardtwoComponent implements OnInit {
+export class BoardtwoComponent implements OnInit, OnDestroy {
   userName;
   passWord;
   vertCode;
@@ -59,7 +64,8 @@ export class BoardtwoComponent implements OnInit {
     private _publicService: PublicService,
     private router: Router,
     private _dialog: Dialog,
-    private render: Renderer2,
+    private renderer: Renderer2,
+    @Inject(DOCUMENT) private document: Document,
     private _notification: Notification,
     private _global: Global,
     private _scrollService: ScrollService,
@@ -69,37 +75,42 @@ export class BoardtwoComponent implements OnInit {
   year;
   domain;
   arrow = false;
+  keyupEvent;
 
   ngOnInit() {
     this.verifyCode();
     // 滚动条在哪里 就监听哪里
-    this.render.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
+    this.renderer.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
       if (this.containerFullRef.nativeElement.scrollTop > 860) {
-         this.arrow = true;
+        this.arrow = true;
       } else {
         this.arrow = false;
       }
       if (this.containerFullRef.nativeElement.scrollTop > 3300) {
-           this.render.addClass(this.footer.nativeElement, 'footerTransition')
-           this.render.addClass(this.loginRef.nativeElement, 'loginTransition')
+           this.renderer.addClass(this.footer.nativeElement, 'footerTransition')
+           this.renderer.addClass(this.loginRef.nativeElement, 'loginTransition')
            this.footer.nativeElement.style.transition="all 1s"
             this.loginRef.nativeElement.style.transition="all 1s"
 
       } else {
-        this.render.removeClass(this.footer.nativeElement, 'footerTransition')
-        this.render.removeClass(this.loginRef.nativeElement, 'loginTransition')
+        this.renderer.removeClass(this.footer.nativeElement, 'footerTransition')
+        this.renderer.removeClass(this.loginRef.nativeElement, 'loginTransition')
         this.footer.nativeElement.style.transition="all 1s"
         this.loginRef.nativeElement.style.transition="all 1s"
       }
     });
 
+
      this.year = new Date().getFullYear() + 1
      this.domain = document.domain;
 
 
-    // fromEvent(this.containerFullRef.nativeElement, 'scroll').subscribe((event: Event | any) => {
-    //    console.log(event)
-    // });
+    this.keyupEvent = fromEvent(this.document, 'keyup').pipe(
+      filter((event:KeyboardEvent) => event.keyCode === 13)
+    ).subscribe(event => {
+      this.loginFun()
+    })
+
   }
 
 
@@ -140,7 +151,7 @@ export class BoardtwoComponent implements OnInit {
 
   phoneData() {
     let str = /^1\d{10}$/;
-    this.phoneTrue = !str.test(this.phone);;
+    this.phoneTrue = !str.test(this.phone);
   }
 
   verifyCode() {
@@ -217,7 +228,7 @@ export class BoardtwoComponent implements OnInit {
   imgCode_vertify() {
     ++this.number;
     if (document.getElementById('freshen')) {
-      this.render.setStyle(document.getElementById('freshen'), 'transform', `rotate(${this.number * 360}deg)`);
+      this.renderer.setStyle(document.getElementById('freshen'), 'transform', `rotate(${this.number * 360}deg)`);
     }
     let obj = {
       _: Date.now(),
@@ -230,8 +241,7 @@ export class BoardtwoComponent implements OnInit {
   isTrue: string = 'tool';
   isTrueChild: string = 'tool0';
 
-
-
-
-
+  ngOnDestroy(): void {
+    this.keyupEvent.unsubscribe()
+  }
 }
