@@ -254,3 +254,49 @@ pre {
     margin: 0;
   }
 }
+
+
+.head{
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background: #04031d;
+  position: fixed;;
+  top: 0;
+  z-index: 1000;
+}
+.head .head_title{
+  width: 1200px;
+  margin: 0 auto;
+  position: relative;;
+}
+.head .head_title .logo{
+  display: table-cell;
+  vertical-align: middle;
+  width: 143px;
+  height: 33px;
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.nav {
+  padding-left: 50px;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 16px;
+  color: rgba(13, 152, 243, 0.5);
+  li {
+    padding: 0 15px;
+    float: left;
+    cursor: pointer;
+    a {
+      display: block;
+      color: rgba(255,255,255,0.6);
+      &.active {
+        color: #fff;
+      }
+    }
+  }
+}

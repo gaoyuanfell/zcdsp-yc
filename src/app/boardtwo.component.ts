@@ -30,7 +30,7 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
   banngerList:Array<any> = [
     {
       icon:"",
-      name:"9.5亿+",
+      name:"10亿+",
       desc:"移动终端"
     },
     {
@@ -69,6 +69,7 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
     private _notification: Notification,
     private _global: Global,
     private _scrollService: ScrollService,
+    private route: ActivatedRoute
   ) { }
 
 
@@ -102,7 +103,8 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
 
 
      this.year = new Date().getFullYear() + 1
-     this.domain = document.domain;
+     this.domain=document.domain.split(".");
+     this.domain.length > 2 ? this.domain.shift() : this.domain
 
 
     this.keyupEvent = fromEvent(this.document, 'keyup').pipe(
@@ -111,13 +113,30 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
       this.loginFun()
     })
 
+
+    this.route.queryParams.subscribe((params)=> {
+      console.log(params)
+      if (params.title) {
+        this.title = params.title;
+        this._scrollService.setScrollTopByElement(this.containerFullRef.nativeElement, document.getElementById(params.title));
+      }
+    })
+
   }
 
 
+  title:string;
+  scrollTop(name?) {
 
-  scrollTop(name) {
-    this._scrollService.scrollTo(this.containerFullRef.nativeElement, {left: 0, top: 20});
-    // this.hash = name;
+    if (!name) {
+      this.title = 'home';
+      this.router.navigate(['/'], {queryParams:{'title': this.title}})
+      this._scrollService.scrollTo(this.containerFullRef.nativeElement, {left: 0, top: 20});
+    } else {
+      this.router.navigate(['/'], {queryParams:{'title': this.title}})
+      this._scrollService.setScrollTopByElement(this.containerFullRef.nativeElement, name);
+    }
+
   }
 
   userData() {
@@ -196,7 +215,8 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
     this.imgCode_vertify();
     this._dialog.open(this.code_template_ref, {title: '请您输入图形验证码', flag: true, async: true}).subscribe((data: any) => {
       // 点击确定后 触发
-      if (data && this.img_code) {
+      // && this.img_code
+      if (data ) {
         this._valid = true;
         let obj = {
           company_name: this.company_name,

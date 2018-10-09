@@ -8,7 +8,7 @@
         </div>
         <div class="register-body">
           <h1 class="top">欢迎注册<span>智橙移动</span>账号</h1>
-          <p class="forget"><a href="login.html" [routerLink]="['/login']">立即登录</a></p>
+          <p class="forget"><a href="login.html" [routerLink]="['/']">立即登录</a></p>
           <form class="from" #infoForm="ngForm" (ngSubmit)="save()">
 
             <input type="text" class="nick_name" placeholder="公司名称" #nickName="ngModel" name="nick_name" [(ngModel)]="user.nick_name" required [ngClass]="setInvalidClass(infoForm, infoForm.controls['nick_name'])">
