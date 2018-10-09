@@ -210,5 +210,8 @@ export class BoardtwoComponent implements OnInit {
     this.codeUrl = this._publicService.verifyCode(obj);
   }
 
+  isTrue: string = 'tool';
+  isTrueChild: string = 'tool0';
+
 
 }
