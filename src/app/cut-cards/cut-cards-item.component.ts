@@ -1,4 +1,5 @@
-import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
+import {Component, ElementRef, Host, HostListener, OnInit, Renderer2} from '@angular/core';
+import {CutCardsComponent} from './cut-cards.component';
 
 @Component({
   selector: 'cut-cards-item',
@@ -9,6 +10,7 @@ import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
       `
       :host{
         position: absolute;
+        padding-bottom: 20px;
       }
     `
   ]
@@ -20,6 +22,27 @@ export class CutCardsItemComponent implements OnInit {
   ngOnInit() {
   }
 
+  @HostListener('mouseenter',['$event']) mouseenter(event){
+    // this.zIndex = 999999
+    if(this.patent.itemList.find(d => d.active)) return;
+    this.top = 0;
+  }
+
+  @HostListener('mouseleave',['$event']) mouseleave(event){
+    // this.zIndex = this.oldZIndex
+    if(this.patent.itemList.find(d => d.active)) return;
+    this.top = 20;
+  }
+
+  @HostListener('click',['$event']) click(event){
+    // this.zIndex = this.oldZIndex
+    this.patent.cancelSelected(this);
+    this.patent.selected(this);
+  }
+
+  oldZIndex;
+  patent;
+
   private _left;
   private _right;
   private _top;
@@ -27,6 +50,7 @@ export class CutCardsItemComponent implements OnInit {
   private _width;
   private _height;
   private _zIndex;
+  private _active;
 
   get left() {
     return this._left;
@@ -89,5 +113,18 @@ export class CutCardsItemComponent implements OnInit {
   set zIndex(value) {
     this._zIndex = value;
     this.renderer.setStyle(this.elementRef.nativeElement, 'z-index', `${value}`)
+  }
+
+  get active() {
+    return this._active;
+  }
+
+  set active(value) {
+    this._active = value;
+    if(value){
+      this.top = 0;
+    }else{
+      this.top = 20;
+    }
   }
 }
