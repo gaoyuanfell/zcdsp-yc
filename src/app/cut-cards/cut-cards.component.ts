@@ -19,6 +19,11 @@ export class CutCardsComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit(): void {
     console.info(this.itemList);
+    this.itemList.forEach((item, index)=>{
+      item.top = 20
+      item.left = index * 20
+      item.zIndex = index
+    })
   }
 
 
