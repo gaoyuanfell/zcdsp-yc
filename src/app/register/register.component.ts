@@ -75,9 +75,8 @@ export class RegisterComponent implements OnInit {
     this.user.base64_pwd = Base64.encode(this.user.password);
     const obj = this.user;
     this._publicService.register(obj).subscribe(res => {
-      if (res.success) {
-        // this._notification.warning('注册成功', '请登录');
-        this.router.navigate(['/login'], {
+      if (res.success === 200) {
+        this.router.navigate(['/'], {
           queryParams: {
             'user_name': this.user.user_name
           }

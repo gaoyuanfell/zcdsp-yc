@@ -120,6 +120,9 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
         this.title = params.title;
         this._scrollService.setScrollTopByElement(this.containerFullRef.nativeElement, document.getElementById(params.title));
       }
+      if(params.user_name) {
+        this.userName = params.user_name;
+      }
     })
 
   }
@@ -212,11 +215,12 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
   _valid = false;
   order() {
     this._valid = false;
+    this.img_code = '';
     this.imgCode_vertify();
     this._dialog.open(this.code_template_ref, {title: '请您输入图形验证码', flag: true, async: true}).subscribe((data: any) => {
       // 点击确定后 触发
-      // && this.img_code
-      if (data ) {
+      //
+      if (data && this.img_code) {
         this._valid = true;
         let obj = {
           company_name: this.company_name,
