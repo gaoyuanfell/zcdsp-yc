@@ -77,28 +77,35 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
   domain;
   arrow = false;
   keyupEvent;
+  login_show = false;
 
   ngOnInit() {
     this.verifyCode();
     // 滚动条在哪里 就监听哪里
     this.renderer.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
+
+      if (this.containerFullRef.nativeElement.scrollTop > 0 && !this.login_show) {
+        this.renderer.removeClass(this.loginRef.nativeElement, 'login_Show')
+        this.renderer.addClass(this.loginRef.nativeElement, 'login_Hide')
+      }
+
+
+      // 顶部箭头
       if (this.containerFullRef.nativeElement.scrollTop > 860) {
         this.arrow = true;
       } else {
         this.arrow = false;
       }
+
       if (this.containerFullRef.nativeElement.scrollTop > 3300) {
            this.renderer.addClass(this.footer.nativeElement, 'footerTransition')
            this.renderer.addClass(this.loginRef.nativeElement, 'loginTransition')
-           this.footer.nativeElement.style.transition="all 1s"
-            this.loginRef.nativeElement.style.transition="all 1s"
 
       } else {
         this.renderer.removeClass(this.footer.nativeElement, 'footerTransition')
         this.renderer.removeClass(this.loginRef.nativeElement, 'loginTransition')
-        this.footer.nativeElement.style.transition="all 1s"
-        this.loginRef.nativeElement.style.transition="all 1s"
       }
+
     });
 
 
@@ -115,7 +122,6 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
 
 
     this.route.queryParams.subscribe((params)=> {
-      console.log(params)
       if (params.title) {
         this.title = params.title;
         this._scrollService.setScrollTopByElement(this.containerFullRef.nativeElement, document.getElementById(params.title));
@@ -164,10 +170,7 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
   customer_name;
   phone;
   companyData() {
-    console.log(this.company_name)
-    console.log(!this.company_name)
     this.companyTrue = !this.company_name
-    console.log(this.companyTrue)
   }
 
   customerData() {

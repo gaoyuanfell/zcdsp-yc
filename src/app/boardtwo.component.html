@@ -332,7 +332,7 @@
     </div>
 
     <!--定位在最下面的登录-->
-    <div class="login" #login>
+    <div class="login" #login [ngClass]="{'login_Show': login_show , 'login_Hide':!login_show && (containerFullRef.nativeElement.scrollTop > 0) }">
 
       <div class="login_box">
         <input type="text" placeholder="请输入用户名" [(ngModel)]="userName" (ngModelChange)="userData()"  [ngClass]="{ userOn: userTrue}" class="username input-color">
@@ -372,12 +372,17 @@
       <img src="https://img.zcdsp.com/zcmobi-assets/index/qq.png" alt="" />
     </a>
    </div>
-  <div class="back">
-    <a _ngcontent-c1="" href="http://v3.zcmobi.com" target="_blank" title="登录智橙3.0">
+  <!--<div class="back">-->
+    <!--<a _ngcontent-c1="" href="http://v3.zcmobi.com" target="_blank" title="登录智橙3.0">-->
+      <!--<img src="https://img.zcdsp.com/zcmobi-assets/index/dhj.png" alt="" />-->
+    <!--</a>-->
+  <!--</div>-->
+  <div class="back" (click)="login_show = !login_show ">
+    <a>
       <img src="https://img.zcdsp.com/zcmobi-assets/index/dhj.png" alt="" />
     </a>
   </div>
-  <div class="back" *ngIf="arrow">
+  <div class="back" *ngIf="arrow" >
     <a [ngClass]="{'active': hash === 'home'}" (click)="scrollTop()">
       <img src="https://img.zcdsp.com/zcmobi-assets/index/up.png" alt="">
     </a>

@@ -83,7 +83,7 @@
 
 .login{position: fixed; bottom: 0px; height: 68px; width: 100%; background:  url("https://img.zcdsp.com/zcmobi-assets/index/login_cont_bg.jpg") repeat; padding-top: 15px;}
 .login .login_box{width: 1200px; margin: 0 auto; position: relative;}
-.login .login_box input{background: #fff; width: 210px; color: #333333; font-size: 14px; border: 1px solid #666666; height: 36px; text-indent: 10px; margin-right: 10px;}
+.login .login_box input{background: #fff; width: 210px; color: black; font-size: 14px; border: 1px solid #666666; height: 36px; text-indent: 10px; margin-right: 10px;}
 .login .login_box .validate{width: 106px;}
 .login .login_box span{width: 106px; cursor: pointer; color: #333333; text-decoration: underline; font-size: 14px; margin-left: 10px;}
 .login .login_box .login_btn{ position: absolute; right: 0; top: 0px;}
@@ -121,7 +121,7 @@
 
 /*联系*/
 .connect{position: relative; margin-bottom: 30px;}
-.connect input{background: #fff; width: 440px; height: 40px; color: #333333; border: 1px solid #7985ac; text-indent: 40px;}
+.connect input{background: #fff; width: 440px; height: 40px; color: black; border: 1px solid #7985ac; text-indent: 40px;}
 .connect i{ position: absolute; left: 10px; color: #b9b9b9; font-size: 20px; top: 10px;}
 .connect-btn{ width: 440px; height: 40px; border: 1px solid #ffffff; background: none; text-align: center; line-height: 40px; color: #efefef; font-size: 18px; cursor: pointer;
   &:disabled {
@@ -152,7 +152,7 @@ a.vertifyCode {
 
 input.input-color{
   &::-webkit-input-placeholder {
-    color: #eee;
+    color: #8e94a9;
   }
   &.userOn{
     border: 1px solid red !important;
@@ -230,11 +230,7 @@ input.input-color{
   font-size: 12px;
   width:100%;
 }
-.footerTransition{
-  height:22px;
-  line-height: 22px;
-}
-.loginTransition{height:80px}
+
 
 .successImg{
   > div {
@@ -271,6 +267,26 @@ li {
   //  background-color:#0fbefc;
   //}
 }
+}
+
+
+.footerTransition{
+  height:22px;
+  line-height: 22px;
+  transition: all 1s;
+}
+.loginTransition{
+  height:80px;
+  transition: all 1s;
+}
+
+.login_Show{
+  transform: translate(0, 0px);
+  transition: all 1s;
+}
+.login_Hide{
+  transform: translate(0, 68px);
+  transition: all 1s;
 }
 
 
