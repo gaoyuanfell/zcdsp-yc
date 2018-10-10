@@ -35,9 +35,7 @@
     <div class="container">
 
       <div class="banner" #home id="home">
-        <!--src/assets/index2/banner_bg.png-->
-        <!--<img src="https://img.zcdsp.com/zcmobi-assets/index/banner_bg.jpg">-->
-        <img src="assets/index2/banner_bg.png">
+        <img src="https://img.zcdsp.com/zcmobi-assets/index/banner_bg.jpg">
 
         <div class="banner_box">
 
@@ -103,137 +101,43 @@
         </div>
 
         <div class="menu_list">
-          <div (click)="isTrue= 'tool';isTrueChild = 'tool0'" [ngClass]="{'active': isTrue=== 'tool'}">工具类</div>
-          <div (click)="isTrue= 'game';isTrueChild = 'game0'" [ngClass]="{'active': isTrue=== 'game'}">游戏类</div>
-          <div (click)="isTrue= 'network';isTrueChild = 'network0'" [ngClass]="{'active': isTrue=== 'network'}">网服类</div>
-          <div (click)="isTrue= 'electric';isTrueChild = 'electric0'" [ngClass]="{'active': isTrue=== 'electric'}">电商类</div>
-          <div (click)="isTrue= 'money';isTrueChild = 'money0'" [ngClass]="{'active': isTrue=== 'money'}">金融类</div>
+          <div (click)="isTrue= 'tool';isTrueChild = 'tool0';success_obj = success_program[0][0];success_arr = success_program[0];change_head()" [ngClass]="{'active': isTrue=== 'tool'}">工具类</div>
+          <div (click)="isTrue= 'game';isTrueChild = 'game0';success_obj = success_program[1][0]; success_arr = success_program[1];change_head()" [ngClass]="{'active': isTrue=== 'game'}">游戏类</div>
+          <div (click)="isTrue= 'network';isTrueChild = 'network0';success_obj = success_program[2][0]; success_arr = success_program[2];change_head()" [ngClass]="{'active': isTrue=== 'network'}">网服类</div>
+          <div (click)="isTrue= 'electric';isTrueChild = 'electric0';success_obj = success_program[3][0]; success_arr = success_program[3];change_head()" [ngClass]="{'active': isTrue=== 'electric'}">电商类</div>
+          <div (click)="isTrue= 'money';isTrueChild = 'money0';success_obj = success_program[4][0]; success_arr = success_program[4];change_head()" [ngClass]="{'active': isTrue=== 'money'}">金融类</div>
         </div>
 
         <div style="width: 1000px; margin: 0 auto; position: relative;">
 
           <div style="margin-bottom: 30px; margin-left: 50px; margin-top: 85px;">
-            <div *ngIf="isTrue=== 'tool'">
-            <img src="assets/index2/tool.png" width="36" style="vertical-align: middle;">
-            <span style="vertical-align: middle; color: #fff; font-size: 26px; margin-left: 20px;">{{isTrueChild==='tool0' ? 'UC浏览器' : '快手'}}</span>
-            </div>
-            <div *ngIf="isTrue=== 'game'">
-              <img src="assets/index2/game.png" width="36" style="vertical-align: middle;">
-              <span style="vertical-align: middle; color: #fff; font-size: 26px; margin-left: 20px;">{{isTrueChild==='game0' ? '魔域' : ''}}</span>
-            </div>
-            <div *ngIf="isTrue=== 'network'">
-              <img src="assets/index2/network.png" width="36" style="vertical-align: middle;">
-              <span style="vertical-align: middle; color: #fff; font-size: 26px; margin-left: 20px;">{{isTrueChild==='network0' ? '饿了么' : '每日优鲜'}}</span>
-            </div>
-            <div *ngIf="isTrue=== 'electric'">
-              <img src="assets/index2/electric.png" width="36" style="vertical-align: middle;">
-              <span style="vertical-align: middle; color: #fff; font-size: 26px; margin-left: 20px;">{{isTrueChild==='electric0' ? '拼多多' : '网易考拉'}}</span>
-            </div>
-            <div *ngIf="isTrue=== 'money'">
-              <img src="assets/index2/money.png" width="36" style="vertical-align: middle;">
-              <span style="vertical-align: middle; color: #fff; font-size: 26px; margin-left: 20px;">{{isTrueChild==='money0' ? '拍拍贷' : '你我贷'}}</span>
-            </div>
+            <div [ngStyle]="{'background':'url('+success_obj.icon+') 0 -46px no-repeat'}" style="width:46px; height: 46px;display:inline-block;vertical-align: middle"></div>
+            <span style="vertical-align: middle; color: #fff; font-size: 26px; margin-left: 20px;">{{success_obj.name}}</span>
           </div>
 
           <div>
 
             <div  class="bgText">
-              <ul *ngIf="isTrueChild==='tool0'">
-                <li>营销目标：通过智橙平台精准广告推送，高效传递品牌信息，有效提升精准度和转化效果，为品牌带来更多有效用户。</li>
-                <li>投放平台：智橙移动端</li>
-                <li>CPC成本：0.20-0.30 元</li>
-                <li>激活成本：8.00 元</li>
-                <li>点击率：4%-6%</li>
-              </ul>
-              <ul *ngIf="isTrueChild==='tool1'">
-                <li>营销目标：通过智橙平台精准广告推送，高效传递品牌信息，有效提升精准度和转化效果，为品牌带来更多有效用户。</li>
-                <li>投放平台：智橙移动端</li>
-                <li>CPC成本：0.20-0.30 元</li>
-                <li>激活成本：8.00 元</li>
-                <li>点击率：4%-6%</li>
-              </ul>
-              <ul *ngIf="isTrueChild==='game0'">
-                <li>营销目标：通过智橙平台精准广告推送，高效传递品牌信息，有效提升精准度和转化效果，为品牌带来更多有效用户。</li>
-                <li>案例类型：游戏类</li>
-                <li>投放平台：智橙移动端</li>
-              </ul>
-              <ul *ngIf="isTrueChild==='network0'">
-                <li>营销目标：通过智橙平台精准广告推送，高效传递品牌信息， 有效提升精准度和转化效果，为品牌带来更多有效用户。</li>
-                <li>案例类型：网服类</li>
-                <li>投放平台：智橙移动端</li>
-              </ul>
-              <ul *ngIf="isTrueChild==='network1'">
-                <li>营销目标：通过智橙平台精准广告推送，高效传递品牌信息， 有效提升精准度和转化效果，为品牌带来更多有效用户。</li>
-                <li>案例类型：网服类</li>
-                <li>投放平台：智橙移动端</li>
-                <li>CPC成本：0.50元</li>
-                <li>激活成本：6元</li>
-                <li>点击率：2.50%</li>
-              </ul>
-              <ul *ngIf="isTrueChild==='electric0'">
-                <li>营销目标：通过智橙平台精准广告推送，高效传递品牌信息， 有效提升精准度和转化效果，为品牌带来更多有效用户。</li>
-                <li>案例类型：电商类</li>
-                <li>投放平台：智橙移动端</li>
-                <li>CPC成本：0.28元</li>
-                <li>激活成本：5元</li>
-                <li>点击率：3.52%</li>
-              </ul>
-              <ul *ngIf="isTrueChild==='electric1'">
-                <li>营销目标：通过智橙平台精准广告推送，高效传递品牌信息， 有效提升精准度和转化效果，为品牌带来更多有效用户。</li>
-                <li>案例类型：电商类</li>
-                <li>投放平台：智橙移动端</li>
-                <li>CPC成本：0.30元</li>
-                <li>激活成本：15元</li>
-              </ul>
-              <ul *ngIf="isTrueChild==='money0'">
-                <li>营销目标：通过智橙平台精准广告推送，高效传递品牌信息， 有效提升精准度和转化效果，为品牌带来更多有效用户。</li>
-                <li>案例类型：金融类</li>
-                <li>投放平台：智橙移动端</li>
-                <li>CPC成本：0.40元</li>
-                <li>点击率：2.50%</li>
-              </ul>
-              <ul *ngIf="isTrueChild==='money1'">
-                <li>营销目标：通过智橙平台精准广告推送，高效传递品牌信息，有效提升精准度和转化效果，为品牌带来更多有效用户。</li>
-                <li>案例类型：金融类</li>
-                <li>投放平台：智橙移动端</li>
-                <li>CPC成本：0.30-0.50元</li>
-                <li>激活成本：10-12元</li>
-                <li>点击率：3.00%-5.00%</li>
+              <ul>
+                <li>{{success_obj?.text?.type}}</li>
+                <li>{{success_obj?.text?.platform}}</li>
+                <li *ngIf="success_obj?.text?.cpc">{{success_obj?.text?.cpc}}</li>
+                <li *ngIf="success_obj?.text?.act">{{success_obj?.text?.act}}</li>
+                <li *ngIf="success_obj?.text?.cpr">{{success_obj?.text?.cpr}}</li>
               </ul>
             </div>
 
-            <div style=" height: 46px; padding-left: 50px; margin-top: 30px;" class="successImg">
-
-              <!--uc-->
-              <div style="background: url('https://img.zcdsp.com/zcmobi-assets/index/cont3_logo_uc.png') 0 0 no-repeat;" *ngIf="isTrue=== 'tool'" (click)="isTrueChild='tool0'" [ngClass]="{'active': isTrueChild=== 'tool0'}"></div>
-              <div style="background: url('https://img.zcdsp.com/zcmobi-assets/index/cont3_logo_e.png') 0 0 no-repeat;" *ngIf="isTrue=== 'network'" (click)="isTrueChild='network0'" [ngClass]="{'active': isTrueChild=== 'network0'}"></div>
-              <div style="background: url('https://img.zcdsp.com/zcmobi-assets/index/cont3_logo_pai.png') 0 0 no-repeat;" *ngIf="isTrue=== 'money'" (click)="isTrueChild='money0'" [ngClass]="{'active': isTrueChild=== 'money0'}"></div>
-              <div style="background: url('https://img.zcdsp.com/zcmobi-assets/index/cont3_logo_xian.png') 0 0 no-repeat;" *ngIf="isTrue=== 'network'" (click)="isTrueChild='network1'" [ngClass]="{'active': isTrueChild=== 'network1'}"></div>
-              <div style="background: url('https://img.zcdsp.com/zcmobi-assets/index/cont3_logo_dai.png') 0 0 no-repeat;" *ngIf="isTrue=== 'money'" (click)="isTrueChild='money1'" [ngClass]="{'active': isTrueChild=== 'money1'}"></div>
-              <div style="background: url('https://img.zcdsp.com/zcmobi-assets/index/cont3_logo_kuai.png')  0 0 no-repeat;" *ngIf="isTrue=== 'tool'" (click)="isTrueChild='tool1'" [ngClass]="{'active': isTrueChild=== 'tool1'}"></div>
-              <div style="background: url('https://img.zcdsp.com/zcmobi-assets/index/cont3_logo_ping.png')  0 0 no-repeat;" *ngIf="isTrue=== 'electric'" (click)="isTrueChild='electric0'" [ngClass]="{'active': isTrueChild=== 'electric0'}"></div>
-              <div style="background: url('https://img.zcdsp.com/zcmobi-assets/index/cont3_logo_bear.png') 0 0 no-repeat;" *ngIf="isTrue=== 'electric'" (click)="isTrueChild='electric1'" [ngClass]="{'active': isTrueChild=== 'electric1'}"></div>
-              <!--魔域-->
-              <div style="background: url('https://img.zcdsp.com/zcmobi-assets/index/cont3_logo_moyu.png') 0 0;" *ngIf="isTrue=== 'game'" (click)="isTrueChild='game0'" [ngClass]="{'active': isTrueChild=== 'game0'}"></div>
-
+            <div style=" height: 46px; padding-left: 50px; margin-top: 30px;" class="successImg" >
+              <div  *ngFor="let x of success_arr"  [ngStyle]="{'background':'url('+x.icon+') 0 0 no-repeat'}" (mouseleave)="scrollMunus()" (mouseenter)="isTrueChild = x.type;success_obj = x;scroll_index = x.index;scrollAdd()"   [ngClass]="{'active': isTrueChild=== x.type}"></div>
             </div>
 
           </div>
 
           <div style="width: 243px; height: 474px; background: url('https://img.zcdsp.com/zcmobi-assets/index/phone_bg.png') no-repeat; position: absolute; left: 747px; top: -25px; padding-left: 12px; padding-top: 57px;">
-
-            <div>
-
-              <img src="http://img.zcdsp.com/common/1f809a7a9ac7e8f2a0c6ab1e9466a32b.jpg" width="220" height="370" *ngIf="isTrueChild==='tool0'">
-              <img src="http://img.zcdsp.com/common/9ddefeff524898acd2a6992df9a0ee0c.jpg" width="220" height="370" *ngIf="isTrueChild==='tool1'">
-              <img src="http://img.zcdsp.com/common/fdea634cdac8fa30ce468cf34b590829.jpg" width="220" height="370" *ngIf="isTrueChild==='game0'">
-              <img src="http://img.zcdsp.com/common/af7d5d135a5f7f70f7123214686066bb.jpg" width="220" height="370" *ngIf="isTrueChild==='network0'">
-              <img src="http://img.zcdsp.com/common/eb3de8e877a9119e92b7ec9d2b131e13.jpg" width="220" height="370" *ngIf="isTrueChild==='network1'">
-              <img src="http://img.zcdsp.com/common/8a978bbc9e41d2b897c4c7982aa1b50d.jpg" width="220" height="370" *ngIf="isTrueChild==='electric0'">
-              <img src="http://img.zcdsp.com/common/43f3410b2a17eedd8d6201ed059047d9.jpg" width="220" height="370" *ngIf="isTrueChild==='electric1'">
-              <img src="http://img.zcdsp.com/common/d57540d58befc5c680f82f3717734a25.jpg" width="220" height="370" *ngIf="isTrueChild==='money0'">
-              <img src="http://img.zcdsp.com/common/4899ea625a7a279f6d5f8d8bedb25581.jpg" width="220" height="370" *ngIf="isTrueChild==='money1'">
-
+            <div style="overflow: hidden;height: 370px">
+              <div #imgParent style="transition: all 1s">
+                <img [src]="y.bg"  *ngFor="let y of success_arr"  width="220" height="370">
+              </div>
             </div>
 
           </div>

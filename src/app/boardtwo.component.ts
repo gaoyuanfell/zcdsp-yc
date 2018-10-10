@@ -57,6 +57,7 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
 
   @ViewChild('code_template', {read: TemplateRef}) code_template_ref: TemplateRef<any>;
   @ViewChild('containerFull') containerFullRef: ElementRef;
+  @ViewChild('imgParent') imgParentRef: ElementRef;
   @ViewChild('footer') footer: ElementRef;
   @ViewChild('login') loginRef: ElementRef;
   // @ViewChild('containerFull', {read: ElementRef}) containerFull: ElementRef<any>;
@@ -80,6 +81,9 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
   login_show = false;
 
   ngOnInit() {
+    this.scrollSetInterval();
+
+
     this.verifyCode();
     // 滚动条在哪里 就监听哪里
     this.renderer.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
@@ -274,4 +278,198 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.keyupEvent.unsubscribe()
   }
+
+
+  // 成功方案
+  success_program = [
+    [
+      {
+        'name': 'UC浏览器',
+        'icon': 'https://img.zcdsp.com/zcmobi-assets/index/cont3_logo_uc.png',
+        'bg': 'http://img.zcdsp.com/common/1f809a7a9ac7e8f2a0c6ab1e9466a32b.jpg',
+        'type': 'tool0',
+        'index': '0',
+        'text': {
+          'type': '案例类型：工具类',
+          'platform': '投放平台：智橙移动端',
+          'cpc': 'CPC成本：0.56 元',
+          'act': '激活成本：5 元',
+          'cpr':'点击率：8.00%'
+        }
+      },
+      {
+        'name': '快手',
+        'icon': 'https://img.zcdsp.com/zcmobi-assets/index/cont3_logo_kuai.png',
+        'bg': 'http://img.zcdsp.com/common/9ddefeff524898acd2a6992df9a0ee0c.jpg',
+        'type': 'tool1',
+        'index': '1',
+        'text': {
+          'type': '案例类型：工具类',
+          'platform': '投放平台：智橙移动端',
+          'cpc': 'CPA成本：<5元',
+          'act':'日均新增用户：500+'
+        }
+      }
+    ],
+    [
+      {
+        'name': '魔域',
+        'icon': 'https://img.zcdsp.com/zcmobi-assets/index/cont3_logo_moyu.png',
+        'bg': 'http://img.zcdsp.com/common/fdea634cdac8fa30ce468cf34b590829.jpg',
+        'type': 'game0',
+        'index': '0',
+        'text': {
+          'type': '案例类型：游戏类',
+          'platform': '投放平台：智橙移动端',
+          'cpc': 'CPC成本：0.48元',
+          'act':'激活成本：39元',
+          'cpr':'点击率：1.76%'
+        }
+      }
+    ],
+    [
+      {
+        'name': '饿了么',
+        'icon': 'https://img.zcdsp.com/zcmobi-assets/index/cont3_logo_e.png',
+        'bg': 'http://img.zcdsp.com/common/af7d5d135a5f7f70f7123214686066bb.jpg',
+        'type': 'network0',
+        'index': '0',
+        'text': {
+          'target': '营销目标：通过智橙平台精准广告推送，高效传递品牌信息，有效提升精准度和转化效果，为品牌带来更多有效用户。',
+          'type': '案例类型：网服类',
+          'platform': '投放平台：智橙移动端',
+          'cpc': 'CPC成本：0.38元',
+          'act':'激活成本：6元',
+          'cpr':'点击率：3.4%'
+        }
+      },
+      {
+        'name': '每日优鲜',
+        'icon': 'https://img.zcdsp.com/zcmobi-assets/index/cont3_logo_xian.png',
+        'bg': 'http://img.zcdsp.com/common/eb3de8e877a9119e92b7ec9d2b131e13.jpg',
+        'type': 'network1',
+        'index': '1',
+        'text': {
+          'type': '案例类型：网服类',
+          'platform': '投放平台：智橙移动端',
+          'cpc': 'CPC成本：0.50元',
+          'act':'激活成本：6元',
+          'cpr':'点击率：2.50%'
+        }
+      }
+    ],
+    [
+      {
+        'name': '拼多多',
+        'icon': 'https://img.zcdsp.com/zcmobi-assets/index/cont3_logo_ping.png',
+        'bg': 'http://img.zcdsp.com/common/8a978bbc9e41d2b897c4c7982aa1b50d.jpg',
+        'type':'electric0',
+        'index': '0',
+        'text': {
+          'type': '案例类型：电商类',
+          'platform': '投放平台：智橙移动端',
+          'cpc': 'CPC成本：0.28元',
+          'act':'激活成本：5元',
+          'cpr':'点击率：3.52%'
+        }
+      },
+      {
+        'name': '网易考拉',
+        'icon': 'https://img.zcdsp.com/zcmobi-assets/index/cont3_logo_bear.png',
+        'bg': 'http://img.zcdsp.com/common/43f3410b2a17eedd8d6201ed059047d9.jpg',
+        'type':'electric1',
+        'index': '1',
+        'text': {
+          'type': '案例类型：电商类',
+          'platform': '投放平台：智橙移动端',
+          'cpc': 'CPC成本：0.30元',
+          'act':'激活成本：15元',
+        }
+      }
+    ],
+    [
+      {
+        'name': '拍拍贷',
+        'icon': 'https://img.zcdsp.com/zcmobi-assets/index/cont3_logo_pai.png',
+        'bg': 'http://img.zcdsp.com/common/d57540d58befc5c680f82f3717734a25.jpg',
+        'type':'money0',
+        'index': '0',
+        'text': {
+          'type': '案例类型：金融类',
+          'platform': '投放平台：智橙移动端',
+          'cpc': 'CPC成本：0.40元',
+          'act':'点击率：2.50%',
+        }
+      },
+      {
+        'name': '你我贷',
+        'icon': 'https://img.zcdsp.com/zcmobi-assets/index/cont3_logo_dai.png',
+        'bg': 'http://img.zcdsp.com/common/4899ea625a7a279f6d5f8d8bedb25581.jpg',
+        'type':'money1',
+        'index': '1',
+        'text': {
+          'type': '案例类型：金融类',
+          'platform': '投放平台：智橙移动端',
+          'cpc':' CPC成本：0.30-0.50元',
+          'act':'激活成本：10-12元',
+          'cpr':'点击率：3.00%-5.00%',
+        }
+      }
+    ],
+  ]
+  success_obj = this.success_program[0][0];
+  success_arr = this.success_program[0];
+  scroll_index = 0;
+  scrollAdd() {
+    clearInterval(this.time);
+    this.imgParentRef.nativeElement.style.transform = `translate(0, ${-370 * this.scroll_index}px)`;
+
+  }
+  scrollMunus() {
+    this.time = setInterval( ()=> {
+      this.setIntervalFun();
+    }, 1000)
+  }
+// 切换工具的时候
+  change_head(){
+    this.scroll_index = 0;
+    this.imgParentRef.nativeElement.style.transform = `translate(0, ${-370 * 0}px)`;
+  }
+  time;
+  timeFlag = true;   // 开关
+  setIntervalFun() {
+    // 2张或者以上图片才滑动
+    if(this.success_arr.length > 1) {
+
+
+      if (this.timeFlag) {
+        if(this.scroll_index < this.success_arr.length - 1) {
+          this.scroll_index ++;
+          this.imgParentRef.nativeElement.style.transform = `translate(0, ${-370 * this.scroll_index}px)`;
+        } else {
+          this.timeFlag = false;
+        }
+      } else {
+         if (this.scroll_index > 0) {
+           this.scroll_index --;
+           this.imgParentRef.nativeElement.style.transform = `translate(0, ${-370 * this.scroll_index}px)`;
+         } else {
+           this.timeFlag = true;
+         }
+      }
+    this.success_obj = this.success_arr[this.scroll_index];
+    this.isTrueChild = this.success_obj.type;
+    }
+  }
+  scrollSetInterval() {
+    this.time = setInterval( ()=> {
+      this.setIntervalFun();
+    }, 1000)
+  }
+
+
+
+
+
+
 }

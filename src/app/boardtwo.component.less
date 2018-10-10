@@ -56,7 +56,7 @@
 .container{ margin-top: 60px;}
 .banner{ position: relative; min-width: 1200px;}
 .banner>img{ display: block; width: 100%; min-width: 1200px;}
-.banner .banner_box{position: absolute; width: 70%; left: 15%; bottom: 50px; display: flex;}
+.banner .banner_box{position: absolute; width: 70%; left: 15%; bottom: 60px; display: flex;}
 .banner .banner_list{flex: 1; text-align: center;}
 .banner .banner_list p{ color: #fff; font-size: 20px; font-weight: 600; margin-top: 20px;}
 .banner .banner_list span{ color: #fff; font-size: 16px; margin-top: 10px;}
@@ -248,10 +248,12 @@ input.input-color{
   width: 747px;
   height: 245px;
   background: url('https://img.zcdsp.com/zcmobi-assets/index/success_bg.png') no-repeat;
-  padding: 0 35px;
+  padding: 0 70px;
   display: flex;
   align-items: center;
-  ul {}
+  ul {
+    margin-top: -20px;
+  }
 li {
   line-height: 32px;
   color:white;
@@ -287,6 +289,10 @@ li {
 .login_Hide{
   transform: translate(0, 68px);
   transition: all 1s;
+}
+
+@media screen and(max-width: 1366px) {
+  .banner .banner_box{bottom: 20px; }
 }
 
 
