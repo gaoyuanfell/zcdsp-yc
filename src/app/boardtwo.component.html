@@ -274,21 +274,21 @@
           <div>
 
             <div class="connect">
-              <input type="text" placeholder="企业名称(必填)" [(ngModel)]="company_name" (input)="companyData()" class="input-color" [ngClass]="{ userOn: companyTrue}">
+              <input type="text" placeholder="企业名称(必填)" [(ngModel)]="company_name" (ngModelChange)="companyData()" class="input-color" [ngClass]="{ userOn: companyTrue}">
 
               <i class="zcdsp-icon">&#xe66a;</i>
 
             </div>
 
             <div class="connect">
-              <input type="text" placeholder="姓名(必填)" [(ngModel)]="customer_name" (input)="customerData()"  class="input-color" [ngClass]="{ userOn: customerTrue}">
+              <input type="text" placeholder="姓名(必填)" [(ngModel)]="customer_name" (ngModelChange)="customerData()"  class="input-color" [ngClass]="{ userOn: customerTrue}">
 
               <i class="zcdsp-icon">&#xe633;</i>
 
             </div>
 
             <div class="connect">
-              <input type="text" placeholder="以1开头的11位手机号码(必填)" [(ngModel)]="phone" (input)="phoneData()" class="input-color" [ngClass]="{ userOn: phoneTrue}">
+              <input type="text" placeholder="以1开头的11位手机号码(必填)" [(ngModel)]="phone" (ngModelChange)="phoneData()" class="input-color" [ngClass]="{ userOn: phoneTrue}">
 
               <i class="zcdsp-icon">&#xe63b;</i>
 
@@ -335,9 +335,9 @@
     <div class="login" #login>
 
       <div class="login_box">
-        <input type="text" placeholder="请输入用户名" [(ngModel)]="userName" (input)="userData()"  [ngClass]="{ userOn: userTrue}" class="username input-color">
-        <input type="password" placeholder="密码"  class="username input-color" [(ngModel)]="passWord" (input)="passData()"  [ngClass]="{ userOn :passTrue}" autocomplete="off">
-        <input type="text" maxlength="4" placeholder="验证码" id="vertCode" [(ngModel)]="vertCode" (input)="codeData()"
+        <input type="text" placeholder="请输入用户名" [(ngModel)]="userName" (ngModelChange)="userData()"  [ngClass]="{ userOn: userTrue}" class="username input-color">
+        <input type="password" placeholder="密码"  class="username input-color" [(ngModel)]="passWord" (ngModelChange)="passData()"  [ngClass]="{ userOn :passTrue}" autocomplete="off">
+        <input type="text" maxlength="4" placeholder="验证码" id="vertCode" [(ngModel)]="vertCode" (ngModelChange)="codeData()"
                style="width: 100px;" [ngClass]="{ userOn: codeTrue}" autocomplete="off" class="validate input-color">
 
         <a href="javascript:;" class="vertifyCode">

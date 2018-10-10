@@ -164,7 +164,10 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
   customer_name;
   phone;
   companyData() {
+    console.log(this.company_name)
+    console.log(!this.company_name)
     this.companyTrue = !this.company_name
+    console.log(this.companyTrue)
   }
 
   customerData() {

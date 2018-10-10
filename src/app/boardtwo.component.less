@@ -121,7 +121,7 @@
 
 /*联系*/
 .connect{position: relative; margin-bottom: 30px;}
-.connect input{background: #fff; width: 440px; height: 40px; color: #999; border: 1px solid #7985ac; text-indent: 40px;}
+.connect input{background: #fff; width: 440px; height: 40px; color: #333333; border: 1px solid #7985ac; text-indent: 40px;}
 .connect i{ position: absolute; left: 10px; color: #b9b9b9; font-size: 20px; top: 10px;}
 .connect-btn{ width: 440px; height: 40px; border: 1px solid #ffffff; background: none; text-align: center; line-height: 40px; color: #efefef; font-size: 18px; cursor: pointer;
   &:disabled {
@@ -150,13 +150,19 @@ a.vertifyCode {
   border-radius: 4px;
 }
 
-input.input-color.userOn{
-  border: 1px solid red !important;
+input.input-color{
+  &::-webkit-input-placeholder {
+    color: #eee;
+  }
+  &.userOn{
+    border: 1px solid red !important;
 
     &::-webkit-input-placeholder {
       color: red;
     }
+  }
 }
+
 
 
 .code_all {
