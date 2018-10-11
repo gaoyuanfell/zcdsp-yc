@@ -109,7 +109,29 @@
     cursor: pointer;
     border-radius: 50%;
     img {
+      opacity: 1;
       vertical-align: middle;
+    }
+    span{
+      opacity: 0;
+      font-size: 14px;
+      color: #0677df;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 5px;
+      line-height: 20px;  // 会继承父亲的
+      width: 35px;
+      height: 100%;
+    }
+    &:hover {
+      img{
+        opacity: 0;
+        transform: translate(0,-50px);
+      }
+      span {
+        opacity: 1;
+        transform: translate(0,-50px);
+      }
     }
     a {
       display: block;

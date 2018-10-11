@@ -272,24 +272,29 @@
 </div>
 
 <div class="goback">
+
   <div class="back">
-    <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&amp;key=XzkzODAxNTMxNF8yOTU2NDZfNDAwNjcwOTkyN18yXw" target="_blank" title="点击与客服对话">
-      <img src="https://img.zcdsp.com/zcmobi-assets/index/qq.png" alt="" />
+    <a _ngcontent-c1="" href="http://v3.zcmobi.com" target="_blank" title="登录智橙3.0">
+      <img src="https://img.zcdsp.com/zcmobi-assets/index/computer.png" alt="" />
+      <span >旧版入口</span>
     </a>
-   </div>
-  <!--<div class="back">-->
-    <!--<a _ngcontent-c1="" href="http://v3.zcmobi.com" target="_blank" title="登录智橙3.0">-->
-      <!--<img src="https://img.zcdsp.com/zcmobi-assets/index/dhj.png" alt="" />-->
-    <!--</a>-->
-  <!--</div>-->
+  </div>
   <div class="back" (click)="login_show = !login_show ">
     <a>
       <img src="https://img.zcdsp.com/zcmobi-assets/index/dhj.png" alt="" />
+      <span >登录注册</span>
     </a>
   </div>
+  <div class="back">
+    <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&amp;key=XzkzODAxNTMxNF8yOTU2NDZfNDAwNjcwOTkyN18yXw" target="_blank" title="点击与客服对话">
+      <img src="https://img.zcdsp.com/zcmobi-assets/index/qq.png" alt="" />
+      <span >官方客服</span>
+    </a>
+   </div>
   <div class="back" *ngIf="arrow" >
     <a [ngClass]="{'active': hash === 'home'}" (click)="scrollTop()">
       <img src="https://img.zcdsp.com/zcmobi-assets/index/up.png" alt="">
+      <span >返回顶部</span>
     </a>
   </div>
 </div>
