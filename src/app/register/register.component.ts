@@ -76,11 +76,12 @@ export class RegisterComponent implements OnInit {
     const obj = this.user;
     this._publicService.register(obj).subscribe(res => {
       if (res.success === 200) {
-        this.router.navigate(['/'], {
-          queryParams: {
-            'user_name': this.user.user_name
-          }
-        });
+        // this.router.navigate(['/'], {
+        //   queryParams: {
+        //     'user_name': this.user.user_name
+        //   }
+        // });
+        this.router.navigate(['/home']);
       }
     }, error => {
       this.error = error.errorList[0]._code;
