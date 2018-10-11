@@ -224,10 +224,9 @@ export class AddCreativeComponent implements OnInit {
         }
       }
       if (logo) {
-        let logo_data = this.user_logo[logo.logo_size]
         logo.logo_src = '';
-        if(logo_data){
-          logo.logo_src = logo_data.logo_src
+        if(this.user_logo && this.user_logo[logo.logo_size]){
+          logo.logo_src = this.user_logo[logo.logo_size].logo_src
         }
       }
       return logo;
