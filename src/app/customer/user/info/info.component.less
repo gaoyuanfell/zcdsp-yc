@@ -94,17 +94,18 @@ table {
       }
       text-align: center;
       padding: 5px;
+       .tips {
+        position: absolute;
+        color: red;
+      }
       yc-select {
-        & + app-form-tips {
-          position: absolute;
+        & + span {
           margin-top: 30px;
-          margin-left: -130px;
+          margin-left: -200px;
         }
       }
       input-datepicker {
         & + span {
-          color: red;
-          position: absolute;
           margin-top: 30px;
           margin-left: -240px;
         }
