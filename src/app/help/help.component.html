@@ -35,15 +35,15 @@
   <div class="container clear">
     <div class="help_left">
       <div class="menu">
-        <div class="title"><img src="assets/help/liaoj.png" alt="">了解智橙</div>
+        <div class="title"><img src="https://img.zcdsp.com/zcmobi-assets/help//liaoj.png" alt="">了解智橙</div>
         <ul>
           <li [ngClass]="{'active':num == 0}" (click)="changeElement(0)">智橙简介</li>
           <li [ngClass]="{'active':num == 1}" (click)="changeElement(1)">视频教程</li>
-          <li [ngClass]="{'active':num == 2}" (click)="changeElement(2)">智橙移动平台用户操作手册</li>
+          <li [ngClass]="{'active':num == 2}" (click)="changeElement(2)">平台用户操作手册</li>
         </ul>
       </div>
       <div class="menu">
-        <div class="title"><img src="assets/help/zhangh.png" alt="">开户</div>
+        <div class="title"><img src="https://img.zcdsp.com/zcmobi-assets/help//zhangh.png" alt="">开户</div>
         <ul>
           <li [ngClass]="{'active':num == 3}" (click)="changeElement(3)">自助开户</li>
           <li [ngClass]="{'active':num == 4}" (click)="changeElement(4)">预约开户</li>
@@ -51,7 +51,7 @@
         </ul>
       </div>
       <div class="menu">
-        <div class="title"><img src="assets/help/guanl.png" alt="">账户&财务</div>
+        <div class="title"><img src="https://img.zcdsp.com/zcmobi-assets/help//guanl.png" alt="">账户&财务</div>
         <ul>
           <li [ngClass]="{'active':num == 6}" (click)="changeElement(6)">账户审核</li>
           <li [ngClass]="{'active':num == 7}" (click)="changeElement(7)">账户充值</li>
@@ -59,32 +59,32 @@
         </ul>
       </div>
       <div class="menu">
-        <div class="title"><img src="assets/help/touf.png" alt="">用户操作指南</div>
+        <div class="title"><img src="https://img.zcdsp.com/zcmobi-assets/help//touf.png" alt="">用户操作指南</div>
         <ul>
           <li [ngClass]="{'active':num == 9}" (click)="changeElement(9)">广告投放流程</li>
           <li [ngClass]="{'active':num == 10}" (click)="changeElement(10)">新建活动</li>
           <li [ngClass]="{'active':num == 11}" (click)="changeElement(11)">新建创意</li>
           <li [ngClass]="{'active':num == 12}" (click)="changeElement(12)">审核</li>
-          <li [ngClass]="{'active':num == 12}" (click)="changeElement(13)">审核规范（基于广告法的要求及媒体的特殊需求）</li>
-          <li [ngClass]="{'active':num == 12}" (click)="changeElement(14)">投放效果</li>
+          <li [ngClass]="{'active':num == 13}" (click)="changeElement(13)">审核规范</li>
+          <li [ngClass]="{'active':num == 14}" (click)="changeElement(14)">投放效果</li>
         </ul>
       </div>
       <div class="menu">
-        <div class="title"><img src="assets/help/genz.png" alt="">代理用户操作指南</div>
+        <div class="title"><img src="https://img.zcdsp.com/zcmobi-assets/help//genz.png" alt="">代理用户操作指南</div>
         <ul>
-          <li [ngClass]="{'active':num == 13}" (click)="changeElement(15)">新增客户</li>
-          <li [ngClass]="{'active':num == 14}" (click)="changeElement(16)">财务管理</li>
-          <li [ngClass]="{'active':num == 14}" (click)="changeElement(17)">客户投放</li>
-          <li [ngClass]="{'active':num == 14}" (click)="changeElement(18)">投放效果</li>
+          <li [ngClass]="{'active':num == 15}" (click)="changeElement(15)">新增客户</li>
+          <li [ngClass]="{'active':num == 16}" (click)="changeElement(16)">财务管理</li>
+          <li [ngClass]="{'active':num == 17}" (click)="changeElement(17)">客户投放</li>
+          <li [ngClass]="{'active':num == 18}" (click)="changeElement(18)">投放效果</li>
 
         </ul>
       </div>
 
       <div class="menu">
-        <div class="title"><img src="assets/help/went.png" alt="">FAQ</div>
+        <div class="title"><img src="https://img.zcdsp.com/zcmobi-assets/help//went.png" alt="">FAQ</div>
         <ul>
-          <li [ngClass]="{'active':num == 15}" (click)="changeElement(19)">常见问题</li>
-          <li [ngClass]="{'active':num == 15}" (click)="changeElement(20)">问题咨询</li>
+          <li [ngClass]="{'active':num == 19}" (click)="changeElement(19)">常见问题</li>
+          <li [ngClass]="{'active':num == 20}" (click)="changeElement(20)">问题咨询</li>
         </ul>
       </div>
     </div>
@@ -118,9 +118,11 @@
         <h2 class="title">智橙移动平台用户操作手册</h2>
         <div class="problem">
           <div class="subject">一、用户使用说明</div>
+          <p><i></i><a href="https://img.zcdsp.com/zcmobi-assets/help//daili-instruction-.pdf" target="_blank">链接🔗</a></p>
         </div>
         <div class="problem">
           <div class="subject">二、代理用户使用说明</div>
+          <p><i></i><a href="https://img.zcdsp.com/zcmobi-assets/help//user-use.pdf" target="_blank">链接🔗</a></p>
         </div>
       </div>
       <div *ngSwitchCase="3">
@@ -137,8 +139,8 @@
           <p><i></i>获取验证码：点击“获取验证码”按钮后，验证码将发送到上面填写的手机中，若未收到或已失效，60s后可重新获取；</p>
           <p><i></i>用户服务协议：查看无误后，勾选用户服务协议；</p>
           <p><i></i>注册：正确填写以上信息点击“注册”即可注册成功。</p>
-          <img src="assets/help/register-1.png" style="width:90%">
-          <img src="assets/help/register-2.png" style="margin-left:-45px;">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help//register-1.png" style="width:90%">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help//register-2.png" style="margin-left:-45px;">
         </div>
         <div class="problem">
           <div class="subject">二、登录</div>
@@ -147,13 +149,13 @@
           <p><i></i>密码：填写注册时设定的8~18位密码；</p>
           <p><i></i>验证码：输入右侧图片显示的验证码；</p>
           <p><i></i>登录：点击“快速登录”按钮</p>
-          <img src="assets/help/login.png">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help//login.png">
         </div>
         <div class="problem">
           <div class="subject">三、完善资料</div>
           <p>新注册用户，需完善资料后，方能进行投放</p>
           <p>1、点击“上传资质”按钮，进入用户信息页面；</p>
-          <img src="assets/help/shangchuanzizhi.png">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help//shangchuanzizhi.png">
           <p>2、填写基本信息（标*为必填项）</p>
           <p><i></i>公司名称：注册时填入的公司名称（需与营业执照保持一致）</p>
           <p><i></i>网站名称：该账号需要推广的网站的名称</p>
@@ -161,24 +163,24 @@
           <p><i></i>公司地址：公司所在地址</p>
           <p><i></i>行业分类：公司所属行业类别</p>
           <p><i></i>关联QQ：如需在腾讯系投放则需要填写腾讯开发平台上传应用时的登录QQ</p>
-          <img src="assets/help/kaihu-mes.png">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help//kaihu-mes.png">
           <p><i></i>密码：点击“修改密码”按钮会出现弹框，输入正确的原密码，并在输入新密码的位置输入一致的8~18位字母、数字、符合的组合，点击“确定”即可修改成功。</p>
-          <img src="assets/help/pwd.png">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help//pwd.png">
           <p>3、联系人（标*为必填项）</p>
           <p><i></i>联系人：该账户负责人，注册时已填写；</p>
           <p><i></i>联系电话：负责人的手机号码，可修改；</p>
           <p><i></i>联系邮箱：可与负责人取得联系的邮箱，可修改；</p>
-          <img src="assets/help/link-people.png">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help//link-people.png">
           <p>4、资质信息</p>
           <p><i></i>主体资质：需填入营业执照、法人身份证正反面、ICP备案信息的图片，并正确填写资质名称、编号或登记号、有效期。</p>
-          <img src="assets/help/zizhixinxi.png">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help//zizhixinxi.png">
           <p><i></i>行业资质：有特殊投放需求的，需要根据媒体要求填入行业资质信息。</p>
           <p><i></i>新增资质：点击可以填写多个资质信息</p>
           <p><i></i> 删除：删除当前资质及内容</p>
-          <img src="assets/help/hangyezizhi.png">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help//hangyezizhi.png">
           <p>5、品牌商标</p>
           <p><i></i>可以上传支持的尺寸的品牌上边，作为投放或广告主审核使用。</p>
-          <img src="assets/help/pinpailogo.png">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help//pinpailogo.png">
           <p>5、品牌商标</p>
           <p>用户信息填写成功后，点击提交按钮，账户即进入审核中，请耐心等待智橙移动审核！</p>
         </div>
@@ -187,11 +189,11 @@
         <h2 class="title">预约开户</h2>
         <div class="problem">
           <div class="subject">一、点击首页（http://yc.zcmobi.com/）联系我们	</div>
-          <img src="assets/help/order-1.png">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help//order-1.png">
         </div>
         <div class="problem">
           <div class="subject">二 填写公司名称、联系人姓名和手机号码，点击“预约顾问咨询”，智橙移动会在24小时内与您取得联系，届时请保持电话畅通。</div>
-          <img src="assets/help/order-2.png">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help//order-2.png">
         </div>
       </div>
       <div *ngSwitchCase="5">
@@ -206,7 +208,7 @@
         <h2 class="title">账户审核</h2>
         <div class="problem">
           <div class="subject">一、流程</div>
-          <img src="assets/help/zhanghushenhe.png" alt="">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help//zhanghushenhe.png" alt="">
         </div>
         <div class="problem">
           <div class="subject">二、 完善信息</div>
@@ -250,7 +252,7 @@
         <h2 class="title">充值</h2>
         <div class="problem">
           <div class="subject">一、充值流程</div>
-          <img src="assets/help/chongzhiliucheng.jpg" alt="">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help//chongzhiliucheng.jpg" alt="">
         </div>
         <div class="problem">
           <div class="subject">二、额度</div>
@@ -269,7 +271,7 @@
         <div class="problem">
           <div class="subject">一、开票</div>
           <p>1、开票流程</p>
-          <img src="assets/help/kaipiao.png">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help//kaipiao.png">
           <p>2、联系业务说明需要开具发票的类型，目前支持开具增值税专用发票和增值税普通发票这两种票；</p>
           <p>3、确认需要开具发票的金额，您可以选择按实际已消耗金额开票，或者按照充值金额开票（已开票金额不支持退款）。 </p>
           <p>4、以上信息确定后，智橙会操作开票，一般3个工作日内会完成寄票。 </p>
@@ -278,7 +280,7 @@
         <div class="problem">
           <div class="subject">二、退款</div>
           <p>1、流程</p>
-          <img src="assets/help/tuipiao.jpg" alt="">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help//tuipiao.jpg" alt="">
           <p>2、说明</p>
           <p><i></i>智橙暂不支持线上申请退款，若您需要申请退款请提前联系您的业务人员或客服，在收到您的退款申请后，智橙会核对退款金额，金额无误的情况下操作退款，但因公司审批流程及财务要求，一般会在月底操作当月退款需求，操作退款后，具体到账时间根据收款银行处理时效而定，一般2~7个工作日到账。</p>
           <p>3、问题咨询</p>
@@ -291,7 +293,7 @@
       <div *ngSwitchCase="9">
         <h2 class="title">广告投放流程</h2>
         <div class="problem">
-          <img src="assets/help/ad-liucheng.png" alt="">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help//ad-liucheng.png" alt="">
         </div>
       </div>
       <div *ngSwitchCase="10">
@@ -299,7 +301,7 @@
         <div class="problem">
           <div class="subject">新建活动</div>
           <p>活动相当于一个项目组，有相同投放目的广告可以放在同一活动中，便于管理。您可以通过导航栏“推广-新建活动”进入新建活动页面。</p>
-          <p><img src="assets/help/5.jpg" alt=""></p>
+          <p><img src="https://img.zcdsp.com/zcmobi-assets/help/5.jpg" alt=""></p>
         </div>
         <div class="problem">
           <div class="subject">一 、推广目标</div>
@@ -311,9 +313,9 @@
           <p>6、下载地址：填写可以下载APP的地址，通常是以HTTP或HTTPS开.apk结尾的URL地址。</p>
           <p>7、应用市场：应用宝下载，在腾讯系投放的时候需选择此项；直接下载，非腾讯系投放选此项。</p>
           <p>8、APP包类型：选择应用宝下载后，需要选择主线包和渠道包。主线包，表示应用宝中的主包；渠道包，为了区分投放效果，腾讯系支持分包，例如QQ空间和微信朋友圈可以下载不同的包。</p>
-          <img  src="assets/help/tuiguangmubiao.png" />
+          <img  src="https://img.zcdsp.com/zcmobi-assets/help/tuiguangmubiao.png" />
           <p>9、Apk上传：点击上传APP包后，系统会自动解析包的基本信息，并将解析后的结果填入APP包名、APP名称、APP版本、APP大小相应的位置。</p>
-          <img  src="assets/help/apk.png" />
+          <img  src="https://img.zcdsp.com/zcmobi-assets/help/apk.png" />
         </div>
         <div class="problem">
           <div class="subject">二 、活动设置</div>
@@ -323,37 +325,37 @@
           <p>投放频次：该活动下创意每天展示给同一用户的次数，建议3~5次为佳。</p>
           <p>投放日期：该活动中创意的投放周期。</p>
           <p>投放小时：不限，表示显示不限制投放时间；点击“选择时间段”，可以根据需求控制该活动中的创意在一天的哪些时间段参与竞价投放。</p>
-          <img  src="assets/help/huodongshezhi.png" />
+          <img  src="https://img.zcdsp.com/zcmobi-assets/help/huodongshezhi.png" />
         </div>
         <div class="problem">
           <div class="subject">三、定向设置</div>
           <p>支持地域定向、受众定向、受众行为、设备定向4个维度的定向，若四个维度都设置定向，则投放覆盖用户取4种定向的交集，即下图中红色线条覆盖的部分。</p>
-          <img  src="assets/help/dingxiang.png" />
+          <img  src="https://img.zcdsp.com/zcmobi-assets/help/dingxiang.png" />
           <p>1、快捷定向</p>
           <p>可以从下拉框中选择保存过的定向包作为该活动的定向直接使用。</p>
-          <img  src="assets/help/kuaijiedingxiang.png" />
+          <img  src="https://img.zcdsp.com/zcmobi-assets/help/kuaijiedingxiang.png" />
           <p>2、智能推荐</p>
           <p>智橙移动数据中心的处理，为用户推荐了符合该用户属性及投放需求的定向信息。</p>
           <p>3、地域定向</p>
           <p>用于指定该广告投放的地区。不限，表示不限制投放地区；点击“自定义”，可以根据省、一二线城市、LBS设定定向内容，三者只能选其一。</p>
-          <img  src="assets/help/diyudingxiang.png" />
+          <img  src="https://img.zcdsp.com/zcmobi-assets/help/diyudingxiang.png" />
 
 
           <p>4、受众定向</p>
           <p>用于指定该活动投放用户的属性。不限，表示不限制用户属性；点击“自定义”可以根据投放需求选择用户的年龄、性别、学历信息。</p>
-          <img  src="assets/help/shouzhongdingxiang.png" />
+          <img  src="https://img.zcdsp.com/zcmobi-assets/help/shouzhongdingxiang.png" />
 
           <p>5、受众行为</p>
           <p>用于指定该活动投放给有哪些兴趣的用户。行为分类，用于指定用户兴趣；行为指定，用于限定安装过某APP的用户为该活动的投放对象；行为过滤，用于限定没有安装过某APP的用户为该活动的投放对象。</p>
-          <img  src="assets/help/shouzhongxingwei.png" />
+          <img  src="https://img.zcdsp.com/zcmobi-assets/help/shouzhongxingwei.png" />
 
           <p>6、设备定向</p>
           <p>将广告投放给使用指定设备或设备具有指定属性的用户，包括设备品牌、浏览器、设备类型、操作系统、联网方式、运营商。</p>
-          <img  src="assets/help/shebeidingxiang.png" />
+          <img  src="https://img.zcdsp.com/zcmobi-assets/help/shebeidingxiang.png" />
 
           <p>7、保存定向包</p>
           <p>以上设定的定向内容，勾选后可以保存为定向包，方便后续投放中直接使用。</p>
-          <img  src="assets/help/baocundingxiangbao.png" />
+          <img  src="https://img.zcdsp.com/zcmobi-assets/help/baocundingxiangbao.png" />
 
         </div>
         <div class="problem">
@@ -368,7 +370,7 @@
       <div *ngSwitchCase="11">
         <h2 class="title">新建创意</h2>
         <div class="problem">
-          <img src="assets/help/new-creative.png">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/new-creative.png">
         </div>
         <div class="problem">
           <div class="subject">一、 选择活动</div>
@@ -380,19 +382,19 @@
           <p>2、更多媒体 选择后，可以查看所有可投媒体样式，可以根据需要投放。</p>
           <p><i></i>全部（媒体）：表示所有媒体，M、S、W表示媒体名称的首字母，便于快速找到媒体；搜索框中可以输入关键字，搜索媒体。</p>
           <p><i></i>全部（样式）：表示选中媒体的全部样式，1、 7表示样式尺寸的首个数字，例如100*200则会被归类到1 中。</p>
-          <img src="assets/help/toufangmeiti.png">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/toufangmeiti.png">
           <p>3、上传素材</p>
           <p><i></i>选中媒体和媒体样式后，可以点击“上传文件”上传符合要求的文件，在下面的文本框中输入广告标题和描述；</p>
           <p><i></i>点击“快速制图”可以进入快速制作素材页面；</p>
           <p><i></i>点击“创意库”可以选择历史该尺寸上传过的创意使用；</p>
-          <img src="assets/help/chuangyiku.png">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/chuangyiku.png">
           <p><i></i>上传广告图片并填写文案后样式如下，点击图片可以更换新的图片，点击“+”可以添加一组创意（最多可添加5组）；</p>
-          <img src="assets/help/push-ad.png">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/push-ad.png">
         </div>
         <div class="problem">
           <div class="subject">三、 出价</div>
           <p>上传创意后填写大于0小于1000且小数点后不大于2位小数的数字作为出价，该价格用于竞价，价格越高，获得的曝光量就会越多。</p>
-          <img src="assets/help/chujia.png">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/chujia.png">
         </div>
         <div class="problem">
           <div class="subject">四、 提交</div>
@@ -405,7 +407,7 @@
         <div class="problem">
           <div class="subject">一 、提交审核</div>
           <p>选中创意点击“批量修改”中的“提交审核”创意即进入审核中。</p>
-          <img src="assets/help/shenhe-1.png">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/shenhe-1.png">
         </div>
         <div class="problem">
           <div class="subject">二、审核通过</div>
@@ -414,7 +416,7 @@
         <div class="problem">
           <div class="subject">三、审核未通过</div>
           <p>创意素材或广告文案违反广告法，或带敏感词可能导致无法审核通过，需要根据要求修改素材，再重新提交审核。</p>
-          <img src="assets/help/shenhe-2.png">
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/shenhe-2.png">
         </div>
 
       </div>
@@ -531,34 +533,183 @@
         </div>
       </div>
       <div *ngSwitchCase="14">
-        <h2 class="title">查看数据</h2>
+        <h2 class="title">投放效果</h2>
+        <div class="problem">
+          <div class="subject">一、效果数据概要</div>
+          <p>为了更好的优化投放中的创意，平台支持准实时（有2~5分钟延迟）数据查询，可以根据需要查看或导出指定时间段的活动整体数据，创意数据、媒体数据、定向数据等。</p>
+        </div>
+        <div class="problem">
+          <div class="subject">二、名词解释</div>
+          <p>1、曝光量：广告被展现给受众的次数；</p>
+          <p>2、点击量：排除恶意点击后，广告被受众点击的次数；</p>
+          <p>3、点击率：广告被点击的比率（点击量/曝光量*100%）</p>
+          <p>4、点击均价：广告主为每次点击付出的平均花费（花费/点击量）</p>
+          <p>5、千次曝光均价：广告主为每1000次曝光付出的平均花费（花费/曝光量*1000）</p>
+          <p>6、花费：广告点击后产生的费用</p>
+        </div>
+        <div class="problem">
+          <div class="subject">三、查看效果数据</div>
+          <p>1、活动报表 可以从活动维度查询，各活动各时间段的相应数据信息。</p>
+          <p><i></i>导出：点击后，可以导出符合当前查询条件的数据信息；</p>
+          <p><i></i>时间筛选框：可以指定需要查询数据的时间范围；</p>
+          <p><i></i>活动下拉框：可以选择需要查询的活动；</p>
+          <p><i></i>点击向下展开箭头后，展开该活动分日期或小时的数据详情。</p>
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/shenhe-huodong.png">
+          <p>2、创意报表 可以从创意维度查询，各活动及创意各时间段的相应数据信息。</p>
+          <p><i></i>导出：点击后，可以导出符合当前查询条件的数据信息；</p>
+          <p><i></i>时间筛选框：可以指定需要查询数据的时间范围；</p>
+          <p><i></i>活动下拉框：可以选择需要查询的活动；</p>
+          <p><i></i>搜索框：可以输入创意名称或ID进行搜索；</p>
+          <p><i></i>点击向下箭头后，展开该创意分日期或小时的数据详情。</p>
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/shenhe-creative.png">
+          <p>3、时间报表 可以查询指定时间的投放数据</p>
+          <p><i></i>导出：点击后，可以导出符合当前查询条件的数据信息；</p>
+          <p><i></i>时间筛选框：可以指定需要查询数据的时间范围；</p>
+          <p><i></i>活动下拉框：可以选择需要查询的活动；</p>
+          <p><i></i>搜索框：可以输入创意名称或ID进行搜索；</p>
+          <p><i></i>点击向下箭头后，展开该日期小时投放数据。</p>
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/shenhe-time.png">
+          <p>4、地域报表可以查询活动投放的地域数据信息</p>
+          <p><i></i>导出：点击后，可以导出符合当前查询条件的数据信息；</p>
+          <p><i></i>时间筛选框：可以指定需要查询数据的时间范围；</p>
+          <p><i></i>活动下拉框：可以选择需要查询的活动；</p>
+          <p><i></i>搜索框：可以输入创意名称或ID进行搜索；</p>
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/shenhe-area.png">
+
+        </div>
       </div>
       <div *ngSwitchCase="15">
-        <h2 class="title">问题答疑</h2>
+        <h2 class="title">新增客户</h2>
         <div class="problem">
-          <div class="subject">一、为什么设置每日预算上限，实际投放的时候会有超过预算的情况?</div>
-          <p>由于数据同步有时间差，最终消耗金额会比实际预算金额高10%左右，智橙移动平台会严格控制每日耗在您设置上限预算的110%内，请充分预估并合理设置好每日预算金额和出价。</p>
+          <div class="subject">点击导航栏的用户模块，进入“客户管理”列表</div>
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/add-customer1.png">
         </div>
         <div class="problem">
-          <div class="subject">二、新建活动的时候设置了匀速，但还是提前走完了是什么原因?</div>
-          <p>活动预算过少、或者每日预算过少的情况下，虽然设置匀速投放，也会导致过早消耗完毕。</p>
+          <div class="subject">一、账户信息（表*为必填项）表</div>
+          <p>1、账号：需填写邮箱作为登录账号，为了方便接收查看验证信息，建议使用公共邮箱；</p>
+          <p>2、密码：为提高账户安全性，需填写8~18位字母、数字、符号的组合作为密码。</p>
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/add-customer2.png">
+          <p></p>
+          <p></p>
         </div>
         <div class="problem">
-          <div class="subject">三、为什么广告的展现量那么少?</div>
-          <p>1)定向设置的过于严格，导致可以投放的用户太少，建议修改定向，圈定更多可投放用户；</p>
-          <p>2)出价太低，竞价失败，建议逐渐加价，实时查看流量增长情况；</p>
-          <p>3)项目预算或日最高预算过低，建议提高预算；</p>
-          <p>4)投放时段范围太小，无法放量投放，建议扩大投放小时；</p>
-          <p>5)如果您排除了以上原因，流量依然很少，请咨询您的投放优化师。</p>
+          <div class="subject">二、基本信息（标*为必填项）</div>
+          <p>1、公司名称：注册时填入的公司名称（需与营业执照保持一致）</p>
+          <p>2、网站名称：该账号需要推广的网站的名称</p>
+          <p>3、推广域名：该账号需要推广的网站的域名</p>
+          <p>4、公司地址：公司所在地址</p>
+          <p>5、行业分类：公司所属行业类别</p>
+          <p>6、关联QQ：如需在腾讯系投放则需要填写腾讯开发平台上传应用时的登录QQ</p>
+          <p></p>
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/add-customer3.png">
         </div>
         <div class="problem">
-          <div class="subject">四、活动中的投放链接和APP信息可以修改吗?</div>
-          <p>新建活动的时候根据选择的投放目的需要上传投放链接或者APP信息，这部分信息一旦新建创意后就不可以修改了。</p>
+          <div class="subject">三、联系人（标*为必填项）</div>
+          <p>1、联系人：该账户负责人</p>
+          <p>2、联系电话：负责人的联系电话（可修改）</p>
+          <p>3、联系邮箱：可与负责人取得联系的邮箱（可修改）</p>
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/add-customer4.png">
         </div>
         <div class="problem">
-          <div class="subject">五、创意投放的广告文案和素材可以修改吗？</div>
-          <p>可以修改，但文案和素材发生修改，投放中的创意会暂停投放，创意需要重新提交审核。</p>
+          <div class="subject">四、资质信息</div>
+          <p>1、主体资质（必填）：需填入营业执照、法人身份证正反面、ICP备案信息的图片，并正确填写资质名称、编号或登记号、有效期。</p>
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/add-customer5.png">
+
+          <p>2、联系电话：负责人的联系电话（可修改）</p>
+          <p><i></i>行业资质：有特殊投放需求的，需要根据媒体要求填入行业资质信息。</p>
+          <p><i></i>新增资质：点击可以填写多个资质信息</p>
+          <p><i></i>删除：删除当前资质及内容</p>
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/add-customer6.png">
         </div>
+        <div class="problem">
+          <div class="subject">五、品牌商标</div>
+          <p>可根据投放需求上传品牌logo的图片及品牌名称。</p>
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/add-customer7.png">
+        </div>
+        <div class="problem">
+          <div class="subject">六、提交</div>
+          <p>以上信息填写完整后点击“提交”按钮即可保存已填写内容。 （通常1个工作日内会完成审核）</p>
+        </div>
+
+      </div>
+
+      <div *ngSwitchCase="16">
+        <h2 class="title">财务管理</h2>
+        <div class="problem">
+          <div class="subject">一：流水</div>
+          <p>点击导航栏“财务”进入“流水”页面，可以查询账户历史资金流动情况。</p>
+          <p><i></i>账户余额：该账户可用余额</p>
+          <p><i></i>累计充值：该账户充值的总金额</p>
+          <p><i></i>累计配送：该账户配送的总金额</p>
+          <p><i></i>累计退款：该账户退款的总金额</p>
+          <p><i></i>时间选框：可以查看指定时间段资金流动情况</p>
+          <p><i></i>类型选框：勾选后，列表只显示被勾选类型的金额。</p>
+          <p><i></i>列表：时间列，显示资金发生变动的日期和时间；类型列，显示资金变动所属类型；金额列，显示操作金额；目标账户，资金来源或流出账户；目标公司，资金来源或流出公司名；全部合计，显示符合该搜索条件的汇总数据。</p>
+          <p><i></i>导出：将表格中的信息以Excel格式下载下来</p>
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/money-1.png">
+        </div>
+        <div class="problem">
+          <div class="subject">二：客户流水</div>
+          <p>显示客户账户中资金变动的情况。</p>
+          <p><i></i>客户余额：该代理所有客户账户内的可用金额汇总</p>
+          <p><i></i>总转入：转入客户账户的总金额</p>
+          <p><i></i>总转出：从客户账户转出的总金额</p>
+          <p><i></i>总消耗：所有客户消耗的总金额</p>
+          <p><i></i>搜索框：可以输入客户名称搜索指定内容</p>
+          <p><i></i>列表：客户名称，用于显示客户的公司名称；账号，显示客户登录账号；总转入，该客户历史所有转入金额；总转出，显示该客户历史所有转出金额；总消耗，显示客户历史所有消耗金额；客户余额，显示客户剩余可用金额；操作-转入，可以从代理账户给该客户转钱；操作-转出，将客户账户中的钱转到代理账户；全部合计，显示符合该搜索条件的汇总数据。</p>
+          <p><i></i>导出：将表格中的信息以Excel格式下载下来</p>
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/money-2.png">
+          <p><i></i>转账 点击需要操作转账账户后的转入或者转出，在弹框中“操作金额”后的输入框中填入金额 点击确定按钮即可完成转账。</p>
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/money-3.png">
+          <p><i></i>点击列表中客户名称列的双箭头，展开的列表可以查看该账号历史资金流动情况。</p>
+          <p><i></i>时间选框：可以查看指定时间段转账情况</p>
+          <p><i></i>类型选框：勾选后，列表只显示被勾选类型的金额。</p>
+          <p><i></i>列表：时间列，显示资金发生变动的日期和时间；类型列，显示资金变动所属类型；金额列，显示操作金额；目标账户，资金来源或流出账户；目标公司，资金来源或流出公司名</p>
+          <p><i></i>导出：将表格中的信息以Excel格式下载下来</p>
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/money-4.png">
+        </div>
+      </div>
+      <div *ngSwitchCase="17">
+        <h2 class="title">客户投放</h2>
+        <div class="problem">
+          <p>为客户操作投放前，需先在客户列表找到该客户，并进入客户后台广告投放主要分3步：</p>
+          <p>1、新建活动（点击跳转至“用户操作指南-创建活动”页）</p>
+          <p>2、新建创意（点击跳转至“用户操作指南-新建创意”页）</p>
+          <p>3、审核（点击跳转至“用户操作指南-提交审核”页）</p>
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/kehutoufang.png">
+        </div>
+      </div>
+      <div *ngSwitchCase="18">
+        <h2 class="title">投放效果</h2>
+        <div class="problem">
+          <p>点击导航栏的“报表”进入客户报表页，可以查看所有客户指定时间段内的投放数据信息。</p>
+          <p>如何查看指定客户更详细数据？</p>
+          <p><i></i>点点击列表操作栏“进入账户”按钮，进入客户投放后台，通过报表中的数据查看相应的详细数据。</p>
+          <img src="https://img.zcdsp.com/zcmobi-assets/help/toufangxiaoguo.png">
+        </div>
+      </div>
+
+      <div *ngSwitchCase="19">
+        <h2 class="title">常见问题</h2>
+        <div class="problem">
+          <p>1、为什么设置每日预算上限，实际投放的时候会有超过预算的情况?</p>
+          <p><i></i>由于数据同步有时间差，最终消耗金额会比实际预算金额高10%左右，智橙移动平台会严格控制每日耗在您设置上限预算的110%内，请充分预估并合理设置好每日预算金额和出价。</p>
+          <p>2、新建活动的时候设置了匀速，但还是提前走完了是什么原因?</p>
+          <p><i></i>活动预算过少、或者每日预算过少的情况下，虽然设置匀速投放，也会导致过早消耗完毕。</p>
+          <p>3、为什么广告的展现量那么少?</p>
+          <p><i></i>1)定向设置的过于严格，导致可以投放的用户太少，建议修改定向，圈定更多可投放用户；</p>
+          <p><i></i>2)出价太低，竞价失败，建议逐渐加价，实时查看流量增长情况；</p>
+          <p><i></i>3)项目预算或日最高预算过低，建议提高预算；</p>
+          <p><i></i>4)投放时段范围太小，无法放量投放，建议扩大投放小时；</p>
+          <p><i></i>5)如果您排除了以上原因，流量依然很少，请咨询您的投放优化师。</p>
+          <p>4、活动中的投放链接和APP信息可以修改吗?</p>
+          <p><i></i>新建活动的时候根据选择的投放目的需要上传投放链接或者APP信息，这部分信息一旦新建创意后就不可以修改了。</p>
+          <p>5、创意投放的广告文案和素材可以修改吗？</p>
+          <p><i></i>可以修改，但文案和素材发生修改，投放中的创意会暂停投放，创意需要重新提交审核。</p>
+        </div>
+      </div>
+      <div *ngSwitchCase="20">
+        <h2 class="title">问题咨询</h2>
       </div>
     </div>
   </div>
