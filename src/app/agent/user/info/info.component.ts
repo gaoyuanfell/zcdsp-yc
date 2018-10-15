@@ -76,27 +76,68 @@ export class InfoComponent implements OnInit {
     this.search();
   }
 
-  upload(files, body, key, type) {  // $event x x.name
-    // 获取文件流
-    body[key] = URL.createObjectURL(files[0]);  // 显示
+  // upload(files, body, key, type) {  // $event x x.name
+  //   // 获取文件流
+  //   body[key] = URL.createObjectURL(files[0]);  // 显示
+  //   const obj = {
+  //     'file': files[0],
+  //   };
+  //   let img = new Image();
+  //   img.src = body[key];
+  //   let files_copy = files[0];
+  //   img.onload = (e) => {
+  //     if (type) {
+  //       obj['logoSize'] = img.width + 'X' + img.height;
+  //       let flag = true;
+  //       this.user_logo_list.forEach( item => {
+  //         if (   (item.logo_height === img.height) && (item.logo_width === img.width) ) {
+  //           flag = false;
+  //           body[key] = null;
+  //           this._notification.error('图片问题', 'LOGO尺寸已存在！');
+  //         }
+  //       })
+  //       if(flag) {
+  //         this._agentUserService.userLog(obj).subscribe(res => {
+  //           const len: Array<string> = res.result.imgSize.split('X');
+  //           body['logo_width'] = parseInt(len[0]);
+  //           body['logo_height'] = parseInt(len[1]);
+  //           body['logo_src'] = res.result['filePath'];
+  //         });
+  //       }
+  //       this.logo_tem = URL.createObjectURL(files_copy);
+  //     } else {
+  //       this._agentUserService.imgQualification(obj).subscribe(res => {
+  //         body['url'] = res.result.filePath;
+  //       });
+  //     }
+  //   };
+  // }
+
+  upload(files, body, type) {  // $event x x.name
+    let key = type ? 'logo_src' : 'url';
     const obj = {
       'file': files[0],
     };
-    let img = new Image();
-    img.src = body[key];
-    let files_copy = files[0];
-    img.onload = (e) => {
+    let img = new Image();  // 创建一个Image对象，实现图片的预下载
+    img.src = URL.createObjectURL(files[0]);
+    let files_copy = files[0];  // 封装组件的时候 在onload中把fiels置空了
+    img.onload = (e) => {   // 图片下载完毕时异步调用  尺寸信息加载完图片后才能拿到
       if (type) {
-        obj['logoSize'] = img.width + 'X' + img.height;
+        // 新增加的  改变的的不是一样的尺寸  提示  重复
+        // 改变时一样的尺寸  不提示 替换
         let flag = true;
-        this.user_logo_list.forEach( item => {
-          if (   (item.logo_height === img.height) && (item.logo_width === img.width) ) {
-            flag = false;
-            body[key] = null;
-            this._notification.error('图片问题', 'LOGO尺寸已存在！');
-          }
-        })
-        if(flag) {
+        if(body[key] && body['logo_height'] === img.height && body['logo_width'] === img.width) { // 已经存在的图片并且当前选中的就是重复的
+        } else {
+          this.user_logo_list.forEach( item => {
+            if (   (item.logo_height === img.height) && (item.logo_width === img.width) ) {
+              flag = false;
+              this._notification.error('图片问题', 'LOGO尺寸已存在！');
+            }
+          })
+        }
+        if (flag) {
+          body[key] = URL.createObjectURL(files_copy);  // 显示
+          obj['logoSize'] = img.width + 'X' + img.height;
           this._agentUserService.userLog(obj).subscribe(res => {
             const len: Array<string> = res.result.imgSize.split('X');
             body['logo_width'] = parseInt(len[0]);
@@ -104,7 +145,7 @@ export class InfoComponent implements OnInit {
             body['logo_src'] = res.result['filePath'];
           });
         }
-        this.logo_tem = URL.createObjectURL(files_copy);
+
       } else {
         this._agentUserService.imgQualification(obj).subscribe(res => {
           body['url'] = res.result.filePath;
