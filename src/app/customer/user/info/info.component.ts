@@ -95,7 +95,7 @@ export class InfoComponent implements OnInit {
           if (   (item.logo_height === img.height) && (item.logo_width === img.width) ) {
             flag = false;
             body[key] = null;
-            this._notification.error('图片问题', 'LOGO已存在！');
+            this._notification.error('图片问题', 'LOGO尺寸已存在！');
           }
         })
         // if (type && this.user_logo_size_list.indexOf(obj['logoSize']) === -1 || files_copy['size'] > (30 * 1024) || files_copy['name'].split('.')[1] !== 'jpg') {
@@ -255,6 +255,21 @@ export class InfoComponent implements OnInit {
     if (!optionBool) {
       return;
     }
+
+    // logo品牌
+    const logoBool = this.user_logo_list.every((item: any) => {
+      let logoFlag = true;
+      if (item.logo_src && !item.brand_name ) {
+        this._scrollService.scrollTo(this._global.containerFullRef, {top: this.logo.nativeElement.offsetTop - this.logo.nativeElement.clientHeight});
+        this._notification.success('请完善品牌商标信息', ' ');
+        logoFlag = false
+      }
+      return logoFlag;
+    });
+    if (!logoBool) {
+      return;
+    }
+
     const obj = {
       user: this.user,
       main_qualification_list: this.main_qualification_list,
