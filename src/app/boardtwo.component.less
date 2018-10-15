@@ -15,6 +15,7 @@
   background: #04031d;
   position: fixed;;
   top: 0;
+  min-width:1366px;
   z-index: 1000;
 }
 .head .head_title{
@@ -53,7 +54,7 @@
   }
 }
 
-.container{ margin-top: 60px;}
+.container{ margin-top: -25px;min-width:1366px}
 .banner{ position: relative; min-width: 1200px;}
 .banner>img{ display: block; width: 100%; min-width: 1200px;}
 .banner .banner_box{position: absolute; width: 70%; left: 15%; bottom: 60px; display: flex;}
@@ -317,6 +318,9 @@ li {
 }
 
 @media screen and(max-width: 1366px) {
+
+
+  .container{ margin-top: 25px;}
   .banner .banner_box{bottom: 20px; }
 }
 

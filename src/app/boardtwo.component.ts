@@ -140,7 +140,6 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
 
   title:string;
   scrollTop(name?) {
-
     if (!name) {
       this.title = 'home';
       this.router.navigate(['/'], {queryParams:{'title': this.title}})
