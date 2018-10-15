@@ -88,12 +88,22 @@ export class InfoComponent implements OnInit {
     img.onload = (e) => {
       if (type) {
         obj['logoSize'] = img.width + 'X' + img.height;
-        this._agentUserService.userLog(obj).subscribe(res => {
-          const len: Array<string> = res.result.imgSize.split('X');
-          body['logo_width'] = parseInt(len[0]);
-          body['logo_height'] = parseInt(len[1]);
-          body['logo_src'] = res.result['filePath'];
-        });
+        let flag = true;
+        this.user_logo_list.forEach( item => {
+          if (   (item.logo_height === img.height) && (item.logo_width === img.width) ) {
+            flag = false;
+            body[key] = null;
+            this._notification.error('图片问题', 'LOGO已存在！');
+          }
+        })
+        if(flag) {
+          this._agentUserService.userLog(obj).subscribe(res => {
+            const len: Array<string> = res.result.imgSize.split('X');
+            body['logo_width'] = parseInt(len[0]);
+            body['logo_height'] = parseInt(len[1]);
+            body['logo_src'] = res.result['filePath'];
+          });
+        }
         this.logo_tem = URL.createObjectURL(files_copy);
       } else {
         this._agentUserService.imgQualification(obj).subscribe(res => {
@@ -208,17 +218,20 @@ export class InfoComponent implements OnInit {
       return;
     }
     // 行业资质，当你资质分类填写后，一定要上传资质图片的
+    // 行业资质，当你资质分类填写后，一定要上传资质图片的
     const optionBool = this.optional_qualification_list.every((item: any) => {
-      if (item.item_type_id && !item.url) {
+      let quaFlag = true;
+      if (item.url && (!item.begin_date || !item.item_type_id || !item.quatification_name || !item.quatification_number)) {
         this._scrollService.scrollTo(this._global.containerFullRef, {top: this.trade.nativeElement.offsetTop - this.trade.nativeElement.clientHeight});
-        this._notification.success('请上传行业资质的图片', ' ');
+        this._notification.success('请完善行业资质信息', ' ');
+        quaFlag = false
+
       }
-      return ((item.item_type_id && item.url) || (!item.item_type_id));
+      return quaFlag;
     });
     if (!optionBool) {
       return;
     }
-
     let body: any = {
       user: {...this.user},
       main_qualification_list: this.main_qualification_list,

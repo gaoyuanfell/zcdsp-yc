@@ -112,7 +112,7 @@
 
         <tr #trExpand class="none">
           <td colspan="100%" class="none" *ngIf="trExpand.show">
-            <yc-campaign-expand [id]="data.campaign_id" [authList]="jurisdiction"></yc-campaign-expand>
+            <yc-campaign-expand [id]="data.campaign_id" [authList]="jurisdiction" (trigger_list)="triggerlist()"></yc-campaign-expand>
           </td>
         </tr>
 

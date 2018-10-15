@@ -72,6 +72,11 @@ export class CampaignComponent implements OnInit {
     });
   }
 
+  triggerlist() {
+   // 增加的那一条  是在第一页的
+    this.search();
+  }
+
   refresh() {
     Object.keys(this.query).forEach(key => {
       let list = ['page_index', 'page_size', 'begin_date', 'end_date'];
@@ -708,4 +713,7 @@ export class CampaignDetailComponent implements OnInit, OnDestroy {
       chartDataRef.resize();
     });
   }
+
+
+
 }

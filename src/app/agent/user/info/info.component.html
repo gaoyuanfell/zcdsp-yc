@@ -254,17 +254,33 @@
                   <i preview-img *ngIf="x.url" [list]="[x.url]" class="search-icon zcdsp-icon">&#xe631;</i>
                 </div>
               </td>
+              <!--<td style="text-align: left; padding-left: 18px;">-->
+                <!--<yc-select [searchCtrl]="true" name="{{(x.id || x.item_type_id) + 'item_type_id'}}" [(ngModel)]="x.item_type_id" (ngModelChange)='changeSelect($event, x)' [width]="130" placeholder="请选择行业分类" [list]="optional_ad_category_list" [props]="{value:'item_type_id',label:'item_type_name', disabled: 'disabled'}"></yc-select>-->
+              <!--</td>-->
+              <!--<td style="text-align: left; padding-left: 18px;">-->
+                <!--<input class="form-control" type="text" [(ngModel)]="x.quatification_name" placeholder="请输入名称" name="{{ (x.id || x.item_type_id) + 'quatification_name'}}">-->
+              <!--</td>-->
+              <!--<td style="text-align: left; padding-left: 18px;">-->
+                <!--<input class="form-control td-four" type="text" [(ngModel)]="x.quatification_number" placeholder="请输入编号" name="{{(x.id || x.item_type_id) + 'quatification_number'}}">-->
+              <!--</td>-->
+              <!--<td style="text-align: left; padding-left: 18px;">-->
+                <!--<input-datepicker [isShortcutKey]="false" [isRange]="true" [query]="x" [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time1'}}"></input-datepicker>-->
+              <!--</td>-->
               <td style="text-align: left; padding-left: 18px;">
-                <yc-select [searchCtrl]="true" name="{{(x.id || x.item_type_id) + 'item_type_id'}}" [(ngModel)]="x.item_type_id" (ngModelChange)='changeSelect($event, x)' [width]="130" placeholder="请选择行业分类" [list]="optional_ad_category_list" [props]="{value:'item_type_id',label:'item_type_name', disabled: 'disabled'}"></yc-select>
+                <yc-select [searchCtrl]="true" name="{{(x.id || x.item_type_id) + 'item_type_id'}}" [(ngModel)]="x.item_type_id" (ngModelChange)='changeSelect($event, x)' [width]="200" placeholder="请选择分类" [list]="optional_ad_category_list" [props]="{value:'item_type_id',label:'item_type_name', disabled: 'disabled'}" [ngClass]="{'has-error': !x.item_type_id && (x[x.name] ||  x.url)}"></yc-select>
+                <span  class="tips" *ngIf="!x.item_type_id && (x[x.name] ||  x.url)">请选择行业分类</span>
               </td>
               <td style="text-align: left; padding-left: 18px;">
-                <input class="form-control" type="text" [(ngModel)]="x.quatification_name" placeholder="请输入名称" name="{{ (x.id || x.item_type_id) + 'quatification_name'}}">
+                <input class="form-control" type="text" [(ngModel)]="x.quatification_name" placeholder="请输入名称" name="{{ (x.id || x.item_type_id) + 'quatification_name'}}" [ngClass]="{'has-error': !x.quatification_name && (x[x.name] ||  x.url)}">
+                <span class="tips" *ngIf="!x.quatification_name && (x[x.name] ||  x.url)">请输入名称</span>
               </td>
               <td style="text-align: left; padding-left: 18px;">
-                <input class="form-control td-four" type="text" [(ngModel)]="x.quatification_number" placeholder="请输入编号" name="{{(x.id || x.item_type_id) + 'quatification_number'}}">
+                <input class="form-control td-four" type="text" [(ngModel)]="x.quatification_number" placeholder="请输入编号" name="{{(x.id || x.item_type_id) + 'quatification_number'}}" [ngClass]="{'has-error': !x.quatification_number && (x[x.name] ||  x.url)}">
+                <span class="tips" *ngIf="!x.quatification_number && (x[x.name] ||  x.url)">请输入编号</span>
               </td>
               <td style="text-align: left; padding-left: 18px;">
-                <input-datepicker [isShortcutKey]="false" [isRange]="true" [query]="x" [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time1'}}"></input-datepicker>
+                <input-datepicker [isRange]="true" [query]="x"   [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time1'}}" [ngClass]="{'has-error': !x.begin_date && ( x[x.name] ||  x.url) }"></input-datepicker>
+                <span  class="tips" *ngIf="!x.begin_date  && ((x[x.name] ||  x.url))">请填写时间</span>
               </td>
               <td class="text-right">
                 <div style="width:35px;">

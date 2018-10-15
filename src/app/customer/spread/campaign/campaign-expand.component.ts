@@ -157,6 +157,7 @@ export class CampaignExpandComponent implements OnInit {
   @Input() id = 0;
   @Input() authList;
   @Output('change') selectChange = new EventEmitter<any>();
+  @Output('trigger_list') triggerList = new EventEmitter<any>();
 
   show_time_type: any;
   campaignCode = 'pv';
@@ -247,6 +248,7 @@ export class CampaignExpandComponent implements OnInit {
           campaign_ids: this.id
         }).subscribe(res => {
           this._notification.success('成功', '复制成功！');
+          this.triggerList.emit();
         });
       }
     });

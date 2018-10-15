@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, Renderer2} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ScrollService} from '../../components/back-top/scroll.service';
 
@@ -9,18 +9,17 @@ import {ScrollService} from '../../components/back-top/scroll.service';
 })
 export class HelpComponent implements OnInit {
 
-  constructor(private router: Router,
-              private route: ActivatedRoute,
-              private _scrollService: ScrollService,) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private _scrollService: ScrollService,
+    private renderer: Renderer2
+    ) {}
 
-    // this.auth = route.snapshot.data.auth
-  }
 
-  // auth
+  @ViewChild('containerRight') containerRightRef: ElementRef;
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
 
 
