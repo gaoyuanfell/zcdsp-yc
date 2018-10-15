@@ -349,7 +349,9 @@
               <span>{{x.logo_height ?  x.logo_height + '*' + x.logo_width: '' }}</span>
             </td>
             <td style="text-align: left; padding-left: 18px;">
-              <input class="form-control" type="text" [(ngModel)]="x.brand_name" placeholder="请输入名称" name="{{(x.id || x.item_id) + 'brand_name'}}">
+              <input class="form-control" type="text" [(ngModel)]="x.brand_name" placeholder="请输入名称" name="{{(x.id || x.item_id) + 'brand_name'}}" [ngClass]="{'has-error': !x.brand_name && (x[x.name] ||  x.logo_src)}">
+              <span class="tips" *ngIf="!x.brand_name && (x[x.name] ||  x.logo_src)">请输入名称</span>
+
             </td>
             <td class="text-right">
               <div style="width:45px;">

@@ -93,7 +93,7 @@ export class InfoComponent implements OnInit {
           if (   (item.logo_height === img.height) && (item.logo_width === img.width) ) {
             flag = false;
             body[key] = null;
-            this._notification.error('图片问题', 'LOGO已存在！');
+            this._notification.error('图片问题', 'LOGO尺寸已存在！');
           }
         })
         if(flag) {
@@ -217,6 +217,8 @@ export class InfoComponent implements OnInit {
     if (!mainBool) {
       return;
     }
+
+
     // 行业资质，当你资质分类填写后，一定要上传资质图片的
     // 行业资质，当你资质分类填写后，一定要上传资质图片的
     const optionBool = this.optional_qualification_list.every((item: any) => {
@@ -232,6 +234,21 @@ export class InfoComponent implements OnInit {
     if (!optionBool) {
       return;
     }
+
+    // logo品牌
+    const logoBool = this.user_logo_list.every((item: any) => {
+      let logoFlag = true;
+      if (item.logo_src && !item.brand_name ) {
+        this._scrollService.scrollTo(this._global.containerFullRef, {top: this.logo.nativeElement.offsetTop - this.logo.nativeElement.clientHeight});
+        this._notification.success('请完善品牌商标信息', ' ');
+        logoFlag = false
+      }
+      return logoFlag;
+    });
+    if (!logoBool) {
+      return;
+    }
+
     let body: any = {
       user: {...this.user},
       main_qualification_list: this.main_qualification_list,
