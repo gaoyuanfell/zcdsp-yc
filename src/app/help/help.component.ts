@@ -18,13 +18,19 @@ export class HelpComponent implements OnInit {
 
 
   @ViewChild('containerRight') containerRightRef: ElementRef;
+  @ViewChild('helpLeft') helpLeftRef: ElementRef;
+  @ViewChild('container') containerRef: ElementRef;
 
-  ngOnInit(): void {}
-
-
+  ngOnInit(): void {
+    let height = window.document.body.offsetHeight;
+    this.renderer.setStyle(this.helpLeftRef.nativeElement, 'height', height-60*3 + 'px')
+    this.renderer.listen('window', 'resize', () => {
+      height = window.document.body.offsetHeight;
+      this.renderer.setStyle(this.helpLeftRef.nativeElement, 'height', height-60*3 + 'px')
+    })
+  }
 
   num = 0;
-
   changeElement(index) {
     this.num = index;
   }

@@ -162,6 +162,7 @@ export class LoginComponent implements OnInit {
       if (res.success === 200) {
         this.pwd_show = false;
         this.forget = {};
+        this.router.navigate(['/'])
       }
     }, error => {
       this.pwd_show = false;
