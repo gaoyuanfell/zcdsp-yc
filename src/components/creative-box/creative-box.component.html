@@ -61,7 +61,10 @@
       <ng-container *ngFor="let ele of element.text_list">
         <div class="ele-text">
 
-          <input type="text" [placeholder]="ele.placeholder" [readonly]="preview" [(ngModel)]="ele[ele.name]" (ngModelChange)="_validateText(ele);_inputSubject.next()">
+          <textarea [placeholder]="ele.placeholder" [readonly]="preview" [(ngModel)]="ele[ele.name]" (ngModelChange)="_validateText(ele);_inputSubject.next()"></textarea>
+
+          <!--<input type="text" [placeholder]="ele.placeholder" [readonly]="preview" [(ngModel)]="ele[ele.name]" (ngModelChange)="_validateText(ele);_inputSubject.next()">-->
+
           <span *ngIf="!preview" class="text-length" [ngClass]="{'text-length-error': !ele.validate}">
             {{(ele[ele.name]?.length || 0)}}/
             <i *ngIf="ele.max_length">({{ele.min_length}}~{{ele.max_length}})</i>
