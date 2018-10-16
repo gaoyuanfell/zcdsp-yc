@@ -80,24 +80,47 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
   arrow = false;
   keyupEvent;
   login_show = false;
+  flag_footer = false;
 
   ngOnInit() {
     this.scrollSetInterval();
 
 
     this.verifyCode();
+    let scrollerHeight = this.containerFullRef.nativeElement.scrollHeight;
+    console.log(scrollerHeight)
     // 滚动条在哪里 就监听哪里
     this.renderer.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
-      // 头部的fixed不好用  滚动条出现的时候  有问题
-      this.renderer.setStyle(this.headRef.nativeElement, 'top', event.target.scrollTop + 'px')
+      console.log(event.target.scrollHeight)
+      console.log(event.target.scrollTop)
+      console.log(this.document.body.offsetHeight)
 
-      if (this.containerFullRef.nativeElement.scrollTop > 0 && !this.login_show) {
-        this.renderer.removeClass(this.loginRef.nativeElement, 'login_Show')
-        this.renderer.addClass(this.loginRef.nativeElement, 'login_Hide')
+      // 头部的fixed不好用  滚动条出现的时候  有问题
+      this.renderer.setStyle(this.headRef.nativeElement, 'top', event.target.scrollTop + 'px');
+
+
+      // 在login位置的时候  要取消动画
+      if ( (event.target.scrollTop + this.document.body.offsetHeight < scrollerHeight) && event.target.scrollTop > 0) {
+        this.renderer.removeStyle(this.loginRef.nativeElement, 'transition');
+        this.renderer.removeStyle(this.footer.nativeElement, 'transition');
+
+        this.renderer.setStyle(this.loginRef.nativeElement, 'top', event.target.scrollTop + this.document.body.offsetHeight + 'px');
+        // footer位置
+        this.renderer.setStyle(this.footer.nativeElement, 'top', event.target.scrollTop + this.document.body.offsetHeight  + 'px')
       }
 
 
-      // 顶部箭头
+
+
+
+
+      if (this.containerFullRef.nativeElement.scrollTop > 0 && !this.login_show) {
+        this.renderer.setStyle(this.loginRef.nativeElement, 'transition', 'all 1s ease');
+        this.renderer.setStyle(this.loginRef.nativeElement, 'transform', 'translate(0,0)');
+      }
+
+
+      // 回到顶部
       if (this.containerFullRef.nativeElement.scrollTop > 860) {
         this.arrow = true;
       } else {
@@ -105,12 +128,21 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
       }
 
       if (this.containerFullRef.nativeElement.scrollTop > 3300) {
-           this.renderer.addClass(this.footer.nativeElement, 'footerTransition')
-           this.renderer.addClass(this.loginRef.nativeElement, 'loginTransition')
+        this.renderer.setStyle(this.footer.nativeElement, 'transition', 'all 1s ease');
+        this.flag_footer = true;
+          this.renderer.addClass(this.footer.nativeElement, 'footerTransition')
+          if (this.login_show) {
+            this.renderer.setStyle(this.loginRef.nativeElement, 'transform', 'translate(0, -87px)');
+          }
 
       } else {
+        this.renderer.setStyle(this.footer.nativeElement, 'transition', 'all 1s ease');
+        this.flag_footer = false;
         this.renderer.removeClass(this.footer.nativeElement, 'footerTransition')
-        this.renderer.removeClass(this.loginRef.nativeElement, 'loginTransition')
+        if (this.login_show) {
+          this.renderer.setStyle(this.loginRef.nativeElement, 'transform', 'translate(0, -68px)');
+        }
+
       }
 
     });
@@ -140,6 +172,23 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
 
   }
 
+
+  login_fun() {
+    this.renderer.setStyle(this.loginRef.nativeElement, 'transition', 'all 1s ease');
+    // setTimeout(()=>{
+    //   this.login_show = !this.login_show;
+    // })
+    this.login_show = !this.login_show;
+    let y = this.flag_footer ? -87 : -68; // 当footer出现的时候
+    if (this.login_show) {
+      this.renderer.setStyle(this.loginRef.nativeElement, 'transform', 'translate(0,'+y+'px)');
+    } else {
+      this.renderer.setStyle(this.loginRef.nativeElement, 'transform', 'translate(0,0)');
+
+    }
+
+
+  }
 
   title:string;
   scrollTop(name?) {
