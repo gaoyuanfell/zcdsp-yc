@@ -57,6 +57,7 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
 
   @ViewChild('code_template', {read: TemplateRef}) code_template_ref: TemplateRef<any>;
   @ViewChild('containerFull') containerFullRef: ElementRef;
+  @ViewChild('head') headRef: ElementRef;
   @ViewChild('imgParent') imgParentRef: ElementRef;
   @ViewChild('footer') footer: ElementRef;
   @ViewChild('login') loginRef: ElementRef;
@@ -87,6 +88,8 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
     this.verifyCode();
     // 滚动条在哪里 就监听哪里
     this.renderer.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
+      // 头部的fixed不好用  滚动条出现的时候  有问题
+      this.renderer.setStyle(this.headRef.nativeElement, 'top', event.target.scrollTop + 'px')
 
       if (this.containerFullRef.nativeElement.scrollTop > 0 && !this.login_show) {
         this.renderer.removeClass(this.loginRef.nativeElement, 'login_Show')
@@ -140,7 +143,6 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
 
   title:string;
   scrollTop(name?) {
-
     if (!name) {
       this.title = 'home';
       this.router.navigate(['/'], {queryParams:{'title': this.title}})

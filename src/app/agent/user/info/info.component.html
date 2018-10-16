@@ -171,23 +171,23 @@
           <tr *ngFor="let x of main_qualification_list">
             <td>
               <div class="td-one" *ngIf="!_audit_status">
-                <div *ngIf="!x[x.name] && !x.url" class="ele-img" yc-file-upload #eleImg (eventChange)="upload($event,x,x.name,'')"
+                <div *ngIf=" !x.url" class="ele-img" yc-file-upload #eleImg (eventChange)="upload($event,x,'')"
                      [dataType]="'M'"
                      [accept]="{extensions: extensions.extensions,maxSize: extensions.maxSize}"
                      (eventError)="_imgError($event)">
-                  <div *ngIf="!x[x.name] && !x.url">点击上传</div>
+                  <div *ngIf=" !x.url">点击上传</div>
                 </div>
-                <div *ngIf="x[x.name] ||  x.url" class="ele-img" yc-file-upload #eleImg (eventChange)="upload($event,x,x.name,'')" style="background-color:#dbdde2"
+                <div *ngIf=" x.url" class="ele-img" yc-file-upload #eleImg (eventChange)="upload($event,x,'')" style="background-color:#dbdde2"
                      [dataType]="'M'"
                      [accept]="{extensions: extensions.extensions,maxSize: extensions.maxSize}"
                      (eventError)="_imgError($event)">
-                  <img *ngIf="x[x.name] ||  x.url" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.url)" alt="">
+                  <img *ngIf="x.url" [src]="getDomSanitizerUrl( x.url)" alt="">
                 </div>
                 <i preview-img *ngIf="x.url" [list]="[x.url]" class="search-icon zcdsp-icon">&#xe631;</i>
               </div>
               <div class="td-one" *ngIf="_audit_status">
                 <div class="ele-img" style="background-color:#dbdde2">
-                  <img *ngIf="x[x.name] ||  x.url" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.url)" alt="">
+                  <img *ngIf="x.url" [src]="getDomSanitizerUrl( x.url)" alt="">
                 </div>
                 <i preview-img *ngIf="x.url" [list]="[x.url]" class="search-icon zcdsp-icon">&#xe631;</i>
               </div>
@@ -238,49 +238,37 @@
             <tr *ngFor="let x of optional_qualification_list;let index = index">
               <td>
                 <div class="td-one">
-                  <div *ngIf="!x[x.name] && !x.url" class="ele-img" yc-file-upload #eleImg (eventChange)="upload($event,x,x.name,'')"
+                  <div *ngIf="!x.url" class="ele-img" yc-file-upload #eleImg (eventChange)="upload($event,x,'')"
                        [dataType]="'M'"
                        [accept]="{extensions: extensions.extensions,maxSize: extensions.maxSize}"
                        (eventError)="_imgError($event)">
-                    <div *ngIf="!x[x.name] && !x.url">点击上传</div>
+                    <div *ngIf=" !x.url">点击上传</div>
                   </div>
 
-                  <div *ngIf="x[x.name] ||  x.url" class="ele-img" yc-file-upload #eleImg (eventChange)="upload($event,x,x.name,'')" style="background-color:#dbdde2"
+                  <div *ngIf=" x.url" class="ele-img" yc-file-upload #eleImg (eventChange)="upload($event,x,'')" style="background-color:#dbdde2"
                        [dataType]="'M'"
                        [accept]="{extensions: extensions.extensions,maxSize: extensions.maxSize}"
                        (eventError)="_imgError($event)">
-                    <img #imgRef *ngIf="x[x.name] ||  x.url" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.url)" alt="">
+                    <img #imgRef *ngIf=" x.url" [src]="getDomSanitizerUrl(x.url)" alt="">
                   </div>
                   <i preview-img *ngIf="x.url" [list]="[x.url]" class="search-icon zcdsp-icon">&#xe631;</i>
                 </div>
               </td>
-              <!--<td style="text-align: left; padding-left: 18px;">-->
-                <!--<yc-select [searchCtrl]="true" name="{{(x.id || x.item_type_id) + 'item_type_id'}}" [(ngModel)]="x.item_type_id" (ngModelChange)='changeSelect($event, x)' [width]="130" placeholder="请选择行业分类" [list]="optional_ad_category_list" [props]="{value:'item_type_id',label:'item_type_name', disabled: 'disabled'}"></yc-select>-->
-              <!--</td>-->
-              <!--<td style="text-align: left; padding-left: 18px;">-->
-                <!--<input class="form-control" type="text" [(ngModel)]="x.quatification_name" placeholder="请输入名称" name="{{ (x.id || x.item_type_id) + 'quatification_name'}}">-->
-              <!--</td>-->
-              <!--<td style="text-align: left; padding-left: 18px;">-->
-                <!--<input class="form-control td-four" type="text" [(ngModel)]="x.quatification_number" placeholder="请输入编号" name="{{(x.id || x.item_type_id) + 'quatification_number'}}">-->
-              <!--</td>-->
-              <!--<td style="text-align: left; padding-left: 18px;">-->
-                <!--<input-datepicker [isShortcutKey]="false" [isRange]="true" [query]="x" [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time1'}}"></input-datepicker>-->
-              <!--</td>-->
               <td style="text-align: left; padding-left: 18px;">
-                <yc-select [searchCtrl]="true" name="{{(x.id || x.item_type_id) + 'item_type_id'}}" [(ngModel)]="x.item_type_id" (ngModelChange)='changeSelect($event, x)' [width]="200" placeholder="请选择分类" [list]="optional_ad_category_list" [props]="{value:'item_type_id',label:'item_type_name', disabled: 'disabled'}" [ngClass]="{'has-error': !x.item_type_id && (x[x.name] ||  x.url)}"></yc-select>
-                <span  class="tips" *ngIf="!x.item_type_id && (x[x.name] ||  x.url)">请选择行业分类</span>
+                <yc-select [searchCtrl]="true" name="{{(x.id || x.item_type_id) + 'item_type_id'}}" [(ngModel)]="x.item_type_id" (ngModelChange)='changeSelect($event, x)' [width]="200" placeholder="请选择分类" [list]="optional_ad_category_list" [props]="{value:'item_type_id',label:'item_type_name', disabled: 'disabled'}" [ngClass]="{'has-error': !x.item_type_id &&  x.url }"></yc-select>
+                <span  class="tips" *ngIf="!x.item_type_id &&  x.url">请选择行业分类</span>
               </td>
               <td style="text-align: left; padding-left: 18px;">
-                <input class="form-control" type="text" [(ngModel)]="x.quatification_name" placeholder="请输入名称" name="{{ (x.id || x.item_type_id) + 'quatification_name'}}" [ngClass]="{'has-error': !x.quatification_name && (x[x.name] ||  x.url)}">
-                <span class="tips" *ngIf="!x.quatification_name && (x[x.name] ||  x.url)">请输入名称</span>
+                <input class="form-control" type="text" [(ngModel)]="x.quatification_name" placeholder="请输入名称" name="{{ (x.id || x.item_type_id) + 'quatification_name'}}" [ngClass]="{'has-error': !x.quatification_name &&  x.url }">
+                <span class="tips" *ngIf="!x.quatification_name && x.url">请输入名称</span>
               </td>
               <td style="text-align: left; padding-left: 18px;">
-                <input class="form-control td-four" type="text" [(ngModel)]="x.quatification_number" placeholder="请输入编号" name="{{(x.id || x.item_type_id) + 'quatification_number'}}" [ngClass]="{'has-error': !x.quatification_number && (x[x.name] ||  x.url)}">
-                <span class="tips" *ngIf="!x.quatification_number && (x[x.name] ||  x.url)">请输入编号</span>
+                <input class="form-control td-four" type="text" [(ngModel)]="x.quatification_number" placeholder="请输入编号" name="{{(x.id || x.item_type_id) + 'quatification_number'}}" [ngClass]="{'has-error': !x.quatification_number &&  x.url }">
+                <span class="tips" *ngIf="!x.quatification_number && x.url">请输入编号</span>
               </td>
               <td style="text-align: left; padding-left: 18px;">
-                <input-datepicker [isRange]="true" [query]="x"   [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time1'}}" [ngClass]="{'has-error': !x.begin_date && ( x[x.name] ||  x.url) }"></input-datepicker>
-                <span  class="tips" *ngIf="!x.begin_date  && ((x[x.name] ||  x.url))">请填写时间</span>
+                <input-datepicker [isRange]="true" [query]="x"   [appendField]="['begin_date','end_date']" name="{{ (x.id || x.item_type_id) + 'time1'}}" [ngClass]="{'has-error': !x.begin_date && x.url }"></input-datepicker>
+                <span  class="tips" *ngIf="!x.begin_date  && x.url">请填写时间</span>
               </td>
               <td class="text-right">
                 <div style="width:35px;">
@@ -325,12 +313,12 @@
             <td>
               <!--换背景-->
               <div class="td-one">
-                <div class="ele-img" yc-file-upload (eventChange)="upload($event,x,x.name,'logo')"
+                <div class="ele-img" yc-file-upload (eventChange)="upload($event,x,'logo')"
                      [dataType]="'K'"
                      [accept]="{extensions: extensions1.extensions,maxSize: extensions1.maxSize,size: user_logo_size_list}"
                      (eventError)="_imgError($event)">
-                  <div *ngIf="!x[x.name] && !x.logo_src">点击上传</div>
-                  <img *ngIf="x[x.name] ||  x.logo_src" [src]="getDomSanitizerUrl( x[x.name] ? x[x.name] : x.logo_src)" alt="">
+                  <div *ngIf="!x.logo_src">点击上传</div>
+                  <img *ngIf=" x.logo_src" [src]="getDomSanitizerUrl(x.logo_src)" alt="">
                 </div>
               </div>
             </td>
@@ -338,9 +326,8 @@
               <span>{{x.logo_height ?  x.logo_height + '*' + x.logo_width: '' }}</span>
             </td>
             <td>
-              <input class="form-control" type="text" [(ngModel)]="x.brand_name" placeholder="请输入名称" name="{{(x.id || x.item_id) + 'brand_name'}}" [ngClass]="{'has-error': !x.brand_name && (x[x.name] ||  x.logo_src)}">
-              <span class="tips" *ngIf="!x.brand_name && (x[x.name] ||  x.logo_src)">请输入名称</span>
-              <!--<input class="form-control" type="text" [(ngModel)]="x.brand_name" placeholder="请输入名称" name="{{(x.id || x.item_id) + 'brand_name'}}">-->
+              <input class="form-control" type="text" [(ngModel)]="x.brand_name" placeholder="请输入名称" name="{{(x.id || x.item_id) + 'brand_name'}}" [ngClass]="{'has-error': !x.brand_name && x.logo_src}">
+              <span class="tips" *ngIf="!x.brand_name && x.logo_src">请输入名称</span>
             </td>
             <td class="text-right">
               <a data-link (click)="_remove(user_logo_list, index, 'logo')">删除</a>

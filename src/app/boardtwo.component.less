@@ -13,7 +13,7 @@
   height: 60px;
   line-height: 60px;
   background: #04031d;
-  position: fixed;;
+  position: absolute;;
   top: 0;
   z-index: 1000;
 }
@@ -53,7 +53,7 @@
   }
 }
 
-.container{ margin-top: 60px;}
+.container{ margin-top: -25px;}
 .banner{ position: relative; min-width: 1200px;}
 .banner>img{ display: block; width: 100%; min-width: 1200px;}
 .banner .banner_box{position: absolute; width: 70%; left: 15%; bottom: 60px; display: flex;}
@@ -316,7 +316,11 @@ li {
   transition: all 1s;
 }
 
-@media screen and(max-width: 1366px) {
+@media screen and(max-width: 1356px) {
+
+
+  .container{ margin-top: 25px;min-width: 1366px}
+  .head {min-width: 1366px}
   .banner .banner_box{bottom: 20px; }
 }
 
