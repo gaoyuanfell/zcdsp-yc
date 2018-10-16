@@ -156,9 +156,9 @@ export class FileUploadComponent implements OnDestroy {
       if (this.accept.size) {
         if (blob.type.indexOf('image') != -1) {
           let {width, height} = await this.image(blob);
-          let _wh = width + 'X' + height;
-          // let _wh = this.accept.size[0] == width && this.accept.size[1] == height;
-          if (this.accept.size.indexOf(_wh) === -1) {
+          // let _wh = width + 'X' + height;
+          let _wh = this.accept.size[0] == width && this.accept.size[1] == height;
+          if (!_wh) {
             this.eventError.emit({
               type: 4,
               message: '图片尺寸不匹配！'
