@@ -381,12 +381,12 @@ export class AddCreativeComponent implements OnInit {
     mediaSize.elements.data_list.forEach(ed => {
       ed.file_list.forEach(fl => {
         let index = this.template_size_list.indexOf(fl.file_size);
-        if (index != -1 && mediaSize.is_support_tpl == 'Y') {
+        if (index != -1 && mediaSize.is_support_tpl == 'Y' && fl.element_type === 'img') {
           fl.is_support_tpl = true;
         } else {
           fl.is_support_tpl = false;
         }
-        if (mediaSize.is_support_history == 'Y') {
+        if (mediaSize.is_support_history == 'Y' && fl.element_type === 'img') {
           fl.is_support_history = true;
         } else {
           fl.is_support_history = false;

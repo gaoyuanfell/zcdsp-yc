@@ -20,7 +20,7 @@
              [disabled]="preview"
              [dataType]="'K'"
              [multiple]="!ele[ele.name] && file_count === 1 && data_count === 1"
-             [accept]="{extensions: ele.extensions,maxSize: ele.max_file_size, size: ele.file_size}"
+             [accept]="{extensions: ele.extensions,maxSize: ele.max_file_size, size: ele.size}"
              (eventChange)="_upload($event,ele,data_index,file_index,index)"
              (eventError)="_imgError($event)">
           <div class="ele-box-img" [ngClass]="{'active': ele[ele.name]}">
@@ -40,7 +40,7 @@
              yc-file-upload
              [disabled]="preview"
              [dataType]="'K'"
-             [accept]="{extensions: ele.extensions,maxSize: ele.max_file_size, size: ele.file_size, duration: ele.time_length}"
+             [accept]="{extensions: ele.extensions,maxSize: ele.max_file_size, size: ele.size, duration: ele.time_length}"
              (eventChange)="_upload($event,ele,data_index,file_index,index)"
              (eventError)="_imgError($event)">
           <div class="ele-box-video" [ngClass]="{'active': ele[ele.name]}">
