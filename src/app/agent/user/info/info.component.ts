@@ -9,6 +9,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DOCUMENT} from '@angular/common';
 import {ScrollService} from '../../../../components/back-top/scroll.service';
 import SparkMD5 from 'spark-md5';
+import * as qs from "querystring";
 
 @Component({
   selector: 'app-info',
@@ -142,7 +143,11 @@ export class InfoComponent implements OnInit {
             const len: Array<string> = res.result.imgSize.split('X');
             body['logo_width'] = parseInt(len[0]);
             body['logo_height'] = parseInt(len[1]);
-            body['logo_src'] = res.result['filePath'];
+            // body['logo_src'] = res.result['filePath'];
+            let data = res.result;
+            let filePath = data.filePath;
+            delete data.filePath;
+            body['logo_src'] = `${filePath}?${qs.stringify(data)}`;
           });
         }
 
