@@ -89,6 +89,8 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
     this.verifyCode();
     let scrollerHeight = this.containerFullRef.nativeElement.scrollHeight;
 
+
+
     // 滚动条在哪里 就监听哪里
     this.renderer.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
 
@@ -98,14 +100,18 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
 
 
       // 在login位置的时候  要取消动画
-      if ( (event.target.scrollTop + this.document.body.offsetHeight < scrollerHeight) && event.target.scrollTop > 0) {
-        // login
+      console.log(event.target.scrollTop + this.document.body.offsetHeight)
+      console.log(this.loginRef.nativeElement.style.top)
+      console.log(scrollerHeight)
+      if ( Number (this.loginRef.nativeElement.style.top.split('p')[0] ) <= (scrollerHeight)) {
         this.renderer.removeStyle(this.loginRef.nativeElement, 'transition');
         this.renderer.setStyle(this.loginRef.nativeElement, 'top', event.target.scrollTop + this.document.body.offsetHeight + 'px');
-        this.renderer.setStyle(this.loginRef.nativeElement, 'display', 'none')
+
+
+
         // footer位置
-        this.renderer.removeStyle(this.footer.nativeElement, 'transition');
-        this.renderer.setStyle(this.footer.nativeElement, 'top', event.target.scrollTop + this.document.body.offsetHeight  + 'px')
+        // this.renderer.removeStyle(this.footer.nativeElement, 'transition');
+        // this.renderer.setStyle(this.footer.nativeElement, 'top', event.target.scrollTop + this.document.body.offsetHeight  + 'px')
       }
 
 
@@ -116,23 +122,23 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
       }
 
 
-      if (this.containerFullRef.nativeElement.scrollTop > 3300) { // footer出现
-        this.renderer.setStyle(this.footer.nativeElement, 'transition', 'all 1s ease');
-        this.flag_footer = true;
-          this.renderer.addClass(this.footer.nativeElement, 'footerTransition')
-          if (this.login_show) {
-            this.renderer.setStyle(this.loginRef.nativeElement, 'transform', 'translate(0, -87px)');
-          }
-
-      } else {
-        this.renderer.setStyle(this.footer.nativeElement, 'transition', 'all 1s ease');
-        this.flag_footer = false;
-        this.renderer.removeClass(this.footer.nativeElement, 'footerTransition')
-        if (this.login_show) {
-          this.renderer.setStyle(this.loginRef.nativeElement, 'transform', 'translate(0, -68px)');
-        }
-
-      }
+      // if (this.containerFullRef.nativeElement.scrollTop > 3300) { // footer出现
+      //   this.renderer.setStyle(this.footer.nativeElement, 'transition', 'all 1s ease');
+      //   this.flag_footer = true;
+      //     this.renderer.addClass(this.footer.nativeElement, 'footerTransition')
+      //     if (this.login_show) {
+      //       this.renderer.setStyle(this.loginRef.nativeElement, 'transform', 'translate(0, -87px)');
+      //     }
+      //
+      // } else {
+      //   this.renderer.setStyle(this.footer.nativeElement, 'transition', 'all 1s ease');
+      //   this.flag_footer = false;
+      //   this.renderer.removeClass(this.footer.nativeElement, 'footerTransition')
+      //   if (this.login_show) {
+      //     this.renderer.setStyle(this.loginRef.nativeElement, 'transform', 'translate(0, -68px)');
+      //   }
+      //
+      // }
 
 
       // 回到顶部
@@ -171,6 +177,7 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
 
 
   login_fun() {
+    console.log('lallala')
     this.renderer.setStyle(this.loginRef.nativeElement, 'transition', 'all 1s ease');
     this.login_show = !this.login_show;
     let y = this.flag_footer ? -87 : -68; // 当footer出现的时候
@@ -178,7 +185,6 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
       this.renderer.setStyle(this.loginRef.nativeElement, 'transform', 'translate(0,'+y+'px)');
     } else {
       this.renderer.setStyle(this.loginRef.nativeElement, 'transform', 'translate(0,0)');
-
     }
 
 
