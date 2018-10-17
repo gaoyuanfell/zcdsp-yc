@@ -156,11 +156,11 @@ export class InfoComponent implements OnInit {
             const len: Array<string> = res.result.imgSize.split('X');
             body['logo_width'] = parseInt(len[0]);
             body['logo_height'] = parseInt(len[1]);
-            // body['logo_src'] = res.result['filePath'];
-            let data = res.result;
-            let filePath = data.filePath;
-            delete data.filePath;
-            body['logo_src'] = `${filePath}?${qs.stringify(data)}`;
+            body['logo_src'] = res.result['filePath'] + '?fileSize='+ res.result['imgSize'] + '&md5=' + res.result['md5'];
+            // let data = res.result;
+            // let filePath = data.filePath;
+            // delete data.filePath;
+            // body['logo_src'] = `${filePath}?${qs.stringify(data)}`;
           });
         }
 
