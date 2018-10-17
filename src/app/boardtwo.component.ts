@@ -88,12 +88,10 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
 
     this.verifyCode();
     let scrollerHeight = this.containerFullRef.nativeElement.scrollHeight;
-    console.log(scrollerHeight)
+
     // 滚动条在哪里 就监听哪里
     this.renderer.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
-      console.log(event.target.scrollHeight)
-      console.log(event.target.scrollTop)
-      console.log(this.document.body.offsetHeight)
+
 
       // 头部的fixed不好用  滚动条出现的时候  有问题
       this.renderer.setStyle(this.headRef.nativeElement, 'top', event.target.scrollTop + 'px');
@@ -101,16 +99,14 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
 
       // 在login位置的时候  要取消动画
       if ( (event.target.scrollTop + this.document.body.offsetHeight < scrollerHeight) && event.target.scrollTop > 0) {
+        // login
         this.renderer.removeStyle(this.loginRef.nativeElement, 'transition');
-        this.renderer.removeStyle(this.footer.nativeElement, 'transition');
-
         this.renderer.setStyle(this.loginRef.nativeElement, 'top', event.target.scrollTop + this.document.body.offsetHeight + 'px');
+        this.renderer.setStyle(this.loginRef.nativeElement, 'display', 'none')
         // footer位置
+        this.renderer.removeStyle(this.footer.nativeElement, 'transition');
         this.renderer.setStyle(this.footer.nativeElement, 'top', event.target.scrollTop + this.document.body.offsetHeight  + 'px')
       }
-
-
-
 
 
 
@@ -120,14 +116,7 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
       }
 
 
-      // 回到顶部
-      if (this.containerFullRef.nativeElement.scrollTop > 860) {
-        this.arrow = true;
-      } else {
-        this.arrow = false;
-      }
-
-      if (this.containerFullRef.nativeElement.scrollTop > 3300) {
+      if (this.containerFullRef.nativeElement.scrollTop > 3300) { // footer出现
         this.renderer.setStyle(this.footer.nativeElement, 'transition', 'all 1s ease');
         this.flag_footer = true;
           this.renderer.addClass(this.footer.nativeElement, 'footerTransition')
@@ -143,6 +132,14 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
           this.renderer.setStyle(this.loginRef.nativeElement, 'transform', 'translate(0, -68px)');
         }
 
+      }
+
+
+      // 回到顶部
+      if (this.containerFullRef.nativeElement.scrollTop > 860) {
+        this.arrow = true;
+      } else {
+        this.arrow = false;
       }
 
     });
@@ -175,9 +172,6 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
 
   login_fun() {
     this.renderer.setStyle(this.loginRef.nativeElement, 'transition', 'all 1s ease');
-    // setTimeout(()=>{
-    //   this.login_show = !this.login_show;
-    // })
     this.login_show = !this.login_show;
     let y = this.flag_footer ? -87 : -68; // 当footer出现的时候
     if (this.login_show) {
