@@ -140,6 +140,9 @@ export class EditCreativeComponent implements OnInit {
 
         if (this.elements.logo) {
           this.elements.logo[this.elements.logo.name] = this.value.logo[this.elements.logo.name];
+
+          this.elements.logo.size = this.elements.logo.logo_size.split('X');
+          this.elements.logo.extensions = this.elements.logo.support_file_type.split(',');
         }
         // 获取覆盖人数
         // this.audienceCount();

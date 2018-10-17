@@ -163,7 +163,7 @@
 
                   <div class="creative-logo-box" *ngIf="logoElement">
                     <!--100100的图片-->
-                    <div class="creative-logo" yc-file-upload [dataType]="'K'" [accept]="{extensions: logoElement.extensions,maxSize: logoElement.max_file_size, size: logoElement.logo_size}" (eventChange)="logoChange($event)" (eventError)="imgError($event)">
+                    <div class="creative-logo" yc-file-upload [dataType]="'K'" [accept]="{extensions: logoElement.extensions,maxSize: logoElement.max_file_size, size: logoElement.size}" (eventChange)="logoChange($event)" (eventError)="imgError($event)">
                       <div class="creative-logo-img" [ngClass]="{'active': logoElement[logoElement.name]}" *ngIf="logoElement[logoElement.name]">
                         <img [src]="logoElement[logoElement.name]" alt="logo" #imgLogo>
                       </div>
