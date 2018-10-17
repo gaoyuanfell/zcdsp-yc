@@ -72,7 +72,7 @@
       <div class="creative-container flex-wrap-center">
         <div class="creative-logo-box" *ngIf="elements?.logo">
 
-          <div class="creative-logo" yc-file-upload [dataType]="'K'" [accept]="{extensions: elements?.logo.extensions,maxSize: elements?.logo.max_file_size, size: elements?.logo.logo_size}"
+          <div class="creative-logo" yc-file-upload [dataType]="'K'" [accept]="{extensions: elements?.logo.extensions,maxSize: elements?.logo.max_file_size, size: elements?.logo.size}"
                (eventChange)="logoChange($event)" (eventError)="imgError($event)">
             <div class="creative-logo-img" [ngClass]="{'active': elements?.logo[elements?.logo.name]}" *ngIf="elements?.logo[elements?.logo.name]">
               <img [src]="elements?.logo[elements?.logo.name]" alt="logo">
