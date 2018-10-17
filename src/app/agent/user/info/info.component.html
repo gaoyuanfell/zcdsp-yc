@@ -315,7 +315,7 @@
               <div class="td-one">
                 <div class="ele-img" yc-file-upload (eventChange)="upload($event,x,'logo')"
                      [dataType]="'K'"
-                     [accept]="{extensions: extensions1.extensions,maxSize: extensions1.maxSize,size: user_logo_size_list}"
+                     [accept]="{extensions: extensions1.extensions,maxSize: extensions1.maxSize}"
                      (eventError)="_imgError($event)">
                   <div *ngIf="!x.logo_src">点击上传</div>
                   <img *ngIf=" x.logo_src" [src]="getDomSanitizerUrl(x.logo_src)" alt="">

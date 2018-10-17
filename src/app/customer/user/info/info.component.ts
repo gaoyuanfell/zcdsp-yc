@@ -81,6 +81,19 @@ export class InfoComponent implements OnInit {
         // 新增加的  改变的的不是一样的尺寸  提示  重复
         // 改变时一样的尺寸  不提示 替换
         let flag = true;
+
+        // 首先判断上传的图片是否符合尺寸
+        if(!body[key]) {  // 新增加的图片
+          let logoSize = img.width + 'X' + img.height;
+          let flag_size = this.user_logo_size_list.some( item => {
+            return logoSize === item
+          })
+          if (!flag_size) {
+            flag = false;
+            this._notification.error('图片问题', 'LOGO尺寸不匹配！');
+          }
+        }
+
        if(body[key] && body['logo_height'] === img.height && body['logo_width'] === img.width) { // 已经存在的图片并且当前选中的就是重复的
          } else {
          this.user_logo_list.forEach( item => {
@@ -90,6 +103,10 @@ export class InfoComponent implements OnInit {
            }
          })
        }
+
+
+
+
         if (flag) {
           body[key] = URL.createObjectURL(files_copy);  // 显示
           obj['logoSize'] = img.width + 'X' + img.height;
