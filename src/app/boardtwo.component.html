@@ -1,6 +1,6 @@
 <div class="container-main">
 
-  <div style="width:100%;height: 100%;overflow: auto;position: relative;"  #containerFull >
+  <div #containerFull class="containerFull">
 
     <div class="head" #head>
 
@@ -32,10 +32,10 @@
 
     </div>
 
-    <div class="container">
+    <div class="container" #container>
 
       <div class="banner" #home id="home">
-        <img src="https://img.zcdsp.com/zcmobi-assets/index/banner_bg.jpg">
+        <img src="assets/index2/banner_bg.png">
 
         <div class="banner_box">
 
@@ -237,7 +237,8 @@
     </div>
 
     <!--定位在最下面的登录-->
-    <div class="login" #login [ngClass]="{'login_Show': login_show , 'login_Hide':!login_show && (containerFullRef.nativeElement.scrollTop > 0) }">
+    <!--  [ngClass]="{'login_Show': login_show , 'login_Hide':!login_show && (containerFullRef.nativeElement.scrollTop > 0) } -->
+    <div class="login" #login>
 
       <div class="login_box">
         <input type="text" placeholder="请输入用户名" [(ngModel)]="userName" (ngModelChange)="userData()"  [ngClass]="{ userOn: userTrue}" class="username input-color">
@@ -269,6 +270,8 @@
 
   </div>
 
+
+
 </div>
 
 <div class="goback">
@@ -279,7 +282,7 @@
       <span >旧版入口</span>
     </a>
   </div>
-  <div class="back" (click)="login_show = !login_show ">
+  <div class="back" (click)="login_fun()">
     <a>
       <img src="https://img.zcdsp.com/zcmobi-assets/index/dhj.png" alt="" />
       <span >登录注册</span>

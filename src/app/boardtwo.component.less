@@ -1,13 +1,20 @@
 .container-main {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  font-family: "microsoft yahei",simhei,sans-serif;
+  width: 100%;
+  height: 100%;
+  //position: absolute;
+  //top: 0;
+  //bottom: 0;
+  //left: 0;
+  //right: 0;
+  //z-index: 1;
+  //font-family: "microsoft yahei",simhei,sans-serif;
 }
-
+.containerFull{
+  width:100%;
+  height: 100%;
+  overflow: auto;
+  position: relative;
+}
 .head{
   width: 100%;
   height: 60px;
@@ -53,9 +60,9 @@
   }
 }
 
-.container{ margin-top: -25px;}
-.banner{ position: relative; min-width: 1200px;}
-.banner>img{ display: block; width: 100%; min-width: 1200px;}
+//.container{ margin-top: -25px;}
+.banner{ position: relative; min-width: 1200px;overflow: hidden;}
+.banner>img{ display: block; width: 100%; min-width: 1200px;margin-top: -70px}
 .banner .banner_box{position: absolute; width: 70%; left: 15%; bottom: 60px; display: flex;}
 .banner .banner_list{flex: 1; text-align: center;}
 .banner .banner_list p{ color: #fff; font-size: 20px; font-weight: 600; margin-top: 20px;}
@@ -81,7 +88,7 @@
 
 //登录样式
 
-.login{position: fixed; bottom: 0px; height: 68px; width: 100%; background-color:rgba(0,0,0,0.7); padding-top: 15px;}
+.login{position: absolute; bottom: 0px; height: 68px; width: 100%; background-color:rgba(0,0,0,0.7); padding-top: 15px;}
 .login .login_box{width: 1200px; margin: 0 auto; position: relative;}
 .login .login_box input{background: #fff; width: 210px; color: black; font-size: 14px; border: 1px solid #666666; height: 36px; text-indent: 10px; margin-right: 10px;}
 .login .login_box .validate{width: 106px;}
@@ -244,16 +251,15 @@ input.input-color{
 }
 
 .footer{
-  background-color: rgb(0,0,0,0.7);
-  color:#fff;
-  position: fixed;
-  bottom:0;
-  height: 0;
-  //height:22px;
-  //line-height: 22px;
+  width:100%;
+  position: absolute;
+  height: 22px;
+  //bottom: 0;
+  line-height: 22px;
   text-align: center;
   font-size: 12px;
-  width:100%;
+  background-color: rgb(0,0,0,0.7);
+  color:#fff;
 }
 
 
@@ -297,32 +303,15 @@ li {
 }
 
 
-.footerTransition{
-  height:22px;
-  line-height: 22px;
-  transition: all 1s;
+@media screen and(max-width: 1366px) {
+  .banner>img{ margin-top: 20px}
 }
-.loginTransition{
-  height:80px;
-  transition: all 1s;
-}
-
-.login_Show{
-  transform: translate(0, 0px);
-  transition: all 1s;
-}
-.login_Hide{
-  transform: translate(0, 68px);
-  transition: all 1s;
-}
-
 @media screen and(max-width: 1356px) {
+  .container{ min-width: 1366px}
+  .head, .login, .footer {min-width: 1366px}
 
-
-  .container{ margin-top: 25px;min-width: 1366px}
-  .head {min-width: 1366px}
-  .banner .banner_box{bottom: 20px; }
 }
+
 
 
 
