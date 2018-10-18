@@ -60,9 +60,9 @@
   }
 }
 
-.container{ margin-top: -25px;}
-.banner{ position: relative; min-width: 1200px;}
-.banner>img{ display: block; width: 100%; min-width: 1200px;}
+//.container{ margin-top: -25px;}
+.banner{ position: relative; min-width: 1200px;overflow: hidden;}
+.banner>img{ display: block; width: 100%; min-width: 1200px;margin-top: -70px}
 .banner .banner_box{position: absolute; width: 70%; left: 15%; bottom: 60px; display: flex;}
 .banner .banner_list{flex: 1; text-align: center;}
 .banner .banner_list p{ color: #fff; font-size: 20px; font-weight: 600; margin-top: 20px;}
@@ -254,6 +254,7 @@ input.input-color{
   width:100%;
   position: absolute;
   height: 22px;
+  //bottom: 0;
   line-height: 22px;
   text-align: center;
   font-size: 12px;
@@ -302,12 +303,15 @@ li {
 }
 
 
-
-@media screen and(max-width: 1356px) {
-  .container{ margin-top: 25px;min-width: 1366px}
-  .head, .login, .footer {min-width: 1366px}
-  .banner .banner_box{bottom: 20px; }
+@media screen and(max-width: 1366px) {
+  .banner>img{ margin-top: 20px}
 }
+@media screen and(max-width: 1356px) {
+  .container{ min-width: 1366px}
+  .head, .login, .footer {min-width: 1366px}
+
+}
+
 
 
 
