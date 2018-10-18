@@ -90,7 +90,12 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
 
 
     this.verifyCode();
-
+    // 初始化的时候
+    if (window.document.body.offsetWidth <= 1356) {
+      this.resize_flag = 10;
+    }else {
+      this.resize_flag = 0;
+    }
 
     this.renderer.listen('window', 'resize', (event) => {
            if (window.document.body.offsetWidth <= 1356) {
@@ -101,54 +106,35 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
       this.containerFullRef.nativeElement.scrollTop = this.containerFullRef.nativeElement.scrollTop --;
     })
 
-
-
-
     // 滚动条在哪里 就监听哪里
     this.renderer.listen(this.containerFullRef.nativeElement, 'scroll', (event) => {
-      console.log('触发')
-      console.log(event.target.scrollTop)
-      console.log(this.containerFullRef.nativeElement.scrollHeight)
-      console.log(this.containerRef.nativeElement.offsetHeight)
       // 头部的fixed不好用  滚动条出现的时候
       this.renderer.setStyle(this.headRef.nativeElement, 'top', event.target.scrollTop + 'px');
 
 
-      // 当有margin-top: 负数
+      // 当有margin-top: 负数 不要影响布局  overflow:hidden
       // let top =  event.target.scrollTop <= (this.containerRef.nativeElement.offsetHeight + this.resize_flag - this.document.body.offsetHeight) ? -event.target.scrollTop : -(this.containerRef.nativeElement.offsetHeight + this.resize_flag - this.document.body.offsetHeight)
-      // console.log(-top)
-      // console.log(-top + this.document.body.offsetHeight)
       this.renderer.removeStyle(this.loginRef.nativeElement, 'transition');
       // this.renderer.setStyle(this.loginRef.nativeElement, 'bottom', top + 'px');
       this.renderer.setStyle(this.loginRef.nativeElement, 'opacity', 0);
-
       if (this.login_show) {
         this.renderer.setStyle(this.loginRef.nativeElement, 'opacity', 1);
       }
 
+      // 否则会抖
       // if ( (-top + this.document.body.offsetHeight - this.resize_flag) === this.containerRef.nativeElement.scrollHeight ) {
       //   console.log('sdsdsdsdsds')
       //   this.renderer.setStyle(this.loginRef.nativeElement, 'bottom', (top  +  this.footer.nativeElement.offsetHeight  ) + 'px');
       // }
-
-      // 快到底部的时候 给login固定位置
+      // 这两者的固定  就不会出现 空白白
+      // 快到底部的时候 给login固定位置 否则会抖
       if(this.containerRef.nativeElement.scrollHeight - this.document.body.offsetHeight - event.target.scrollTop >= this.footer.nativeElement.offsetHeight){
         this.renderer.setStyle(this.loginRef.nativeElement, 'bottom', -event.target.scrollTop + 'px');
       }else{
         this.renderer.setStyle(this.loginRef.nativeElement, 'bottom', -(this.containerRef.nativeElement.scrollHeight - this.document.body.offsetHeight - this.footer.nativeElement.offsetHeight + this.resize_flag) + 'px');
       }
-
+     // footer可以一致固定在底部
       this.renderer.setStyle(this.footer.nativeElement, 'bottom', -(this.containerRef.nativeElement.offsetHeight - this.document.body.offsetHeight + this.resize_flag) + 'px');
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -177,7 +163,9 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
     this.route.queryParams.subscribe((params)=> {
       if (params.title) {
         this.title = params.title;
-        this._scrollService.setScrollTopByElement(this.containerFullRef.nativeElement, document.getElementById(params.title));
+        // this._scrollService.setScrollTopByElement(this.containerFullRef.nativeElement, document.getElementById(params.title));
+        this.containerFullRef.nativeElement.scrollTop = document.getElementById(params.title).offsetTop;
+
       }
       if(params.user_name) {
         this.userName = params.user_name;
@@ -203,10 +191,12 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
     if (!name) {
       this.title = 'home';
       this.router.navigate(['/'], {queryParams:{'title': this.title}})
-      this._scrollService.scrollTo(this.containerFullRef.nativeElement, {left: 0, top: 20});
+      this.containerFullRef.nativeElement.scrollTop = 20;
+      // this._scrollService.scrollTo(this.containerFullRef.nativeElement, {left: 0, top: 20});
     } else {
       this.router.navigate(['/'], {queryParams:{'title': this.title}})
-      this._scrollService.setScrollTopByElement(this.containerFullRef.nativeElement, name);
+      this.containerFullRef.nativeElement.scrollTop = document.getElementById(name).offsetTop;
+      // this._scrollService.setScrollTopByElement(this.containerFullRef.nativeElement, name);
     }
   }
 
