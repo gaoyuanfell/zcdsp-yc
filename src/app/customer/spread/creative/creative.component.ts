@@ -99,11 +99,11 @@ export class CreativeComponent implements OnInit {
       creative_ids: data.creative_id,
       state: data.show_state
     }).subscribe(res => {
-      if (this.query.show_state) {
-        this.search();
-      } else {
-        this.list();
-      }
+      // if (this.query.show_state) {
+      //   this.search();
+      // } else {
+      //   this.list();
+      // }
     }, () => {
       setTimeout(() => {
         switchRef.trigger();
