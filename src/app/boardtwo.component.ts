@@ -112,12 +112,13 @@ export class BoardtwoComponent implements OnInit, OnDestroy {
       this.renderer.setStyle(this.headRef.nativeElement, 'top', event.target.scrollTop + 'px');
 
 
+
       // 当有margin-top: 负数 不要影响布局  overflow:hidden
       // let top =  event.target.scrollTop <= (this.containerRef.nativeElement.offsetHeight + this.resize_flag - this.document.body.offsetHeight) ? -event.target.scrollTop : -(this.containerRef.nativeElement.offsetHeight + this.resize_flag - this.document.body.offsetHeight)
       this.renderer.removeStyle(this.loginRef.nativeElement, 'transition');
       // this.renderer.setStyle(this.loginRef.nativeElement, 'bottom', top + 'px');
       this.renderer.setStyle(this.loginRef.nativeElement, 'opacity', 0);
-      if (this.login_show) {
+      if (this.login_show || event.target.scrollTop === 0) {
         this.renderer.setStyle(this.loginRef.nativeElement, 'opacity', 1);
       }
 
