@@ -359,7 +359,6 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     this.areasResult$$ = this.areasResult$.subscribe(data => {
       this.areasResult = data;
       if (!data) return;
-      // this.areasShow = false;
       if (this.areasHaveResult) this.areasShow = true;
       this.resultData.dtl_address.area = data.map(ar => ({id: ar.id, name: ar.name}));
       this.resultSubject.next(this.resultData);
@@ -368,9 +367,14 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     this.lbsCityResult$$ = this.lbsCityResult$.subscribe(data => {
       this.lbsCityResult = data;
       if (!data) return;
-      // this.areasShow = false;
       if (this.areasHaveResult) this.areasShow = true;
-      this.resultData.dtl_address.lbs = data.map(ar => ({id: ar.id, name: ar.name, coords: ar.location_items, type_id: ar.type_id}));
+      this.resultData.dtl_address.lbs = this.resultData.dtl_address.lbs.filter(lbs => !lbs.type_id);
+      let lbs = data.map(ar => ({id: ar.id, name: ar.name, coords: ar.location_items, type_id: ar.type_id}));
+      lbs.forEach(l => {
+        if (!this.resultData.dtl_address.lbs.find(lbs => lbs.id == l.id)) {
+          this.resultData.dtl_address.lbs.push(l);
+        }
+      });
       this.resultSubject.next(this.resultData);
     });
 
@@ -391,7 +395,6 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     this.audiencesActionResult$$ = this.audiencesActionResult$.subscribe(data => {
       this.audiencesActionResult = data;
       if (!data) return;
-      // this.audiencesActionShow = false;
       if (data instanceof Array && data.length) this.audiencesActionShow = true;
       this.resultData.dtl_behavior.appCategory = data.filter(aa => isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
       this.resultData.dtl_behavior.appAttribute = data.filter(aa => !isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
@@ -401,7 +404,6 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     this.audiencesAction2Result$$ = this.audiencesAction2Result$.subscribe(data => {
       this.audiencesAction2Result = data;
       if (!data) return;
-      // this.audiencesActionShow = false;
       if (data instanceof Array && data.length) this.audiencesActionShow = true;
       this.resultData.dtl_behavior.filterAppCategory = data.filter(aa => isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
       this.resultData.dtl_behavior.filterAppAttribute = data.filter(aa => !isNaN(+aa.type_id)).map(aa => ({id: aa.id, name: aa.name}));
@@ -411,7 +413,6 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     this.audiencesResult$$ = this.audiencesResult$.subscribe((data: any) => {
       this.audiencesResult = data;
       if (!data) return;
-      // this.audiencesShow = false;
       Object.keys(data).every(key => {
         if (data[key] instanceof Array && data[key].length) {
           this.audiencesShow = true;
@@ -426,7 +427,6 @@ export class DirectionalComponent implements OnInit, AfterViewInit, ControlValue
     this.deviceResult$$ = this.deviceResult$.subscribe((data: any) => {
       this.deviceResult = data;
       if (!data) return;
-      // this.deviceShow = false;
       Object.keys(data).every(key => {
         if (data[key] instanceof Array && data[key].length) {
           this.deviceShow = true;

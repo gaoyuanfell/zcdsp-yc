@@ -68,10 +68,10 @@
       </thead>
       <tbody>
       <ng-template [ngForOf]="ycTable.data" ngFor let-data let-index="index">
-        <tr [expand]="trExpand" #tr>
-          <td stickyStart [showCheckbox]="data"></td>
+        <tr [expand]="trExpand" #tr [ngClass]="{'pointer-events-none': data.application_id == 10000}">
+          <td stickyStart [showCheckbox]="data" [checkboxDisabled]="data.application_id == 10000"></td>
           <td stickyStart [title]="data.campaign_id">
-            <i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>
+            <i class="icon-img-next-down pointer-events-all" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>
             {{data.campaign_id}}
           </td>
           <td stickyStart [width]="120" [title]="data.campaign_name">

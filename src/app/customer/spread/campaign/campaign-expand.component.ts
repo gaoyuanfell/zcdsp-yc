@@ -20,7 +20,7 @@ import {codyDepth, hoursFormat} from '../../../../service/util';
   template: `
     <div class="expand-content">
 
-      <div class="expand-content-left">
+      <div class="expand-content-left" [ngClass]="{'pointer-events-none':campaign?.application_id == 10000}">
 
         <div class="expand-title">
           <span>活动详情</span>
@@ -166,6 +166,7 @@ export class CampaignExpandComponent implements OnInit {
   directional;
   directional$;
   creatives;
+  campaign;
   new_campaign_name;
 
   campaign_name;
@@ -356,6 +357,7 @@ export class CampaignExpandComponent implements OnInit {
 
   init() {
     this._campaignService.campaignDetail({campaign_id: this.id}).subscribe(res => {
+      this.campaign = res.result.campaign;
       this.creatives = res.result.creatives;
       this.campaign_name = res.result.campaign.campaign_name;
       this.click_link = res.result.campaign.click_link;

@@ -20,7 +20,7 @@ import {coerceBooleanProperty} from '@angular/cdk/coercion';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   template: `
-    <yc-checkbox *ngIf="showCheckbox" [(ngModel)]="checked" [checkState]="_checkState" (changeEvent)="_change()"></yc-checkbox>
+    <yc-checkbox *ngIf="showCheckbox" [(ngModel)]="checked" [checkState]="_checkState" (changeEvent)="_change()" [disabled]="checkboxDisabled"></yc-checkbox>
     <span [ngStyle]="{'width.px': width}" class="nowrap"><ng-content></ng-content></span>
   `,
 })
@@ -30,9 +30,11 @@ export class TdComponent implements OnChanges {
 
   @Input() fixed: 'left' | 'right'; // 是否固定列
   @Input() showCheckbox;
+  @Input() checkboxDisabled;
   @Input() width;
 
   @Input() set checked(val) {
+    if(this.checkboxDisabled) return;
     this._checked = val;
     this.changeDetectorRef.markForCheck();
   }

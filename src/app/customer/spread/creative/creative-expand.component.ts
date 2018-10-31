@@ -20,7 +20,7 @@ import {hoursFormat} from '../../../../service/util';
   template: `
     <div class="expand-content">
 
-      <div class="expand-content-left">
+      <div class="expand-content-left" [ngClass]="{'pointer-events-none':creative?.application_id == 10000}">
 
         <div class="expand-title">
           <span>创意详情</span>

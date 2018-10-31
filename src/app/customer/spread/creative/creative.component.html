@@ -78,9 +78,9 @@
       </thead>
       <tbody>
       <ng-template [ngForOf]="ycTable.data" ngFor let-data let-index="index">
-        <tr [expand]="trExpand" #tr>
-          <td stickyStart [showCheckbox]="data"></td>
-          <td stickyStart><i class="icon-img-next-down" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>{{data.creative_id}}</td>
+        <tr [expand]="trExpand" #tr [ngClass]="{'pointer-events-none': data.application_id == 10000}">
+          <td stickyStart [showCheckbox]="data" [checkboxDisabled]="data.application_id == 10000"></td>
+          <td stickyStart><i class="icon-img-next-down pointer-events-all" [ngClass]="{'next-top': trExpand.show}" (click)="tr.trigger()"></i>{{data.creative_id}}</td>
           <td class="text-left" [width]="200" title="{{data.creative_name}}">
             <a data-link (click)="_showCreative(data)">{{data.creative_name}}</a>
             <i [hidden]="jurisdiction.ZCMOBI_ADS_SPREAD_CREATIVE_RENAME" class="icon-img-edit" yc-popover [ngClass]="{'active': popoverCreativeName.opened}" [template]="creativeName" #popoverCreativeName="ycPopover" (openEvent)="creative_name = data.creative_name"></i>
