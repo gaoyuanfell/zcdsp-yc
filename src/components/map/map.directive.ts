@@ -304,11 +304,11 @@ export class MapDirective implements OnInit {
    * */
   pushCoordinateFun({lng, lat, radius}, marker, result) {
     this.pushCoordinate.emit({
-      coords: {
+      coords: [{
         longitude: lng,
         latitude: lat,
         radius: radius,
-      },
+      }],
       type_id: 0,
       id: marker.getId(),
       id_random: marker.id_random,
