@@ -259,6 +259,8 @@ export class AddCreativeComponent implements OnInit {
         flag = true;
         break;
       }
+
+      // TODO 需要改
       for (let item = 0; item < this.elementList[i].data_list.length; item++) {
         for (let child = 0; child < this.elementList[i].data_list[item].file_list.length; child++) { // 快速制图哪一块的图片
           let file = this.elementList[i].data_list[item].file_list[child];
@@ -332,6 +334,7 @@ export class AddCreativeComponent implements OnInit {
         flag = true;
         break;
       }
+      // TODO 需要改
       for (let item = 0; item < this.elementList[i].data_list.length; item++) {
         for (let child = 0; child < this.elementList[i].data_list[item].file_list.length; child++) { // 快速制图哪一块的图片
           let file = this.elementList[i].data_list[item].file_list[child];
